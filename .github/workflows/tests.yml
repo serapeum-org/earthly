@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        environment: [py311, py312]
+        environment: [py311, py312, py313, py314]
 
     steps:
       - uses: actions/checkout@v5
