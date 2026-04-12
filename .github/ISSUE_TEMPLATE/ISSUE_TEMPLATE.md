@@ -1,4 +1,4 @@
-* HapiSM version:
+* earth2observe version:
 * Python version:
 * Operating System:
 
