@@ -1,0 +1,87 @@
+name: Wheel - Build & Test
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build-wheel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Pixi
+        uses: serapeum-org/github-actions/actions/python-setup/pixi@pixi/v1
+        with:
+          environments: dev
+          activate-environment: dev
+          cache: true
+
+      - name: Build wheel
+        run: pixi run -e dev python -m build --wheel --outdir dist/
+
+      - name: Upload wheel artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel
+          path: dist/*.whl
+
+  test-wheel:
+    needs: build-wheel
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Download wheel artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: wheel
+          path: dist/
+
+      - name: Install Conda (Miniforge)
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          python-version: ${{ matrix.python-version }}
+          channels: conda-forge
+          channel-priority: strict
+          activate-environment: wheel-test
+
+      - name: Install native GDAL dependencies
+        shell: bash -el {0}
+        run: |
+          conda install -y -n wheel-test \
+            "gdal>=3.10.0,<4" \
+            "libgdal-netcdf>=3.10.0,<4" \
+            "libgdal-hdf4>=3.10.0,<4"
+
+      - name: Install wheel
+        shell: bash -el {0}
+        run: pip install dist/*.whl
+
+      - name: Verify package import
+        shell: bash -el {0}
+        run: python -c "import earth2observe; print(earth2observe.__version__)"
+
+      - name: Install test dependencies
+        shell: bash -el {0}
+        run: pip install pytest pytest-cov
+
+      - name: Run tests against installed wheel
+        shell: bash -el {0}
+        run: pytest -vvv -sv tests/
