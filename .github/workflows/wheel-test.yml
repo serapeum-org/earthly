@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Pixi
-        uses: serapeum-org/github-actions/actions/python-setup/pixi@pixi/v1
+        uses: serapeum-org/github-actions/actions/python-setup/pixi@cd02ddbe749b77cbafd08bc48c788974fc989db7 # pixi/v1
         with:
           environments: dev
           activate-environment: dev
@@ -54,7 +54,7 @@ jobs:
           path: dist/
 
       - name: Install Conda (Miniforge)
-        uses: conda-incubator/setup-miniconda@v3
+        uses: conda-incubator/setup-miniconda@fc2d68f6413eb2d87b895e92f8584b5b94a10167 # v3
         with:
           miniforge-version: latest
           python-version: ${{ matrix.python-version }}
