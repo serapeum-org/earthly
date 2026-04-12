@@ -1,0 +1,75 @@
+name: Deploy MkDocs
+
+permissions:
+  contents: write
+  pages: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '**'
+  release:
+      types:
+        - published
+  workflow_run:
+    workflows: ['github-release']
+    types: [completed]
+
+jobs:
+  deploy-pr:
+      if: github.event_name == 'pull_request'
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: serapeum-org/github-actions/actions/mkdocs-deploy@mkdocs/v1
+        with:
+          trigger: 'pull_request'
+          package-manager: 'pixi'
+          install-groups: 'docs'
+          deploy-token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
+
+  deploy-main:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
+    - uses: serapeum-org/github-actions/actions/mkdocs-deploy@mkdocs/v1
+      with:
+        trigger: 'main'
+        package-manager: 'pixi'
+        install-groups: 'docs'
+        deploy-token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
+
+  deploy-release:
+    if: >-
+      github.event_name == 'release' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.workflow_run.head_branch || github.ref }}
+
+    - name: Extract version from pyproject.toml
+      id: version
+      run: |
+        VERSION=$(grep -m1 '^version' pyproject.toml | sed 's/.*"\(.*\)"/\1/')
+        echo "tag=$VERSION" >> $GITHUB_OUTPUT
+
+    - uses: serapeum-org/github-actions/actions/mkdocs-deploy@mkdocs/v1
+      with:
+        trigger: 'release'
+        package-manager: 'pixi'
+        install-groups: "docs"
+        deploy-token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
+        release-tag: ${{ github.event.release.tag_name || steps.version.outputs.tag }}
+        mike-alias: 'latest'

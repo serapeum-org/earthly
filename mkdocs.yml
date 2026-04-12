@@ -1,0 +1,128 @@
+site_name: earth2observe
+site_description: Remote sensing package
+site_url: https://serapeum-org.github.io/earth2observe/
+repo_url: https://github.com/serapeum-org/earth2observe
+repo_name: serapeum-org/earth2observe
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.footer
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - content.action.view
+    - content.tooltips
+    - search.highlight
+    - search.suggest
+    - toc.follow
+    - announce.dismiss
+  palette:
+  - media: "(prefers-color-scheme)"
+    toggle:
+      icon: material/brightness-auto
+      name: Switch to light mode
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: teal
+    accent: purple
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: black
+    accent: lime
+    toggle:
+      icon: material/weather-night
+      name: Switch to system preference
+  primary: indigo
+  accent: indigo
+  icon:
+    repo: fontawesome/brands/github
+
+
+plugins:
+  - search
+  - mkdocs-jupyter
+  - panzoom:
+      hint_location: "top"
+      key: "ctrl"
+      full_screen: true
+  - autorefs
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+            heading_level: 2
+            docstring_style: google
+  - table-reader
+  - tags
+  - mike:
+      alias_type: symlink
+      redirect_template: null
+      deploy_prefix: ''
+      canonical_version: null
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - footnotes
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: "#"
+      toc_depth: 1-4
+      anchorlink: true
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Architecture: architecture.md
+  - Authentication: authentication.md
+  - Data Sources: data-sources.md
+  - Data Catalog: catalog.md
+  - Post Processing: post-processing.md
+  - Reference:
+    - Earth2Observe: reference/earth2observe.md
+    - AbstractDataSource: reference/abstractdatasource.md
+    - CHIRPS: reference/chirps.md
+    - Amazon S3: reference/s3.md
+    - ECMWF: reference/ecmwf.md
+    - GEE: reference/gee.md
+  - About:
+    - Change Log: change-log.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/serapeum-org/earth2observe
+  version:
+      provider: mike
+  version_selector: true

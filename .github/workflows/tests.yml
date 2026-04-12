@@ -1,0 +1,38 @@
+name: Tests - Suite
+
+permissions:
+  contents: read
+  id-token: write
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  main-package:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        environment: [py311, py312, py313, py314]
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: serapeum-org/github-actions/actions/python-setup/pixi@pixi/v1
+        with:
+          environments: ${{ matrix.environment }}
+          activate-environment: ${{ matrix.environment }}
+          cache: true
+
+      - name: Run Tests
+        run: |
+          pixi run -e ${{ matrix.environment }} test-all
+
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v5
