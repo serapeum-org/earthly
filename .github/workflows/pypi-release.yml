@@ -1,32 +1,32 @@
-# This workflows will upload a Python Package using Twine when a release is created
-# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
-
 name: pypi-release
 
 on:
-    workflow_dispatch:
-    release:
-        types: [created]
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['github-release']
+    types: [completed]
+
+permissions:
+  contents: read
 
 jobs:
-    publish:
-        runs-on: ubuntu-latest
+  publish:
+    runs-on: ubuntu-latest
+    if: >-
+      ${{ github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success' }}
 
-        steps:
-            - uses: actions/checkout@v3
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                  python-version: "3.x"
-            - name: Install dependencies
-              run: |
-                  python -m pip install --upgrade pip
-                  pip install setuptools wheel twine
-            - name: Build and publish
-              env:
-                  TWINE_USERNAME: ${{ secrets.PYPI_USERS }}
-                  TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-              run: |
-                  pip install build
-                  python -m build
-                  twine upload dist/*
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch || github.ref }}
+
+      - name: Build and publish to PyPI
+        uses: serapeum-org/github-actions/actions/release/pypi@pypi-release/v1
+        with:
+          pypi-username: __token__
+          pypi-password: ${{ secrets.PYPI_PUBLISH }}
+          package-manager: 'pixi'
+          install-groups: 'dev'
+          verify-lock: 'false'
