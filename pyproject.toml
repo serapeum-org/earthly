@@ -75,7 +75,7 @@ docs = [
 homepage = "https://github.com/serapeum-org/earth2observe"
 repository = "https://github.com/serapeum-org/earth2observe"
 documentation = "https://serapeum-org.github.io/earth2observe/"
-Changelog = "https://github.com/serapeum-org/earth2observe/HISTORY.rst"
+Changelog = "https://github.com/serapeum-org/earth2observe/blob/main/docs/change-log.md"
 
 [build-system]
 requires = ["setuptools>=80.0.0", "wheel"]
