@@ -1211,14 +1211,13 @@ class TestInitialize:
         """A failing ``cdsapi.Client()`` is wrapped in AuthenticationError.
 
         Test scenario:
-            When the CDS client constructor raises (typically because
-            ``~/.cdsapirc`` is missing or malformed), ``initialize()``
-            must catch *any* exception type — not only ``KeyError`` as
-            the pre-H3 code did — and re-raise it wrapped in
+            When the CDS client constructor raises with a message that
+            looks like a credentials problem (cdsapirc / configuration
+            keywords), ``initialize()`` must wrap it in
             :class:`AuthenticationError` whose ``__cause__`` is the
             original error.
         """
-        original = RuntimeError("no .cdsapirc")
+        original = RuntimeError("missing/incomplete configuration file")
 
         def boom():
             raise original
@@ -1232,6 +1231,36 @@ class TestInitialize:
             f"__cause__ is {excinfo.value.__cause__!r}"
         )
 
+    def test_non_credentials_exception_propagates_untouched(
+        self, monkeypatch
+    ):
+        """Network / library errors are not branded as auth failures.
+
+        Test scenario:
+            C2 narrowed the wrap: when the failure looks unrelated to
+            credentials (e.g. an SSL handshake failure during
+            ``Client()`` construction), :meth:`initialize` must
+            re-raise the original exception so the user is not told
+            to re-create their (working) ~/.cdsapirc. Force a
+            ``~/.cdsapirc`` presence via env var so the heuristic
+            takes the keyword-scan branch and decides "not auth".
+        """
+        original = ConnectionError("TLS handshake failed")
+        monkeypatch.setenv("CDSAPI_URL", "https://example.invalid/api")
+        monkeypatch.setenv("CDSAPI_KEY", "00000000-0000-0000-0000-000000000000")
+
+        def boom():
+            raise original
+
+        monkeypatch.setattr(cdsapi, "Client", boom)
+        ecmwf = ECMWF.__new__(ECMWF)
+        with pytest.raises(ConnectionError) as excinfo:
+            ecmwf.initialize()
+        assert excinfo.value is original, (
+            f"non-credential errors must propagate untouched; "
+            f"got {excinfo.value!r}"
+        )
+
     def test_error_message_points_at_cdsapirc(self, monkeypatch):
         """The error message names ``~/.cdsapirc`` and the setup URL.
 
@@ -1243,7 +1272,7 @@ class TestInitialize:
             ``https://cds.climate.copernicus.eu/how-to-api``.
         """
         def boom():
-            raise Exception("missing config")
+            raise Exception("missing/incomplete configuration file")
 
         monkeypatch.setattr(cdsapi, "Client", boom)
         ecmwf = ECMWF.__new__(ECMWF)
@@ -1270,7 +1299,7 @@ class TestInitialize:
             new message must not perpetuate it.
         """
         def boom():
-            raise Exception("missing config")
+            raise Exception("missing/incomplete configuration file")
 
         monkeypatch.setattr(cdsapi, "Client", boom)
         ecmwf = ECMWF.__new__(ECMWF)

@@ -34,6 +34,45 @@ class AuthenticationError(Exception):
     pass
 
 
+def _looks_like_missing_credentials(exc: BaseException) -> bool:
+    """Heuristic: does this exception come from missing CDS credentials?
+
+    cdsapi does not expose typed exception classes for auth failures —
+    they surface as generic ``Exception`` with messages like "Missing/
+    incomplete configuration file" or "key not found". We classify by
+    presence of the dotfile and env vars first (no dotfile + no env
+    vars → almost certainly missing credentials), then fall back to a
+    keyword scan of the exception message.
+
+    Args:
+        exc: The exception raised by ``cdsapi.Client()``.
+
+    Returns:
+        True when the failure looks like a credential / config-file
+        problem (so it is safe to wrap as :class:`AuthenticationError`),
+        False for transport / network / library errors that should
+        propagate untouched.
+    """
+    cdsapirc_present = os.path.isfile(
+        os.path.expanduser("~/.cdsapirc")
+    )
+    env_present = bool(
+        os.environ.get("CDSAPI_URL") and os.environ.get("CDSAPI_KEY")
+    )
+    if not cdsapirc_present and not env_present:
+        return True
+    message = str(exc).lower()
+    auth_keywords = (
+        "configuration",
+        "credentials",
+        "cdsapirc",
+        "key not found",
+        "missing url",
+        "missing key",
+    )
+    return any(keyword in message for keyword in auth_keywords)
+
+
 class ECMWF(AbstractDataSource):
     """RemoteSensing.
 
@@ -157,18 +196,21 @@ class ECMWF(AbstractDataSource):
         try:
             client = cdsapi.Client()
         except Exception as exc:
-            raise AuthenticationError(
-                "cdsapi could not authenticate against the Climate Data "
-                "Store. Create ~/.cdsapirc (Windows: "
-                "C:\\Users\\<USER>\\.cdsapirc) with:\n"
-                "    url: https://cds.climate.copernicus.eu/api\n"
-                "    key: <YOUR-PERSONAL-ACCESS-TOKEN>\n"
-                "Generate a Personal Access Token at "
-                "https://cds.climate.copernicus.eu/profile and accept the "
-                "licence for each dataset you intend to download. See "
-                "https://cds.climate.copernicus.eu/how-to-api for the "
-                "full setup guide."
-            ) from exc
+            if _looks_like_missing_credentials(exc):
+                raise AuthenticationError(
+                    "cdsapi could not authenticate against the Climate "
+                    "Data Store. Create ~/.cdsapirc (Windows: "
+                    "C:\\Users\\<USER>\\.cdsapirc) with:\n"
+                    "    url: https://cds.climate.copernicus.eu/api\n"
+                    "    key: <YOUR-PERSONAL-ACCESS-TOKEN>\n"
+                    "Generate a Personal Access Token at "
+                    "https://cds.climate.copernicus.eu/profile and "
+                    "accept the licence for each dataset you intend to "
+                    "download. See "
+                    "https://cds.climate.copernicus.eu/how-to-api for "
+                    "the full setup guide."
+                ) from exc
+            raise
 
         return client
 
