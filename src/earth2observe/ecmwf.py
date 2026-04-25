@@ -590,17 +590,90 @@ class ECMWF(AbstractDataSource):
 
 
 class Catalog(AbstractCatalog):
-    """ECMWF data catalog This class contains the information about the ECMWF variables http://rda.ucar.edu/cgi-bin/transform?xml=/metadata/ParameterTables/WMO_GRIB1.98-0.128.xml&view=gribdoc."""
+    """Variable catalog for the CDS-backed ECMWF data source.
+
+    Reads ``cds_data_catalog.yaml`` (shipped as package data) and exposes
+    the per-variable metadata that :class:`ECMWF` consumes when building
+    a CDS retrieve request.
+
+    Attributes:
+        catalog: ``dict`` mapping a user-friendly variable code (e.g.
+            ``"2T"``) to the per-variable metadata dict containing
+            ``cds_dataset``, ``cds_variable``, ``file_name``,
+            ``factors_add``, ``factors_mul``, and the optional
+            ``cds_dataset_monthly`` / ``cds_pressure_level`` keys.
+
+    Examples:
+        - Look up a single-level ERA5 variable:
+
+            ```python
+            >>> from earth2observe.ecmwf import Catalog
+            >>> info = Catalog().get_dataset("2T")
+            >>> info["cds_dataset"]
+            'reanalysis-era5-single-levels'
+            >>> info["cds_variable"]
+            '2m_temperature'
+            >>> info["file_name"]
+            'Tair'
+
+            ```
+        - Pressure-level variables include a ``cds_pressure_level``
+          key that ``ECMWF.api`` forwards to CDS:
+
+            ```python
+            >>> from earth2observe.ecmwf import Catalog
+            >>> info = Catalog().get_dataset("T")
+            >>> info["cds_dataset"]
+            'reanalysis-era5-pressure-levels'
+            >>> info["cds_pressure_level"]
+            ['1000']
+
+            ```
+    """
 
     def __init__(self):
+        """Load the catalog from ``cds_data_catalog.yaml``."""
         super().__init__()
 
     def get_catalog(self):
-        """read the data catalog from disk."""
-        with open(f"{__path__[0]}/ecmwf_data_catalog.yaml", "r") as stream:
-            catalog = yaml.safe_load(stream)
-        return catalog
+        """Read ``cds_data_catalog.yaml`` and return the per-variable map.
+
+        Returns:
+            dict: The contents of the YAML file's top-level ``variables``
+            key. Empty dict if the key is absent.
+        """
+        with open(
+            f"{__path__[0]}/cds_data_catalog.yaml", "r", encoding="utf-8"
+        ) as stream:
+            data = yaml.safe_load(stream) or {}
+        return data.get("variables", {})
 
     def get_dataset(self, var_name):
-        """retrieve a variable form the datasource catalog."""
-        return super().get_dataset(var_name)
+        """Return the metadata dict for ``var_name``.
+
+        Args:
+            var_name: Short user-friendly variable code (e.g. ``"2T"``).
+
+        Returns:
+            dict: Per-variable metadata loaded from
+            ``cds_data_catalog.yaml``.
+
+        Raises:
+            KeyError: If ``var_name`` is not in the catalog.
+        """
+        return self.catalog[var_name]
+
+    def get_variable(self, var_name):
+        """Alias for :meth:`get_dataset` satisfying the abstract base.
+
+        :class:`AbstractCatalog` declares ``get_variable`` as abstract;
+        the legacy ECMWF call sites use ``get_dataset``. Both names
+        return the same metadata dict so either path works.
+
+        Args:
+            var_name: Short user-friendly variable code.
+
+        Returns:
+            dict: Per-variable metadata. See :meth:`get_dataset`.
+        """
+        return self.get_dataset(var_name)

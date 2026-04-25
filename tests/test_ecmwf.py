@@ -28,7 +28,7 @@ import pytest
 
 import cdsapi
 
-from earth2observe.ecmwf import ECMWF, AuthenticationError
+from earth2observe.ecmwf import ECMWF, AuthenticationError, Catalog
 
 
 class _ConcreteECMWF(ECMWF):
@@ -606,6 +606,141 @@ class TestInitialize:
             assert legacy not in message, (
                 f"Legacy env var {legacy!r} must not appear in the H3 "
                 f"error message; got: {message}"
+            )
+
+
+class TestCatalog:
+    """Tests for :class:`Catalog` after the H2 / H5 rewiring."""
+
+    def test_catalog_loads_per_variable_map(self):
+        """``catalog`` is a per-variable dict, not a per-dataset listing.
+
+        Test scenario:
+            After H5/H2, the catalog attribute should be the
+            ``variables:`` map from cds_data_catalog.yaml — keyed by
+            short variable codes (e.g. "2T"), each value a metadata
+            dict with ``cds_dataset`` / ``cds_variable``.
+        """
+        cat = Catalog()
+        assert isinstance(cat.catalog, dict), (
+            f"catalog should be a dict; got {type(cat.catalog).__name__}"
+        )
+        assert "2T" in cat.catalog, (
+            f"'2T' missing from catalog keys: {sorted(cat.catalog)}"
+        )
+        assert "cds_dataset" in cat.catalog["2T"], (
+            f"'2T' entry missing cds_dataset: {cat.catalog['2T']}"
+        )
+
+    @pytest.mark.parametrize(
+        "var_code, expected_dataset, expected_variable",
+        [
+            ("2T", "reanalysis-era5-single-levels", "2m_temperature"),
+            ("TP", "reanalysis-era5-single-levels", "total_precipitation"),
+            ("SP", "reanalysis-era5-single-levels", "surface_pressure"),
+            ("E", "reanalysis-era5-single-levels", "evaporation"),
+            ("T", "reanalysis-era5-pressure-levels", "temperature"),
+        ],
+    )
+    def test_get_dataset_returns_new_schema(
+        self, var_code, expected_dataset, expected_variable
+    ):
+        """``get_dataset`` returns CDS-shaped metadata for each variable.
+
+        Args:
+            var_code: User-friendly variable code (e.g. "2T").
+            expected_dataset: CDS dataset short name expected for this
+                code under the new schema.
+            expected_variable: CDS variable name expected.
+
+        Test scenario:
+            The five mappings the migration plan calls out explicitly
+            (E, T, 2T, TP, SP) must round-trip through the catalog.
+        """
+        info = Catalog().get_dataset(var_code)
+        assert info["cds_dataset"] == expected_dataset, (
+            f"{var_code}: expected dataset {expected_dataset!r}, "
+            f"got {info['cds_dataset']!r}"
+        )
+        assert info["cds_variable"] == expected_variable, (
+            f"{var_code}: expected variable {expected_variable!r}, "
+            f"got {info['cds_variable']!r}"
+        )
+
+    def test_get_dataset_includes_file_name_and_factors(self):
+        """Per-variable metadata carries file_name and unit conversions.
+
+        Test scenario:
+            ``post_download`` reads ``file_name`` for output naming and
+            ``factors_add`` / ``factors_mul`` for unit conversion. The
+            new catalog must continue to provide them.
+        """
+        info = Catalog().get_dataset("2T")
+        assert info["file_name"] == "Tair", (
+            f"2T file_name should be 'Tair'; got {info['file_name']!r}"
+        )
+        assert info["factors_add"] == -273.15, (
+            f"2T factors_add should be -273.15 (K → C); "
+            f"got {info['factors_add']!r}"
+        )
+        assert info["factors_mul"] == 1, (
+            f"2T factors_mul should be 1; got {info['factors_mul']!r}"
+        )
+
+    def test_pressure_level_var_carries_cds_pressure_level(self):
+        """Pressure-level variables expose ``cds_pressure_level``.
+
+        Test scenario:
+            T, Q, R live on reanalysis-era5-pressure-levels; their
+            catalog entries must carry the ``cds_pressure_level`` key
+            so :meth:`ECMWF.api` can forward it to CDS.
+        """
+        info = Catalog().get_dataset("T")
+        assert info.get("cds_pressure_level") == ["1000"], (
+            f"T should default to pressure_level=['1000']; "
+            f"got {info.get('cds_pressure_level')!r}"
+        )
+
+    def test_get_dataset_raises_key_error_for_unknown_code(self):
+        """Unknown variable codes raise ``KeyError``.
+
+        Test scenario:
+            Asking for a code that isn't in the catalog must raise
+            ``KeyError`` immediately rather than returning ``None`` and
+            blowing up later inside ``api()``.
+        """
+        with pytest.raises(KeyError):
+            Catalog().get_dataset("DEFINITELY_NOT_A_REAL_CODE")
+
+    def test_get_variable_aliases_get_dataset(self):
+        """``get_variable`` returns the same dict as ``get_dataset``.
+
+        Test scenario:
+            ``get_variable`` is required by the abstract base class,
+            ``get_dataset`` is the legacy public name used by
+            :meth:`ECMWF.download`. Both must agree so callers can
+            pick either.
+        """
+        cat = Catalog()
+        assert cat.get_variable("2T") == cat.get_dataset("2T"), (
+            "get_variable and get_dataset must return the same dict"
+        )
+
+    def test_no_mars_schema_keys_remain(self):
+        """No catalog entry carries a stale MARS-style key.
+
+        Test scenario:
+            The pre-H5 catalog used ``number_para``, ``download type``,
+            ``var_name`` (the lowercase MARS GRIB code). Those have no
+            meaning in a cdsapi request and must not be present in the
+            new catalog.
+        """
+        catalog = Catalog().catalog
+        forbidden = {"number_para", "download type", "var_name"}
+        for code, info in catalog.items():
+            stale = forbidden & set(info.keys())
+            assert not stale, (
+                f"{code} still carries MARS-only keys {stale}: {info}"
             )
 
 
