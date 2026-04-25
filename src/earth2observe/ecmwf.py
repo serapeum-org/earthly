@@ -8,7 +8,7 @@ import pandas as pd
 import yaml
 import cdsapi
 from loguru import logger
-from netCDF4 import Dataset
+from pyramids.netcdf import NetCDF
 from serapeum_utils.utils import print_progress_bar
 
 from earth2observe import __path__
@@ -572,7 +572,7 @@ class ECMWF(AbstractDataSource):
             can verify the request shape end-to-end and is wired up to
             output once the GeoTIFF integration is restored.
         """
-        fh = Dataset(str(nc_path), mode="r")
+        fh = NetCDF.read_file(str(nc_path), read_only=True)
 
         nc_variable = var_info["nc_variable"]
         unit_label = var_info["units"]
@@ -580,10 +580,10 @@ class ECMWF(AbstractDataSource):
         factors_mul = var_info["factors_mul"]
         is_flux = var_info.get("types") == "flux"
 
-        Data = fh.variables[nc_variable][:]
-        Data_time = fh.variables["time"][:]
-        lons = fh.variables["longitude"][:]
-        lats = fh.variables["latitude"][:]
+        Data = fh.read_array(variable=nc_variable)
+        Data_time = fh.variables["time"].read_array()
+        lons = fh.lon
+        lats = fh.lat
 
         geo_four = np.nanmax(lats)
         geo_one = np.nanmin(lons)
