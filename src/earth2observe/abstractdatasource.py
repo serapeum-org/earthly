@@ -111,7 +111,18 @@ class AbstractDataSource(ABC):
 
 
 class AbstractCatalog(ABC):
-    """abstrach class for the datasource catalog."""
+    """Abstract base class for per-data-source variable catalogs.
+
+    Subclasses load a backend-specific catalog (a YAML file, an
+    in-code dict, or a remote query) in :meth:`get_catalog` and
+    expose individual entries via :meth:`get_variable`. The constructor
+    eagerly loads the catalog into :attr:`catalog` so subclasses can
+    treat it as a dict thereafter.
+
+    Attributes:
+        catalog: The full catalog mapping returned by
+            :meth:`get_catalog`. Type and shape are backend-specific.
+    """
 
     def __init__(self):
         self.catalog = self.get_catalog()

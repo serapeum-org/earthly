@@ -101,9 +101,29 @@ def _looks_like_licence_not_accepted(exc: BaseException) -> bool:
 
 
 class ECMWF(AbstractDataSource):
-    """RemoteSensing.
+    """ECMWF / Copernicus Climate Data Store backend.
 
-    RemoteSensing class contains methods to download ECMWF data
+    Downloads ERA5 reanalysis (and ERA5-Land where the catalog
+    indicates) via :class:`cdsapi.Client`. The user-friendly variable
+    short codes (e.g. ``"2T"``, ``"TP"``) are resolved through
+    :class:`Catalog`, which loads the per-variable metadata from
+    ``cds_data_catalog.yaml``.
+
+    The two-step pipeline (per variable) is:
+
+    1. :meth:`api` — build the cdsapi request dict (daily / monthly
+       branch on ``temporal_resolution``) and submit it via
+       ``client.retrieve(dataset, request, target)``. Returns the
+       absolute path to the NetCDF that CDS wrote.
+    2. :meth:`post_download` — open that NetCDF, slice it on the
+       time axis, and apply the ``factors_add``/``factors_mul``
+       conversion. Per-date GeoTIFF writing is currently stubbed
+       (see ``planning/cdsapi/post-review-findings.md`` C1).
+
+    Attributes:
+        temporal_resolution: Class-level list of valid temporal
+            resolutions accepted by the backend.
+        spatial_resolution: ERA5 grid spacing in degrees (0.125°).
     """
 
     temporal_resolution = ["daily", "monthly"]
@@ -120,26 +140,27 @@ class ECMWF(AbstractDataSource):
         lon_lim: list = None,
         fmt: str = "%Y-%m-%d",
     ):
-        """ECMWF.
+        """Initialize an ECMWF backend instance.
 
-        Parameters
-        ----------
-        temporal_resolution (str, optional):
-            [description]. Defaults to 'daily'.
-        start (str, optional):
-            [description]. Defaults to ''.
-        end (str, optional):
-            [description]. Defaults to ''.
-        path (str, optional):
-            Path where you want to save the downloaded data. Defaults to ''.
-        variables (list, optional):
-            Variable code: VariablesInfo('day').descriptions.keys(). Defaults to [].
-        lat_lim (list, optional):
-            [ymin, ymax]. Defaults to None.
-        lon_lim (list, optional):
-            [xmin, xmax]. Defaults to None.
-        fmt (str, optional):
-            [description]. Defaults to "%Y-%m-%d".
+        Forwards every argument to :class:`AbstractDataSource`,
+        which captures the cdsapi client into ``self.client`` and
+        the bbox/date dict into ``self.space``/``self.time``.
+
+        Args:
+            temporal_resolution: Either ``"daily"`` or ``"monthly"``.
+                Defaults to ``"daily"``.
+            start: Inclusive start date as a string (parsed with
+                ``fmt``). Defaults to ``None``.
+            end: Inclusive end date as a string. Defaults to ``None``.
+            path: Output directory. Created by the parent if it does
+                not exist. Defaults to the current working directory.
+            variables: List of CDS catalog short codes (e.g.
+                ``["2T", "TP"]``); see ``cds_data_catalog.yaml`` for
+                the registered codes.
+            lat_lim: ``[lat_min, lat_max]``.
+            lon_lim: ``[lon_min, lon_max]``.
+            fmt: ``strptime`` format for ``start`` / ``end``.
+                Defaults to ``"%Y-%m-%d"``.
         """
         super().__init__(
             start=start,
@@ -155,18 +176,28 @@ class ECMWF(AbstractDataSource):
     def check_input_dates(
         self, start: str, end: str, temporal_resolution: str, fmt: str
     ):
-        """check validity of input dates.
+        """Parse the date range and produce the iteration index.
 
-        Parameters
-        ----------
-        temporal_resolution: (str, optional)
-            [description]. Defaults to 'daily'.
-        start: (str, optional)
-            [description]. Defaults to ''.
-        end: (str, optional)
-            [description]. Defaults to ''.
-        fmt: (str, optional)
-            [description]. Defaults to "%Y-%m-%d".
+        Returned dict is captured by
+        :meth:`AbstractDataSource.__init__` into ``self.time`` so
+        :meth:`api` and :meth:`post_download` can access the parsed
+        bounds and the per-date pandas range without re-parsing.
+
+        Args:
+            start: Inclusive start date as a string.
+            end: Inclusive end date as a string.
+            temporal_resolution: ``"daily"`` (uses ``freq="D"``) or
+                ``"monthly"`` (uses ``freq="MS"``).
+            fmt: ``strptime`` format applied to ``start`` and ``end``.
+
+        Returns:
+            dict: ``{"start_date", "end_date", "time_freq", "dates"}``
+            where ``dates`` is the :class:`pandas.DatetimeIndex` the
+            download loop iterates.
+
+        Raises:
+            ValueError: If ``temporal_resolution`` is neither
+                ``"daily"`` nor ``"monthly"``.
         """
         start = dt.datetime.strptime(start, fmt)
         end = dt.datetime.strptime(end, fmt)
@@ -620,18 +651,19 @@ class ECMWF(AbstractDataSource):
         return target
 
     def API(self, *args, **kwargs):  # noqa: N802 — name dictated by the abstract base
-        """Compatibility shim for :meth:`AbstractDataSource.API`.
+        """Compatibility shim satisfying :meth:`AbstractDataSource.API`.
 
-        The other backends (CHIRPS, S3) implement ``API`` as a
-        per-date download hook. The ECMWF backend works at variable
-        granularity instead and exposes its hook as :meth:`api`
-        (lowercase) accepting a ``var_info`` dict. This stub exists
-        only so :class:`ECMWF` can be instantiated; callers should use
-        :meth:`api` directly.
+        The abstract base class declares ``API`` (uppercase) as
+        abstract. The ECMWF backend works at variable granularity and
+        exposes its real hook as :meth:`api` (lowercase) accepting a
+        ``var_info`` dict — a different signature than the per-date
+        callable shape of CHIRPS / S3. This stub exists only so the
+        abstract contract is satisfied and :class:`ECMWF` can be
+        instantiated; callers should always use :meth:`api`.
 
         Raises:
-            NotImplementedError: Always. ECMWF requests are built and
-                submitted from :meth:`api`, not from this method.
+            NotImplementedError: Always. ECMWF requests are built
+                and submitted from :meth:`api`, not from this method.
         """
         raise NotImplementedError(
             "ECMWF uses the lowercase api(var_info) — see ECMWF.api"
