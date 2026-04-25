@@ -1014,7 +1014,7 @@ line number lower than every `grep -n "raise AuthenticationError"` line.
 | `M2` | Open   | Update `docs/catalog.md` to describe CDS dataset short names                                                    |
 | `M3` | Open   | Update `docs/data-sources.md` to drop ERA-Interim and default to ERA5                                           |
 | `M4` | Open   | Mock `cdsapi.Client.retrieve` in `tests/test_ecmwf.py`                                                          |
-| `M5` | Open   | Handle monthly request shape (`*-monthly-means` + `product_type: monthly_averaged_reanalysis`)                  |
+| `M5` | Closed | Handle monthly request shape (`*-monthly-means` + `product_type: monthly_averaged_reanalysis`)                  |
 | `L1` | Open   | Watch `ecmwf-datastores-client` as the eventual successor to `cdsapi`                                           |
 | `L2` | Open   | Document that CDS queue times require mocking or skipping in CI                                                 |
 | `L3` | Open   | Document per-dataset license acceptance on the CDS profile page                                                 |

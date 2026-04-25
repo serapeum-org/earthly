@@ -320,13 +320,20 @@ class ECMWF(AbstractDataSource):
         CDS has served the request and the NetCDF file has been written
         to disk — typically minutes due to CDS queue times.
 
-        The request shape is fixed for the daily path of this iteration
-        of the migration: ``product_type=['reanalysis']``, four
-        six-hourly time slots (``00:00/06:00/12:00/18:00``), and
-        ``data_format='netcdf'``. The monthly request shape
-        (``product_type=['monthly_averaged_reanalysis']``, no ``time``
-        key) is task ``M5`` in
-        ``planning/cdsapi/migration-plan.md``.
+        The request shape branches on ``self.temporal_resolution``:
+
+        * ``"daily"`` — submits to ``var_info['cds_dataset']`` with
+          ``product_type=['reanalysis']`` and four six-hourly time
+          slots (``00:00/06:00/12:00/18:00``).
+        * ``"monthly"`` — submits to ``var_info['cds_dataset_monthly']``
+          (falling back to ``cds_dataset`` when the monthly key is
+          absent) with ``product_type=['monthly_averaged_reanalysis']``
+          and no ``time`` key. ``-monthly-means`` datasets reject the
+          daily-style ``time`` list.
+
+        Both branches use ``data_format='netcdf'`` so
+        :class:`netCDF4.Dataset` can read the result in
+        ``post_download``.
 
         Args:
             var_info: Variable metadata pulled from
@@ -419,15 +426,12 @@ class ECMWF(AbstractDataSource):
             :class:`Catalog`: Loads ``var_info`` dicts from
                 ``cds_data_catalog.yaml``.
         """
-        dataset = var_info["cds_dataset"]
         dates = self.time["dates"]
         request = {
-            "product_type": ["reanalysis"],
             "variable": [var_info["cds_variable"]],
             "year": sorted({str(d.year) for d in dates}),
             "month": sorted({f"{d.month:02d}" for d in dates}),
             "day": sorted({f"{d.day:02d}" for d in dates}),
-            "time": ["00:00", "06:00", "12:00", "18:00"],
             "data_format": "netcdf",
             "area": [
                 self.space["lat_lim"][1],
@@ -436,6 +440,17 @@ class ECMWF(AbstractDataSource):
                 self.space["lon_lim"][1],
             ],
         }
+
+        if self.temporal_resolution == "monthly":
+            dataset = var_info.get(
+                "cds_dataset_monthly", var_info["cds_dataset"]
+            )
+            request["product_type"] = ["monthly_averaged_reanalysis"]
+        else:
+            dataset = var_info["cds_dataset"]
+            request["product_type"] = ["reanalysis"]
+            request["time"] = ["00:00", "06:00", "12:00", "18:00"]
+
         if "cds_pressure_level" in var_info:
             request["pressure_level"] = var_info["cds_pressure_level"]
 

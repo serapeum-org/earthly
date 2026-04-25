@@ -432,6 +432,134 @@ class TestApi:
             ecmwf_stub.api(single_level_var_info)
 
 
+class TestApiMonthly:
+    """Tests for :meth:`ECMWF.api` on the monthly path (M5)."""
+
+    @pytest.fixture
+    def monthly_var_info(self):
+        """Catalog entry with both daily and monthly CDS datasets.
+
+        Returns:
+            dict: Variable metadata that exercises the
+            ``cds_dataset_monthly`` and pressure-level branches.
+        """
+        return {
+            "cds_dataset": "reanalysis-era5-single-levels",
+            "cds_dataset_monthly": (
+                "reanalysis-era5-single-levels-monthly-means"
+            ),
+            "cds_variable": "2m_temperature",
+            "file_name": "Tair",
+            "factors_add": -273.15,
+            "factors_mul": 1,
+        }
+
+    def test_monthly_routes_to_monthly_dataset(
+        self, ecmwf_stub, monthly_var_info
+    ):
+        """Monthly resolution targets ``cds_dataset_monthly``.
+
+        Test scenario:
+            With ``self.temporal_resolution = 'monthly'``, ``api()``
+            must submit the request to the dataset named under
+            ``cds_dataset_monthly`` (e.g.
+            ``reanalysis-era5-single-levels-monthly-means``).
+        """
+        ecmwf_stub.temporal_resolution = "monthly"
+        ecmwf_stub.api(monthly_var_info)
+        dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
+        assert dataset_arg == (
+            "reanalysis-era5-single-levels-monthly-means"
+        ), (
+            f"Monthly resolution should target the -monthly-means "
+            f"dataset; got {dataset_arg!r}"
+        )
+
+    def test_monthly_falls_back_to_daily_dataset_when_monthly_missing(
+        self, ecmwf_stub, monthly_var_info
+    ):
+        """When ``cds_dataset_monthly`` is absent, fall back to ``cds_dataset``.
+
+        Test scenario:
+            Some variables only exist on a single CDS dataset (no
+            monthly variant). The monthly branch must reuse
+            ``cds_dataset`` rather than raising or sending an empty
+            dataset name.
+        """
+        monthly_var_info.pop("cds_dataset_monthly")
+        ecmwf_stub.temporal_resolution = "monthly"
+        ecmwf_stub.api(monthly_var_info)
+        dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
+        assert dataset_arg == "reanalysis-era5-single-levels", (
+            f"Fallback should use cds_dataset; got {dataset_arg!r}"
+        )
+
+    def test_monthly_product_type_is_monthly_averaged_reanalysis(
+        self, ecmwf_stub, monthly_var_info
+    ):
+        """Monthly requests carry ``product_type=monthly_averaged_reanalysis``.
+
+        Test scenario:
+            CDS rejects daily-style ``product_type=['reanalysis']``
+            against ``-monthly-means`` datasets. The branch must swap
+            it to the monthly equivalent.
+        """
+        ecmwf_stub.temporal_resolution = "monthly"
+        ecmwf_stub.api(monthly_var_info)
+        request = _captured_request(ecmwf_stub)
+        assert request["product_type"] == ["monthly_averaged_reanalysis"], (
+            f"Expected ['monthly_averaged_reanalysis']; "
+            f"got {request['product_type']!r}"
+        )
+
+    def test_monthly_request_omits_time_slot_list(
+        self, ecmwf_stub, monthly_var_info
+    ):
+        """Monthly requests must not include the ``time`` key.
+
+        Test scenario:
+            ``-monthly-means`` datasets reject the daily-style
+            ``time=['00:00','06:00','12:00','18:00']`` list. The
+            monthly branch must drop the key entirely.
+        """
+        ecmwf_stub.temporal_resolution = "monthly"
+        ecmwf_stub.api(monthly_var_info)
+        request = _captured_request(ecmwf_stub)
+        assert "time" not in request, (
+            f"Monthly request must not carry a 'time' key; "
+            f"got {request.get('time')!r}"
+        )
+
+    def test_daily_request_still_includes_time_and_reanalysis(
+        self, ecmwf_stub, monthly_var_info
+    ):
+        """Daily resolution still uses the original product_type and time.
+
+        Test scenario:
+            The M5 monthly branch must not regress the daily path.
+            With ``temporal_resolution='daily'`` the request must
+            still target ``cds_dataset`` (not the monthly variant)
+            and still carry ``product_type=['reanalysis']`` plus the
+            four six-hourly time slots.
+        """
+        ecmwf_stub.temporal_resolution = "daily"
+        ecmwf_stub.api(monthly_var_info)
+        dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
+        request = _captured_request(ecmwf_stub)
+        assert dataset_arg == "reanalysis-era5-single-levels", (
+            f"Daily resolution should keep cds_dataset; got {dataset_arg!r}"
+        )
+        assert request["product_type"] == ["reanalysis"], (
+            f"Daily product_type regressed; got {request['product_type']!r}"
+        )
+        assert request["time"] == [
+            "00:00",
+            "06:00",
+            "12:00",
+            "18:00",
+        ], f"Daily time slots regressed; got {request['time']!r}"
+
+
 class TestDownloadDataset:
     """Tests for :meth:`ECMWF.download_dataset` after the C1 call-site fix."""
 
