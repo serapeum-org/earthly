@@ -442,7 +442,7 @@ After the Critical / High items are addressed:
 |------|----------|--------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
 | `C1` | Critical | Solved | ECMWF not registered in `Earth2Observe.DataSources`; facade rejects `data_source="ecmwf"`     | `src/earth2observe/earth2observe.py`                                           |
 | `C2` | Critical | Solved | f-string nested quotes break Python 3.11 import (`SyntaxError: f-string: unmatched '['`)      | `src/earth2observe/ecmwf.py:225`                                               |
-| `C3` | Critical | Open   | `ECMWF.download()` iterates `self.variables` but parent stores `self.vars` — `AttributeError` | `src/earth2observe/ecmwf.py:222`, `src/earth2observe/abstractdatasource.py:62` |
+| `C3` | Critical | Solved | `ECMWF.download()` iterates `self.variables` but parent stores `self.vars` — `AttributeError` | `src/earth2observe/ecmwf.py:222`, `src/earth2observe/abstractdatasource.py:62` |
 | `H1` | High     | Open   | `post_download()` reads `data_<dataset>.nc` but `api()` writes `<file_name>_<cds_dataset>.nc` | `src/earth2observe/ecmwf.py:499`                                               |
 | `H2` | High     | Open   | `post_download()` reads obsolete MARS-schema keys (`var_name`, `file name`, `types`)          | `src/earth2observe/ecmwf.py:515-518, 583, 586`                                 |
 | `H3` | High     | Open   | `download()` unconditionally deletes a hardcoded `data_interim.nc` after the loop             | `src/earth2observe/ecmwf.py:228-230`                                           |

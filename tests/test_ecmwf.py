@@ -132,6 +132,9 @@ def ecmwf_stub(tmp_path):
     ecmwf.client = MagicMock()
     ecmwf.root_dir = tmp_path
     ecmwf.time = {
+        "start_date": pd.Timestamp("2022-01-01"),
+        "end_date": pd.Timestamp("2022-01-03"),
+        "time_freq": "D",
         "dates": pd.date_range("2022-01-01", "2022-01-03", freq="D"),
     }
     ecmwf.space = {
@@ -580,6 +583,66 @@ class TestApiMonthly:
             "12:00",
             "18:00",
         ], f"Daily time slots regressed; got {request['time']!r}"
+
+
+class TestDownloadIteration:
+    """Tests for :meth:`ECMWF.download` iteration (C3)."""
+
+    def test_download_iterates_self_vars_not_self_variables(
+        self, ecmwf_stub, monkeypatch
+    ):
+        """``download()`` iterates ``self.vars`` (the parent's storage).
+
+        Test scenario:
+            :class:`AbstractDataSource.__init__` stores the user's
+            ``variables`` list as ``self.vars``. Pre-C3, ECMWF.download
+            iterated ``self.variables`` instead, which raised
+            ``AttributeError`` on the first call. This test sets
+            ``self.vars`` to a known list, mocks out the per-variable
+            download path, and asserts ``download_dataset`` was called
+            once per element of ``self.vars`` — never touching
+            ``self.variables``.
+        """
+        ecmwf_stub.vars = ["2T", "TP"]
+        ecmwf_stub.download_dataset = MagicMock()
+        monkeypatch.setattr("earth2observe.ecmwf.os.remove", lambda _p: None)
+
+        ecmwf_stub.download(progress_bar=False)
+
+        assert ecmwf_stub.download_dataset.call_count == 2, (
+            f"download_dataset should be called once per variable; "
+            f"got {ecmwf_stub.download_dataset.call_count}"
+        )
+        called_with = [
+            args[0] for args, _kwargs in ecmwf_stub.download_dataset.call_args_list
+        ]
+        assert called_with == [
+            Catalog().get_dataset("2T"),
+            Catalog().get_dataset("TP"),
+        ], (
+            f"download_dataset should receive each var_info in order; "
+            f"got {called_with!r}"
+        )
+
+    def test_download_does_not_read_self_variables(self, ecmwf_stub, monkeypatch):
+        """``download()`` must not depend on a non-existent ``self.variables``.
+
+        Test scenario:
+            Even if a future refactor accidentally reintroduces the
+            wrong attribute name, this test fails fast: ``self.vars``
+            is set, ``self.variables`` is explicitly absent, and
+            ``download()`` must complete without an ``AttributeError``.
+        """
+        ecmwf_stub.vars = ["2T"]
+        ecmwf_stub.download_dataset = MagicMock()
+        monkeypatch.setattr("earth2observe.ecmwf.os.remove", lambda _p: None)
+        assert not hasattr(ecmwf_stub, "variables"), (
+            "Test setup invalid: 'variables' attribute should be absent"
+        )
+
+        ecmwf_stub.download(progress_bar=False)
+
+        assert ecmwf_stub.download_dataset.call_count == 1
 
 
 class TestDownloadDataset:

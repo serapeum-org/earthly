@@ -219,7 +219,7 @@ class ECMWF(AbstractDataSource):
         # read the datasource catalog
         catalog = Catalog()
 
-        for var in self.variables:
+        for var in self.vars:
             # Download data
             start = self.time["start_date"]
             end = self.time["end_date"]
