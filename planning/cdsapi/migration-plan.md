@@ -1010,12 +1010,12 @@ line number lower than every `grep -n "raise AuthenticationError"` line.
 | `H5` | Closed | Restructure `cds_data_catalog.yaml` to one entry per variable with `cds_dataset` / `cds_variable` / unit fields |
 | `H6` | Closed | Delete obsolete `ecmwf_data_catalog.yaml`                                                                       |
 | `H7` | Closed | Pin `cdsapi >= 0.7.7` in `pyproject.toml` and `[tool.pixi.dependencies]`                                        |
-| `M1` | Open   | Update `docs/authentication.md` for `.cdsapirc` PAT instructions                                                |
-| `M2` | Open   | Update `docs/catalog.md` to describe CDS dataset short names                                                    |
-| `M3` | Open   | Update `docs/data-sources.md` to drop ERA-Interim and default to ERA5                                           |
+| `M1` | Closed | Update `docs/authentication.md` for `.cdsapirc` PAT instructions                                                |
+| `M2` | Closed | Update `docs/catalog.md` to describe CDS dataset short names                                                    |
+| `M3` | Closed | Update `docs/data-sources.md` to drop ERA-Interim and default to ERA5                                           |
 | `M4` | Closed | Mock `cdsapi.Client.retrieve` in `tests/test_ecmwf.py`                                                          |
 | `M5` | Closed | Handle monthly request shape (`*-monthly-means` + `product_type: monthly_averaged_reanalysis`)                  |
 | `L1` | Open   | Watch `ecmwf-datastores-client` as the eventual successor to `cdsapi`                                           |
-| `L2` | Open   | Document that CDS queue times require mocking or skipping in CI                                                 |
-| `L3` | Open   | Document per-dataset license acceptance on the CDS profile page                                                 |
+| `L2` | Closed | Document that CDS queue times require mocking or skipping in CI                                                 |
+| `L3` | Closed | Document per-dataset license acceptance on the CDS profile page                                                 |
 | `L4` | Closed | Move `AuthenticationError` definition above its first reference in `ecmwf.py`                                   |

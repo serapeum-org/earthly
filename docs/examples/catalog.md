@@ -25,60 +25,69 @@ print(chirps_catalog.catalog)
 }
 ```
 
-## ECMWF
+## ECMWF (Copernicus Climate Data Store)
+
+The ECMWF catalog is shipped as `cds_data_catalog.yaml` (package data)
+and exposes a per-variable map keyed by user-friendly short codes
+(`E`, `T`, `2T`, `TP`, ...). Each entry tells `ECMWF.api()` which CDS
+dataset hosts the variable, the official CDS variable name, and the
+unit-conversion factors used during post-processing.
 
 ```python
 from earth2observe.ecmwf import Catalog
 
 catalog = Catalog()
+list(catalog.catalog)[:5]
+```
+
+```python
+['2T', '2D', 'SP', 'TP', 'E']
+```
+
+To get the attributes for a specific variable (e.g., 2-metre
+temperature `2T`):
+
+```python
+catalog.get_dataset("2T")
 ```
 
 ```python
 {
-    'version': 1,
-    'datasets': [
-        'cams_gfas', 'cams_nrealtime', 'cera20c', 'cera_sat', 'era15',
-        'era20c', 'era20cm', 'era20cmv0', 'era40', 'geff_reanalysis',
-        'icoads', 'interim', 'interim_land', 'ispd', 'macc',
-        'macc_nrealtime', 's2s', 'tigge', 'uerra', 'yopp', 'yotc'
-    ],
-    'variables': [
-        'T', '2T', 'SRO', 'SSRO', 'WIND', '10SI', 'SP', 'Q', 'SSR',
-        'R', 'E', 'SUND', 'RO', 'TP', '10U', '10V', '2D', 'SR', 'AL', 'HCC'
-    ],
-    'T': {
-        'descriptions': 'Temperature [K]',
-        'units': 'C',
-        'types': 'state',
-        'temporal resolution': ['six hours', 'daily', 'monthly'],
-        'file name': 'Tair2m',
-        'download type': 3,
-        'number_para': 130,
-        'var_name': 't',
-    },
-    # ... more variables ...
+    'cds_dataset': 'reanalysis-era5-single-levels',
+    'cds_dataset_monthly': 'reanalysis-era5-single-levels-monthly-means',
+    'cds_variable': '2m_temperature',
+    'units': 'C',
+    'file_name': 'Tair',
+    'factors_add': -273.15,
+    'factors_mul': 1,
 }
 ```
 
-To get the attributes for a specific variable (e.g., Evaporation `E`):
+Key reference:
 
-```python
-var = "E"
-catalog.get_variable(var)
-```
+- `cds_dataset` — CDS dataset short name used for daily / sub-daily
+  retrieves.
+- `cds_dataset_monthly` — optional, used when
+  `temporal_resolution="monthly"`. Falls back to `cds_dataset` when
+  absent.
+- `cds_variable` — the CDS variable name passed to
+  `client.retrieve()`.
+- `cds_pressure_level` — optional list of pressure levels (e.g.
+  `["1000"]`). Present for pressure-level variables (`T`, `Q`, `R`).
+- `units`, `file_name` — used to name output files.
+- `factors_add`, `factors_mul` — unit-conversion offsets applied in
+  `post_download()`.
 
-```python
-{
-    'descriptions': 'Evaporation [m of water]',
-    'units': 'mm',
-    'types': 'flux',
-    'temporal resolution': ['six hours', 'daily', 'monthly'],
-    'file name': 'Evaporation',
-    'download type': 2,
-    'number_para': 182,
-    'var_name': 'e'
-}
-```
+The catalog ships short codes for ~18 ERA5 variables on
+`reanalysis-era5-single-levels` (and its monthly-means counterpart),
+plus a handful on `reanalysis-era5-pressure-levels`. Browse the full
+list of CDS dataset short names at
+<https://cds.climate.copernicus.eu/datasets?q=era5>. To add a new
+variable, append an entry to `src/earth2observe/cds_data_catalog.yaml`
+following the schema in the file's header comment.
+
+`get_variable(var_name)` is provided as an alias of `get_dataset` so
+either name works; it satisfies the abstract base class contract.
 
 ## Amazon S3
 

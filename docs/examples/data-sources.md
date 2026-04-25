@@ -40,12 +40,20 @@ Each data source has different climate variables/datasets. To discover available
 !!! note
     In future versions, `lat_lim` and `lon_lim` will be deprecated and replaced by a GeoDataFrame containing a polygon geometry.
 
-## ECMWF
+## ECMWF (Copernicus Climate Data Store)
+
+The ECMWF backend talks to the Copernicus Climate Data Store via
+`cdsapi`. ERA-Interim was retired in 2019 and the public-datasets
+endpoint that hosted it was decommissioned in 2023; **ERA5 on CDS is
+the production successor** and what every ECMWF retrieve in this
+package now hits. Set up your `~/.cdsapirc` first
+(see [Authentication](authentication.md)) and accept the licence for
+the relevant ERA5 dataset on the CDS website.
 
 ```python
 source = "ecmwf"
-path = "examples/data/ecmwf"
-variables = ["precipitation"]
+path = "examples/data/era5"
+variables = ["2T"]  # 2-metre temperature; see Catalog for the full list
 
 e2o = Earth2Observe(
     data_source=source,
@@ -59,6 +67,13 @@ e2o = Earth2Observe(
 )
 e2o.download()
 ```
+
+!!! note "Expect to wait"
+    `client.retrieve()` blocks until the request reaches the front of
+    the CDS queue and the file is generated — typically minutes,
+    occasionally longer for large requests. Pick a small bbox and date
+    range to keep wait times bearable. In CI the cdsapi client is
+    mocked; the live end-to-end suite is opt-in via `RUN_CDS_E2E=1`.
 
 ## CHIRPS
 
