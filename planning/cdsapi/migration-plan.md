@@ -1013,7 +1013,7 @@ line number lower than every `grep -n "raise AuthenticationError"` line.
 | `M1` | Open   | Update `docs/authentication.md` for `.cdsapirc` PAT instructions                                                |
 | `M2` | Open   | Update `docs/catalog.md` to describe CDS dataset short names                                                    |
 | `M3` | Open   | Update `docs/data-sources.md` to drop ERA-Interim and default to ERA5                                           |
-| `M4` | Open   | Mock `cdsapi.Client.retrieve` in `tests/test_ecmwf.py`                                                          |
+| `M4` | Closed | Mock `cdsapi.Client.retrieve` in `tests/test_ecmwf.py`                                                          |
 | `M5` | Closed | Handle monthly request shape (`*-monthly-means` + `product_type: monthly_averaged_reanalysis`)                  |
 | `L1` | Open   | Watch `ecmwf-datastores-client` as the eventual successor to `cdsapi`                                           |
 | `L2` | Open   | Document that CDS queue times require mocking or skipping in CI                                                 |

@@ -1,23 +1,20 @@
-"""Tests for ``earth2observe.ecmwf`` focused on the C1 changes.
+"""Tests for ``earth2observe.ecmwf``.
 
-The C1 task replaced ``ECMWF.api()`` with a real :mod:`cdsapi` request
-builder that calls ``self.client.retrieve(dataset, request, target)``.
-These tests validate the request shape, the target path, and the call
-site change in :meth:`ECMWF.download_dataset`.
+Covers the cdsapi migration tasks committed to date: ``C1``, ``C2``,
+``H1``–``H7``, ``L4``, ``M4`` and ``M5`` from
+``planning/cdsapi/migration-plan.md``.
 
-Notes:
-    * ``AbstractDataSource.__init__`` does not yet expose ``self.client``,
-      ``self.time``, ``self.space`` or ``self.root_dir`` (that is the
-      ``H1`` task in ``planning/cdsapi/migration-plan.md``). The unit
-      tests therefore construct an ``ECMWF`` instance with
-      :meth:`object.__new__` and set the attributes ``api()`` consumes by
-      hand. This isolates the C1 fix from the rest of the migration.
-    * The unit tests mock :class:`cdsapi.Client` so the suite stays
-      offline and deterministic.
-    * The end-to-end suite at the bottom of this file is opt-in via
-      ``RUN_CDS_E2E=1`` and exercises the live Copernicus Climate Data
-      Store. It requires a working ``~/.cdsapirc`` and accepted licences
-      for ERA5 single-levels.
+Mock harness (``M4``):
+    The unit tests must run offline in CI. The shared fixtures below
+    monkey-patch :class:`cdsapi.Client` at the ``cdsapi`` module level
+    — patching ``__init__`` does not reliably intercept the constructor
+    because ``cdsapi.Client.__new__`` is a factory that may return a
+    :class:`LegacyClient`. An autouse safeguard
+    (:func:`_block_real_cdsapi`) makes the suite fail loudly if a test
+    ever constructs a real ``cdsapi.Client`` — protecting the offline
+    contract even when new tests are added later. End-to-end tests that
+    need the real service opt in via the ``RUN_CDS_E2E=1`` environment
+    variable; the safeguard is disabled inside the e2e class.
 """
 
 import os
@@ -29,6 +26,31 @@ import pytest
 import cdsapi
 
 from earth2observe.ecmwf import ECMWF, AuthenticationError, Catalog
+
+
+@pytest.fixture(autouse=True)
+def _block_real_cdsapi(request, monkeypatch):
+    """Fail fast if a test reaches a live :class:`cdsapi.Client`.
+
+    Any test that does not explicitly opt in (by being inside the
+    ``TestApiE2E`` class) gets a :class:`cdsapi.Client` replacement
+    that raises immediately — even before the constructor reads
+    ``~/.cdsapirc``. Tests that need a fake client still call
+    ``monkeypatch.setattr(cdsapi, "Client", ...)`` themselves; that
+    later setattr wins because monkeypatch applies fixture-scoped
+    overrides in order.
+    """
+    if "TestApiE2E" in request.node.nodeid:
+        return
+
+    def _no_live_client(*args, **kwargs):
+        raise AssertionError(
+            "A unit test attempted to construct a real cdsapi.Client. "
+            "Patch cdsapi.Client at the module level (see M4 harness) "
+            "or move the test into TestApiE2E with RUN_CDS_E2E=1."
+        )
+
+    monkeypatch.setattr(cdsapi, "Client", _no_live_client)
 
 
 class _ConcreteECMWF(ECMWF):
