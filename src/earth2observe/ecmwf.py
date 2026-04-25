@@ -221,8 +221,10 @@ class ECMWF(AbstractDataSource):
 
         for var in self.variables:
             # Download data
+            start = self.time["start_date"]
+            end = self.time["end_date"]
             logger.info(
-                f"Download ECMWF {var} data for period {self.time["start_date"]} till {self.time["end_date"]}"
+                f"Download ECMWF {var} data for period {start} till {end}"
             )
             var_info = catalog.get_dataset(var)
             self.download_dataset(var_info, dataset=dataset, progress_bar=progress_bar)

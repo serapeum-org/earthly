@@ -650,6 +650,31 @@ class _SentinelClient:
     """Minimal stand-in for :class:`cdsapi.Client` used in initialize tests."""
 
 
+class TestSourceCompiles:
+    """Compile-time checks for Python 3.11 compatibility (C2)."""
+
+    def test_ecmwf_module_compiles_under_311_grammar(self):
+        """``ecmwf.py`` parses without PEP-701-only constructs.
+
+        Test scenario:
+            ``pyproject.toml`` declares Python 3.11 as the minimum
+            supported version. PEP 701 (which allows reusing the
+            outer quote inside an f-string) only landed in 3.12, so a
+            line like ``f"...{d["k"]}..."`` is a syntax error on
+            3.11. ``compile(..., feature_version=(3, 11))`` exercises
+            the 3.11 grammar regardless of the running interpreter,
+            so this regression test catches the issue even when the
+            test suite executes on a newer Python.
+        """
+        import ast
+        import inspect
+
+        from earth2observe import ecmwf as ecmwf_module
+
+        source = inspect.getsource(ecmwf_module)
+        ast.parse(source, feature_version=(3, 11))
+
+
 class TestParentClassWiring:
     """Tests for the H1 parent-class wiring in :class:`AbstractDataSource`.
 
