@@ -456,4 +456,4 @@ After the Critical / High items are addressed:
 | `L4` | Low      | Solved | `pixi.lock` regeneration adds ~2,700 line deltas to the diff                                  | `pixi.lock`                                                                    |
 | `N1` | Nit      | Open   | Mixed docstring conventions inside `ecmwf.py` (Google vs numpy)                               | `src/earth2observe/ecmwf.py`                                                   |
 | `N2` | Nit      | Solved | YAML keys in catalog use unquoted digit-leading scalars                                       | `src/earth2observe/cds_data_catalog.yaml`                                      |
-| `N3` | Nit      | Open   | Mock-harness safeguard message could include the literal patch pattern                        | `tests/test_ecmwf.py:73-78`                                                    |
+| `N3` | Nit      | Solved | Mock-harness safeguard message could include the literal patch pattern                        | `tests/test_ecmwf.py:73-78`                                                    |

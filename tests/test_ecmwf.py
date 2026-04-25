@@ -46,8 +46,9 @@ def _block_real_cdsapi(request, monkeypatch):
     def _no_live_client(*args, **kwargs):
         raise AssertionError(
             "A unit test attempted to construct a real cdsapi.Client. "
-            "Patch cdsapi.Client at the module level (see M4 harness) "
-            "or move the test into TestApiE2E with RUN_CDS_E2E=1."
+            'Add `monkeypatch.setattr(cdsapi, "Client", lambda: ...)` '
+            "to the test (replacing the lambda with the fake your test "
+            "needs), or move the test into TestApiE2E with RUN_CDS_E2E=1."
         )
 
     monkeypatch.setattr(cdsapi, "Client", _no_live_client)
@@ -939,6 +940,33 @@ class TestDownloadDataset:
 
 class _SentinelClient:
     """Minimal stand-in for :class:`cdsapi.Client` used in initialize tests."""
+
+
+class TestMockHarnessSafeguard:
+    """Tests for the autouse safeguard installed by ``_block_real_cdsapi``."""
+
+    def test_safeguard_message_includes_literal_patch_pattern(self):
+        """The safeguard error spells out the exact monkeypatch call.
+
+        Test scenario:
+            Pre-N3, the message said "see M4 harness" — readers had to
+            chase the docstring elsewhere. The new message inlines the
+            literal `monkeypatch.setattr(cdsapi, "Client", lambda: ...)`
+            so a developer can copy-paste it straight into a failing
+            test. Trip the safeguard deliberately and assert the
+            string is present in the error.
+        """
+        with pytest.raises(AssertionError) as excinfo:
+            cdsapi.Client()
+        message = str(excinfo.value)
+        assert 'monkeypatch.setattr(cdsapi, "Client"' in message, (
+            f"Safeguard message must contain the literal patch pattern; "
+            f"got: {message}"
+        )
+        assert "RUN_CDS_E2E=1" in message, (
+            f"Safeguard message must mention the e2e opt-in env var; "
+            f"got: {message}"
+        )
 
 
 class TestSourceCompiles:
