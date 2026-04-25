@@ -1018,4 +1018,4 @@ line number lower than every `grep -n "raise AuthenticationError"` line.
 | `L1` | Open   | Watch `ecmwf-datastores-client` as the eventual successor to `cdsapi`                                           |
 | `L2` | Open   | Document that CDS queue times require mocking or skipping in CI                                                 |
 | `L3` | Open   | Document per-dataset license acceptance on the CDS profile page                                                 |
-| `L4` | Open   | Move `AuthenticationError` definition above its first reference in `ecmwf.py`                                   |
+| `L4` | Closed | Move `AuthenticationError` definition above its first reference in `ecmwf.py`                                   |

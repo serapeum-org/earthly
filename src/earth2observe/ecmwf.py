@@ -15,6 +15,25 @@ from earth2observe import __path__
 from earth2observe.abstractdatasource import AbstractCatalog, AbstractDataSource
 
 
+class AuthenticationError(Exception):
+    """Raised when cdsapi cannot authenticate against the Climate Data Store.
+
+    The ECMWF backend uses :class:`cdsapi.Client` to talk to CDS. The
+    client reads its credentials from ``~/.cdsapirc`` (or the
+    ``CDSAPI_URL`` / ``CDSAPI_KEY`` environment variables). If the
+    config is missing or malformed, :meth:`ECMWF.initialize` wraps the
+    underlying error in this exception so callers can distinguish auth
+    problems from generic CDS server errors.
+
+    See Also:
+        https://cds.climate.copernicus.eu/how-to-api: Official cdsapi
+            setup guide, including PAT generation and the
+            ``~/.cdsapirc`` format.
+    """
+
+    pass
+
+
 class ECMWF(AbstractDataSource):
     """RemoteSensing.
 
@@ -546,9 +565,3 @@ class Catalog(AbstractCatalog):
     def get_dataset(self, var_name):
         """retrieve a variable form the datasource catalog."""
         return super().get_dataset(var_name)
-
-
-class AuthenticationError(Exception):
-    """Failed to establish connection with ECMWF server."""
-
-    pass
