@@ -40,7 +40,7 @@ def _block_real_cdsapi(request, monkeypatch):
     later setattr wins because monkeypatch applies fixture-scoped
     overrides in order.
     """
-    if "TestApiE2E" in request.node.nodeid:
+    if request.cls is not None and request.cls.__name__ == "TestApiE2E":
         return
 
     def _no_live_client(*args, **kwargs):
