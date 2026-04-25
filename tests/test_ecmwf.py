@@ -53,26 +53,6 @@ def _block_real_cdsapi(request, monkeypatch):
     monkeypatch.setattr(cdsapi, "Client", _no_live_client)
 
 
-class _ConcreteECMWF(ECMWF):
-    """Test-only concrete subclass of ``ECMWF``.
-
-    ``AbstractDataSource`` declares an abstract ``API`` method (uppercase)
-    that no concrete data-source class in the package actually implements
-    today — every backend implements ``api`` (lowercase) instead. That
-    naming mismatch makes ``ECMWF`` formally abstract and prevents even
-    ``ECMWF.__new__(ECMWF)`` from succeeding. This subclass plugs the gap
-    so the unit tests can construct an instance without dragging in the
-    rest of the migration.
-    """
-
-    def API(self):  # noqa: N802 — name dictated by the abstract base class
-        """Stub for the abstract ``API`` method; intentionally unused."""
-        raise NotImplementedError(
-            "Tests exercise the lowercase api(); API() is only present so "
-            "the abstract base class can be instantiated."
-        )
-
-
 @pytest.fixture
 def single_level_var_info():
     """CDS catalog entry for a single-level ERA5 variable.
@@ -114,12 +94,13 @@ def pressure_level_var_info():
 def ecmwf_stub(tmp_path):
     """Minimal ``ECMWF`` instance with the attributes ``api()`` consumes.
 
-    Bypasses the parent ``__init__`` (which does not yet populate
-    ``self.client``/``self.time``/``self.space``/``self.root_dir`` —
-    see ``H1`` in the migration plan) and manually wires the attributes
-    that the C1-rewritten ``api()`` reads. ``self.client`` is a
-    :class:`unittest.mock.MagicMock`, so calls to ``client.retrieve`` are
-    captured for assertion without any network round-trip.
+    Skips the full parent ``__init__`` chain (which would still call
+    :meth:`cdsapi.Client` for real) and instead constructs the
+    instance via ``ECMWF.__new__`` and wires up the four attributes
+    :meth:`ECMWF.api` reads — ``self.client``, ``self.root_dir``,
+    ``self.time`` and ``self.space`` — by hand. ``self.client`` is a
+    :class:`unittest.mock.MagicMock` so calls to ``client.retrieve``
+    are captured for assertion without any network round-trip.
 
     Args:
         tmp_path: Per-test temp directory provided by pytest, used as
@@ -128,7 +109,7 @@ def ecmwf_stub(tmp_path):
     Returns:
         ECMWF: An ``ECMWF`` instance ready for ``api()`` invocation.
     """
-    ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+    ecmwf = ECMWF.__new__(ECMWF)
     ecmwf.client = MagicMock()
     ecmwf.root_dir = tmp_path
     ecmwf.time = {
@@ -1152,7 +1133,7 @@ class TestInitialize:
         """
         sentinel = _SentinelClient()
         monkeypatch.setattr(cdsapi, "Client", lambda: sentinel)
-        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        ecmwf = ECMWF.__new__(ECMWF)
         result = ecmwf.initialize()
         assert result is sentinel, (
             f"initialize() should return the constructed client; "
@@ -1178,7 +1159,7 @@ class TestInitialize:
             raise original
 
         monkeypatch.setattr(cdsapi, "Client", boom)
-        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        ecmwf = ECMWF.__new__(ECMWF)
         with pytest.raises(AuthenticationError) as excinfo:
             ecmwf.initialize()
         assert excinfo.value.__cause__ is original, (
@@ -1200,7 +1181,7 @@ class TestInitialize:
             raise Exception("missing config")
 
         monkeypatch.setattr(cdsapi, "Client", boom)
-        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        ecmwf = ECMWF.__new__(ECMWF)
         with pytest.raises(AuthenticationError) as excinfo:
             ecmwf.initialize()
         message = str(excinfo.value)
@@ -1227,7 +1208,7 @@ class TestInitialize:
             raise Exception("missing config")
 
         monkeypatch.setattr(cdsapi, "Client", boom)
-        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        ecmwf = ECMWF.__new__(ECMWF)
         with pytest.raises(AuthenticationError) as excinfo:
             ecmwf.initialize()
         message = str(excinfo.value)
@@ -1408,7 +1389,7 @@ class TestApiE2E:
         """
         import cdsapi
 
-        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        ecmwf = ECMWF.__new__(ECMWF)
         ecmwf.client = cdsapi.Client()
         ecmwf.root_dir = tmp_path
         ecmwf.time = {
