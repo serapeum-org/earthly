@@ -464,20 +464,6 @@ class ECMWF(AbstractDataSource):
             "ECMWF uses the lowercase api(var_info) — see ECMWF.api"
         )
 
-    @staticmethod
-    def send_request(
-        server,
-    ):
-        """send the request to the server.
-
-        Parameters
-        ----------
-        output_folder: [str]
-            directory where files will be saved
-        """
-        server.retrieve()
-
-
     def post_download(
         self, var_info: Dict[str, str], out_dir, dataset: str, progress_bar: bool = True
     ):

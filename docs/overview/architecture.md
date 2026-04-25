@@ -81,8 +81,7 @@ classDiagram
         +create_grid(lat_lim, lon_lim)
         +download(...)
         +download_dataset(...)
-        +api(var_info, dataset)
-        +send_request(...)
+        +api(var_info)
         +post_download(...)
     }
 

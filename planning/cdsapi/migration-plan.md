@@ -1002,7 +1002,7 @@ line number lower than every `grep -n "raise AuthenticationError"` line.
 | ID   | Status | Title                                                                                                           |
 |------|--------|-----------------------------------------------------------------------------------------------------------------|
 | `C1` | Closed | `api()` never calls `client.retrieve()` — request is never sent                                                 |
-| `C2` | Open   | `send_request()` calls `server.retrieve()` with no arguments                                                    |
+| `C2` | Closed | `send_request()` calls `server.retrieve()` with no arguments                                                    |
 | `H1` | Closed | Replace `self.path` / `self.dates` / `self.server` with `self.root_dir` / `self.time["dates"]` / `self.client`  |
 | `H2` | Closed | Stop returning old MARS-schema catalog entries from `Catalog.get_dataset()`                                     |
 | `H3` | Closed | Update `initialize()` error message to point at `~/.cdsapirc` PAT instead of `ECMWF_API_URL/KEY/EMAIL`          |
