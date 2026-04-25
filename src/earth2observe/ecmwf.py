@@ -3,10 +3,10 @@ import datetime as dt
 import os
 from typing import Any, Dict
 
+import cdsapi
 import numpy as np
 import pandas as pd
 import yaml
-import cdsapi
 from loguru import logger
 from pyramids.netcdf import NetCDF
 from serapeum_utils.utils import print_progress_bar

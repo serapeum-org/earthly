@@ -37,7 +37,7 @@ dependencies = [
     "PyYAML >=6.0.2",
     "requests >=2.28.1",
     "serapeum_utils >=0.1.1",
-    "cdsapi >=0.7.7"
+    "cdsapi >=0.7.7",
 ]
 
 [dependency-groups]
