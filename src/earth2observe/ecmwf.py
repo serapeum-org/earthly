@@ -73,6 +73,33 @@ def _looks_like_missing_credentials(exc: BaseException) -> bool:
     return any(keyword in message for keyword in auth_keywords)
 
 
+def _looks_like_licence_not_accepted(exc: BaseException) -> bool:
+    """Heuristic: does this exception come from an unaccepted CDS licence?
+
+    CDS returns HTTP 403 with a body that mentions "Required licences
+    not accepted" (or "licence" depending on locale) when the user has
+    a valid Personal Access Token but has not ticked the licence on
+    the dataset's download page. cdsapi raises this through to the
+    caller as a generic exception; we detect it by message scan so we
+    can rewrite into a :class:`PermissionError` that names the
+    dataset URL.
+
+    Args:
+        exc: The exception raised by ``client.retrieve(...)``.
+
+    Returns:
+        True if the message looks like a licence-acceptance failure;
+        False otherwise.
+    """
+    message = str(exc).lower()
+    return (
+        "licence" in message
+        or "license" in message
+        or "403" in message
+        and ("accept" in message or "term" in message)
+    )
+
+
 class ECMWF(AbstractDataSource):
     """RemoteSensing.
 
@@ -552,7 +579,19 @@ class ECMWF(AbstractDataSource):
         logger.info(
             f"Requesting {dataset} from CDS; this may take several minutes"
         )
-        self.client.retrieve(dataset, request, str(target))
+        try:
+            self.client.retrieve(dataset, request, str(target))
+        except Exception as exc:
+            if _looks_like_licence_not_accepted(exc):
+                raise PermissionError(
+                    f"CDS rejected the request for {dataset!r}: licence "
+                    "not accepted. Open the dataset page at "
+                    f"https://cds.climate.copernicus.eu/datasets/{dataset} "
+                    "and tick the licence at the bottom of the "
+                    "'Download' tab. The acceptance is permanent and "
+                    "tied to your CDS account."
+                ) from exc
+            raise
         return target
 
     def API(self, *args, **kwargs):  # noqa: N802 — name dictated by the abstract base

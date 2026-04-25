@@ -438,6 +438,66 @@ class TestApi:
         with pytest.raises(KeyError, match="cds_variable"):
             ecmwf_stub.api(single_level_var_info)
 
+    def test_licence_not_accepted_is_translated(
+        self, ecmwf_stub, single_level_var_info
+    ):
+        """A 403 'Required licences not accepted' is rewritten with a URL.
+
+        Test scenario:
+            cdsapi raises a generic exception whose message contains
+            'licence' / 'license' for licence-acceptance failures.
+            ``api()`` must translate that into a ``PermissionError``
+            naming the dataset's CDS page so first-time users know
+            exactly where to click.
+        """
+        original = RuntimeError(
+            "the request you have submitted is not valid. "
+            "Required licences not accepted; please accept the "
+            "terms of use on the dataset page."
+        )
+
+        def boom(*_args, **_kwargs):
+            raise original
+
+        ecmwf_stub.client.retrieve.side_effect = boom
+        with pytest.raises(PermissionError) as excinfo:
+            ecmwf_stub.api(single_level_var_info)
+        message = str(excinfo.value)
+        assert "reanalysis-era5-single-levels" in message, (
+            f"Error must name the dataset; got: {message}"
+        )
+        assert (
+            "https://cds.climate.copernicus.eu/datasets/" in message
+        ), f"Error must link to CDS dataset page; got: {message}"
+        assert excinfo.value.__cause__ is original, (
+            f"PermissionError should chain the original error; "
+            f"__cause__ is {excinfo.value.__cause__!r}"
+        )
+
+    def test_non_licence_retrieve_errors_propagate_untouched(
+        self, ecmwf_stub, single_level_var_info
+    ):
+        """Non-licence retrieve errors propagate as-is.
+
+        Test scenario:
+            A 5xx CDS server error or a transient connection drop
+            during ``retrieve()`` must surface unmodified — the
+            licence translation only applies when the error message
+            actually mentions a licence.
+        """
+        original = RuntimeError("HTTP 503 Service Unavailable")
+
+        def boom(*_args, **_kwargs):
+            raise original
+
+        ecmwf_stub.client.retrieve.side_effect = boom
+        with pytest.raises(RuntimeError) as excinfo:
+            ecmwf_stub.api(single_level_var_info)
+        assert excinfo.value is original, (
+            f"non-licence errors must propagate untouched; "
+            f"got {excinfo.value!r}"
+        )
+
 
 class TestApiMonthly:
     """Tests for :meth:`ECMWF.api` on the monthly path (M5)."""
