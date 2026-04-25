@@ -446,10 +446,10 @@ After the Critical / High items are addressed:
 | `H1` | High     | Solved | `post_download()` reads `data_<dataset>.nc` but `api()` writes `<file_name>_<cds_dataset>.nc` | `src/earth2observe/ecmwf.py:499`                                               |
 | `H2` | High     | Solved | `post_download()` reads obsolete MARS-schema keys (`var_name`, `file name`, `types`)          | `src/earth2observe/ecmwf.py:515-518, 583, 586`                                 |
 | `H3` | High     | Solved | `download()` unconditionally deletes a hardcoded `data_interim.nc` after the loop             | `src/earth2observe/ecmwf.py:228-230`                                           |
-| `M1` | Medium   | Open   | `download()`'s `dataset="interim"` parameter is dead post-migration                           | `src/earth2observe/ecmwf.py:206-228`                                           |
+| `M1` | Medium   | Solved | `download()`'s `dataset="interim"` parameter is dead post-migration                           | `src/earth2observe/ecmwf.py:206-228`                                           |
 | `M2` | Medium   | Solved | `post_download()` docstring still numpy-style with MARS-schema example                        | `src/earth2observe/ecmwf.py:485-498`                                           |
 | `M3` | Medium   | Open   | Test fixture `_ConcreteECMWF` is redundant after H1's `API` stub                              | `tests/test_ecmwf.py:42-66`                                                    |
-| `M4` | Medium   | Open   | `download()` docstring still references the legacy `dataset` parameter                        | `src/earth2observe/ecmwf.py:209-220`                                           |
+| `M4` | Medium   | Solved | `download()` docstring still references the legacy `dataset` parameter                        | `src/earth2observe/ecmwf.py:209-220`                                           |
 | `L1` | Low      | Closed | `HISTORY.rst` deletion is unrelated to the cdsapi migration                                   | `HISTORY.rst`                                                                  |
 | `L2` | Low      | Open   | `chirps.py` / `s3.py` docstrings remain numpy-style — internal inconsistency                  | `src/earth2observe/chirps.py`, `src/earth2observe/s3.py`                       |
 | `L3` | Low      | Solved | `Earth2Observe` module does not import ECMWF                                                  | `src/earth2observe/earth2observe.py:1-3`                                       |

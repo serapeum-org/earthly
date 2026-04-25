@@ -196,43 +196,78 @@ class ECMWF(AbstractDataSource):
         lon_lim = [lon_lim_floor, lon_lim_ceil]
         return {"lat_lim": lat_lim, "lon_lim": lon_lim}
 
-    def download(
-        self, dataset: str = "interim", progress_bar: bool = True, *args, **kwargs
-    ):
-        """Download wrapper over all given variables.
+    def download(self, progress_bar: bool = True, *args, **kwargs):
+        """Download every variable in ``self.vars`` from CDS.
 
-        ECMWF method downloads ECMWF daily data for a given variable, temporal_resolution
-        interval, and spatial extent.
+        Iterates the user-supplied ``variables`` list and, for each
+        short code, looks the variable up in the CDS :class:`Catalog`
+        and delegates to :meth:`download_dataset`. The CDS dataset
+        name is per-variable (``var_info["cds_dataset"]``); there is
+        no global ``dataset`` parameter under the cdsapi flow.
 
+        Args:
+            progress_bar: Whether :meth:`post_download` should print
+                a per-date progress bar inside each variable's
+                post-processing loop. Defaults to ``True``.
+            *args: Reserved; ignored. Kept for forward-compatibility
+                with backend-specific extras callers might pass via
+                :meth:`Earth2Observe.download`.
+            **kwargs: Reserved; ignored. Same rationale as ``*args``.
 
-        Parameters
-        ----------
-        progress_bar : TYPE, optional
-            0 or 1. to display the progress bar
-        dataset:[str]
-            Default is "interim"
+        Returns:
+            None. Per-variable NetCDFs land at
+            ``<self.root_dir>/<file_name>_<cds_dataset>.nc`` and the
+            post-processed per-date GeoTIFFs alongside.
 
-        Returns
-        -------
-        None.
+        Raises:
+            KeyError: If any ``var`` in ``self.vars`` is not in the
+                CDS catalog.
+            Exception: Any error :meth:`api` propagates from
+                :meth:`cdsapi.Client.retrieve`.
+
+        Examples:
+            - End-to-end download via the user-facing
+              :class:`Earth2Observe` facade. Marked
+              ``# doctest: +SKIP`` because it requires a configured
+              ``~/.cdsapirc`` and several minutes of CDS queue time:
+
+                ```python
+                >>> from earth2observe.earth2observe import Earth2Observe
+                >>> e2o = Earth2Observe(  # doctest: +SKIP
+                ...     data_source="ecmwf",
+                ...     temporal_resolution="daily",
+                ...     start="2022-01-01",
+                ...     end="2022-01-01",
+                ...     variables=["2T", "TP"],
+                ...     lat_lim=[4.0, 5.0],
+                ...     lon_lim=[-75.0, -74.0],
+                ...     path="examples/data/era5",
+                ... )
+                >>> e2o.download()  # doctest: +SKIP
+
+                ```
+
+        See Also:
+            :meth:`download_dataset`: Per-variable download +
+                post-processing.
+            :meth:`api`: Builds and submits the cdsapi request.
+            :class:`Catalog`: Resolves short codes to per-variable
+                metadata.
         """
-        # read the datasource catalog
         catalog = Catalog()
 
         for var in self.vars:
-            # Download data
             start = self.time["start_date"]
             end = self.time["end_date"]
             logger.info(
                 f"Download ECMWF {var} data for period {start} till {end}"
             )
             var_info = catalog.get_dataset(var)
-            self.download_dataset(var_info, dataset=dataset, progress_bar=progress_bar)
+            self.download_dataset(var_info, progress_bar=progress_bar)
 
     def download_dataset(
         self,
         var_info: Dict[str, str],
-        dataset: str = "interim",
         progress_bar: bool = True,
     ):
         """Download a single variable from CDS and post-process the NetCDF.
@@ -260,13 +295,6 @@ class ECMWF(AbstractDataSource):
                 :meth:`post_download` for the additional keys
                 (``nc_variable``, optional ``types``) that the
                 post-processing step reads.
-            dataset: Unused legacy parameter retained for backwards
-                compatibility with the old call sites. The CDS
-                dataset is derived per-variable from
-                ``var_info['cds_dataset']``; this argument has no
-                effect on either :meth:`api` or
-                :meth:`post_download` and will be removed in a
-                follow-up. Defaults to ``"interim"``.
             progress_bar: Whether :meth:`post_download` should print
                 a progress bar during the per-date loop. Defaults to
                 ``True``.

@@ -855,6 +855,40 @@ class TestPostDownload:
             f"post_download signature regressed: got {params!r}"
         )
 
+    def test_download_and_download_dataset_signatures_drop_dataset(
+        self, ecmwf_stub
+    ):
+        """``download`` / ``download_dataset`` no longer accept ``dataset``.
+
+        Test scenario:
+            Pre-M1, both methods carried ``dataset: str = "interim"``
+            as a leftover from the MARS flow that no downstream code
+            consumed. After M1 the parameter is removed entirely so
+            tooling and IDEs do not advertise it as a configuration
+            knob.
+        """
+        import inspect
+
+        download_params = list(
+            inspect.signature(ECMWF.download).parameters
+        )
+        assert "dataset" not in download_params, (
+            f"download() should no longer accept 'dataset'; got params="
+            f"{download_params!r}"
+        )
+
+        download_dataset_params = list(
+            inspect.signature(ECMWF.download_dataset).parameters
+        )
+        assert download_dataset_params == [
+            "self",
+            "var_info",
+            "progress_bar",
+        ], (
+            f"download_dataset signature regressed: got "
+            f"{download_dataset_params!r}"
+        )
+
 
 class TestDownloadDataset:
     """Tests for :meth:`ECMWF.download_dataset` after the C1 call-site fix."""
@@ -873,10 +907,9 @@ class TestDownloadDataset:
         """
         ecmwf_stub.api = MagicMock(return_value=ecmwf_stub.root_dir / "x.nc")
         ecmwf_stub.post_download = MagicMock()
-        ecmwf_stub.path = ecmwf_stub.root_dir
 
         ecmwf_stub.download_dataset(
-            single_level_var_info, dataset="interim", progress_bar=False
+            single_level_var_info, progress_bar=False
         )
 
         assert ecmwf_stub.api.call_count == 1, (
@@ -906,7 +939,7 @@ class TestDownloadDataset:
         ecmwf_stub.post_download = MagicMock()
 
         ecmwf_stub.download_dataset(
-            single_level_var_info, dataset="my-ds", progress_bar=True
+            single_level_var_info, progress_bar=True
         )
 
         assert ecmwf_stub.post_download.call_count == 1
