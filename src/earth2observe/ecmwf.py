@@ -622,96 +622,93 @@ class ECMWF(AbstractDataSource):
             nc_path,
         )
 
-        fh = NetCDF.read_file(str(nc_path), read_only=True)
-
         nc_variable = var_info["nc_variable"]
         unit_label = var_info["units"]
         factors_add = var_info["factors_add"]
         factors_mul = var_info["factors_mul"]
         is_flux = var_info.get("types") == "flux"
 
-        Data = fh.read_array(variable=nc_variable)
-        Data_time = fh.variables["time"].read_array()
-        lons = fh.lon
-        lats = fh.lat
+        with NetCDF.read_file(str(nc_path), read_only=True) as fh:
+            Data = fh.read_array(variable=nc_variable)
+            Data_time = fh.variables["time"].read_array()
+            lons = fh.lon
+            lats = fh.lat
 
-        geo_four = np.nanmax(lats)
-        geo_one = np.nanmin(lons)
-        geo = tuple(
-            [
-                geo_one,
-                self.spatial_resolution,
-                0.0,
-                geo_four,
-                0.0,
-                -1 * self.spatial_resolution,
-            ]
-        )
-
-        if progress_bar:
-            total_amount = len(self.time["dates"])
-            amount = 0
-            print_progress_bar(
-                amount, total_amount, prefix="Progress:", suffix="Complete", length=50
+            geo_four = np.nanmax(lats)
+            geo_one = np.nanmin(lons)
+            geo = tuple(
+                [
+                    geo_one,
+                    self.spatial_resolution,
+                    0.0,
+                    geo_four,
+                    0.0,
+                    -1 * self.spatial_resolution,
+                ]
             )
-
-        for date in self.time["dates"]:
-
-            year = date.year
-            month = date.month
-            day = date.day
-
-            start = dt.datetime(year=1900, month=1, day=1)
-            end = dt.datetime(year, month, day)
-            diff = end - start
-            hours_from_start_begin = diff.total_seconds() / 60 / 60
-
-            Date_good = np.zeros(len(Data_time))
-
-            if self.temporal_resolution == "daily":
-                days_later = 1
-            if self.temporal_resolution == "monthly":
-                days_later = calendar.monthrange(year, month)[1]
-
-            Date_good[
-                np.logical_and(
-                    Data_time >= hours_from_start_begin,
-                    Data_time < (hours_from_start_begin + 24 * days_later),
-                )
-            ] = 1
-
-            Data_one = np.zeros(
-                [int(np.sum(Date_good)), int(np.size(Data, 1)), int(np.size(Data, 2))]
-            )
-            Data_one = Data[np.int_(Date_good) == 1, :, :]
-
-            Data_end = factors_mul * np.nanmean(Data_one, 0) + factors_add
-
-            if is_flux:
-                Data_end = Data_end * days_later
-
-            var_output_name = var_info["file_name"]
-
-            name_out = os.path.join(
-                self.root_dir,
-                f"{var_output_name}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif",
-            )
-
-            # Create Tiff files
-            # Raster.Save_as_tiff(name_out, Data_end, geo, "WGS84")
-            # Raster.createRaster(path=name_out, arr=Data_end, geo=geo, epsg="WGS84")
 
             if progress_bar:
-                amount = amount + 1
+                total_amount = len(self.time["dates"])
+                amount = 0
                 print_progress_bar(
-                    amount,
-                    total_amount,
-                    prefix="Progress:",
-                    suffix="Complete",
-                    length=50,
+                    amount, total_amount, prefix="Progress:", suffix="Complete", length=50
                 )
 
-        fh.close()
+            for date in self.time["dates"]:
+
+                year = date.year
+                month = date.month
+                day = date.day
+
+                start = dt.datetime(year=1900, month=1, day=1)
+                end = dt.datetime(year, month, day)
+                diff = end - start
+                hours_from_start_begin = diff.total_seconds() / 60 / 60
+
+                Date_good = np.zeros(len(Data_time))
+
+                if self.temporal_resolution == "daily":
+                    days_later = 1
+                elif self.temporal_resolution == "monthly":
+                    days_later = calendar.monthrange(year, month)[1]
+
+                Date_good[
+                    np.logical_and(
+                        Data_time >= hours_from_start_begin,
+                        Data_time < (hours_from_start_begin + 24 * days_later),
+                    )
+                ] = 1
+
+                Data_one = np.zeros(
+                    [int(np.sum(Date_good)), int(np.size(Data, 1)), int(np.size(Data, 2))]
+                )
+                Data_one = Data[np.int_(Date_good) == 1, :, :]
+
+                Data_end = factors_mul * np.nanmean(Data_one, 0) + factors_add
+
+                if is_flux:
+                    Data_end = Data_end * days_later
+
+                var_output_name = var_info["file_name"]
+
+                name_out = os.path.join(
+                    self.root_dir,
+                    f"{var_output_name}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif",
+                )
+
+                # Create Tiff files
+                # Raster.Save_as_tiff(name_out, Data_end, geo, "WGS84")
+                # Raster.createRaster(path=name_out, arr=Data_end, geo=geo, epsg="WGS84")
+
+                if progress_bar:
+                    amount = amount + 1
+                    print_progress_bar(
+                        amount,
+                        total_amount,
+                        prefix="Progress:",
+                        suffix="Complete",
+                        length=50,
+                    )
 
 
 class Catalog(AbstractCatalog):

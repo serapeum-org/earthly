@@ -716,6 +716,13 @@ class _FakeNetCDFDataset:
     def close(self):
         pass
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        self.close()
+        return False
+
 
 def _install_fake_netcdf(monkeypatch, var_value=273.15):
     """Patch ``earth2observe.ecmwf.NetCDF`` to return :class:`_FakeNetCDFDataset`.
