@@ -178,7 +178,7 @@ flowchart TB
     subgraph ECMWF
         direction TB
         E1[Catalog]
-        E2[(ecmwf_data_catalog.yaml<br/>cds_data_catalog.yaml)]
+        E2[(cds_data_catalog.yaml)]
         E1 --> E2
     end
     subgraph S3
