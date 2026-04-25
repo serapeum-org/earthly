@@ -5,7 +5,7 @@ dependencies:
   - pip >=24.3.1
   - netCDF4 >=1.6.1
   - pandas >=2.2.3
-  - ecmwf-api-client >=1.6.3
+  - cdsapi >=0.7.7
   - earthengine-api >=0.1.324
   - boto3 >=1.26.50
   - joblib >=1.2.0

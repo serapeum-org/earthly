@@ -1009,7 +1009,7 @@ line number lower than every `grep -n "raise AuthenticationError"` line.
 | `H4` | Open   | Delete `ecmwf2_old.py` (imports `ecmwfapi` which is no longer a dep)                                            |
 | `H5` | Open   | Restructure `cds_data_catalog.yaml` to one entry per variable with `cds_dataset` / `cds_variable` / unit fields |
 | `H6` | Open   | Delete obsolete `ecmwf_data_catalog.yaml`                                                                       |
-| `H7` | Open   | Pin `cdsapi >= 0.7.7` in `pyproject.toml` and `[tool.pixi.dependencies]`                                        |
+| `H7` | Closed | Pin `cdsapi >= 0.7.7` in `pyproject.toml` and `[tool.pixi.dependencies]`                                        |
 | `M1` | Open   | Update `docs/authentication.md` for `.cdsapirc` PAT instructions                                                |
 | `M2` | Open   | Update `docs/catalog.md` to describe CDS dataset short names                                                    |
 | `M3` | Open   | Update `docs/data-sources.md` to drop ERA-Interim and default to ERA5                                           |
