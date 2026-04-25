@@ -228,9 +228,6 @@ class ECMWF(AbstractDataSource):
             )
             var_info = catalog.get_dataset(var)
             self.download_dataset(var_info, dataset=dataset, progress_bar=progress_bar)
-        # delete the downloaded netcdf
-        del_ecmwf_dataset = os.path.join(self.root_dir, "data_interim.nc")
-        os.remove(del_ecmwf_dataset)
 
     def download_dataset(
         self,

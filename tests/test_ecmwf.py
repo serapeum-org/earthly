@@ -588,9 +588,7 @@ class TestApiMonthly:
 class TestDownloadIteration:
     """Tests for :meth:`ECMWF.download` iteration (C3)."""
 
-    def test_download_iterates_self_vars_not_self_variables(
-        self, ecmwf_stub, monkeypatch
-    ):
+    def test_download_iterates_self_vars_not_self_variables(self, ecmwf_stub):
         """``download()`` iterates ``self.vars`` (the parent's storage).
 
         Test scenario:
@@ -605,7 +603,6 @@ class TestDownloadIteration:
         """
         ecmwf_stub.vars = ["2T", "TP"]
         ecmwf_stub.download_dataset = MagicMock()
-        monkeypatch.setattr("earth2observe.ecmwf.os.remove", lambda _p: None)
 
         ecmwf_stub.download(progress_bar=False)
 
@@ -624,7 +621,7 @@ class TestDownloadIteration:
             f"got {called_with!r}"
         )
 
-    def test_download_does_not_read_self_variables(self, ecmwf_stub, monkeypatch):
+    def test_download_does_not_read_self_variables(self, ecmwf_stub):
         """``download()`` must not depend on a non-existent ``self.variables``.
 
         Test scenario:
@@ -635,7 +632,6 @@ class TestDownloadIteration:
         """
         ecmwf_stub.vars = ["2T"]
         ecmwf_stub.download_dataset = MagicMock()
-        monkeypatch.setattr("earth2observe.ecmwf.os.remove", lambda _p: None)
         assert not hasattr(ecmwf_stub, "variables"), (
             "Test setup invalid: 'variables' attribute should be absent"
         )
@@ -643,6 +639,34 @@ class TestDownloadIteration:
         ecmwf_stub.download(progress_bar=False)
 
         assert ecmwf_stub.download_dataset.call_count == 1
+
+    def test_download_does_not_attempt_to_delete_legacy_files(
+        self, ecmwf_stub, monkeypatch
+    ):
+        """``download()`` no longer touches the hardcoded ``data_interim.nc``.
+
+        Test scenario:
+            Pre-H3, ``download()`` ended with
+            ``os.remove(os.path.join(self.root_dir, "data_interim.nc"))``
+            — a leftover from the MARS flow that always raised
+            FileNotFoundError under the cdsapi path. Patch ``os.remove``
+            so any call would record itself, then verify that
+            ``download()`` completes without invoking it.
+        """
+        removed = []
+        ecmwf_stub.vars = ["2T"]
+        ecmwf_stub.download_dataset = MagicMock()
+        monkeypatch.setattr(
+            "earth2observe.ecmwf.os.remove",
+            lambda path: removed.append(path),
+        )
+
+        ecmwf_stub.download(progress_bar=False)
+
+        assert removed == [], (
+            f"download() must not call os.remove on legacy paths; "
+            f"got removed={removed!r}"
+        )
 
 
 class TestDownloadDataset:

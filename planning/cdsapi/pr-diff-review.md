@@ -445,7 +445,7 @@ After the Critical / High items are addressed:
 | `C3` | Critical | Solved | `ECMWF.download()` iterates `self.variables` but parent stores `self.vars` — `AttributeError` | `src/earth2observe/ecmwf.py:222`, `src/earth2observe/abstractdatasource.py:62` |
 | `H1` | High     | Open   | `post_download()` reads `data_<dataset>.nc` but `api()` writes `<file_name>_<cds_dataset>.nc` | `src/earth2observe/ecmwf.py:499`                                               |
 | `H2` | High     | Open   | `post_download()` reads obsolete MARS-schema keys (`var_name`, `file name`, `types`)          | `src/earth2observe/ecmwf.py:515-518, 583, 586`                                 |
-| `H3` | High     | Open   | `download()` unconditionally deletes a hardcoded `data_interim.nc` after the loop             | `src/earth2observe/ecmwf.py:228-230`                                           |
+| `H3` | High     | Solved | `download()` unconditionally deletes a hardcoded `data_interim.nc` after the loop             | `src/earth2observe/ecmwf.py:228-230`                                           |
 | `M1` | Medium   | Open   | `download()`'s `dataset="interim"` parameter is dead post-migration                           | `src/earth2observe/ecmwf.py:206-228`                                           |
 | `M2` | Medium   | Open   | `post_download()` docstring still numpy-style with MARS-schema example                        | `src/earth2observe/ecmwf.py:485-498`                                           |
 | `M3` | Medium   | Open   | Test fixture `_ConcreteECMWF` is redundant after H1's `API` stub                              | `tests/test_ecmwf.py:42-66`                                                    |
