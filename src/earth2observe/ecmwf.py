@@ -227,7 +227,7 @@ class ECMWF(AbstractDataSource):
             var_info = catalog.get_dataset(var)
             self.download_dataset(var_info, dataset=dataset, progress_bar=progress_bar)
         # delete the downloaded netcdf
-        del_ecmwf_dataset = os.path.join(self.path, "data_interim.nc")
+        del_ecmwf_dataset = os.path.join(self.root_dir, "data_interim.nc")
         os.remove(del_ecmwf_dataset)
 
     def download_dataset(
@@ -240,7 +240,7 @@ class ECMWF(AbstractDataSource):
 
         Calls :meth:`api` to fetch the raw NetCDF from CDS, then
         :meth:`post_download` to slice it into per-date GeoTIFFs in
-        ``self.path``.
+        ``self.root_dir``.
 
         Args:
             var_info: Variable metadata pulled from ``cds_data_catalog.yaml``
@@ -309,7 +309,7 @@ class ECMWF(AbstractDataSource):
         # trigger the request to the server
         self.api(var_info)
         # process the downloaded data
-        self.post_download(var_info, self.path, dataset, progress_bar)
+        self.post_download(var_info, self.root_dir, dataset, progress_bar)
 
     def api(self, var_info: Dict[str, str]):
         """Build a CDS request and submit it via :class:`cdsapi.Client`.
@@ -446,6 +446,24 @@ class ECMWF(AbstractDataSource):
         self.client.retrieve(dataset, request, str(target))
         return target
 
+    def API(self, *args, **kwargs):  # noqa: N802 — name dictated by the abstract base
+        """Compatibility shim for :meth:`AbstractDataSource.API`.
+
+        The other backends (CHIRPS, S3) implement ``API`` as a
+        per-date download hook. The ECMWF backend works at variable
+        granularity instead and exposes its hook as :meth:`api`
+        (lowercase) accepting a ``var_info`` dict. This stub exists
+        only so :class:`ECMWF` can be instantiated; callers should use
+        :meth:`api` directly.
+
+        Raises:
+            NotImplementedError: Always. ECMWF requests are built and
+                submitted from :meth:`api`, not from this method.
+        """
+        raise NotImplementedError(
+            "ECMWF uses the lowercase api(var_info) — see ECMWF.api"
+        )
+
     @staticmethod
     def send_request(
         server,
@@ -489,7 +507,7 @@ class ECMWF(AbstractDataSource):
             True to display a progress bar
         """
         # Open the downloaded data
-        NC_filename = os.path.join(self.path, f"data_{dataset}.nc")
+        NC_filename = os.path.join(self.root_dir, f"data_{dataset}.nc")
         fh = Dataset(NC_filename, mode="r")
 
         # Get the NC variable parameter
@@ -520,13 +538,13 @@ class ECMWF(AbstractDataSource):
 
         # Create Waitbar
         if progress_bar:
-            total_amount = len(self.dates)
+            total_amount = len(self.time["dates"])
             amount = 0
             print_progress_bar(
                 amount, total_amount, prefix="Progress:", suffix="Complete", length=50
             )
 
-        for date in self.dates:
+        for date in self.time["dates"]:
 
             # Define the year, month and day
             year = date.year

@@ -18,37 +18,61 @@ class AbstractDataSource(ABC):
         fmt: str = "%Y-%m-%d",
         path: str = "",
     ):
-        """
+        """Initialize a data source instance.
 
-        Parameters
-        ----------
-        temporal_resolution (str, optional):
-            [description]. Defaults to 'daily'.
-        start (str, optional):
-            [description]. Defaults to ''.
-        end (str, optional):
-            [description]. Defaults to ''.
-        path (str, optional):
-            Path where you want to save the downloaded data. Defaults to ''.
-        variables (list, optional):
-            Variable code: VariablesInfo('day').descriptions.keys(). Defaults to [].
-        lat_lim (list, optional):
-            [ymin, ymax]. Defaults to None.
-        lon_lim (list, optional):
-            [xmin, xmax]. Defaults to None.
-        fmt (str, optional):
-            [description]. Defaults to "%Y-%m-%d".
+        Captures the return values of the abstract hooks so subclasses
+        do not have to wire them onto ``self`` themselves:
+
+        * ``self.client`` — whatever :meth:`initialize` returns (a CDS
+          client, an S3 client, ``None`` for FTP). Subclasses that
+          assign ``self.client`` inside :meth:`initialize` (e.g.
+          :class:`S3`) keep their own assignment; the parent only sets
+          the attribute when :meth:`initialize` returns a non-``None``
+          value.
+        * ``self.space`` — the dict returned by :meth:`create_grid`,
+          containing ``lat_lim`` and ``lon_lim``. Subclasses that
+          override :meth:`create_grid` to set attributes directly (e.g.
+          :class:`CHIRPS`) and return ``None`` are unaffected.
+        * ``self.time`` — the dict returned by :meth:`check_input_dates`,
+          containing ``start_date``, ``end_date``, ``time_freq`` and
+          ``dates``. Same opt-in semantics as ``self.space``.
+        * ``self.root_dir`` — the absolute :class:`pathlib.Path` of the
+          output directory. ``self.path`` is kept as a legacy alias so
+          older backends (CHIRPS, S3) continue to work.
+
+        Args:
+            start: Inclusive start date as a string. Format controlled
+                by ``fmt``. Defaults to ``None``.
+            end: Inclusive end date as a string. Defaults to ``None``.
+            variables: List of variable short codes to download.
+            temporal_resolution: ``"daily"`` or ``"monthly"``. Defaults
+                to ``"daily"``.
+            lat_lim: ``[lat_min, lat_max]``.
+            lon_lim: ``[lon_min, lon_max]``.
+            fmt: ``strptime`` format for ``start`` / ``end``. Defaults
+                to ``"%Y-%m-%d"``.
+            path: Output directory. Created if it does not exist.
+                Defaults to the current working directory.
         """
-        self.initialize()
+        client = self.initialize()
+        if client is not None:
+            self.client = client
+
         self.temporal_resolution = temporal_resolution
         self.vars = variables
 
-        self.create_grid(lat_lim, lon_lim)
-        self.check_input_dates(start, end, temporal_resolution, fmt)
-        self.path = Path(path).absolute()
-        # Create the directory
-        if not os.path.exists(self.path):
-            os.makedirs(self.path)
+        space = self.create_grid(lat_lim, lon_lim)
+        if isinstance(space, dict):
+            self.space = space
+
+        time = self.check_input_dates(start, end, temporal_resolution, fmt)
+        if isinstance(time, dict):
+            self.time = time
+
+        self.root_dir = Path(path).absolute()
+        self.path = self.root_dir
+        if not os.path.exists(self.root_dir):
+            os.makedirs(self.root_dir)
 
     @abstractmethod
     def check_input_dates(
