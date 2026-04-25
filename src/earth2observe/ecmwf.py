@@ -235,52 +235,77 @@ class ECMWF(AbstractDataSource):
         dataset: str = "interim",
         progress_bar: bool = True,
     ):
-        """Download and post-process a single climate variable.
+        """Download a single variable from CDS and post-process the NetCDF.
 
-        Calls :meth:`api` to fetch the raw NetCDF from CDS, then
-        :meth:`post_download` to slice it into per-date GeoTIFFs in
-        ``self.root_dir``.
+        Two-step pipeline:
+
+        1. :meth:`api` builds the cdsapi request, submits it, and
+           returns the absolute :class:`pathlib.Path` to the NetCDF
+           that CDS wrote.
+        2. :meth:`post_download` opens that exact file, applies the
+           catalog's unit-conversion factors, and slices it into
+           per-date outputs under ``self.root_dir``.
+
+        Threading the path returned by :meth:`api` into
+        :meth:`post_download` (rather than reconstructing a
+        ``data_<dataset>.nc`` filename) is what made the H1 fix:
+        ``api()`` writes ``<file_name>_<cds_dataset>.nc`` while the
+        legacy code was looking for ``data_<dataset>.nc``, so the
+        two never agreed.
 
         Args:
-            var_info: Variable metadata pulled from ``cds_data_catalog.yaml``
-                via :class:`Catalog`. See :meth:`api` for the required keys.
-            dataset: Legacy dataset selector retained for the post-download
-                stage only. The CDS dataset name itself is now derived from
-                ``var_info['cds_dataset']`` and not from this argument.
-                Defaults to ``"interim"``.
-            progress_bar: Whether :meth:`post_download` should print a
-                progress bar during the per-date loop. Defaults to ``True``.
+            var_info: Variable metadata pulled from
+                ``cds_data_catalog.yaml`` via :class:`Catalog`. See
+                :meth:`api` for the keys :meth:`api` requires and
+                :meth:`post_download` for the additional keys
+                (``nc_variable``, optional ``types``) that the
+                post-processing step reads.
+            dataset: Unused legacy parameter retained for backwards
+                compatibility with the old call sites. The CDS
+                dataset is derived per-variable from
+                ``var_info['cds_dataset']``; this argument has no
+                effect on either :meth:`api` or
+                :meth:`post_download` and will be removed in a
+                follow-up. Defaults to ``"interim"``.
+            progress_bar: Whether :meth:`post_download` should print
+                a progress bar during the per-date loop. Defaults to
+                ``True``.
 
         Returns:
             None.
 
         Raises:
-            KeyError: If ``var_info`` is missing one of the keys required by
-                :meth:`api` (``cds_dataset``, ``cds_variable``, or
-                ``file_name``).
+            KeyError: If ``var_info`` is missing one of the keys
+                required by :meth:`api` (``cds_dataset``,
+                ``cds_variable``, ``file_name``) or by
+                :meth:`post_download` (``nc_variable``, ``units``,
+                ``factors_add``, ``factors_mul``).
 
         Examples:
-            - The catalog ships ``var_info`` dicts ready for this method;
-              inspect one to see the required shape:
+            - The catalog ships ``var_info`` dicts ready for this
+              method; inspect the keys this two-step pipeline reads:
 
                 ```python
                 >>> var_info = {
                 ...     "cds_dataset": "reanalysis-era5-single-levels",
                 ...     "cds_variable": "2m_temperature",
+                ...     "nc_variable": "t2m",
+                ...     "types": "state",
+                ...     "units": "C",
                 ...     "file_name": "Tair",
                 ...     "factors_add": -273.15,
                 ...     "factors_mul": 1,
                 ... }
-                >>> var_info["cds_variable"]
-                '2m_temperature'
-                >>> sorted(var_info)[:3]
-                ['cds_dataset', 'cds_variable', 'factors_add']
+                >>> var_info["cds_variable"], var_info["nc_variable"]
+                ('2m_temperature', 't2m')
+                >>> f"{var_info['file_name']}_{var_info['cds_dataset']}.nc"
+                'Tair_reanalysis-era5-single-levels.nc'
 
                 ```
-            - Download via the user-facing :class:`Earth2Observe` facade
-              (recommended). Marked ``# doctest: +SKIP`` because it
-              requires a configured ``~/.cdsapirc`` and several minutes of
-              CDS queue time:
+            - Download via the user-facing :class:`Earth2Observe`
+              facade (recommended). Marked ``# doctest: +SKIP``
+              because it requires a configured ``~/.cdsapirc`` and
+              several minutes of CDS queue time:
 
                 ```python
                 >>> from earth2observe.earth2observe import Earth2Observe  # doctest: +SKIP
@@ -299,16 +324,16 @@ class ECMWF(AbstractDataSource):
                 ```
 
         See Also:
-            :meth:`api`: Builds and submits the CDS request.
-            :meth:`post_download`: Slices the downloaded NetCDF into
-                per-date GeoTIFFs.
+            :meth:`api`: Builds and submits the CDS request, returns
+                the path to the NetCDF.
+            :meth:`post_download`: Reads the NetCDF at the path
+                produced by :meth:`api`, applies unit conversions,
+                slices into per-date outputs.
             :class:`Catalog`: Loads ``var_info`` dicts from
                 ``cds_data_catalog.yaml``.
         """
-        # trigger the request to the server
-        self.api(var_info)
-        # process the downloaded data
-        self.post_download(var_info, self.root_dir, dataset, progress_bar)
+        nc_path = self.api(var_info)
+        self.post_download(var_info, nc_path, progress_bar)
 
     def api(self, var_info: Dict[str, str]):
         """Build a CDS request and submit it via :class:`cdsapi.Client`.
@@ -479,50 +504,59 @@ class ECMWF(AbstractDataSource):
         )
 
     def post_download(
-        self, var_info: Dict[str, str], out_dir, dataset: str, progress_bar: bool = True
+        self, var_info: Dict[str, str], nc_path, progress_bar: bool = True
     ):
-        """clip the downloaded data to the extent we want.
+        """Slice the downloaded NetCDF into per-date GeoTIFFs.
 
-        Parameters
-        ----------
-        var_info: [str]
-            variable detailed information
-            >>> {
-            >>>     'descriptions': 'Evaporation [m of water]',
-            >>>     'units': 'mm',
-            >>>     'types': 'flux',
-            >>>     'temporal resolution': ['six hours', 'daily', 'monthly'],
-            >>>     'file name': 'Evaporation',
-            >>>     'download type': 2,
-            >>>     'number_para': 182,
-            >>>     'var_name': 'e',
-            >>>     'factors_add': 0,
-            >>>     'factors_mul': 1000
-            >>> }
-        out_dir: [str]
-            root directory for where the files will be saved.
-        dataset: [str]
-            dataset name. Default is interm
-        progress_bar: [bool]
-            True to display a progress bar
+        Reads the NetCDF written by :meth:`api`, applies the
+        unit-conversion factors from the catalog, and produces one
+        per-date output under ``self.root_dir``.
+
+        Args:
+            var_info: Catalog metadata for the variable. Required keys:
+
+                * ``nc_variable`` — short variable name inside the
+                  CDS NetCDF (e.g. ``"t2m"`` for 2-metre temperature),
+                  used to index ``fh.variables[...]``. Differs from
+                  ``cds_variable`` (which is the request name).
+                * ``file_name`` — stem used for the output TIF name.
+                * ``units`` — output unit string used in the output
+                  file name.
+                * ``factors_add`` / ``factors_mul`` — additive offset
+                  and multiplicative scale applied to each cell.
+
+                Optional keys:
+
+                * ``types`` — ``"flux"`` or ``"state"``. Flux values
+                  are accumulated per timestep on CDS, so monthly
+                  aggregation multiplies by the number of days in the
+                  month. Defaults to ``"state"`` when absent.
+
+            nc_path: Path to the NetCDF written by :meth:`api`. Either
+                a :class:`pathlib.Path` or a string is accepted.
+            progress_bar: Whether to print a per-date progress bar.
+                Defaults to ``True``.
+
+        Returns:
+            None. Per-date TIF writing via :mod:`pyramids` is currently
+            stubbed (commented out below the unit-conversion); the
+            method runs the read / slice / convert pipeline so callers
+            can verify the request shape end-to-end and is wired up to
+            output once the GeoTIFF integration is restored.
         """
-        # Open the downloaded data
-        NC_filename = os.path.join(self.root_dir, f"data_{dataset}.nc")
-        fh = Dataset(NC_filename, mode="r")
+        fh = Dataset(str(nc_path), mode="r")
 
-        # Get the NC variable parameter
-        parameter_var = var_info.get("var_name")
-        Var_unit = var_info.get("units")
-        factors_add = var_info.get("factors_add")
-        factors_mul = var_info.get("factors_mul")
+        nc_variable = var_info["nc_variable"]
+        unit_label = var_info["units"]
+        factors_add = var_info["factors_add"]
+        factors_mul = var_info["factors_mul"]
+        is_flux = var_info.get("types") == "flux"
 
-        # Open the NC data
-        Data = fh.variables[parameter_var][:]
+        Data = fh.variables[nc_variable][:]
         Data_time = fh.variables["time"][:]
         lons = fh.variables["longitude"][:]
         lats = fh.variables["latitude"][:]
 
-        # Define the georeference information
         geo_four = np.nanmax(lats)
         geo_one = np.nanmin(lons)
         geo = tuple(
@@ -536,7 +570,6 @@ class ECMWF(AbstractDataSource):
             ]
         )
 
-        # Create Waitbar
         if progress_bar:
             total_amount = len(self.time["dates"])
             amount = 0
@@ -546,12 +579,10 @@ class ECMWF(AbstractDataSource):
 
         for date in self.time["dates"]:
 
-            # Define the year, month and day
             year = date.year
             month = date.month
             day = date.day
 
-            # Hours since 1900-01-01
             start = dt.datetime(year=1900, month=1, day=1)
             end = dt.datetime(year, month, day)
             diff = end - start
@@ -576,18 +607,16 @@ class ECMWF(AbstractDataSource):
             )
             Data_one = Data[np.int_(Date_good) == 1, :, :]
 
-            # convert the values to the units we want
             Data_end = factors_mul * np.nanmean(Data_one, 0) + factors_add
 
-            if var_info.get("types") == "flux":
+            if is_flux:
                 Data_end = Data_end * days_later
 
-            var_output_name = var_info.get("file name")
+            var_output_name = var_info["file_name"]
 
-            # Define the out name
             name_out = os.path.join(
-                out_dir,
-                f"{var_output_name}_ECMWF_ERA-Interim_{Var_unit}_{self.temporal_resolution}_{year}.{month}.{day}.tif",
+                self.root_dir,
+                f"{var_output_name}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif",
             )
 
             # Create Tiff files

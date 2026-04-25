@@ -13,6 +13,15 @@
 #                           retrieve() request, e.g. "2m_temperature".
 #     cds_pressure_level:   Optional. List of pressure levels (strings) for
 #                           pressure-level datasets, e.g. ["1000"].
+#     nc_variable:          Required for post_download. Short variable name
+#                           used inside the NetCDF that CDS returns
+#                           (e.g. "t2m" for 2m_temperature, "tp" for
+#                           total_precipitation). Differs from cds_variable.
+#     types:                Optional. "flux" or "state". Flux variables are
+#                           accumulated per timestep on CDS, so post_download
+#                           multiplies by the number of days in the slice
+#                           when aggregating monthly. State variables are
+#                           instantaneous and need no scaling.
 #     units:                Output unit after factors_add / factors_mul are
 #                           applied (used by post_download for file naming).
 #     file_name:            Stem used for the output NetCDF / GeoTIFF
@@ -41,19 +50,23 @@ variables:
 
   # ----- single-level variables -----
 
-  2T:
+  "2T":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 2m_temperature
+    nc_variable: t2m
+    types: state
     units: C
     file_name: Tair
     factors_add: -273.15
     factors_mul: 1
 
-  2D:
+  "2D":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 2m_dewpoint_temperature
+    nc_variable: d2m
+    types: state
     units: C
     file_name: Dewpoint2m
     factors_add: -273.15
@@ -63,6 +76,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: surface_pressure
+    nc_variable: sp
+    types: state
     units: kPa
     file_name: Psurf
     factors_add: 0
@@ -72,6 +87,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: total_precipitation
+    nc_variable: tp
+    types: flux
     units: mm
     file_name: P
     factors_add: 0
@@ -81,6 +98,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: evaporation
+    nc_variable: e
+    types: flux
     units: mm
     file_name: Evaporation
     factors_add: 0
@@ -90,6 +109,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: runoff
+    nc_variable: ro
+    types: flux
     units: mm
     file_name: Runoff
     factors_add: 0
@@ -99,6 +120,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: surface_runoff
+    nc_variable: sro
+    types: flux
     units: mm
     file_name: Surf_Runoff
     factors_add: 0
@@ -108,33 +131,41 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: sub_surface_runoff
+    nc_variable: ssro
+    types: flux
     units: mm
     file_name: Subsurf_Runoff
     factors_add: 0
     factors_mul: 1000
 
-  10U:
+  "10U":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 10m_u_component_of_wind
+    nc_variable: u10
+    types: state
     units: m_s-1
     file_name: Wind_U
     factors_add: 0
     factors_mul: 1
 
-  10V:
+  "10V":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 10m_v_component_of_wind
+    nc_variable: v10
+    types: state
     units: m_s-1
     file_name: Wind_V
     factors_add: 0
     factors_mul: 1
 
-  10SI:
+  "10SI":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 10m_wind_speed
+    nc_variable: si10
+    types: state
     units: m_s-1
     file_name: Wind10m
     factors_add: 0
@@ -144,6 +175,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: forecast_albedo
+    nc_variable: fal
+    types: state
     units: unitless
     file_name: Albedo
     factors_add: 0
@@ -153,6 +186,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: high_cloud_cover
+    nc_variable: hcc
+    types: state
     units: unitless
     file_name: HighCloudCover
     factors_add: 0
@@ -162,6 +197,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: forecast_surface_roughness
+    nc_variable: fsr
+    types: state
     units: m
     file_name: SurfRoughness
     factors_add: 0
@@ -171,6 +208,8 @@ variables:
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: surface_net_solar_radiation
+    nc_variable: ssr
+    types: flux
     units: J_m-2
     file_name: SWnet
     factors_add: 0
@@ -183,6 +222,8 @@ variables:
     cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
     cds_variable: temperature
     cds_pressure_level: ["1000"]
+    nc_variable: t
+    types: state
     units: C
     file_name: Tair2m
     factors_add: -273.15
@@ -193,6 +234,8 @@ variables:
     cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
     cds_variable: specific_humidity
     cds_pressure_level: ["1000"]
+    nc_variable: q
+    types: state
     units: kg_kg-1
     file_name: Qair
     factors_add: 0
@@ -203,6 +246,8 @@ variables:
     cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
     cds_variable: relative_humidity
     cds_pressure_level: ["1000"]
+    nc_variable: r
+    types: state
     units: percentage
     file_name: RelQair
     factors_add: 0

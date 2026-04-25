@@ -669,6 +669,193 @@ class TestDownloadIteration:
         )
 
 
+class _FakeNetCDFDataset:
+    """In-memory stand-in for :class:`netCDF4.Dataset` used in post_download tests.
+
+    Returns numpy arrays for the four variables ``post_download``
+    indexes (``<nc_variable>``, ``time``, ``longitude``, ``latitude``)
+    so the function runs end-to-end without touching the file system or
+    the real netCDF4 library. The factory captures every constructor
+    call so tests can assert which file path was opened.
+    """
+
+    instances = []
+
+    def __init__(self, path, mode="r"):
+        import numpy as np
+        type(self).instances.append((path, mode))
+        time_axis = np.arange(0, 24 * 4, 6, dtype=float) + (
+            (pd.Timestamp("2022-01-01") - pd.Timestamp("1900-01-01")).total_seconds()
+            / 3600
+        )
+        self.variables = {
+            "time": np.array(time_axis),
+            "longitude": np.linspace(-75.0, -74.0, 9),
+            "latitude": np.linspace(5.0, 4.0, 9),
+        }
+        self._fake_data = np.full((len(time_axis), 9, 9), 273.15, dtype=float)
+
+    def __setitem__(self, name, array):
+        self.variables[name] = array
+
+    def close(self):
+        pass
+
+
+def _install_fake_netcdf(monkeypatch, var_value=273.15):
+    """Patch ``netCDF4.Dataset`` to return :class:`_FakeNetCDFDataset` instances.
+
+    Args:
+        monkeypatch: pytest's monkeypatch fixture.
+        var_value: Constant the fake will fill the variable array with
+            (in Kelvin for temperature; the post_download factors then
+            convert to Celsius).
+
+    Returns:
+        list: The class-level ``_FakeNetCDFDataset.instances`` list, so
+        tests can assert the path that was opened.
+    """
+    import numpy as np
+    _FakeNetCDFDataset.instances = []
+
+    def _factory(path, mode="r"):
+        ds = _FakeNetCDFDataset(path, mode)
+        ds.variables.setdefault(
+            "t2m", np.full(ds._fake_data.shape, var_value, dtype=float)
+        )
+        ds.variables.setdefault(
+            "tp", np.full(ds._fake_data.shape, 0.001, dtype=float)
+        )
+        return ds
+
+    monkeypatch.setattr("earth2observe.ecmwf.Dataset", _factory)
+    return _FakeNetCDFDataset.instances
+
+
+class TestPostDownload:
+    """Tests for the H1+H2+M2 rewrite of :meth:`ECMWF.post_download`."""
+
+    def test_post_download_opens_path_returned_by_api(
+        self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
+    ):
+        """``post_download`` opens the path it was given, not a hardcoded one.
+
+        Test scenario:
+            After H1, ``post_download`` reads the NetCDF at the path
+            argument it receives — no ``os.path.join(self.root_dir,
+            f"data_{dataset}.nc")`` reconstruction. Patch
+            ``netCDF4.Dataset`` to record every open() and verify the
+            single recorded path is the one passed in.
+        """
+        single_level_var_info["nc_variable"] = "t2m"
+        instances = _install_fake_netcdf(monkeypatch)
+        nc_path = tmp_path / "Tair_reanalysis-era5-single-levels.nc"
+
+        ecmwf_stub.post_download(
+            single_level_var_info, nc_path, progress_bar=False
+        )
+
+        assert len(instances) == 1, (
+            f"Expected exactly one Dataset open; got {len(instances)}"
+        )
+        opened_path, mode = instances[0]
+        assert opened_path == str(nc_path), (
+            f"Should open the path returned by api(); got {opened_path!r}, "
+            f"expected {str(nc_path)!r}"
+        )
+        assert mode == "r", f"Expected read mode 'r'; got {mode!r}"
+
+    def test_post_download_uses_nc_variable_not_var_name(
+        self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
+    ):
+        """``post_download`` indexes ``fh.variables[nc_variable]``.
+
+        Test scenario:
+            Pre-H2, the function used ``var_info.get("var_name")``
+            (a MARS-only key) which always resolved to ``None`` —
+            ``fh.variables[None]`` raised. The new code reads
+            ``var_info["nc_variable"]``. Test passes when the function
+            completes without raising.
+        """
+        single_level_var_info["nc_variable"] = "t2m"
+        _install_fake_netcdf(monkeypatch)
+
+        ecmwf_stub.post_download(
+            single_level_var_info,
+            tmp_path / "out.nc",
+            progress_bar=False,
+        )
+
+    def test_post_download_uses_underscore_file_name(
+        self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
+    ):
+        """``post_download`` reads ``var_info["file_name"]`` (no space).
+
+        Test scenario:
+            Pre-H2, the function read ``var_info.get("file name")``
+            with a space, which the new catalog never carries. With
+            the new key in place, post_download should run without
+            ever raising ``KeyError``. The legacy spaced key must not
+            satisfy the lookup.
+        """
+        single_level_var_info["nc_variable"] = "t2m"
+        # Inject the legacy spaced key with a sentinel value that
+        # would surface in the output file name if it were used.
+        single_level_var_info["file name"] = "LEGACY_NAME_SHOULD_NOT_BE_USED"
+        _install_fake_netcdf(monkeypatch)
+
+        ecmwf_stub.post_download(
+            single_level_var_info,
+            tmp_path / "out.nc",
+            progress_bar=False,
+        )
+
+    def test_post_download_raises_on_missing_required_keys(
+        self, ecmwf_stub, monkeypatch, tmp_path
+    ):
+        """Missing required keys raise ``KeyError`` immediately.
+
+        Test scenario:
+            ``post_download`` requires ``nc_variable``, ``units``,
+            ``file_name``, ``factors_add`` and ``factors_mul``. A
+            var_info that is missing ``nc_variable`` must surface a
+            ``KeyError`` from the dict lookup rather than silently
+            indexing ``fh.variables[None]``.
+        """
+        _install_fake_netcdf(monkeypatch)
+        var_info_missing = {
+            "units": "C",
+            "file_name": "Tair",
+            "factors_add": 0.0,
+            "factors_mul": 1.0,
+        }
+
+        with pytest.raises(KeyError, match="nc_variable"):
+            ecmwf_stub.post_download(
+                var_info_missing,
+                tmp_path / "out.nc",
+                progress_bar=False,
+            )
+
+    def test_post_download_does_not_carry_legacy_signature(self, ecmwf_stub):
+        """The signature is ``post_download(var_info, nc_path, progress_bar)``.
+
+        Test scenario:
+            The pre-H1 signature was ``(var_info, out_dir, dataset,
+            progress_bar)``. Pin the new shape so a future refactor
+            that re-introduces the ``dataset`` positional argument
+            fails this test instead of silently working with the
+            wrong meaning.
+        """
+        import inspect
+
+        sig = inspect.signature(ECMWF.post_download)
+        params = list(sig.parameters)
+        assert params == ["self", "var_info", "nc_path", "progress_bar"], (
+            f"post_download signature regressed: got {params!r}"
+        )
+
+
 class TestDownloadDataset:
     """Tests for :meth:`ECMWF.download_dataset` after the C1 call-site fix."""
 
@@ -701,20 +888,22 @@ class TestDownloadDataset:
             f"api() must be called as api(var_info); got args={args}"
         )
 
-    def test_post_download_still_receives_dataset_name(
+    def test_post_download_receives_path_returned_by_api(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``post_download`` keeps its ``dataset`` argument.
+        """``post_download`` is called with the path :meth:`api` returned.
 
         Test scenario:
-            The legacy ``post_download`` flow is out of C1's scope and
-            still receives the ``dataset`` argument from
-            ``download_dataset`` so further migration tasks can
-            iteratively replace it.
+            After H1, ``download_dataset`` captures the
+            :class:`pathlib.Path` returned by :meth:`api` and threads
+            it into :meth:`post_download` so the post-processing step
+            opens the very same NetCDF that cdsapi just wrote — not a
+            hardcoded ``data_<dataset>.nc`` filename derived from a
+            stale parameter.
         """
-        ecmwf_stub.api = MagicMock(return_value=ecmwf_stub.root_dir / "x.nc")
+        api_target = ecmwf_stub.root_dir / "Tair_reanalysis-era5-single-levels.nc"
+        ecmwf_stub.api = MagicMock(return_value=api_target)
         ecmwf_stub.post_download = MagicMock()
-        ecmwf_stub.path = ecmwf_stub.root_dir
 
         ecmwf_stub.download_dataset(
             single_level_var_info, dataset="my-ds", progress_bar=True
@@ -725,10 +914,11 @@ class TestDownloadDataset:
         assert args[0] == single_level_var_info, (
             f"first arg must be var_info; got {args[0]!r}"
         )
-        assert args[2] == "my-ds", (
-            f"dataset name must be threaded through; got args={args}"
+        assert args[1] == api_target, (
+            f"second arg must be the path returned by api(); "
+            f"got {args[1]!r}, expected {api_target!r}"
         )
-        assert args[3] is True, (
+        assert args[2] is True, (
             f"progress_bar must be threaded through; got args={args}"
         )
 
