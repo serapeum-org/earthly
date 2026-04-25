@@ -26,7 +26,9 @@ from unittest.mock import MagicMock
 import pandas as pd
 import pytest
 
-from earth2observe.ecmwf import ECMWF
+import cdsapi
+
+from earth2observe.ecmwf import ECMWF, AuthenticationError
 
 
 class _ConcreteECMWF(ECMWF):
@@ -492,6 +494,119 @@ class TestDownloadDataset:
         assert args[3] is True, (
             f"progress_bar must be threaded through; got args={args}"
         )
+
+
+class _SentinelClient:
+    """Minimal stand-in for :class:`cdsapi.Client` used in initialize tests."""
+
+
+class TestInitialize:
+    """Tests for :meth:`ECMWF.initialize` after the H3 fix.
+
+    These tests patch the ``Client`` attribute on the ``cdsapi`` module
+    directly. ``cdsapi.Client.__new__`` is a factory that may return a
+    :class:`LegacyClient` instead — patching ``__init__`` does not
+    reliably intercept that path, so we replace the callable that
+    ``ECMWF.initialize`` actually invokes.
+    """
+
+    def test_returns_constructed_client_when_credentials_valid(
+        self, monkeypatch
+    ):
+        """``initialize()`` returns whatever ``cdsapi.Client()`` returns.
+
+        Test scenario:
+            With ``cdsapi.Client`` patched to a stub factory that
+            yields a sentinel object, ``initialize()`` must return the
+            very same sentinel — proving it does not double-wrap or
+            otherwise transform the client on the happy path.
+        """
+        sentinel = _SentinelClient()
+        monkeypatch.setattr(cdsapi, "Client", lambda: sentinel)
+        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        result = ecmwf.initialize()
+        assert result is sentinel, (
+            f"initialize() should return the constructed client; "
+            f"got {result!r}"
+        )
+
+    def test_raises_authentication_error_when_cdsapi_raises(
+        self, monkeypatch
+    ):
+        """A failing ``cdsapi.Client()`` is wrapped in AuthenticationError.
+
+        Test scenario:
+            When the CDS client constructor raises (typically because
+            ``~/.cdsapirc`` is missing or malformed), ``initialize()``
+            must catch *any* exception type — not only ``KeyError`` as
+            the pre-H3 code did — and re-raise it wrapped in
+            :class:`AuthenticationError` whose ``__cause__`` is the
+            original error.
+        """
+        original = RuntimeError("no .cdsapirc")
+
+        def boom():
+            raise original
+
+        monkeypatch.setattr(cdsapi, "Client", boom)
+        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        with pytest.raises(AuthenticationError) as excinfo:
+            ecmwf.initialize()
+        assert excinfo.value.__cause__ is original, (
+            f"AuthenticationError should chain the original error; "
+            f"__cause__ is {excinfo.value.__cause__!r}"
+        )
+
+    def test_error_message_points_at_cdsapirc(self, monkeypatch):
+        """The error message names ``~/.cdsapirc`` and the setup URL.
+
+        Test scenario:
+            The H3 acceptance criterion: a user reading the message
+            should know exactly which file to create and where to find
+            the official setup guide. The message must mention
+            ``~/.cdsapirc`` and link to
+            ``https://cds.climate.copernicus.eu/how-to-api``.
+        """
+        def boom():
+            raise Exception("missing config")
+
+        monkeypatch.setattr(cdsapi, "Client", boom)
+        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        with pytest.raises(AuthenticationError) as excinfo:
+            ecmwf.initialize()
+        message = str(excinfo.value)
+        assert "~/.cdsapirc" in message, (
+            f"Error message should mention ~/.cdsapirc; got: {message}"
+        )
+        assert "cds.climate.copernicus.eu/how-to-api" in message, (
+            f"Error message should link to the cdsapi how-to; "
+            f"got: {message}"
+        )
+
+    def test_error_message_does_not_reference_legacy_env_vars(
+        self, monkeypatch
+    ):
+        """The error message must not reference the dead env vars.
+
+        Test scenario:
+            The pre-H3 message told users to set ``ECMWF_API_URL`` /
+            ``ECMWF_API_KEY`` / ``ECMWF_API_EMAIL`` — none of which
+            cdsapi reads. Following that advice was a dead end; the
+            new message must not perpetuate it.
+        """
+        def boom():
+            raise Exception("missing config")
+
+        monkeypatch.setattr(cdsapi, "Client", boom)
+        ecmwf = _ConcreteECMWF.__new__(_ConcreteECMWF)
+        with pytest.raises(AuthenticationError) as excinfo:
+            ecmwf.initialize()
+        message = str(excinfo.value)
+        for legacy in ("ECMWF_API_URL", "ECMWF_API_KEY", "ECMWF_API_EMAIL"):
+            assert legacy not in message, (
+                f"Legacy env var {legacy!r} must not appear in the H3 "
+                f"error message; got: {message}"
+            )
 
 
 @pytest.mark.skipif(

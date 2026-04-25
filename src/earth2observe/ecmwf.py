@@ -119,17 +119,56 @@ class ECMWF(AbstractDataSource):
         return {"start_date": start, "end_date": end, "time_freq": time_freq, "dates": dates}
 
     def initialize(self):
-        """Initialize connection with ECMWF server."""
+        """Construct the :class:`cdsapi.Client` for talking to CDS.
+
+        Reads credentials from ``~/.cdsapirc`` (or the ``CDSAPI_URL`` /
+        ``CDSAPI_KEY`` environment variables, which cdsapi falls back to
+        when the dotfile is absent). If neither is configured, the
+        underlying cdsapi exception is wrapped in
+        :class:`AuthenticationError` with a message that tells the user
+        exactly where to put their Personal Access Token.
+
+        Returns:
+            cdsapi.Client: Authenticated CDS client. Calls to
+            ``client.retrieve(...)`` use this connection.
+
+        Raises:
+            AuthenticationError: If cdsapi cannot construct a Client —
+                typically because ``~/.cdsapirc`` is missing,
+                malformed, or contains an old-API-style ``email`` line.
+
+        Examples:
+            - Construct a client when credentials are properly
+              configured. Marked ``# doctest: +SKIP`` because it
+              requires a real ``~/.cdsapirc``:
+
+                ```python
+                >>> ecmwf = ECMWF(  # doctest: +SKIP
+                ...     start="2022-01-01",
+                ...     end="2022-01-01",
+                ...     variables=["2T"],
+                ...     lat_lim=[4.0, 5.0],
+                ...     lon_lim=[-75.0, -74.0],
+                ...     path="examples/data/era5",
+                ... )
+
+                ```
+        """
         try:
-            # url = os.environ["ECMWF_API_URL"]
-            # key = os.environ["ECMWF_API_KEY"]
-            # email = os.environ["ECMWF_API_EMAIL"]
             client = cdsapi.Client()
-        except KeyError:
+        except Exception as exc:
             raise AuthenticationError(
-                "Please define the following environment variables to successfully establish a "
-                "connection with ecmwf server ECMWF_API_URL, ECMWF_API_KEY, ECMWF_API_EMAIL"
-            )
+                "cdsapi could not authenticate against the Climate Data "
+                "Store. Create ~/.cdsapirc (Windows: "
+                "C:\\Users\\<USER>\\.cdsapirc) with:\n"
+                "    url: https://cds.climate.copernicus.eu/api\n"
+                "    key: <YOUR-PERSONAL-ACCESS-TOKEN>\n"
+                "Generate a Personal Access Token at "
+                "https://cds.climate.copernicus.eu/profile and accept the "
+                "licence for each dataset you intend to download. See "
+                "https://cds.climate.copernicus.eu/how-to-api for the "
+                "full setup guide."
+            ) from exc
 
         return client
 
