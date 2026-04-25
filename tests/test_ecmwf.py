@@ -1454,6 +1454,41 @@ class TestCatalog:
                 f"{code} still carries MARS-only keys {stale}: {info}"
             )
 
+    def test_get_catalog_raises_on_empty_variables(self, monkeypatch, tmp_path):
+        """A YAML missing ``variables:`` raises ``ValueError``.
+
+        Test scenario:
+            Pre-M2, ``Catalog.get_catalog`` returned ``{}`` when the
+            top-level ``variables`` key was absent or empty, then every
+            subsequent ``get_dataset(code)`` raised ``KeyError`` —
+            misleading the user about *which* file is broken. M2
+            promotes the silent empty-fallback to an explicit
+            ``ValueError`` naming the catalog path.
+        """
+        empty_yaml = tmp_path / "cds_data_catalog.yaml"
+        empty_yaml.write_text("version: 2\ndatasets: []\n", encoding="utf-8")
+        from earth2observe import ecmwf as ecmwf_module
+
+        monkeypatch.setattr(ecmwf_module, "__path__", [str(tmp_path)])
+        with pytest.raises(ValueError, match="variables"):
+            Catalog()
+
+    def test_get_catalog_raises_on_null_variables(self, monkeypatch, tmp_path):
+        """A YAML with ``variables: null`` also raises ``ValueError``.
+
+        Test scenario:
+            yaml.safe_load resolves ``variables:`` (no value) to
+            ``None``. The empty-check covers both the missing-key
+            and the explicit-null cases.
+        """
+        null_yaml = tmp_path / "cds_data_catalog.yaml"
+        null_yaml.write_text("variables:\n", encoding="utf-8")
+        from earth2observe import ecmwf as ecmwf_module
+
+        monkeypatch.setattr(ecmwf_module, "__path__", [str(tmp_path)])
+        with pytest.raises(ValueError, match="variables"):
+            Catalog()
+
 
 @pytest.mark.skipif(
     os.environ.get("RUN_CDS_E2E") != "1",

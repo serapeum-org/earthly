@@ -761,14 +761,28 @@ class Catalog(AbstractCatalog):
         """Read ``cds_data_catalog.yaml`` and return the per-variable map.
 
         Returns:
-            dict: The contents of the YAML file's top-level ``variables``
-            key. Empty dict if the key is absent.
+            dict: The non-empty per-variable map loaded from the
+            YAML file's top-level ``variables`` key.
+
+        Raises:
+            ValueError: If the file is missing the ``variables`` key,
+                or it is present but empty / null. Pre-fix, this
+                returned ``{}`` silently and every subsequent
+                ``get_dataset(code)`` call raised ``KeyError`` —
+                misleading the user about which file is broken.
         """
-        with open(
-            f"{__path__[0]}/cds_data_catalog.yaml", "r", encoding="utf-8"
-        ) as stream:
+        catalog_path = f"{__path__[0]}/cds_data_catalog.yaml"
+        with open(catalog_path, "r", encoding="utf-8") as stream:
             data = yaml.safe_load(stream) or {}
-        return data.get("variables", {})
+        variables = data.get("variables")
+        if not variables:
+            raise ValueError(
+                f"{catalog_path} is missing or has an empty "
+                "'variables' key. The catalog must contain at least "
+                "one variable definition. See the schema header at "
+                "the top of the file."
+            )
+        return variables
 
     def get_dataset(self, var_name):
         """Return the metadata dict for ``var_name``.
