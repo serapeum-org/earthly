@@ -572,6 +572,14 @@ class ECMWF(AbstractDataSource):
             can verify the request shape end-to-end and is wired up to
             output once the GeoTIFF integration is restored.
         """
+        logger.warning(
+            "ECMWF.post_download: GeoTIFF output is currently disabled "
+            "(pyramids write integration pending). The NetCDF at %s "
+            "is the only artefact produced; no per-date .tif files "
+            "will be created.",
+            nc_path,
+        )
+
         fh = NetCDF.read_file(str(nc_path), read_only=True)
 
         nc_variable = var_info["nc_variable"]
