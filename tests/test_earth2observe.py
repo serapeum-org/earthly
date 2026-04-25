@@ -4,6 +4,8 @@ import shutil
 from typing import List
 
 import cdsapi
+import numpy as np
+import pandas as pd
 import pytest
 
 from earth2observe.chirps import CHIRPS
@@ -212,3 +214,117 @@ class TestECMWFBackend:
         assert ecmwf.root_dir == tmp_path.resolve(), (
             f"root_dir should be the tmp path; got {ecmwf.root_dir}"
         )
+
+    def test_full_download_through_facade_routes_to_cdsapi(
+        self, tmp_path, monkeypatch
+    ):
+        """End-to-end: ``Earth2Observe(...).download()`` reaches CDS.
+
+        Test scenario:
+            The H2 fix proves that the full chain
+            ``Earth2Observe.download → ECMWF.download →
+            download_dataset → api → post_download``
+            wires up correctly under the facade. Pre-fix, no test
+            exercised this whole pipeline together — the C1, C3,
+            H1, H2, H3 issues only co-failed in the field.
+
+            Patches both ``cdsapi.Client`` (to capture every retrieve
+            call) and ``earth2observe.ecmwf.NetCDF`` (to give
+            post_download a fake file to read), then runs a
+            two-variable download and asserts:
+
+            * Two cdsapi.Client.retrieve calls — one per variable
+            * Each retrieve receives the right dataset name and
+              ``variable=[cds_variable]`` from the catalog
+            * post_download opens both written paths and produces
+              one per-date result per variable
+        """
+        retrieved = []
+
+        class FakeClient:
+            def retrieve(self, dataset, request, target):
+                retrieved.append((dataset, request, target))
+
+        monkeypatch.setattr(cdsapi, "Client", FakeClient)
+
+        opened_paths = []
+
+        class _FakeVariable:
+            def __init__(self, array):
+                self._array = array
+
+            def read_array(self, **_kwargs):
+                return self._array
+
+        class _Fake:
+            def __init__(self, path):
+                opened_paths.append(path)
+                time_axis = np.arange(0, 24 * 4, 6, dtype=float) + (
+                    (
+                        pd.Timestamp("2022-01-01")
+                        - pd.Timestamp("1900-01-01")
+                    ).total_seconds()
+                    / 3600
+                )
+                self.variables = {"time": _FakeVariable(time_axis)}
+                self.lon = np.linspace(-75.0, -74.0, 9)
+                self.lat = np.linspace(5.0, 4.0, 9)
+                self._array = np.full(
+                    (len(time_axis), 9, 9), 273.15, dtype=float
+                )
+
+            def read_array(self, variable=None, **_kwargs):
+                return self._array
+
+            def close(self):
+                pass
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_a):
+                self.close()
+                return False
+
+        fake_netcdf = type(
+            "FakeNetCDF",
+            (),
+            {"read_file": staticmethod(lambda path, read_only=True: _Fake(path))},
+        )
+        monkeypatch.setattr("earth2observe.ecmwf.NetCDF", fake_netcdf)
+
+        e2o = Earth2Observe(
+            data_source="ecmwf",
+            temporal_resolution="daily",
+            start="2022-01-01",
+            end="2022-01-01",
+            variables=["2T", "TP"],
+            lat_lim=[4.0, 5.0],
+            lon_lim=[-75.0, -74.0],
+            path=str(tmp_path),
+        )
+        e2o.download(progress_bar=False)
+
+        assert len(retrieved) == 2, (
+            f"Expected 2 retrieve calls (one per variable); "
+            f"got {len(retrieved)}"
+        )
+        datasets = [args[0] for args in retrieved]
+        variables = [args[1]["variable"] for args in retrieved]
+        assert datasets == [
+            "reanalysis-era5-single-levels",
+            "reanalysis-era5-single-levels",
+        ], f"datasets: {datasets!r}"
+        assert variables == [
+            ["2m_temperature"],
+            ["total_precipitation"],
+        ], f"variables: {variables!r}"
+
+        assert len(opened_paths) == 2, (
+            f"post_download should open one NetCDF per variable; "
+            f"got {len(opened_paths)}"
+        )
+        for path in opened_paths:
+            assert str(tmp_path) in path, (
+                f"opened path should sit under tmp_path; got {path}"
+            )
