@@ -682,6 +682,35 @@ class TestDownloadIteration:
 
         assert ecmwf_stub.download_dataset.call_count == 1
 
+    def test_download_continues_after_per_variable_failure(self, ecmwf_stub):
+        """``download()`` collects failures and continues to the next var.
+
+        Test scenario:
+            Pre-M3, a single failing variable aborted the whole loop —
+            the user lost any minutes of CDS queue time spent on the
+            successful variables that came before. M3 wraps each
+            iteration in try/except so:
+              * every variable in self.vars is attempted
+              * failures are logged and collected, not raised
+              * the rest of the loop continues
+        """
+        attempted = []
+
+        def flaky(var_info, progress_bar):
+            attempted.append(var_info["cds_variable"])
+            if var_info["cds_variable"] == "total_precipitation":
+                raise RuntimeError("simulated CDS 503")
+
+        ecmwf_stub.vars = ["2T", "TP", "E"]
+        ecmwf_stub.download_dataset = flaky
+
+        ecmwf_stub.download(progress_bar=False)
+
+        assert attempted == ["2m_temperature", "total_precipitation", "evaporation"], (
+            f"All three variables should be attempted in order; "
+            f"got {attempted!r}"
+        )
+
     def test_download_does_not_attempt_to_delete_legacy_files(
         self, ecmwf_stub, monkeypatch
     ):

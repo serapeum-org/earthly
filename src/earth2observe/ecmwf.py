@@ -324,6 +324,8 @@ class ECMWF(AbstractDataSource):
                 metadata.
         """
         catalog = Catalog()
+        succeeded: list[str] = []
+        failed: list[tuple[str, BaseException]] = []
 
         for var in self.vars:
             start = self.time["start_date"]
@@ -331,8 +333,31 @@ class ECMWF(AbstractDataSource):
             logger.info(
                 f"Download ECMWF {var} data for period {start} till {end}"
             )
-            var_info = catalog.get_dataset(var)
-            self.download_dataset(var_info, progress_bar=progress_bar)
+            try:
+                var_info = catalog.get_dataset(var)
+                self.download_dataset(var_info, progress_bar=progress_bar)
+            except Exception as exc:
+                logger.error(
+                    f"ECMWF download for {var!r} failed: "
+                    f"{type(exc).__name__}: {exc}"
+                )
+                failed.append((var, exc))
+            else:
+                succeeded.append(var)
+
+        if failed:
+            failed_summary = ", ".join(
+                f"{var} ({type(exc).__name__})" for var, exc in failed
+            )
+            logger.warning(
+                f"ECMWF download summary: {len(succeeded)} succeeded "
+                f"({succeeded}), {len(failed)} failed ({failed_summary})"
+            )
+        else:
+            logger.info(
+                f"ECMWF download summary: all {len(succeeded)} "
+                f"variables succeeded ({succeeded})"
+            )
 
     def download_dataset(
         self,
