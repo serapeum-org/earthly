@@ -20,6 +20,7 @@ Mock harness (``M4``):
 import os
 from unittest.mock import MagicMock
 
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -951,6 +952,74 @@ class TestPostDownload:
                 tmp_path / "out.nc",
                 progress_bar=False,
             )
+
+    def test_post_download_flux_path_multiplies_by_days(
+        self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
+    ):
+        """``types='flux'`` triggers the ``Data_end *= days_later`` step.
+
+        Test scenario:
+            Half the catalog is flux variables (TP, E, RO, SRO,
+            SSRO, SSR). Pre-H3 the catalog did not ship ``types`` so
+            the multiplication was permanently dead. Now that
+            ``types: flux`` is in the catalog (post-H1+H2 commit),
+            this test pins the contract: with daily resolution the
+            multiplier is 1 (no-op for flux), with monthly resolution
+            the multiplier equals the days in the month.
+
+            Compares the flux outputs against state outputs to prove
+            the difference is exactly ``days_later``.
+        """
+        single_level_var_info["nc_variable"] = "t2m"
+        # Both runs share the same input array (the fake fills t2m
+        # with 273.15) — the only difference is the types field.
+        single_level_var_info["factors_add"] = 0
+        single_level_var_info["factors_mul"] = 1
+
+        _install_fake_netcdf(monkeypatch, var_value=10.0)
+
+        # Daily, state — Data_end == 10
+        single_level_var_info["types"] = "state"
+        ecmwf_stub.temporal_resolution = "daily"
+        state_daily = ecmwf_stub.post_download(
+            single_level_var_info, tmp_path / "out.nc", progress_bar=False
+        )
+
+        # Daily, flux — Data_end == 10 * 1 (days_later=1 for daily)
+        _install_fake_netcdf(monkeypatch, var_value=10.0)
+        single_level_var_info["types"] = "flux"
+        flux_daily = ecmwf_stub.post_download(
+            single_level_var_info, tmp_path / "out.nc", progress_bar=False
+        )
+
+        # Daily flux equals daily state (multiplier is 1)
+        for (_d_state, arr_state, _), (_d_flux, arr_flux, _) in zip(
+            state_daily, flux_daily
+        ):
+            assert (arr_flux == arr_state).all(), (
+                "daily flux multiplier should be 1; got differing arrays"
+            )
+
+        # Monthly, flux — Data_end == 10 * 31 (Jan)
+        ecmwf_stub.temporal_resolution = "monthly"
+        ecmwf_stub.time["dates"] = pd.date_range(
+            "2022-01-01", "2022-01-01", freq="MS"
+        )
+        _install_fake_netcdf(monkeypatch, var_value=10.0)
+        single_level_var_info["types"] = "flux"
+        flux_monthly = ecmwf_stub.post_download(
+            single_level_var_info, tmp_path / "out.nc", progress_bar=False
+        )
+
+        assert len(flux_monthly) == 1
+        _, arr_jan, _ = flux_monthly[0]
+        # 31 days in January, base value 10, no offset → 310
+        # The fake's per-cell mean reduces to 10 (constant), so
+        # final cell value is 10 * 31 = 310.
+        assert np.allclose(arr_jan, 310.0), (
+            f"flux monthly should be base * days_in_month "
+            f"(10 * 31 = 310); got mean {float(np.nanmean(arr_jan))}"
+        )
 
     def test_post_download_does_not_carry_legacy_signature(self, ecmwf_stub):
         """The signature is ``post_download(var_info, nc_path, progress_bar)``.

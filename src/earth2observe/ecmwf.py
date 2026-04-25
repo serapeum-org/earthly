@@ -1,7 +1,7 @@
 import calendar
 import datetime as dt
 import os
-from typing import Dict
+from typing import Any, Dict
 
 import numpy as np
 import pandas as pd
@@ -691,6 +691,7 @@ class ECMWF(AbstractDataSource):
         factors_add = var_info["factors_add"]
         factors_mul = var_info["factors_mul"]
         is_flux = var_info.get("types") == "flux"
+        per_date_outputs: list[tuple[Any, Any, str]] = []
 
         with NetCDF.read_file(str(nc_path), read_only=True) as fh:
             Data = fh.read_array(variable=nc_variable)
@@ -759,6 +760,7 @@ class ECMWF(AbstractDataSource):
                     self.root_dir,
                     f"{var_output_name}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif",
                 )
+                per_date_outputs.append((date, Data_end, name_out))
 
                 # Create Tiff files
                 # Raster.Save_as_tiff(name_out, Data_end, geo, "WGS84")
@@ -773,6 +775,8 @@ class ECMWF(AbstractDataSource):
                         suffix="Complete",
                         length=50,
                     )
+
+        return per_date_outputs
 
 
 class Catalog(AbstractCatalog):
