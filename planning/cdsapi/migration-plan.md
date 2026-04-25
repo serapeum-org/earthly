@@ -1007,7 +1007,7 @@ line number lower than every `grep -n "raise AuthenticationError"` line.
 | `H2` | Open   | Stop returning old MARS-schema catalog entries from `Catalog.get_dataset()`                                     |
 | `H3` | Closed | Update `initialize()` error message to point at `~/.cdsapirc` PAT instead of `ECMWF_API_URL/KEY/EMAIL`          |
 | `H4` | Closed | Delete `ecmwf2_old.py` (imports `ecmwfapi` which is no longer a dep)                                            |
-| `H5` | Open   | Restructure `cds_data_catalog.yaml` to one entry per variable with `cds_dataset` / `cds_variable` / unit fields |
+| `H5` | Closed | Restructure `cds_data_catalog.yaml` to one entry per variable with `cds_dataset` / `cds_variable` / unit fields |
 | `H6` | Open   | Delete obsolete `ecmwf_data_catalog.yaml`                                                                       |
 | `H7` | Closed | Pin `cdsapi >= 0.7.7` in `pyproject.toml` and `[tool.pixi.dependencies]`                                        |
 | `M1` | Open   | Update `docs/authentication.md` for `.cdsapirc` PAT instructions                                                |
