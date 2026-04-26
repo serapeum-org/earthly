@@ -1,7 +1,81 @@
 import os
 from abc import ABC, abstractmethod
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict
+from typing import Any, Dict, List, Optional
+
+
+@dataclass(frozen=True)
+class TimeWindow:
+    """Per-instance temporal context produced by :meth:`check_input_dates`.
+
+    Replaces the ``self.time`` dict that earlier versions of
+    :class:`AbstractDataSource` accepted from subclass overrides. The
+    frozen dataclass enforces presence of every consumer-visible
+    field at construction time, so a subclass that returns a malformed
+    container fails fast instead of surfacing as ``KeyError`` deep
+    inside the download loop.
+
+    Attributes:
+        start_date: Inclusive start of the requested window.
+        end_date: Inclusive end of the requested window.
+        time_freq: ``"D"`` for daily, ``"MS"`` for month-start. Same
+            shorthand pandas uses for ``date_range(freq=...)``.
+        dates: The :class:`pandas.DatetimeIndex` the download loop
+            iterates. Typed ``Any`` here to avoid a hard pandas
+            import in the abstract module.
+    """
+
+    start_date: Any
+    end_date: Any
+    time_freq: str
+    dates: Any
+
+    def __post_init__(self):
+        """Validate ``start_date <= end_date`` at construction.
+
+        Raises:
+            ValueError: If the window is inverted.
+        """
+        if self.start_date is not None and self.end_date is not None:
+            if self.start_date > self.end_date:
+                raise ValueError(
+                    f"TimeWindow has inverted bounds: start_date "
+                    f"{self.start_date} > end_date {self.end_date}"
+                )
+
+
+@dataclass(frozen=True)
+class SpatialBounds:
+    """Per-instance spatial bbox produced by :meth:`create_grid`.
+
+    Replaces the ``self.space`` dict. The two limit pairs are stored
+    as ``[min, max]`` lists so existing call sites that read
+    ``self.space["lat_lim"][1]`` (the latitude max) keep working when
+    they switch to attribute access (``self.space.lat_lim[1]``).
+
+    Attributes:
+        lat_lim: ``[lat_min, lat_max]`` in degrees.
+        lon_lim: ``[lon_min, lon_max]`` in degrees.
+    """
+
+    lat_lim: List[float]
+    lon_lim: List[float]
+
+    def __post_init__(self):
+        """Validate ``min <= max`` for both axes.
+
+        Raises:
+            ValueError: If either limit pair is inverted.
+        """
+        if self.lat_lim[0] > self.lat_lim[1]:
+            raise ValueError(
+                f"SpatialBounds.lat_lim is inverted: {self.lat_lim}"
+            )
+        if self.lon_lim[0] > self.lon_lim[1]:
+            raise ValueError(
+                f"SpatialBounds.lon_lim is inverted: {self.lon_lim}"
+            )
 
 
 class AbstractDataSource(ABC):
@@ -62,12 +136,23 @@ class AbstractDataSource(ABC):
         self.vars = variables
 
         space = self.create_grid(lat_lim, lon_lim)
-        if isinstance(space, dict):
+        if isinstance(space, SpatialBounds):
             self.space = space
+        elif isinstance(space, dict):
+            self.space = SpatialBounds(
+                lat_lim=space["lat_lim"], lon_lim=space["lon_lim"]
+            )
 
         time = self.check_input_dates(start, end, temporal_resolution, fmt)
-        if isinstance(time, dict):
+        if isinstance(time, TimeWindow):
             self.time = time
+        elif isinstance(time, dict):
+            self.time = TimeWindow(
+                start_date=time["start_date"],
+                end_date=time["end_date"],
+                time_freq=time["time_freq"],
+                dates=time["dates"],
+            )
 
         self.root_dir = Path(path).absolute()
         self.path = self.root_dir

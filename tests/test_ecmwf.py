@@ -28,6 +28,7 @@ import cdsapi
 
 from dataclasses import replace as _dataclass_replace
 
+from earth2observe.abstractdatasource import SpatialBounds, TimeWindow
 from earth2observe.ecmwf import ECMWF, AuthenticationError, Catalog, VariableSpec
 
 
@@ -118,16 +119,16 @@ def ecmwf_stub(tmp_path):
     ecmwf = ECMWF.__new__(ECMWF)
     ecmwf.client = MagicMock()
     ecmwf.root_dir = tmp_path
-    ecmwf.time = {
-        "start_date": pd.Timestamp("2022-01-01"),
-        "end_date": pd.Timestamp("2022-01-03"),
-        "time_freq": "D",
-        "dates": pd.date_range("2022-01-01", "2022-01-03", freq="D"),
-    }
-    ecmwf.space = {
-        "lat_lim": [4.19, 4.64],
-        "lon_lim": [-75.65, -74.73],
-    }
+    ecmwf.time = TimeWindow(
+        start_date=pd.Timestamp("2022-01-01"),
+        end_date=pd.Timestamp("2022-01-03"),
+        time_freq="D",
+        dates=pd.date_range("2022-01-01", "2022-01-03", freq="D"),
+    )
+    ecmwf.space = SpatialBounds(
+        lat_lim=[4.19, 4.64],
+        lon_lim=[-75.65, -74.73],
+    )
     ecmwf.temporal_resolution = "daily"
     return ecmwf
 
@@ -288,8 +289,9 @@ class TestApi:
             ``month=['01','12']`` and ``day=['01','02','30','31']``,
             sorted lexicographically.
         """
-        ecmwf_stub.time["dates"] = pd.date_range(
-            "2021-12-30", "2022-01-02", freq="D"
+        ecmwf_stub.time = _dataclass_replace(
+            ecmwf_stub.time,
+            dates=pd.date_range("2021-12-30", "2022-01-02", freq="D"),
         )
         ecmwf_stub.api(single_level_var_info)
         request = _captured_request(ecmwf_stub)
@@ -388,8 +390,9 @@ class TestApi:
             For dates ``[2022-06-15]`` the request fields collapse to
             ``year=['2022']``, ``month=['06']``, ``day=['15']``.
         """
-        ecmwf_stub.time["dates"] = pd.date_range(
-            "2022-06-15", "2022-06-15", freq="D"
+        ecmwf_stub.time = _dataclass_replace(
+            ecmwf_stub.time,
+            dates=pd.date_range("2022-06-15", "2022-06-15", freq="D"),
         )
         ecmwf_stub.api(single_level_var_info)
         request = _captured_request(ecmwf_stub)
@@ -1016,8 +1019,9 @@ class TestPostDownload:
 
         # Monthly, flux — Data_end == 10 * 31 (Jan)
         ecmwf_stub.temporal_resolution = "monthly"
-        ecmwf_stub.time["dates"] = pd.date_range(
-            "2022-01-01", "2022-01-01", freq="MS"
+        ecmwf_stub.time = _dataclass_replace(
+            ecmwf_stub.time,
+            dates=pd.date_range("2022-01-01", "2022-01-01", freq="MS"),
         )
         _install_fake_netcdf(monkeypatch, var_value=10.0)
         flux_monthly = ecmwf_stub.post_download(
@@ -1244,10 +1248,10 @@ class TestParentClassWiring:
         assert ecmwf.client is sentinel, (
             f"self.client should be the cdsapi client; got {ecmwf.client!r}"
         )
-        assert ecmwf.space["lat_lim"][0] <= 4.19 <= ecmwf.space["lat_lim"][1]
-        assert ecmwf.space["lon_lim"][0] <= -75.65 <= ecmwf.space["lon_lim"][1]
-        assert "dates" in ecmwf.time, (
-            f"self.time should carry a 'dates' key; got {sorted(ecmwf.time)}"
+        assert ecmwf.space.lat_lim[0] <= 4.19 <= ecmwf.space.lat_lim[1]
+        assert ecmwf.space.lon_lim[0] <= -75.65 <= ecmwf.space.lon_lim[1]
+        assert ecmwf.time.dates is not None, (
+            f"self.time should carry a non-empty dates attribute; got {ecmwf.time}"
         )
         assert ecmwf.root_dir == tmp_path.resolve(), (
             f"self.root_dir should be the absolute output path; "

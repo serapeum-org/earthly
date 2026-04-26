@@ -13,7 +13,12 @@ from pyramids.netcdf import NetCDF
 from serapeum_utils.utils import print_progress_bar
 
 from earth2observe import __path__
-from earth2observe.abstractdatasource import AbstractCatalog, AbstractDataSource
+from earth2observe.abstractdatasource import (
+    AbstractCatalog,
+    AbstractDataSource,
+    SpatialBounds,
+    TimeWindow,
+)
 
 
 class AuthenticationError(Exception):
@@ -299,13 +304,14 @@ class ECMWF(AbstractDataSource):
             fmt: ``strptime`` format applied to ``start`` and ``end``.
 
         Returns:
-            dict: ``{"start_date", "end_date", "time_freq", "dates"}``
-            where ``dates`` is the :class:`pandas.DatetimeIndex` the
-            download loop iterates.
+            TimeWindow: Frozen dataclass with ``start_date``,
+            ``end_date``, ``time_freq`` and ``dates`` (the
+            :class:`pandas.DatetimeIndex` the download loop iterates).
 
         Raises:
             ValueError: If ``temporal_resolution`` is neither
-                ``"daily"`` nor ``"monthly"``.
+                ``"daily"`` nor ``"monthly"``, or if the parsed
+                ``start`` is later than the parsed ``end``.
         """
         start = dt.datetime.strptime(start, fmt)
         end = dt.datetime.strptime(end, fmt)
@@ -321,7 +327,12 @@ class ECMWF(AbstractDataSource):
                 "temporal_resolution should be either 'daily' or 'monthly'"
             )
 
-        return {"start_date": start, "end_date": end, "time_freq": time_freq, "dates": dates}
+        return TimeWindow(
+            start_date=start,
+            end_date=end,
+            time_freq=time_freq,
+            dates=dates,
+        )
 
     def initialize(self):
         """Construct the :class:`cdsapi.Client` for talking to CDS.
@@ -402,7 +413,7 @@ class ECMWF(AbstractDataSource):
         lon_lim_floor = np.floor(lon_lim[0] / cell_size) * cell_size
         lon_lim_ceil = np.ceil(lon_lim[1] / cell_size) * cell_size
         lon_lim = [lon_lim_floor, lon_lim_ceil]
-        return {"lat_lim": lat_lim, "lon_lim": lon_lim}
+        return SpatialBounds(lat_lim=lat_lim, lon_lim=lon_lim)
 
     def download(self, progress_bar: bool = True, *args, **kwargs):
         """Download every variable in ``self.vars`` from CDS.
@@ -467,8 +478,8 @@ class ECMWF(AbstractDataSource):
         failed: list[tuple[str, BaseException]] = []
 
         for var in self.vars:
-            start = self.time["start_date"]
-            end = self.time["end_date"]
+            start = self.time.start_date
+            end = self.time.end_date
             logger.info(
                 f"Download ECMWF {var} data for period {start} till {end}"
             )
@@ -703,7 +714,7 @@ class ECMWF(AbstractDataSource):
             :class:`Catalog`: Loads ``var_info`` dicts from
                 ``cds_data_catalog.yaml``.
         """
-        dates = self.time["dates"]
+        dates = self.time.dates
         request = {
             "variable": [var_info.cds_variable],
             "year": sorted({str(d.year) for d in dates}),
@@ -711,10 +722,10 @@ class ECMWF(AbstractDataSource):
             "day": sorted({f"{d.day:02d}" for d in dates}),
             "data_format": "netcdf",
             "area": [
-                self.space["lat_lim"][1],
-                self.space["lon_lim"][0],
-                self.space["lat_lim"][0],
-                self.space["lon_lim"][1],
+                self.space.lat_lim[1],
+                self.space.lon_lim[0],
+                self.space.lat_lim[0],
+                self.space.lon_lim[1],
             ],
         }
 
@@ -842,13 +853,13 @@ class ECMWF(AbstractDataSource):
             )
 
             if progress_bar:
-                total_amount = len(self.time["dates"])
+                total_amount = len(self.time.dates)
                 amount = 0
                 print_progress_bar(
                     amount, total_amount, prefix="Progress:", suffix="Complete", length=50
                 )
 
-            for date in self.time["dates"]:
+            for date in self.time.dates:
 
                 year = date.year
                 month = date.month
