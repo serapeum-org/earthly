@@ -200,7 +200,7 @@ variables:
 
   # ----- reanalysis-era5-single-levels -----
 
-  "2T":
+  "2m-temperature":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 2m_temperature
@@ -210,7 +210,7 @@ variables:
     factors_add: -273.15
     factors_mul: 1
 
-  "2D":
+  "2m-dewpoint-temperature":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 2m_dewpoint_temperature
@@ -220,7 +220,7 @@ variables:
     factors_add: -273.15
     factors_mul: 1
 
-  SP:
+  "surface-pressure":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: surface_pressure
@@ -230,7 +230,7 @@ variables:
     factors_add: 0
     factors_mul: 0.001
 
-  TP:
+  "total-precipitation":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: total_precipitation
@@ -240,7 +240,7 @@ variables:
     factors_add: 0
     factors_mul: 1000
 
-  E:
+  "evaporation":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: evaporation
@@ -250,7 +250,7 @@ variables:
     factors_add: 0
     factors_mul: 1000
 
-  RO:
+  "runoff":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: runoff
@@ -260,7 +260,7 @@ variables:
     factors_add: 0
     factors_mul: 1000
 
-  SRO:
+  "surface-runoff":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: surface_runoff
@@ -270,7 +270,7 @@ variables:
     factors_add: 0
     factors_mul: 1000
 
-  SSRO:
+  "sub-surface-runoff":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: sub_surface_runoff
@@ -280,7 +280,7 @@ variables:
     factors_add: 0
     factors_mul: 1000
 
-  "10U":
+  "10m-u-component-of-wind":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 10m_u_component_of_wind
@@ -290,7 +290,7 @@ variables:
     factors_add: 0
     factors_mul: 1
 
-  "10V":
+  "10m-v-component-of-wind":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 10m_v_component_of_wind
@@ -300,7 +300,7 @@ variables:
     factors_add: 0
     factors_mul: 1
 
-  "10SI":
+  "10m-wind-speed":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: 10m_wind_speed
@@ -310,7 +310,7 @@ variables:
     factors_add: 0
     factors_mul: 1
 
-  AL:
+  "forecast-albedo":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: forecast_albedo
@@ -320,7 +320,7 @@ variables:
     factors_add: 0
     factors_mul: 1
 
-  HCC:
+  "high-cloud-cover":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: high_cloud_cover
@@ -330,7 +330,7 @@ variables:
     factors_add: 0
     factors_mul: 1
 
-  SR:
+  "forecast-surface-roughness":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: forecast_surface_roughness
@@ -340,7 +340,7 @@ variables:
     factors_add: 0
     factors_mul: 1
 
-  SSR:
+  "surface-net-solar-radiation":
     cds_dataset: reanalysis-era5-single-levels
     cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
     cds_variable: surface_net_solar_radiation
@@ -2081,7 +2081,7 @@ variables:
 
   # ----- reanalysis-era5-pressure-levels -----
 
-  T:
+  "temperature":
     cds_dataset: reanalysis-era5-pressure-levels
     cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
     cds_variable: temperature
@@ -2092,7 +2092,7 @@ variables:
     factors_add: -273.15
     factors_mul: 1
 
-  Q:
+  "specific-humidity":
     cds_dataset: reanalysis-era5-pressure-levels
     cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
     cds_variable: specific_humidity
@@ -2103,7 +2103,7 @@ variables:
     factors_add: 0
     factors_mul: 1
 
-  R:
+  "relative-humidity":
     cds_dataset: reanalysis-era5-pressure-levels
     cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
     cds_variable: relative_humidity

@@ -74,7 +74,7 @@ def chirps_variables() -> List[str]:
 
 @pytest.fixture(scope="session")
 def ecmwf_variables() -> List[str]:
-    return ["E"]  # "T",
+    return ["evaporation"]
 
 
 @pytest.fixture(scope="session")

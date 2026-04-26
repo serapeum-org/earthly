@@ -53,7 +53,7 @@ the relevant ERA5 dataset on the CDS website.
 ```python
 source = "ecmwf"
 path = "examples/data/era5"
-variables = ["2T"]  # 2-metre temperature; see Catalog for the full list
+variables = ["2m-temperature"]  # 2-metre temperature; see Catalog for the full list
 
 e2o = Earth2Observe(
     data_source=source,

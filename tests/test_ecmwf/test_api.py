@@ -267,7 +267,7 @@ class TestApi:
             "factors_mul": 1,
         }
         with pytest.raises(ValueError, match="cds_dataset"):
-            Variable.from_dict("2T", catalog_entry)
+            Variable.from_dict("2m-temperature", catalog_entry)
 
     def test_variable_spec_requires_cds_variable(self):
         """Variable cannot be built without cds_variable."""
@@ -279,7 +279,7 @@ class TestApi:
             "factors_mul": 1,
         }
         with pytest.raises(ValueError, match="cds_variable"):
-            Variable.from_dict("2T", catalog_entry)
+            Variable.from_dict("2m-temperature", catalog_entry)
 
     def test_licence_not_accepted_is_translated(
         self, ecmwf_stub, single_level_var_info

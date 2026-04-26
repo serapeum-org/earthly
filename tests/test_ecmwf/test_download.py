@@ -30,7 +30,7 @@ class TestDownloadIteration:
             iterated ``self.variables`` instead, which raised
             ``AttributeError`` on the first call.
         """
-        ecmwf_stub.vars = ["2T", "TP"]
+        ecmwf_stub.vars = ["2m-temperature", "total-precipitation"]
         ecmwf_stub.download_dataset = MagicMock()
 
         ecmwf_stub.download(progress_bar=False)
@@ -40,8 +40,8 @@ class TestDownloadIteration:
             args[0] for args, _kwargs in ecmwf_stub.download_dataset.call_args_list
         ]
         assert called_with == [
-            Catalog().get_dataset("2T"),
-            Catalog().get_dataset("TP"),
+            Catalog().get_dataset("2m-temperature"),
+            Catalog().get_dataset("total-precipitation"),
         ]
 
     def test_download_does_not_read_self_variables(self, ecmwf_stub):
@@ -53,7 +53,7 @@ class TestDownloadIteration:
             is set, ``self.variables`` is explicitly absent, and
             ``download()`` must complete without an ``AttributeError``.
         """
-        ecmwf_stub.vars = ["2T"]
+        ecmwf_stub.vars = ["2m-temperature"]
         ecmwf_stub.download_dataset = MagicMock()
         assert not hasattr(ecmwf_stub, "variables")
 
@@ -78,7 +78,7 @@ class TestDownloadIteration:
             if var_info.cds_variable == "total_precipitation":
                 raise RuntimeError("simulated CDS 503")
 
-        ecmwf_stub.vars = ["2T", "TP", "E"]
+        ecmwf_stub.vars = ["2m-temperature", "total-precipitation", "evaporation"]
         ecmwf_stub.download_dataset = flaky
 
         ecmwf_stub.download(progress_bar=False)
@@ -101,7 +101,7 @@ class TestDownloadIteration:
             FileNotFoundError under the cdsapi path.
         """
         removed = []
-        ecmwf_stub.vars = ["2T"]
+        ecmwf_stub.vars = ["2m-temperature"]
         ecmwf_stub.download_dataset = MagicMock()
         monkeypatch.setattr(
             "earth2observe.ecmwf.backend.os.remove",

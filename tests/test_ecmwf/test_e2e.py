@@ -34,14 +34,14 @@ class TestApiE2E:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T"],
+            variables=["2m-temperature"],
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=str(tmp_path),
             temporal_resolution="daily",
         )
 
-        target = ecmwf.api(Catalog().get_dataset("2T"))
+        target = ecmwf.api(Catalog().get_dataset("2m-temperature"))
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -58,14 +58,14 @@ class TestApiE2E:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["T"],
+            variables=["temperature"],
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=str(tmp_path),
             temporal_resolution="daily",
         )
 
-        target = ecmwf.api(Catalog().get_dataset("T"))
+        target = ecmwf.api(Catalog().get_dataset("temperature"))
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -84,14 +84,14 @@ class TestApiE2E:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T"],
+            variables=["2m-temperature"],
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=str(tmp_path),
             temporal_resolution="monthly",
         )
 
-        target = ecmwf.api(Catalog().get_dataset("2T"))
+        target = ecmwf.api(Catalog().get_dataset("2m-temperature"))
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -114,13 +114,13 @@ class TestApiE2E:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T"],
+            variables=["2m-temperature"],
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=str(tmp_path),
             temporal_resolution="daily",
         )
-        spec = Catalog().get_dataset("2T")
+        spec = Catalog().get_dataset("2m-temperature")
 
         ecmwf.download_dataset(spec, progress_bar=False)
 
@@ -164,7 +164,7 @@ class TestFacadeE2E:
             temporal_resolution="daily",
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T", "TP"],
+            variables=["2m-temperature", "total-precipitation"],
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=str(tmp_path),

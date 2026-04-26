@@ -89,7 +89,7 @@ Now you should be able to start Python and try `import earth2observe` to verify 
 Besides the recommended conda environment setup, you can also install earth2observe with `pip`. For the more difficult to install Python dependencies, it is best to use conda:
 
 ```bash
-conda install numpy scipy gdal netcdf4 pyproj
+conda install numpy scipy gdal pyproj
 ```
 
 Then install earth2observe with pip:

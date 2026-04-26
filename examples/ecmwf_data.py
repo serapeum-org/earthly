@@ -17,9 +17,9 @@ time = "daily"
 lat = [4.190755, 4.643963]
 lon = [-75.649243, -74.727286]
 # Temperature, Evapotranspiration
-variables = ["T", "E"]
+variables = ["temperature", "evaporation"]
 #%%
-var = "T"
+var = "temperature"
 catalog = Catalog()
 print(catalog.catalog)
 catalog.get_variable(var)
@@ -31,7 +31,7 @@ latlim = [4.19, 4.64]
 lonlim = [-75.65, -74.73]
 # %%
 # Temperature, Evapotranspiration
-variables = ["E"]  # "T",
+variables = ["evaporation"]  # "temperature",
 
 Coello = ECMWF(
     temporal_resolution=time,
@@ -45,7 +45,7 @@ Coello = ECMWF(
 
 Coello.download(dataset="interim")
 #%%
-variables = ["SRO"]
+variables = ["surface-runoff"]
 Coello = ECMWF(
     temporal_resolution=time,
     start=start,

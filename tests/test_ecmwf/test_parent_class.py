@@ -42,7 +42,7 @@ class TestParentClassWiring:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-03",
-            variables=["2T"],
+            variables=["2m-temperature"],
             lat_lim=[4.19, 4.64],
             lon_lim=[-75.65, -74.73],
             path=str(tmp_path),
@@ -66,7 +66,7 @@ class TestParentClassWiring:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T"],
+            variables=["2m-temperature"],
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
@@ -101,7 +101,7 @@ class TestParentClassWiring:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T"],
+            variables=["2m-temperature"],
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
@@ -141,7 +141,7 @@ class TestParentClassWiring:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T"],
+            variables=["2m-temperature"],
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),

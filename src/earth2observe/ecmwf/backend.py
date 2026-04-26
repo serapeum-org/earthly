@@ -98,7 +98,7 @@ class Variable(BaseModel):
         the catalog row that failed.
 
         Args:
-            code: Catalog key (e.g. ``"2T"``) — used only in the
+            code: Catalog key (e.g. ``"2m-temperature"``) — used only in the
                 error message so the user can see which row is broken.
             data: The dict loaded from the YAML for ``code``.
 
@@ -256,7 +256,7 @@ class ECMWF(AbstractDataSource):
 
     Downloads ERA5 reanalysis (and ERA5-Land where the catalog
     indicates) via :class:`cdsapi.Client`. The user-friendly variable
-    short codes (e.g. ``"2T"``, ``"TP"``) are resolved through
+    short codes (e.g. ``"2m-temperature"``, ``"total-precipitation"``) are resolved through
     :class:`Catalog`, which loads the per-variable metadata from
     ``cds_data_catalog.yaml``.
 
@@ -307,7 +307,7 @@ class ECMWF(AbstractDataSource):
             path: Output directory. Created by the parent if it does
                 not exist. Defaults to the current working directory.
             variables: list of CDS catalog short codes (e.g.
-                ``["2T", "TP"]``); see ``cds_data_catalog.yaml`` for
+                ``["2m-temperature", "total-precipitation"]``); see ``cds_data_catalog.yaml`` for
                 the registered codes.
             lat_lim: ``[lat_min, lat_max]``.
             lon_lim: ``[lon_min, lon_max]``.
@@ -403,7 +403,7 @@ class ECMWF(AbstractDataSource):
                 >>> ecmwf = ECMWF(  # doctest: +SKIP
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2T"],
+                ...     variables=["2m-temperature"],
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
@@ -500,7 +500,7 @@ class ECMWF(AbstractDataSource):
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2T", "TP"],
+                ...     variables=["2m-temperature", "total-precipitation"],
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
@@ -633,7 +633,7 @@ class ECMWF(AbstractDataSource):
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2T"],
+                ...     variables=["2m-temperature"],
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
@@ -713,7 +713,7 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> from earth2observe.ecmwf import Catalog
-                >>> spec = Catalog().get_dataset("2T")
+                >>> spec = Catalog().get_dataset("2m-temperature")
                 >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
                 >>> f"{spec.cds_variable}_{spec.cds_dataset}.nc"
@@ -725,7 +725,7 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> from earth2observe.ecmwf import Catalog
-                >>> spec = Catalog().get_dataset("T")
+                >>> spec = Catalog().get_dataset("temperature")
                 >>> spec.cds_pressure_level
                 ['1000']
 
@@ -742,7 +742,7 @@ class ECMWF(AbstractDataSource):
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2T"],
+                ...     variables=["2m-temperature"],
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",

@@ -154,7 +154,7 @@ class TestECMWFBackend:
             temporal_resolution="daily",
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T"],
+            variables=["2m-temperature"],
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
@@ -177,7 +177,7 @@ class TestECMWFBackend:
                 data_source="not-a-real-source",
                 start="2022-01-01",
                 end="2022-01-01",
-                variables=["2T"],
+                variables=["2m-temperature"],
                 lat_lim=[4.0, 5.0],
                 lon_lim=[-75.0, -74.0],
                 path=str(tmp_path),
@@ -202,14 +202,14 @@ class TestECMWFBackend:
             temporal_resolution="monthly",
             start="2022-01-01",
             end="2022-02-01",
-            variables=["2T", "TP"],
+            variables=["2m-temperature", "total-precipitation"],
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
         )
 
         ecmwf = e2o.datasource
-        assert ecmwf.vars == ["2T", "TP"], (
+        assert ecmwf.vars == ["2m-temperature", "total-precipitation"], (
             f"variables should be threaded through; got {ecmwf.vars!r}"
         )
         assert ecmwf.temporal_resolution == "monthly", (
@@ -303,7 +303,7 @@ class TestECMWFBackend:
             temporal_resolution="daily",
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2T", "TP"],
+            variables=["2m-temperature", "total-precipitation"],
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),

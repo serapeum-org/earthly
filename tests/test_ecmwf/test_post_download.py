@@ -81,7 +81,7 @@ class TestPostDownload:
         """
         with pytest.raises(ValueError, match="file name"):
             Variable.from_dict(
-                "2T",
+                "2m-temperature",
                 {
                     "cds_dataset": "reanalysis-era5-single-levels",
                     "cds_variable": "2m_temperature",

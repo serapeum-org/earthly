@@ -27,18 +27,18 @@ class TestCatalog:
         """
         cat = Catalog()
         assert isinstance(cat.catalog, dict)
-        assert "2T" in cat.catalog
-        assert isinstance(cat.catalog["2T"], Variable)
-        assert cat.catalog["2T"].cds_dataset
+        assert "2m-temperature" in cat.catalog
+        assert isinstance(cat.catalog["2m-temperature"], Variable)
+        assert cat.catalog["2m-temperature"].cds_dataset
 
     @pytest.mark.parametrize(
         "var_code, expected_dataset, expected_variable",
         [
-            ("2T", "reanalysis-era5-single-levels", "2m_temperature"),
-            ("TP", "reanalysis-era5-single-levels", "total_precipitation"),
-            ("SP", "reanalysis-era5-single-levels", "surface_pressure"),
-            ("E", "reanalysis-era5-single-levels", "evaporation"),
-            ("T", "reanalysis-era5-pressure-levels", "temperature"),
+            ("2m-temperature", "reanalysis-era5-single-levels", "2m_temperature"),
+            ("total-precipitation", "reanalysis-era5-single-levels", "total_precipitation"),
+            ("surface-pressure", "reanalysis-era5-single-levels", "surface_pressure"),
+            ("evaporation", "reanalysis-era5-single-levels", "evaporation"),
+            ("temperature", "reanalysis-era5-pressure-levels", "temperature"),
         ],
     )
     def test_get_dataset_returns_new_schema(
@@ -57,7 +57,7 @@ class TestCatalog:
 
     def test_get_dataset_includes_unit_conversion_factors(self):
         """Per-variable metadata carries the K -> C unit conversion."""
-        spec = Catalog().get_dataset("2T")
+        spec = Catalog().get_dataset("2m-temperature")
         assert spec.factors_add == -273.15
         assert spec.factors_mul == 1
 
@@ -69,7 +69,7 @@ class TestCatalog:
             catalog entries must carry the ``cds_pressure_level``
             attribute so :meth:`ECMWF.api` can forward it to CDS.
         """
-        spec = Catalog().get_dataset("T")
+        spec = Catalog().get_dataset("temperature")
         assert spec.cds_pressure_level == ["1000"]
 
     def test_get_dataset_raises_key_error_for_unknown_code(self):
@@ -86,7 +86,7 @@ class TestCatalog:
     def test_get_variable_aliases_get_dataset(self):
         """``get_variable`` returns the same Variable as ``get_dataset``."""
         cat = Catalog()
-        assert cat.get_variable("2T") == cat.get_dataset("2T")
+        assert cat.get_variable("2m-temperature") == cat.get_dataset("2m-temperature")
 
     def test_no_mars_schema_keys_remain(self):
         """No Variable field is a stale MARS-style key."""

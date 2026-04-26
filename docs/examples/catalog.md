@@ -28,10 +28,11 @@ print(chirps_catalog.catalog)
 ## ECMWF (Copernicus Climate Data Store)
 
 The ECMWF catalog is shipped as `cds_data_catalog.yaml` (package data)
-and exposes a per-variable map keyed by user-friendly short codes
-(`E`, `T`, `2T`, `TP`, ...). Each entry tells `ECMWF.api()` which CDS
-dataset hosts the variable, the official CDS variable name, and the
-unit-conversion factors used during post-processing.
+and exposes a per-variable map keyed by slugified CDS variable names
+(`evaporation`, `temperature`, `2m-temperature`, `total-precipitation`,
+...). Each entry tells `ECMWF.api()` which CDS dataset hosts the
+variable, the official CDS variable name, and the unit-conversion
+factors used during post-processing.
 
 ```python
 from earth2observe.ecmwf import Catalog
@@ -41,14 +42,14 @@ list(catalog.catalog)[:5]
 ```
 
 ```python
-['2T', '2D', 'SP', 'TP', 'E']
+["2m-temperature", "2m-dewpoint-temperature", "surface-pressure", "total-precipitation", "evaporation"]
 ```
 
 To get the attributes for a specific variable (e.g., 2-metre
-temperature `2T`):
+temperature):
 
 ```python
-catalog.get_dataset("2T")
+catalog.get_dataset("2m-temperature")
 ```
 
 ```python
@@ -75,18 +76,20 @@ Key reference:
 - `nc_variable` — short variable name inside the returned NetCDF
   (e.g. `t2m` for `2m_temperature`).
 - `cds_pressure_level` — optional list of pressure levels (e.g.
-  `["1000"]`). Present for pressure-level variables (`T`, `Q`, `R`).
+  `["1000"]`). Present for pressure-level variables (`temperature`,
+  `specific-humidity`, `relative-humidity`).
 - `units` — output unit string (used in the output filename).
 - `factors_add`, `factors_mul` — unit-conversion offsets applied in
   `post_download()`.
 
-The catalog ships short codes for ~18 ERA5 variables on
-`reanalysis-era5-single-levels` (and its monthly-means counterpart),
-plus a handful on `reanalysis-era5-pressure-levels`. Browse the full
-list of CDS dataset short names at
+The catalog ships ~278 ERA5 entries — the full single-levels and
+pressure-levels variable lists from the CDS catalogue (and their
+monthly-means counterparts). Browse the full list of CDS dataset
+short names at
 <https://cds.climate.copernicus.eu/datasets?q=era5>. To add a new
-variable, append an entry to `src/earth2observe/cds_data_catalog.yaml`
-following the schema in the file's header comment.
+variable, append an entry to
+`src/earth2observe/ecmwf/cds_data_catalog.yaml` following the schema
+in the file's header comment.
 
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.

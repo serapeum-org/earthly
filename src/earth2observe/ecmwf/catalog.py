@@ -31,7 +31,7 @@ class Catalog(AbstractCatalog):
 
     Attributes:
         catalog: Mapping from a user-friendly variable code (e.g.
-            ``"2T"``) to a typed :class:`Variable` instance. Set
+            ``"2m-temperature"``) to a typed :class:`Variable` instance. Set
             by :func:`AbstractCatalog.model_post_init` from the YAML
             shipped at ``CATALOG_PATH``.
 
@@ -40,7 +40,7 @@ class Catalog(AbstractCatalog):
 
             ```python
             >>> from earth2observe.ecmwf import Catalog
-            >>> spec = Catalog().get_dataset("2T")
+            >>> spec = Catalog().get_dataset("2m-temperature")
             >>> spec.cds_dataset
             'reanalysis-era5-single-levels'
             >>> spec.cds_variable
@@ -54,7 +54,7 @@ class Catalog(AbstractCatalog):
 
             ```python
             >>> from earth2observe.ecmwf import Catalog
-            >>> spec = Catalog().get_dataset("T")
+            >>> spec = Catalog().get_dataset("temperature")
             >>> spec.cds_dataset
             'reanalysis-era5-pressure-levels'
             >>> spec.cds_pressure_level
@@ -99,7 +99,7 @@ class Catalog(AbstractCatalog):
         """Return the metadata dict for ``var_name``.
 
         Args:
-            var_name: Short user-friendly variable code (e.g. ``"2T"``).
+            var_name: Short user-friendly variable code (e.g. ``"2m-temperature"``).
 
         Returns:
             Variable: Per-variable metadata loaded from
