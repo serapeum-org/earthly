@@ -56,8 +56,8 @@ catalog.get_dataset("2T")
     'cds_dataset': 'reanalysis-era5-single-levels',
     'cds_dataset_monthly': 'reanalysis-era5-single-levels-monthly-means',
     'cds_variable': '2m_temperature',
+    'nc_variable': 't2m',
     'units': 'C',
-    'file_name': 'Tair',
     'factors_add': -273.15,
     'factors_mul': 1,
 }
@@ -71,10 +71,12 @@ Key reference:
   `temporal_resolution="monthly"`. Falls back to `cds_dataset` when
   absent.
 - `cds_variable` — the CDS variable name passed to
-  `client.retrieve()`.
+  `client.retrieve()`. Also used as the output filename stem.
+- `nc_variable` — short variable name inside the returned NetCDF
+  (e.g. `t2m` for `2m_temperature`).
 - `cds_pressure_level` — optional list of pressure levels (e.g.
   `["1000"]`). Present for pressure-level variables (`T`, `Q`, `R`).
-- `units`, `file_name` — used to name output files.
+- `units` — output unit string (used in the output filename).
 - `factors_add`, `factors_mul` — unit-conversion offsets applied in
   `post_download()`.
 

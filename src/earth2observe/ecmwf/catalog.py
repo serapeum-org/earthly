@@ -14,7 +14,7 @@ import yaml
 from pydantic import Field
 
 from earth2observe.base import AbstractCatalog
-from earth2observe.ecmwf.backend import VariableSpec
+from earth2observe.ecmwf.backend import Variable
 
 CATALOG_PATH: Path = Path(__file__).parent / "cds_data_catalog.yaml"
 
@@ -31,7 +31,7 @@ class Catalog(AbstractCatalog):
 
     Attributes:
         catalog: Mapping from a user-friendly variable code (e.g.
-            ``"2T"``) to a typed :class:`VariableSpec` instance. Set
+            ``"2T"``) to a typed :class:`Variable` instance. Set
             by :func:`AbstractCatalog.model_post_init` from the YAML
             shipped at ``CATALOG_PATH``.
 
@@ -45,8 +45,8 @@ class Catalog(AbstractCatalog):
             'reanalysis-era5-single-levels'
             >>> spec.cds_variable
             '2m_temperature'
-            >>> spec.file_name
-            'Tair'
+            >>> spec.nc_variable
+            't2m'
 
             ```
         - Pressure-level variables include a ``cds_pressure_level``
@@ -63,7 +63,7 @@ class Catalog(AbstractCatalog):
             ```
     """
 
-    catalog: dict[str, VariableSpec] = Field(default_factory=dict)
+    catalog: dict[str, Variable] = Field(default_factory=dict)
 
     def get_catalog(self):
         """Read ``cds_data_catalog.yaml`` and return the per-variable map.
@@ -91,7 +91,7 @@ class Catalog(AbstractCatalog):
                 "the top of the file."
             )
         return {
-            code: VariableSpec.from_dict(code, entry)
+            code: Variable.from_dict(code, entry)
             for code, entry in variables.items()
         }
 
@@ -102,7 +102,7 @@ class Catalog(AbstractCatalog):
             var_name: Short user-friendly variable code (e.g. ``"2T"``).
 
         Returns:
-            VariableSpec: Per-variable metadata loaded from
+            Variable: Per-variable metadata loaded from
             ``cds_data_catalog.yaml``.
 
         Raises:
@@ -121,6 +121,6 @@ class Catalog(AbstractCatalog):
             var_name: Short user-friendly variable code.
 
         Returns:
-            VariableSpec: Per-variable metadata. See :meth:`get_dataset`.
+            Variable: Per-variable metadata. See :meth:`get_dataset`.
         """
         return self.get_dataset(var_name)

@@ -3,13 +3,13 @@ from __future__ import annotations
 import calendar
 import datetime as dt
 import os
-from dataclasses import MISSING, dataclass, fields
 from typing import Any
 
 import cdsapi
 import numpy as np
 import pandas as pd
 from loguru import logger
+from pydantic import BaseModel, ConfigDict, ValidationError
 from pyramids.netcdf import NetCDF
 from serapeum_utils.utils import print_progress_bar
 
@@ -42,16 +42,14 @@ class AuthenticationError(Exception):
     pass
 
 
-@dataclass(frozen=True)
-class VariableSpec:
+class Variable(BaseModel):
     """Per-variable catalog entry consumed by :class:`ECMWF`.
 
-    Replaces the loosely-typed ``Dict[str, Any]`` previously threaded
-    between :class:`Catalog`, :meth:`ECMWF.api`, and
-    :meth:`ECMWF.post_download`. Loading the YAML through
+    A frozen pydantic model carrying the metadata for one row in
+    ``cds_data_catalog.yaml``. Loading the YAML through
     :meth:`from_dict` validates required fields up front so a typo
-    in ``cds_data_catalog.yaml`` (e.g. ``factor_add`` vs
-    ``factors_add``) surfaces at import time, not mid-download.
+    in the file (e.g. ``factor_add`` vs ``factors_add``) surfaces at
+    import time, not mid-download.
 
     Attributes:
         cds_dataset: CDS dataset short name used for daily / sub-daily
@@ -61,15 +59,11 @@ class VariableSpec:
         nc_variable: Short variable name inside the CDS NetCDF
             (e.g. ``"t2m"``); :meth:`ECMWF.post_download` uses it to
             index ``fh.variables[...]``.
-        file_name: Stem used for the output NetCDF / GeoTIFF
-            filenames.
         units: Output unit string after the conversion factors are
             applied (used in the output filename).
         factors_add: Optional additive offset applied during
             post-processing. Defaults to ``0.0`` (no offset) when
-            absent from the YAML — useful for rows where no unit
-            conversion is authored yet (e.g. the
-            ``cds_data_catalog.draft.yaml`` parking-lot rows).
+            absent from the YAML.
         factors_mul: Optional multiplicative scale applied during
             post-processing. Defaults to ``1.0`` (identity) when
             absent.
@@ -84,10 +78,11 @@ class VariableSpec:
             month; state values are instantaneous.
     """
 
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
     cds_dataset: str
     cds_variable: str
     nc_variable: str
-    file_name: str
     units: str
     factors_add: float = 0.0
     factors_mul: float = 1.0
@@ -96,42 +91,32 @@ class VariableSpec:
     types: str | None = None
 
     @classmethod
-    def from_dict(cls, code: str, data: dict[str, Any]) -> VariableSpec:
-        """Build a :class:`VariableSpec` from a raw catalog entry.
+    def from_dict(cls, code: str, data: dict[str, Any]) -> Variable:
+        """Build a :class:`Variable` from a raw catalog entry.
+
+        Wraps :class:`pydantic.ValidationError` so the message names
+        the catalog row that failed.
 
         Args:
-            code: Catalog key (e.g. ``"2T"``) — only used for the
-                error message when validation fails so the user can
-                see which entry is broken.
+            code: Catalog key (e.g. ``"2T"``) — used only in the
+                error message so the user can see which row is broken.
             data: The dict loaded from the YAML for ``code``.
 
         Returns:
-            VariableSpec: The validated, frozen instance.
+            Variable: The validated, frozen instance.
 
         Raises:
-            ValueError: If a required key is missing, or an unknown
-                key is present (catches typos like
-                ``factor_add`` vs ``factors_add``).
+            ValueError: If a required key is missing or an unknown
+                key is present (catches typos like ``factor_add``
+                vs ``factors_add``).
         """
-        known = {f.name for f in fields(cls)}
-        unknown = set(data) - known
-        if unknown:
+        try:
+            return cls(**data)
+        except ValidationError as exc:
             raise ValueError(
-                f"cds_data_catalog.yaml entry {code!r} has unknown "
-                f"keys {sorted(unknown)}. Known keys: {sorted(known)}."
-            )
-        required = {
-            f.name
-            for f in fields(cls)
-            if f.default is MISSING and f.default_factory is MISSING
-        }
-        missing = required - set(data)
-        if missing:
-            raise ValueError(
-                f"cds_data_catalog.yaml entry {code!r} is missing "
-                f"required keys: {sorted(missing)}."
-            )
-        return cls(**data)
+                f"cds_data_catalog.yaml entry {code!r} failed "
+                f"validation:\n{exc}"
+            ) from exc
 
     def dataset_for(self, temporal_resolution: str) -> str:
         """Return the CDS dataset name to use for ``temporal_resolution``.
@@ -493,8 +478,8 @@ class ECMWF(AbstractDataSource):
 
         Returns:
             None. Per-variable NetCDFs land at
-            ``<self.root_dir>/<file_name>_<cds_dataset>.nc`` and the
-            post-processed per-date GeoTIFFs alongside.
+            ``<self.root_dir>/<cds_variable>_<cds_dataset>.nc`` and
+            the post-processed per-date GeoTIFFs alongside.
 
         Raises:
             KeyError: If any ``var`` in ``self.vars`` is not in the
@@ -532,7 +517,7 @@ class ECMWF(AbstractDataSource):
                 metadata.
         """
         # Lazy import to avoid a circular dependency: ``catalog.py``
-        # imports ``VariableSpec`` from this module, so a top-level
+        # imports ``Variable`` from this module, so a top-level
         # import of ``Catalog`` would be cyclic.
         from earth2observe.ecmwf.catalog import Catalog
 
@@ -591,9 +576,9 @@ class ECMWF(AbstractDataSource):
         Threading the path returned by :meth:`api` into
         :meth:`post_download` (rather than reconstructing a
         ``data_<dataset>.nc`` filename) is what made the H1 fix:
-        ``api()`` writes ``<file_name>_<cds_dataset>.nc`` while the
-        legacy code was looking for ``data_<dataset>.nc``, so the
-        two never agreed.
+        ``api()`` writes ``<cds_variable>_<cds_dataset>.nc`` while
+        the legacy code was looking for ``data_<dataset>.nc``, so
+        the two never agreed.
 
         Args:
             var_info: Variable metadata pulled from
@@ -612,9 +597,9 @@ class ECMWF(AbstractDataSource):
         Raises:
             KeyError: If ``var_info`` is missing one of the keys
                 required by :meth:`api` (``cds_dataset``,
-                ``cds_variable``, ``file_name``) or by
-                :meth:`post_download` (``nc_variable``, ``units``,
-                ``factors_add``, ``factors_mul``).
+                ``cds_variable``) or by :meth:`post_download`
+                (``nc_variable``, ``units``, ``factors_add``,
+                ``factors_mul``).
 
         Examples:
             - The catalog ships ``var_info`` dicts ready for this
@@ -627,14 +612,13 @@ class ECMWF(AbstractDataSource):
                 ...     "nc_variable": "t2m",
                 ...     "types": "state",
                 ...     "units": "C",
-                ...     "file_name": "Tair",
                 ...     "factors_add": -273.15,
                 ...     "factors_mul": 1,
                 ... }
                 >>> var_info["cds_variable"], var_info["nc_variable"]
                 ('2m_temperature', 't2m')
-                >>> f"{var_info['file_name']}_{var_info['cds_dataset']}.nc"
-                'Tair_reanalysis-era5-single-levels.nc'
+                >>> f"{var_info['cds_variable']}_{var_info['cds_dataset']}.nc"
+                '2m_temperature_reanalysis-era5-single-levels.nc'
 
                 ```
             - Download via the user-facing :class:`Earth2Observe`
@@ -702,8 +686,8 @@ class ECMWF(AbstractDataSource):
                 * ``cds_dataset`` — CDS dataset short name, e.g.
                   ``"reanalysis-era5-single-levels"``.
                 * ``cds_variable`` — CDS variable name, e.g.
-                  ``"2m_temperature"``.
-                * ``file_name`` — Stem used for the output file name.
+                  ``"2m_temperature"``. Also used as the output
+                  filename stem.
 
                 Optional keys:
 
@@ -713,19 +697,18 @@ class ECMWF(AbstractDataSource):
         Returns:
             pathlib.Path: Absolute path to the downloaded NetCDF file,
             written to
-            ``<self.root_dir>/<file_name>_<cds_dataset>.nc``.
+            ``<self.root_dir>/<cds_variable>_<cds_dataset>.nc``.
 
         Raises:
             KeyError: If ``var_info`` is missing one of the required
-                keys (``cds_dataset``, ``cds_variable``, or
-                ``file_name``).
+                keys (``cds_dataset`` or ``cds_variable``).
             Exception: Any error raised by
                 :meth:`cdsapi.Client.retrieve`, including authentication
                 failures (no ``~/.cdsapirc``), licence-not-accepted
                 errors, or transient CDS server errors.
 
         Examples:
-            - Inspect a single-level :class:`VariableSpec` and the
+            - Inspect a single-level :class:`Variable` and the
               file name it produces:
 
                 ```python
@@ -733,8 +716,8 @@ class ECMWF(AbstractDataSource):
                 >>> spec = Catalog().get_dataset("2T")
                 >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
-                >>> f"{spec.file_name}_{spec.cds_dataset}.nc"
-                'Tair_reanalysis-era5-single-levels.nc'
+                >>> f"{spec.cds_variable}_{spec.cds_dataset}.nc"
+                '2m_temperature_reanalysis-era5-single-levels.nc'
 
                 ```
             - Pressure-level variables expose ``cds_pressure_level``;
@@ -808,7 +791,7 @@ class ECMWF(AbstractDataSource):
         if var_info.cds_pressure_level is not None:
             request["pressure_level"] = var_info.cds_pressure_level
 
-        target = self.root_dir / f"{var_info.file_name}_{dataset}.nc"
+        target = self.root_dir / f"{var_info.cds_variable}_{dataset}.nc"
         logger.info(
             f"Requesting {dataset} from CDS; this may take several minutes"
         )
@@ -861,8 +844,8 @@ class ECMWF(AbstractDataSource):
                 * ``nc_variable`` — short variable name inside the
                   CDS NetCDF (e.g. ``"t2m"`` for 2-metre temperature),
                   used to index ``fh.variables[...]``. Differs from
-                  ``cds_variable`` (which is the request name).
-                * ``file_name`` — stem used for the output TIF name.
+                  ``cds_variable`` (which is the request name and
+                  also the output filename stem).
                 * ``units`` — output unit string used in the output
                   file name.
                 * ``factors_add`` / ``factors_mul`` — additive offset
@@ -952,11 +935,9 @@ class ECMWF(AbstractDataSource):
                 if is_flux:
                     Data_end = Data_end * days_later
 
-                var_output_name = var_info.file_name
-
                 name_out = os.path.join(
                     self.root_dir,
-                    f"{var_output_name}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif",
+                    f"{var_info.cds_variable}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif",
                 )
                 per_date_outputs.append((date, Data_end, name_out))
 

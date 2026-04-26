@@ -320,7 +320,7 @@ class AbstractCatalog(BaseModel):
             :meth:`get_catalog`. Populated post-init; defaults to an
             empty dict so the field is always present. Type and
             shape are backend-specific (a concrete subclass typically
-            stores typed value objects, e.g. ``dict[str, VariableSpec]``
+            stores typed value objects, e.g. ``dict[str, Variable]``
             for the ECMWF backend).
     """
 
