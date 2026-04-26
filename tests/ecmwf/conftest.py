@@ -23,7 +23,7 @@ import cdsapi
 import pandas as pd
 import pytest
 
-from earth2observe.abstractdatasource import SpatialExtent, TemporalExtent
+from earth2observe.base import SpatialExtent, TemporalExtent
 from earth2observe.ecmwf import ECMWF, VariableSpec
 
 

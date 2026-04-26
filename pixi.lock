@@ -7936,7 +7936,7 @@ packages:
 - pypi: ./
   name: earth2observe
   version: 0.2.2
-  sha256: a50e55b8764a169df74ba3d01ffa519267cb6fa098527ec6cbc4a607db2d31e9
+  sha256: 8b002a89fb7202cd33745a5a2770252b672e201aadb5da44674b299289dd7cac
   requires_dist:
   - boto3>=1.26.50
   - earthengine-api>=0.1.324

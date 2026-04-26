@@ -11,7 +11,7 @@ from pyramids.dataset import Dataset
 from pyramids._io import extract_from_gz
 from serapeum_utils.utils import print_progress_bar
 
-from earth2observe.abstractdatasource import AbstractCatalog, AbstractDataSource
+from earth2observe.base import AbstractCatalog, AbstractDataSource
 
 
 class CHIRPS(AbstractDataSource):

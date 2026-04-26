@@ -293,7 +293,7 @@ class TestECMWFBackend:
             (),
             {"read_file": staticmethod(lambda path, read_only=True: _Fake(path))},
         )
-        monkeypatch.setattr("earth2observe.ecmwf.NetCDF", fake_netcdf)
+        monkeypatch.setattr("earth2observe.ecmwf.backend.NetCDF", fake_netcdf)
 
         e2o = Earth2Observe(
             data_source="ecmwf",

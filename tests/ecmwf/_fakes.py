@@ -125,7 +125,7 @@ def install_fake_netcdf(monkeypatch, var_value=273.15):
     fake_class = type(
         "_FakeNetCDFFactory", (), {"read_file": staticmethod(_read_file)}
     )
-    monkeypatch.setattr("earth2observe.ecmwf.NetCDF", fake_class)
+    monkeypatch.setattr("earth2observe.ecmwf.backend.NetCDF", fake_class)
     return _FakeNetCDFDataset.instances
 
 

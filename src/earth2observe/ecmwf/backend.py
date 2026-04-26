@@ -14,13 +14,21 @@ from loguru import logger
 from pyramids.netcdf import NetCDF
 from serapeum_utils.utils import print_progress_bar
 
-from earth2observe import __path__
-from earth2observe.abstractdatasource import (
+from pathlib import Path as _Path
+
+from earth2observe.base import (
     AbstractCatalog,
     AbstractDataSource,
     SpatialExtent,
     TemporalExtent,
 )
+
+#: Path to the catalog YAML, shipped alongside this module as
+#: package data. Resolved via ``__file__`` so :class:`Catalog` does
+#: not need to import the parent package's ``__path__``. Tests can
+#: monkey-patch this module attribute to redirect the catalog
+#: lookup at a ``tmp_path``.
+CATALOG_PATH: _Path = _Path(__file__).parent / "cds_data_catalog.yaml"
 
 
 #: ERA5 native grid spacing in degrees. Used by :meth:`ECMWF.create_grid`
@@ -994,7 +1002,7 @@ class Catalog(AbstractCatalog):
                 ``get_dataset(code)`` call raised ``KeyError`` —
                 misleading the user about which file is broken.
         """
-        catalog_path = f"{__path__[0]}/cds_data_catalog.yaml"
+        catalog_path = CATALOG_PATH
         with open(catalog_path, "r", encoding="utf-8") as stream:
             data = yaml.safe_load(stream) or {}
         variables = data.get("variables")

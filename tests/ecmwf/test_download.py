@@ -104,7 +104,7 @@ class TestDownloadIteration:
         ecmwf_stub.vars = ["2T"]
         ecmwf_stub.download_dataset = MagicMock()
         monkeypatch.setattr(
-            "earth2observe.ecmwf.os.remove",
+            "earth2observe.ecmwf.backend.os.remove",
             lambda path: removed.append(path),
         )
 

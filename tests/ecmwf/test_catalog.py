@@ -117,9 +117,9 @@ class TestCatalog:
         """
         empty_yaml = tmp_path / "cds_data_catalog.yaml"
         empty_yaml.write_text("version: 2\ndatasets: []\n", encoding="utf-8")
-        from earth2observe import ecmwf as ecmwf_module
+        from earth2observe.ecmwf import backend as backend_module
 
-        monkeypatch.setattr(ecmwf_module, "__path__", [str(tmp_path)])
+        monkeypatch.setattr(backend_module, "CATALOG_PATH", empty_yaml)
         with pytest.raises(ValueError, match="variables"):
             Catalog()
 
@@ -133,8 +133,8 @@ class TestCatalog:
         """
         null_yaml = tmp_path / "cds_data_catalog.yaml"
         null_yaml.write_text("variables:\n", encoding="utf-8")
-        from earth2observe import ecmwf as ecmwf_module
+        from earth2observe.ecmwf import backend as backend_module
 
-        monkeypatch.setattr(ecmwf_module, "__path__", [str(tmp_path)])
+        monkeypatch.setattr(backend_module, "CATALOG_PATH", null_yaml)
         with pytest.raises(ValueError, match="variables"):
             Catalog()
