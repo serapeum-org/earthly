@@ -4,7 +4,7 @@ import calendar
 import datetime as dt
 import os
 from dataclasses import MISSING, dataclass, fields
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import cdsapi
 import numpy as np
@@ -91,12 +91,12 @@ class VariableSpec:
     units: str
     factors_add: float = 0.0
     factors_mul: float = 1.0
-    cds_dataset_monthly: Optional[str] = None
-    cds_pressure_level: Optional[List[str]] = None
-    types: Optional[str] = None
+    cds_dataset_monthly: str | None = None
+    cds_pressure_level: list[str] | None = None
+    types: str | None = None
 
     @classmethod
-    def from_dict(cls, code: str, data: Dict[str, Any]) -> VariableSpec:
+    def from_dict(cls, code: str, data: dict[str, Any]) -> VariableSpec:
         """Build a :class:`VariableSpec` from a raw catalog entry.
 
         Args:
@@ -321,7 +321,7 @@ class ECMWF(AbstractDataSource):
             end: Inclusive end date as a string. Defaults to ``None``.
             path: Output directory. Created by the parent if it does
                 not exist. Defaults to the current working directory.
-            variables: List of CDS catalog short codes (e.g.
+            variables: list of CDS catalog short codes (e.g.
                 ``["2T", "TP"]``); see ``cds_data_catalog.yaml`` for
                 the registered codes.
             lat_lim: ``[lat_min, lat_max]``.
@@ -574,7 +574,7 @@ class ECMWF(AbstractDataSource):
 
     def download_dataset(
         self,
-        var_info: Dict[str, str],
+        var_info: dict[str, str],
         progress_bar: bool = True,
     ):
         """Download a single variable from CDS and post-process the NetCDF.
@@ -670,7 +670,7 @@ class ECMWF(AbstractDataSource):
         nc_path = self.api(var_info)
         self.post_download(var_info, nc_path, progress_bar)
 
-    def api(self, var_info: Dict[str, str]):
+    def api(self, var_info: dict[str, str]):
         """Build a CDS request and submit it via :class:`cdsapi.Client`.
 
         Constructs the request dictionary expected by
@@ -847,7 +847,7 @@ class ECMWF(AbstractDataSource):
         )
 
     def post_download(
-        self, var_info: Dict[str, str], nc_path, progress_bar: bool = True
+        self, var_info: dict[str, str], nc_path, progress_bar: bool = True
     ):
         """Slice the downloaded NetCDF into per-date GeoTIFFs.
 

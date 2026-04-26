@@ -3,14 +3,9 @@ from __future__ import annotations
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
-
-# ABC / abstractmethod are still used by :class:`AbstractDataSource`;
-# the catalog hierarchy uses pydantic-native NotImplementedError
-# overrides instead since BaseModel + ABCMeta has metaclass conflicts
-# under some pydantic versions.
 
 
 class TemporalExtent(BaseModel):
@@ -331,7 +326,7 @@ class AbstractCatalog(BaseModel):
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    catalog: Dict[str, Any] = Field(default_factory=dict)
+    catalog: dict[str, Any] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
         """Populate :attr:`catalog` after pydantic validation runs.

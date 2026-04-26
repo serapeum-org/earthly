@@ -9,7 +9,6 @@ separate modules.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Dict
 
 import yaml
 from pydantic import Field
@@ -64,7 +63,7 @@ class Catalog(AbstractCatalog):
             ```
     """
 
-    catalog: Dict[str, VariableSpec] = Field(default_factory=dict)
+    catalog: dict[str, VariableSpec] = Field(default_factory=dict)
 
     def get_catalog(self):
         """Read ``cds_data_catalog.yaml`` and return the per-variable map.
