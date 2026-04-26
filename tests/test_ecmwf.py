@@ -26,7 +26,9 @@ import pytest
 
 import cdsapi
 
-from earth2observe.ecmwf import ECMWF, AuthenticationError, Catalog
+from dataclasses import replace as _dataclass_replace
+
+from earth2observe.ecmwf import ECMWF, AuthenticationError, Catalog, VariableSpec
 
 
 @pytest.fixture(autouse=True)
@@ -60,17 +62,18 @@ def single_level_var_info():
     """CDS catalog entry for a single-level ERA5 variable.
 
     Returns:
-        dict: Catalog metadata for ``2m_temperature`` on
+        VariableSpec: Catalog metadata for ``2m_temperature`` on
         ``reanalysis-era5-single-levels``.
     """
-    return {
-        "cds_dataset": "reanalysis-era5-single-levels",
-        "cds_variable": "2m_temperature",
-        "units": "C",
-        "file_name": "Tair",
-        "factors_add": -273.15,
-        "factors_mul": 1,
-    }
+    return VariableSpec(
+        cds_dataset="reanalysis-era5-single-levels",
+        cds_variable="2m_temperature",
+        nc_variable="t2m",
+        file_name="Tair",
+        units="C",
+        factors_add=-273.15,
+        factors_mul=1,
+    )
 
 
 @pytest.fixture
@@ -78,18 +81,19 @@ def pressure_level_var_info():
     """CDS catalog entry for a pressure-level ERA5 variable.
 
     Returns:
-        dict: Catalog metadata for ``temperature`` on
+        VariableSpec: Catalog metadata for ``temperature`` on
         ``reanalysis-era5-pressure-levels`` at 1000 hPa.
     """
-    return {
-        "cds_dataset": "reanalysis-era5-pressure-levels",
-        "cds_variable": "temperature",
-        "cds_pressure_level": ["1000"],
-        "units": "C",
-        "file_name": "Tair2m",
-        "factors_add": -273.15,
-        "factors_mul": 1,
-    }
+    return VariableSpec(
+        cds_dataset="reanalysis-era5-pressure-levels",
+        cds_variable="temperature",
+        cds_pressure_level=["1000"],
+        nc_variable="t",
+        file_name="Tair2m",
+        units="C",
+        factors_add=-273.15,
+        factors_mul=1,
+    )
 
 
 @pytest.fixture
@@ -188,7 +192,7 @@ class TestApi:
         assert len(args) == 3, (
             f"Expected 3 positional args, got {len(args)}: {args}"
         )
-        assert args[0] == single_level_var_info["cds_dataset"], (
+        assert args[0] == single_level_var_info.cds_dataset, (
             f"First arg must be dataset name, got {args[0]!r}"
         )
         assert isinstance(args[1], dict), (
@@ -408,36 +412,44 @@ class TestApi:
             f"Got {target.name}"
         )
 
-    def test_missing_cds_dataset_raises_key_error(
-        self, ecmwf_stub, single_level_var_info
-    ):
-        """Catalog entries without ``cds_dataset`` raise ``KeyError``.
+    def test_variable_spec_requires_cds_dataset(self):
+        """:class:`VariableSpec` cannot be built without ``cds_dataset``.
 
         Test scenario:
-            Removing ``cds_dataset`` from ``var_info`` must surface a
-            ``KeyError`` immediately rather than silently submitting a
-            malformed request.
+            Pre-M1 (when var_info was a dict) the missing key only
+            surfaced inside ``api()`` as ``KeyError``. The frozen
+            dataclass moves the failure to construction: a
+            :class:`TypeError` from the missing-required-arg, or a
+            :class:`ValueError` from :meth:`VariableSpec.from_dict`.
         """
-        single_level_var_info.pop("cds_dataset")
-        with pytest.raises(KeyError, match="cds_dataset"):
-            ecmwf_stub.api(single_level_var_info)
-        assert ecmwf_stub.client.retrieve.call_count == 0, (
-            "retrieve must not be called when var_info is malformed"
-        )
+        catalog_entry = {
+            "cds_variable": "2m_temperature",
+            "nc_variable": "t2m",
+            "file_name": "Tair",
+            "units": "C",
+            "factors_add": -273.15,
+            "factors_mul": 1,
+        }
+        with pytest.raises(ValueError, match="cds_dataset"):
+            VariableSpec.from_dict("2T", catalog_entry)
 
-    def test_missing_cds_variable_raises_key_error(
-        self, ecmwf_stub, single_level_var_info
-    ):
-        """Catalog entries without ``cds_variable`` raise ``KeyError``.
+    def test_variable_spec_requires_cds_variable(self):
+        """:class:`VariableSpec` cannot be built without ``cds_variable``.
 
         Test scenario:
-            Removing ``cds_variable`` from ``var_info`` must surface a
-            ``KeyError`` from ``api()`` rather than passing a request
-            without the ``variable`` key to CDS.
+            Same shape as the cds_dataset case — surfaces at
+            construction, not at request time.
         """
-        single_level_var_info.pop("cds_variable")
-        with pytest.raises(KeyError, match="cds_variable"):
-            ecmwf_stub.api(single_level_var_info)
+        catalog_entry = {
+            "cds_dataset": "reanalysis-era5-single-levels",
+            "nc_variable": "t2m",
+            "file_name": "Tair",
+            "units": "C",
+            "factors_add": -273.15,
+            "factors_mul": 1,
+        }
+        with pytest.raises(ValueError, match="cds_variable"):
+            VariableSpec.from_dict("2T", catalog_entry)
 
     def test_licence_not_accepted_is_translated(
         self, ecmwf_stub, single_level_var_info
@@ -508,19 +520,19 @@ class TestApiMonthly:
         """Catalog entry with both daily and monthly CDS datasets.
 
         Returns:
-            dict: Variable metadata that exercises the
+            VariableSpec: Variable metadata that exercises the
             ``cds_dataset_monthly`` and pressure-level branches.
         """
-        return {
-            "cds_dataset": "reanalysis-era5-single-levels",
-            "cds_dataset_monthly": (
-                "reanalysis-era5-single-levels-monthly-means"
-            ),
-            "cds_variable": "2m_temperature",
-            "file_name": "Tair",
-            "factors_add": -273.15,
-            "factors_mul": 1,
-        }
+        return VariableSpec(
+            cds_dataset="reanalysis-era5-single-levels",
+            cds_dataset_monthly="reanalysis-era5-single-levels-monthly-means",
+            cds_variable="2m_temperature",
+            nc_variable="t2m",
+            file_name="Tair",
+            units="C",
+            factors_add=-273.15,
+            factors_mul=1,
+        )
 
     def test_monthly_routes_to_monthly_dataset(
         self, ecmwf_stub, monthly_var_info
@@ -554,7 +566,9 @@ class TestApiMonthly:
             ``cds_dataset`` rather than raising or sending an empty
             dataset name.
         """
-        monthly_var_info.pop("cds_dataset_monthly")
+        monthly_var_info = _dataclass_replace(
+            monthly_var_info, cds_dataset_monthly=None
+        )
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub.api(monthly_var_info)
         dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
@@ -698,8 +712,8 @@ class TestDownloadIteration:
         attempted = []
 
         def flaky(var_info, progress_bar):
-            attempted.append(var_info["cds_variable"])
-            if var_info["cds_variable"] == "total_precipitation":
+            attempted.append(var_info.cds_variable)
+            if var_info.cds_variable == "total_precipitation":
                 raise RuntimeError("simulated CDS 503")
 
         ecmwf_stub.vars = ["2T", "TP", "E"]
@@ -863,7 +877,6 @@ class TestPostDownload:
             ``netCDF4.Dataset`` to record every open() and verify the
             single recorded path is the one passed in.
         """
-        single_level_var_info["nc_variable"] = "t2m"
         instances = _install_fake_netcdf(monkeypatch)
         nc_path = tmp_path / "Tair_reanalysis-era5-single-levels.nc"
 
@@ -884,16 +897,15 @@ class TestPostDownload:
     def test_post_download_uses_nc_variable_not_var_name(
         self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
     ):
-        """``post_download`` indexes ``fh.variables[nc_variable]``.
+        """``post_download`` indexes ``fh.variables[var_info.nc_variable]``.
 
         Test scenario:
-            Pre-H2, the function used ``var_info.get("var_name")``
+            Pre-H2/M1, the function used ``var_info.get("var_name")``
             (a MARS-only key) which always resolved to ``None`` —
             ``fh.variables[None]`` raised. The new code reads
-            ``var_info["nc_variable"]``. Test passes when the function
+            ``var_info.nc_variable``. Test passes when the function
             completes without raising.
         """
-        single_level_var_info["nc_variable"] = "t2m"
         _install_fake_netcdf(monkeypatch)
 
         ecmwf_stub.post_download(
@@ -902,29 +914,31 @@ class TestPostDownload:
             progress_bar=False,
         )
 
-    def test_post_download_uses_underscore_file_name(
-        self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
-    ):
-        """``post_download`` reads ``var_info["file_name"]`` (no space).
+    def test_variable_spec_rejects_legacy_spaced_file_name_key(self):
+        """:meth:`VariableSpec.from_dict` rejects the legacy ``"file name"`` key.
 
         Test scenario:
-            Pre-H2, the function read ``var_info.get("file name")``
-            with a space, which the new catalog never carries. With
-            the new key in place, post_download should run without
-            ever raising ``KeyError``. The legacy spaced key must not
-            satisfy the lookup.
+            Pre-M1 the post_download lookup was the only line that
+            knew about the typo'd legacy key. M1's
+            :meth:`VariableSpec.from_dict` enforces the schema at
+            load time: any unknown key (including the spaced
+            ``"file name"`` from the MARS catalog) raises
+            ``ValueError`` immediately so a malformed YAML cannot
+            propagate into the runtime.
         """
-        single_level_var_info["nc_variable"] = "t2m"
-        # Inject the legacy spaced key with a sentinel value that
-        # would surface in the output file name if it were used.
-        single_level_var_info["file name"] = "LEGACY_NAME_SHOULD_NOT_BE_USED"
-        _install_fake_netcdf(monkeypatch)
-
-        ecmwf_stub.post_download(
-            single_level_var_info,
-            tmp_path / "out.nc",
-            progress_bar=False,
-        )
+        with pytest.raises(ValueError, match="file name"):
+            VariableSpec.from_dict(
+                "2T",
+                {
+                    "cds_dataset": "reanalysis-era5-single-levels",
+                    "cds_variable": "2m_temperature",
+                    "nc_variable": "t2m",
+                    "file name": "Tair",  # legacy spaced key
+                    "units": "C",
+                    "factors_add": -273.15,
+                    "factors_mul": 1,
+                },
+            )
 
     def test_post_download_raises_on_missing_required_keys(
         self, ecmwf_stub, monkeypatch, tmp_path
@@ -932,11 +946,14 @@ class TestPostDownload:
         """Missing required keys raise ``KeyError`` immediately.
 
         Test scenario:
-            ``post_download`` requires ``nc_variable``, ``units``,
-            ``file_name``, ``factors_add`` and ``factors_mul``. A
-            var_info that is missing ``nc_variable`` must surface a
-            ``KeyError`` from the dict lookup rather than silently
-            indexing ``fh.variables[None]``.
+            Pre-M1, ``post_download`` accepted any dict and the
+            missing keys surfaced as ``KeyError`` deep inside the
+            loop. With M1, the dataclass guarantees presence at
+            construction; the only way to call ``post_download``
+            with a missing key is to pass a dict that bypasses the
+            dataclass (legacy-test-style). The function still
+            raises ``AttributeError`` on a bare dict, exposing the
+            mistake.
         """
         _install_fake_netcdf(monkeypatch)
         var_info_missing = {
@@ -946,7 +963,7 @@ class TestPostDownload:
             "factors_mul": 1.0,
         }
 
-        with pytest.raises(KeyError, match="nc_variable"):
+        with pytest.raises(AttributeError, match="nc_variable"):
             ecmwf_stub.post_download(
                 var_info_missing,
                 tmp_path / "out.nc",
@@ -970,26 +987,23 @@ class TestPostDownload:
             Compares the flux outputs against state outputs to prove
             the difference is exactly ``days_later``.
         """
-        single_level_var_info["nc_variable"] = "t2m"
         # Both runs share the same input array (the fake fills t2m
         # with 273.15) — the only difference is the types field.
-        single_level_var_info["factors_add"] = 0
-        single_level_var_info["factors_mul"] = 1
+        spec_state = _dataclass_replace(
+            single_level_var_info, factors_add=0, factors_mul=1, types="state"
+        )
+        spec_flux = _dataclass_replace(spec_state, types="flux")
 
         _install_fake_netcdf(monkeypatch, var_value=10.0)
 
-        # Daily, state — Data_end == 10
-        single_level_var_info["types"] = "state"
         ecmwf_stub.temporal_resolution = "daily"
         state_daily = ecmwf_stub.post_download(
-            single_level_var_info, tmp_path / "out.nc", progress_bar=False
+            spec_state, tmp_path / "out.nc", progress_bar=False
         )
 
-        # Daily, flux — Data_end == 10 * 1 (days_later=1 for daily)
         _install_fake_netcdf(monkeypatch, var_value=10.0)
-        single_level_var_info["types"] = "flux"
         flux_daily = ecmwf_stub.post_download(
-            single_level_var_info, tmp_path / "out.nc", progress_bar=False
+            spec_flux, tmp_path / "out.nc", progress_bar=False
         )
 
         # Daily flux equals daily state (multiplier is 1)
@@ -1006,9 +1020,8 @@ class TestPostDownload:
             "2022-01-01", "2022-01-01", freq="MS"
         )
         _install_fake_netcdf(monkeypatch, var_value=10.0)
-        single_level_var_info["types"] = "flux"
         flux_monthly = ecmwf_stub.post_download(
-            single_level_var_info, tmp_path / "out.nc", progress_bar=False
+            spec_flux, tmp_path / "out.nc", progress_bar=False
         )
 
         assert len(flux_monthly) == 1
@@ -1297,11 +1310,15 @@ class TestParentClassWiring:
         )
 
         target = ecmwf.api(
-            {
-                "cds_dataset": "reanalysis-era5-single-levels",
-                "cds_variable": "2m_temperature",
-                "file_name": "Tair",
-            }
+            VariableSpec(
+                cds_dataset="reanalysis-era5-single-levels",
+                cds_variable="2m_temperature",
+                nc_variable="t2m",
+                file_name="Tair",
+                units="C",
+                factors_add=0,
+                factors_mul=1,
+            )
         )
 
         assert len(retrieved) == 1, (
@@ -1482,13 +1499,13 @@ class TestCatalog:
     """Tests for :class:`Catalog` after the H2 / H5 rewiring."""
 
     def test_catalog_loads_per_variable_map(self):
-        """``catalog`` is a per-variable dict, not a per-dataset listing.
+        """``catalog`` is a per-variable map of :class:`VariableSpec`.
 
         Test scenario:
-            After H5/H2, the catalog attribute should be the
-            ``variables:`` map from cds_data_catalog.yaml — keyed by
-            short variable codes (e.g. "2T"), each value a metadata
-            dict with ``cds_dataset`` / ``cds_variable``.
+            After M1, ``Catalog`` returns frozen :class:`VariableSpec`
+            instances keyed by short variable codes. Inspect the "2T"
+            entry to verify both the type and the cds_dataset
+            attribute.
         """
         cat = Catalog()
         assert isinstance(cat.catalog, dict), (
@@ -1497,8 +1514,12 @@ class TestCatalog:
         assert "2T" in cat.catalog, (
             f"'2T' missing from catalog keys: {sorted(cat.catalog)}"
         )
-        assert "cds_dataset" in cat.catalog["2T"], (
-            f"'2T' entry missing cds_dataset: {cat.catalog['2T']}"
+        assert isinstance(cat.catalog["2T"], VariableSpec), (
+            f"'2T' entry should be a VariableSpec; got "
+            f"{type(cat.catalog['2T']).__name__}"
+        )
+        assert cat.catalog["2T"].cds_dataset, (
+            f"'2T' entry missing cds_dataset"
         )
 
     @pytest.mark.parametrize(
@@ -1514,7 +1535,7 @@ class TestCatalog:
     def test_get_dataset_returns_new_schema(
         self, var_code, expected_dataset, expected_variable
     ):
-        """``get_dataset`` returns CDS-shaped metadata for each variable.
+        """``get_dataset`` returns a :class:`VariableSpec` per variable.
 
         Args:
             var_code: User-friendly variable code (e.g. "2T").
@@ -1524,16 +1545,17 @@ class TestCatalog:
 
         Test scenario:
             The five mappings the migration plan calls out explicitly
-            (E, T, 2T, TP, SP) must round-trip through the catalog.
+            (E, T, 2T, TP, SP) must round-trip through the catalog
+            and expose the right dataset/variable as attributes.
         """
-        info = Catalog().get_dataset(var_code)
-        assert info["cds_dataset"] == expected_dataset, (
+        spec = Catalog().get_dataset(var_code)
+        assert spec.cds_dataset == expected_dataset, (
             f"{var_code}: expected dataset {expected_dataset!r}, "
-            f"got {info['cds_dataset']!r}"
+            f"got {spec.cds_dataset!r}"
         )
-        assert info["cds_variable"] == expected_variable, (
+        assert spec.cds_variable == expected_variable, (
             f"{var_code}: expected variable {expected_variable!r}, "
-            f"got {info['cds_variable']!r}"
+            f"got {spec.cds_variable!r}"
         )
 
     def test_get_dataset_includes_file_name_and_factors(self):
@@ -1544,16 +1566,16 @@ class TestCatalog:
             ``factors_add`` / ``factors_mul`` for unit conversion. The
             new catalog must continue to provide them.
         """
-        info = Catalog().get_dataset("2T")
-        assert info["file_name"] == "Tair", (
-            f"2T file_name should be 'Tair'; got {info['file_name']!r}"
+        spec = Catalog().get_dataset("2T")
+        assert spec.file_name == "Tair", (
+            f"2T file_name should be 'Tair'; got {spec.file_name!r}"
         )
-        assert info["factors_add"] == -273.15, (
+        assert spec.factors_add == -273.15, (
             f"2T factors_add should be -273.15 (K → C); "
-            f"got {info['factors_add']!r}"
+            f"got {spec.factors_add!r}"
         )
-        assert info["factors_mul"] == 1, (
-            f"2T factors_mul should be 1; got {info['factors_mul']!r}"
+        assert spec.factors_mul == 1, (
+            f"2T factors_mul should be 1; got {spec.factors_mul!r}"
         )
 
     def test_pressure_level_var_carries_cds_pressure_level(self):
@@ -1561,13 +1583,13 @@ class TestCatalog:
 
         Test scenario:
             T, Q, R live on reanalysis-era5-pressure-levels; their
-            catalog entries must carry the ``cds_pressure_level`` key
-            so :meth:`ECMWF.api` can forward it to CDS.
+            catalog entries must carry the ``cds_pressure_level``
+            attribute so :meth:`ECMWF.api` can forward it to CDS.
         """
-        info = Catalog().get_dataset("T")
-        assert info.get("cds_pressure_level") == ["1000"], (
+        spec = Catalog().get_dataset("T")
+        assert spec.cds_pressure_level == ["1000"], (
             f"T should default to pressure_level=['1000']; "
-            f"got {info.get('cds_pressure_level')!r}"
+            f"got {spec.cds_pressure_level!r}"
         )
 
     def test_get_dataset_raises_key_error_for_unknown_code(self):
@@ -1582,7 +1604,7 @@ class TestCatalog:
             Catalog().get_dataset("DEFINITELY_NOT_A_REAL_CODE")
 
     def test_get_variable_aliases_get_dataset(self):
-        """``get_variable`` returns the same dict as ``get_dataset``.
+        """``get_variable`` returns the same VariableSpec as ``get_dataset``.
 
         Test scenario:
             ``get_variable`` is required by the abstract base class,
@@ -1592,25 +1614,27 @@ class TestCatalog:
         """
         cat = Catalog()
         assert cat.get_variable("2T") == cat.get_dataset("2T"), (
-            "get_variable and get_dataset must return the same dict"
+            "get_variable and get_dataset must return the same VariableSpec"
         )
 
     def test_no_mars_schema_keys_remain(self):
         """No catalog entry carries a stale MARS-style key.
 
         Test scenario:
-            The pre-H5 catalog used ``number_para``, ``download type``,
-            ``var_name`` (the lowercase MARS GRIB code). Those have no
-            meaning in a cdsapi request and must not be present in the
-            new catalog.
+            The pre-M1 catalog used ``number_para``, ``download type``,
+            ``var_name`` (the lowercase MARS GRIB code). Post-M1,
+            :meth:`VariableSpec.from_dict` raises ``ValueError`` if
+            the YAML carries any unknown key — but pin it explicitly
+            here too as a regression test against the schema header.
         """
-        catalog = Catalog().catalog
+        from dataclasses import fields as _fields
+
         forbidden = {"number_para", "download type", "var_name"}
-        for code, info in catalog.items():
-            stale = forbidden & set(info.keys())
-            assert not stale, (
-                f"{code} still carries MARS-only keys {stale}: {info}"
-            )
+        present = {f.name for f in _fields(VariableSpec)}
+        stale = forbidden & present
+        assert not stale, (
+            f"VariableSpec carries MARS-only fields {stale}"
+        )
 
     def test_get_catalog_raises_on_empty_variables(self, monkeypatch, tmp_path):
         """A YAML missing ``variables:`` raises ``ValueError``.
@@ -1696,11 +1720,15 @@ class TestApiE2E:
         ecmwf.temporal_resolution = "daily"
 
         target = ecmwf.api(
-            {
-                "cds_dataset": "reanalysis-era5-single-levels",
-                "cds_variable": "2m_temperature",
-                "file_name": "Tair",
-            }
+            VariableSpec(
+                cds_dataset="reanalysis-era5-single-levels",
+                cds_variable="2m_temperature",
+                nc_variable="t2m",
+                file_name="Tair",
+                units="C",
+                factors_add=0,
+                factors_mul=1,
+            )
         )
 
         assert target.exists(), f"NetCDF file not created at {target}"

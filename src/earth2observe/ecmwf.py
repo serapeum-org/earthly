@@ -1,7 +1,8 @@
 import calendar
 import datetime as dt
 import os
-from typing import Any, Dict
+from dataclasses import MISSING, dataclass, fields
+from typing import Any, Dict, List, Optional
 
 import cdsapi
 import numpy as np
@@ -32,6 +33,113 @@ class AuthenticationError(Exception):
     """
 
     pass
+
+
+@dataclass(frozen=True)
+class VariableSpec:
+    """Per-variable catalog entry consumed by :class:`ECMWF`.
+
+    Replaces the loosely-typed ``Dict[str, Any]`` previously threaded
+    between :class:`Catalog`, :meth:`ECMWF.api`, and
+    :meth:`ECMWF.post_download`. Loading the YAML through
+    :meth:`from_dict` validates required fields up front so a typo
+    in ``cds_data_catalog.yaml`` (e.g. ``factor_add`` vs
+    ``factors_add``) surfaces at import time, not mid-download.
+
+    Attributes:
+        cds_dataset: CDS dataset short name used for daily / sub-daily
+            requests, e.g. ``"reanalysis-era5-single-levels"``.
+        cds_variable: CDS variable name passed in the retrieve()
+            request, e.g. ``"2m_temperature"``.
+        nc_variable: Short variable name inside the CDS NetCDF
+            (e.g. ``"t2m"``); :meth:`ECMWF.post_download` uses it to
+            index ``fh.variables[...]``.
+        file_name: Stem used for the output NetCDF / GeoTIFF
+            filenames.
+        units: Output unit string after the conversion factors are
+            applied (used in the output filename).
+        factors_add: Additive offset applied during post-processing.
+        factors_mul: Multiplicative scale applied during
+            post-processing.
+        cds_dataset_monthly: Optional CDS dataset short name used
+            when ``temporal_resolution == "monthly"``. Falls back to
+            ``cds_dataset`` when absent.
+        cds_pressure_level: Optional list of pressure levels (as
+            strings, e.g. ``["1000"]``) for pressure-level datasets.
+        types: Optional ``"flux"`` or ``"state"`` marker. Flux values
+            are accumulated per timestep on CDS so monthly
+            aggregation multiplies by the number of days in the
+            month; state values are instantaneous.
+    """
+
+    cds_dataset: str
+    cds_variable: str
+    nc_variable: str
+    file_name: str
+    units: str
+    factors_add: float
+    factors_mul: float
+    cds_dataset_monthly: Optional[str] = None
+    cds_pressure_level: Optional[List[str]] = None
+    types: Optional[str] = None
+
+    @classmethod
+    def from_dict(cls, code: str, data: Dict[str, Any]) -> "VariableSpec":
+        """Build a :class:`VariableSpec` from a raw catalog entry.
+
+        Args:
+            code: Catalog key (e.g. ``"2T"``) — only used for the
+                error message when validation fails so the user can
+                see which entry is broken.
+            data: The dict loaded from the YAML for ``code``.
+
+        Returns:
+            VariableSpec: The validated, frozen instance.
+
+        Raises:
+            ValueError: If a required key is missing, or an unknown
+                key is present (catches typos like
+                ``factor_add`` vs ``factors_add``).
+        """
+        known = {f.name for f in fields(cls)}
+        unknown = set(data) - known
+        if unknown:
+            raise ValueError(
+                f"cds_data_catalog.yaml entry {code!r} has unknown "
+                f"keys {sorted(unknown)}. Known keys: {sorted(known)}."
+            )
+        required = {
+            f.name
+            for f in fields(cls)
+            if f.default is MISSING and f.default_factory is MISSING
+        }
+        missing = required - set(data)
+        if missing:
+            raise ValueError(
+                f"cds_data_catalog.yaml entry {code!r} is missing "
+                f"required keys: {sorted(missing)}."
+            )
+        return cls(**data)
+
+    def dataset_for(self, temporal_resolution: str) -> str:
+        """Return the CDS dataset name to use for ``temporal_resolution``.
+
+        Args:
+            temporal_resolution: ``"daily"`` or ``"monthly"``.
+
+        Returns:
+            str: ``cds_dataset_monthly`` when
+            ``temporal_resolution == "monthly"`` and the monthly
+            variant is set; ``cds_dataset`` otherwise.
+        """
+        if temporal_resolution == "monthly" and self.cds_dataset_monthly:
+            return self.cds_dataset_monthly
+        return self.cds_dataset
+
+    @property
+    def is_flux(self) -> bool:
+        """True if ``types == "flux"`` (drives monthly accumulation scaling)."""
+        return self.types == "flux"
 
 
 def _looks_like_missing_credentials(exc: BaseException) -> bool:
@@ -543,33 +651,25 @@ class ECMWF(AbstractDataSource):
                 errors, or transient CDS server errors.
 
         Examples:
-            - Inspect the ``var_info`` shape that the method consumes
-              and the file name it will produce:
+            - Inspect a single-level :class:`VariableSpec` and the
+              file name it produces:
 
                 ```python
-                >>> var_info = {
-                ...     "cds_dataset": "reanalysis-era5-single-levels",
-                ...     "cds_variable": "2m_temperature",
-                ...     "file_name": "Tair",
-                ... }
-                >>> var_info["cds_dataset"]
+                >>> from earth2observe.ecmwf import Catalog
+                >>> spec = Catalog().get_dataset("2T")
+                >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
-                >>> f"{var_info['file_name']}_{var_info['cds_dataset']}.nc"
+                >>> f"{spec.file_name}_{spec.cds_dataset}.nc"
                 'Tair_reanalysis-era5-single-levels.nc'
 
                 ```
-            - Build the same dict for a pressure-level variable; the
-              extra ``cds_pressure_level`` key is forwarded as the
-              request's ``pressure_level``:
+            - Pressure-level variables expose ``cds_pressure_level``;
+              :meth:`api` forwards it to the request:
 
                 ```python
-                >>> var_info = {
-                ...     "cds_dataset": "reanalysis-era5-pressure-levels",
-                ...     "cds_variable": "temperature",
-                ...     "cds_pressure_level": ["1000"],
-                ...     "file_name": "Tair2m",
-                ... }
-                >>> var_info["cds_pressure_level"]
+                >>> from earth2observe.ecmwf import Catalog
+                >>> spec = Catalog().get_dataset("T")
+                >>> spec.cds_pressure_level
                 ['1000']
 
                 ```
@@ -605,7 +705,7 @@ class ECMWF(AbstractDataSource):
         """
         dates = self.time["dates"]
         request = {
-            "variable": [var_info["cds_variable"]],
+            "variable": [var_info.cds_variable],
             "year": sorted({str(d.year) for d in dates}),
             "month": sorted({f"{d.month:02d}" for d in dates}),
             "day": sorted({f"{d.day:02d}" for d in dates}),
@@ -618,20 +718,17 @@ class ECMWF(AbstractDataSource):
             ],
         }
 
+        dataset = var_info.dataset_for(self.temporal_resolution)
         if self.temporal_resolution == "monthly":
-            dataset = var_info.get(
-                "cds_dataset_monthly", var_info["cds_dataset"]
-            )
             request["product_type"] = ["monthly_averaged_reanalysis"]
         else:
-            dataset = var_info["cds_dataset"]
             request["product_type"] = ["reanalysis"]
             request["time"] = ["00:00", "06:00", "12:00", "18:00"]
 
-        if "cds_pressure_level" in var_info:
-            request["pressure_level"] = var_info["cds_pressure_level"]
+        if var_info.cds_pressure_level is not None:
+            request["pressure_level"] = var_info.cds_pressure_level
 
-        target = self.root_dir / f"{var_info['file_name']}_{dataset}.nc"
+        target = self.root_dir / f"{var_info.file_name}_{dataset}.nc"
         logger.info(
             f"Requesting {dataset} from CDS; this may take several minutes"
         )
@@ -718,11 +815,11 @@ class ECMWF(AbstractDataSource):
             nc_path,
         )
 
-        nc_variable = var_info["nc_variable"]
-        unit_label = var_info["units"]
-        factors_add = var_info["factors_add"]
-        factors_mul = var_info["factors_mul"]
-        is_flux = var_info.get("types") == "flux"
+        nc_variable = var_info.nc_variable
+        unit_label = var_info.units
+        factors_add = var_info.factors_add
+        factors_mul = var_info.factors_mul
+        is_flux = var_info.is_flux
         per_date_outputs: list[tuple[Any, Any, str]] = []
 
         with NetCDF.read_file(str(nc_path), read_only=True) as fh:
@@ -786,7 +883,7 @@ class ECMWF(AbstractDataSource):
                 if is_flux:
                     Data_end = Data_end * days_later
 
-                var_output_name = var_info["file_name"]
+                var_output_name = var_info.file_name
 
                 name_out = os.path.join(
                     self.root_dir,
@@ -830,24 +927,24 @@ class Catalog(AbstractCatalog):
 
             ```python
             >>> from earth2observe.ecmwf import Catalog
-            >>> info = Catalog().get_dataset("2T")
-            >>> info["cds_dataset"]
+            >>> spec = Catalog().get_dataset("2T")
+            >>> spec.cds_dataset
             'reanalysis-era5-single-levels'
-            >>> info["cds_variable"]
+            >>> spec.cds_variable
             '2m_temperature'
-            >>> info["file_name"]
+            >>> spec.file_name
             'Tair'
 
             ```
         - Pressure-level variables include a ``cds_pressure_level``
-          key that ``ECMWF.api`` forwards to CDS:
+          attribute that ``ECMWF.api`` forwards to CDS:
 
             ```python
             >>> from earth2observe.ecmwf import Catalog
-            >>> info = Catalog().get_dataset("T")
-            >>> info["cds_dataset"]
+            >>> spec = Catalog().get_dataset("T")
+            >>> spec.cds_dataset
             'reanalysis-era5-pressure-levels'
-            >>> info["cds_pressure_level"]
+            >>> spec.cds_pressure_level
             ['1000']
 
             ```
@@ -882,7 +979,10 @@ class Catalog(AbstractCatalog):
                 "one variable definition. See the schema header at "
                 "the top of the file."
             )
-        return variables
+        return {
+            code: VariableSpec.from_dict(code, entry)
+            for code, entry in variables.items()
+        }
 
     def get_dataset(self, var_name):
         """Return the metadata dict for ``var_name``.
