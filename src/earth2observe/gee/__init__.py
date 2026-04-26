@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 try:
     from importlib.metadata import PackageNotFoundError  # type: ignore
     from importlib.metadata import version

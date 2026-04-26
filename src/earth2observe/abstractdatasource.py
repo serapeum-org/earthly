@@ -1,8 +1,12 @@
+from __future__ import annotations
+
 import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 @dataclass(frozen=True)
@@ -45,37 +49,109 @@ class TimeWindow:
                 )
 
 
-@dataclass(frozen=True)
-class SpatialBounds:
-    """Per-instance spatial bbox produced by :meth:`create_grid`.
+class SpatialExtent(BaseModel):
+    """Geographic bounding box (WGS84) for a download request.
 
-    Replaces the ``self.space`` dict. The two limit pairs are stored
-    as ``[min, max]`` lists so existing call sites that read
-    ``self.space["lat_lim"][1]`` (the latitude max) keep working when
-    they switch to attribute access (``self.space.lat_lim[1]``).
+    Backend-agnostic. Coordinates are in **degrees**:
+
+    * latitude in ``[-90, 90]`` (south negative, north positive)
+    * longitude in ``[-180, 180]`` (west negative, east positive)
+
+    Each concrete data source converts this to whatever format its
+    protocol expects (CDS: ``[north, west, south, east]``; CHIRPS:
+    per-row clipping; S3: prefix filter; GEE:
+    ``ee.Geometry.Rectangle(west, south, east, north)``). For
+    projected coordinates, define a separate ``ProjectedExtent``
+    type — do not reuse this one with metric values.
 
     Attributes:
-        lat_lim: ``[lat_min, lat_max]`` in degrees.
-        lon_lim: ``[lon_min, lon_max]`` in degrees.
+        latitude_min: Inclusive south edge of the bbox, in degrees.
+        latitude_max: Inclusive north edge of the bbox, in degrees.
+        longitude_min: Inclusive west edge of the bbox, in degrees.
+        longitude_max: Inclusive east edge of the bbox, in degrees.
     """
 
-    lat_lim: List[float]
-    lon_lim: List[float]
+    model_config = ConfigDict(frozen=True)
 
-    def __post_init__(self):
-        """Validate ``min <= max`` for both axes.
+    latitude_min: float = Field(
+        ge=-90.0, le=90.0, description="South edge in degrees"
+    )
+    latitude_max: float = Field(
+        ge=-90.0, le=90.0, description="North edge in degrees"
+    )
+    longitude_min: float = Field(
+        ge=-180.0, le=180.0, description="West edge in degrees"
+    )
+    longitude_max: float = Field(
+        ge=-180.0, le=180.0, description="East edge in degrees"
+    )
+
+    @model_validator(mode="after")
+    def _check_min_le_max(self) -> SpatialExtent:
+        """Validate that ``min <= max`` on both axes.
+
+        Per-field range constraints (``Field(ge=..., le=...)``) cannot
+        express the cross-field invariant.
 
         Raises:
-            ValueError: If either limit pair is inverted.
+            ValueError: If either ``latitude_min > latitude_max`` or
+                ``longitude_min > longitude_max``.
         """
-        if self.lat_lim[0] > self.lat_lim[1]:
+        if self.latitude_min > self.latitude_max:
             raise ValueError(
-                f"SpatialBounds.lat_lim is inverted: {self.lat_lim}"
+                f"latitude_min ({self.latitude_min}) > "
+                f"latitude_max ({self.latitude_max})"
             )
-        if self.lon_lim[0] > self.lon_lim[1]:
+        if self.longitude_min > self.longitude_max:
             raise ValueError(
-                f"SpatialBounds.lon_lim is inverted: {self.lon_lim}"
+                f"longitude_min ({self.longitude_min}) > "
+                f"longitude_max ({self.longitude_max})"
             )
+        return self
+
+    @classmethod
+    def from_pairs(
+        cls, lat_lim: list[float], lon_lim: list[float]
+    ) -> SpatialExtent:
+        """Build from the legacy ``[min, max]`` pair shape.
+
+        :class:`AbstractDataSource.__init__` accepts ``lat_lim`` /
+        ``lon_lim`` as constructor kwargs in the public API; this
+        classmethod adapts that shape to the four named fields.
+
+        Args:
+            lat_lim: ``[lat_min, lat_max]`` in degrees.
+            lon_lim: ``[lon_min, lon_max]`` in degrees.
+
+        Returns:
+            SpatialExtent: A validated, frozen instance.
+        """
+        return cls(
+            latitude_min=lat_lim[0],
+            latitude_max=lat_lim[1],
+            longitude_min=lon_lim[0],
+            longitude_max=lon_lim[1],
+        )
+
+    @property
+    def north(self) -> float:
+        """Northern edge of the bbox (== ``latitude_max``)."""
+        return self.latitude_max
+
+    @property
+    def south(self) -> float:
+        """Southern edge of the bbox (== ``latitude_min``)."""
+        return self.latitude_min
+
+    @property
+    def east(self) -> float:
+        """Eastern edge of the bbox (== ``longitude_max``)."""
+        return self.longitude_max
+
+    @property
+    def west(self) -> float:
+        """Western edge of the bbox (== ``longitude_min``)."""
+        return self.longitude_min
 
 
 class AbstractDataSource(ABC):
@@ -136,10 +212,10 @@ class AbstractDataSource(ABC):
         self.vars = variables
 
         space = self.create_grid(lat_lim, lon_lim)
-        if isinstance(space, SpatialBounds):
+        if isinstance(space, SpatialExtent):
             self.space = space
         elif isinstance(space, dict):
-            self.space = SpatialBounds(
+            self.space = SpatialExtent.from_pairs(
                 lat_lim=space["lat_lim"], lon_lim=space["lon_lim"]
             )
 

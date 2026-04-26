@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import calendar
 import datetime as dt
 import os
@@ -16,7 +18,7 @@ from earth2observe import __path__
 from earth2observe.abstractdatasource import (
     AbstractCatalog,
     AbstractDataSource,
-    SpatialBounds,
+    SpatialExtent,
     TimeWindow,
 )
 
@@ -89,7 +91,7 @@ class VariableSpec:
     types: Optional[str] = None
 
     @classmethod
-    def from_dict(cls, code: str, data: Dict[str, Any]) -> "VariableSpec":
+    def from_dict(cls, code: str, data: Dict[str, Any]) -> VariableSpec:
         """Build a :class:`VariableSpec` from a raw catalog entry.
 
         Args:
@@ -413,7 +415,7 @@ class ECMWF(AbstractDataSource):
         lon_lim_floor = np.floor(lon_lim[0] / cell_size) * cell_size
         lon_lim_ceil = np.ceil(lon_lim[1] / cell_size) * cell_size
         lon_lim = [lon_lim_floor, lon_lim_ceil]
-        return SpatialBounds(lat_lim=lat_lim, lon_lim=lon_lim)
+        return SpatialExtent.from_pairs(lat_lim=lat_lim, lon_lim=lon_lim)
 
     def download(self, progress_bar: bool = True, *args, **kwargs):
         """Download every variable in ``self.vars`` from CDS.
@@ -722,10 +724,10 @@ class ECMWF(AbstractDataSource):
             "day": sorted({f"{d.day:02d}" for d in dates}),
             "data_format": "netcdf",
             "area": [
-                self.space.lat_lim[1],
-                self.space.lon_lim[0],
-                self.space.lat_lim[0],
-                self.space.lon_lim[1],
+                self.space.north,
+                self.space.west,
+                self.space.south,
+                self.space.east,
             ],
         }
 

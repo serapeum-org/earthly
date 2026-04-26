@@ -49,8 +49,8 @@ class TestParentClassWiring:
         )
 
         assert ecmwf.client is sentinel
-        assert ecmwf.space.lat_lim[0] <= 4.19 <= ecmwf.space.lat_lim[1]
-        assert ecmwf.space.lon_lim[0] <= -75.65 <= ecmwf.space.lon_lim[1]
+        assert ecmwf.space.latitude_min <= 4.19 <= ecmwf.space.latitude_max
+        assert ecmwf.space.longitude_min <= -75.65 <= ecmwf.space.longitude_max
         assert ecmwf.time.dates is not None
         assert ecmwf.root_dir == tmp_path.resolve()
 

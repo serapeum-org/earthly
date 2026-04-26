@@ -5,6 +5,8 @@ package. It keeps the choice of backend (CHIRPS, ERA5 on AWS S3, ECMWF
 on the Copernicus Climate Data Store) behind a single string key so
 callers do not have to import each backend module directly.
 """
+from __future__ import annotations
+
 from earth2observe.chirps import CHIRPS
 from earth2observe.ecmwf import ECMWF
 from earth2observe.s3 import S3
