@@ -48,7 +48,7 @@ class Variable(BaseModel):
     A frozen pydantic model carrying the metadata for one row in
     ``cds_data_catalog.yaml``. Loading the YAML through
     :meth:`from_dict` validates required fields up front so a typo
-    in the file (e.g. ``factor_add`` vs ``factors_add``) surfaces at
+    in the file (e.g. ``cd_dataset`` vs ``cds_dataset``) surfaces at
     import time, not mid-download.
 
     Attributes:
@@ -59,14 +59,11 @@ class Variable(BaseModel):
         nc_variable: Short variable name inside the CDS NetCDF
             (e.g. ``"t2m"``); :meth:`ECMWF.post_download` uses it to
             index ``fh.variables[...]``.
-        units: Output unit string after the conversion factors are
-            applied (used in the output filename).
-        factors_add: Optional additive offset applied during
-            post-processing. Defaults to ``0.0`` (no offset) when
-            absent from the YAML.
-        factors_mul: Optional multiplicative scale applied during
-            post-processing. Defaults to ``1.0`` (identity) when
-            absent.
+        units: Raw ERA5 unit string emitted by CDS for this variable
+            (used in the output filename). The package returns values
+            in their native ERA5 units; downstream code is responsible
+            for any unit conversion. See ``docs/examples/catalog.md``
+            for the conversion factors typical ERA5 workflows apply.
         cds_dataset_monthly: Optional CDS dataset short name used
             when ``temporal_resolution == "monthly"``. Falls back to
             ``cds_dataset`` when absent.
@@ -84,8 +81,6 @@ class Variable(BaseModel):
     cds_variable: str
     nc_variable: str
     units: str
-    factors_add: float = 0.0
-    factors_mul: float = 1.0
     cds_dataset_monthly: str | None = None
     cds_pressure_level: list[str] | None = None
     types: str | None = None
@@ -107,8 +102,8 @@ class Variable(BaseModel):
 
         Raises:
             ValueError: If a required key is missing or an unknown
-                key is present (catches typos like ``factor_add``
-                vs ``factors_add``).
+                key is present (catches typos like ``cd_dataset``
+                vs ``cds_dataset``).
         """
         try:
             return cls(**data)
@@ -266,10 +261,10 @@ class ECMWF(AbstractDataSource):
        branch on ``temporal_resolution``) and submit it via
        ``client.retrieve(dataset, request, target)``. Returns the
        absolute path to the NetCDF that CDS wrote.
-    2. :meth:`post_download` — open that NetCDF, slice it on the
-       time axis, and apply the ``factors_add``/``factors_mul``
-       conversion. Per-date GeoTIFF writing is currently stubbed
-       (see ``planning/cdsapi/post-review-findings.md`` C1).
+    2. :meth:`post_download` — open that NetCDF and slice it on the
+       time axis. Values stay in raw ERA5 units. Per-date GeoTIFF
+       writing is currently stubbed (see
+       ``planning/cdsapi/post-review-findings.md`` C1).
 
     Attributes:
         temporal_resolution: Class-level list of valid temporal
@@ -598,8 +593,7 @@ class ECMWF(AbstractDataSource):
             KeyError: If ``var_info`` is missing one of the keys
                 required by :meth:`api` (``cds_dataset``,
                 ``cds_variable``) or by :meth:`post_download`
-                (``nc_variable``, ``units``, ``factors_add``,
-                ``factors_mul``).
+                (``nc_variable``, ``units``).
 
         Examples:
             - The catalog ships ``var_info`` dicts ready for this
@@ -611,9 +605,7 @@ class ECMWF(AbstractDataSource):
                 ...     "cds_variable": "2m_temperature",
                 ...     "nc_variable": "t2m",
                 ...     "types": "state",
-                ...     "units": "C",
-                ...     "factors_add": -273.15,
-                ...     "factors_mul": 1,
+                ...     "units": "K",
                 ... }
                 >>> var_info["cds_variable"], var_info["nc_variable"]
                 ('2m_temperature', 't2m')
@@ -834,9 +826,9 @@ class ECMWF(AbstractDataSource):
     ):
         """Slice the downloaded NetCDF into per-date GeoTIFFs.
 
-        Reads the NetCDF written by :meth:`api`, applies the
-        unit-conversion factors from the catalog, and produces one
-        per-date output under ``self.root_dir``.
+        Reads the NetCDF written by :meth:`api`, slices it on the
+        time axis, and produces one per-date array under
+        ``self.root_dir`` in raw ERA5 units (no unit conversion).
 
         Args:
             var_info: Catalog metadata for the variable. Required keys:
@@ -846,10 +838,8 @@ class ECMWF(AbstractDataSource):
                   used to index ``fh.variables[...]``. Differs from
                   ``cds_variable`` (which is the request name and
                   also the output filename stem).
-                * ``units`` — output unit string used in the output
-                  file name.
-                * ``factors_add`` / ``factors_mul`` — additive offset
-                  and multiplicative scale applied to each cell.
+                * ``units`` — raw ERA5 unit string emitted by CDS for
+                  this variable, used in the output filename.
 
                 Optional keys:
 
@@ -880,8 +870,6 @@ class ECMWF(AbstractDataSource):
 
         nc_variable = var_info.nc_variable
         unit_label = var_info.units
-        factors_add = var_info.factors_add
-        factors_mul = var_info.factors_mul
         is_flux = var_info.is_flux
         per_date_outputs: list[tuple[Any, Any, str]] = []
 
@@ -930,7 +918,7 @@ class ECMWF(AbstractDataSource):
 
                 Data_one = Data[in_window, :, :]
 
-                Data_end = factors_mul * np.nanmean(Data_one, 0) + factors_add
+                Data_end = np.nanmean(Data_one, 0)
 
                 if is_flux:
                     Data_end = Data_end * days_later

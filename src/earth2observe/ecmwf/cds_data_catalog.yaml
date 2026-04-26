@@ -22,15 +22,11 @@
 #                           multiplies by the number of days in the slice
 #                           when aggregating monthly. State variables are
 #                           instantaneous and need no scaling.
-#     units:                Output unit after factors_add / factors_mul are
-#                           applied (used by post_download for file naming).
-# #                           filenames.
-#     factors_add:          Optional. Additive offset applied during
-#                           post-processing. Defaults to 0 (no offset)
-#                           when absent.
-#     factors_mul:          Optional. Multiplicative scale applied during
-#                           post-processing. Defaults to 1 (identity)
-#                           when absent.
+#     units:                Raw ERA5 unit string emitted by CDS for this
+#                           variable (used by post_download for file
+#                           naming). The package returns values in
+#                           native ERA5 units; downstream code is
+#                           responsible for any unit conversion.
 #
 # datasets: An informational index of every dataset hosted on CDS.
 #           Used for documentation only; the runtime resolves datasets
@@ -206,9 +202,7 @@ variables:
     cds_variable: 2m_temperature
     nc_variable: t2m
     types: state
-    units: C
-    factors_add: -273.15
-    factors_mul: 1
+    units: "K"
 
   "2m-dewpoint-temperature":
     cds_dataset: reanalysis-era5-single-levels
@@ -216,9 +210,7 @@ variables:
     cds_variable: 2m_dewpoint_temperature
     nc_variable: d2m
     types: state
-    units: C
-    factors_add: -273.15
-    factors_mul: 1
+    units: "K"
 
   "surface-pressure":
     cds_dataset: reanalysis-era5-single-levels
@@ -226,9 +218,7 @@ variables:
     cds_variable: surface_pressure
     nc_variable: sp
     types: state
-    units: kPa
-    factors_add: 0
-    factors_mul: 0.001
+    units: "Pa"
 
   "total-precipitation":
     cds_dataset: reanalysis-era5-single-levels
@@ -236,9 +226,7 @@ variables:
     cds_variable: total_precipitation
     nc_variable: tp
     types: flux
-    units: mm
-    factors_add: 0
-    factors_mul: 1000
+    units: "m"
 
   "evaporation":
     cds_dataset: reanalysis-era5-single-levels
@@ -246,9 +234,7 @@ variables:
     cds_variable: evaporation
     nc_variable: e
     types: flux
-    units: mm
-    factors_add: 0
-    factors_mul: 1000
+    units: "m of water equivalent"
 
   "runoff":
     cds_dataset: reanalysis-era5-single-levels
@@ -256,9 +242,7 @@ variables:
     cds_variable: runoff
     nc_variable: ro
     types: flux
-    units: mm
-    factors_add: 0
-    factors_mul: 1000
+    units: "m"
 
   "surface-runoff":
     cds_dataset: reanalysis-era5-single-levels
@@ -266,9 +250,7 @@ variables:
     cds_variable: surface_runoff
     nc_variable: sro
     types: flux
-    units: mm
-    factors_add: 0
-    factors_mul: 1000
+    units: "m"
 
   "sub-surface-runoff":
     cds_dataset: reanalysis-era5-single-levels
@@ -276,9 +258,7 @@ variables:
     cds_variable: sub_surface_runoff
     nc_variable: ssro
     types: flux
-    units: mm
-    factors_add: 0
-    factors_mul: 1000
+    units: "m"
 
   "10m-u-component-of-wind":
     cds_dataset: reanalysis-era5-single-levels
@@ -286,9 +266,7 @@ variables:
     cds_variable: 10m_u_component_of_wind
     nc_variable: u10
     types: state
-    units: m_s-1
-    factors_add: 0
-    factors_mul: 1
+    units: "m s**-1"
 
   "10m-v-component-of-wind":
     cds_dataset: reanalysis-era5-single-levels
@@ -296,9 +274,7 @@ variables:
     cds_variable: 10m_v_component_of_wind
     nc_variable: v10
     types: state
-    units: m_s-1
-    factors_add: 0
-    factors_mul: 1
+    units: "m s**-1"
 
   "10m-wind-speed":
     cds_dataset: reanalysis-era5-single-levels
@@ -306,9 +282,7 @@ variables:
     cds_variable: 10m_wind_speed
     nc_variable: si10
     types: state
-    units: m_s-1
-    factors_add: 0
-    factors_mul: 1
+    units: "m s**-1"
 
   "forecast-albedo":
     cds_dataset: reanalysis-era5-single-levels
@@ -316,9 +290,7 @@ variables:
     cds_variable: forecast_albedo
     nc_variable: fal
     types: state
-    units: unitless
-    factors_add: 0
-    factors_mul: 1
+    units: "(0 - 1)"
 
   "high-cloud-cover":
     cds_dataset: reanalysis-era5-single-levels
@@ -326,9 +298,7 @@ variables:
     cds_variable: high_cloud_cover
     nc_variable: hcc
     types: state
-    units: unitless
-    factors_add: 0
-    factors_mul: 1
+    units: "(0 - 1)"
 
   "forecast-surface-roughness":
     cds_dataset: reanalysis-era5-single-levels
@@ -336,9 +306,7 @@ variables:
     cds_variable: forecast_surface_roughness
     nc_variable: fsr
     types: state
-    units: m
-    factors_add: 0
-    factors_mul: 1
+    units: "m"
 
   "surface-net-solar-radiation":
     cds_dataset: reanalysis-era5-single-levels
@@ -346,9 +314,7 @@ variables:
     cds_variable: surface_net_solar_radiation
     nc_variable: ssr
     types: flux
-    units: J_m-2
-    factors_add: 0
-    factors_mul: 1
+    units: "J m**-2"
 
   "100m-u-component-of-wind":
     cds_dataset: reanalysis-era5-single-levels
@@ -2088,9 +2054,7 @@ variables:
     cds_pressure_level: ["1000"]
     nc_variable: t
     types: state
-    units: C
-    factors_add: -273.15
-    factors_mul: 1
+    units: "K"
 
   "specific-humidity":
     cds_dataset: reanalysis-era5-pressure-levels
@@ -2099,9 +2063,7 @@ variables:
     cds_pressure_level: ["1000"]
     nc_variable: q
     types: state
-    units: kg_kg-1
-    factors_add: 0
-    factors_mul: 1
+    units: "kg kg**-1"
 
   "relative-humidity":
     cds_dataset: reanalysis-era5-pressure-levels
@@ -2110,9 +2072,7 @@ variables:
     cds_pressure_level: ["1000"]
     nc_variable: r
     types: state
-    units: percentage
-    factors_add: 0
-    factors_mul: 1
+    units: "%"
 
   geopotential:
     cds_dataset: reanalysis-era5-pressure-levels

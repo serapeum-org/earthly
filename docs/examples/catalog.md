@@ -58,9 +58,7 @@ catalog.get_dataset("2m-temperature")
     'cds_dataset_monthly': 'reanalysis-era5-single-levels-monthly-means',
     'cds_variable': '2m_temperature',
     'nc_variable': 't2m',
-    'units': 'C',
-    'factors_add': -273.15,
-    'factors_mul': 1,
+    'units': 'K',
 }
 ```
 
@@ -78,9 +76,8 @@ Key reference:
 - `cds_pressure_level` — optional list of pressure levels (e.g.
   `["1000"]`). Present for pressure-level variables (`temperature`,
   `specific-humidity`, `relative-humidity`).
-- `units` — output unit string (used in the output filename).
-- `factors_add`, `factors_mul` — unit-conversion offsets applied in
-  `post_download()`.
+- `units` — raw ERA5 unit string emitted by CDS for this variable
+  (used in the output filename).
 
 The catalog ships ~278 ERA5 entries — the full single-levels and
 pressure-levels variable lists from the CDS catalogue (and their
@@ -93,6 +90,40 @@ in the file's header comment.
 
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
+
+### Unit conversions
+
+The package returns values in their **native ERA5 units** — the same
+strings CDS writes to the NetCDF. Most workflows want a different
+output unit (Celsius instead of Kelvin, mm instead of metres, etc.).
+The conversion is `output = factors_mul * raw + factors_add`. The
+factors below cover the common ERA5 variables a typical user would
+ever apply a non-identity transform to:
+
+| Variable                        | Raw ERA5 unit          | `factors_add` | `factors_mul` | Converted unit |
+|---------------------------------|------------------------|--------------:|--------------:|----------------|
+| `2m-temperature`                | K                      | −273.15       | 1             | °C             |
+| `2m-dewpoint-temperature`       | K                      | −273.15       | 1             | °C             |
+| `temperature` (pressure-level)  | K                      | −273.15       | 1             | °C             |
+| `surface-pressure`              | Pa                     | 0             | 0.001         | kPa            |
+| `total-precipitation`           | m                      | 0             | 1000          | mm             |
+| `evaporation`                   | m of water equivalent  | 0             | 1000          | mm             |
+| `runoff`                        | m                      | 0             | 1000          | mm             |
+| `surface-runoff`                | m                      | 0             | 1000          | mm             |
+| `sub-surface-runoff`            | m                      | 0             | 1000          | mm             |
+
+Variables not in this table are returned as-is (wind speeds in
+`m s**-1`, fluxes in `J m**-2`, fractions in `(0 - 1)`, etc.).
+
+```python
+import numpy as np
+
+raw_kelvin = ...                                      # from post_download()
+celsius = 1 * raw_kelvin + (-273.15)                  # 2m-temperature
+
+raw_metres = ...                                      # from post_download()
+millimetres = 1000 * raw_metres + 0                   # total-precipitation
+```
 
 ## Amazon S3
 
