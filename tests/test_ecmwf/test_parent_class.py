@@ -112,9 +112,7 @@ class TestParentClassWiring:
                 cds_dataset="reanalysis-era5-single-levels",
                 cds_variable="2m_temperature",
                 nc_variable="t2m",
-                units="C",
-                factors_add=0,
-                factors_mul=1,
+                units="K",
             )
         )
 

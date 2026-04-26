@@ -68,9 +68,7 @@ def single_level_var_info():
         cds_dataset="reanalysis-era5-single-levels",
         cds_variable="2m_temperature",
         nc_variable="t2m",
-        units="C",
-        factors_add=-273.15,
-        factors_mul=1,
+        units="K",
     )
 
 
@@ -87,9 +85,7 @@ def pressure_level_var_info():
         cds_variable="temperature",
         cds_pressure_level=["1000"],
         nc_variable="t",
-        units="C",
-        factors_add=-273.15,
-        factors_mul=1,
+        units="K",
     )
 
 

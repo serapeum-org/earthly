@@ -55,11 +55,10 @@ class TestCatalog:
         assert spec.cds_dataset == expected_dataset
         assert spec.cds_variable == expected_variable
 
-    def test_get_dataset_includes_unit_conversion_factors(self):
-        """Per-variable metadata carries the K -> C unit conversion."""
+    def test_get_dataset_returns_raw_era5_units(self):
+        """2m-temperature carries the raw ERA5 unit (Kelvin)."""
         spec = Catalog().get_dataset("2m-temperature")
-        assert spec.factors_add == -273.15
-        assert spec.factors_mul == 1
+        assert spec.units == "K"
 
     def test_pressure_level_var_carries_cds_pressure_level(self):
         """Pressure-level variables expose ``cds_pressure_level``.

@@ -87,9 +87,7 @@ class TestPostDownload:
                     "cds_variable": "2m_temperature",
                     "nc_variable": "t2m",
                     "file name": "Tair",  # legacy spaced key
-                    "units": "C",
-                    "factors_add": -273.15,
-                    "factors_mul": 1,
+                    "units": "K",
                 },
             )
 
@@ -108,9 +106,7 @@ class TestPostDownload:
         """
         install_fake_netcdf(monkeypatch)
         var_info_missing = {
-            "units": "C",
-            "factors_add": 0.0,
-            "factors_mul": 1.0,
+            "units": "K",
         }
 
         with pytest.raises(AttributeError, match="nc_variable"):
@@ -134,7 +130,7 @@ class TestPostDownload:
             ``days_later``.
         """
         spec_state = single_level_var_info.model_copy(
-            update={"factors_add": 0, "factors_mul": 1, "types": "state"}
+            update={"types": "state"}
         )
         spec_flux = spec_state.model_copy(update={"types": "flux"})
 

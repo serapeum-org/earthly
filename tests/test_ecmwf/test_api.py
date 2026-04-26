@@ -262,9 +262,7 @@ class TestApi:
         catalog_entry = {
             "cds_variable": "2m_temperature",
             "nc_variable": "t2m",
-            "units": "C",
-            "factors_add": -273.15,
-            "factors_mul": 1,
+            "units": "K",
         }
         with pytest.raises(ValueError, match="cds_dataset"):
             Variable.from_dict("2m-temperature", catalog_entry)
@@ -274,9 +272,7 @@ class TestApi:
         catalog_entry = {
             "cds_dataset": "reanalysis-era5-single-levels",
             "nc_variable": "t2m",
-            "units": "C",
-            "factors_add": -273.15,
-            "factors_mul": 1,
+            "units": "K",
         }
         with pytest.raises(ValueError, match="cds_variable"):
             Variable.from_dict("2m-temperature", catalog_entry)
@@ -342,9 +338,7 @@ class TestApiMonthly:
             cds_dataset_monthly="reanalysis-era5-single-levels-monthly-means",
             cds_variable="2m_temperature",
             nc_variable="t2m",
-            units="C",
-            factors_add=-273.15,
-            factors_mul=1,
+            units="K",
         )
 
     def test_monthly_routes_to_monthly_dataset(
