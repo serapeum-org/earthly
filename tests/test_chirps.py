@@ -37,6 +37,7 @@ def test_create_chirps_object(
     return Coello
 
 
+@pytest.mark.e2e
 def test_download(
     test_create_chirps_object: CHIRPS,
     chirps_base_dir: str,

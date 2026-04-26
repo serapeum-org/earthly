@@ -48,6 +48,7 @@ class TestChirpsBackend:
         assert isinstance(e2o.datasource.lat_lim, list)
         return e2o
 
+    @pytest.mark.e2e
     def test_download_chirps_backend(
         self,
         test_chirps_data_source_instantiate_object: CHIRPS,
@@ -68,6 +69,7 @@ class TestChirpsBackend:
 
 
 class TestS3Backend:
+
     @pytest.fixture(scope="module")
     def test_s3_data_source_instantiate_object(
         self,
@@ -94,6 +96,7 @@ class TestS3Backend:
         assert e2o.datasource.vars == s3_era5_variables
         return e2o
 
+    @pytest.mark.e2e
     def test_download_s3_backend(
         self,
         test_s3_data_source_instantiate_object: S3,
