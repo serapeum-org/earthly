@@ -12,13 +12,12 @@ the real pyramids library.
 
 from __future__ import annotations
 
-from dataclasses import replace as _dataclass_replace
 
 import numpy as np
 import pandas as pd
 import pytest
 
-from earth2observe.ecmwf import ECMWF, VariableSpec
+from earth2observe.ecmwf import ECMWF, Variable
 
 from tests.test_ecmwf._fakes import install_fake_netcdf
 
@@ -39,7 +38,7 @@ class TestPostDownload:
             f"data_{dataset}.nc")`` reconstruction.
         """
         instances = install_fake_netcdf(monkeypatch)
-        nc_path = tmp_path / "Tair_reanalysis-era5-single-levels.nc"
+        nc_path = tmp_path / "2m_temperature_reanalysis-era5-single-levels.nc"
 
         ecmwf_stub.post_download(
             single_level_var_info, nc_path, progress_bar=False
@@ -70,18 +69,18 @@ class TestPostDownload:
         )
 
     def test_variable_spec_rejects_legacy_spaced_file_name_key(self):
-        """:meth:`VariableSpec.from_dict` rejects the legacy ``"file name"`` key.
+        """:meth:`Variable.from_dict` rejects the legacy ``"file name"`` key.
 
         Test scenario:
             Pre-M1 the post_download lookup was the only line that
             knew about the typo'd legacy key. M1's
-            :meth:`VariableSpec.from_dict` enforces the schema at
+            :meth:`Variable.from_dict` enforces the schema at
             load time: any unknown key (including the spaced
             ``"file name"`` from the MARS catalog) raises
             ``ValueError`` immediately.
         """
         with pytest.raises(ValueError, match="file name"):
-            VariableSpec.from_dict(
+            Variable.from_dict(
                 "2T",
                 {
                     "cds_dataset": "reanalysis-era5-single-levels",
@@ -110,7 +109,6 @@ class TestPostDownload:
         install_fake_netcdf(monkeypatch)
         var_info_missing = {
             "units": "C",
-            "file_name": "Tair",
             "factors_add": 0.0,
             "factors_mul": 1.0,
         }
@@ -135,10 +133,10 @@ class TestPostDownload:
             against state outputs to prove the difference is exactly
             ``days_later``.
         """
-        spec_state = _dataclass_replace(
-            single_level_var_info, factors_add=0, factors_mul=1, types="state"
+        spec_state = single_level_var_info.model_copy(
+            update={"factors_add": 0, "factors_mul": 1, "types": "state"}
         )
-        spec_flux = _dataclass_replace(spec_state, types="flux")
+        spec_flux = spec_state.model_copy(update={"types": "flux"})
 
         install_fake_netcdf(monkeypatch, var_value=10.0)
 

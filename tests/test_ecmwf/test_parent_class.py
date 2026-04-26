@@ -16,7 +16,7 @@ from __future__ import annotations
 import cdsapi
 import pytest
 
-from earth2observe.ecmwf import ECMWF, VariableSpec
+from earth2observe.ecmwf import ECMWF, Variable
 
 from tests.test_ecmwf._fakes import _SentinelClient
 
@@ -108,11 +108,10 @@ class TestParentClassWiring:
         )
 
         target = ecmwf.api(
-            VariableSpec(
+            Variable(
                 cds_dataset="reanalysis-era5-single-levels",
                 cds_variable="2m_temperature",
                 nc_variable="t2m",
-                file_name="Tair",
                 units="C",
                 factors_add=0,
                 factors_mul=1,

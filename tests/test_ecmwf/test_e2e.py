@@ -173,11 +173,11 @@ class TestFacadeE2E:
         e2o.download(progress_bar=False)
 
         # Each variable gets its own
-        # <file_name>_<cds_dataset>.nc under tmp_path.
+        # <cds_variable>_<cds_dataset>.nc under tmp_path.
         produced = sorted(p.name for p in tmp_path.glob("*.nc"))
-        assert "Tair_reanalysis-era5-single-levels.nc" in produced, (
+        assert "2m_temperature_reanalysis-era5-single-levels.nc" in produced, (
             f"2T NetCDF missing from outputs: {produced}"
         )
-        assert "P_reanalysis-era5-single-levels.nc" in produced, (
+        assert "total_precipitation_reanalysis-era5-single-levels.nc" in produced, (
             f"TP NetCDF missing from outputs: {produced}"
         )

@@ -148,7 +148,10 @@ class TestDownloadDataset:
             opens the very same NetCDF that cdsapi just wrote — not a
             hardcoded ``data_<dataset>.nc`` filename.
         """
-        api_target = ecmwf_stub.root_dir / "Tair_reanalysis-era5-single-levels.nc"
+        api_target = (
+            ecmwf_stub.root_dir
+            / "2m_temperature_reanalysis-era5-single-levels.nc"
+        )
         ecmwf_stub.api = MagicMock(return_value=api_target)
         ecmwf_stub.post_download = MagicMock()
 

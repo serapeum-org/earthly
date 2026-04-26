@@ -12,12 +12,11 @@ network. The autouse ``_block_real_cdsapi`` safeguard in
 
 from __future__ import annotations
 
-from dataclasses import replace as _dataclass_replace
 
 import pandas as pd
 import pytest
 
-from earth2observe.ecmwf import VariableSpec
+from earth2observe.ecmwf import Variable
 
 from tests.test_ecmwf._fakes import captured_request
 
@@ -28,15 +27,12 @@ class TestApi:
     """Tests for :meth:`ECMWF.api` — the C1-rewritten request builder."""
 
     def test_returns_path_under_root_dir(self, ecmwf_stub, single_level_var_info):
-        """``api()`` returns a target path rooted at ``self.root_dir``.
-
-        Test scenario:
-            For ``file_name='Tair'`` and dataset
-            ``reanalysis-era5-single-levels`` the returned path must be
-            ``<root_dir>/Tair_reanalysis-era5-single-levels.nc``.
-        """
+        """api() returns <root_dir>/<cds_variable>_<cds_dataset>.nc."""
         target = ecmwf_stub.api(single_level_var_info)
-        expected = ecmwf_stub.root_dir / "Tair_reanalysis-era5-single-levels.nc"
+        expected = (
+            ecmwf_stub.root_dir
+            / "2m_temperature_reanalysis-era5-single-levels.nc"
+        )
         assert target == expected, f"Expected {expected}, got {target}"
 
     def test_calls_retrieve_exactly_once(self, ecmwf_stub, single_level_var_info):
@@ -257,52 +253,33 @@ class TestApi:
     def test_target_filename_pattern_for_pressure_level(
         self, ecmwf_stub, pressure_level_var_info
     ):
-        """Target file name follows ``<file_name>_<cds_dataset>.nc``.
-
-        Test scenario:
-            For ``file_name='Tair2m'`` and dataset
-            ``reanalysis-era5-pressure-levels`` the file name must be
-            ``Tair2m_reanalysis-era5-pressure-levels.nc``.
-        """
+        """Target filename follows <cds_variable>_<cds_dataset>.nc."""
         target = ecmwf_stub.api(pressure_level_var_info)
-        assert target.name == "Tair2m_reanalysis-era5-pressure-levels.nc"
+        assert target.name == "temperature_reanalysis-era5-pressure-levels.nc"
 
     def test_variable_spec_requires_cds_dataset(self):
-        """:class:`VariableSpec` cannot be built without ``cds_dataset``.
-
-        Test scenario:
-            Pre-M1 the missing key only surfaced inside ``api()`` as
-            ``KeyError``. The frozen dataclass moves the failure to
-            construction time.
-        """
+        """Variable cannot be built without cds_dataset."""
         catalog_entry = {
             "cds_variable": "2m_temperature",
             "nc_variable": "t2m",
-            "file_name": "Tair",
             "units": "C",
             "factors_add": -273.15,
             "factors_mul": 1,
         }
         with pytest.raises(ValueError, match="cds_dataset"):
-            VariableSpec.from_dict("2T", catalog_entry)
+            Variable.from_dict("2T", catalog_entry)
 
     def test_variable_spec_requires_cds_variable(self):
-        """:class:`VariableSpec` cannot be built without ``cds_variable``.
-
-        Test scenario:
-            Same shape as the cds_dataset case — surfaces at
-            construction, not at request time.
-        """
+        """Variable cannot be built without cds_variable."""
         catalog_entry = {
             "cds_dataset": "reanalysis-era5-single-levels",
             "nc_variable": "t2m",
-            "file_name": "Tair",
             "units": "C",
             "factors_add": -273.15,
             "factors_mul": 1,
         }
         with pytest.raises(ValueError, match="cds_variable"):
-            VariableSpec.from_dict("2T", catalog_entry)
+            Variable.from_dict("2T", catalog_entry)
 
     def test_licence_not_accepted_is_translated(
         self, ecmwf_stub, single_level_var_info
@@ -360,12 +337,11 @@ class TestApiMonthly:
     @pytest.fixture
     def monthly_var_info(self):
         """Catalog entry with both daily and monthly CDS datasets."""
-        return VariableSpec(
+        return Variable(
             cds_dataset="reanalysis-era5-single-levels",
             cds_dataset_monthly="reanalysis-era5-single-levels-monthly-means",
             cds_variable="2m_temperature",
             nc_variable="t2m",
-            file_name="Tair",
             units="C",
             factors_add=-273.15,
             factors_mul=1,
@@ -384,8 +360,8 @@ class TestApiMonthly:
         self, ecmwf_stub, monthly_var_info
     ):
         """When ``cds_dataset_monthly`` is absent, fall back to ``cds_dataset``."""
-        monthly_var_info = _dataclass_replace(
-            monthly_var_info, cds_dataset_monthly=None
+        monthly_var_info = monthly_var_info.model_copy(
+            update={"cds_dataset_monthly": None}
         )
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub.api(monthly_var_info)

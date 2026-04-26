@@ -6,7 +6,7 @@ Holds the four pieces every test in this directory needs:
   test (other than ``TestApiE2E``) from constructing a real
   :class:`cdsapi.Client`.
 * :func:`single_level_var_info` and :func:`pressure_level_var_info`
-  — :class:`VariableSpec` fixtures used across the api / post_download
+  — :class:`Variable` fixtures used across the api / post_download
   tests.
 * :func:`ecmwf_stub` — a hand-constructed :class:`ECMWF` instance with
   the four attributes ``api()`` / ``post_download()`` consume
@@ -24,7 +24,7 @@ import pandas as pd
 import pytest
 
 from earth2observe.base import SpatialExtent, TemporalExtent
-from earth2observe.ecmwf import ECMWF, VariableSpec
+from earth2observe.ecmwf import ECMWF, Variable
 
 
 _LIVE_CDS_TEST_CLASSES = frozenset({"TestApiE2E", "TestFacadeE2E"})
@@ -61,14 +61,13 @@ def single_level_var_info():
     """CDS catalog entry for a single-level ERA5 variable.
 
     Returns:
-        VariableSpec: Catalog metadata for ``2m_temperature`` on
+        Variable: Catalog metadata for ``2m_temperature`` on
         ``reanalysis-era5-single-levels``.
     """
-    return VariableSpec(
+    return Variable(
         cds_dataset="reanalysis-era5-single-levels",
         cds_variable="2m_temperature",
         nc_variable="t2m",
-        file_name="Tair",
         units="C",
         factors_add=-273.15,
         factors_mul=1,
@@ -80,15 +79,14 @@ def pressure_level_var_info():
     """CDS catalog entry for a pressure-level ERA5 variable.
 
     Returns:
-        VariableSpec: Catalog metadata for ``temperature`` on
+        Variable: Catalog metadata for ``temperature`` on
         ``reanalysis-era5-pressure-levels`` at 1000 hPa.
     """
-    return VariableSpec(
+    return Variable(
         cds_dataset="reanalysis-era5-pressure-levels",
         cds_variable="temperature",
         cds_pressure_level=["1000"],
         nc_variable="t",
-        file_name="Tair2m",
         units="C",
         factors_add=-273.15,
         factors_mul=1,

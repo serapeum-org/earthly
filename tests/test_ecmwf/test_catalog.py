@@ -2,7 +2,7 @@
 
 Covers the H2 / H5 rewiring (the catalog reads
 ``cds_data_catalog.yaml`` and exposes per-variable
-:class:`VariableSpec` instances), the M2 fail-loud behaviour on
+:class:`Variable` instances), the M2 fail-loud behaviour on
 malformed YAML, and the no-MARS-keys invariant on the schema.
 """
 
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from earth2observe.ecmwf import Catalog, VariableSpec
+from earth2observe.ecmwf import Catalog, Variable
 
 pytestmark = [pytest.mark.unit]
 
@@ -19,16 +19,16 @@ class TestCatalog:
     """Tests for :class:`Catalog` after the H2 / H5 / M1 / M2 work."""
 
     def test_catalog_loads_per_variable_map(self):
-        """``catalog`` is a per-variable map of :class:`VariableSpec`.
+        """``catalog`` is a per-variable map of :class:`Variable`.
 
         Test scenario:
-            After M1, ``Catalog`` returns frozen :class:`VariableSpec`
+            After M1, ``Catalog`` returns frozen :class:`Variable`
             instances keyed by short variable codes.
         """
         cat = Catalog()
         assert isinstance(cat.catalog, dict)
         assert "2T" in cat.catalog
-        assert isinstance(cat.catalog["2T"], VariableSpec)
+        assert isinstance(cat.catalog["2T"], Variable)
         assert cat.catalog["2T"].cds_dataset
 
     @pytest.mark.parametrize(
@@ -44,7 +44,7 @@ class TestCatalog:
     def test_get_dataset_returns_new_schema(
         self, var_code, expected_dataset, expected_variable
     ):
-        """``get_dataset`` returns a :class:`VariableSpec` per variable.
+        """``get_dataset`` returns a :class:`Variable` per variable.
 
         Test scenario:
             The five mappings the migration plan calls out explicitly
@@ -55,10 +55,9 @@ class TestCatalog:
         assert spec.cds_dataset == expected_dataset
         assert spec.cds_variable == expected_variable
 
-    def test_get_dataset_includes_file_name_and_factors(self):
-        """Per-variable metadata carries file_name and unit conversions."""
+    def test_get_dataset_includes_unit_conversion_factors(self):
+        """Per-variable metadata carries the K -> C unit conversion."""
         spec = Catalog().get_dataset("2T")
-        assert spec.file_name == "Tair"
         assert spec.factors_add == -273.15
         assert spec.factors_mul == 1
 
@@ -85,26 +84,15 @@ class TestCatalog:
             Catalog().get_dataset("DEFINITELY_NOT_A_REAL_CODE")
 
     def test_get_variable_aliases_get_dataset(self):
-        """``get_variable`` returns the same VariableSpec as ``get_dataset``."""
+        """``get_variable`` returns the same Variable as ``get_dataset``."""
         cat = Catalog()
         assert cat.get_variable("2T") == cat.get_dataset("2T")
 
     def test_no_mars_schema_keys_remain(self):
-        """No :class:`VariableSpec` field is a stale MARS-style key.
-
-        Test scenario:
-            The pre-M1 catalog used ``number_para``, ``download type``,
-            ``var_name`` (the lowercase MARS GRIB code). Post-M1,
-            :meth:`VariableSpec.from_dict` raises ``ValueError`` if
-            the YAML carries any unknown key — but pin it explicitly
-            here too as a regression test against the schema header.
-        """
-        from dataclasses import fields as _fields
-
+        """No Variable field is a stale MARS-style key."""
         forbidden = {"number_para", "download type", "var_name"}
-        present = {f.name for f in _fields(VariableSpec)}
-        stale = forbidden & present
-        assert not stale
+        present = set(Variable.model_fields)
+        assert not (forbidden & present)
 
     def test_get_catalog_raises_on_empty_variables(self, monkeypatch, tmp_path):
         """A YAML missing ``variables:`` raises ``ValueError``.
