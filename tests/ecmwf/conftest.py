@@ -1,0 +1,125 @@
+"""Shared pytest fixtures for the ECMWF test suite.
+
+Holds the four pieces every test in this directory needs:
+
+* :func:`_block_real_cdsapi` — autouse safeguard that prevents any
+  test (other than ``TestApiE2E``) from constructing a real
+  :class:`cdsapi.Client`.
+* :func:`single_level_var_info` and :func:`pressure_level_var_info`
+  — :class:`VariableSpec` fixtures used across the api / post_download
+  tests.
+* :func:`ecmwf_stub` — a hand-constructed :class:`ECMWF` instance with
+  the four attributes ``api()`` / ``post_download()`` consume
+  (``self.client``, ``self.root_dir``, ``self.time``, ``self.space``)
+  set by hand. Bypasses :meth:`AbstractDataSource.__init__` so unit
+  tests can run without going through cdsapi or the file system.
+"""
+
+from __future__ import annotations
+
+from unittest.mock import MagicMock
+
+import cdsapi
+import pandas as pd
+import pytest
+
+from earth2observe.abstractdatasource import SpatialBounds, TimeWindow
+from earth2observe.ecmwf import ECMWF, VariableSpec
+
+
+@pytest.fixture(autouse=True)
+def _block_real_cdsapi(request, monkeypatch):
+    """Fail fast if a test reaches a live :class:`cdsapi.Client`.
+
+    Any test outside ``TestApiE2E`` gets a :class:`cdsapi.Client`
+    replacement that raises immediately — even before the
+    constructor reads ``~/.cdsapirc``. Tests that need a fake client
+    still call ``monkeypatch.setattr(cdsapi, "Client", ...)``
+    themselves; that later setattr wins because monkeypatch applies
+    fixture-scoped overrides in order.
+    """
+    if request.cls is not None and request.cls.__name__ == "TestApiE2E":
+        return
+
+    def _no_live_client(*args, **kwargs):
+        raise AssertionError(
+            "A unit test attempted to construct a real cdsapi.Client. "
+            'Add `monkeypatch.setattr(cdsapi, "Client", lambda: ...)` '
+            "to the test (replacing the lambda with the fake your test "
+            "needs), or move the test into TestApiE2E with RUN_CDS_E2E=1."
+        )
+
+    monkeypatch.setattr(cdsapi, "Client", _no_live_client)
+
+
+@pytest.fixture
+def single_level_var_info():
+    """CDS catalog entry for a single-level ERA5 variable.
+
+    Returns:
+        VariableSpec: Catalog metadata for ``2m_temperature`` on
+        ``reanalysis-era5-single-levels``.
+    """
+    return VariableSpec(
+        cds_dataset="reanalysis-era5-single-levels",
+        cds_variable="2m_temperature",
+        nc_variable="t2m",
+        file_name="Tair",
+        units="C",
+        factors_add=-273.15,
+        factors_mul=1,
+    )
+
+
+@pytest.fixture
+def pressure_level_var_info():
+    """CDS catalog entry for a pressure-level ERA5 variable.
+
+    Returns:
+        VariableSpec: Catalog metadata for ``temperature`` on
+        ``reanalysis-era5-pressure-levels`` at 1000 hPa.
+    """
+    return VariableSpec(
+        cds_dataset="reanalysis-era5-pressure-levels",
+        cds_variable="temperature",
+        cds_pressure_level=["1000"],
+        nc_variable="t",
+        file_name="Tair2m",
+        units="C",
+        factors_add=-273.15,
+        factors_mul=1,
+    )
+
+
+@pytest.fixture
+def ecmwf_stub(tmp_path):
+    """Minimal ``ECMWF`` instance with the attributes ``api()`` consumes.
+
+    Skips the full parent ``__init__`` chain (which would still call
+    :meth:`cdsapi.Client` for real) and instead constructs the
+    instance via ``ECMWF.__new__`` and wires up the four attributes
+    :meth:`ECMWF.api` reads — ``self.client``, ``self.root_dir``,
+    ``self.time`` and ``self.space`` — by hand.
+
+    Args:
+        tmp_path: Per-test temp directory provided by pytest, used as
+            ``self.root_dir`` so target paths land on the test fs.
+
+    Returns:
+        ECMWF: An ``ECMWF`` instance ready for ``api()`` invocation.
+    """
+    ecmwf = ECMWF.__new__(ECMWF)
+    ecmwf.client = MagicMock()
+    ecmwf.root_dir = tmp_path
+    ecmwf.time = TimeWindow(
+        start_date=pd.Timestamp("2022-01-01"),
+        end_date=pd.Timestamp("2022-01-03"),
+        time_freq="D",
+        dates=pd.date_range("2022-01-01", "2022-01-03", freq="D"),
+    )
+    ecmwf.space = SpatialBounds(
+        lat_lim=[4.19, 4.64],
+        lon_lim=[-75.65, -74.73],
+    )
+    ecmwf.temporal_resolution = "daily"
+    return ecmwf
