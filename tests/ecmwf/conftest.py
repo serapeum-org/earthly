@@ -23,7 +23,7 @@ import cdsapi
 import pandas as pd
 import pytest
 
-from earth2observe.abstractdatasource import SpatialExtent, TimeWindow
+from earth2observe.abstractdatasource import SpatialExtent, TemporalExtent
 from earth2observe.ecmwf import ECMWF, VariableSpec
 
 
@@ -111,10 +111,10 @@ def ecmwf_stub(tmp_path):
     ecmwf = ECMWF.__new__(ECMWF)
     ecmwf.client = MagicMock()
     ecmwf.root_dir = tmp_path
-    ecmwf.time = TimeWindow(
+    ecmwf.time = TemporalExtent(
         start_date=pd.Timestamp("2022-01-01"),
         end_date=pd.Timestamp("2022-01-03"),
-        time_freq="D",
+        resolution="D",
         dates=pd.date_range("2022-01-01", "2022-01-03", freq="D"),
     )
     ecmwf.space = SpatialExtent(
@@ -122,6 +122,7 @@ def ecmwf_stub(tmp_path):
         latitude_max=4.64,
         longitude_min=-75.65,
         longitude_max=-74.73,
+        resolution=0.125,
     )
     ecmwf.temporal_resolution = "daily"
     return ecmwf

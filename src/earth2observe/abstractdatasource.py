@@ -2,41 +2,48 @@ from __future__ import annotations
 
 import os
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
-@dataclass(frozen=True)
-class TimeWindow:
+class TemporalExtent(BaseModel):
     """Per-instance temporal context produced by :meth:`check_input_dates`.
 
     Replaces the ``self.time`` dict that earlier versions of
     :class:`AbstractDataSource` accepted from subclass overrides. The
-    frozen dataclass enforces presence of every consumer-visible
+    frozen pydantic model enforces presence of every consumer-visible
     field at construction time, so a subclass that returns a malformed
     container fails fast instead of surfacing as ``KeyError`` deep
     inside the download loop.
 
     Attributes:
-        start_date: Inclusive start of the requested window.
+        start_date: Inclusive start of the requested window. Typed
+            :data:`~typing.Any` because pandas / numpy timestamp types
+            are not native pydantic primitives; the cross-field
+            validator below enforces ``start_date <= end_date`` for
+            anything that supports comparison.
         end_date: Inclusive end of the requested window.
-        time_freq: ``"D"`` for daily, ``"MS"`` for month-start. Same
+        resolution: Spacing between consecutive entries in
+            :attr:`dates`, expressed as a pandas frequency alias —
+            ``"D"`` for daily, ``"MS"`` for month-start. Same
             shorthand pandas uses for ``date_range(freq=...)``.
         dates: The :class:`pandas.DatetimeIndex` the download loop
-            iterates. Typed ``Any`` here to avoid a hard pandas
-            import in the abstract module.
+            iterates. Typed :data:`~typing.Any` to avoid a hard
+            pandas import in the abstract module.
     """
+
+    model_config = ConfigDict(frozen=True, arbitrary_types_allowed=True)
 
     start_date: Any
     end_date: Any
-    time_freq: str
+    resolution: str
     dates: Any
 
-    def __post_init__(self):
-        """Validate ``start_date <= end_date`` at construction.
+    @model_validator(mode="after")
+    def _check_start_le_end(self) -> TemporalExtent:
+        """Validate that ``start_date <= end_date``.
 
         Raises:
             ValueError: If the window is inverted.
@@ -44,9 +51,10 @@ class TimeWindow:
         if self.start_date is not None and self.end_date is not None:
             if self.start_date > self.end_date:
                 raise ValueError(
-                    f"TimeWindow has inverted bounds: start_date "
+                    f"TemporalExtent has inverted bounds: start_date "
                     f"{self.start_date} > end_date {self.end_date}"
                 )
+        return self
 
 
 class SpatialExtent(BaseModel):
@@ -69,6 +77,12 @@ class SpatialExtent(BaseModel):
         latitude_max: Inclusive north edge of the bbox, in degrees.
         longitude_min: Inclusive west edge of the bbox, in degrees.
         longitude_max: Inclusive east edge of the bbox, in degrees.
+        resolution: Grid cell size in degrees, applied to both
+            latitude and longitude. ``None`` for backends that work
+            on irregular grids or do not need a cell size for their
+            request shape (e.g. CHIRPS FTP file lookup, S3 prefix
+            listing). Mirrors :attr:`TemporalExtent.resolution` —
+            the spatial counterpart of the temporal cadence.
     """
 
     model_config = ConfigDict(frozen=True)
@@ -84,6 +98,9 @@ class SpatialExtent(BaseModel):
     )
     longitude_max: float = Field(
         ge=-180.0, le=180.0, description="East edge in degrees"
+    )
+    resolution: float | None = Field(
+        default=None, gt=0.0, description="Grid cell size in degrees"
     )
 
     @model_validator(mode="after")
@@ -111,7 +128,10 @@ class SpatialExtent(BaseModel):
 
     @classmethod
     def from_pairs(
-        cls, lat_lim: list[float], lon_lim: list[float]
+        cls,
+        lat_lim: list[float],
+        lon_lim: list[float],
+        resolution: float | None = None,
     ) -> SpatialExtent:
         """Build from the legacy ``[min, max]`` pair shape.
 
@@ -122,6 +142,10 @@ class SpatialExtent(BaseModel):
         Args:
             lat_lim: ``[lat_min, lat_max]`` in degrees.
             lon_lim: ``[lon_min, lon_max]`` in degrees.
+            resolution: Grid cell size in degrees. Defaults to
+                ``None`` (unspecified — typical for backends that
+                work off file listings rather than gridded request
+                shapes).
 
         Returns:
             SpatialExtent: A validated, frozen instance.
@@ -131,6 +155,7 @@ class SpatialExtent(BaseModel):
             latitude_max=lat_lim[1],
             longitude_min=lon_lim[0],
             longitude_max=lon_lim[1],
+            resolution=resolution,
         )
 
     @property
@@ -220,13 +245,13 @@ class AbstractDataSource(ABC):
             )
 
         time = self.check_input_dates(start, end, temporal_resolution, fmt)
-        if isinstance(time, TimeWindow):
+        if isinstance(time, TemporalExtent):
             self.time = time
         elif isinstance(time, dict):
-            self.time = TimeWindow(
+            self.time = TemporalExtent(
                 start_date=time["start_date"],
                 end_date=time["end_date"],
-                time_freq=time["time_freq"],
+                resolution=time.get("resolution", time.get("time_freq")),
                 dates=time["dates"],
             )
 

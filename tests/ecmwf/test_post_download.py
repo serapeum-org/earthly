@@ -160,9 +160,10 @@ class TestPostDownload:
             )
 
         ecmwf_stub.temporal_resolution = "monthly"
-        ecmwf_stub.time = _dataclass_replace(
-            ecmwf_stub.time,
-            dates=pd.date_range("2022-01-01", "2022-01-01", freq="MS"),
+        ecmwf_stub.time = ecmwf_stub.time.model_copy(
+            update={
+                "dates": pd.date_range("2022-01-01", "2022-01-01", freq="MS"),
+            }
         )
         install_fake_netcdf(monkeypatch, var_value=10.0)
         flux_monthly = ecmwf_stub.post_download(

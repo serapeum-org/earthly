@@ -19,8 +19,15 @@ from earth2observe.abstractdatasource import (
     AbstractCatalog,
     AbstractDataSource,
     SpatialExtent,
-    TimeWindow,
+    TemporalExtent,
 )
+
+
+#: ERA5 native grid spacing in degrees. Used by :meth:`ECMWF.create_grid`
+#: to snap the user's ``lat_lim`` / ``lon_lim`` to grid edges and
+#: populate :attr:`SpatialExtent.resolution`. Single source of truth for
+#: cell size across the ECMWF backend.
+ERA5_GRID_DEGREES: float = 0.125
 
 
 class AuthenticationError(Exception):
@@ -237,12 +244,13 @@ class ECMWF(AbstractDataSource):
 
     Attributes:
         temporal_resolution: Class-level list of valid temporal
-            resolutions accepted by the backend.
-        spatial_resolution: ERA5 grid spacing in degrees (0.125°).
+            resolutions accepted by the backend. The instance-level
+            spatial cell size lives on :attr:`SpatialExtent.resolution`
+            (populated by :meth:`create_grid`) and is sourced from
+            :data:`ERA5_GRID_DEGREES`.
     """
 
     temporal_resolution = ["daily", "monthly"]
-    spatial_resolution = 0.125
 
     def __init__(
         self,
@@ -306,9 +314,11 @@ class ECMWF(AbstractDataSource):
             fmt: ``strptime`` format applied to ``start`` and ``end``.
 
         Returns:
-            TimeWindow: Frozen dataclass with ``start_date``,
-            ``end_date``, ``time_freq`` and ``dates`` (the
-            :class:`pandas.DatetimeIndex` the download loop iterates).
+            TemporalExtent: Frozen pydantic model with ``start_date``,
+            ``end_date``, ``resolution`` (pandas frequency alias —
+            ``"D"`` for daily, ``"MS"`` for month-start), and
+            ``dates`` (the :class:`pandas.DatetimeIndex` the
+            download loop iterates).
 
         Raises:
             ValueError: If ``temporal_resolution`` is neither
@@ -320,19 +330,19 @@ class ECMWF(AbstractDataSource):
 
         if temporal_resolution == "daily":
             dates = pd.date_range(start, end, freq="D")
-            time_freq = "D"
+            resolution = "D"
         elif temporal_resolution == "monthly":
             dates = pd.date_range(start, end, freq="MS")
-            time_freq = "MS"
+            resolution = "MS"
         else:
             raise ValueError(
                 "temporal_resolution should be either 'daily' or 'monthly'"
             )
 
-        return TimeWindow(
+        return TemporalExtent(
             start_date=start,
             end_date=end,
-            time_freq=time_freq,
+            resolution=resolution,
             dates=dates,
         )
 
@@ -405,7 +415,7 @@ class ECMWF(AbstractDataSource):
         lon_lim: []
             longitude boundaries
         """
-        cell_size = self.spatial_resolution
+        cell_size = ERA5_GRID_DEGREES
         # correct latitude and longitude limits
         lat_lim_floor = np.floor(lat_lim[0] / cell_size) * cell_size
         lat_lim_ceil = np.ceil(lat_lim[1] / cell_size) * cell_size
@@ -415,7 +425,9 @@ class ECMWF(AbstractDataSource):
         lon_lim_floor = np.floor(lon_lim[0] / cell_size) * cell_size
         lon_lim_ceil = np.ceil(lon_lim[1] / cell_size) * cell_size
         lon_lim = [lon_lim_floor, lon_lim_ceil]
-        return SpatialExtent.from_pairs(lat_lim=lat_lim, lon_lim=lon_lim)
+        return SpatialExtent.from_pairs(
+            lat_lim=lat_lim, lon_lim=lon_lim, resolution=cell_size
+        )
 
     def download(self, progress_bar: bool = True, *args, **kwargs):
         """Download every variable in ``self.vars`` from CDS.
@@ -843,14 +855,15 @@ class ECMWF(AbstractDataSource):
 
             geo_four = np.nanmax(lats)
             geo_one = np.nanmin(lons)
+            cell_size = self.space.resolution
             geo = tuple(
                 [
                     geo_one,
-                    self.spatial_resolution,
+                    cell_size,
                     0.0,
                     geo_four,
                     0.0,
-                    -1 * self.spatial_resolution,
+                    -1 * cell_size,
                 ]
             )
 

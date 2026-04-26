@@ -157,9 +157,10 @@ class TestApi:
             request must contain ``year=['2021','2022']``,
             ``month=['01','12']`` and ``day=['01','02','30','31']``.
         """
-        ecmwf_stub.time = _dataclass_replace(
-            ecmwf_stub.time,
-            dates=pd.date_range("2021-12-30", "2022-01-02", freq="D"),
+        ecmwf_stub.time = ecmwf_stub.time.model_copy(
+            update={
+                "dates": pd.date_range("2021-12-30", "2022-01-02", freq="D"),
+            }
         )
         ecmwf_stub.api(single_level_var_info)
         request = captured_request(ecmwf_stub)
@@ -242,9 +243,10 @@ class TestApi:
             For dates ``[2022-06-15]`` the request fields collapse to
             ``year=['2022']``, ``month=['06']``, ``day=['15']``.
         """
-        ecmwf_stub.time = _dataclass_replace(
-            ecmwf_stub.time,
-            dates=pd.date_range("2022-06-15", "2022-06-15", freq="D"),
+        ecmwf_stub.time = ecmwf_stub.time.model_copy(
+            update={
+                "dates": pd.date_range("2022-06-15", "2022-06-15", freq="D"),
+            }
         )
         ecmwf_stub.api(single_level_var_info)
         request = captured_request(ecmwf_stub)
