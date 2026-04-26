@@ -18,7 +18,7 @@ import pytest
 
 from earth2observe.ecmwf import ECMWF, VariableSpec
 
-from tests.ecmwf._fakes import _SentinelClient
+from tests.test_ecmwf._fakes import _SentinelClient
 
 pytestmark = [pytest.mark.integration]
 

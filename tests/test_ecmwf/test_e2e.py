@@ -1,9 +1,5 @@
 """End-to-end tests against the live Copernicus Climate Data Store.
 
-Select with ``pytest -m e2e``; see ``docs/examples/authentication.md``
-for the ``~/.cdsapirc`` setup. The autouse safeguard in
-``conftest.py`` exempts the live test classes by name.
-
 Every test in this file submits a tiny request (one day or one
 month, ~1°×1° area, one or two variables) so the per-test wall
 clock stays in the minutes range and the CDS quota footprint stays

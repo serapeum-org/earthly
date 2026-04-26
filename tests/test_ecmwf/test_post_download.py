@@ -7,7 +7,7 @@ legacy ``"file name"`` (with space) key.
 
 All tests use the in-memory :class:`_FakeNetCDFDataset` from
 ``_fakes.py`` so the suite runs without touching the file system or
-the real netCDF4 / pyramids libraries.
+the real pyramids library.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ import pytest
 
 from earth2observe.ecmwf import ECMWF, VariableSpec
 
-from tests.ecmwf._fakes import install_fake_netcdf
+from tests.test_ecmwf._fakes import install_fake_netcdf
 
 pytestmark = [pytest.mark.unit]
 

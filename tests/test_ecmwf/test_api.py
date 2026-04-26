@@ -19,7 +19,7 @@ import pytest
 
 from earth2observe.ecmwf import VariableSpec
 
-from tests.ecmwf._fakes import captured_request
+from tests.test_ecmwf._fakes import captured_request
 
 pytestmark = [pytest.mark.unit]
 
