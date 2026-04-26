@@ -9,32 +9,17 @@ from typing import Any, Dict, List, Optional
 import cdsapi
 import numpy as np
 import pandas as pd
-import yaml
 from loguru import logger
 from pyramids.netcdf import NetCDF
 from serapeum_utils.utils import print_progress_bar
 
-from pathlib import Path as _Path
-
 from earth2observe.base import (
-    AbstractCatalog,
     AbstractDataSource,
     SpatialExtent,
     TemporalExtent,
 )
 
-#: Path to the catalog YAML, shipped alongside this module as
-#: package data. Resolved via ``__file__`` so :class:`Catalog` does
-#: not need to import the parent package's ``__path__``. Tests can
-#: monkey-patch this module attribute to redirect the catalog
-#: lookup at a ``tmp_path``.
-CATALOG_PATH: _Path = _Path(__file__).parent / "cds_data_catalog.yaml"
 
-
-#: ERA5 native grid spacing in degrees. Used by :meth:`ECMWF.create_grid`
-#: to snap the user's ``lat_lim`` / ``lon_lim`` to grid edges and
-#: populate :attr:`SpatialExtent.resolution`. Single source of truth for
-#: cell size across the ECMWF backend.
 ERA5_GRID_DEGREES: float = 0.125
 
 
@@ -80,9 +65,14 @@ class VariableSpec:
             filenames.
         units: Output unit string after the conversion factors are
             applied (used in the output filename).
-        factors_add: Additive offset applied during post-processing.
-        factors_mul: Multiplicative scale applied during
-            post-processing.
+        factors_add: Optional additive offset applied during
+            post-processing. Defaults to ``0.0`` (no offset) when
+            absent from the YAML — useful for rows where no unit
+            conversion is authored yet (e.g. the
+            ``cds_data_catalog.draft.yaml`` parking-lot rows).
+        factors_mul: Optional multiplicative scale applied during
+            post-processing. Defaults to ``1.0`` (identity) when
+            absent.
         cds_dataset_monthly: Optional CDS dataset short name used
             when ``temporal_resolution == "monthly"``. Falls back to
             ``cds_dataset`` when absent.
@@ -99,8 +89,8 @@ class VariableSpec:
     nc_variable: str
     file_name: str
     units: str
-    factors_add: float
-    factors_mul: float
+    factors_add: float = 0.0
+    factors_mul: float = 1.0
     cds_dataset_monthly: Optional[str] = None
     cds_pressure_level: Optional[List[str]] = None
     types: Optional[str] = None
@@ -201,6 +191,52 @@ def _looks_like_missing_credentials(exc: BaseException) -> bool:
         "missing key",
     )
     return any(keyword in message for keyword in auth_keywords)
+
+
+_TIME_VAR_CANDIDATES: tuple[str, ...] = ("valid_time", "time")
+
+
+def _read_time_axis(fh: NetCDF) -> pd.DatetimeIndex:
+    """Read the time coordinate from a CDS NetCDF as datetimes.
+
+    CDS-Beta switched the time variable name from ``time`` (legacy)
+    to ``valid_time`` (current) and the units from
+    ``"hours since 1900-01-01"`` to ``"seconds since 1970-01-01"``.
+    This helper hides both differences from the caller: it tries
+    each candidate name in :data:`_TIME_VAR_CANDIDATES` and parses
+    the raw integer values via the variable's ``unit`` attribute,
+    returning a :class:`pandas.DatetimeIndex` regardless of which
+    flavour of NetCDF the server emits.
+    """
+    metadata_vars = fh.meta_data.variables
+    for name in _TIME_VAR_CANDIDATES:
+        if name not in metadata_vars:
+            continue
+        units = metadata_vars[name].unit
+        raw = fh._read_variable(name)
+        if units is None or raw is None:
+            continue
+        # ``units`` is a CF string like "<unit> since <epoch>".
+        # ``pd.to_datetime(raw, unit=<u>, origin=<o>)`` parses it
+        # natively for the unit aliases pandas recognises (s, m, h, D).
+        unit_word, _, origin = units.partition(" since ")
+        unit_alias = {
+            "seconds": "s",
+            "minutes": "m",
+            "hours": "h",
+            "days": "D",
+        }.get(unit_word.strip().lower())
+        if unit_alias is None:
+            raise ValueError(
+                f"unsupported time unit {unit_word!r} on {name!r} "
+                f"(full units string: {units!r})"
+            )
+        return pd.to_datetime(raw, unit=unit_alias, origin=origin.strip())
+    raise KeyError(
+        f"NetCDF at {fh.file_name!r} has no recognised time variable "
+        f"(tried {list(_TIME_VAR_CANDIDATES)}; got "
+        f"{sorted(metadata_vars)})"
+    )
 
 
 def _looks_like_licence_not_accepted(exc: BaseException) -> bool:
@@ -495,6 +531,11 @@ class ECMWF(AbstractDataSource):
             :class:`Catalog`: Resolves short codes to per-variable
                 metadata.
         """
+        # Lazy import to avoid a circular dependency: ``catalog.py``
+        # imports ``VariableSpec`` from this module, so a top-level
+        # import of ``Catalog`` would be cyclic.
+        from earth2observe.ecmwf.catalog import Catalog
+
         catalog = Catalog()
         succeeded: list[str] = []
         failed: list[tuple[str, BaseException]] = []
@@ -741,7 +782,6 @@ class ECMWF(AbstractDataSource):
             "variable": [var_info.cds_variable],
             "year": sorted({str(d.year) for d in dates}),
             "month": sorted({f"{d.month:02d}" for d in dates}),
-            "day": sorted({f"{d.day:02d}" for d in dates}),
             "data_format": "netcdf",
             "area": [
                 self.space.north,
@@ -753,9 +793,16 @@ class ECMWF(AbstractDataSource):
 
         dataset = var_info.dataset_for(self.temporal_resolution)
         if self.temporal_resolution == "monthly":
+            # ``-monthly-means`` datasets reject ``day`` (the
+            # aggregate is over a whole month) and require a
+            # single ``time`` slot for ``monthly_averaged_reanalysis``.
+            # CDS-Beta enforces this with HTTP 400; the legacy CDS
+            # tolerated extra ``day`` entries.
             request["product_type"] = ["monthly_averaged_reanalysis"]
+            request["time"] = ["00:00"]
         else:
             request["product_type"] = ["reanalysis"]
+            request["day"] = sorted({f"{d.day:02d}" for d in dates})
             request["time"] = ["00:00", "06:00", "12:00", "18:00"]
 
         if var_info.cds_pressure_level is not None:
@@ -857,7 +904,7 @@ class ECMWF(AbstractDataSource):
 
         with NetCDF.read_file(str(nc_path), read_only=True) as fh:
             Data = fh.read_array(variable=nc_variable)
-            Data_time = fh.variables["time"].read_array()
+            Data_time = _read_time_axis(fh)
             lons = fh.lon
             lats = fh.lat
 
@@ -888,29 +935,17 @@ class ECMWF(AbstractDataSource):
                 month = date.month
                 day = date.day
 
-                start = dt.datetime(year=1900, month=1, day=1)
-                end = dt.datetime(year, month, day)
-                diff = end - start
-                hours_from_start_begin = diff.total_seconds() / 60 / 60
-
-                Date_good = np.zeros(len(Data_time))
-
                 if self.temporal_resolution == "daily":
                     days_later = 1
                 elif self.temporal_resolution == "monthly":
                     days_later = calendar.monthrange(year, month)[1]
 
-                Date_good[
-                    np.logical_and(
-                        Data_time >= hours_from_start_begin,
-                        Data_time < (hours_from_start_begin + 24 * days_later),
-                    )
-                ] = 1
+                window_start = pd.Timestamp(year=year, month=month, day=day)
+                window_end = window_start + pd.Timedelta(days=days_later)
 
-                Data_one = np.zeros(
-                    [int(np.sum(Date_good)), int(np.size(Data, 1)), int(np.size(Data, 2))]
-                )
-                Data_one = Data[np.int_(Date_good) == 1, :, :]
+                in_window = (Data_time >= window_start) & (Data_time < window_end)
+
+                Data_one = Data[in_window, :, :]
 
                 Data_end = factors_mul * np.nanmean(Data_one, 0) + factors_add
 
@@ -940,110 +975,3 @@ class ECMWF(AbstractDataSource):
                     )
 
         return per_date_outputs
-
-
-class Catalog(AbstractCatalog):
-    """Variable catalog for the CDS-backed ECMWF data source.
-
-    Reads ``cds_data_catalog.yaml`` (shipped as package data) and exposes
-    the per-variable metadata that :class:`ECMWF` consumes when building
-    a CDS retrieve request.
-
-    Attributes:
-        catalog: ``dict`` mapping a user-friendly variable code (e.g.
-            ``"2T"``) to the per-variable metadata dict containing
-            ``cds_dataset``, ``cds_variable``, ``file_name``,
-            ``factors_add``, ``factors_mul``, and the optional
-            ``cds_dataset_monthly`` / ``cds_pressure_level`` keys.
-
-    Examples:
-        - Look up a single-level ERA5 variable:
-
-            ```python
-            >>> from earth2observe.ecmwf import Catalog
-            >>> spec = Catalog().get_dataset("2T")
-            >>> spec.cds_dataset
-            'reanalysis-era5-single-levels'
-            >>> spec.cds_variable
-            '2m_temperature'
-            >>> spec.file_name
-            'Tair'
-
-            ```
-        - Pressure-level variables include a ``cds_pressure_level``
-          attribute that ``ECMWF.api`` forwards to CDS:
-
-            ```python
-            >>> from earth2observe.ecmwf import Catalog
-            >>> spec = Catalog().get_dataset("T")
-            >>> spec.cds_dataset
-            'reanalysis-era5-pressure-levels'
-            >>> spec.cds_pressure_level
-            ['1000']
-
-            ```
-    """
-
-    def __init__(self):
-        """Load the catalog from ``cds_data_catalog.yaml``."""
-        super().__init__()
-
-    def get_catalog(self):
-        """Read ``cds_data_catalog.yaml`` and return the per-variable map.
-
-        Returns:
-            dict: The non-empty per-variable map loaded from the
-            YAML file's top-level ``variables`` key.
-
-        Raises:
-            ValueError: If the file is missing the ``variables`` key,
-                or it is present but empty / null. Pre-fix, this
-                returned ``{}`` silently and every subsequent
-                ``get_dataset(code)`` call raised ``KeyError`` —
-                misleading the user about which file is broken.
-        """
-        catalog_path = CATALOG_PATH
-        with open(catalog_path, "r", encoding="utf-8") as stream:
-            data = yaml.safe_load(stream) or {}
-        variables = data.get("variables")
-        if not variables:
-            raise ValueError(
-                f"{catalog_path} is missing or has an empty "
-                "'variables' key. The catalog must contain at least "
-                "one variable definition. See the schema header at "
-                "the top of the file."
-            )
-        return {
-            code: VariableSpec.from_dict(code, entry)
-            for code, entry in variables.items()
-        }
-
-    def get_dataset(self, var_name):
-        """Return the metadata dict for ``var_name``.
-
-        Args:
-            var_name: Short user-friendly variable code (e.g. ``"2T"``).
-
-        Returns:
-            dict: Per-variable metadata loaded from
-            ``cds_data_catalog.yaml``.
-
-        Raises:
-            KeyError: If ``var_name`` is not in the catalog.
-        """
-        return self.catalog[var_name]
-
-    def get_variable(self, var_name):
-        """Alias for :meth:`get_dataset` satisfying the abstract base.
-
-        :class:`AbstractCatalog` declares ``get_variable`` as abstract;
-        the legacy ECMWF call sites use ``get_dataset``. Both names
-        return the same metadata dict so either path works.
-
-        Args:
-            var_name: Short user-friendly variable code.
-
-        Returns:
-            dict: Per-variable metadata. See :meth:`get_dataset`.
-        """
-        return self.get_dataset(var_name)

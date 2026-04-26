@@ -373,9 +373,6 @@ class CHIRPS(AbstractDataSource):
 class Catalog(AbstractCatalog):
     """CHIRPS data catalog."""
 
-    def __init__(self):
-        super().__init__()
-
     def get_catalog(self):
         """return the catalog."""
         return {

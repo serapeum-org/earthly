@@ -7,6 +7,11 @@ from typing import Any, Dict
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+# ABC / abstractmethod are still used by :class:`AbstractDataSource`;
+# the catalog hierarchy uses pydantic-native NotImplementedError
+# overrides instead since BaseModel + ABCMeta has metaclass conflicts
+# under some pydantic versions.
+
 
 class TemporalExtent(BaseModel):
     """Per-instance temporal context produced by :meth:`check_input_dates`.
@@ -296,29 +301,52 @@ class AbstractDataSource(ABC):
         pass
 
 
-class AbstractCatalog(ABC):
+class AbstractCatalog(BaseModel):
     """Abstract base class for per-data-source variable catalogs.
 
     Subclasses load a backend-specific catalog (a YAML file, an
     in-code dict, or a remote query) in :meth:`get_catalog` and
-    expose individual entries via :meth:`get_variable`. The constructor
-    eagerly loads the catalog into :attr:`catalog` so subclasses can
-    treat it as a dict thereafter.
+    expose individual entries via :meth:`get_variable`. The
+    :func:`model_post_init` hook eagerly populates :attr:`catalog`
+    after pydantic validation runs, so subclasses can treat the
+    catalog as a dict thereafter without writing their own
+    ``__init__``.
+
+    Subclasses pass through pydantic's normal ``BaseModel.__init__``
+    — declare any backend-specific construction parameters as
+    pydantic fields rather than ``__init__`` arguments. Override
+    :meth:`get_catalog` (and optionally :meth:`get_variable`); the
+    base implementations raise :class:`NotImplementedError` to flag
+    a missing override at first use rather than silently returning
+    an empty mapping.
 
     Attributes:
         catalog: The full catalog mapping returned by
-            :meth:`get_catalog`. Type and shape are backend-specific.
+            :meth:`get_catalog`. Populated post-init; defaults to an
+            empty dict so the field is always present. Type and
+            shape are backend-specific (a concrete subclass typically
+            stores typed value objects, e.g. ``dict[str, VariableSpec]``
+            for the ECMWF backend).
     """
 
-    def __init__(self):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    catalog: Dict[str, Any] = Field(default_factory=dict)
+
+    def model_post_init(self, __context: Any) -> None:
+        """Populate :attr:`catalog` after pydantic validation runs.
+
+        Pydantic calls this hook automatically; subclasses that need
+        their own post-init wiring should override it and call
+        ``super().model_post_init(__context)`` first to keep the
+        catalog-loading behaviour.
+        """
         self.catalog = self.get_catalog()
 
-    @abstractmethod
-    def get_catalog(self):
+    def get_catalog(self) -> Any:
         """read the catalog of the datasource from disk or retrieve it from server."""
-        pass
+        raise NotImplementedError
 
-    @abstractmethod
-    def get_variable(self, var_name) -> Dict[str, str]:
+    def get_variable(self, var_name: str) -> Any:
         """get the details of a specific variable."""
         return self.catalog.get(var_name)

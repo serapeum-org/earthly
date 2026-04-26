@@ -14,10 +14,10 @@ from __future__ import annotations
 from earth2observe.ecmwf.backend import (
     ERA5_GRID_DEGREES,
     AuthenticationError,
-    Catalog,
     ECMWF,
     VariableSpec,
 )
+from earth2observe.ecmwf.catalog import CATALOG_PATH, Catalog
 
 __all__ = [
     "ECMWF",
@@ -25,4 +25,5 @@ __all__ = [
     "VariableSpec",
     "AuthenticationError",
     "ERA5_GRID_DEGREES",
+    "CATALOG_PATH",
 ]

@@ -401,18 +401,15 @@ class TestApiMonthly:
         request = captured_request(ecmwf_stub)
         assert request["product_type"] == ["monthly_averaged_reanalysis"]
 
-    def test_monthly_request_omits_time_slot_list(
+    def test_monthly_request_uses_single_time_slot(
         self, ecmwf_stub, monthly_var_info
     ):
-        """Monthly requests must not include the ``time`` key.
-
-        Test scenario:
-            ``-monthly-means`` datasets reject the daily-style
-            ``time=['00:00','06:00','12:00','18:00']`` list.
-        """
+        """Monthly requests pin time to one 00:00 slot and drop day."""
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub.api(monthly_var_info)
-        assert "time" not in captured_request(ecmwf_stub)
+        request = captured_request(ecmwf_stub)
+        assert request["time"] == ["00:00"]
+        assert "day" not in request
 
     def test_daily_request_still_includes_time_and_reanalysis(
         self, ecmwf_stub, monthly_var_info

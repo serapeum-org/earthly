@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import datetime as dt
 import os
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import boto3
 import botocore
@@ -259,15 +259,12 @@ class S3(AbstractDataSource):
 class Catalog(AbstractCatalog):
     """S3 data catalog."""
 
-    def __init__(self, bucket: str = "era5-pds"):
-        """
+    bucket: str = "era5-pds"
+    client: Any = None
 
-        Parameters
-        ----------
-        bucket :
-        """
-        super().__init__()
-        self.client = self.initialize(bucket=bucket)
+    def model_post_init(self, __context: Any) -> None:
+        super().model_post_init(__context)
+        self.client = self.initialize(bucket=self.bucket)
 
     @staticmethod
     def initialize(bucket: str = "era5-pds") -> object:

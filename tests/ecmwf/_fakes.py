@@ -36,6 +36,27 @@ class _FakeVariable:
         return self._array
 
 
+class _FakeVariableInfo:
+    """Per-variable metadata returned by :class:`_FakeMetadata.variables`.
+
+    Mirrors the slice of :class:`pyramids.netcdf.NetCDFMetadata`
+    that :func:`_read_time_axis` reads: the ``unit`` attribute on
+    the time variable carries the CF-style ``"<unit> since
+    <epoch>"`` string and is the source of truth for parsing the
+    raw integer values.
+    """
+
+    def __init__(self, unit):
+        self.unit = unit
+
+
+class _FakeMetadata:
+    """``meta_data`` stand-in carrying just ``.variables``."""
+
+    def __init__(self, variables):
+        self.variables = variables
+
+
 class _FakeNetCDFDataset:
     """In-memory stand-in for :class:`pyramids.netcdf.NetCDF`.
 
@@ -43,8 +64,11 @@ class _FakeNetCDFDataset:
     :meth:`ECMWF.post_download` consumes:
 
     * ``read_array(variable=name)`` returns the data array
-    * ``variables[name].read_array()`` returns coordinate / dim arrays
+    * ``meta_data.variables[name].unit`` returns the CF-style
+      ``"<unit> since <epoch>"`` string for time parsing
+    * ``_read_variable(name)`` returns coordinate values
     * ``lon`` / ``lat`` properties return 1-D coordinate axes
+    * ``file_name`` returns the path the fake was opened with
     * ``close()`` is a no-op
     * Supports ``with`` (``__enter__`` / ``__exit__``)
 
@@ -57,17 +81,31 @@ class _FakeNetCDFDataset:
 
     def __init__(self, path, mode="r"):
         type(self).instances.append((path, mode))
-        time_axis = np.arange(0, 24 * 4, 6, dtype=float) + (
-            (
-                pd.Timestamp("2022-01-01") - pd.Timestamp("1900-01-01")
-            ).total_seconds()
-            / 3600
+        # Time axis: 16 six-hourly samples spanning 2022-01-01 through
+        # 2022-01-04, expressed as "seconds since 1970-01-01" — the
+        # CDS-Beta units now in use. Span chosen to cover the
+        # ``ecmwf_stub`` fixture's three-day download window with one
+        # day of head-room either side.
+        epoch = pd.Timestamp("1970-01-01")
+        sample_dates = pd.date_range("2022-01-01", periods=16, freq="6h")
+        time_axis = np.array(
+            [(d - epoch).total_seconds() for d in sample_dates], dtype=float
         )
         self._lon = np.linspace(-75.0, -74.0, 9)
         self._lat = np.linspace(5.0, 4.0, 9)
-        self.variables = {"time": _FakeVariable(np.array(time_axis))}
+        self._time_axis = time_axis
+        self.variables = {}
+        self.meta_data = _FakeMetadata(
+            {"valid_time": _FakeVariableInfo("seconds since 1970-01-01")}
+        )
+        self.file_name = path
         self._fake_data = np.full((len(time_axis), 9, 9), 273.15, dtype=float)
         self._arrays_by_variable = {}
+
+    def _read_variable(self, name):
+        if name == "valid_time":
+            return self._time_axis
+        return None
 
     def read_array(self, variable=None, **_kwargs):
         if variable in self._arrays_by_variable:

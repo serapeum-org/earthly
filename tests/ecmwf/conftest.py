@@ -27,18 +27,21 @@ from earth2observe.base import SpatialExtent, TemporalExtent
 from earth2observe.ecmwf import ECMWF, VariableSpec
 
 
+_LIVE_CDS_TEST_CLASSES = frozenset({"TestApiE2E", "TestFacadeE2E"})
+
+
 @pytest.fixture(autouse=True)
 def _block_real_cdsapi(request, monkeypatch):
     """Fail fast if a test reaches a live :class:`cdsapi.Client`.
 
-    Any test outside ``TestApiE2E`` gets a :class:`cdsapi.Client`
-    replacement that raises immediately — even before the
-    constructor reads ``~/.cdsapirc``. Tests that need a fake client
-    still call ``monkeypatch.setattr(cdsapi, "Client", ...)``
-    themselves; that later setattr wins because monkeypatch applies
-    fixture-scoped overrides in order.
+    Any test outside the explicit live-CDS allow-list gets a
+    :class:`cdsapi.Client` replacement that raises immediately —
+    even before the constructor reads ``~/.cdsapirc``. Tests that
+    need a fake client still call ``monkeypatch.setattr(cdsapi,
+    "Client", ...)`` themselves; that later setattr wins because
+    monkeypatch applies fixture-scoped overrides in order.
     """
-    if request.cls is not None and request.cls.__name__ == "TestApiE2E":
+    if request.cls is not None and request.cls.__name__ in _LIVE_CDS_TEST_CLASSES:
         return
 
     def _no_live_client(*args, **kwargs):
