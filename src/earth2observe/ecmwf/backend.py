@@ -691,7 +691,7 @@ class ECMWF(AbstractDataSource):
           daily-style ``time`` list.
 
         Both branches use ``data_format='netcdf'`` so
-        :class:`netCDF4.Dataset` can read the result in
+        :class:`pyramids.netcdf.NetCDF` can read the result in
         ``post_download``.
 
         Args:
