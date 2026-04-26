@@ -139,6 +139,8 @@ earth2observe = { path = ".", editable = true }
 
 [tool.pixi.tasks]
 test-all = { cmd = "pytest -vvv --cov=src/earth2observe -sv --cov-report=xml --cov-report=term-missing", description = "Run all testsuite" }
+test-no-e2e = { cmd = "pytest -vvv -m 'not e2e' --cov=src/earth2observe -sv --cov-report=xml --cov-report=term-missing", description = "Run unit + integration suite (skips live e2e)" }
+test-e2e = { cmd = "pytest -m e2e -v", description = "Run live CDS end-to-end suite (requires CDSAPI_URL / CDSAPI_KEY)" }
 notebooks = { cmd = "pytest --nbval --nbval-lax --verbose examples/notebooks", description = "check notebooks" }
 jupyter = { cmd = "jupyter lab --no-browser --IdentityProvider.token='' --ServerApp.password='' --port=8889", description = "check notebooks" }
 build-dist = { cmd = "python -m build", description = "Build sdist and wheel for PyPI" }

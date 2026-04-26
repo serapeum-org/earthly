@@ -32,7 +32,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          pixi run -e ${{ matrix.environment }} test-all
+          pixi run -e ${{ matrix.environment }} test-no-e2e
 
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v5
