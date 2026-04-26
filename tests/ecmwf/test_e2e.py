@@ -1,26 +1,11 @@
 """End-to-end tests against the live Copernicus Climate Data Store.
 
-These tests are opt-in: they run only when ``RUN_CDS_E2E=1`` is set
-in the environment. They require:
-
-* A ``~/.cdsapirc`` file with ``url`` and a Personal Access Token,
-  see ``docs/authentication.md`` and
-  <https://cds.climate.copernicus.eu/how-to-api>.
-* Accepted licences for the ERA5 single-levels dataset on the user's
-  CDS profile.
-
-Each request can take several minutes due to CDS queue times. The
-request below is intentionally tiny (one day, one variable, ~1°×1°)
-to keep the wall clock and quota footprint small.
-
-The autouse ``_block_real_cdsapi`` safeguard from ``conftest.py``
-recognises ``TestApiE2E`` by class name and steps aside, so this
-file is the only place that may construct a real cdsapi.Client.
+Opt-in via ``RUN_CDS_E2E=1``; see ``docs/authentication.md`` for
+the ``~/.cdsapirc`` setup. The autouse safeguard in ``conftest.py``
+exempts ``TestApiE2E`` by class name.
 """
 
 from __future__ import annotations
-
-import os
 
 import cdsapi
 import pandas as pd
@@ -32,13 +17,6 @@ from earth2observe.ecmwf import ECMWF, VariableSpec
 pytestmark = [pytest.mark.e2e]
 
 
-@pytest.mark.skipif(
-    os.environ.get("RUN_CDS_E2E") != "1",
-    reason=(
-        "Set RUN_CDS_E2E=1 to run live CDS end-to-end tests "
-        "(requires ~/.cdsapirc and accepted ERA5 licences)."
-    ),
-)
 class TestApiE2E:
     """End-to-end tests against the live Copernicus Climate Data Store."""
 
