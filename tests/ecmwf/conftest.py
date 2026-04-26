@@ -49,7 +49,8 @@ def _block_real_cdsapi(request, monkeypatch):
             "A unit test attempted to construct a real cdsapi.Client. "
             'Add `monkeypatch.setattr(cdsapi, "Client", lambda: ...)` '
             "to the test (replacing the lambda with the fake your test "
-            "needs), or move the test into TestApiE2E with RUN_CDS_E2E=1."
+            "needs), or move the test into a live class (TestApiE2E / "
+            "TestFacadeE2E) selected via `pytest -m e2e`."
         )
 
     monkeypatch.setattr(cdsapi, "Client", _no_live_client)

@@ -21,21 +21,12 @@ class TestMockHarnessSafeguard:
     """Tests for the autouse safeguard installed by ``_block_real_cdsapi``."""
 
     def test_safeguard_message_includes_literal_patch_pattern(self):
-        """The safeguard error spells out the exact monkeypatch call.
-
-        Test scenario:
-            Pre-N3, the message said "see M4 harness" — readers had
-            to chase the docstring elsewhere. The new message inlines
-            the literal `monkeypatch.setattr(cdsapi, "Client", lambda: ...)`
-            so a developer can copy-paste it straight into a failing
-            test. Trip the safeguard deliberately and assert the
-            string is present in the error.
-        """
+        """Safeguard error includes the literal monkeypatch call to copy."""
         with pytest.raises(AssertionError) as excinfo:
             cdsapi.Client()
         message = str(excinfo.value)
         assert 'monkeypatch.setattr(cdsapi, "Client"' in message
-        assert "RUN_CDS_E2E=1" in message
+        assert "pytest -m e2e" in message
 
 
 class TestSourceCompiles:

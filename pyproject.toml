@@ -127,7 +127,7 @@ markers = [
     "fast: mark test as fast.",
     "unit: in-process unit test, no network or filesystem outside tmp_path.",
     "integration: exercises multiple modules together with mocked I/O.",
-    "e2e: end-to-end test against a live external service (e.g. CDS); opt-in via env var.",
+    "e2e: end-to-end test against a live external service (e.g. CDS); select with `-m e2e`.",
 ]
 
 [tool.pixi.workspace]

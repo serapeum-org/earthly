@@ -60,8 +60,8 @@ CDS queues each request server-side. `client.retrieve()` blocks until
 your request reaches the front of the queue and the file is generated
 — typically seconds to several minutes, occasionally longer for large
 requests. In CI the test suite mocks the client (see
-`tests/test_ecmwf.py`); locally, expect to wait. The end-to-end test
-suite is opt-in via `RUN_CDS_E2E=1`.
+`tests/ecmwf/`); locally, expect to wait. The end-to-end test suite
+is selected with `pytest -m e2e`.
 
 For the full setup walkthrough see
 <https://cds.climate.copernicus.eu/how-to-api>.

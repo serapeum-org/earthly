@@ -73,7 +73,7 @@ e2o.download()
     the CDS queue and the file is generated — typically minutes,
     occasionally longer for large requests. Pick a small bbox and date
     range to keep wait times bearable. In CI the cdsapi client is
-    mocked; the live end-to-end suite is opt-in via `RUN_CDS_E2E=1`.
+    mocked; the live end-to-end suite is selected with `pytest -m e2e`.
 
 ## CHIRPS
 
