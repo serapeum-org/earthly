@@ -9,7 +9,7 @@ import cdsapi
 import numpy as np
 import pandas as pd
 from loguru import logger
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 from pyramids.netcdf import NetCDF
 from serapeum_utils.utils import print_progress_bar
 
@@ -21,6 +21,10 @@ from earth2observe.base import (
 
 
 ERA5_GRID_DEGREES: float = 0.125
+
+LEGACY_MARS_KEYS: frozenset[str] = frozenset(
+    {"number_para", "download type", "var_name"}
+)
 
 
 class AuthenticationError(Exception):
@@ -73,6 +77,13 @@ class Variable(BaseModel):
             are accumulated per timestep on CDS so monthly
             aggregation multiplies by the number of days in the
             month; state values are instantaneous.
+        extras: Free-form bag of additional CDS request parameters
+            forwarded verbatim to ``client.retrieve()``. Holds the
+            non-ERA5 request fields that newer CDS dataset families
+            require — e.g. ``{"domain": "east", "leadtime_hour": "1"}``
+            for CARRA, ``{"experiment": "ssp585", "model": "ec_earth3"}``
+            for CMIP6. Keys not enumerated in this model are not
+            silently dropped: they live here and reach the server.
     """
 
     model_config = ConfigDict(frozen=True, extra="forbid")
@@ -84,6 +95,28 @@ class Variable(BaseModel):
     cds_dataset_monthly: str | None = None
     cds_pressure_level: list[str] | None = None
     types: str | None = None
+    extras: dict[str, Any] = Field(default_factory=dict)
+
+    @field_validator("extras", mode="before")
+    @classmethod
+    def _reject_legacy_mars_keys(cls, value: Any) -> Any:
+        """Forbid the pre-cdsapi MARS keys from leaking back via ``extras``.
+
+        ``number_para`` / ``download type`` / ``var_name`` were the
+        request-shape keys of the legacy MARS-ECMWFAPI flow. They are
+        meaningless under cdsapi and would silently corrupt requests
+        if they reached :meth:`ECMWF.api`; reject them at load time so
+        a stale catalog row fails loud instead of mid-download.
+        """
+        if not isinstance(value, dict):
+            return value
+        offending = LEGACY_MARS_KEYS & set(value)
+        if offending:
+            raise ValueError(
+                f"extras carries legacy MARS keys {sorted(offending)!r}; "
+                "these are not valid under cdsapi"
+            )
+        return value
 
     @classmethod
     def from_dict(cls, code: str, data: dict[str, Any]) -> Variable:

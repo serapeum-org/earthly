@@ -119,6 +119,118 @@ class TestCatalog:
         present = set(Variable.model_fields)
         assert not (forbidden & present)
 
+    @pytest.mark.parametrize("mars_key", ["number_para", "download type", "var_name"])
+    def test_no_mars_schema_keys_in_extras(self, monkeypatch, tmp_path, mars_key):
+        """Legacy MARS keys are rejected inside ``extras``."""
+        from earth2observe.ecmwf import catalog as catalog_module
+
+        catalog_yaml = tmp_path / "cds_data_catalog.yaml"
+        catalog_yaml.write_text(
+            "datasets:\n"
+            "  reanalysis-era5-single-levels:\n"
+            "    monthly: x\n"
+            "    variables:\n"
+            "      2m-temperature:\n"
+            "        nc_variable: t2m\n"
+            "        units: K\n"
+            "        extras:\n"
+            f"          {mars_key!r}: '1'\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
+        with pytest.raises(ValueError, match="legacy MARS keys"):
+            Catalog()
+
+    def test_unknown_top_level_key_still_fails_validation(self):
+        """An unknown key on a Variable row still fails pydantic validation."""
+        with pytest.raises(ValueError):
+            Variable.from_dict(
+                "x",
+                {
+                    "cds_dataset": "ds",
+                    "cds_variable": "v",
+                    "nc_variable": "n",
+                    "units": "K",
+                    "totally_unknown": "boom",
+                },
+            )
+
+    def test_extras_propagate_from_parent_dataset(self, monkeypatch, tmp_path):
+        """Parent ``Dataset.extras`` propagates into each child Variable."""
+        from earth2observe.ecmwf import catalog as catalog_module
+
+        catalog_yaml = tmp_path / "cds_data_catalog.yaml"
+        catalog_yaml.write_text(
+            "datasets:\n"
+            "  reanalysis-carra-single-levels:\n"
+            "    extras:\n"
+            "      domain: east\n"
+            "      leadtime_hour: '1'\n"
+            "    variables:\n"
+            "      2m-temperature:\n"
+            "        nc_variable: t2m\n"
+            "        units: K\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
+        cat = Catalog()
+        spec = cat.get_dataset("2m-temperature")
+        assert spec.extras == {"domain": "east", "leadtime_hour": "1"}
+        assert cat.datasets["reanalysis-carra-single-levels"].extras == {
+            "domain": "east",
+            "leadtime_hour": "1",
+        }
+
+    def test_row_extras_override_parent_extras(self, monkeypatch, tmp_path):
+        """A per-row ``extras:`` key wins over the parent default."""
+        from earth2observe.ecmwf import catalog as catalog_module
+
+        catalog_yaml = tmp_path / "cds_data_catalog.yaml"
+        catalog_yaml.write_text(
+            "datasets:\n"
+            "  reanalysis-carra-single-levels:\n"
+            "    extras:\n"
+            "      domain: east\n"
+            "      leadtime_hour: '1'\n"
+            "    variables:\n"
+            "      2m-temperature:\n"
+            "        nc_variable: t2m\n"
+            "        units: K\n"
+            "        extras:\n"
+            "          domain: west\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
+        cat = Catalog()
+        spec = cat.get_dataset("2m-temperature")
+        assert spec.extras == {"domain": "west", "leadtime_hour": "1"}
+
+    def test_extras_roundtrip_through_yaml(self, monkeypatch, tmp_path):
+        """Arbitrary extras survive a YAML load-and-read round trip."""
+        from earth2observe.ecmwf import catalog as catalog_module
+
+        catalog_yaml = tmp_path / "cds_data_catalog.yaml"
+        catalog_yaml.write_text(
+            "datasets:\n"
+            "  projections-cmip6:\n"
+            "    extras:\n"
+            "      experiment: ssp585\n"
+            "      model: ec_earth3\n"
+            "      temporal_resolution: monthly\n"
+            "    variables:\n"
+            "      near-surface-air-temperature:\n"
+            "        nc_variable: tas\n"
+            "        units: K\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
+        spec = Catalog().get_dataset("near-surface-air-temperature")
+        assert spec.extras == {
+            "experiment": "ssp585",
+            "model": "ec_earth3",
+            "temporal_resolution": "monthly",
+        }
+
     def test_get_catalog_raises_on_empty_datasets(self, monkeypatch, tmp_path):
         """A YAML with no datasets raises ValueError."""
         empty_yaml = tmp_path / "cds_data_catalog.yaml"

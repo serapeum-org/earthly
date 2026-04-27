@@ -68,6 +68,12 @@ class Dataset(BaseModel):
             e.g. ``["1000"]``) for pressure-level datasets. ``None``
             for single-level datasets. Propagated to each variable's
             ``cds_pressure_level`` at load time.
+        extras: Default extra CDS request parameters propagated into
+            each child :class:`Variable`'s ``extras`` map. Per-row
+            ``extras:`` overrides win over these defaults. Carries
+            the family-wide selectors (e.g. ``domain``, ``leadtime_hour``,
+            ``experiment``, ``model``) that the dataset's request shape
+            requires beyond the ERA5 standard set.
         variables: Per-variable map keyed by the slugified short code
             (e.g. ``"2m-temperature"``).
 
@@ -104,6 +110,7 @@ class Dataset(BaseModel):
 
     monthly: str | None = None
     pressure_level: list[str] | None = None
+    extras: dict[str, Any] = Field(default_factory=dict)
     variables: dict[str, Variable] = Field(default_factory=dict)
 
 
@@ -198,6 +205,7 @@ class Catalog(AbstractCatalog):
         for ds_name, ds_body in datasets_yaml.items():
             monthly = ds_body.get("monthly")
             pressure_level = ds_body.get("pressure_level")
+            ds_extras = dict(ds_body.get("extras") or {})
             ds_vars: dict[str, Variable] = {}
             for code, entry in (ds_body.get("variables") or {}).items():
                 merged = dict(entry)
@@ -214,12 +222,19 @@ class Catalog(AbstractCatalog):
                 # leave both unset.
                 if "cds_pressure_level" not in merged and pressure_level is not None:
                     merged["cds_pressure_level"] = pressure_level
+                # Merge parent-level extras under per-row overrides:
+                # row-level keys win on collision so a variable can
+                # diverge from the family defaults (e.g. one CARRA row
+                # carrying a different leadtime than the rest).
+                row_extras = dict(merged.get("extras") or {})
+                merged["extras"] = {**ds_extras, **row_extras}
                 var = Variable.from_dict(code, merged)
                 ds_vars[code] = var
                 flat[code] = var
             structural[ds_name] = Dataset(
                 monthly=monthly,
                 pressure_level=pressure_level,
+                extras=ds_extras,
                 variables=ds_vars,
             )
 
