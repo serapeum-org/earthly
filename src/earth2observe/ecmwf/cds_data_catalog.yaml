@@ -2,46 +2,59 @@
 #
 # Schema:
 #
-#   variables.<short_code>:
-#     cds_dataset:          Required. CDS dataset short name used for daily
-#                           and sub-daily requests, e.g.
-#                           "reanalysis-era5-single-levels".
-#     cds_dataset_monthly:  Optional. CDS dataset short name used when
-#                           temporal_resolution == "monthly". When absent,
-#                           the daily dataset is reused.
-#     cds_variable:         Required. CDS variable name passed in the
-#                           retrieve() request, e.g. "2m_temperature".
-#     cds_pressure_level:   Optional. List of pressure levels (strings) for
-#                           pressure-level datasets, e.g. ["1000"].
-#     nc_variable:          Required for post_download. Short variable name
-#                           used inside the NetCDF that CDS returns
-#                           (e.g. "t2m" for 2m_temperature, "tp" for
-#                           total_precipitation). Differs from cds_variable.
-#     types:                Optional. "flux" or "state". Flux variables are
-#                           accumulated per timestep on CDS, so post_download
-#                           multiplies by the number of days in the slice
-#                           when aggregating monthly. State variables are
-#                           instantaneous and need no scaling.
-#     units:                Raw ERA5 unit string emitted by CDS for this
-#                           variable (used by post_download for file
-#                           naming). The package returns values in
-#                           native ERA5 units; downstream code is
-#                           responsible for any unit conversion.
+#   available_datasets:                Informational. List of every
+#                                      CDS dataset short name. Read
+#                                      by humans, ignored by the
+#                                      runtime.
 #
-# datasets: An informational index of every dataset hosted on CDS.
-#           Used for documentation only; the runtime resolves datasets
-#           via the per-variable cds_dataset / cds_dataset_monthly keys
-#           on entries in the `variables:` map below. Listing a dataset
-#           here does NOT make it usable — a curated `variables:` row
-#           is still required to expose it to `Earth2Observe`. The list
-#           was last refreshed from the CDS STAC catalogue on
-#           2026-04-26 (134 datasets).
+#   datasets.<cds_dataset>:            One entry per CDS dataset
+#                                      that has curated variables.
+#     monthly:                         CDS dataset short name to use
+#                                      when temporal_resolution ==
+#                                      "monthly". Inherited by every
+#                                      variable under this dataset.
+#     pressure_level:                  Optional. Default list of
+#                                      pressure levels (as strings,
+#                                      e.g. ["1000"]) for pressure-
+#                                      level datasets. Propagated to
+#                                      each variable's
+#                                      cds_pressure_level at load
+#                                      time; per-variable rows may
+#                                      override.
+#     variables.<short_code>:          One entry per variable. The
+#                                      <short_code> is the slugified
+#                                      cds_variable (underscores
+#                                      replaced with hyphens), e.g.
+#                                      key "2m-temperature" implies
+#                                      cds_variable "2m_temperature".
+#       cds_variable:                  Optional override of the slug-
+#                                      derived default. Set this only
+#                                      when the request name cannot
+#                                      be obtained by replacing the
+#                                      key's hyphens with underscores.
+#       cds_pressure_level:            Optional override of the
+#                                      parent dataset's
+#                                      pressure_level for this row.
+#       nc_variable:                   Required. Short variable name
+#                                      inside the returned NetCDF
+#                                      (e.g. "t2m" for 2m_temperature).
+#       types:                         Optional. "flux" or "state".
+#                                      Flux variables are accumulated
+#                                      per timestep on CDS, so monthly
+#                                      aggregation multiplies by the
+#                                      number of days in the slice.
+#       units:                         Required. Raw ERA5 unit string
+#                                      emitted by CDS (used in the
+#                                      output filename).
+#
+# Refreshed from the CDS STAC catalogue on 2026-04-26 (134 datasets
+# in `available_datasets`).
 #
 # See: https://cds.climate.copernicus.eu/datasets
 
-version: 2
+version: 3
 
-datasets:
+available_datasets:
   # ----- Reanalyses -----
   - reanalysis-carra-height-levels
   - reanalysis-carra-means
@@ -192,1988 +205,1143 @@ datasets:
   - multi-origin-c3s-atlas
   - provider-c3s-data-rescue-without
 
-variables:
-
-  # ----- reanalysis-era5-single-levels -----
-
-  "2m-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 2m_temperature
-    nc_variable: t2m
-    types: state
-    units: "K"
-
-  "2m-dewpoint-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 2m_dewpoint_temperature
-    nc_variable: d2m
-    types: state
-    units: "K"
-
-  "surface-pressure":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_pressure
-    nc_variable: sp
-    types: state
-    units: "Pa"
-
-  "total-precipitation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_precipitation
-    nc_variable: tp
-    types: flux
-    units: "m"
-
-  "evaporation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: evaporation
-    nc_variable: e
-    types: flux
-    units: "m of water equivalent"
-
-  "runoff":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: runoff
-    nc_variable: ro
-    types: flux
-    units: "m"
-
-  "surface-runoff":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_runoff
-    nc_variable: sro
-    types: flux
-    units: "m"
-
-  "sub-surface-runoff":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: sub_surface_runoff
-    nc_variable: ssro
-    types: flux
-    units: "m"
-
-  "10m-u-component-of-wind":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 10m_u_component_of_wind
-    nc_variable: u10
-    types: state
-    units: "m s**-1"
-
-  "10m-v-component-of-wind":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 10m_v_component_of_wind
-    nc_variable: v10
-    types: state
-    units: "m s**-1"
-
-  "10m-wind-speed":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 10m_wind_speed
-    nc_variable: si10
-    types: state
-    units: "m s**-1"
-
-  "forecast-albedo":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: forecast_albedo
-    nc_variable: fal
-    types: state
-    units: "(0 - 1)"
-
-  "high-cloud-cover":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: high_cloud_cover
-    nc_variable: hcc
-    types: state
-    units: "(0 - 1)"
-
-  "forecast-surface-roughness":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: forecast_surface_roughness
-    nc_variable: fsr
-    types: state
-    units: "m"
-
-  "surface-net-solar-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_net_solar_radiation
-    nc_variable: ssr
-    types: flux
-    units: "J m**-2"
-
-  "100m-u-component-of-wind":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 100m_u_component_of_wind
-    nc_variable: u100
-    units: "m s**-1"
-
-  "100m-v-component-of-wind":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 100m_v_component_of_wind
-    nc_variable: v100
-    units: "m s**-1"
-
-  "10m-u-component-of-neutral-wind":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 10m_u_component_of_neutral_wind
-    nc_variable: u10n
-    units: "m s**-1"
-
-  "10m-v-component-of-neutral-wind":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 10m_v_component_of_neutral_wind
-    nc_variable: v10n
-    units: "m s**-1"
-
-  "10m-wind-gust-since-previous-post-processing":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: 10m_wind_gust_since_previous_post_processing
-    nc_variable: fg10
-    units: "m s**-1"
-
-  "air-density-over-the-oceans":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: air_density_over_the_oceans
-    nc_variable: rhoao
-    units: "kg m**-3"
-
-  "angle-of-sub-gridscale-orography":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: angle_of_sub_gridscale_orography
-    nc_variable: anor
-    units: radians
-
-  "anisotropy-of-sub-gridscale-orography":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: anisotropy_of_sub_gridscale_orography
-    nc_variable: isor
-    units: Numeric
-
-  "benjamin-feir-index":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: benjamin_feir_index
-    nc_variable: bfi
-    units: dimensionless
-
-  "boundary-layer-dissipation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: boundary_layer_dissipation
-    nc_variable: bld
-    units: "J m**-2"
-
-  "boundary-layer-height":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: boundary_layer_height
-    nc_variable: blh
-    units: m
-
-  charnock:
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: charnock
-    nc_variable: chnk
-    units: Numeric
-
-  "clear-sky-direct-solar-radiation-at-surface":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: clear_sky_direct_solar_radiation_at_surface
-    nc_variable: cdir
-    units: "J m**-2"
-
-  "cloud-base-height":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: cloud_base_height
-    nc_variable: cbh
-    units: m
-
-  "coefficient-of-drag-with-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: coefficient_of_drag_with_waves
-    nc_variable: cdww
-    units: dimensionless
-
-  "convective-available-potential-energy":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: convective_available_potential_energy
-    nc_variable: cape
-    units: "J kg**-1"
-
-  "convective-inhibition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: convective_inhibition
-    nc_variable: cin
-    units: "J kg**-1"
-
-  "convective-precipitation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: convective_precipitation
-    nc_variable: avg_cpr
-    units: "kg m**-2 s**-1"
-
-  "convective-rain-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: convective_rain_rate
-    nc_variable: crr
-    units: "kg m**-2 s**-1"
-
-  "convective-snowfall":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: convective_snowfall
-    nc_variable: avg_csfr
-    units: "kg m**-2 s**-1"
-
-  "convective-snowfall-rate-water-equivalent":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: convective_snowfall_rate_water_equivalent
-    nc_variable: avg_csfr
-    units: "kg m**-2 s**-1"
-
-  "downward-uv-radiation-at-the-surface":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: downward_uv_radiation_at_the_surface
-    nc_variable: avg_sduvrf
-    units: "W m**-2"
-
-  "duct-base-height":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: duct_base_height
-    nc_variable: dctb
-    units: m
-
-  "eastward-gravity-wave-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: eastward_gravity_wave_surface_stress
-    nc_variable: lgws
-    units: "N m**-2 s"
-
-  "eastward-turbulent-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: eastward_turbulent_surface_stress
-    nc_variable: ewss
-    units: "N m**-2 s"
-
-  "forecast-logarithm-of-surface-roughness-for-heat":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: forecast_logarithm_of_surface_roughness_for_heat
-    nc_variable: flsr
-    units: Numeric
-
-  "free-convective-velocity-over-the-oceans":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: free_convective_velocity_over_the_oceans
-    nc_variable: wstar
-    units: "m s**-1"
-
-  "friction-velocity":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: friction_velocity
-    nc_variable: zust
-    units: "m s**-1"
-
-  "gravity-wave-dissipation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: gravity_wave_dissipation
-    nc_variable: gwd
-    units: "J m**-2"
-
-  "high-vegetation-cover":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: high_vegetation_cover
-    nc_variable: cvh
-    units: "(0 - 1)"
-
-  "ice-temperature-layer-1":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: ice_temperature_layer_1
-    nc_variable: istl1
-    units: K
-
-  "ice-temperature-layer-2":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: ice_temperature_layer_2
-    nc_variable: istl2
-    units: K
-
-  "ice-temperature-layer-3":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: ice_temperature_layer_3
-    nc_variable: istl3
-    units: K
-
-  "ice-temperature-layer-4":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: ice_temperature_layer_4
-    nc_variable: istl4
-    units: K
-
-  "instantaneous-10m-wind-gust":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: instantaneous_10m_wind_gust
-    nc_variable: i10fg
-    units: "m s**-1"
-
-  "instantaneous-eastward-turbulent-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: instantaneous_eastward_turbulent_surface_stress
-    nc_variable: iews
-    units: "N m**-2"
-
-  "instantaneous-large-scale-surface-precipitation-fraction":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: instantaneous_large_scale_surface_precipitation_fraction
-    nc_variable: ilspf
-    units: Proportion
-
-  "instantaneous-moisture-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: instantaneous_moisture_flux
-    nc_variable: ie
-    units: "kg m**-2 s**-1"
-
-  "instantaneous-northward-turbulent-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: instantaneous_northward_turbulent_surface_stress
-    nc_variable: inss
-    units: "N m**-2"
-
-  "instantaneous-surface-sensible-heat-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: instantaneous_surface_sensible_heat_flux
-    nc_variable: ishf
-    units: "W m**-2"
-
-  "k-index":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: k_index
-    nc_variable: kx
-    units: K
-
-  "lake-bottom-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_bottom_temperature
-    nc_variable: lblt
-    units: K
-
-  "lake-cover":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_cover
-    nc_variable: cl
-    units: "(0 - 1)"
-
-  "lake-depth":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_depth
-    nc_variable: dl
-    units: m
-
-  "lake-ice-depth":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_ice_depth
-    nc_variable: licd
-    units: m
-
-  "lake-ice-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_ice_temperature
-    nc_variable: lict
-    units: K
-
-  "lake-mix-layer-depth":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_mix_layer_depth
-    nc_variable: lmld
-    units: m
-
-  "lake-mix-layer-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_mix_layer_temperature
-    nc_variable: lmlt
-    units: K
-
-  "lake-shape-factor":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_shape_factor
-    nc_variable: lshf
-    units: dimensionless
-
-  "lake-total-layer-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: lake_total_layer_temperature
-    nc_variable: ltlt
-    units: K
-
-  "land-sea-mask":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: land_sea_mask
-    nc_variable: lsm
-    units: "(0 - 1)"
-
-  "large-scale-precipitation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: large_scale_precipitation
-    nc_variable: lspf
-    units: s
-
-  "large-scale-precipitation-fraction":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: large_scale_precipitation_fraction
-    nc_variable: lspf
-    units: s
-
-  "large-scale-rain-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: large_scale_rain_rate
-    nc_variable: lsrr
-    units: "kg m**-2 s**-1"
-
-  "large-scale-snowfall":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: large_scale_snowfall
-    nc_variable: avg_lssfr
-    units: "kg m**-2 s**-1"
-
-  "large-scale-snowfall-rate-water-equivalent":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: large_scale_snowfall_rate_water_equivalent
-    nc_variable: avg_lssfr
-    units: "kg m**-2 s**-1"
-
-  "leaf-area-index-high-vegetation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: leaf_area_index_high_vegetation
-    nc_variable: lai_hv
-    units: "m**2 m**-2"
-
-  "leaf-area-index-low-vegetation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: leaf_area_index_low_vegetation
-    nc_variable: lai_lv
-    units: "m**2 m**-2"
-
-  "low-cloud-cover":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: low_cloud_cover
-    nc_variable: lcc
-    units: "(0 - 1)"
-
-  "low-vegetation-cover":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: low_vegetation_cover
-    nc_variable: cvl
-    units: "(0 - 1)"
-
-  "maximum-2m-temperature-since-previous-post-processing":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: maximum_2m_temperature_since_previous_post_processing
-    nc_variable: mx2t
-    units: K
-
-  "maximum-individual-wave-height":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: maximum_individual_wave_height
-    nc_variable: hmax
-    units: m
-
-  "maximum-total-precipitation-rate-since-previous-post-processing":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: maximum_total_precipitation_rate_since_previous_post_processing
-    nc_variable: mxtpr
-    units: "kg m**-2 s**-1"
-
-  "mean-boundary-layer-dissipation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_boundary_layer_dissipation
-    nc_variable: avg_ibld
-    units: "W m**-2"
-
-  "mean-convective-precipitation-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_convective_precipitation_rate
-    nc_variable: avg_cpr
-    units: "kg m**-2 s**-1"
-
-  "mean-convective-snowfall-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_convective_snowfall_rate
-    nc_variable: avg_csfr
-    units: "kg m**-2 s**-1"
-
-  "mean-direction-of-total-swell":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_direction_of_total_swell
-    nc_variable: mdts
-    units: degrees
-
-  "mean-direction-of-wind-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_direction_of_wind_waves
-    nc_variable: mdww
-    units: degrees
-
-  "mean-eastward-gravity-wave-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_eastward_gravity_wave_surface_stress
-    nc_variable: avg_iegwss
-    units: "N m**-2"
-
-  "mean-eastward-turbulent-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_eastward_turbulent_surface_stress
-    nc_variable: avg_iews
-    units: "N m**-2"
-
-  "mean-evaporation-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_evaporation_rate
-    nc_variable: avg_ie
-    units: "kg m**-2 s**-1"
-
-  "mean-gravity-wave-dissipation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_gravity_wave_dissipation
-    nc_variable: avg_igwd
-    units: "W m**-2"
-
-  "mean-large-scale-precipitation-fraction":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_large_scale_precipitation_fraction
-    nc_variable: avg_ilspf
-    units: Proportion
-
-  "mean-large-scale-precipitation-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_large_scale_precipitation_rate
-    nc_variable: avg_lsprate
-    units: "kg m**-2 s**-1"
-
-  "mean-large-scale-snowfall-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_large_scale_snowfall_rate
-    nc_variable: avg_lssfr
-    units: "kg m**-2 s**-1"
-
-  "mean-northward-gravity-wave-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_northward_gravity_wave_surface_stress
-    nc_variable: avg_ingwss
-    units: "N m**-2"
-
-  "mean-northward-turbulent-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_northward_turbulent_surface_stress
-    nc_variable: avg_inss
-    units: "N m**-2"
-
-  "mean-period-of-total-swell":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_period_of_total_swell
-    nc_variable: mpts
-    units: s
-
-  "mean-period-of-wind-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_period_of_wind_waves
-    nc_variable: mpww
-    units: s
-
-  "mean-potential-evaporation-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_potential_evaporation_rate
-    nc_variable: avg_pevr
-    units: "kg m**-2 s**-1"
-
-  "mean-runoff-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_runoff_rate
-    nc_variable: avg_surfror
-    units: "kg m**-2 s**-1"
-
-  "mean-sea-level-pressure":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_sea_level_pressure
-    nc_variable: msl
-    units: Pa
-
-  "mean-snow-evaporation-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_snow_evaporation_rate
-    nc_variable: avg_esrwe
-    units: "kg m**-2 s**-1"
-
-  "mean-snowfall-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_snowfall_rate
-    nc_variable: avg_tsrwe
-    units: "kg m**-2 s**-1"
-
-  "mean-snowmelt-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_snowmelt_rate
-    nc_variable: avg_smr
-    units: "kg m**-2 s**-1"
-
-  "mean-square-slope-of-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_square_slope_of_waves
-    nc_variable: msqs
-    units: dimensionless
-
-  "mean-sub-surface-runoff-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_sub_surface_runoff_rate
-    nc_variable: avg_ssurfror
-    units: "kg m**-2 s**-1"
-
-  "mean-surface-direct-short-wave-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_direct_short_wave_radiation_flux
-    nc_variable: avg_sdirswrf
-    units: "W m**-2"
-
-  "mean-surface-direct-short-wave-radiation-flux-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_direct_short_wave_radiation_flux_clear_sky
-    nc_variable: avg_sdirswrfcs
-    units: "W m**-2"
-
-  "mean-surface-downward-long-wave-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_downward_long_wave_radiation_flux
-    nc_variable: avg_sdlwrf
-    units: "W m**-2"
-
-  "mean-surface-downward-long-wave-radiation-flux-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_downward_long_wave_radiation_flux_clear_sky
-    nc_variable: avg_sdlwrfcs
-    units: "W m**-2"
-
-  "mean-surface-downward-short-wave-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_downward_short_wave_radiation_flux
-    nc_variable: avg_sdswrf
-    units: "W m**-2"
-
-  "mean-surface-downward-short-wave-radiation-flux-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_downward_short_wave_radiation_flux_clear_sky
-    nc_variable: avg_sdswrfcs
-    units: "W m**-2"
-
-  "mean-surface-downward-uv-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_downward_uv_radiation_flux
-    nc_variable: avg_sduvrf
-    units: "W m**-2"
-
-  "mean-surface-latent-heat-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_latent_heat_flux
-    nc_variable: avg_slhtf
-    units: "W m**-2"
-
-  "mean-surface-net-long-wave-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_net_long_wave_radiation_flux
-    nc_variable: avg_snlwrf
-    units: "W m**-2"
-
-  "mean-surface-net-long-wave-radiation-flux-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_net_long_wave_radiation_flux_clear_sky
-    nc_variable: avg_snlwrfcs
-    units: "W m**-2"
-
-  "mean-surface-net-short-wave-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_net_short_wave_radiation_flux
-    nc_variable: avg_snswrf
-    units: "W m**-2"
-
-  "mean-surface-net-short-wave-radiation-flux-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_net_short_wave_radiation_flux_clear_sky
-    nc_variable: avg_snswrfcs
-    units: "W m**-2"
-
-  "mean-surface-runoff-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_runoff_rate
-    nc_variable: avg_surfror
-    units: "kg m**-2 s**-1"
-
-  "mean-surface-sensible-heat-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_surface_sensible_heat_flux
-    nc_variable: avg_ishf
-    units: "W m**-2"
-
-  "mean-top-downward-short-wave-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_top_downward_short_wave_radiation_flux
-    nc_variable: avg_tdswrf
-    units: "W m**-2"
-
-  "mean-top-net-long-wave-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_top_net_long_wave_radiation_flux
-    nc_variable: avg_tnlwrf
-    units: "W m**-2"
-
-  "mean-top-net-long-wave-radiation-flux-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_top_net_long_wave_radiation_flux_clear_sky
-    nc_variable: avg_tnlwrfcs
-    units: "W m**-2"
-
-  "mean-top-net-short-wave-radiation-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_top_net_short_wave_radiation_flux
-    nc_variable: avg_tnswrf
-    units: "W m**-2"
-
-  "mean-top-net-short-wave-radiation-flux-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_top_net_short_wave_radiation_flux_clear_sky
-    nc_variable: avg_tnswrfcs
-    units: "W m**-2"
-
-  "mean-total-precipitation-rate":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_total_precipitation_rate
-    nc_variable: avg_tprate
-    units: "kg m**-2 s**-1"
-
-  "mean-vertical-gradient-of-refractivity-inside-trapping-layer":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_vertical_gradient_of_refractivity_inside_trapping_layer
-    nc_variable: dndza
-    units: "m**-1"
-
-  "mean-vertically-integrated-moisture-divergence":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_vertically_integrated_moisture_divergence
-    nc_variable: avg_vimdf
-    units: "kg m**-2 s**-1"
-
-  "mean-wave-direction":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_direction
-    nc_variable: mwd
-    units: "Degree true"
-
-  "mean-wave-direction-of-first-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_direction_of_first_swell_partition
-    nc_variable: mwd1
-    units: degrees
-
-  "mean-wave-direction-of-second-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_direction_of_second_swell_partition
-    nc_variable: mwd2
-    units: degrees
-
-  "mean-wave-direction-of-third-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_direction_of_third_swell_partition
-    nc_variable: mwd3
-    units: degrees
-
-  "mean-wave-period":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period
-    nc_variable: mp2
-    units: s
-
-  "mean-wave-period-based-on-first-moment":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period_based_on_first_moment
-    nc_variable: mp1
-    units: s
-
-  "mean-wave-period-based-on-first-moment-for-swell":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period_based_on_first_moment_for_swell
-    nc_variable: p1ps
-    units: s
-
-  "mean-wave-period-based-on-first-moment-for-wind-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period_based_on_first_moment_for_wind_waves
-    nc_variable: p1ww
-    units: s
-
-  "mean-wave-period-based-on-second-moment-for-swell":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period_based_on_second_moment_for_swell
-    nc_variable: p2ps
-    units: s
-
-  "mean-wave-period-based-on-second-moment-for-wind-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period_based_on_second_moment_for_wind_waves
-    nc_variable: p2ww
-    units: s
-
-  "mean-wave-period-of-first-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period_of_first_swell_partition
-    nc_variable: mwp1
-    units: s
-
-  "mean-wave-period-of-second-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period_of_second_swell_partition
-    nc_variable: mwp2
-    units: s
-
-  "mean-wave-period-of-third-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_wave_period_of_third_swell_partition
-    nc_variable: mwp3
-    units: s
-
-  "mean-zero-crossing-wave-period":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: mean_zero_crossing_wave_period
-    nc_variable: mp2
-    units: s
-
-  "medium-cloud-cover":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: medium_cloud_cover
-    nc_variable: mcc
-    units: "(0 - 1)"
-
-  "minimum-2m-temperature-since-previous-post-processing":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: minimum_2m_temperature_since_previous_post_processing
-    nc_variable: mn2t
-    units: K
-
-  "minimum-total-precipitation-rate-since-previous-post-processing":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: minimum_total_precipitation_rate_since_previous_post_processing
-    nc_variable: mntpr
-    units: "kg m**-2 s**-1"
-
-  "minimum-vertical-gradient-of-refractivity-inside-trapping-layer":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: minimum_vertical_gradient_of_refractivity_inside_trapping_layer
-    nc_variable: dndzn
-    units: "m**-1"
-
-  "model-bathymetry":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: model_bathymetry
-    nc_variable: wmb
-    units: m
-
-  "near-ir-albedo-for-diffuse-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: near_ir_albedo_for_diffuse_radiation
-    nc_variable: alnid
-    units: "(0 - 1)"
-
-  "near-ir-albedo-for-direct-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: near_ir_albedo_for_direct_radiation
-    nc_variable: alnip
-    units: "(0 - 1)"
-
-  "normalized-energy-flux-into-ocean":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: normalized_energy_flux_into_ocean
-    nc_variable: phioc
-    units: Numeric
-
-  "normalized-energy-flux-into-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: normalized_energy_flux_into_waves
-    nc_variable: phiaw
-    units: Numeric
-
-  "normalized-stress-into-ocean":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: normalized_stress_into_ocean
-    nc_variable: tauoc
-    units: Numeric
-
-  "northward-gravity-wave-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: northward_gravity_wave_surface_stress
-    nc_variable: mgws
-    units: "N m**-2 s"
-
-  "northward-turbulent-surface-stress":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: northward_turbulent_surface_stress
-    nc_variable: nsss
-    units: "N m**-2 s"
-
-  "ocean-surface-stress-equivalent-10m-neutral-wind-direction":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: ocean_surface_stress_equivalent_10m_neutral_wind_direction
-    nc_variable: dwi
-    units: degrees
-
-  "ocean-surface-stress-equivalent-10m-neutral-wind-speed":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: ocean_surface_stress_equivalent_10m_neutral_wind_speed
-    nc_variable: wind
-    units: "m s**-1"
-
-  "peak-wave-period":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: peak_wave_period
-    nc_variable: pp1d
-    units: s
-
-  "period-corresponding-to-maximum-individual-wave-height":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: period_corresponding_to_maximum_individual_wave_height
-    nc_variable: tmax
-    units: s
-
-  "potential-evaporation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: potential_evaporation
-    nc_variable: avg_pevr
-    units: "kg m**-2 s**-1"
-
-  "precipitation-type":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: precipitation_type
-    nc_variable: ptype
-    units: "(Code table 4.201)"
-
-  "sea-ice-cover":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: sea_ice_cover
-    nc_variable: siconc
-    units: "(0 - 1)"
-
-  "sea-surface-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: sea_surface_temperature
-    nc_variable: sst
-    units: K
-
-  "significant-height-of-combined-wind-waves-and-swell":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: significant_height_of_combined_wind_waves_and_swell
-    nc_variable: swh
-    units: m
-
-  "significant-height-of-total-swell":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: significant_height_of_total_swell
-    nc_variable: shts
-    units: m
-
-  "significant-height-of-wind-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: significant_height_of_wind_waves
-    nc_variable: shww
-    units: m
-
-  "significant-wave-height-of-first-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: significant_wave_height_of_first_swell_partition
-    nc_variable: swh1
-    units: m
-
-  "significant-wave-height-of-second-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: significant_wave_height_of_second_swell_partition
-    nc_variable: swh2
-    units: m
-
-  "significant-wave-height-of-third-swell-partition":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: significant_wave_height_of_third_swell_partition
-    nc_variable: swh3
-    units: m
-
-  "skin-reservoir-content":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: skin_reservoir_content
-    nc_variable: src
-    units: "m of water equivalent"
-
-  "skin-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: skin_temperature
-    nc_variable: skt
-    units: K
-
-  "slope-of-sub-gridscale-orography":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: slope_of_sub_gridscale_orography
-    nc_variable: slor
-    units: Numeric
-
-  "snow-albedo":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: snow_albedo
-    nc_variable: asn
-    units: "(0 - 1)"
-
-  "snow-density":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: snow_density
-    nc_variable: rsn
-    units: "kg m**-3"
-
-  "snow-depth":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: snow_depth
-    nc_variable: sd
-    units: "m of water equivalent"
-
-  "snow-evaporation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: snow_evaporation
-    nc_variable: avg_esrwe
-    units: "kg m**-2 s**-1"
-
-  snowfall:
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: snowfall
-    nc_variable: avg_tsrwe
-    units: "kg m**-2 s**-1"
-
-  snowmelt:
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: snowmelt
-    nc_variable: smlt
-    units: "m of water equivalent"
-
-  "soil-temperature-level-1":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: soil_temperature_level_1
-    nc_variable: stl1
-    units: K
-
-  "soil-temperature-level-2":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: soil_temperature_level_2
-    nc_variable: stl2
-    units: K
-
-  "soil-temperature-level-3":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: soil_temperature_level_3
-    nc_variable: stl3
-    units: K
-
-  "soil-temperature-level-4":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: soil_temperature_level_4
-    nc_variable: stl4
-    units: K
-
-  "soil-type":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: soil_type
-    nc_variable: slt
-    units: "(Code table 4.213)"
-
-  "standard-deviation-of-filtered-subgrid-orography":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: standard_deviation_of_filtered_subgrid_orography
-    nc_variable: sdfor
-    units: m
-
-  "standard-deviation-of-orography":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: standard_deviation_of_orography
-    nc_variable: sdor
-    units: m
-
-  "surface-latent-heat-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_latent_heat_flux
-    nc_variable: avg_slhtf
-    units: "W m**-2"
-
-  "surface-net-solar-radiation-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_net_solar_radiation_clear_sky
-    nc_variable: ssrc
-    units: "J m**-2"
-
-  "surface-net-thermal-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_net_thermal_radiation
-    nc_variable: str
-    units: "J m**-2"
-
-  "surface-net-thermal-radiation-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_net_thermal_radiation_clear_sky
-    nc_variable: strc
-    units: "J m**-2"
-
-  "surface-sensible-heat-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_sensible_heat_flux
-    nc_variable: sshf
-    units: "J m**-2"
-
-  "surface-solar-radiation-downward-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_solar_radiation_downward_clear_sky
-    nc_variable: ssrdc
-    units: "J m**-2"
-
-  "surface-solar-radiation-downwards":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_solar_radiation_downwards
-    nc_variable: ssrd
-    units: "J m**-2"
-
-  "surface-thermal-radiation-downward-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_thermal_radiation_downward_clear_sky
-    nc_variable: strdc
-    units: "J m**-2"
-
-  "surface-thermal-radiation-downwards":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: surface_thermal_radiation_downwards
-    nc_variable: strd
-    units: "J m**-2"
-
-  "temperature-of-snow-layer":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: temperature_of_snow_layer
-    nc_variable: tsn
-    units: K
-
-  "toa-incident-solar-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: toa_incident_solar_radiation
-    nc_variable: tisr
-    units: "J m**-2"
-
-  "top-net-solar-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: top_net_solar_radiation
-    nc_variable: tsr
-    units: "J m**-2"
-
-  "top-net-solar-radiation-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: top_net_solar_radiation_clear_sky
-    nc_variable: tsrc
-    units: "J m**-2"
-
-  "top-net-thermal-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: top_net_thermal_radiation
-    nc_variable: ttr
-    units: "J m**-2"
-
-  "top-net-thermal-radiation-clear-sky":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: top_net_thermal_radiation_clear_sky
-    nc_variable: ttrc
-    units: "J m**-2"
-
-  "total-cloud-cover":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_cloud_cover
-    nc_variable: tcc
-    units: "(0 - 1)"
-
-  "total-column-cloud-ice-water":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_column_cloud_ice_water
-    nc_variable: tciw
-    units: "kg m**-2"
-
-  "total-column-cloud-liquid-water":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_column_cloud_liquid_water
-    nc_variable: tclw
-    units: "kg m**-2"
-
-  "total-column-ozone":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_column_ozone
-    nc_variable: tco3
-    units: "kg m**-2"
-
-  "total-column-rain-water":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_column_rain_water
-    nc_variable: tcrw
-    units: "kg m**-2"
-
-  "total-column-snow-water":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_column_snow_water
-    nc_variable: tcsw
-    units: "kg m**-2"
-
-  "total-column-supercooled-liquid-water":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_column_supercooled_liquid_water
-    nc_variable: tcslw
-    units: "kg m**-2"
-
-  "total-column-water":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_column_water
-    nc_variable: tcw
-    units: "kg m**-2"
-
-  "total-column-water-vapour":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_column_water_vapour
-    nc_variable: tcwv
-    units: "kg m**-2"
-
-  "total-sky-direct-solar-radiation-at-surface":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_sky_direct_solar_radiation_at_surface
-    nc_variable: fdir
-    units: "J m**-2"
-
-  "total-totals-index":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: total_totals_index
-    nc_variable: totalx
-    units: K
-
-  "trapping-layer-base-height":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: trapping_layer_base_height
-    nc_variable: tplb
-    units: m
-
-  "trapping-layer-top-height":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: trapping_layer_top_height
-    nc_variable: tplt
-    units: m
-
-  "type-of-high-vegetation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: type_of_high_vegetation
-    nc_variable: tvh
-    units: "(Code table 4.234)"
-
-  "type-of-low-vegetation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: type_of_low_vegetation
-    nc_variable: tvl
-    units: "(Code table 4.234)"
-
-  "u-component-stokes-drift":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: u_component_stokes_drift
-    nc_variable: ust
-    units: "m s**-1"
-
-  "uv-visible-albedo-for-diffuse-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: uv_visible_albedo_for_diffuse_radiation
-    nc_variable: aluvd
-    units: "(0 - 1)"
-
-  "uv-visible-albedo-for-direct-radiation":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: uv_visible_albedo_for_direct_radiation
-    nc_variable: aluvp
-    units: "(0 - 1)"
-
-  "v-component-stokes-drift":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: v_component_stokes_drift
-    nc_variable: vst
-    units: "m s**-1"
-
-  "vertical-integral-of-divergence-of-cloud-frozen-water-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_cloud_frozen_water_flux
-    nc_variable: viiwd
-    units: "kg m**-2 s**-1"
-
-  "vertical-integral-of-divergence-of-cloud-liquid-water-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_cloud_liquid_water_flux
-    nc_variable: vilwd
-    units: "kg m**-2 s**-1"
-
-  "vertical-integral-of-divergence-of-geopotential-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_geopotential_flux
-    nc_variable: vigd
-    units: "W m**-2"
-
-  "vertical-integral-of-divergence-of-kinetic-energy-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_kinetic_energy_flux
-    nc_variable: viked
-    units: "W m**-2"
-
-  "vertical-integral-of-divergence-of-mass-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_mass_flux
-    nc_variable: vimad
-    units: "kg m**-2 s**-1"
-
-  "vertical-integral-of-divergence-of-moisture-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_moisture_flux
-    nc_variable: vimdf
-    units: "kg m**-2 s**-1"
-
-  "vertical-integral-of-divergence-of-ozone-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_ozone_flux
-    nc_variable: viozd
-    units: "kg m**-2 s**-1"
-
-  "vertical-integral-of-divergence-of-thermal-energy-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_thermal_energy_flux
-    nc_variable: vithed
-    units: "W m**-2"
-
-  "vertical-integral-of-divergence-of-total-energy-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_divergence_of_total_energy_flux
-    nc_variable: vited
-    units: "W m**-2"
-
-  "vertical-integral-of-eastward-cloud-frozen-water-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_cloud_frozen_water_flux
-    nc_variable: viiwe
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-eastward-cloud-liquid-water-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_cloud_liquid_water_flux
-    nc_variable: vilwe
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-eastward-geopotential-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_geopotential_flux
-    nc_variable: vige
-    units: "W m**-1"
-
-  "vertical-integral-of-eastward-heat-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_heat_flux
-    nc_variable: vithee
-    units: "W m**-1"
-
-  "vertical-integral-of-eastward-kinetic-energy-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_kinetic_energy_flux
-    nc_variable: vikee
-    units: "W m**-1"
-
-  "vertical-integral-of-eastward-mass-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_mass_flux
-    nc_variable: vimae
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-eastward-ozone-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_ozone_flux
-    nc_variable: vioze
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-eastward-total-energy-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_total_energy_flux
-    nc_variable: vitee
-    units: "W m**-1"
-
-  "vertical-integral-of-eastward-water-vapour-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_eastward_water_vapour_flux
-    nc_variable: viwve
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-energy-conversion":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_energy_conversion
-    nc_variable: viec
-    units: "W m**-2"
-
-  "vertical-integral-of-kinetic-energy":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_kinetic_energy
-    nc_variable: vike
-    units: "J m**-2"
-
-  "vertical-integral-of-mass-of-atmosphere":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_mass_of_atmosphere
-    nc_variable: vima
-    units: "kg m**-2"
-
-  "vertical-integral-of-mass-tendency":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_mass_tendency
-    nc_variable: vimat
-    units: "kg m**-2 s**-1"
-
-  "vertical-integral-of-northward-cloud-frozen-water-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_cloud_frozen_water_flux
-    nc_variable: viiwn
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-northward-cloud-liquid-water-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_cloud_liquid_water_flux
-    nc_variable: vilwn
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-northward-geopotential-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_geopotential_flux
-    nc_variable: vign
-    units: "W m**-1"
-
-  "vertical-integral-of-northward-heat-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_heat_flux
-    nc_variable: vithen
-    units: "W m**-1"
-
-  "vertical-integral-of-northward-kinetic-energy-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_kinetic_energy_flux
-    nc_variable: viken
-    units: "W m**-1"
-
-  "vertical-integral-of-northward-mass-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_mass_flux
-    nc_variable: viman
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-northward-ozone-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_ozone_flux
-    nc_variable: viozn
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-northward-total-energy-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_total_energy_flux
-    nc_variable: viten
-    units: "W m**-1"
-
-  "vertical-integral-of-northward-water-vapour-flux":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_northward_water_vapour_flux
-    nc_variable: viwvn
-    units: "kg m**-1 s**-1"
-
-  "vertical-integral-of-potential-and-internal-energy":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_potential_and_internal_energy
-    nc_variable: vipie
-    units: "J m**-2"
-
-  "vertical-integral-of-potential-internal-and-latent-energy":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_potential_internal_and_latent_energy
-    nc_variable: vipile
-    units: "J m**-2"
-
-  "vertical-integral-of-temperature":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_temperature
-    nc_variable: vit
-    units: "K kg m**-2"
-
-  "vertical-integral-of-thermal-energy":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_thermal_energy
-    nc_variable: vithed
-    units: "W m**-2"
-
-  "vertical-integral-of-total-energy":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertical_integral_of_total_energy
-    nc_variable: vitoe
-    units: "J m**-2"
-
-  "vertically-integrated-moisture-divergence":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: vertically_integrated_moisture_divergence
-    nc_variable: vimd
-    units: "kg m**-2"
-
-  "volumetric-soil-water-layer-1":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: volumetric_soil_water_layer_1
-    nc_variable: swvl1
-    units: "m**3 m**-3"
-
-  "volumetric-soil-water-layer-2":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: volumetric_soil_water_layer_2
-    nc_variable: swvl2
-    units: "m**3 m**-3"
-
-  "volumetric-soil-water-layer-3":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: volumetric_soil_water_layer_3
-    nc_variable: swvl3
-    units: "m**3 m**-3"
-
-  "volumetric-soil-water-layer-4":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: volumetric_soil_water_layer_4
-    nc_variable: swvl4
-    units: "m**3 m**-3"
-
-  "wave-spectral-directional-width":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: wave_spectral_directional_width
-    nc_variable: wdw
-    units: radians
-
-  "wave-spectral-directional-width-for-swell":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: wave_spectral_directional_width_for_swell
-    nc_variable: dwps
-    units: radians
-
-  "wave-spectral-directional-width-for-wind-waves":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: wave_spectral_directional_width_for_wind_waves
-    nc_variable: dwww
-    units: radians
-
-  "wave-spectral-kurtosis":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: wave_spectral_kurtosis
-    nc_variable: wsk
-    units: dimensionless
-
-  "wave-spectral-peakedness":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: wave_spectral_peakedness
-    nc_variable: wsp
-    units: dimensionless
-
-  "wave-spectral-skewness":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: wave_spectral_skewness
-    nc_variable: wss
-    units: Numeric
-
-  "zero-degree-level":
-    cds_dataset: reanalysis-era5-single-levels
-    cds_dataset_monthly: reanalysis-era5-single-levels-monthly-means
-    cds_variable: zero_degree_level
-    nc_variable: deg0l
-    units: m
-
-  # ----- reanalysis-era5-pressure-levels -----
-
-  "temperature":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: temperature
-    cds_pressure_level: ["1000"]
-    nc_variable: t
-    types: state
-    units: "K"
-
-  "specific-humidity":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: specific_humidity
-    cds_pressure_level: ["1000"]
-    nc_variable: q
-    types: state
-    units: "kg kg**-1"
-
-  "relative-humidity":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: relative_humidity
-    cds_pressure_level: ["1000"]
-    nc_variable: r
-    types: state
-    units: "%"
-
-  geopotential:
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: geopotential
-    cds_pressure_level: ["1000"]
-    nc_variable: z
-    units: "m**2 s**-2"
-
-  divergence:
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: divergence
-    cds_pressure_level: ["1000"]
-    nc_variable: vimd
-    units: "kg m**-2"
-
-  "fraction-of-cloud-cover":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: fraction_of_cloud_cover
-    cds_pressure_level: ["1000"]
-    nc_variable: cc
-    units: "(0 - 1)"
-
-  "ozone-mass-mixing-ratio":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: ozone_mass_mixing_ratio
-    cds_pressure_level: ["1000"]
-    nc_variable: o3
-    units: "kg kg**-1"
-
-  "potential-vorticity":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: potential_vorticity
-    cds_pressure_level: ["1000"]
-    nc_variable: pv
-    units: "K m**2 kg**-1 s**-1"
-
-  "specific-cloud-ice-water-content":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: specific_cloud_ice_water_content
-    cds_pressure_level: ["1000"]
-    nc_variable: ciwc
-    units: "kg kg**-1"
-
-  "specific-cloud-liquid-water-content":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: specific_cloud_liquid_water_content
-    cds_pressure_level: ["1000"]
-    nc_variable: clwc
-    units: "kg kg**-1"
-
-  "specific-rain-water-content":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: specific_rain_water_content
-    cds_pressure_level: ["1000"]
-    nc_variable: crwc
-    units: "kg kg**-1"
-
-  "specific-snow-water-content":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: specific_snow_water_content
-    cds_pressure_level: ["1000"]
-    nc_variable: cswc
-    units: "kg kg**-1"
-
-  "u-component-of-wind":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: u_component_of_wind
-    cds_pressure_level: ["1000"]
-    nc_variable: u100
-    units: "m s**-1"
-
-  "v-component-of-wind":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: v_component_of_wind
-    cds_pressure_level: ["1000"]
-    nc_variable: v100
-    units: "m s**-1"
-
-  "vertical-velocity":
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: vertical_velocity
-    cds_pressure_level: ["1000"]
-    nc_variable: w
-    units: "Pa s**-1"
-
-  vorticity:
-    cds_dataset: reanalysis-era5-pressure-levels
-    cds_dataset_monthly: reanalysis-era5-pressure-levels-monthly-means
-    cds_variable: vorticity
-    cds_pressure_level: ["1000"]
-    nc_variable: vo
-    units: "s**-1"
+datasets:
+
+  reanalysis-era5-single-levels:
+    monthly: reanalysis-era5-single-levels-monthly-means
+    variables:
+
+      "2m-temperature":
+        nc_variable: t2m
+        types: state
+        units: K
+
+      "2m-dewpoint-temperature":
+        nc_variable: d2m
+        types: state
+        units: K
+
+      "surface-pressure":
+        nc_variable: sp
+        types: state
+        units: Pa
+
+      "total-precipitation":
+        nc_variable: tp
+        types: flux
+        units: m
+
+      evaporation:
+        nc_variable: e
+        types: flux
+        units: "m of water equivalent"
+
+      runoff:
+        nc_variable: ro
+        types: flux
+        units: m
+
+      "surface-runoff":
+        nc_variable: sro
+        types: flux
+        units: m
+
+      "sub-surface-runoff":
+        nc_variable: ssro
+        types: flux
+        units: m
+
+      "10m-u-component-of-wind":
+        nc_variable: u10
+        types: state
+        units: "m s**-1"
+
+      "10m-v-component-of-wind":
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+
+      "10m-wind-speed":
+        nc_variable: si10
+        types: state
+        units: "m s**-1"
+
+      "forecast-albedo":
+        nc_variable: fal
+        types: state
+        units: "(0 - 1)"
+
+      "high-cloud-cover":
+        nc_variable: hcc
+        types: state
+        units: "(0 - 1)"
+
+      "forecast-surface-roughness":
+        nc_variable: fsr
+        types: state
+        units: m
+
+      "surface-net-solar-radiation":
+        nc_variable: ssr
+        types: flux
+        units: "J m**-2"
+
+      "100m-u-component-of-wind":
+        nc_variable: u100
+        units: "m s**-1"
+
+      "100m-v-component-of-wind":
+        nc_variable: v100
+        units: "m s**-1"
+
+      "10m-u-component-of-neutral-wind":
+        nc_variable: u10n
+        units: "m s**-1"
+
+      "10m-v-component-of-neutral-wind":
+        nc_variable: v10n
+        units: "m s**-1"
+
+      "10m-wind-gust-since-previous-post-processing":
+        nc_variable: fg10
+        units: "m s**-1"
+
+      "air-density-over-the-oceans":
+        nc_variable: rhoao
+        units: "kg m**-3"
+
+      "angle-of-sub-gridscale-orography":
+        nc_variable: anor
+        units: radians
+
+      "anisotropy-of-sub-gridscale-orography":
+        nc_variable: isor
+        units: Numeric
+
+      "benjamin-feir-index":
+        nc_variable: bfi
+        units: dimensionless
+
+      "boundary-layer-dissipation":
+        nc_variable: bld
+        units: "J m**-2"
+
+      "boundary-layer-height":
+        nc_variable: blh
+        units: m
+
+      charnock:
+        nc_variable: chnk
+        units: Numeric
+
+      "clear-sky-direct-solar-radiation-at-surface":
+        nc_variable: cdir
+        units: "J m**-2"
+
+      "cloud-base-height":
+        nc_variable: cbh
+        units: m
+
+      "coefficient-of-drag-with-waves":
+        nc_variable: cdww
+        units: dimensionless
+
+      "convective-available-potential-energy":
+        nc_variable: cape
+        units: "J kg**-1"
+
+      "convective-inhibition":
+        nc_variable: cin
+        units: "J kg**-1"
+
+      "convective-precipitation":
+        nc_variable: avg_cpr
+        units: "kg m**-2 s**-1"
+
+      "convective-rain-rate":
+        nc_variable: crr
+        units: "kg m**-2 s**-1"
+
+      "convective-snowfall":
+        nc_variable: avg_csfr
+        units: "kg m**-2 s**-1"
+
+      "convective-snowfall-rate-water-equivalent":
+        nc_variable: avg_csfr
+        units: "kg m**-2 s**-1"
+
+      "downward-uv-radiation-at-the-surface":
+        nc_variable: avg_sduvrf
+        units: "W m**-2"
+
+      "duct-base-height":
+        nc_variable: dctb
+        units: m
+
+      "eastward-gravity-wave-surface-stress":
+        nc_variable: lgws
+        units: "N m**-2 s"
+
+      "eastward-turbulent-surface-stress":
+        nc_variable: ewss
+        units: "N m**-2 s"
+
+      "forecast-logarithm-of-surface-roughness-for-heat":
+        nc_variable: flsr
+        units: Numeric
+
+      "free-convective-velocity-over-the-oceans":
+        nc_variable: wstar
+        units: "m s**-1"
+
+      "friction-velocity":
+        nc_variable: zust
+        units: "m s**-1"
+
+      "gravity-wave-dissipation":
+        nc_variable: gwd
+        units: "J m**-2"
+
+      "high-vegetation-cover":
+        nc_variable: cvh
+        units: "(0 - 1)"
+
+      "ice-temperature-layer-1":
+        nc_variable: istl1
+        units: K
+
+      "ice-temperature-layer-2":
+        nc_variable: istl2
+        units: K
+
+      "ice-temperature-layer-3":
+        nc_variable: istl3
+        units: K
+
+      "ice-temperature-layer-4":
+        nc_variable: istl4
+        units: K
+
+      "instantaneous-10m-wind-gust":
+        nc_variable: i10fg
+        units: "m s**-1"
+
+      "instantaneous-eastward-turbulent-surface-stress":
+        nc_variable: iews
+        units: "N m**-2"
+
+      "instantaneous-large-scale-surface-precipitation-fraction":
+        nc_variable: ilspf
+        units: Proportion
+
+      "instantaneous-moisture-flux":
+        nc_variable: ie
+        units: "kg m**-2 s**-1"
+
+      "instantaneous-northward-turbulent-surface-stress":
+        nc_variable: inss
+        units: "N m**-2"
+
+      "instantaneous-surface-sensible-heat-flux":
+        nc_variable: ishf
+        units: "W m**-2"
+
+      "k-index":
+        nc_variable: kx
+        units: K
+
+      "lake-bottom-temperature":
+        nc_variable: lblt
+        units: K
+
+      "lake-cover":
+        nc_variable: cl
+        units: "(0 - 1)"
+
+      "lake-depth":
+        nc_variable: dl
+        units: m
+
+      "lake-ice-depth":
+        nc_variable: licd
+        units: m
+
+      "lake-ice-temperature":
+        nc_variable: lict
+        units: K
+
+      "lake-mix-layer-depth":
+        nc_variable: lmld
+        units: m
+
+      "lake-mix-layer-temperature":
+        nc_variable: lmlt
+        units: K
+
+      "lake-shape-factor":
+        nc_variable: lshf
+        units: dimensionless
+
+      "lake-total-layer-temperature":
+        nc_variable: ltlt
+        units: K
+
+      "land-sea-mask":
+        nc_variable: lsm
+        units: "(0 - 1)"
+
+      "large-scale-precipitation":
+        nc_variable: lspf
+        units: s
+
+      "large-scale-precipitation-fraction":
+        nc_variable: lspf
+        units: s
+
+      "large-scale-rain-rate":
+        nc_variable: lsrr
+        units: "kg m**-2 s**-1"
+
+      "large-scale-snowfall":
+        nc_variable: avg_lssfr
+        units: "kg m**-2 s**-1"
+
+      "large-scale-snowfall-rate-water-equivalent":
+        nc_variable: avg_lssfr
+        units: "kg m**-2 s**-1"
+
+      "leaf-area-index-high-vegetation":
+        nc_variable: lai_hv
+        units: "m**2 m**-2"
+
+      "leaf-area-index-low-vegetation":
+        nc_variable: lai_lv
+        units: "m**2 m**-2"
+
+      "low-cloud-cover":
+        nc_variable: lcc
+        units: "(0 - 1)"
+
+      "low-vegetation-cover":
+        nc_variable: cvl
+        units: "(0 - 1)"
+
+      "maximum-2m-temperature-since-previous-post-processing":
+        nc_variable: mx2t
+        units: K
+
+      "maximum-individual-wave-height":
+        nc_variable: hmax
+        units: m
+
+      "maximum-total-precipitation-rate-since-previous-post-processing":
+        nc_variable: mxtpr
+        units: "kg m**-2 s**-1"
+
+      "mean-boundary-layer-dissipation":
+        nc_variable: avg_ibld
+        units: "W m**-2"
+
+      "mean-convective-precipitation-rate":
+        nc_variable: avg_cpr
+        units: "kg m**-2 s**-1"
+
+      "mean-convective-snowfall-rate":
+        nc_variable: avg_csfr
+        units: "kg m**-2 s**-1"
+
+      "mean-direction-of-total-swell":
+        nc_variable: mdts
+        units: degrees
+
+      "mean-direction-of-wind-waves":
+        nc_variable: mdww
+        units: degrees
+
+      "mean-eastward-gravity-wave-surface-stress":
+        nc_variable: avg_iegwss
+        units: "N m**-2"
+
+      "mean-eastward-turbulent-surface-stress":
+        nc_variable: avg_iews
+        units: "N m**-2"
+
+      "mean-evaporation-rate":
+        nc_variable: avg_ie
+        units: "kg m**-2 s**-1"
+
+      "mean-gravity-wave-dissipation":
+        nc_variable: avg_igwd
+        units: "W m**-2"
+
+      "mean-large-scale-precipitation-fraction":
+        nc_variable: avg_ilspf
+        units: Proportion
+
+      "mean-large-scale-precipitation-rate":
+        nc_variable: avg_lsprate
+        units: "kg m**-2 s**-1"
+
+      "mean-large-scale-snowfall-rate":
+        nc_variable: avg_lssfr
+        units: "kg m**-2 s**-1"
+
+      "mean-northward-gravity-wave-surface-stress":
+        nc_variable: avg_ingwss
+        units: "N m**-2"
+
+      "mean-northward-turbulent-surface-stress":
+        nc_variable: avg_inss
+        units: "N m**-2"
+
+      "mean-period-of-total-swell":
+        nc_variable: mpts
+        units: s
+
+      "mean-period-of-wind-waves":
+        nc_variable: mpww
+        units: s
+
+      "mean-potential-evaporation-rate":
+        nc_variable: avg_pevr
+        units: "kg m**-2 s**-1"
+
+      "mean-runoff-rate":
+        nc_variable: avg_surfror
+        units: "kg m**-2 s**-1"
+
+      "mean-sea-level-pressure":
+        nc_variable: msl
+        units: Pa
+
+      "mean-snow-evaporation-rate":
+        nc_variable: avg_esrwe
+        units: "kg m**-2 s**-1"
+
+      "mean-snowfall-rate":
+        nc_variable: avg_tsrwe
+        units: "kg m**-2 s**-1"
+
+      "mean-snowmelt-rate":
+        nc_variable: avg_smr
+        units: "kg m**-2 s**-1"
+
+      "mean-square-slope-of-waves":
+        nc_variable: msqs
+        units: dimensionless
+
+      "mean-sub-surface-runoff-rate":
+        nc_variable: avg_ssurfror
+        units: "kg m**-2 s**-1"
+
+      "mean-surface-direct-short-wave-radiation-flux":
+        nc_variable: avg_sdirswrf
+        units: "W m**-2"
+
+      "mean-surface-direct-short-wave-radiation-flux-clear-sky":
+        nc_variable: avg_sdirswrfcs
+        units: "W m**-2"
+
+      "mean-surface-downward-long-wave-radiation-flux":
+        nc_variable: avg_sdlwrf
+        units: "W m**-2"
+
+      "mean-surface-downward-long-wave-radiation-flux-clear-sky":
+        nc_variable: avg_sdlwrfcs
+        units: "W m**-2"
+
+      "mean-surface-downward-short-wave-radiation-flux":
+        nc_variable: avg_sdswrf
+        units: "W m**-2"
+
+      "mean-surface-downward-short-wave-radiation-flux-clear-sky":
+        nc_variable: avg_sdswrfcs
+        units: "W m**-2"
+
+      "mean-surface-downward-uv-radiation-flux":
+        nc_variable: avg_sduvrf
+        units: "W m**-2"
+
+      "mean-surface-latent-heat-flux":
+        nc_variable: avg_slhtf
+        units: "W m**-2"
+
+      "mean-surface-net-long-wave-radiation-flux":
+        nc_variable: avg_snlwrf
+        units: "W m**-2"
+
+      "mean-surface-net-long-wave-radiation-flux-clear-sky":
+        nc_variable: avg_snlwrfcs
+        units: "W m**-2"
+
+      "mean-surface-net-short-wave-radiation-flux":
+        nc_variable: avg_snswrf
+        units: "W m**-2"
+
+      "mean-surface-net-short-wave-radiation-flux-clear-sky":
+        nc_variable: avg_snswrfcs
+        units: "W m**-2"
+
+      "mean-surface-runoff-rate":
+        nc_variable: avg_surfror
+        units: "kg m**-2 s**-1"
+
+      "mean-surface-sensible-heat-flux":
+        nc_variable: avg_ishf
+        units: "W m**-2"
+
+      "mean-top-downward-short-wave-radiation-flux":
+        nc_variable: avg_tdswrf
+        units: "W m**-2"
+
+      "mean-top-net-long-wave-radiation-flux":
+        nc_variable: avg_tnlwrf
+        units: "W m**-2"
+
+      "mean-top-net-long-wave-radiation-flux-clear-sky":
+        nc_variable: avg_tnlwrfcs
+        units: "W m**-2"
+
+      "mean-top-net-short-wave-radiation-flux":
+        nc_variable: avg_tnswrf
+        units: "W m**-2"
+
+      "mean-top-net-short-wave-radiation-flux-clear-sky":
+        nc_variable: avg_tnswrfcs
+        units: "W m**-2"
+
+      "mean-total-precipitation-rate":
+        nc_variable: avg_tprate
+        units: "kg m**-2 s**-1"
+
+      "mean-vertical-gradient-of-refractivity-inside-trapping-layer":
+        nc_variable: dndza
+        units: "m**-1"
+
+      "mean-vertically-integrated-moisture-divergence":
+        nc_variable: avg_vimdf
+        units: "kg m**-2 s**-1"
+
+      "mean-wave-direction":
+        nc_variable: mwd
+        units: "Degree true"
+
+      "mean-wave-direction-of-first-swell-partition":
+        nc_variable: mwd1
+        units: degrees
+
+      "mean-wave-direction-of-second-swell-partition":
+        nc_variable: mwd2
+        units: degrees
+
+      "mean-wave-direction-of-third-swell-partition":
+        nc_variable: mwd3
+        units: degrees
+
+      "mean-wave-period":
+        nc_variable: mp2
+        units: s
+
+      "mean-wave-period-based-on-first-moment":
+        nc_variable: mp1
+        units: s
+
+      "mean-wave-period-based-on-first-moment-for-swell":
+        nc_variable: p1ps
+        units: s
+
+      "mean-wave-period-based-on-first-moment-for-wind-waves":
+        nc_variable: p1ww
+        units: s
+
+      "mean-wave-period-based-on-second-moment-for-swell":
+        nc_variable: p2ps
+        units: s
+
+      "mean-wave-period-based-on-second-moment-for-wind-waves":
+        nc_variable: p2ww
+        units: s
+
+      "mean-wave-period-of-first-swell-partition":
+        nc_variable: mwp1
+        units: s
+
+      "mean-wave-period-of-second-swell-partition":
+        nc_variable: mwp2
+        units: s
+
+      "mean-wave-period-of-third-swell-partition":
+        nc_variable: mwp3
+        units: s
+
+      "mean-zero-crossing-wave-period":
+        nc_variable: mp2
+        units: s
+
+      "medium-cloud-cover":
+        nc_variable: mcc
+        units: "(0 - 1)"
+
+      "minimum-2m-temperature-since-previous-post-processing":
+        nc_variable: mn2t
+        units: K
+
+      "minimum-total-precipitation-rate-since-previous-post-processing":
+        nc_variable: mntpr
+        units: "kg m**-2 s**-1"
+
+      "minimum-vertical-gradient-of-refractivity-inside-trapping-layer":
+        nc_variable: dndzn
+        units: "m**-1"
+
+      "model-bathymetry":
+        nc_variable: wmb
+        units: m
+
+      "near-ir-albedo-for-diffuse-radiation":
+        nc_variable: alnid
+        units: "(0 - 1)"
+
+      "near-ir-albedo-for-direct-radiation":
+        nc_variable: alnip
+        units: "(0 - 1)"
+
+      "normalized-energy-flux-into-ocean":
+        nc_variable: phioc
+        units: Numeric
+
+      "normalized-energy-flux-into-waves":
+        nc_variable: phiaw
+        units: Numeric
+
+      "normalized-stress-into-ocean":
+        nc_variable: tauoc
+        units: Numeric
+
+      "northward-gravity-wave-surface-stress":
+        nc_variable: mgws
+        units: "N m**-2 s"
+
+      "northward-turbulent-surface-stress":
+        nc_variable: nsss
+        units: "N m**-2 s"
+
+      "ocean-surface-stress-equivalent-10m-neutral-wind-direction":
+        nc_variable: dwi
+        units: degrees
+
+      "ocean-surface-stress-equivalent-10m-neutral-wind-speed":
+        nc_variable: wind
+        units: "m s**-1"
+
+      "peak-wave-period":
+        nc_variable: pp1d
+        units: s
+
+      "period-corresponding-to-maximum-individual-wave-height":
+        nc_variable: tmax
+        units: s
+
+      "potential-evaporation":
+        nc_variable: avg_pevr
+        units: "kg m**-2 s**-1"
+
+      "precipitation-type":
+        nc_variable: ptype
+        units: "(Code table 4.201)"
+
+      "sea-ice-cover":
+        nc_variable: siconc
+        units: "(0 - 1)"
+
+      "sea-surface-temperature":
+        nc_variable: sst
+        units: K
+
+      "significant-height-of-combined-wind-waves-and-swell":
+        nc_variable: swh
+        units: m
+
+      "significant-height-of-total-swell":
+        nc_variable: shts
+        units: m
+
+      "significant-height-of-wind-waves":
+        nc_variable: shww
+        units: m
+
+      "significant-wave-height-of-first-swell-partition":
+        nc_variable: swh1
+        units: m
+
+      "significant-wave-height-of-second-swell-partition":
+        nc_variable: swh2
+        units: m
+
+      "significant-wave-height-of-third-swell-partition":
+        nc_variable: swh3
+        units: m
+
+      "skin-reservoir-content":
+        nc_variable: src
+        units: "m of water equivalent"
+
+      "skin-temperature":
+        nc_variable: skt
+        units: K
+
+      "slope-of-sub-gridscale-orography":
+        nc_variable: slor
+        units: Numeric
+
+      "snow-albedo":
+        nc_variable: asn
+        units: "(0 - 1)"
+
+      "snow-density":
+        nc_variable: rsn
+        units: "kg m**-3"
+
+      "snow-depth":
+        nc_variable: sd
+        units: "m of water equivalent"
+
+      "snow-evaporation":
+        nc_variable: avg_esrwe
+        units: "kg m**-2 s**-1"
+
+      snowfall:
+        nc_variable: avg_tsrwe
+        units: "kg m**-2 s**-1"
+
+      snowmelt:
+        nc_variable: smlt
+        units: "m of water equivalent"
+
+      "soil-temperature-level-1":
+        nc_variable: stl1
+        units: K
+
+      "soil-temperature-level-2":
+        nc_variable: stl2
+        units: K
+
+      "soil-temperature-level-3":
+        nc_variable: stl3
+        units: K
+
+      "soil-temperature-level-4":
+        nc_variable: stl4
+        units: K
+
+      "soil-type":
+        nc_variable: slt
+        units: "(Code table 4.213)"
+
+      "standard-deviation-of-filtered-subgrid-orography":
+        nc_variable: sdfor
+        units: m
+
+      "standard-deviation-of-orography":
+        nc_variable: sdor
+        units: m
+
+      "surface-latent-heat-flux":
+        nc_variable: avg_slhtf
+        units: "W m**-2"
+
+      "surface-net-solar-radiation-clear-sky":
+        nc_variable: ssrc
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation":
+        nc_variable: str
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation-clear-sky":
+        nc_variable: strc
+        units: "J m**-2"
+
+      "surface-sensible-heat-flux":
+        nc_variable: sshf
+        units: "J m**-2"
+
+      "surface-solar-radiation-downward-clear-sky":
+        nc_variable: ssrdc
+        units: "J m**-2"
+
+      "surface-solar-radiation-downwards":
+        nc_variable: ssrd
+        units: "J m**-2"
+
+      "surface-thermal-radiation-downward-clear-sky":
+        nc_variable: strdc
+        units: "J m**-2"
+
+      "surface-thermal-radiation-downwards":
+        nc_variable: strd
+        units: "J m**-2"
+
+      "temperature-of-snow-layer":
+        nc_variable: tsn
+        units: K
+
+      "toa-incident-solar-radiation":
+        nc_variable: tisr
+        units: "J m**-2"
+
+      "top-net-solar-radiation":
+        nc_variable: tsr
+        units: "J m**-2"
+
+      "top-net-solar-radiation-clear-sky":
+        nc_variable: tsrc
+        units: "J m**-2"
+
+      "top-net-thermal-radiation":
+        nc_variable: ttr
+        units: "J m**-2"
+
+      "top-net-thermal-radiation-clear-sky":
+        nc_variable: ttrc
+        units: "J m**-2"
+
+      "total-cloud-cover":
+        nc_variable: tcc
+        units: "(0 - 1)"
+
+      "total-column-cloud-ice-water":
+        nc_variable: tciw
+        units: "kg m**-2"
+
+      "total-column-cloud-liquid-water":
+        nc_variable: tclw
+        units: "kg m**-2"
+
+      "total-column-ozone":
+        nc_variable: tco3
+        units: "kg m**-2"
+
+      "total-column-rain-water":
+        nc_variable: tcrw
+        units: "kg m**-2"
+
+      "total-column-snow-water":
+        nc_variable: tcsw
+        units: "kg m**-2"
+
+      "total-column-supercooled-liquid-water":
+        nc_variable: tcslw
+        units: "kg m**-2"
+
+      "total-column-water":
+        nc_variable: tcw
+        units: "kg m**-2"
+
+      "total-column-water-vapour":
+        nc_variable: tcwv
+        units: "kg m**-2"
+
+      "total-sky-direct-solar-radiation-at-surface":
+        nc_variable: fdir
+        units: "J m**-2"
+
+      "total-totals-index":
+        nc_variable: totalx
+        units: K
+
+      "trapping-layer-base-height":
+        nc_variable: tplb
+        units: m
+
+      "trapping-layer-top-height":
+        nc_variable: tplt
+        units: m
+
+      "type-of-high-vegetation":
+        nc_variable: tvh
+        units: "(Code table 4.234)"
+
+      "type-of-low-vegetation":
+        nc_variable: tvl
+        units: "(Code table 4.234)"
+
+      "u-component-stokes-drift":
+        nc_variable: ust
+        units: "m s**-1"
+
+      "uv-visible-albedo-for-diffuse-radiation":
+        nc_variable: aluvd
+        units: "(0 - 1)"
+
+      "uv-visible-albedo-for-direct-radiation":
+        nc_variable: aluvp
+        units: "(0 - 1)"
+
+      "v-component-stokes-drift":
+        nc_variable: vst
+        units: "m s**-1"
+
+      "vertical-integral-of-divergence-of-cloud-frozen-water-flux":
+        nc_variable: viiwd
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-cloud-liquid-water-flux":
+        nc_variable: vilwd
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-geopotential-flux":
+        nc_variable: vigd
+        units: "W m**-2"
+
+      "vertical-integral-of-divergence-of-kinetic-energy-flux":
+        nc_variable: viked
+        units: "W m**-2"
+
+      "vertical-integral-of-divergence-of-mass-flux":
+        nc_variable: vimad
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-moisture-flux":
+        nc_variable: vimdf
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-ozone-flux":
+        nc_variable: viozd
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-thermal-energy-flux":
+        nc_variable: vithed
+        units: "W m**-2"
+
+      "vertical-integral-of-divergence-of-total-energy-flux":
+        nc_variable: vited
+        units: "W m**-2"
+
+      "vertical-integral-of-eastward-cloud-frozen-water-flux":
+        nc_variable: viiwe
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-eastward-cloud-liquid-water-flux":
+        nc_variable: vilwe
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-eastward-geopotential-flux":
+        nc_variable: vige
+        units: "W m**-1"
+
+      "vertical-integral-of-eastward-heat-flux":
+        nc_variable: vithee
+        units: "W m**-1"
+
+      "vertical-integral-of-eastward-kinetic-energy-flux":
+        nc_variable: vikee
+        units: "W m**-1"
+
+      "vertical-integral-of-eastward-mass-flux":
+        nc_variable: vimae
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-eastward-ozone-flux":
+        nc_variable: vioze
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-eastward-total-energy-flux":
+        nc_variable: vitee
+        units: "W m**-1"
+
+      "vertical-integral-of-eastward-water-vapour-flux":
+        nc_variable: viwve
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-energy-conversion":
+        nc_variable: viec
+        units: "W m**-2"
+
+      "vertical-integral-of-kinetic-energy":
+        nc_variable: vike
+        units: "J m**-2"
+
+      "vertical-integral-of-mass-of-atmosphere":
+        nc_variable: vima
+        units: "kg m**-2"
+
+      "vertical-integral-of-mass-tendency":
+        nc_variable: vimat
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-northward-cloud-frozen-water-flux":
+        nc_variable: viiwn
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-northward-cloud-liquid-water-flux":
+        nc_variable: vilwn
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-northward-geopotential-flux":
+        nc_variable: vign
+        units: "W m**-1"
+
+      "vertical-integral-of-northward-heat-flux":
+        nc_variable: vithen
+        units: "W m**-1"
+
+      "vertical-integral-of-northward-kinetic-energy-flux":
+        nc_variable: viken
+        units: "W m**-1"
+
+      "vertical-integral-of-northward-mass-flux":
+        nc_variable: viman
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-northward-ozone-flux":
+        nc_variable: viozn
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-northward-total-energy-flux":
+        nc_variable: viten
+        units: "W m**-1"
+
+      "vertical-integral-of-northward-water-vapour-flux":
+        nc_variable: viwvn
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-potential-and-internal-energy":
+        nc_variable: vipie
+        units: "J m**-2"
+
+      "vertical-integral-of-potential-internal-and-latent-energy":
+        nc_variable: vipile
+        units: "J m**-2"
+
+      "vertical-integral-of-temperature":
+        nc_variable: vit
+        units: "K kg m**-2"
+
+      "vertical-integral-of-thermal-energy":
+        nc_variable: vithed
+        units: "W m**-2"
+
+      "vertical-integral-of-total-energy":
+        nc_variable: vitoe
+        units: "J m**-2"
+
+      "vertically-integrated-moisture-divergence":
+        nc_variable: vimd
+        units: "kg m**-2"
+
+      "volumetric-soil-water-layer-1":
+        nc_variable: swvl1
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-2":
+        nc_variable: swvl2
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-3":
+        nc_variable: swvl3
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-4":
+        nc_variable: swvl4
+        units: "m**3 m**-3"
+
+      "wave-spectral-directional-width":
+        nc_variable: wdw
+        units: radians
+
+      "wave-spectral-directional-width-for-swell":
+        nc_variable: dwps
+        units: radians
+
+      "wave-spectral-directional-width-for-wind-waves":
+        nc_variable: dwww
+        units: radians
+
+      "wave-spectral-kurtosis":
+        nc_variable: wsk
+        units: dimensionless
+
+      "wave-spectral-peakedness":
+        nc_variable: wsp
+        units: dimensionless
+
+      "wave-spectral-skewness":
+        nc_variable: wss
+        units: Numeric
+
+      "zero-degree-level":
+        nc_variable: deg0l
+        units: m
+
+  reanalysis-era5-pressure-levels:
+    monthly: reanalysis-era5-pressure-levels-monthly-means
+    pressure_level: ["1000"]
+    variables:
+
+      temperature:
+        nc_variable: t
+        types: state
+        units: K
+
+      "specific-humidity":
+        nc_variable: q
+        types: state
+        units: "kg kg**-1"
+
+      "relative-humidity":
+        nc_variable: r
+        types: state
+        units: "%"
+
+      geopotential:
+        nc_variable: z
+        units: "m**2 s**-2"
+
+      divergence:
+        nc_variable: vimd
+        units: "kg m**-2"
+
+      "fraction-of-cloud-cover":
+        nc_variable: cc
+        units: "(0 - 1)"
+
+      "ozone-mass-mixing-ratio":
+        nc_variable: o3
+        units: "kg kg**-1"
+
+      "potential-vorticity":
+        nc_variable: pv
+        units: "K m**2 kg**-1 s**-1"
+
+      "specific-cloud-ice-water-content":
+        nc_variable: ciwc
+        units: "kg kg**-1"
+
+      "specific-cloud-liquid-water-content":
+        nc_variable: clwc
+        units: "kg kg**-1"
+
+      "specific-rain-water-content":
+        nc_variable: crwc
+        units: "kg kg**-1"
+
+      "specific-snow-water-content":
+        nc_variable: cswc
+        units: "kg kg**-1"
+
+      "u-component-of-wind":
+        nc_variable: u100
+        units: "m s**-1"
+
+      "v-component-of-wind":
+        nc_variable: v100
+        units: "m s**-1"
+
+      "vertical-velocity":
+        nc_variable: w
+        units: "Pa s**-1"
+
+      vorticity:
+        nc_variable: vo
+        units: "s**-1"

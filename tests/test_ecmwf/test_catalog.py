@@ -60,6 +60,32 @@ class TestCatalog:
         spec = Catalog().get_dataset("2m-temperature")
         assert spec.units == "K"
 
+    def test_available_datasets_lists_cds_collection(self):
+        """available_datasets exposes the informational dataset list."""
+        cat = Catalog()
+        assert isinstance(cat.available_datasets, list)
+        assert "reanalysis-era5-single-levels" in cat.available_datasets
+        assert len(cat.available_datasets) > 100
+
+    def test_datasets_groups_variables_under_their_cds_dataset(self):
+        """datasets nests each Variable under its parent CDS dataset."""
+        cat = Catalog()
+        single = cat.datasets["reanalysis-era5-single-levels"]
+        assert single.monthly == "reanalysis-era5-single-levels-monthly-means"
+        assert "2m-temperature" in single.variables
+        assert single.variables["2m-temperature"].cds_dataset == (
+            "reanalysis-era5-single-levels"
+        )
+
+    def test_flat_and_structural_views_share_variable_instances(self):
+        """catalog and datasets[ds].variables point at the same Variable."""
+        cat = Catalog()
+        flat = cat.catalog["2m-temperature"]
+        nested = cat.datasets["reanalysis-era5-single-levels"].variables[
+            "2m-temperature"
+        ]
+        assert flat is nested
+
     def test_pressure_level_var_carries_cds_pressure_level(self):
         """Pressure-level variables expose ``cds_pressure_level``.
 
@@ -93,35 +119,37 @@ class TestCatalog:
         present = set(Variable.model_fields)
         assert not (forbidden & present)
 
-    def test_get_catalog_raises_on_empty_variables(self, monkeypatch, tmp_path):
-        """A YAML missing ``variables:`` raises ``ValueError``.
-
-        Test scenario:
-            Pre-M2, ``Catalog.get_catalog`` returned ``{}`` when the
-            top-level ``variables`` key was absent or empty, then
-            every subsequent ``get_dataset(code)`` raised ``KeyError``
-            — misleading the user about *which* file is broken.
-        """
+    def test_get_catalog_raises_on_empty_datasets(self, monkeypatch, tmp_path):
+        """A YAML with no datasets raises ValueError."""
         empty_yaml = tmp_path / "cds_data_catalog.yaml"
-        empty_yaml.write_text("version: 2\ndatasets: []\n", encoding="utf-8")
+        empty_yaml.write_text(
+            "version: 3\navailable_datasets: []\n", encoding="utf-8"
+        )
         from earth2observe.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", empty_yaml)
-        with pytest.raises(ValueError, match="variables"):
+        with pytest.raises(ValueError, match="datasets"):
             Catalog()
 
-    def test_get_catalog_raises_on_null_variables(self, monkeypatch, tmp_path):
-        """A YAML with ``variables: null`` also raises ``ValueError``.
-
-        Test scenario:
-            yaml.safe_load resolves ``variables:`` (no value) to
-            ``None``. The empty-check covers both the missing-key
-            and the explicit-null cases.
-        """
+    def test_get_catalog_raises_on_null_datasets(self, monkeypatch, tmp_path):
+        """A YAML with datasets: null also raises ValueError."""
         null_yaml = tmp_path / "cds_data_catalog.yaml"
-        null_yaml.write_text("variables:\n", encoding="utf-8")
+        null_yaml.write_text("datasets:\n", encoding="utf-8")
         from earth2observe.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", null_yaml)
-        with pytest.raises(ValueError, match="variables"):
+        with pytest.raises(ValueError, match="datasets"):
+            Catalog()
+
+    def test_get_catalog_raises_when_no_variables_anywhere(self, monkeypatch, tmp_path):
+        """A YAML with datasets but no variables under any of them raises."""
+        no_vars = tmp_path / "cds_data_catalog.yaml"
+        no_vars.write_text(
+            "datasets:\n  reanalysis-era5-single-levels:\n    monthly: x\n    variables:\n",
+            encoding="utf-8",
+        )
+        from earth2observe.ecmwf import catalog as catalog_module
+
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", no_vars)
+        with pytest.raises(ValueError, match="no variables"):
             Catalog()

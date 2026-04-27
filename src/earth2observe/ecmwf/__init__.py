@@ -17,11 +17,12 @@ from earth2observe.ecmwf.backend import (
     ECMWF,
     Variable,
 )
-from earth2observe.ecmwf.catalog import CATALOG_PATH, Catalog
+from earth2observe.ecmwf.catalog import CATALOG_PATH, Catalog, Dataset
 
 __all__ = [
     "ECMWF",
     "Catalog",
+    "Dataset",
     "Variable",
     "AuthenticationError",
     "ERA5_GRID_DEGREES",
