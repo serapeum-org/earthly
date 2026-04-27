@@ -1629,3 +1629,190 @@ datasets:
         nc_variable: swvl4
         types: state
         units: "m**3 m**-3"
+
+  derived-era5-land-daily-statistics:
+    # CDS daily aggregations of ERA5-Land. The dataset-level extras
+    # below carry sensible defaults; per-request callers can override
+    # ``daily_statistic`` (one of daily_mean/daily_minimum/daily_maximum),
+    # ``frequency`` (1_hourly/3_hourly/6_hourly), or ``time_zone``.
+    extras:
+      daily_statistic: daily_mean
+      frequency: "1_hourly"
+      time_zone: "utc+00:00"
+    variables:
+
+      "10m-u-component-of-wind-daily":
+        cds_variable: 10m_u_component_of_wind
+        nc_variable: u10
+        types: state
+        units: "m s**-1"
+
+      "10m-v-component-of-wind-daily":
+        cds_variable: 10m_v_component_of_wind
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+
+      "2m-dewpoint-temperature-daily":
+        cds_variable: 2m_dewpoint_temperature
+        nc_variable: d2m
+        types: state
+        units: K
+
+      "2m-temperature-daily":
+        cds_variable: 2m_temperature
+        nc_variable: t2m
+        types: state
+        units: K
+
+      "forecast-albedo-daily":
+        cds_variable: forecast_albedo
+        nc_variable: fal
+        types: state
+        units: "(0 - 1)"
+
+      "lake-bottom-temperature-daily":
+        cds_variable: lake_bottom_temperature
+        nc_variable: lblt
+        units: K
+
+      "lake-ice-depth-daily":
+        cds_variable: lake_ice_depth
+        nc_variable: licd
+        units: m
+
+      "lake-ice-temperature-daily":
+        cds_variable: lake_ice_temperature
+        nc_variable: lict
+        units: K
+
+      "lake-mix-layer-depth-daily":
+        cds_variable: lake_mix_layer_depth
+        nc_variable: lmld
+        units: m
+
+      "lake-mix-layer-temperature-daily":
+        cds_variable: lake_mix_layer_temperature
+        nc_variable: lmlt
+        units: K
+
+      "lake-shape-factor-daily":
+        cds_variable: lake_shape_factor
+        nc_variable: lshf
+        units: dimensionless
+
+      "lake-total-layer-temperature-daily":
+        cds_variable: lake_total_layer_temperature
+        nc_variable: ltlt
+        units: K
+
+      "leaf-area-index-high-vegetation-daily":
+        cds_variable: leaf_area_index_high_vegetation
+        nc_variable: lai_hv
+        units: "m**2 m**-2"
+
+      "leaf-area-index-low-vegetation-daily":
+        cds_variable: leaf_area_index_low_vegetation
+        nc_variable: lai_lv
+        units: "m**2 m**-2"
+
+      "skin-reservoir-content-daily":
+        cds_variable: skin_reservoir_content
+        nc_variable: src
+        units: "m of water equivalent"
+
+      "skin-temperature-daily":
+        cds_variable: skin_temperature
+        nc_variable: skt
+        types: state
+        units: K
+
+      "snow-albedo-daily":
+        cds_variable: snow_albedo
+        nc_variable: asn
+        types: state
+        units: "(0 - 1)"
+
+      "snow-cover-daily":
+        cds_variable: snow_cover
+        nc_variable: snowc
+        types: state
+        units: "%"
+
+      "snow-density-daily":
+        cds_variable: snow_density
+        nc_variable: rsn
+        types: state
+        units: "kg m**-3"
+
+      "snow-depth-daily":
+        cds_variable: snow_depth
+        nc_variable: sde
+        types: state
+        units: m
+
+      "snow-depth-water-equivalent-daily":
+        cds_variable: snow_depth_water_equivalent
+        nc_variable: sd
+        types: state
+        units: "m of water equivalent"
+
+      "soil-temperature-level-1-daily":
+        cds_variable: soil_temperature_level_1
+        nc_variable: stl1
+        types: state
+        units: K
+
+      "soil-temperature-level-2-daily":
+        cds_variable: soil_temperature_level_2
+        nc_variable: stl2
+        types: state
+        units: K
+
+      "soil-temperature-level-3-daily":
+        cds_variable: soil_temperature_level_3
+        nc_variable: stl3
+        types: state
+        units: K
+
+      "soil-temperature-level-4-daily":
+        cds_variable: soil_temperature_level_4
+        nc_variable: stl4
+        types: state
+        units: K
+
+      "surface-pressure-daily":
+        cds_variable: surface_pressure
+        nc_variable: sp
+        types: state
+        units: Pa
+
+      "temperature-of-snow-layer-daily":
+        cds_variable: temperature_of_snow_layer
+        nc_variable: tsn
+        types: state
+        units: K
+
+      "volumetric-soil-water-layer-1-daily":
+        cds_variable: volumetric_soil_water_layer_1
+        nc_variable: swvl1
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-2-daily":
+        cds_variable: volumetric_soil_water_layer_2
+        nc_variable: swvl2
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-3-daily":
+        cds_variable: volumetric_soil_water_layer_3
+        nc_variable: swvl3
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-4-daily":
+        cds_variable: volumetric_soil_water_layer_4
+        nc_variable: swvl4
+        types: state
+        units: "m**3 m**-3"

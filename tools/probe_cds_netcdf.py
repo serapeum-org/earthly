@@ -31,6 +31,14 @@ from pyramids.netcdf import NetCDF
 CACHE_DIR = Path("C:/tmp/cds_probe")
 
 
+_DERIVED_DATASETS_NO_PRODUCT_TYPE = (
+    "monthly",
+    "derived-era5-land-daily-statistics",
+    "derived-era5-single-levels-daily-statistics",
+    "derived-era5-pressure-levels-daily-statistics",
+)
+
+
 def fetch_one_batch(
     client: cdsapi.Client,
     dataset: str,
@@ -48,7 +56,7 @@ def fetch_one_batch(
         "data_format": "netcdf",
         "area": [4.5, -75.5, 4.0, -74.5],
     }
-    if "monthly" not in dataset:
+    if not any(token in dataset for token in _DERIVED_DATASETS_NO_PRODUCT_TYPE):
         request["product_type"] = ["reanalysis"]
     if extras:
         request.update(extras)
@@ -107,12 +115,20 @@ def main() -> int:
     )
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--batch-tag", default="probe")
+    parser.add_argument(
+        "--extras",
+        default="",
+        help="JSON string of additional CDS request fields",
+    )
     args = parser.parse_args()
 
     variables = [v.strip() for v in args.variables.split(",") if v.strip()]
+    extras = json.loads(args.extras) if args.extras else None
     cache_target = CACHE_DIR / f"{args.dataset}_{args.batch_tag}.nc"
     client = cdsapi.Client()
-    fetched = fetch_one_batch(client, args.dataset, variables, cache_target)
+    fetched = fetch_one_batch(
+        client, args.dataset, variables, cache_target, extras=extras
+    )
     extracted = maybe_unzip(fetched)
     metadata = collect_metadata(extracted)
     args.out.parent.mkdir(parents=True, exist_ok=True)

@@ -233,6 +233,30 @@ class TestCatalog:
         ds = Catalog().datasets["reanalysis-era5-land"]
         assert len(ds.variables) == 60
 
+    def test_derived_era5_land_daily_statistics_loads(self):
+        """derived-era5-land-daily-statistics block round-trips through ``Catalog``."""
+        cat = Catalog()
+        ds = cat.datasets["derived-era5-land-daily-statistics"]
+        assert ds.monthly is None
+        assert len(ds.variables) == 31
+        # Parent extras carry the request defaults required by the dataset.
+        assert ds.extras == {
+            "daily_statistic": "daily_mean",
+            "frequency": "1_hourly",
+            "time_zone": "utc+00:00",
+        }
+        spec = ds.variables["2m-temperature-daily"]
+        assert spec.cds_dataset == "derived-era5-land-daily-statistics"
+        assert spec.cds_variable == "2m_temperature"
+        assert spec.nc_variable == "t2m"
+        assert spec.units == "K"
+        # Per-variable extras inherit the parent defaults.
+        assert spec.extras == {
+            "daily_statistic": "daily_mean",
+            "frequency": "1_hourly",
+            "time_zone": "utc+00:00",
+        }
+
     def test_era5_land_snow_depth_uses_sde_not_sd(self):
         """ERA5-Land's snow_depth maps to ``sde`` (m), not ``sd`` (m water equiv).
 

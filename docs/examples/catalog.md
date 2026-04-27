@@ -95,6 +95,13 @@ The catalog ships ~338 ERA5 entries across three datasets:
   resolution land-surface field. Use the structural map
   (`Catalog().datasets["reanalysis-era5-single-levels"].variables[code]`)
   to address the single-levels variant explicitly.
+- `derived-era5-land-daily-statistics` — 31 daily-aggregated state
+  variables from ERA5-Land. Keys are the ERA5-Land code suffixed with
+  `-daily` (e.g. `2m-temperature-daily`). The dataset-level `extras`
+  carry sensible defaults (`daily_statistic: daily_mean`,
+  `frequency: 1_hourly`, `time_zone: utc+00:00`); pass overrides via
+  the per-row `extras:` map to fetch min / max / range or a different
+  output frequency.
 
 Browse the full list of CDS dataset short names at
 <https://cds.climate.copernicus.eu/datasets?q=era5>. To add a new
