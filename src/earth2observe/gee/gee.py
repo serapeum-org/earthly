@@ -6,8 +6,6 @@ import json
 
 import ee
 
-# import os
-
 
 class GEE:
     """GEE."""

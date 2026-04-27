@@ -104,6 +104,40 @@ class Variable(BaseModel):
             ValueError: If a required key is missing or an unknown
                 key is present (catches typos like ``cd_dataset``
                 vs ``cds_dataset``).
+
+        Examples:
+            - Build a Variable from a complete entry and inspect it:
+
+                ```python
+                >>> from earth2observe.ecmwf import Variable
+                >>> spec = Variable.from_dict("2m-temperature", {
+                ...     "cds_dataset": "reanalysis-era5-single-levels",
+                ...     "cds_variable": "2m_temperature",
+                ...     "nc_variable": "t2m",
+                ...     "units": "K",
+                ...     "types": "state",
+                ... })
+                >>> spec.cds_variable, spec.nc_variable, spec.units
+                ('2m_temperature', 't2m', 'K')
+
+                ```
+            - A typo in a key name is caught at construction time —
+              the wrapped pydantic error names the offending row:
+
+                ```python
+                >>> from earth2observe.ecmwf import Variable
+                >>> try:
+                ...     Variable.from_dict("2m-temperature", {
+                ...         "cd_dataset": "reanalysis-era5-single-levels",
+                ...         "cds_variable": "2m_temperature",
+                ...         "nc_variable": "t2m",
+                ...         "units": "K",
+                ...     })
+                ... except ValueError as exc:
+                ...     str(exc).splitlines()[0]
+                "cds_data_catalog.yaml entry '2m-temperature' failed validation:"
+
+                ```
         """
         try:
             return cls(**data)
@@ -123,6 +157,38 @@ class Variable(BaseModel):
             str: ``cds_dataset_monthly`` when
             ``temporal_resolution == "monthly"`` and the monthly
             variant is set; ``cds_dataset`` otherwise.
+
+        Examples:
+            - Daily resolution returns the daily dataset name:
+
+                ```python
+                >>> from earth2observe.ecmwf import Variable
+                >>> spec = Variable(
+                ...     cds_dataset="reanalysis-era5-single-levels",
+                ...     cds_dataset_monthly="reanalysis-era5-single-levels-monthly-means",
+                ...     cds_variable="2m_temperature",
+                ...     nc_variable="t2m",
+                ...     units="K",
+                ... )
+                >>> spec.dataset_for("daily")
+                'reanalysis-era5-single-levels'
+
+                ```
+            - Monthly resolution falls back to the daily dataset
+              when no monthly variant is configured:
+
+                ```python
+                >>> from earth2observe.ecmwf import Variable
+                >>> spec = Variable(
+                ...     cds_dataset="reanalysis-era5-single-levels",
+                ...     cds_variable="2m_temperature",
+                ...     nc_variable="t2m",
+                ...     units="K",
+                ... )
+                >>> spec.dataset_for("monthly")
+                'reanalysis-era5-single-levels'
+
+                ```
         """
         if temporal_resolution == "monthly" and self.cds_dataset_monthly:
             return self.cds_dataset_monthly
@@ -130,7 +196,47 @@ class Variable(BaseModel):
 
     @property
     def is_flux(self) -> bool:
-        """True if ``types == "flux"`` (drives monthly accumulation scaling)."""
+        """Whether this variable is a flux (drives monthly accumulation scaling).
+
+        Returns:
+            bool: ``True`` when ``types == "flux"`` — flux values are
+            accumulated per timestep on CDS, so monthly aggregation
+            multiplies by the number of days in the month. ``False``
+            for state variables (instantaneous samples) and when
+            ``types`` is unset.
+
+        Examples:
+            - A state variable is not a flux:
+
+                ```python
+                >>> from earth2observe.ecmwf import Variable
+                >>> spec = Variable(
+                ...     cds_dataset="reanalysis-era5-single-levels",
+                ...     cds_variable="2m_temperature",
+                ...     nc_variable="t2m",
+                ...     units="K",
+                ...     types="state",
+                ... )
+                >>> spec.is_flux
+                False
+
+                ```
+            - A flux variable reports True:
+
+                ```python
+                >>> from earth2observe.ecmwf import Variable
+                >>> spec = Variable(
+                ...     cds_dataset="reanalysis-era5-single-levels",
+                ...     cds_variable="total_precipitation",
+                ...     nc_variable="tp",
+                ...     units="m",
+                ...     types="flux",
+                ... )
+                >>> spec.is_flux
+                True
+
+                ```
+        """
         return self.types == "flux"
 
 
@@ -419,8 +525,7 @@ class ECMWF(AbstractDataSource):
                     "Generate a Personal Access Token at "
                     "https://cds.climate.copernicus.eu/profile and "
                     "accept the licence for each dataset you intend to "
-                    "download. See "
-                    "https://cds.climate.copernicus.eu/how-to-api for "
+                    "download. See https://cds.climate.copernicus.eu/how-to-api for "
                     "the full setup guide."
                 ) from exc
             raise
@@ -428,24 +533,50 @@ class ECMWF(AbstractDataSource):
         return client
 
     def create_grid(self, lat_lim: list, lon_lim: list):
-        """Create_grid.
+        """Snap a lat/lon bounding box to ERA5 grid edges.
 
-            create grid from the lat/lon boundaries
+        Floors the south/west limits and ceils the north/east limits to
+        the nearest multiple of :data:`ERA5_GRID_DEGREES` (0.125°), so
+        every CDS retrieve aligns with the ERA5 native grid and no
+        cell straddles the requested area boundary.
 
-        Parameters
-        ----------
-        lat_lim: []
-            latitude boundaries
-        lon_lim: []
-            longitude boundaries
+        Args:
+            lat_lim: ``[lat_min, lat_max]`` in degrees north.
+            lon_lim: ``[lon_min, lon_max]`` in degrees east.
+
+        Returns:
+            SpatialExtent: Grid-aligned bounding box with
+            ``resolution`` set to :data:`ERA5_GRID_DEGREES`.
+
+        Examples:
+            - Snap a 1° box to the ERA5 grid:
+
+                ```python
+                >>> ecmwf = ECMWF.__new__(ECMWF)
+                >>> extent = ecmwf.create_grid([4.19, 4.64], [-75.65, -74.73])
+                >>> round(extent.resolution, 3)
+                0.125
+                >>> round(extent.latitude_min, 3), round(extent.latitude_max, 3)
+                (4.125, 4.75)
+
+                ```
+            - The bbox always grows out to grid edges:
+
+                ```python
+                >>> ecmwf = ECMWF.__new__(ECMWF)
+                >>> extent = ecmwf.create_grid([0.05, 0.95], [0.05, 0.95])
+                >>> round(extent.latitude_min, 3), round(extent.latitude_max, 3)
+                (0.0, 1.0)
+                >>> round(extent.longitude_min, 3), round(extent.longitude_max, 3)
+                (0.0, 1.0)
+
+                ```
         """
         cell_size = ERA5_GRID_DEGREES
-        # correct latitude and longitude limits
         lat_lim_floor = np.floor(lat_lim[0] / cell_size) * cell_size
         lat_lim_ceil = np.ceil(lat_lim[1] / cell_size) * cell_size
         lat_lim = [lat_lim_floor, lat_lim_ceil]
 
-        # correct latitude and longitude limits
         lon_lim_floor = np.floor(lon_lim[0] / cell_size) * cell_size
         lon_lim_ceil = np.ceil(lon_lim[1] / cell_size) * cell_size
         lon_lim = [lon_lim_floor, lon_lim_ceil]

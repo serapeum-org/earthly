@@ -4,6 +4,36 @@ Hosts :class:`Catalog`, the pydantic-backed reader for
 ``cds_data_catalog.yaml``. Split out of :mod:`earth2observe.ecmwf.backend`
 so the request / download machinery and the catalog file-IO live in
 separate modules.
+
+The YAML's three top-level sections each map to a typed field on
+:class:`Catalog`:
+
+* ``available_datasets`` (informational list of CDS dataset names)
+  → :attr:`Catalog.available_datasets`
+* ``datasets`` (structural map of CDS datasets, each carrying a
+  monthly variant and a per-variable map) → :attr:`Catalog.datasets`,
+  with each value a :class:`Dataset`
+* the flattened per-variable view → :attr:`Catalog.catalog`, kept
+  as a convenience for the ``catalog.get_dataset(code)`` lookup
+  pattern that pre-dates the structural view
+
+The flat and structural views share the same :class:`Variable`
+instances (one allocation per row, two references). The path to the
+bundled YAML lives at :data:`CATALOG_PATH`; tests can monkey-patch
+that module attribute to redirect the loader at a temporary file.
+
+Examples:
+    - Construct the catalog and reach into both views:
+
+        ```python
+        >>> from earth2observe.ecmwf import Catalog
+        >>> cat = Catalog()
+        >>> cat.get_dataset("2m-temperature").nc_variable
+        't2m'
+        >>> cat.datasets["reanalysis-era5-pressure-levels"].pressure_level
+        ['1000']
+
+        ```
 """
 
 from __future__ import annotations
@@ -40,6 +70,34 @@ class Dataset(BaseModel):
             ``cds_pressure_level`` at load time.
         variables: Per-variable map keyed by the slugified short code
             (e.g. ``"2m-temperature"``).
+
+    Examples:
+        - Inspect a single-level dataset entry:
+
+            ```python
+            >>> from earth2observe.ecmwf import Catalog
+            >>> cat = Catalog()
+            >>> single = cat.datasets["reanalysis-era5-single-levels"]
+            >>> single.monthly
+            'reanalysis-era5-single-levels-monthly-means'
+            >>> single.pressure_level is None
+            True
+            >>> "2m-temperature" in single.variables
+            True
+
+            ```
+        - Pressure-level datasets carry the default level list:
+
+            ```python
+            >>> from earth2observe.ecmwf import Catalog
+            >>> cat = Catalog()
+            >>> press = cat.datasets["reanalysis-era5-pressure-levels"]
+            >>> press.pressure_level
+            ['1000']
+            >>> press.variables["temperature"].cds_pressure_level
+            ['1000']
+
+            ```
     """
 
     model_config = ConfigDict(frozen=True, extra="forbid")
@@ -182,14 +240,32 @@ class Catalog(AbstractCatalog):
         Satisfies the abstract base's contract; the actual parsing is
         done in :func:`model_post_init` so all three fields can be
         built in one pass.
+
+        Returns:
+            dict[str, Variable]: One entry per variable across every
+            dataset in the catalog. Same object as :attr:`catalog`.
+
+        Examples:
+            - Inspect the count and a sample of the loaded catalog:
+
+                ```python
+                >>> from earth2observe.ecmwf import Catalog
+                >>> mapping = Catalog().get_catalog()
+                >>> "2m-temperature" in mapping
+                True
+                >>> mapping["2m-temperature"].nc_variable
+                't2m'
+
+                ```
         """
         return self.catalog
 
     def get_dataset(self, var_name):
-        """Return the metadata dict for ``var_name``.
+        """Return the :class:`Variable` for a short variable code.
 
         Args:
-            var_name: Short user-friendly variable code (e.g. ``"2m-temperature"``).
+            var_name: Short variable code as it appears as a YAML key
+                (e.g. ``"2m-temperature"`` or ``"total-precipitation"``).
 
         Returns:
             Variable: Per-variable metadata loaded from
@@ -197,6 +273,39 @@ class Catalog(AbstractCatalog):
 
         Raises:
             KeyError: If ``var_name`` is not in the catalog.
+
+        Examples:
+            - Look up a single-level ERA5 variable and read its CDS
+              dataset and NetCDF short name:
+
+                ```python
+                >>> from earth2observe.ecmwf import Catalog
+                >>> spec = Catalog().get_dataset("2m-temperature")
+                >>> spec.cds_dataset
+                'reanalysis-era5-single-levels'
+                >>> spec.nc_variable, spec.units
+                ('t2m', 'K')
+
+                ```
+            - Pressure-level variables expose ``cds_pressure_level``:
+
+                ```python
+                >>> from earth2observe.ecmwf import Catalog
+                >>> spec = Catalog().get_dataset("temperature")
+                >>> spec.cds_pressure_level
+                ['1000']
+
+                ```
+            - Unknown codes raise ``KeyError``:
+
+                ```python
+                >>> from earth2observe.ecmwf import Catalog
+                >>> Catalog().get_dataset("not-a-real-variable")
+                Traceback (most recent call last):
+                    ...
+                KeyError: 'not-a-real-variable'
+
+                ```
         """
         return self.catalog[var_name]
 
@@ -211,6 +320,18 @@ class Catalog(AbstractCatalog):
             var_name: Short user-friendly variable code.
 
         Returns:
-            Variable: Per-variable metadata. See :meth:`get_dataset`.
+            Variable: Per-variable metadata. Same object
+            :meth:`get_dataset` returns.
+
+        Examples:
+            - The two methods return identical objects:
+
+                ```python
+                >>> from earth2observe.ecmwf import Catalog
+                >>> cat = Catalog()
+                >>> cat.get_variable("2m-temperature") is cat.get_dataset("2m-temperature")
+                True
+
+                ```
         """
         return self.get_dataset(var_name)
