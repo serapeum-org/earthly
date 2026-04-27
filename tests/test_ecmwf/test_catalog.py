@@ -34,9 +34,9 @@ class TestCatalog:
     @pytest.mark.parametrize(
         "var_code, expected_dataset, expected_variable",
         [
-            ("2m-temperature", "reanalysis-era5-single-levels", "2m_temperature"),
-            ("total-precipitation", "reanalysis-era5-single-levels", "total_precipitation"),
-            ("surface-pressure", "reanalysis-era5-single-levels", "surface_pressure"),
+            ("2m-temperature", "reanalysis-era5-land", "2m_temperature"),
+            ("total-precipitation", "reanalysis-era5-land", "total_precipitation"),
+            ("surface-pressure", "reanalysis-era5-land", "surface_pressure"),
             ("evaporation", "reanalysis-era5-single-levels", "evaporation"),
             ("temperature", "reanalysis-era5-pressure-levels", "temperature"),
         ],
@@ -78,11 +78,16 @@ class TestCatalog:
         )
 
     def test_flat_and_structural_views_share_variable_instances(self):
-        """catalog and datasets[ds].variables point at the same Variable."""
+        """catalog and datasets[ds].variables point at the same Variable.
+
+        Uses a single-levels-only code (``evaporation``) so the flat
+        view's "last-wins" behaviour for ERA5-Land overlaps does not
+        confuse the assertion.
+        """
         cat = Catalog()
-        flat = cat.catalog["2m-temperature"]
+        flat = cat.catalog["evaporation"]
         nested = cat.datasets["reanalysis-era5-single-levels"].variables[
-            "2m-temperature"
+            "evaporation"
         ]
         assert flat is nested
 
@@ -204,6 +209,46 @@ class TestCatalog:
         cat = Catalog()
         spec = cat.get_dataset("2m-temperature")
         assert spec.extras == {"domain": "west", "leadtime_hour": "1"}
+
+    def test_era5_land_loads(self):
+        """ERA5-Land block round-trips through ``Catalog``.
+
+        Asserts the dataset is exposed under ``datasets``, carries the
+        correct monthly-aggregate variant, and that one of its
+        unique-to-ERA5-Land rows resolves to the expected metadata.
+        """
+        cat = Catalog()
+        ds = cat.datasets["reanalysis-era5-land"]
+        assert ds.monthly == "reanalysis-era5-land-monthly-means"
+        assert "evaporation-from-bare-soil" in ds.variables
+        spec = ds.variables["evaporation-from-bare-soil"]
+        assert spec.cds_dataset == "reanalysis-era5-land"
+        assert spec.cds_variable == "evaporation_from_bare_soil"
+        assert spec.nc_variable == "evabs"
+        assert spec.units == "m of water equivalent"
+        assert spec.types == "flux"
+
+    def test_era5_land_carries_60_variables(self):
+        """ERA5-Land covers all 60 variables CDS reports for the dataset."""
+        ds = Catalog().datasets["reanalysis-era5-land"]
+        assert len(ds.variables) == 60
+
+    def test_era5_land_snow_depth_uses_sde_not_sd(self):
+        """ERA5-Land's snow_depth maps to ``sde`` (m), not ``sd`` (m water equiv).
+
+        ERA5-Land returns physical snow thickness as ``sde`` while
+        single-levels uses ``sd`` for the water-equivalent depth. The
+        two are distinct fields and must not collide in the catalog.
+        """
+        cat = Catalog()
+        land_sd = cat.datasets["reanalysis-era5-land"].variables["snow-depth"]
+        assert land_sd.nc_variable == "sde"
+        assert land_sd.units == "m"
+        land_sdwe = cat.datasets["reanalysis-era5-land"].variables[
+            "snow-depth-water-equivalent"
+        ]
+        assert land_sdwe.nc_variable == "sd"
+        assert land_sdwe.units == "m of water equivalent"
 
     def test_extras_roundtrip_through_yaml(self, monkeypatch, tmp_path):
         """Arbitrary extras survive a YAML load-and-read round trip."""

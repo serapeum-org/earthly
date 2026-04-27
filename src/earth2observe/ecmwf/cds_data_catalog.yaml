@@ -1345,3 +1345,287 @@ datasets:
       vorticity:
         nc_variable: vo
         units: "s**-1"
+
+  reanalysis-era5-land:
+    monthly: reanalysis-era5-land-monthly-means
+    variables:
+
+      "10m-u-component-of-wind":
+        nc_variable: u10
+        types: state
+        units: "m s**-1"
+
+      "10m-v-component-of-wind":
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+
+      "2m-dewpoint-temperature":
+        nc_variable: d2m
+        types: state
+        units: K
+
+      "2m-temperature":
+        nc_variable: t2m
+        types: state
+        units: K
+
+      "evaporation-from-bare-soil":
+        nc_variable: evabs
+        types: flux
+        units: "m of water equivalent"
+
+      "evaporation-from-open-water-surfaces-excluding-oceans":
+        nc_variable: evaow
+        types: flux
+        units: "m of water equivalent"
+
+      "evaporation-from-the-top-of-canopy":
+        nc_variable: evatc
+        types: flux
+        units: "m of water equivalent"
+
+      "evaporation-from-vegetation-transpiration":
+        nc_variable: evavt
+        types: flux
+        units: "m of water equivalent"
+
+      "forecast-albedo":
+        nc_variable: fal
+        types: state
+        units: "(0 - 1)"
+
+      geopotential:
+        nc_variable: z
+        units: "m**2 s**-2"
+
+      "glacier-mask":
+        nc_variable: glm
+        units: fraction
+
+      "high-vegetation-cover":
+        nc_variable: cvh
+        units: "(0 - 1)"
+
+      "lake-bottom-temperature":
+        nc_variable: lblt
+        units: K
+
+      "lake-cover":
+        nc_variable: cl
+        units: "(0 - 1)"
+
+      "lake-ice-depth":
+        nc_variable: licd
+        units: m
+
+      "lake-ice-temperature":
+        nc_variable: lict
+        units: K
+
+      "lake-mix-layer-depth":
+        nc_variable: lmld
+        units: m
+
+      "lake-mix-layer-temperature":
+        nc_variable: lmlt
+        units: K
+
+      "lake-shape-factor":
+        nc_variable: lshf
+        units: dimensionless
+
+      "lake-total-depth":
+        nc_variable: dl
+        units: m
+
+      "lake-total-layer-temperature":
+        nc_variable: ltlt
+        units: K
+
+      "land-sea-mask":
+        nc_variable: lsm
+        units: "(0 - 1)"
+
+      "leaf-area-index-high-vegetation":
+        nc_variable: lai_hv
+        units: "m**2 m**-2"
+
+      "leaf-area-index-low-vegetation":
+        nc_variable: lai_lv
+        units: "m**2 m**-2"
+
+      "low-vegetation-cover":
+        nc_variable: cvl
+        units: "(0 - 1)"
+
+      "potential-evaporation":
+        nc_variable: pev
+        types: flux
+        units: m
+
+      runoff:
+        nc_variable: ro
+        types: flux
+        units: m
+
+      "skin-reservoir-content":
+        nc_variable: src
+        units: "m of water equivalent"
+
+      "skin-temperature":
+        nc_variable: skt
+        types: state
+        units: K
+
+      "snow-albedo":
+        nc_variable: asn
+        types: state
+        units: "(0 - 1)"
+
+      "snow-cover":
+        nc_variable: snowc
+        types: state
+        units: "%"
+
+      "snow-density":
+        nc_variable: rsn
+        types: state
+        units: "kg m**-3"
+
+      "snow-depth":
+        nc_variable: sde
+        types: state
+        units: m
+
+      "snow-depth-water-equivalent":
+        nc_variable: sd
+        types: state
+        units: "m of water equivalent"
+
+      "snow-evaporation":
+        nc_variable: es
+        types: flux
+        units: "m of water equivalent"
+
+      snowfall:
+        nc_variable: sf
+        types: flux
+        units: "m of water equivalent"
+
+      snowmelt:
+        nc_variable: smlt
+        types: flux
+        units: "m of water equivalent"
+
+      "soil-temperature-level-1":
+        nc_variable: stl1
+        types: state
+        units: K
+
+      "soil-temperature-level-2":
+        nc_variable: stl2
+        types: state
+        units: K
+
+      "soil-temperature-level-3":
+        nc_variable: stl3
+        types: state
+        units: K
+
+      "soil-temperature-level-4":
+        nc_variable: stl4
+        types: state
+        units: K
+
+      "soil-type":
+        nc_variable: slt
+        units: "~"
+
+      "sub-surface-runoff":
+        nc_variable: ssro
+        types: flux
+        units: m
+
+      "surface-latent-heat-flux":
+        nc_variable: slhf
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-solar-radiation":
+        nc_variable: ssr
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation":
+        nc_variable: str
+        types: flux
+        units: "J m**-2"
+
+      "surface-pressure":
+        nc_variable: sp
+        types: state
+        units: Pa
+
+      "surface-runoff":
+        nc_variable: sro
+        types: flux
+        units: m
+
+      "surface-sensible-heat-flux":
+        nc_variable: sshf
+        types: flux
+        units: "J m**-2"
+
+      "surface-solar-radiation-downwards":
+        nc_variable: ssrd
+        types: flux
+        units: "J m**-2"
+
+      "surface-thermal-radiation-downwards":
+        nc_variable: strd
+        types: flux
+        units: "J m**-2"
+
+      "temperature-of-snow-layer":
+        nc_variable: tsn
+        types: state
+        units: K
+
+      "total-evaporation":
+        nc_variable: e
+        types: flux
+        units: "m of water equivalent"
+
+      "total-precipitation":
+        nc_variable: tp
+        types: flux
+        units: m
+
+      "type-of-high-vegetation":
+        nc_variable: tvh
+        units: "~"
+
+      "type-of-low-vegetation":
+        nc_variable: tvl
+        units: "~"
+
+      "volumetric-soil-water-layer-1":
+        nc_variable: swvl1
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-2":
+        nc_variable: swvl2
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-3":
+        nc_variable: swvl3
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-4":
+        nc_variable: swvl4
+        types: state
+        units: "m**3 m**-3"

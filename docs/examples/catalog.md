@@ -79,10 +79,24 @@ Key reference:
 - `units` — raw ERA5 unit string emitted by CDS for this variable
   (used in the output filename).
 
-The catalog ships ~278 ERA5 entries — the full single-levels and
-pressure-levels variable lists from the CDS catalogue (and their
-monthly-means counterparts). Browse the full list of CDS dataset
-short names at
+The catalog ships ~338 ERA5 entries across three datasets:
+
+- `reanalysis-era5-single-levels` — 261 atmospheric / surface
+  variables on the global 0.25° ERA5 grid.
+- `reanalysis-era5-pressure-levels` — 16 variables on the 1000 hPa
+  level (extend `pressure_level:` in the dataset block to fetch more
+  levels).
+- `reanalysis-era5-land` — 60 land-surface variables on the
+  higher-resolution 0.1° land-only grid; `monthly:` resolves to
+  `reanalysis-era5-land-monthly-means`. Where a variable code
+  (e.g. `2m-temperature`, `total-precipitation`) appears in both
+  ERA5-Land and ERA5 single-levels, the flat
+  `Catalog().get_dataset(code)` resolves to ERA5-Land — the higher
+  resolution land-surface field. Use the structural map
+  (`Catalog().datasets["reanalysis-era5-single-levels"].variables[code]`)
+  to address the single-levels variant explicitly.
+
+Browse the full list of CDS dataset short names at
 <https://cds.climate.copernicus.eu/datasets?q=era5>. To add a new
 variable, append an entry to
 `src/earth2observe/ecmwf/cds_data_catalog.yaml` following the schema
