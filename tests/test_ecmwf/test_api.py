@@ -305,6 +305,55 @@ class TestApi:
         assert "https://cds.climate.copernicus.eu/datasets/" in message
         assert excinfo.value.__cause__ is original
 
+    def test_extras_forwarded_into_request(self, ecmwf_stub):
+        """Variable.extras keys reach ``client.retrieve`` verbatim."""
+        spec = Variable(
+            cds_dataset="projections-cmip6",
+            cds_variable="near_surface_air_temperature",
+            nc_variable="tas",
+            units="K",
+            extras={
+                "experiment": "ssp585",
+                "model": "ec_earth3",
+                "temporal_resolution": "monthly",
+            },
+        )
+        ecmwf_stub.api(spec)
+        request = captured_request(ecmwf_stub)
+        assert request["experiment"] == "ssp585"
+        assert request["model"] == "ec_earth3"
+        assert request["temporal_resolution"] == "monthly"
+
+    def test_extras_override_template_defaults(self, ecmwf_stub):
+        """A row-level extras key wins over the template default."""
+        spec = Variable(
+            cds_dataset="reanalysis-era5-single-levels",
+            cds_variable="2m_temperature",
+            nc_variable="t2m",
+            units="K",
+            extras={"product_type": ["ensemble_mean"]},
+        )
+        ecmwf_stub.api(spec)
+        assert captured_request(ecmwf_stub)["product_type"] == ["ensemble_mean"]
+
+    def test_empty_extras_leave_request_unchanged(
+        self, ecmwf_stub, single_level_var_info
+    ):
+        """An empty extras dict does not introduce extra request keys."""
+        ecmwf_stub.api(single_level_var_info)
+        request = captured_request(ecmwf_stub)
+        baseline = {
+            "variable",
+            "year",
+            "month",
+            "day",
+            "time",
+            "data_format",
+            "area",
+            "product_type",
+        }
+        assert set(request) == baseline
+
     def test_non_licence_retrieve_errors_propagate_untouched(
         self, ecmwf_stub, single_level_var_info
     ):

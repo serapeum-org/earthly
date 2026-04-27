@@ -849,6 +849,16 @@ class ECMWF(AbstractDataSource):
 
                 * ``cds_pressure_level`` — Forwarded to the request as
                   ``pressure_level`` for pressure-level datasets.
+                * ``extras`` — Free-form mapping of additional CDS
+                  request parameters merged into the request dict
+                  immediately before submission. Row-level keys win
+                  over the template defaults built from
+                  ``temporal_resolution`` and ``area``. This is the
+                  escape hatch for non-ERA5 dataset families that
+                  carry their own selectors (e.g. ``domain`` /
+                  ``leadtime_hour`` for CARRA, ``experiment`` /
+                  ``model`` for CMIP6, ``vertical_resolution`` for
+                  ORAS5).
 
         Returns:
             pathlib.Path: Absolute path to the downloaded NetCDF file,
@@ -946,6 +956,12 @@ class ECMWF(AbstractDataSource):
 
         if var_info.cds_pressure_level is not None:
             request["pressure_level"] = var_info.cds_pressure_level
+
+        # Merge per-variable extras last so a row-level field (e.g. a
+        # CMIP6 ``experiment`` / ``model`` selector or a CARRA ``domain``)
+        # wins over any same-named template default. This is the escape
+        # hatch the catalog uses to address non-ERA5 datasets.
+        request.update(var_info.extras)
 
         target = self.root_dir / f"{var_info.cds_variable}_{dataset}.nc"
         logger.info(
