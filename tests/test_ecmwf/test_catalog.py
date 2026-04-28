@@ -277,6 +277,28 @@ class TestCatalog:
         assert spec.nc_variable == "t"
         assert spec.cds_pressure_level == ["1000"]
 
+    def test_describe_returns_dataset_metadata(self):
+        """``Catalog.describe`` returns a structured introspection record."""
+        cat = Catalog()
+        info = cat.describe("reanalysis-era5-land")
+        assert info["dataset"] == "reanalysis-era5-land"
+        assert info["monthly"] == "reanalysis-era5-land-monthly-means"
+        assert info["pressure_level"] is None
+        assert info["extras"] == {}
+        assert "2m-temperature" in info["variables"]
+        assert len(info["variables"]) == 60
+
+    def test_describe_includes_parent_extras(self):
+        """``describe`` surfaces the dataset-level extras (e.g. ORAS5)."""
+        info = Catalog().describe("reanalysis-oras5")
+        assert info["extras"] == {"product_type": ["consolidated"]}
+        assert len(info["variables"]) == 27
+
+    def test_describe_raises_for_unknown_dataset(self):
+        """Unknown dataset names raise ``KeyError``."""
+        with pytest.raises(KeyError):
+            Catalog().describe("definitely-not-a-dataset")
+
     def test_oras5_loads(self):
         """ORAS5 ocean reanalysis block round-trips through ``Catalog``.
 

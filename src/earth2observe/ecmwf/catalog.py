@@ -324,6 +324,56 @@ class Catalog(AbstractCatalog):
         """
         return self.catalog[var_name]
 
+    def describe(self, dataset_name: str) -> dict[str, Any]:
+        """Return a structured introspection record for a CDS dataset.
+
+        Useful for "what variables and extras does dataset X expose?"
+        questions at runtime — the CLI / notebook caller can dump
+        the result without needing to walk the YAML themselves.
+
+        Args:
+            dataset_name: CDS dataset short name as it appears as a
+                key in :attr:`datasets` (e.g.
+                ``"reanalysis-era5-land"``).
+
+        Returns:
+            dict with keys ``dataset`` (the short name), ``monthly``
+            (the monthly-aggregate dataset name or ``None``),
+            ``pressure_level`` (the default level list or ``None``),
+            ``extras`` (the parent-level request defaults), and
+            ``variables`` (sorted list of the variable short codes
+            available under this dataset).
+
+        Raises:
+            KeyError: If ``dataset_name`` is not a curated dataset
+                (i.e. not present in :attr:`datasets`).
+
+        Examples:
+            - Describe ERA5-Land at a glance:
+
+                ```python
+                >>> from earth2observe.ecmwf import Catalog
+                >>> info = Catalog().describe("reanalysis-era5-land")
+                >>> info["dataset"]
+                'reanalysis-era5-land'
+                >>> info["monthly"]
+                'reanalysis-era5-land-monthly-means'
+                >>> len(info["variables"]) == 60
+                True
+                >>> "2m-temperature" in info["variables"]
+                True
+
+                ```
+        """
+        ds = self.datasets[dataset_name]
+        return {
+            "dataset": dataset_name,
+            "monthly": ds.monthly,
+            "pressure_level": ds.pressure_level,
+            "extras": dict(ds.extras),
+            "variables": sorted(ds.variables),
+        }
+
     def get_variable(self, var_name):
         """Alias for :meth:`get_dataset` satisfying the abstract base.
 
