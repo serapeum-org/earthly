@@ -102,6 +102,15 @@ The catalog ships ~338 ERA5 entries across three datasets:
   `frequency: 1_hourly`, `time_zone: utc+00:00`); pass overrides via
   the per-row `extras:` map to fetch min / max / range or a different
   output frequency.
+- `derived-era5-single-levels-daily-statistics` — 262 daily-aggregated
+  variables from ERA5 single-levels. Same nc_variable and units as
+  the underlying single-levels rows; daily aggregation selected at
+  request time via `daily_statistic` (mean / min / max). Keys use
+  the `-daily` suffix.
+- `derived-era5-pressure-levels-daily-statistics` — 16 daily-aggregated
+  variables from ERA5 pressure-levels (default `["1000"]` hPa).
+  Same `daily_statistic` / `frequency` / `time_zone` extras as the
+  single-levels variant.
 - `reanalysis-oras5` — 27-variable monthly ocean reanalysis (NEMO
   3.4.1 on the ORCA025 grid). 21 vars are 2-D surface fields; 6 vars
   (velocities, temperature, salinity, rotated velocities) are 3-D and

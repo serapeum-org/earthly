@@ -257,6 +257,26 @@ class TestCatalog:
             "time_zone": "utc+00:00",
         }
 
+    def test_era5_daily_statistics_load(self):
+        """Both ERA5 daily-statistics datasets round-trip through ``Catalog``."""
+        cat = Catalog()
+        single = cat.datasets["derived-era5-single-levels-daily-statistics"]
+        press = cat.datasets["derived-era5-pressure-levels-daily-statistics"]
+        assert len(single.variables) == 262
+        assert len(press.variables) == 16
+        assert single.extras["daily_statistic"] == "daily_mean"
+        assert press.extras["frequency"] == "1_hourly"
+        assert press.pressure_level == ["1000"]
+        # Spot-check a known mapping in each
+        spec = single.variables["2m-temperature-daily"]
+        assert spec.cds_variable == "2m_temperature"
+        assert spec.nc_variable == "t2m"
+        assert spec.units == "K"
+        spec = press.variables["temperature-daily"]
+        assert spec.cds_variable == "temperature"
+        assert spec.nc_variable == "t"
+        assert spec.cds_pressure_level == ["1000"]
+
     def test_oras5_loads(self):
         """ORAS5 ocean reanalysis block round-trips through ``Catalog``.
 

@@ -1991,3 +1991,1435 @@ datasets:
         units: "N/m2"
         extras:
           vertical_resolution: single_level
+
+  derived-era5-single-levels-daily-statistics:
+    # CDS daily aggregations of ERA5 single-levels. Each variable
+    # row carries the same nc_variable / units as the underlying
+    # reanalysis-era5-single-levels row; the daily aggregation is
+    # selected at request time via ``daily_statistic`` (one of
+    # daily_mean/daily_minimum/daily_maximum). Keys use the ``-daily``
+    # suffix to avoid colliding with the underlying single-levels keys.
+    extras:
+      daily_statistic: daily_mean
+      frequency: "1_hourly"
+      time_zone: "utc+00:00"
+    variables:
+
+      "100m-u-component-of-wind-daily":
+        cds_variable: 100m_u_component_of_wind
+        nc_variable: u100
+        units: "m s**-1"
+
+      "100m-v-component-of-wind-daily":
+        cds_variable: 100m_v_component_of_wind
+        nc_variable: v100
+        units: "m s**-1"
+
+      "10m-u-component-of-neutral-wind-daily":
+        cds_variable: 10m_u_component_of_neutral_wind
+        nc_variable: u10n
+        units: "m s**-1"
+
+      "10m-u-component-of-wind-daily":
+        cds_variable: 10m_u_component_of_wind
+        nc_variable: u10
+        types: state
+        units: "m s**-1"
+
+      "10m-v-component-of-neutral-wind-daily":
+        cds_variable: 10m_v_component_of_neutral_wind
+        nc_variable: v10n
+        units: "m s**-1"
+
+      "10m-v-component-of-wind-daily":
+        cds_variable: 10m_v_component_of_wind
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+
+      "10m-wind-gust-since-previous-post-processing-daily":
+        cds_variable: 10m_wind_gust_since_previous_post_processing
+        nc_variable: fg10
+        units: "m s**-1"
+
+      "2m-dewpoint-temperature-daily":
+        cds_variable: 2m_dewpoint_temperature
+        nc_variable: d2m
+        types: state
+        units: K
+
+      "2m-temperature-daily":
+        cds_variable: 2m_temperature
+        nc_variable: t2m
+        types: state
+        units: K
+
+      "air-density-over-the-oceans-daily":
+        cds_variable: air_density_over_the_oceans
+        nc_variable: rhoao
+        units: "kg m**-3"
+
+      "angle-of-sub-gridscale-orography-daily":
+        cds_variable: angle_of_sub_gridscale_orography
+        nc_variable: anor
+        units: radians
+
+      "anisotropy-of-sub-gridscale-orography-daily":
+        cds_variable: anisotropy_of_sub_gridscale_orography
+        nc_variable: isor
+        units: Numeric
+
+      "benjamin-feir-index-daily":
+        cds_variable: benjamin_feir_index
+        nc_variable: bfi
+        units: dimensionless
+
+      "boundary-layer-dissipation-daily":
+        cds_variable: boundary_layer_dissipation
+        nc_variable: bld
+        units: "J m**-2"
+
+      "boundary-layer-height-daily":
+        cds_variable: boundary_layer_height
+        nc_variable: blh
+        units: m
+
+      "charnock-daily":
+        cds_variable: charnock
+        nc_variable: chnk
+        units: Numeric
+
+      "clear-sky-direct-solar-radiation-at-surface-daily":
+        cds_variable: clear_sky_direct_solar_radiation_at_surface
+        nc_variable: cdir
+        units: "J m**-2"
+
+      "cloud-base-height-daily":
+        cds_variable: cloud_base_height
+        nc_variable: cbh
+        units: m
+
+      "coefficient-of-drag-with-waves-daily":
+        cds_variable: coefficient_of_drag_with_waves
+        nc_variable: cdww
+        units: dimensionless
+
+      "convective-available-potential-energy-daily":
+        cds_variable: convective_available_potential_energy
+        nc_variable: cape
+        units: "J kg**-1"
+
+      "convective-inhibition-daily":
+        cds_variable: convective_inhibition
+        nc_variable: cin
+        units: "J kg**-1"
+
+      "convective-precipitation-daily":
+        cds_variable: convective_precipitation
+        nc_variable: avg_cpr
+        units: "kg m**-2 s**-1"
+
+      "convective-rain-rate-daily":
+        cds_variable: convective_rain_rate
+        nc_variable: crr
+        units: "kg m**-2 s**-1"
+
+      "convective-snowfall-daily":
+        cds_variable: convective_snowfall
+        nc_variable: avg_csfr
+        units: "kg m**-2 s**-1"
+
+      "convective-snowfall-rate-water-equivalent-daily":
+        cds_variable: convective_snowfall_rate_water_equivalent
+        nc_variable: avg_csfr
+        units: "kg m**-2 s**-1"
+
+      "downward-uv-radiation-at-the-surface-daily":
+        cds_variable: downward_uv_radiation_at_the_surface
+        nc_variable: avg_sduvrf
+        units: "W m**-2"
+
+      "duct-base-height-daily":
+        cds_variable: duct_base_height
+        nc_variable: dctb
+        units: m
+
+      "eastward-gravity-wave-surface-stress-daily":
+        cds_variable: eastward_gravity_wave_surface_stress
+        nc_variable: lgws
+        units: "N m**-2 s"
+
+      "eastward-turbulent-surface-stress-daily":
+        cds_variable: eastward_turbulent_surface_stress
+        nc_variable: ewss
+        units: "N m**-2 s"
+
+      "evaporation-daily":
+        cds_variable: evaporation
+        nc_variable: e
+        types: flux
+        units: "m of water equivalent"
+
+      "forecast-albedo-daily":
+        cds_variable: forecast_albedo
+        nc_variable: fal
+        types: state
+        units: "(0 - 1)"
+
+      "forecast-logarithm-of-surface-roughness-for-heat-daily":
+        cds_variable: forecast_logarithm_of_surface_roughness_for_heat
+        nc_variable: flsr
+        units: Numeric
+
+      "forecast-surface-roughness-daily":
+        cds_variable: forecast_surface_roughness
+        nc_variable: fsr
+        types: state
+        units: m
+
+      "free-convective-velocity-over-the-oceans-daily":
+        cds_variable: free_convective_velocity_over_the_oceans
+        nc_variable: wstar
+        units: "m s**-1"
+
+      "friction-velocity-daily":
+        cds_variable: friction_velocity
+        nc_variable: zust
+        units: "m s**-1"
+
+      "geopotential-daily":
+        cds_variable: geopotential
+        nc_variable: z
+        units: "m**2 s**-2"
+
+      "gravity-wave-dissipation-daily":
+        cds_variable: gravity_wave_dissipation
+        nc_variable: gwd
+        units: "J m**-2"
+
+      "high-cloud-cover-daily":
+        cds_variable: high_cloud_cover
+        nc_variable: hcc
+        types: state
+        units: "(0 - 1)"
+
+      "high-vegetation-cover-daily":
+        cds_variable: high_vegetation_cover
+        nc_variable: cvh
+        units: "(0 - 1)"
+
+      "ice-temperature-layer-1-daily":
+        cds_variable: ice_temperature_layer_1
+        nc_variable: istl1
+        units: K
+
+      "ice-temperature-layer-2-daily":
+        cds_variable: ice_temperature_layer_2
+        nc_variable: istl2
+        units: K
+
+      "ice-temperature-layer-3-daily":
+        cds_variable: ice_temperature_layer_3
+        nc_variable: istl3
+        units: K
+
+      "ice-temperature-layer-4-daily":
+        cds_variable: ice_temperature_layer_4
+        nc_variable: istl4
+        units: K
+
+      "instantaneous-10m-wind-gust-daily":
+        cds_variable: instantaneous_10m_wind_gust
+        nc_variable: i10fg
+        units: "m s**-1"
+
+      "instantaneous-eastward-turbulent-surface-stress-daily":
+        cds_variable: instantaneous_eastward_turbulent_surface_stress
+        nc_variable: iews
+        units: "N m**-2"
+
+      "instantaneous-large-scale-surface-precipitation-fraction-daily":
+        cds_variable: instantaneous_large_scale_surface_precipitation_fraction
+        nc_variable: ilspf
+        units: Proportion
+
+      "instantaneous-moisture-flux-daily":
+        cds_variable: instantaneous_moisture_flux
+        nc_variable: ie
+        units: "kg m**-2 s**-1"
+
+      "instantaneous-northward-turbulent-surface-stress-daily":
+        cds_variable: instantaneous_northward_turbulent_surface_stress
+        nc_variable: inss
+        units: "N m**-2"
+
+      "instantaneous-surface-sensible-heat-flux-daily":
+        cds_variable: instantaneous_surface_sensible_heat_flux
+        nc_variable: ishf
+        units: "W m**-2"
+
+      "k-index-daily":
+        cds_variable: k_index
+        nc_variable: kx
+        units: K
+
+      "lake-bottom-temperature-daily":
+        cds_variable: lake_bottom_temperature
+        nc_variable: lblt
+        units: K
+
+      "lake-cover-daily":
+        cds_variable: lake_cover
+        nc_variable: cl
+        units: "(0 - 1)"
+
+      "lake-depth-daily":
+        cds_variable: lake_depth
+        nc_variable: dl
+        units: m
+
+      "lake-ice-depth-daily":
+        cds_variable: lake_ice_depth
+        nc_variable: licd
+        units: m
+
+      "lake-ice-temperature-daily":
+        cds_variable: lake_ice_temperature
+        nc_variable: lict
+        units: K
+
+      "lake-mix-layer-depth-daily":
+        cds_variable: lake_mix_layer_depth
+        nc_variable: lmld
+        units: m
+
+      "lake-mix-layer-temperature-daily":
+        cds_variable: lake_mix_layer_temperature
+        nc_variable: lmlt
+        units: K
+
+      "lake-shape-factor-daily":
+        cds_variable: lake_shape_factor
+        nc_variable: lshf
+        units: dimensionless
+
+      "lake-total-layer-temperature-daily":
+        cds_variable: lake_total_layer_temperature
+        nc_variable: ltlt
+        units: K
+
+      "land-sea-mask-daily":
+        cds_variable: land_sea_mask
+        nc_variable: lsm
+        units: "(0 - 1)"
+
+      "large-scale-precipitation-daily":
+        cds_variable: large_scale_precipitation
+        nc_variable: lspf
+        units: s
+
+      "large-scale-precipitation-fraction-daily":
+        cds_variable: large_scale_precipitation_fraction
+        nc_variable: lspf
+        units: s
+
+      "large-scale-rain-rate-daily":
+        cds_variable: large_scale_rain_rate
+        nc_variable: lsrr
+        units: "kg m**-2 s**-1"
+
+      "large-scale-snowfall-daily":
+        cds_variable: large_scale_snowfall
+        nc_variable: avg_lssfr
+        units: "kg m**-2 s**-1"
+
+      "large-scale-snowfall-rate-water-equivalent-daily":
+        cds_variable: large_scale_snowfall_rate_water_equivalent
+        nc_variable: avg_lssfr
+        units: "kg m**-2 s**-1"
+
+      "leaf-area-index-high-vegetation-daily":
+        cds_variable: leaf_area_index_high_vegetation
+        nc_variable: lai_hv
+        units: "m**2 m**-2"
+
+      "leaf-area-index-low-vegetation-daily":
+        cds_variable: leaf_area_index_low_vegetation
+        nc_variable: lai_lv
+        units: "m**2 m**-2"
+
+      "low-cloud-cover-daily":
+        cds_variable: low_cloud_cover
+        nc_variable: lcc
+        units: "(0 - 1)"
+
+      "low-vegetation-cover-daily":
+        cds_variable: low_vegetation_cover
+        nc_variable: cvl
+        units: "(0 - 1)"
+
+      "maximum-2m-temperature-since-previous-post-processing-daily":
+        cds_variable: maximum_2m_temperature_since_previous_post_processing
+        nc_variable: mx2t
+        units: K
+
+      "maximum-individual-wave-height-daily":
+        cds_variable: maximum_individual_wave_height
+        nc_variable: hmax
+        units: m
+
+      "maximum-total-precipitation-rate-since-previous-post-processing-daily":
+        cds_variable: maximum_total_precipitation_rate_since_previous_post_processing
+        nc_variable: mxtpr
+        units: "kg m**-2 s**-1"
+
+      "mean-boundary-layer-dissipation-daily":
+        cds_variable: mean_boundary_layer_dissipation
+        nc_variable: avg_ibld
+        units: "W m**-2"
+
+      "mean-convective-precipitation-rate-daily":
+        cds_variable: mean_convective_precipitation_rate
+        nc_variable: avg_cpr
+        units: "kg m**-2 s**-1"
+
+      "mean-convective-snowfall-rate-daily":
+        cds_variable: mean_convective_snowfall_rate
+        nc_variable: avg_csfr
+        units: "kg m**-2 s**-1"
+
+      "mean-direction-of-total-swell-daily":
+        cds_variable: mean_direction_of_total_swell
+        nc_variable: mdts
+        units: degrees
+
+      "mean-direction-of-wind-waves-daily":
+        cds_variable: mean_direction_of_wind_waves
+        nc_variable: mdww
+        units: degrees
+
+      "mean-eastward-gravity-wave-surface-stress-daily":
+        cds_variable: mean_eastward_gravity_wave_surface_stress
+        nc_variable: avg_iegwss
+        units: "N m**-2"
+
+      "mean-eastward-turbulent-surface-stress-daily":
+        cds_variable: mean_eastward_turbulent_surface_stress
+        nc_variable: avg_iews
+        units: "N m**-2"
+
+      "mean-evaporation-rate-daily":
+        cds_variable: mean_evaporation_rate
+        nc_variable: avg_ie
+        units: "kg m**-2 s**-1"
+
+      "mean-gravity-wave-dissipation-daily":
+        cds_variable: mean_gravity_wave_dissipation
+        nc_variable: avg_igwd
+        units: "W m**-2"
+
+      "mean-large-scale-precipitation-fraction-daily":
+        cds_variable: mean_large_scale_precipitation_fraction
+        nc_variable: avg_ilspf
+        units: Proportion
+
+      "mean-large-scale-precipitation-rate-daily":
+        cds_variable: mean_large_scale_precipitation_rate
+        nc_variable: avg_lsprate
+        units: "kg m**-2 s**-1"
+
+      "mean-large-scale-snowfall-rate-daily":
+        cds_variable: mean_large_scale_snowfall_rate
+        nc_variable: avg_lssfr
+        units: "kg m**-2 s**-1"
+
+      "mean-northward-gravity-wave-surface-stress-daily":
+        cds_variable: mean_northward_gravity_wave_surface_stress
+        nc_variable: avg_ingwss
+        units: "N m**-2"
+
+      "mean-northward-turbulent-surface-stress-daily":
+        cds_variable: mean_northward_turbulent_surface_stress
+        nc_variable: avg_inss
+        units: "N m**-2"
+
+      "mean-period-of-total-swell-daily":
+        cds_variable: mean_period_of_total_swell
+        nc_variable: mpts
+        units: s
+
+      "mean-period-of-wind-waves-daily":
+        cds_variable: mean_period_of_wind_waves
+        nc_variable: mpww
+        units: s
+
+      "mean-potential-evaporation-rate-daily":
+        cds_variable: mean_potential_evaporation_rate
+        nc_variable: avg_pevr
+        units: "kg m**-2 s**-1"
+
+      "mean-runoff-rate-daily":
+        cds_variable: mean_runoff_rate
+        nc_variable: avg_surfror
+        units: "kg m**-2 s**-1"
+
+      "mean-sea-level-pressure-daily":
+        cds_variable: mean_sea_level_pressure
+        nc_variable: msl
+        units: Pa
+
+      "mean-snow-evaporation-rate-daily":
+        cds_variable: mean_snow_evaporation_rate
+        nc_variable: avg_esrwe
+        units: "kg m**-2 s**-1"
+
+      "mean-snowfall-rate-daily":
+        cds_variable: mean_snowfall_rate
+        nc_variable: avg_tsrwe
+        units: "kg m**-2 s**-1"
+
+      "mean-snowmelt-rate-daily":
+        cds_variable: mean_snowmelt_rate
+        nc_variable: avg_smr
+        units: "kg m**-2 s**-1"
+
+      "mean-square-slope-of-waves-daily":
+        cds_variable: mean_square_slope_of_waves
+        nc_variable: msqs
+        units: dimensionless
+
+      "mean-sub-surface-runoff-rate-daily":
+        cds_variable: mean_sub_surface_runoff_rate
+        nc_variable: avg_ssurfror
+        units: "kg m**-2 s**-1"
+
+      "mean-surface-direct-short-wave-radiation-flux-daily":
+        cds_variable: mean_surface_direct_short_wave_radiation_flux
+        nc_variable: avg_sdirswrf
+        units: "W m**-2"
+
+      "mean-surface-direct-short-wave-radiation-flux-clear-sky-daily":
+        cds_variable: mean_surface_direct_short_wave_radiation_flux_clear_sky
+        nc_variable: avg_sdirswrfcs
+        units: "W m**-2"
+
+      "mean-surface-downward-long-wave-radiation-flux-daily":
+        cds_variable: mean_surface_downward_long_wave_radiation_flux
+        nc_variable: avg_sdlwrf
+        units: "W m**-2"
+
+      "mean-surface-downward-long-wave-radiation-flux-clear-sky-daily":
+        cds_variable: mean_surface_downward_long_wave_radiation_flux_clear_sky
+        nc_variable: avg_sdlwrfcs
+        units: "W m**-2"
+
+      "mean-surface-downward-short-wave-radiation-flux-daily":
+        cds_variable: mean_surface_downward_short_wave_radiation_flux
+        nc_variable: avg_sdswrf
+        units: "W m**-2"
+
+      "mean-surface-downward-short-wave-radiation-flux-clear-sky-daily":
+        cds_variable: mean_surface_downward_short_wave_radiation_flux_clear_sky
+        nc_variable: avg_sdswrfcs
+        units: "W m**-2"
+
+      "mean-surface-downward-uv-radiation-flux-daily":
+        cds_variable: mean_surface_downward_uv_radiation_flux
+        nc_variable: avg_sduvrf
+        units: "W m**-2"
+
+      "mean-surface-latent-heat-flux-daily":
+        cds_variable: mean_surface_latent_heat_flux
+        nc_variable: avg_slhtf
+        units: "W m**-2"
+
+      "mean-surface-net-long-wave-radiation-flux-daily":
+        cds_variable: mean_surface_net_long_wave_radiation_flux
+        nc_variable: avg_snlwrf
+        units: "W m**-2"
+
+      "mean-surface-net-long-wave-radiation-flux-clear-sky-daily":
+        cds_variable: mean_surface_net_long_wave_radiation_flux_clear_sky
+        nc_variable: avg_snlwrfcs
+        units: "W m**-2"
+
+      "mean-surface-net-short-wave-radiation-flux-daily":
+        cds_variable: mean_surface_net_short_wave_radiation_flux
+        nc_variable: avg_snswrf
+        units: "W m**-2"
+
+      "mean-surface-net-short-wave-radiation-flux-clear-sky-daily":
+        cds_variable: mean_surface_net_short_wave_radiation_flux_clear_sky
+        nc_variable: avg_snswrfcs
+        units: "W m**-2"
+
+      "mean-surface-runoff-rate-daily":
+        cds_variable: mean_surface_runoff_rate
+        nc_variable: avg_surfror
+        units: "kg m**-2 s**-1"
+
+      "mean-surface-sensible-heat-flux-daily":
+        cds_variable: mean_surface_sensible_heat_flux
+        nc_variable: avg_ishf
+        units: "W m**-2"
+
+      "mean-top-downward-short-wave-radiation-flux-daily":
+        cds_variable: mean_top_downward_short_wave_radiation_flux
+        nc_variable: avg_tdswrf
+        units: "W m**-2"
+
+      "mean-top-net-long-wave-radiation-flux-daily":
+        cds_variable: mean_top_net_long_wave_radiation_flux
+        nc_variable: avg_tnlwrf
+        units: "W m**-2"
+
+      "mean-top-net-long-wave-radiation-flux-clear-sky-daily":
+        cds_variable: mean_top_net_long_wave_radiation_flux_clear_sky
+        nc_variable: avg_tnlwrfcs
+        units: "W m**-2"
+
+      "mean-top-net-short-wave-radiation-flux-daily":
+        cds_variable: mean_top_net_short_wave_radiation_flux
+        nc_variable: avg_tnswrf
+        units: "W m**-2"
+
+      "mean-top-net-short-wave-radiation-flux-clear-sky-daily":
+        cds_variable: mean_top_net_short_wave_radiation_flux_clear_sky
+        nc_variable: avg_tnswrfcs
+        units: "W m**-2"
+
+      "mean-total-precipitation-rate-daily":
+        cds_variable: mean_total_precipitation_rate
+        nc_variable: avg_tprate
+        units: "kg m**-2 s**-1"
+
+      "mean-vertical-gradient-of-refractivity-inside-trapping-layer-daily":
+        cds_variable: mean_vertical_gradient_of_refractivity_inside_trapping_layer
+        nc_variable: dndza
+        units: "m**-1"
+
+      "mean-vertically-integrated-moisture-divergence-daily":
+        cds_variable: mean_vertically_integrated_moisture_divergence
+        nc_variable: avg_vimdf
+        units: "kg m**-2 s**-1"
+
+      "mean-wave-direction-daily":
+        cds_variable: mean_wave_direction
+        nc_variable: mwd
+        units: "Degree true"
+
+      "mean-wave-direction-of-first-swell-partition-daily":
+        cds_variable: mean_wave_direction_of_first_swell_partition
+        nc_variable: mwd1
+        units: degrees
+
+      "mean-wave-direction-of-second-swell-partition-daily":
+        cds_variable: mean_wave_direction_of_second_swell_partition
+        nc_variable: mwd2
+        units: degrees
+
+      "mean-wave-direction-of-third-swell-partition-daily":
+        cds_variable: mean_wave_direction_of_third_swell_partition
+        nc_variable: mwd3
+        units: degrees
+
+      "mean-wave-period-daily":
+        cds_variable: mean_wave_period
+        nc_variable: mp2
+        units: s
+
+      "mean-wave-period-based-on-first-moment-daily":
+        cds_variable: mean_wave_period_based_on_first_moment
+        nc_variable: mp1
+        units: s
+
+      "mean-wave-period-based-on-first-moment-for-swell-daily":
+        cds_variable: mean_wave_period_based_on_first_moment_for_swell
+        nc_variable: p1ps
+        units: s
+
+      "mean-wave-period-based-on-first-moment-for-wind-waves-daily":
+        cds_variable: mean_wave_period_based_on_first_moment_for_wind_waves
+        nc_variable: p1ww
+        units: s
+
+      "mean-wave-period-based-on-second-moment-for-swell-daily":
+        cds_variable: mean_wave_period_based_on_second_moment_for_swell
+        nc_variable: p2ps
+        units: s
+
+      "mean-wave-period-based-on-second-moment-for-wind-waves-daily":
+        cds_variable: mean_wave_period_based_on_second_moment_for_wind_waves
+        nc_variable: p2ww
+        units: s
+
+      "mean-wave-period-of-first-swell-partition-daily":
+        cds_variable: mean_wave_period_of_first_swell_partition
+        nc_variable: mwp1
+        units: s
+
+      "mean-wave-period-of-second-swell-partition-daily":
+        cds_variable: mean_wave_period_of_second_swell_partition
+        nc_variable: mwp2
+        units: s
+
+      "mean-wave-period-of-third-swell-partition-daily":
+        cds_variable: mean_wave_period_of_third_swell_partition
+        nc_variable: mwp3
+        units: s
+
+      "mean-zero-crossing-wave-period-daily":
+        cds_variable: mean_zero_crossing_wave_period
+        nc_variable: mp2
+        units: s
+
+      "medium-cloud-cover-daily":
+        cds_variable: medium_cloud_cover
+        nc_variable: mcc
+        units: "(0 - 1)"
+
+      "minimum-2m-temperature-since-previous-post-processing-daily":
+        cds_variable: minimum_2m_temperature_since_previous_post_processing
+        nc_variable: mn2t
+        units: K
+
+      "minimum-total-precipitation-rate-since-previous-post-processing-daily":
+        cds_variable: minimum_total_precipitation_rate_since_previous_post_processing
+        nc_variable: mntpr
+        units: "kg m**-2 s**-1"
+
+      "minimum-vertical-gradient-of-refractivity-inside-trapping-layer-daily":
+        cds_variable: minimum_vertical_gradient_of_refractivity_inside_trapping_layer
+        nc_variable: dndzn
+        units: "m**-1"
+
+      "model-bathymetry-daily":
+        cds_variable: model_bathymetry
+        nc_variable: wmb
+        units: m
+
+      "near-ir-albedo-for-diffuse-radiation-daily":
+        cds_variable: near_ir_albedo_for_diffuse_radiation
+        nc_variable: alnid
+        units: "(0 - 1)"
+
+      "near-ir-albedo-for-direct-radiation-daily":
+        cds_variable: near_ir_albedo_for_direct_radiation
+        nc_variable: alnip
+        units: "(0 - 1)"
+
+      "normalized-energy-flux-into-ocean-daily":
+        cds_variable: normalized_energy_flux_into_ocean
+        nc_variable: phioc
+        units: Numeric
+
+      "normalized-energy-flux-into-waves-daily":
+        cds_variable: normalized_energy_flux_into_waves
+        nc_variable: phiaw
+        units: Numeric
+
+      "normalized-stress-into-ocean-daily":
+        cds_variable: normalized_stress_into_ocean
+        nc_variable: tauoc
+        units: Numeric
+
+      "northward-gravity-wave-surface-stress-daily":
+        cds_variable: northward_gravity_wave_surface_stress
+        nc_variable: mgws
+        units: "N m**-2 s"
+
+      "northward-turbulent-surface-stress-daily":
+        cds_variable: northward_turbulent_surface_stress
+        nc_variable: nsss
+        units: "N m**-2 s"
+
+      "ocean-surface-stress-equivalent-10m-neutral-wind-direction-daily":
+        cds_variable: ocean_surface_stress_equivalent_10m_neutral_wind_direction
+        nc_variable: dwi
+        units: degrees
+
+      "ocean-surface-stress-equivalent-10m-neutral-wind-speed-daily":
+        cds_variable: ocean_surface_stress_equivalent_10m_neutral_wind_speed
+        nc_variable: wind
+        units: "m s**-1"
+
+      "peak-wave-period-daily":
+        cds_variable: peak_wave_period
+        nc_variable: pp1d
+        units: s
+
+      "period-corresponding-to-maximum-individual-wave-height-daily":
+        cds_variable: period_corresponding_to_maximum_individual_wave_height
+        nc_variable: tmax
+        units: s
+
+      "potential-evaporation-daily":
+        cds_variable: potential_evaporation
+        nc_variable: avg_pevr
+        units: "kg m**-2 s**-1"
+
+      "precipitation-type-daily":
+        cds_variable: precipitation_type
+        nc_variable: ptype
+        units: "(Code table 4.201)"
+
+      "runoff-daily":
+        cds_variable: runoff
+        nc_variable: ro
+        types: flux
+        units: m
+
+      "sea-ice-cover-daily":
+        cds_variable: sea_ice_cover
+        nc_variable: siconc
+        units: "(0 - 1)"
+
+      "sea-surface-temperature-daily":
+        cds_variable: sea_surface_temperature
+        nc_variable: sst
+        units: K
+
+      "significant-height-of-combined-wind-waves-and-swell-daily":
+        cds_variable: significant_height_of_combined_wind_waves_and_swell
+        nc_variable: swh
+        units: m
+
+      "significant-height-of-total-swell-daily":
+        cds_variable: significant_height_of_total_swell
+        nc_variable: shts
+        units: m
+
+      "significant-height-of-wind-waves-daily":
+        cds_variable: significant_height_of_wind_waves
+        nc_variable: shww
+        units: m
+
+      "significant-wave-height-of-first-swell-partition-daily":
+        cds_variable: significant_wave_height_of_first_swell_partition
+        nc_variable: swh1
+        units: m
+
+      "significant-wave-height-of-second-swell-partition-daily":
+        cds_variable: significant_wave_height_of_second_swell_partition
+        nc_variable: swh2
+        units: m
+
+      "significant-wave-height-of-third-swell-partition-daily":
+        cds_variable: significant_wave_height_of_third_swell_partition
+        nc_variable: swh3
+        units: m
+
+      "skin-reservoir-content-daily":
+        cds_variable: skin_reservoir_content
+        nc_variable: src
+        units: "m of water equivalent"
+
+      "skin-temperature-daily":
+        cds_variable: skin_temperature
+        nc_variable: skt
+        units: K
+
+      "slope-of-sub-gridscale-orography-daily":
+        cds_variable: slope_of_sub_gridscale_orography
+        nc_variable: slor
+        units: Numeric
+
+      "snow-albedo-daily":
+        cds_variable: snow_albedo
+        nc_variable: asn
+        units: "(0 - 1)"
+
+      "snow-density-daily":
+        cds_variable: snow_density
+        nc_variable: rsn
+        units: "kg m**-3"
+
+      "snow-depth-daily":
+        cds_variable: snow_depth
+        nc_variable: sd
+        units: "m of water equivalent"
+
+      "snow-evaporation-daily":
+        cds_variable: snow_evaporation
+        nc_variable: avg_esrwe
+        units: "kg m**-2 s**-1"
+
+      "snowfall-daily":
+        cds_variable: snowfall
+        nc_variable: avg_tsrwe
+        units: "kg m**-2 s**-1"
+
+      "snowmelt-daily":
+        cds_variable: snowmelt
+        nc_variable: smlt
+        units: "m of water equivalent"
+
+      "soil-temperature-level-1-daily":
+        cds_variable: soil_temperature_level_1
+        nc_variable: stl1
+        units: K
+
+      "soil-temperature-level-2-daily":
+        cds_variable: soil_temperature_level_2
+        nc_variable: stl2
+        units: K
+
+      "soil-temperature-level-3-daily":
+        cds_variable: soil_temperature_level_3
+        nc_variable: stl3
+        units: K
+
+      "soil-temperature-level-4-daily":
+        cds_variable: soil_temperature_level_4
+        nc_variable: stl4
+        units: K
+
+      "soil-type-daily":
+        cds_variable: soil_type
+        nc_variable: slt
+        units: "(Code table 4.213)"
+
+      "standard-deviation-of-filtered-subgrid-orography-daily":
+        cds_variable: standard_deviation_of_filtered_subgrid_orography
+        nc_variable: sdfor
+        units: m
+
+      "standard-deviation-of-orography-daily":
+        cds_variable: standard_deviation_of_orography
+        nc_variable: sdor
+        units: m
+
+      "sub-surface-runoff-daily":
+        cds_variable: sub_surface_runoff
+        nc_variable: ssro
+        types: flux
+        units: m
+
+      "surface-latent-heat-flux-daily":
+        cds_variable: surface_latent_heat_flux
+        nc_variable: avg_slhtf
+        units: "W m**-2"
+
+      "surface-net-solar-radiation-daily":
+        cds_variable: surface_net_solar_radiation
+        nc_variable: ssr
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-solar-radiation-clear-sky-daily":
+        cds_variable: surface_net_solar_radiation_clear_sky
+        nc_variable: ssrc
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation-daily":
+        cds_variable: surface_net_thermal_radiation
+        nc_variable: str
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation-clear-sky-daily":
+        cds_variable: surface_net_thermal_radiation_clear_sky
+        nc_variable: strc
+        units: "J m**-2"
+
+      "surface-pressure-daily":
+        cds_variable: surface_pressure
+        nc_variable: sp
+        types: state
+        units: Pa
+
+      "surface-runoff-daily":
+        cds_variable: surface_runoff
+        nc_variable: sro
+        types: flux
+        units: m
+
+      "surface-sensible-heat-flux-daily":
+        cds_variable: surface_sensible_heat_flux
+        nc_variable: sshf
+        units: "J m**-2"
+
+      "surface-solar-radiation-downward-clear-sky-daily":
+        cds_variable: surface_solar_radiation_downward_clear_sky
+        nc_variable: ssrdc
+        units: "J m**-2"
+
+      "surface-solar-radiation-downwards-daily":
+        cds_variable: surface_solar_radiation_downwards
+        nc_variable: ssrd
+        units: "J m**-2"
+
+      "surface-thermal-radiation-downward-clear-sky-daily":
+        cds_variable: surface_thermal_radiation_downward_clear_sky
+        nc_variable: strdc
+        units: "J m**-2"
+
+      "surface-thermal-radiation-downwards-daily":
+        cds_variable: surface_thermal_radiation_downwards
+        nc_variable: strd
+        units: "J m**-2"
+
+      "temperature-of-snow-layer-daily":
+        cds_variable: temperature_of_snow_layer
+        nc_variable: tsn
+        units: K
+
+      "toa-incident-solar-radiation-daily":
+        cds_variable: toa_incident_solar_radiation
+        nc_variable: tisr
+        units: "J m**-2"
+
+      "top-net-solar-radiation-daily":
+        cds_variable: top_net_solar_radiation
+        nc_variable: tsr
+        units: "J m**-2"
+
+      "top-net-solar-radiation-clear-sky-daily":
+        cds_variable: top_net_solar_radiation_clear_sky
+        nc_variable: tsrc
+        units: "J m**-2"
+
+      "top-net-thermal-radiation-daily":
+        cds_variable: top_net_thermal_radiation
+        nc_variable: ttr
+        units: "J m**-2"
+
+      "top-net-thermal-radiation-clear-sky-daily":
+        cds_variable: top_net_thermal_radiation_clear_sky
+        nc_variable: ttrc
+        units: "J m**-2"
+
+      "total-cloud-cover-daily":
+        cds_variable: total_cloud_cover
+        nc_variable: tcc
+        units: "(0 - 1)"
+
+      "total-column-cloud-ice-water-daily":
+        cds_variable: total_column_cloud_ice_water
+        nc_variable: tciw
+        units: "kg m**-2"
+
+      "total-column-cloud-liquid-water-daily":
+        cds_variable: total_column_cloud_liquid_water
+        nc_variable: tclw
+        units: "kg m**-2"
+
+      "total-column-ozone-daily":
+        cds_variable: total_column_ozone
+        nc_variable: tco3
+        units: "kg m**-2"
+
+      "total-column-rain-water-daily":
+        cds_variable: total_column_rain_water
+        nc_variable: tcrw
+        units: "kg m**-2"
+
+      "total-column-snow-water-daily":
+        cds_variable: total_column_snow_water
+        nc_variable: tcsw
+        units: "kg m**-2"
+
+      "total-column-supercooled-liquid-water-daily":
+        cds_variable: total_column_supercooled_liquid_water
+        nc_variable: tcslw
+        units: "kg m**-2"
+
+      "total-column-water-daily":
+        cds_variable: total_column_water
+        nc_variable: tcw
+        units: "kg m**-2"
+
+      "total-column-water-vapour-daily":
+        cds_variable: total_column_water_vapour
+        nc_variable: tcwv
+        units: "kg m**-2"
+
+      "total-precipitation-daily":
+        cds_variable: total_precipitation
+        nc_variable: tp
+        types: flux
+        units: m
+
+      "total-sky-direct-solar-radiation-at-surface-daily":
+        cds_variable: total_sky_direct_solar_radiation_at_surface
+        nc_variable: fdir
+        units: "J m**-2"
+
+      "total-totals-index-daily":
+        cds_variable: total_totals_index
+        nc_variable: totalx
+        units: K
+
+      "trapping-layer-base-height-daily":
+        cds_variable: trapping_layer_base_height
+        nc_variable: tplb
+        units: m
+
+      "trapping-layer-top-height-daily":
+        cds_variable: trapping_layer_top_height
+        nc_variable: tplt
+        units: m
+
+      "type-of-high-vegetation-daily":
+        cds_variable: type_of_high_vegetation
+        nc_variable: tvh
+        units: "(Code table 4.234)"
+
+      "type-of-low-vegetation-daily":
+        cds_variable: type_of_low_vegetation
+        nc_variable: tvl
+        units: "(Code table 4.234)"
+
+      "u-component-stokes-drift-daily":
+        cds_variable: u_component_stokes_drift
+        nc_variable: ust
+        units: "m s**-1"
+
+      "uv-visible-albedo-for-diffuse-radiation-daily":
+        cds_variable: uv_visible_albedo_for_diffuse_radiation
+        nc_variable: aluvd
+        units: "(0 - 1)"
+
+      "uv-visible-albedo-for-direct-radiation-daily":
+        cds_variable: uv_visible_albedo_for_direct_radiation
+        nc_variable: aluvp
+        units: "(0 - 1)"
+
+      "v-component-stokes-drift-daily":
+        cds_variable: v_component_stokes_drift
+        nc_variable: vst
+        units: "m s**-1"
+
+      "vertical-integral-of-divergence-of-cloud-frozen-water-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_cloud_frozen_water_flux
+        nc_variable: viiwd
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-cloud-liquid-water-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_cloud_liquid_water_flux
+        nc_variable: vilwd
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-geopotential-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_geopotential_flux
+        nc_variable: vigd
+        units: "W m**-2"
+
+      "vertical-integral-of-divergence-of-kinetic-energy-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_kinetic_energy_flux
+        nc_variable: viked
+        units: "W m**-2"
+
+      "vertical-integral-of-divergence-of-mass-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_mass_flux
+        nc_variable: vimad
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-moisture-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_moisture_flux
+        nc_variable: vimdf
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-ozone-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_ozone_flux
+        nc_variable: viozd
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-divergence-of-thermal-energy-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_thermal_energy_flux
+        nc_variable: vithed
+        units: "W m**-2"
+
+      "vertical-integral-of-divergence-of-total-energy-flux-daily":
+        cds_variable: vertical_integral_of_divergence_of_total_energy_flux
+        nc_variable: vited
+        units: "W m**-2"
+
+      "vertical-integral-of-eastward-cloud-frozen-water-flux-daily":
+        cds_variable: vertical_integral_of_eastward_cloud_frozen_water_flux
+        nc_variable: viiwe
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-eastward-cloud-liquid-water-flux-daily":
+        cds_variable: vertical_integral_of_eastward_cloud_liquid_water_flux
+        nc_variable: vilwe
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-eastward-geopotential-flux-daily":
+        cds_variable: vertical_integral_of_eastward_geopotential_flux
+        nc_variable: vige
+        units: "W m**-1"
+
+      "vertical-integral-of-eastward-heat-flux-daily":
+        cds_variable: vertical_integral_of_eastward_heat_flux
+        nc_variable: vithee
+        units: "W m**-1"
+
+      "vertical-integral-of-eastward-kinetic-energy-flux-daily":
+        cds_variable: vertical_integral_of_eastward_kinetic_energy_flux
+        nc_variable: vikee
+        units: "W m**-1"
+
+      "vertical-integral-of-eastward-mass-flux-daily":
+        cds_variable: vertical_integral_of_eastward_mass_flux
+        nc_variable: vimae
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-eastward-ozone-flux-daily":
+        cds_variable: vertical_integral_of_eastward_ozone_flux
+        nc_variable: vioze
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-eastward-total-energy-flux-daily":
+        cds_variable: vertical_integral_of_eastward_total_energy_flux
+        nc_variable: vitee
+        units: "W m**-1"
+
+      "vertical-integral-of-eastward-water-vapour-flux-daily":
+        cds_variable: vertical_integral_of_eastward_water_vapour_flux
+        nc_variable: viwve
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-energy-conversion-daily":
+        cds_variable: vertical_integral_of_energy_conversion
+        nc_variable: viec
+        units: "W m**-2"
+
+      "vertical-integral-of-kinetic-energy-daily":
+        cds_variable: vertical_integral_of_kinetic_energy
+        nc_variable: vike
+        units: "J m**-2"
+
+      "vertical-integral-of-mass-of-atmosphere-daily":
+        cds_variable: vertical_integral_of_mass_of_atmosphere
+        nc_variable: vima
+        units: "kg m**-2"
+
+      "vertical-integral-of-mass-tendency-daily":
+        cds_variable: vertical_integral_of_mass_tendency
+        nc_variable: vimat
+        units: "kg m**-2 s**-1"
+
+      "vertical-integral-of-northward-cloud-frozen-water-flux-daily":
+        cds_variable: vertical_integral_of_northward_cloud_frozen_water_flux
+        nc_variable: viiwn
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-northward-cloud-liquid-water-flux-daily":
+        cds_variable: vertical_integral_of_northward_cloud_liquid_water_flux
+        nc_variable: vilwn
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-northward-geopotential-flux-daily":
+        cds_variable: vertical_integral_of_northward_geopotential_flux
+        nc_variable: vign
+        units: "W m**-1"
+
+      "vertical-integral-of-northward-heat-flux-daily":
+        cds_variable: vertical_integral_of_northward_heat_flux
+        nc_variable: vithen
+        units: "W m**-1"
+
+      "vertical-integral-of-northward-kinetic-energy-flux-daily":
+        cds_variable: vertical_integral_of_northward_kinetic_energy_flux
+        nc_variable: viken
+        units: "W m**-1"
+
+      "vertical-integral-of-northward-mass-flux-daily":
+        cds_variable: vertical_integral_of_northward_mass_flux
+        nc_variable: viman
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-northward-ozone-flux-daily":
+        cds_variable: vertical_integral_of_northward_ozone_flux
+        nc_variable: viozn
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-northward-total-energy-flux-daily":
+        cds_variable: vertical_integral_of_northward_total_energy_flux
+        nc_variable: viten
+        units: "W m**-1"
+
+      "vertical-integral-of-northward-water-vapour-flux-daily":
+        cds_variable: vertical_integral_of_northward_water_vapour_flux
+        nc_variable: viwvn
+        units: "kg m**-1 s**-1"
+
+      "vertical-integral-of-potential-and-internal-energy-daily":
+        cds_variable: vertical_integral_of_potential_and_internal_energy
+        nc_variable: vipie
+        units: "J m**-2"
+
+      "vertical-integral-of-potential-internal-and-latent-energy-daily":
+        cds_variable: vertical_integral_of_potential_internal_and_latent_energy
+        nc_variable: vipile
+        units: "J m**-2"
+
+      "vertical-integral-of-temperature-daily":
+        cds_variable: vertical_integral_of_temperature
+        nc_variable: vit
+        units: "K kg m**-2"
+
+      "vertical-integral-of-thermal-energy-daily":
+        cds_variable: vertical_integral_of_thermal_energy
+        nc_variable: vithed
+        units: "W m**-2"
+
+      "vertical-integral-of-total-energy-daily":
+        cds_variable: vertical_integral_of_total_energy
+        nc_variable: vitoe
+        units: "J m**-2"
+
+      "vertically-integrated-moisture-divergence-daily":
+        cds_variable: vertically_integrated_moisture_divergence
+        nc_variable: vimd
+        units: "kg m**-2"
+
+      "volumetric-soil-water-layer-1-daily":
+        cds_variable: volumetric_soil_water_layer_1
+        nc_variable: swvl1
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-2-daily":
+        cds_variable: volumetric_soil_water_layer_2
+        nc_variable: swvl2
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-3-daily":
+        cds_variable: volumetric_soil_water_layer_3
+        nc_variable: swvl3
+        units: "m**3 m**-3"
+
+      "volumetric-soil-water-layer-4-daily":
+        cds_variable: volumetric_soil_water_layer_4
+        nc_variable: swvl4
+        units: "m**3 m**-3"
+
+      "wave-spectral-directional-width-daily":
+        cds_variable: wave_spectral_directional_width
+        nc_variable: wdw
+        units: radians
+
+      "wave-spectral-directional-width-for-swell-daily":
+        cds_variable: wave_spectral_directional_width_for_swell
+        nc_variable: dwps
+        units: radians
+
+      "wave-spectral-directional-width-for-wind-waves-daily":
+        cds_variable: wave_spectral_directional_width_for_wind_waves
+        nc_variable: dwww
+        units: radians
+
+      "wave-spectral-kurtosis-daily":
+        cds_variable: wave_spectral_kurtosis
+        nc_variable: wsk
+        units: dimensionless
+
+      "wave-spectral-peakedness-daily":
+        cds_variable: wave_spectral_peakedness
+        nc_variable: wsp
+        units: dimensionless
+
+      "wave-spectral-skewness-daily":
+        cds_variable: wave_spectral_skewness
+        nc_variable: wss
+        units: Numeric
+
+      "zero-degree-level-daily":
+        cds_variable: zero_degree_level
+        nc_variable: deg0l
+        units: m
+
+  derived-era5-pressure-levels-daily-statistics:
+    # CDS daily aggregations of ERA5 pressure-levels. Mirrors the
+    # reanalysis-era5-pressure-levels variable set, with the same
+    # nc_variable / units. ``pressure_level`` is propagated from
+    # the parent dataset; per-row may override.
+    pressure_level: ["1000"]
+    extras:
+      daily_statistic: daily_mean
+      frequency: "1_hourly"
+      time_zone: "utc+00:00"
+    variables:
+
+      "divergence-daily":
+        cds_variable: divergence
+        nc_variable: vimd
+        units: "kg m**-2"
+
+      "fraction-of-cloud-cover-daily":
+        cds_variable: fraction_of_cloud_cover
+        nc_variable: cc
+        units: "(0 - 1)"
+
+      "geopotential-daily":
+        cds_variable: geopotential
+        nc_variable: z
+        units: "m**2 s**-2"
+
+      "ozone-mass-mixing-ratio-daily":
+        cds_variable: ozone_mass_mixing_ratio
+        nc_variable: o3
+        units: "kg kg**-1"
+
+      "potential-vorticity-daily":
+        cds_variable: potential_vorticity
+        nc_variable: pv
+        units: "K m**2 kg**-1 s**-1"
+
+      "relative-humidity-daily":
+        cds_variable: relative_humidity
+        nc_variable: r
+        types: state
+        units: "%"
+
+      "specific-cloud-ice-water-content-daily":
+        cds_variable: specific_cloud_ice_water_content
+        nc_variable: ciwc
+        units: "kg kg**-1"
+
+      "specific-cloud-liquid-water-content-daily":
+        cds_variable: specific_cloud_liquid_water_content
+        nc_variable: clwc
+        units: "kg kg**-1"
+
+      "specific-humidity-daily":
+        cds_variable: specific_humidity
+        nc_variable: q
+        types: state
+        units: "kg kg**-1"
+
+      "specific-rain-water-content-daily":
+        cds_variable: specific_rain_water_content
+        nc_variable: crwc
+        units: "kg kg**-1"
+
+      "specific-snow-water-content-daily":
+        cds_variable: specific_snow_water_content
+        nc_variable: cswc
+        units: "kg kg**-1"
+
+      "temperature-daily":
+        cds_variable: temperature
+        nc_variable: t
+        types: state
+        units: K
+
+      "u-component-of-wind-daily":
+        cds_variable: u_component_of_wind
+        nc_variable: u100
+        units: "m s**-1"
+
+      "v-component-of-wind-daily":
+        cds_variable: v_component_of_wind
+        nc_variable: v100
+        units: "m s**-1"
+
+      "vertical-velocity-daily":
+        cds_variable: vertical_velocity
+        nc_variable: w
+        units: "Pa s**-1"
+
+      "vorticity-daily":
+        cds_variable: vorticity
+        nc_variable: vo
+        units: "s**-1"
