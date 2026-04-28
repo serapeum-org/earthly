@@ -257,6 +257,44 @@ class TestCatalog:
             "time_zone": "utc+00:00",
         }
 
+    def test_oras5_loads(self):
+        """ORAS5 ocean reanalysis block round-trips through ``Catalog``.
+
+        Asserts the dataset is exposed under ``datasets``, has no
+        monthly variant (it is monthly-only by design), and a known
+        single-level variable resolves to the expected NEMO short name.
+        """
+        cat = Catalog()
+        ds = cat.datasets["reanalysis-oras5"]
+        assert ds.monthly is None
+        assert len(ds.variables) == 27
+        spec = ds.variables["sea-ice-thickness"]
+        assert spec.cds_dataset == "reanalysis-oras5"
+        assert spec.cds_variable == "sea_ice_thickness"
+        assert spec.nc_variable == "iicethic"
+        assert spec.units == "m"
+        assert spec.extras["vertical_resolution"] == "single_level"
+        assert spec.extras["product_type"] == ["consolidated"]
+
+    def test_oras5_all_levels_variables(self):
+        """ORAS5's six 3-D fields override the parent default with all_levels."""
+        ds = Catalog().datasets["reanalysis-oras5"]
+        all_levels_vars = {
+            code: var
+            for code, var in ds.variables.items()
+            if var.extras["vertical_resolution"] == "all_levels"
+        }
+        assert set(all_levels_vars) == {
+            "meridional-velocity",
+            "potential-temperature",
+            "rotated-meridional-velocity",
+            "rotated-zonal-velocity",
+            "salinity",
+            "zonal-velocity",
+        }
+        assert all_levels_vars["potential-temperature"].nc_variable == "votemper"
+        assert all_levels_vars["salinity"].nc_variable == "vosaline"
+
     def test_era5_land_snow_depth_uses_sde_not_sd(self):
         """ERA5-Land's snow_depth maps to ``sde`` (m), not ``sd`` (m water equiv).
 

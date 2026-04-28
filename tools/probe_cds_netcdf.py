@@ -47,6 +47,7 @@ def fetch_one_batch(
     extras: dict[str, Any] | None = None,
 ) -> Path:
     """Submit a single retrieve for ``variables`` and return the file path."""
+    area = (extras or {}).pop("area", None) if extras else None
     request: dict[str, Any] = {
         "variable": variables,
         "year": ["2022"],
@@ -54,12 +55,26 @@ def fetch_one_batch(
         "day": ["01"],
         "time": ["00:00"],
         "data_format": "netcdf",
-        "area": [4.5, -75.5, 4.0, -74.5],
+        "area": area or [4.5, -75.5, 4.0, -74.5],
     }
     if not any(token in dataset for token in _DERIVED_DATASETS_NO_PRODUCT_TYPE):
         request["product_type"] = ["reanalysis"]
     if extras:
         request.update(extras)
+    # CARRA-means and similar aggregated datasets do not accept the
+    # sub-daily ``time`` selector — the aggregate is over the whole
+    # window indicated by ``time_aggregation``. Drop ``time`` whenever
+    # ``time_aggregation`` is supplied.
+    if "time_aggregation" in request:
+        request.pop("time", None)
+    # ORAS5 (and other monthly-only ocean datasets) reject ``day`` /
+    # ``time`` outright — the constraints only carry year + month.
+    # ORAS5 also fails when ``area`` falls outside the ocean grid;
+    # drop the bbox and let the request return the global field.
+    if "oras5" in dataset:
+        request.pop("day", None)
+        request.pop("time", None)
+        request.pop("area", None)
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)
         client.retrieve(dataset, request, str(target))
@@ -111,7 +126,15 @@ def main() -> int:
     parser.add_argument(
         "--variables",
         required=True,
-        help="comma-separated CDS variable names",
+        help=(
+            "comma-separated CDS variable names. Use ``--var-sep`` to change "
+            "the separator when a variable name itself contains commas."
+        ),
+    )
+    parser.add_argument(
+        "--var-sep",
+        default=",",
+        help="variable list separator (default: comma)",
     )
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--batch-tag", default="probe")
@@ -122,7 +145,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    variables = [v.strip() for v in args.variables.split(",") if v.strip()]
+    variables = [v.strip() for v in args.variables.split(args.var_sep) if v.strip()]
     extras = json.loads(args.extras) if args.extras else None
     cache_target = CACHE_DIR / f"{args.dataset}_{args.batch_tag}.nc"
     client = cdsapi.Client()

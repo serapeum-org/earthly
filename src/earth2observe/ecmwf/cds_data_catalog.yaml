@@ -1816,3 +1816,178 @@ datasets:
         nc_variable: swvl4
         types: state
         units: "m**3 m**-3"
+
+  reanalysis-oras5:
+    # Monthly-only ocean reanalysis from ECMWF (NEMO 3.4.1, ORCA025
+    # grid). ``product_type`` selects the temporal coverage:
+    # ``consolidated`` covers 1958-2014 (the default); ``operational``
+    # covers 2015 onwards. ``vertical_resolution`` is per-variable —
+    # 21 of the 27 fields are 2-D (``single_level``) and 6 are 3-D
+    # (``all_levels``); each variable row pins its own value via the
+    # row-level ``extras`` map. ORAS5 returns NEMO-style nc_variables
+    # (``vomecrty`` etc.) rather than ECMWF GRIB short names.
+    extras:
+      product_type: [consolidated]
+    variables:
+
+      "depth-of-14-c-isotherm":
+        nc_variable: so14chgt
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "depth-of-17-c-isotherm":
+        nc_variable: so17chgt
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "depth-of-20-c-isotherm":
+        nc_variable: so20chgt
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "depth-of-26-c-isotherm":
+        nc_variable: so26chgt
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "depth-of-28-c-isotherm":
+        nc_variable: so28chgt
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "meridional-velocity":
+        nc_variable: vomecrty
+        units: "m/s"
+        extras:
+          vertical_resolution: all_levels
+
+      "meridional-wind-stress":
+        nc_variable: sometauy
+        units: "N/m2"
+        extras:
+          vertical_resolution: single_level
+
+      "mixed-layer-depth-0-01":
+        nc_variable: somxl010
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "mixed-layer-depth-0-03":
+        nc_variable: somxl030
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "net-downward-heat-flux":
+        nc_variable: sohefldo
+        units: "W/m2"
+        extras:
+          vertical_resolution: single_level
+
+      "net-upward-water-flux":
+        nc_variable: sowaflup
+        units: "Kg/m2/s"
+        extras:
+          vertical_resolution: single_level
+
+      "ocean-heat-content-for-the-total-water-column":
+        nc_variable: sohtcbtm
+        units: "J/m2"
+        extras:
+          vertical_resolution: single_level
+
+      "ocean-heat-content-for-the-upper-300m":
+        nc_variable: sohtc300
+        units: "J/m2"
+        extras:
+          vertical_resolution: single_level
+
+      "ocean-heat-content-for-the-upper-700m":
+        nc_variable: sohtc700
+        units: "J/m2"
+        extras:
+          vertical_resolution: single_level
+
+      "potential-temperature":
+        nc_variable: votemper
+        units: C
+        extras:
+          vertical_resolution: all_levels
+
+      "rotated-meridional-velocity":
+        nc_variable: vomecrtn
+        units: "m/s"
+        extras:
+          vertical_resolution: all_levels
+
+      "rotated-zonal-velocity":
+        nc_variable: vozocrte
+        units: "m/s"
+        extras:
+          vertical_resolution: all_levels
+
+      salinity:
+        nc_variable: vosaline
+        units: PSU
+        extras:
+          vertical_resolution: all_levels
+
+      "sea-ice-concentration":
+        nc_variable: ileadfra
+        units: Fraction
+        extras:
+          vertical_resolution: single_level
+
+      "sea-ice-meridional-velocity":
+        nc_variable: iicevelv
+        units: "m/s"
+        extras:
+          vertical_resolution: single_level
+
+      "sea-ice-thickness":
+        nc_variable: iicethic
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "sea-ice-zonal-velocity":
+        nc_variable: iicevelu
+        units: "m/s"
+        extras:
+          vertical_resolution: single_level
+
+      "sea-surface-height":
+        nc_variable: sossheig
+        units: m
+        extras:
+          vertical_resolution: single_level
+
+      "sea-surface-salinity":
+        nc_variable: sosaline
+        units: PSU
+        extras:
+          vertical_resolution: single_level
+
+      "sea-surface-temperature":
+        nc_variable: sosstsst
+        units: C
+        extras:
+          vertical_resolution: single_level
+
+      "zonal-velocity":
+        nc_variable: vozocrtx
+        units: "m/s"
+        extras:
+          vertical_resolution: all_levels
+
+      "zonal-wind-stress":
+        nc_variable: sozotaux
+        units: "N/m2"
+        extras:
+          vertical_resolution: single_level

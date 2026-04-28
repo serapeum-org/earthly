@@ -102,6 +102,14 @@ The catalog ships ~338 ERA5 entries across three datasets:
   `frequency: 1_hourly`, `time_zone: utc+00:00`); pass overrides via
   the per-row `extras:` map to fetch min / max / range or a different
   output frequency.
+- `reanalysis-oras5` — 27-variable monthly ocean reanalysis (NEMO
+  3.4.1 on the ORCA025 grid). 21 vars are 2-D surface fields; 6 vars
+  (velocities, temperature, salinity, rotated velocities) are 3-D and
+  carry `vertical_resolution: all_levels` per row. Dataset-level
+  `extras` defaults to `product_type: [consolidated]` (1958-2014);
+  override to `operational` for 2015-onwards. Note: ORAS5 returns
+  NEMO short names (`vomecrty`, `votemper`, `vosaline`, …) rather
+  than the ECMWF GRIB short names used elsewhere in the catalog.
 
 Browse the full list of CDS dataset short names at
 <https://cds.climate.copernicus.eu/datasets?q=era5>. To add a new
