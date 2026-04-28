@@ -161,7 +161,9 @@ either name works; it satisfies the abstract base class contract.
 ### CMIP6 datasets (partially deferred)
 
 The two CMIP6 entries on CDS — `projections-cmip6` (51 vars) and
-`projections-cmip6-decadal-prototype` (6 vars) — sit behind a
+`projections-cmip6-decadal-prototype` (6 vars; adds `base_year`
+on top of the standard CMIP6 extras and offers shorter ensemble
+runs) — sit behind a
 ROOCS-flavoured retrieval pipeline that is **infrastructurally
 unstable** today. With every licence accepted, single-variable
 requests for `near_surface_air_temperature` succeeded once, but
