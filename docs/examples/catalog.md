@@ -158,6 +158,45 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
+### CARRA, CERRA, PAN-CARRA, UERRA reanalysis families (deferred)
+
+The four high-resolution regional reanalysis families on CDS —
+**CARRA** (5 datasets, ~167 vars), **CERRA** (5 datasets, ~100
+vars), **PAN-CARRA** (2 datasets, ~145 vars), and **UERRA Europe**
+(4 datasets, ~34 vars) — are all licence-accepted on this account
+but **the CDS reanalysis-* queue is degraded** for these
+collections at the time of writing: probe requests sit in
+`accepted` status for 30+ minutes without transitioning to
+`running`, even after stale-job cleanup. ERA5 / ORAS5 retrievals
+on the same account complete in 1-3 minutes; the regional
+reanalyses appear to be on a separate, slower worker pool.
+
+**These datasets are not curated by this package today.** Each
+family already has its `request_kind` plumbing in place (`M15`):
+CARRA-means and CERRA-means need `request_kind: carra_means` to
+strip the `time` selector; the others fit `form` with extras
+(`domain`, `leadtime_hour`, `level_type`, etc.). Retrying probes
+when the CDS queue clears (or via the slower web form
+interactively) should produce the catalog rows; the CMIP-style
+naming convention used elsewhere does not apply here — CARRA /
+CERRA return ECMWF GRIB short names. Worth re-running in a
+future session.
+
+### Seasonal forecast family (deferred)
+
+The seven seasonal forecast datasets — `seasonal-monthly-*`,
+`seasonal-postprocessed-*`, `seasonal-original-*`, and
+`seasonal-monthly-ocean` (~143 vars total) — are also licence-
+accepted but share the same CDS queue degradation observed for
+the regional reanalysis families. Probes for
+`seasonal-monthly-single-levels` sat in `accepted` status for 30+
+minutes without progress; deferring to a future session. The
+extras schema is well-defined per the plan
+(`leadtime_month` or `leadtime_hour`, `originating_centre`,
+`system`); once the queue clears, probing one variable per
+sub-dataset should be enough to confirm nc_var naming, then a
+catalog block can be authored mechanically.
+
 ### CMIP6 datasets (partially deferred)
 
 The two CMIP6 entries on CDS — `projections-cmip6` (51 vars) and
