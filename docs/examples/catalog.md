@@ -166,9 +166,11 @@ The four high-resolution regional reanalysis families on CDS —
 + `soil_layer` extras), **PAN-CARRA** (2 datasets, ~145 vars;
 pan-Arctic, mirrors CARRA's request shape minus the East/West
 domain split, uses `level_location` instead of `soil_level`), and
-**UERRA Europe** (4 datasets, ~34 vars; with
-`origin` extra picking between the HARMONIE and MESCAN-SURFEX
-analyses) — are all licence-accepted on this account
+**UERRA Europe** (4 datasets, ~34 vars: single / pressure /
+height / soil-levels; `origin` extra picks between UERRA-HARMONIE
+and MESCAN-SURFEX surface analyses; ECMWF deprecated this dataset
+in 2025-01 but it is still served as-is) — are all licence-accepted
+on this account
 but **the CDS reanalysis-* queue is degraded** for these
 collections at the time of writing: probe requests sit in
 `accepted` status for 30+ minutes without transitioning to
