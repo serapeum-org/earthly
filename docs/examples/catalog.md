@@ -129,6 +129,33 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
+### Non-addressable CDS datasets
+
+A handful of entries in `available_datasets:` are **listed for
+discovery but cannot be requested through cdsapi**. They surface in
+the index because users who browse the YAML may want to know they
+exist, but the package will not be able to download them — either
+because CDS exposes them through a different protocol, or because
+the dataset's `/constraints.json` endpoint returns empty / 404.
+
+| Dataset | Reason | Workaround |
+|---|---|---|
+| `reanalysis-era5-complete` | MARS-only — accepts the full ECMWF MARS request language, not the cdsapi form. No public constraints file. | Use the MARS-ECMWFAPI client directly; this package does not wrap it. |
+| `reanalysis-uerra-europe-complete` | Same — MARS-only sibling of the UERRA Europe family. The `single-levels` / `pressure-levels` / `height-levels` / `soil-levels` siblings are addressable (covered by `M4`). | Use the addressable UERRA siblings, or fall back to MARS. |
+| `derived-reanalysis-energy-moisture-budget` | `/constraints.json` returns an empty list — the dataset is not currently published for retrieval. | Watch the dataset page; re-add when constraints surface. |
+| `derived-utci-historical-timeseries` | Empty constraints — see also `M7` (the form-based `derived-utci-historical` is addressable). | Use the form-based variant. |
+| `insitu-gridded-observations-alpine-precipitation` | Empty constraints — likely admin-restricted. | None today; track upstream. |
+| `satellite-ice-sheet-mass-balance` | Empty constraints — provider-specific download protocol. | Fetch directly from the provider site linked on CDS. |
+| `satellite-terrestrial-water-storage` | Empty constraints — same. | Same. |
+| `sis-health-vector` | Empty constraints — likely admin-restricted. | None. |
+| `sis-temperature-statistics` | Empty constraints. | None. |
+| `provider-c3s-data-rescue-without` | No `/constraints.json` endpoint — placeholder collection. | Skip; ignore if the dataset re-emerges with proper constraints. |
+
+These ten remain in the `available_datasets:` index as a forward
+pointer for users; promoting any of them to a curated row under
+`datasets:` is a no-op until CDS publishes constraints, so don't
+attempt it speculatively.
+
 ### Refreshing `available_datasets`
 
 CDS adds and retires datasets a few times a year; the
