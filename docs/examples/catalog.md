@@ -191,11 +191,13 @@ future session.
 
 ### Seasonal forecast family (deferred)
 
-The seven seasonal forecast datasets — `seasonal-monthly-*`,
-`seasonal-postprocessed-*`, `seasonal-original-*`, and
-`seasonal-monthly-ocean` (~143 vars total) — are also licence-
-accepted but share the same CDS queue degradation observed for
-the regional reanalysis families. Probes for
+The seven seasonal forecast datasets — `seasonal-monthly-*`
+(monthly aggregates of pressure-levels / single-levels),
+`seasonal-postprocessed-*` (post-processed pressure-levels /
+single-levels), `seasonal-original-*` (raw forecasts), and
+`seasonal-monthly-ocean` (~143 vars total across all seven) —
+are also licence-accepted but share the same CDS queue
+degradation observed for the regional reanalysis families. Probes for
 `seasonal-monthly-single-levels` sat in `accepted` status for 30+
 minutes without progress; deferring to a future session. The
 extras schema is well-defined per the plan
