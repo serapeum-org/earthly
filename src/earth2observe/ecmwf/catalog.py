@@ -111,6 +111,7 @@ class Dataset(BaseModel):
     monthly: str | None = None
     pressure_level: list[str] | None = None
     extras: dict[str, Any] = Field(default_factory=dict)
+    request_kind: str = "form"
     variables: dict[str, Variable] = Field(default_factory=dict)
 
 
@@ -206,6 +207,7 @@ class Catalog(AbstractCatalog):
             monthly = ds_body.get("monthly")
             pressure_level = ds_body.get("pressure_level")
             ds_extras = dict(ds_body.get("extras") or {})
+            ds_request_kind = ds_body.get("request_kind", "form")
             ds_vars: dict[str, Variable] = {}
             for code, entry in (ds_body.get("variables") or {}).items():
                 merged = dict(entry)
@@ -228,6 +230,7 @@ class Catalog(AbstractCatalog):
                 # carrying a different leadtime than the rest).
                 row_extras = dict(merged.get("extras") or {})
                 merged["extras"] = {**ds_extras, **row_extras}
+                merged.setdefault("request_kind", ds_request_kind)
                 var = Variable.from_dict(code, merged)
                 ds_vars[code] = var
                 flat[code] = var
@@ -235,6 +238,7 @@ class Catalog(AbstractCatalog):
                 monthly=monthly,
                 pressure_level=pressure_level,
                 extras=ds_extras,
+                request_kind=ds_request_kind,
                 variables=ds_vars,
             )
 

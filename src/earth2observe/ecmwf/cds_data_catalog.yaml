@@ -1825,7 +1825,11 @@ datasets:
     # 21 of the 27 fields are 2-D (``single_level``) and 6 are 3-D
     # (``all_levels``); each variable row pins its own value via the
     # row-level ``extras`` map. ORAS5 returns NEMO-style nc_variables
-    # (``vomecrty`` etc.) rather than ECMWF GRIB short names.
+    # (``vomecrty`` etc.) rather than ECMWF GRIB short names. The
+    # ``oceanic_monthly`` request_kind tells ECMWF.api() to drop the
+    # ERA5 template defaults that ORAS5 rejects (``day``, ``time``,
+    # ``area``, ``product_type``).
+    request_kind: oceanic_monthly
     extras:
       product_type: [consolidated]
     variables:

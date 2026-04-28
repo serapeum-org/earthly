@@ -336,6 +336,81 @@ class TestApi:
         ecmwf_stub.api(spec)
         assert captured_request(ecmwf_stub)["product_type"] == ["ensemble_mean"]
 
+    def test_oceanic_monthly_strips_day_time_area_product_type(self, ecmwf_stub):
+        """``request_kind=oceanic_monthly`` drops ERA5 template defaults.
+
+        ORAS5 rejects ``day`` / ``time`` / ``area`` and uses a
+        non-ERA5 ``product_type`` value. The strip happens after the
+        extras merge so the row's ``vertical_resolution`` and
+        ``product_type`` (consolidated) survive.
+        """
+        ecmwf_stub.temporal_resolution = "daily"
+        spec = Variable(
+            cds_dataset="reanalysis-oras5",
+            cds_variable="sea_ice_thickness",
+            nc_variable="iicethic",
+            units="m",
+            request_kind="oceanic_monthly",
+            extras={
+                "product_type": ["consolidated"],
+                "vertical_resolution": "single_level",
+            },
+        )
+        ecmwf_stub.api(spec)
+        request = captured_request(ecmwf_stub)
+        assert "day" not in request
+        assert "time" not in request
+        assert "area" not in request
+        assert request["product_type"] == ["consolidated"]
+        assert request["vertical_resolution"] == "single_level"
+        assert request["variable"] == ["sea_ice_thickness"]
+
+    def test_carra_means_strips_time(self, ecmwf_stub):
+        """``request_kind=carra_means`` drops ``time`` (aggregate window)."""
+        spec = Variable(
+            cds_dataset="reanalysis-carra-means",
+            cds_variable="2m_temperature",
+            nc_variable="t2m",
+            units="K",
+            request_kind="carra_means",
+            extras={
+                "product_type": ["analysis_based"],
+                "domain": "east_domain",
+                "time_aggregation": "daily",
+            },
+        )
+        ecmwf_stub.api(spec)
+        request = captured_request(ecmwf_stub)
+        assert "time" not in request
+        assert request["product_type"] == ["analysis_based"]
+        assert request["time_aggregation"] == "daily"
+
+    def test_form_request_kind_is_unchanged(
+        self, ecmwf_stub, single_level_var_info
+    ):
+        """The default ``form`` request_kind keeps every template key."""
+        ecmwf_stub.api(single_level_var_info)
+        request = captured_request(ecmwf_stub)
+        for key in ("day", "time", "area", "product_type"):
+            assert key in request
+
+    def test_extras_can_re_introduce_a_stripped_key(self, ecmwf_stub):
+        """Setting a stripped key in extras keeps it in the request."""
+        spec = Variable(
+            cds_dataset="reanalysis-oras5",
+            cds_variable="sea_surface_temperature",
+            nc_variable="sosstsst",
+            units="C",
+            request_kind="oceanic_monthly",
+            extras={
+                "area": [60, -10, 50, 5],
+                "product_type": ["operational"],
+            },
+        )
+        ecmwf_stub.api(spec)
+        request = captured_request(ecmwf_stub)
+        assert request["area"] == [60, -10, 50, 5]
+
     def test_empty_extras_leave_request_unchanged(
         self, ecmwf_stub, single_level_var_info
     ):

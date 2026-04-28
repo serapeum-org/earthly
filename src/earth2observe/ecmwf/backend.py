@@ -26,6 +26,23 @@ LEGACY_MARS_KEYS: frozenset[str] = frozenset(
     {"number_para", "download type", "var_name"}
 )
 
+# Per-request-kind keys to drop from the request dict before the
+# retrieve call. The keys here name the *template defaults* (built
+# unconditionally by :meth:`ECMWF.api`) that are invalid for the
+# named request kind. Per-row ``extras`` are still merged on top, so
+# users can supply alternative values for any stripped key.
+REQUEST_KIND_STRIPS: dict[str, tuple[str, ...]] = {
+    "form": (),
+    # ORAS5 (and any monthly ocean dataset that mirrors NEMO's
+    # request shape): no ``day`` / ``time`` selectors, no ``area``
+    # bbox cropping. ``product_type`` arrives via ``extras``.
+    "oceanic_monthly": ("day", "time", "area", "product_type"),
+    # CARRA-means and similar aggregate datasets: drop ``time``
+    # because the aggregate is over the window indicated by
+    # ``time_aggregation``. ``product_type`` arrives via extras.
+    "carra_means": ("time", "product_type"),
+}
+
 
 class AuthenticationError(Exception):
     """Raised when cdsapi cannot authenticate against the Climate Data Store.
@@ -96,6 +113,7 @@ class Variable(BaseModel):
     cds_pressure_level: list[str] | None = None
     types: str | None = None
     extras: dict[str, Any] = Field(default_factory=dict)
+    request_kind: str = "form"
 
     @field_validator("extras", mode="before")
     @classmethod
@@ -962,6 +980,14 @@ class ECMWF(AbstractDataSource):
         # wins over any same-named template default. This is the escape
         # hatch the catalog uses to address non-ERA5 datasets.
         request.update(var_info.extras)
+
+        # Strip template defaults that the dataset's request_kind
+        # forbids (e.g. ORAS5 rejects ``day``/``time``/``area``).
+        # Done after the extras merge so a user can re-introduce a
+        # stripped key by setting it explicitly in extras.
+        for stripped in REQUEST_KIND_STRIPS.get(var_info.request_kind, ()):
+            if stripped not in var_info.extras:
+                request.pop(stripped, None)
 
         target = self.root_dir / f"{var_info.cds_variable}_{dataset}.nc"
         logger.info(

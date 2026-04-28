@@ -318,6 +318,24 @@ class TestCatalog:
         assert spec.extras["vertical_resolution"] == "single_level"
         assert spec.extras["product_type"] == ["consolidated"]
 
+    def test_oras5_carries_oceanic_monthly_request_kind(self):
+        """ORAS5 declares ``request_kind=oceanic_monthly`` so api() can strip
+        ERA5-specific defaults at retrieve time."""
+        cat = Catalog()
+        ds = cat.datasets["reanalysis-oras5"]
+        assert ds.request_kind == "oceanic_monthly"
+        # Propagated to every variable row.
+        for var in ds.variables.values():
+            assert var.request_kind == "oceanic_monthly"
+
+    def test_default_request_kind_is_form(self):
+        """Datasets that don't set ``request_kind`` default to ``form``."""
+        cat = Catalog()
+        ds = cat.datasets["reanalysis-era5-single-levels"]
+        assert ds.request_kind == "form"
+        spec = ds.variables["2m-temperature"]
+        assert spec.request_kind == "form"
+
     def test_oras5_all_levels_variables(self):
         """ORAS5's six 3-D fields override the parent default with all_levels."""
         ds = Catalog().datasets["reanalysis-oras5"]
