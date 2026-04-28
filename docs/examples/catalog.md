@@ -164,7 +164,9 @@ The four high-resolution regional reanalysis families on CDS —
 **CARRA** (5 datasets, ~167 vars; East/West Greenland domains),
 **CERRA** (5 datasets, ~100 vars; European domain with `data_type`
 + `soil_layer` extras), **PAN-CARRA** (2 datasets, ~145 vars;
-pan-Arctic), and **UERRA Europe** (4 datasets, ~34 vars; with
+pan-Arctic, mirrors CARRA's request shape minus the East/West
+domain split, uses `level_location` instead of `soil_level`), and
+**UERRA Europe** (4 datasets, ~34 vars; with
 `origin` extra picking between the HARMONIE and MESCAN-SURFEX
 analyses) — are all licence-accepted on this account
 but **the CDS reanalysis-* queue is degraded** for these
