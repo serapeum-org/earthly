@@ -111,6 +111,18 @@ The catalog ships ~338 ERA5 entries across three datasets:
   variables from ERA5 pressure-levels (default `["1000"]` hPa).
   Same `daily_statistic` / `frequency` / `time_zone` extras as the
   single-levels variant.
+- `projections-cordex-domains-single-levels` — 16 of 25 catalogued
+  CORDEX regional climate projection variables. Default extras pin
+  the EURO-CORDEX EC-Earth/RACMO22E historical run on the 0.11°
+  grid (`domain: europe`, `experiment: historical`,
+  `gcm_model: ichec_ec_earth`, `rcm_model: knmi_racmo22e`). Override
+  per-request to switch scenario (`experiment`), model pair
+  (`gcm_model`/`rcm_model`), or domain. Keys are suffixed with
+  `-cordex` to avoid colliding with same-named ERA5 single-levels
+  rows. The 9 missing vars (10m u/v wind, surface pressure, total
+  runoff, 200hPa upper-air fields, land-area fraction, orography)
+  are not present in the default model combination — probe a
+  different gcm/rcm pair if you need them.
 - `reanalysis-oras5` — 27-variable monthly ocean reanalysis (NEMO
   3.4.1 on the ORCA025 grid). 21 vars are 2-D surface fields; 6 vars
   (velocities, temperature, salinity, rotated velocities) are 3-D and

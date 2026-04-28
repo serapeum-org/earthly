@@ -36,6 +36,13 @@ _DERIVED_DATASETS_NO_PRODUCT_TYPE = (
     "derived-era5-land-daily-statistics",
     "derived-era5-single-levels-daily-statistics",
     "derived-era5-pressure-levels-daily-statistics",
+    # Climate projections (CMIP5/6/decadal/CORDEX) and the climate
+    # atlases do not accept the ERA5-flavoured ``product_type``
+    # selector — they identify scenarios via ``experiment`` /
+    # ``model`` instead.
+    "projections-",
+    "climate-atlas",
+    "multi-origin-c3s-atlas",
 )
 
 
@@ -47,6 +54,7 @@ def fetch_one_batch(
     extras: dict[str, Any] | None = None,
 ) -> Path:
     """Submit a single retrieve for ``variables`` and return the file path."""
+    has_area = "area" in (extras or {})
     area = (extras or {}).pop("area", None) if extras else None
     request: dict[str, Any] = {
         "variable": variables,
@@ -55,8 +63,15 @@ def fetch_one_batch(
         "day": ["01"],
         "time": ["00:00"],
         "data_format": "netcdf",
-        "area": area or [4.5, -75.5, 4.0, -74.5],
     }
+    # Pass an explicit ``area: null`` (or omit it on the CLI) to skip
+    # the bbox subset entirely — required for datasets that use
+    # rotated grids or whose native domain doesn't intersect the
+    # default Colombia probe bbox.
+    if has_area and area is None:
+        pass  # area dropped intentionally
+    else:
+        request["area"] = area or [4.5, -75.5, 4.0, -74.5]
     if not any(token in dataset for token in _DERIVED_DATASETS_NO_PRODUCT_TYPE):
         request["product_type"] = ["reanalysis"]
     if extras:

@@ -299,6 +299,36 @@ class TestCatalog:
         with pytest.raises(KeyError):
             Catalog().describe("definitely-not-a-dataset")
 
+    def test_cordex_loads(self):
+        """CORDEX block round-trips through ``Catalog``.
+
+        Asserts the dataset is exposed, the parent extras carry the
+        EURO-CORDEX EC-Earth/RACMO22E historical defaults, and a
+        sample variable resolves to its CMOR short name.
+        """
+        cat = Catalog()
+        ds = cat.datasets["projections-cordex-domains-single-levels"]
+        assert ds.extras["domain"] == "europe"
+        assert ds.extras["gcm_model"] == "ichec_ec_earth"
+        assert ds.extras["rcm_model"] == "knmi_racmo22e"
+        assert ds.extras["experiment"] == "historical"
+        spec = ds.variables["2m-air-temperature-cordex"]
+        assert spec.cds_dataset == "projections-cordex-domains-single-levels"
+        assert spec.cds_variable == "2m_air_temperature"
+        assert spec.nc_variable == "tas"
+        assert spec.units == "K"
+        # Parent extras propagate to every variable row.
+        assert spec.extras["gcm_model"] == "ichec_ec_earth"
+
+    def test_cordex_carries_16_confirmed_variables(self):
+        """CORDEX ships 16 of 25 catalogued variables (probe-confirmed)."""
+        ds = Catalog().datasets["projections-cordex-domains-single-levels"]
+        assert len(ds.variables) == 16
+        # All variable keys end with the ``-cordex`` suffix to avoid
+        # colliding with the same-named ERA5 single-levels rows.
+        for code in ds.variables:
+            assert code.endswith("-cordex")
+
     def test_oras5_loads(self):
         """ORAS5 ocean reanalysis block round-trips through ``Catalog``.
 

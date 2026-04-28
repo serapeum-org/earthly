@@ -3427,3 +3427,126 @@ datasets:
         cds_variable: vorticity
         nc_variable: vo
         units: "s**-1"
+
+  projections-cordex-domains-single-levels:
+    # CORDEX regional climate projections. Each request identifies
+    # a (gcm_model × rcm_model × domain × experiment) tuple — only
+    # certain combinations were actually run; consult the CORDEX
+    # validity matrix at https://cordex.org if a request 400s.
+    # Default extras below pick the EURO-CORDEX EC-Earth/RACMO22E
+    # historical run on the 0.11° grid; override per-request to
+    # access other scenarios. Variables use CMIP-standard CMOR short
+    # names (tas, pr, hurs, …). Keys are suffixed with ``-cordex`` to
+    # avoid colliding with the same-named ERA5 single-levels rows.
+    # 16 of 25 catalogued variables are included here — the missing 9
+    # (10m u/v wind, surface pressure, total runoff, 200hPa upper-air,
+    # land-area fraction, orography) are not present in the default
+    # ec_earth/racmo combination; add them in a follow-up if a
+    # downstream user needs them.
+    extras:
+      domain: europe
+      experiment: historical
+      ensemble_member: r1i1p1
+      gcm_model: ichec_ec_earth
+      rcm_model: knmi_racmo22e
+      horizontal_resolution: "0_11_degree_x_0_11_degree"
+      temporal_resolution: monthly_mean
+      start_year: "2001"
+      end_year: "2005"
+    variables:
+
+      "2m-air-temperature-cordex":
+        cds_variable: 2m_air_temperature
+        nc_variable: tas
+        types: state
+        units: K
+
+      "mean-precipitation-flux-cordex":
+        cds_variable: mean_precipitation_flux
+        nc_variable: pr
+        types: flux
+        units: "kg m-2 s-1"
+
+      "10m-wind-speed-cordex":
+        cds_variable: 10m_wind_speed
+        nc_variable: sfcWind
+        types: state
+        units: "m s-1"
+
+      "2m-relative-humidity-cordex":
+        cds_variable: 2m_relative_humidity
+        nc_variable: hurs
+        types: state
+        units: "%"
+
+      "maximum-2m-temperature-in-the-last-24-hours-cordex":
+        cds_variable: maximum_2m_temperature_in_the_last_24_hours
+        nc_variable: tasmax
+        types: state
+        units: K
+
+      "minimum-2m-temperature-in-the-last-24-hours-cordex":
+        cds_variable: minimum_2m_temperature_in_the_last_24_hours
+        nc_variable: tasmin
+        types: state
+        units: K
+
+      "mean-sea-level-pressure-cordex":
+        cds_variable: mean_sea_level_pressure
+        nc_variable: psl
+        types: state
+        units: Pa
+
+      "total-cloud-cover-cordex":
+        cds_variable: total_cloud_cover
+        nc_variable: clt
+        types: state
+        units: "%"
+
+      "evaporation-cordex":
+        cds_variable: evaporation
+        nc_variable: evspsbl
+        types: flux
+        units: "kg m-2 s-1"
+
+      "2m-surface-specific-humidity-cordex":
+        cds_variable: 2m_surface_specific_humidity
+        nc_variable: huss
+        types: state
+        units: "1"
+
+      "surface-solar-radiation-downwards-cordex":
+        cds_variable: surface_solar_radiation_downwards
+        nc_variable: rsds
+        types: flux
+        units: "W m-2"
+
+      "surface-thermal-radiation-downward-cordex":
+        cds_variable: surface_thermal_radiation_downward
+        nc_variable: rlds
+        types: flux
+        units: "W m-2"
+
+      "surface-upwelling-shortwave-radiation-cordex":
+        cds_variable: surface_upwelling_shortwave_radiation
+        nc_variable: rsus
+        types: flux
+        units: "W m-2"
+
+      "850hpa-u-component-of-the-wind-cordex":
+        cds_variable: 850hpa_u_component_of_the_wind
+        nc_variable: ua850
+        types: state
+        units: "m s-1"
+
+      "850hpa-v-component-of-the-wind-cordex":
+        cds_variable: 850hpa_v_component_of_the_wind
+        nc_variable: va850
+        types: state
+        units: "m s-1"
+
+      "500hpa-geopotential-height-cordex":
+        cds_variable: 500hpa_geopotential_height
+        nc_variable: zg500
+        types: state
+        units: m
