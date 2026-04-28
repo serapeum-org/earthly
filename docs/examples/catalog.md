@@ -129,6 +129,34 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
+### ERA5 timeseries datasets (deferred)
+
+CDS publishes two single-cell timeseries endpoints that share the
+ERA5 / ERA5-Land variable lists but use a fundamentally different
+request shape:
+
+* `reanalysis-era5-land-timeseries` — 19 variables.
+* `reanalysis-era5-single-levels-timeseries` — 20 variables.
+
+Their constraints surface only `date` (an ISO range) and `variable`
+— there is no `year` / `month` / `day` / `time` selector. The
+return format is Zarr / CSV rather than NetCDF, so the existing
+`post_download` pipeline (which reads NetCDF via pyramids) does not
+apply.
+
+**These datasets are not curated by this package today.** Adding
+them would require:
+
+1. A new `request_kind="timeseries"` branch in `ECMWF.api()` that
+   builds `{date: f"{start}/{end}"}` from `self.time.start_date` /
+   `self.time.end_date` instead of the year/month/day arrays.
+2. A new reader for the Zarr/CSV output (parallel to the NetCDF
+   path in `post_download`).
+
+If a downstream user needs single-cell timeseries access, file an
+issue and the deferral can be lifted; until then both datasets
+remain in `available_datasets:` for discovery only.
+
 ### Datasets without a `variable` field (22)
 
 Twenty-two CDS datasets do not expose a `variable` selector at all
