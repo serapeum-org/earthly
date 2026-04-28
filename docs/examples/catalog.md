@@ -129,6 +129,31 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
+### Climate Atlas datasets (deferred)
+
+The two Climate Atlas products on CDS — `projections-climate-atlas`
+(22 vars) and `multi-origin-c3s-atlas` (37 vars) — return their
+data as Zarr-flavoured ZIP stores rather than the NetCDF-in-zip
+that the rest of the catalog uses. Standard `zipfile` / GDAL
+readers reject the file ("end-of-central-directory signature not
+found"). The atlas family is interactive-viewer-oriented rather
+than programmatic-pipeline-oriented; ECMWF surfaces it through the
+[Climate Atlas web UI](https://atlas.climate.copernicus.eu/atlas)
+rather than the cdsapi-friendly NetCDF path.
+
+**These datasets are not curated by this package today.** Adding
+them would require:
+
+1. A new `request_kind="atlas"` branch that drops the ERA5
+   template defaults (year/month/day/time/area/product_type) since
+   the Atlas requests do not accept any of them.
+2. A Zarr-aware reader that knows how to peel the ECMWF
+   `RoocsZarrFile` envelope.
+
+If a downstream user needs Atlas access programmatically, file an
+issue. Until then both stay in `available_datasets:` for
+discovery.
+
 ### ERA5 timeseries datasets (deferred)
 
 CDS publishes two single-cell timeseries endpoints that share the
