@@ -129,6 +129,25 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
+### Refreshing `available_datasets`
+
+CDS adds and retires datasets a few times a year; the
+`available_datasets:` block at the top of `cds_data_catalog.yaml` is
+the package's pinned snapshot. Refresh it before each release with:
+
+```bash
+pixi run -e dev python tools/refresh_available_datasets.py
+```
+
+The script pulls the live STAC catalogue from
+`https://cds.climate.copernicus.eu/api/catalogue/v1/collections`,
+groups the entries by family (Reanalyses / Derived / Projections /
+Seasonal / In-situ / Satellite / SIS), and rewrites the
+`available_datasets:` block in place. It does **not** touch the
+curated `datasets:` map — those stay hand-authored. Inspect the diff
+before committing; new entries that fit the existing schema can be
+promoted to `datasets:` in a follow-up PR.
+
 ### Unit conversions
 
 The package returns values in their **native ERA5 units** — the same
