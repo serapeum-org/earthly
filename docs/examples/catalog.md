@@ -158,6 +158,35 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
+### CMIP6 datasets (partially deferred)
+
+The two CMIP6 entries on CDS — `projections-cmip6` (51 vars) and
+`projections-cmip6-decadal-prototype` (6 vars) — sit behind a
+ROOCS-flavoured retrieval pipeline that is **infrastructurally
+unstable** today. With every licence accepted, single-variable
+requests for `near_surface_air_temperature` succeeded once, but
+the same request for any other variable, or any 2+ variable
+request, returns `RoocsRuntimeError` server-side without an actionable
+diagnostic. Repeated attempts across multiple models
+(`access_cm2`, `mpi_esm1_2_lr`, `ec_earth3`) and years showed the
+same pattern.
+
+**These datasets are not curated by this package today.** A future
+addition should:
+
+1. Probe one variable at a time per model — the ROOCS pipeline
+   appears to fail on batch requests but tolerates singletons.
+2. Possibly fall back to direct ESGF retrieval if CDS continues to
+   be unstable; the ROOCS layer is the part that wraps ESGF, and
+   ESGF itself can be queried via dedicated clients
+   (`pyesgf`, `intake-esm`).
+
+For now, `projections-cmip6*` datasets remain in
+`available_datasets:` for discovery only. CMIP6 climate
+projection vars are commonly delivered via CMIP-standard CMOR
+short names (`tas`, `pr`, `ta`, `ua`, `va`, `hus`, `hur`, `psl`,
+…), the same pattern the CMIP5 / CORDEX rows in this catalog use.
+
 ### Climate Atlas datasets (deferred)
 
 The two Climate Atlas products on CDS — `projections-climate-atlas`
