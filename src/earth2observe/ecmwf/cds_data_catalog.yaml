@@ -3550,3 +3550,125 @@ datasets:
         nc_variable: zg500
         types: state
         units: m
+
+  projections-cmip5-monthly-single-levels:
+    # CMIP5 monthly atmospheric / surface variables. Each request
+    # selects a (model × experiment × ensemble_member × period)
+    # tuple — the CMIP5 ESGF archive is sparse, so the same model
+    # may not have every variable for every ensemble. Defaults below
+    # pick the EC-Earth historical r12i1p1 1950-2012 run that
+    # carries most surface vars; override per-request to pick a
+    # different scenario or model. CMIP5 returns CMOR-named
+    # NetCDFs (tas, pr, psl, …) inside a zip; the package already
+    # passes those through unchanged. Keys carry the ``-cmip5m``
+    # suffix to avoid colliding with same-named ERA5 single-levels
+    # rows. 9 of 39 catalogued variables are included; the rest
+    # are model-pair-specific and need their own probes.
+    extras:
+      experiment: historical
+      model: ec_earth
+      ensemble_member: r12i1p1
+      period: "195001-201212"
+    variables:
+
+      "2m-temperature-cmip5m":
+        cds_variable: 2m_temperature
+        nc_variable: tas
+        types: state
+        units: K
+
+      "mean-precipitation-flux-cmip5m":
+        cds_variable: mean_precipitation_flux
+        nc_variable: pr
+        types: flux
+        units: "kg m-2 s-1"
+
+      "maximum-2m-temperature-in-the-last-24-hours-cmip5m":
+        cds_variable: maximum_2m_temperature_in_the_last_24_hours
+        nc_variable: tasmax
+        types: state
+        units: K
+
+      "minimum-2m-temperature-in-the-last-24-hours-cmip5m":
+        cds_variable: minimum_2m_temperature_in_the_last_24_hours
+        nc_variable: tasmin
+        types: state
+        units: K
+
+      "mean-sea-level-pressure-cmip5m":
+        cds_variable: mean_sea_level_pressure
+        nc_variable: psl
+        types: state
+        units: Pa
+
+      "surface-solar-radiation-downwards-cmip5m":
+        cds_variable: surface_solar_radiation_downwards
+        nc_variable: rsds
+        types: flux
+        units: "W m-2"
+
+      "10m-wind-speed-cmip5m":
+        cds_variable: 10m_wind_speed
+        nc_variable: sfcWind
+        types: state
+        units: "m s-1"
+
+      "near-surface-specific-humidity-cmip5m":
+        cds_variable: near_surface_specific_humidity
+        nc_variable: huss
+        types: state
+        units: "1"
+
+      "snowfall-cmip5m":
+        cds_variable: snowfall
+        nc_variable: prsn
+        types: flux
+        units: "kg m-2 s-1"
+
+  projections-cmip5-monthly-pressure-levels:
+    # CMIP5 monthly atmospheric variables on pressure levels. The
+    # ``pressure_level`` is a per-request selector; the parent's
+    # ``["1000"]`` default mirrors the ERA5 pressure-levels
+    # convention. Same EC-Earth historical defaults as the single-
+    # levels block. Keys carry the ``-cmip5m`` suffix to namespace
+    # them. 5 of 6 catalogued variables are included; the missing
+    # ``relative_humidity`` is not present in EC-Earth's CMIP5
+    # archive — probe a different model if you need it.
+    pressure_level: ["1000"]
+    extras:
+      experiment: historical
+      model: ec_earth
+      ensemble_member: r12i1p1
+      period: "200001-201212"
+    variables:
+
+      "temperature-cmip5m":
+        cds_variable: temperature
+        nc_variable: ta
+        types: state
+        units: K
+
+      "u-component-of-wind-cmip5m":
+        cds_variable: u_component_of_wind
+        nc_variable: ua
+        types: state
+        units: "m s-1"
+
+      "v-component-of-wind-cmip5m":
+        cds_variable: v_component_of_wind
+        nc_variable: va
+        types: state
+        units: "m s-1"
+
+      "specific-humidity-cmip5m":
+        cds_variable: specific_humidity
+        nc_variable: hus
+        types: state
+        units: "1"
+
+      "geopotential-height-cmip5m":
+        cds_variable: geopotential_height
+        nc_variable: zg
+        types: state
+        units: m
+

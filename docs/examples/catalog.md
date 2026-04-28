@@ -111,6 +111,23 @@ The catalog ships ~338 ERA5 entries across three datasets:
   variables from ERA5 pressure-levels (default `["1000"]` hPa).
   Same `daily_statistic` / `frequency` / `time_zone` extras as the
   single-levels variant.
+- `projections-cmip5-monthly-single-levels` — 9 of 39 CMIP5 monthly
+  surface variables (CMOR-named: `tas`, `pr`, `tasmax`, `tasmin`,
+  `psl`, `rsds`, `sfcWind`, `huss`, `prsn`). Default extras pin
+  the EC-Earth `r12i1p1` historical run (1950-2012); override
+  per-request to switch model/scenario. Keys are `-cmip5m`
+  suffixed.
+- `projections-cmip5-monthly-pressure-levels` — 5 of 6 CMIP5
+  monthly upper-air variables (`ta`, `ua`, `va`, `hus`, `zg`) at
+  the default `["1000"]` hPa level. Same EC-Earth historical
+  defaults; same `-cmip5m` suffix. `relative_humidity` is not
+  present in EC-Earth's CMIP5 archive — probe a different model
+  if needed. The CMIP5 daily variants
+  (`projections-cmip5-daily-single-levels`,
+  `projections-cmip5-daily-pressure-levels`) are listed in
+  `available_datasets:` but are **not yet curated** — their
+  probes were still queued at CDS when this row landed; add them
+  in a follow-up PR.
 - `projections-cordex-domains-single-levels` — 16 of 25 catalogued
   CORDEX regional climate projection variables. Default extras pin
   the EURO-CORDEX EC-Earth/RACMO22E historical run on the 0.11°

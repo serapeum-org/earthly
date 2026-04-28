@@ -299,6 +299,23 @@ class TestCatalog:
         with pytest.raises(KeyError):
             Catalog().describe("definitely-not-a-dataset")
 
+    def test_cmip5_monthly_loads(self):
+        """CMIP5 monthly single-levels + pressure-levels round-trip."""
+        cat = Catalog()
+        single = cat.datasets["projections-cmip5-monthly-single-levels"]
+        press = cat.datasets["projections-cmip5-monthly-pressure-levels"]
+        assert len(single.variables) == 9
+        assert len(press.variables) == 5
+        assert single.extras["model"] == "ec_earth"
+        assert single.extras["experiment"] == "historical"
+        spec = single.variables["2m-temperature-cmip5m"]
+        assert spec.cds_variable == "2m_temperature"
+        assert spec.nc_variable == "tas"
+        spec = press.variables["temperature-cmip5m"]
+        assert spec.cds_variable == "temperature"
+        assert spec.nc_variable == "ta"
+        assert spec.cds_pressure_level == ["1000"]
+
     def test_cordex_loads(self):
         """CORDEX block round-trips through ``Catalog``.
 
