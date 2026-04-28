@@ -129,6 +129,57 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
+### Datasets without a `variable` field (22)
+
+Twenty-two CDS datasets do not expose a `variable` selector at all
+— their request shape identifies a **product** instead, and the
+"variable" concept is implicit (often baked into the dataset name
+or split across one of the extras fields). The current `Variable`
+catalog model is variable-shaped, so these datasets do not fit it
+without a per-dataset adapter.
+
+The table below names each one, the field that plays the
+"identifies the data column" role in our model, and a recommended
+catalog row shape if the package adds support later. **No catalog
+expansion has shipped for any of these — this is a research
+inventory.**
+
+| Dataset | Implicit-variable field(s) | Suggested row shape |
+|---|---|---|
+| `insitu-observations-gnss` | `network_type` (e.g. `epn_repro2`) | One row per network; key on the network short code; `extras: {network_type: ...}`. |
+| `insitu-observations-gruan-reference-network` | (none — single product) | One row keyed `gruan-reference-network`; no extras. |
+| `satellite-fire-radiative-power` | `satellite` × `time_aggregation` | One row per satellite + aggregation; `extras: {satellite, time_aggregation, observation_time, version}`. |
+| `satellite-greenland-ice-sheet-velocity` | `period` (multi-year campaigns) | One row per period; `extras: {domain, period, version}`. |
+| `satellite-humidity-profiles` | (none — single product) | One row; no extras. |
+| `satellite-ice-sheet-elevation-change` | `domain` (`antarctic` / `greenland`) | One row per domain; `extras: {domain, climate_data_record_type, version}`. |
+| `satellite-ist-sst-global` | `temporal_resolution` (`daily` / `monthly`) | One row per resolution; `extras: {temporal_resolution, climate_data_record_type, version}`. |
+| `satellite-ist-sst-polar` | `region` × `temporal_aggregation` | One row per region+agg; `extras: {region, temporal_aggregation, version}`. |
+| `satellite-lake-water-level` | `lake` (named lake basin) | One row per lake; key by basin name; `extras: {lake, region}`. |
+| `satellite-lake-water-temperature` | (none — single product) | One row; `extras: {version}`. |
+| `satellite-land-cover` | (none — single product) | One row; `extras: {version}`. |
+| `satellite-precipitation` | `time_aggregation` (`daily` / `monthly` / `3_hourly`) | One row per aggregation; `extras: {time_aggregation, version}`. |
+| `satellite-precipitation-microwave` | `time_aggregation` | Same as above. |
+| `satellite-precipitation-microwave-infrared` | `time_aggregation` | Same. |
+| `satellite-sea-ice-concentration` | `cdr_type` × `sensor` × `region` | One row per cdr+sensor+region; `extras: {cdr_type, region, sensor, temporal_aggregation, version}`. |
+| `satellite-sea-ice-drift` | `region` (`northern` / `southern`) | One row per region; `extras: {region, version}`. |
+| `satellite-sea-surface-temperature` | `processinglevel` × `sensor_on_satellite` | One row per (level, sensor); `extras: {processinglevel, sensor_on_satellite, temporal_resolution, version}`. |
+| `satellite-sea-surface-temperature-ensemble-product` | (none — single product) | One row; no extras. |
+| `satellite-total-column-water-vapour-land-ocean` | `product` (`water_vapour_in_total_column`) | One row per product; `extras: {product, horizontal_aggregation, temporal_aggregation}`. |
+| `satellite-total-column-water-vapour-ocean` | (single product) | One row; `extras: {climate_data_record_type, origin, temporal_aggregation}`. |
+| `sis-european-wind-storm-indicators` | `product` (storm metric) | One row per product; `extras: {product, spatial_aggregation, time_aggregation}`. |
+| `sis-european-wind-storm-reanalysis` | `product` × `tracking_algorithm` | One row per (product, algorithm); `extras: {product, tracking_algorithm, event_aggregation, spatial_extent, windstorm_footprint_resolution}`. |
+
+The recurring pattern: the slot that *would have been* a CDS
+`variable` list is always one of the extras (`product`,
+`network_type`, `cdr_type`, `lake`, …). When (if) the package adds
+support, the cleanest path is to **synthesise a synthetic
+"variable" key per row** — slugified from the dominant
+distinguishing extra — and stash the rest under `Variable.extras`.
+This avoids inventing a new model just to absorb 22 datasets, but
+does mean the `cds_variable` field on those rows is *empty* (the
+request omits the `variable` key entirely). That requires a small
+api() branch parallel to `M15`'s strategy work. Treat as Phase 4.
+
 ### Non-addressable CDS datasets
 
 A handful of entries in `available_datasets:` are **listed for
