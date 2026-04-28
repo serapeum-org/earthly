@@ -132,12 +132,14 @@ either name works; it satisfies the abstract base class contract.
 ### Climate Atlas datasets (deferred)
 
 The two Climate Atlas products on CDS — `projections-climate-atlas`
-(22 vars) and `multi-origin-c3s-atlas` (37 vars) — return their
-data as Zarr-flavoured ZIP stores rather than the NetCDF-in-zip
-that the rest of the catalog uses. Standard `zipfile` / GDAL
-readers reject the file ("end-of-central-directory signature not
-found"). The atlas family is interactive-viewer-oriented rather
-than programmatic-pipeline-oriented; ECMWF surfaces it through the
+(22 vars) and `multi-origin-c3s-atlas` (37 vars; adds
+`bias_adjustment` on top of Atlas's
+`{domain, experiment, origin, period}` extras) — return their data
+as Zarr-flavoured ZIP stores rather than the NetCDF-in-zip that
+the rest of the catalog uses. Standard `zipfile` / GDAL readers
+reject the file ("end-of-central-directory signature not found").
+The atlas family is interactive-viewer-oriented rather than
+programmatic-pipeline-oriented; ECMWF surfaces it through the
 [Climate Atlas web UI](https://atlas.climate.copernicus.eu/atlas)
 rather than the cdsapi-friendly NetCDF path.
 
