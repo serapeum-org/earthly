@@ -38,6 +38,7 @@ Examples:
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -48,6 +49,23 @@ from earth2observe.base import AbstractCatalog
 from earth2observe.ecmwf.backend import Variable
 
 CATALOG_PATH: Path = Path(__file__).parent / "cds_data_catalog.yaml"
+
+
+def _read_cdsapirc() -> dict[str, str]:
+    """Parse ``~/.cdsapirc`` into a {url, key} dict.
+
+    Used by :meth:`Catalog.list_recent_jobs` and
+    :meth:`Catalog.download_job` to authenticate the bare HTTP
+    calls without spinning up a full :class:`cdsapi.Client`.
+    """
+    cfg: dict[str, str] = {}
+    path = os.path.expanduser("~/.cdsapirc")
+    with open(path) as fh:
+        for line in fh:
+            if ":" in line:
+                key, _, value = line.partition(":")
+                cfg[key.strip()] = value.strip()
+    return cfg
 
 
 class Dataset(BaseModel):
@@ -448,6 +466,134 @@ class Catalog(AbstractCatalog):
             else:
                 request[key] = value
         return request
+
+    def list_recent_jobs(
+        self,
+        status: str | None = None,
+        max_age_min: int = 60,
+        limit: int = 50,
+    ) -> list[dict[str, Any]]:
+        """Return the user's recent CDS retrieval jobs.
+
+        Wraps ``GET /retrieve/v1/jobs`` with the same Personal
+        Access Token cdsapi uses (read from ``~/.cdsapirc``).
+        Useful for resuming downloads after a script crash, or
+        inspecting which probes have completed without rerunning
+        them.
+
+        Args:
+            status: Optional filter — one of ``"accepted"``,
+                ``"running"``, ``"successful"``, ``"failed"``,
+                ``"rejected"``. ``None`` returns every status.
+            max_age_min: Drop entries older than this many minutes
+                (CDS retains job records for a few weeks). Defaults
+                to ``60``.
+            limit: Hard cap on returned entries, sent as the
+                ``limit`` query param. Defaults to ``50``.
+
+        Returns:
+            list[dict[str, Any]]: Each entry has at least
+            ``jobID`` / ``processID`` (= dataset name) / ``status`` /
+            ``created``. See the CDS OGC API processes spec for the
+            full schema.
+
+        Examples:
+            - List successful retrievals from the last hour
+              (``# doctest: +SKIP`` — needs a configured
+              ``~/.cdsapirc``):
+
+                ```python
+                >>> from earth2observe.ecmwf import Catalog
+                >>> cat = Catalog()
+                >>> jobs = cat.list_recent_jobs(  # doctest: +SKIP
+                ...     status="successful", max_age_min=60,
+                ... )
+                >>> for j in jobs:  # doctest: +SKIP
+                ...     print(j["processID"], j["jobID"][:8])
+
+                ```
+        """
+        import datetime
+        import requests
+
+        cfg = _read_cdsapirc()
+        url = cfg["url"].rstrip("/") + "/retrieve/v1/jobs"
+        params: dict[str, Any] = {"limit": limit}
+        if status:
+            params["status"] = status
+        resp = requests.get(
+            url,
+            headers={"PRIVATE-TOKEN": cfg["key"]},
+            params=params,
+            timeout=30,
+        )
+        resp.raise_for_status()
+        now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+        out: list[dict[str, Any]] = []
+        for job in resp.json().get("jobs", []):
+            created = job.get("created", "")
+            if not created:
+                continue
+            ago = (
+                now
+                - datetime.datetime.fromisoformat(created.replace("Z", ""))
+            ).total_seconds() / 60
+            if ago <= max_age_min:
+                out.append(job)
+        return out
+
+    def download_job(
+        self,
+        job_id: str,
+        target: Path | str,
+        chunk_size: int = 1 << 20,
+    ) -> Path:
+        """Download the result asset of a successful CDS job.
+
+        Looks up ``job_id`` via ``GET /retrieve/v1/jobs/<id>/results``,
+        follows the asset's ``href``, and streams the body into
+        ``target``. Idempotent — if ``target`` already exists with a
+        non-zero size the download is skipped.
+
+        Args:
+            job_id: CDS job identifier (e.g. as returned by
+                :meth:`list_recent_jobs`).
+            target: Destination path. Parents are created.
+            chunk_size: Streaming chunk size in bytes. Defaults to
+                1 MiB.
+
+        Returns:
+            pathlib.Path: ``target``, after the download completes.
+
+        Raises:
+            requests.HTTPError: If the job does not exist or its
+                result has expired.
+            ValueError: If the job's results record contains no
+                downloadable asset href.
+        """
+        import requests
+        import urllib.request
+
+        cfg = _read_cdsapirc()
+        target_path = Path(target)
+        if target_path.exists() and target_path.stat().st_size > 0:
+            return target_path
+        rurl = cfg["url"].rstrip("/") + f"/retrieve/v1/jobs/{job_id}/results"
+        resp = requests.get(rurl, headers={"PRIVATE-TOKEN": cfg["key"]})
+        resp.raise_for_status()
+        href = resp.json().get("asset", {}).get("value", {}).get("href")
+        if not href:
+            raise ValueError(
+                f"job {job_id!r} has no downloadable asset href in its "
+                "results record"
+            )
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        with urllib.request.urlopen(href, timeout=60) as src, open(
+            target_path, "wb"
+        ) as out:
+            while chunk := src.read(chunk_size):
+                out.write(chunk)
+        return target_path
 
     def get_variable(self, var_name):
         """Alias for :meth:`get_dataset` satisfying the abstract base.

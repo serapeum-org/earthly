@@ -360,6 +360,97 @@ class TestCatalog:
         request = Catalog().minimal_valid_request("non-addressable")
         assert request == {"data_format": "netcdf"}
 
+    def test_list_recent_jobs_filters_by_age_and_status(
+        self, monkeypatch, tmp_path
+    ):
+        """``list_recent_jobs`` returns jobs within ``max_age_min`` only."""
+        import datetime
+        import json
+        from earth2observe.ecmwf import catalog as catalog_module
+
+        rc = tmp_path / ".cdsapirc"
+        rc.write_text(
+            "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
+        )
+        monkeypatch.setattr(
+            catalog_module.os.path, "expanduser",
+            lambda p: str(rc) if "cdsapirc" in p else os.path.expanduser(p),
+        )
+        now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+        recent = (now - datetime.timedelta(minutes=10)).isoformat()
+        old = (now - datetime.timedelta(minutes=120)).isoformat()
+        payload = {
+            "jobs": [
+                {"jobID": "abc", "processID": "ds-a", "status": "successful", "created": recent},
+                {"jobID": "def", "processID": "ds-b", "status": "successful", "created": old},
+            ]
+        }
+
+        class _Resp:
+            status_code = 200
+            def raise_for_status(self): pass
+            def json(self): return payload
+
+        import earth2observe.ecmwf.catalog as cat_mod
+        captured = {}
+
+        def _fake_get(url, headers=None, params=None, timeout=None):
+            captured["url"] = url
+            captured["params"] = params
+            return _Resp()
+
+        import requests as _req
+        monkeypatch.setattr(_req, "get", _fake_get)
+        jobs = Catalog().list_recent_jobs(status="successful", max_age_min=60)
+        assert len(jobs) == 1
+        assert jobs[0]["jobID"] == "abc"
+        assert captured["params"]["status"] == "successful"
+
+    def test_download_job_skips_if_target_exists(
+        self, monkeypatch, tmp_path
+    ):
+        """``download_job`` is idempotent when the target file is already there."""
+        from earth2observe.ecmwf import catalog as catalog_module
+
+        rc = tmp_path / ".cdsapirc"
+        rc.write_text(
+            "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
+        )
+        monkeypatch.setattr(
+            catalog_module.os.path, "expanduser",
+            lambda p: str(rc) if "cdsapirc" in p else os.path.expanduser(p),
+        )
+        target = tmp_path / "x.nc"
+        target.write_bytes(b"already here")
+        # No mocked HTTP — proves we don't reach for the network.
+        result = Catalog().download_job("any-job-id", target)
+        assert result == target
+        assert target.read_bytes() == b"already here"
+
+    def test_download_job_raises_when_no_asset_href(
+        self, monkeypatch, tmp_path
+    ):
+        """``download_job`` raises ValueError when results lack an asset href."""
+        from earth2observe.ecmwf import catalog as catalog_module
+
+        rc = tmp_path / ".cdsapirc"
+        rc.write_text(
+            "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
+        )
+        monkeypatch.setattr(
+            catalog_module.os.path, "expanduser",
+            lambda p: str(rc) if "cdsapirc" in p else os.path.expanduser(p),
+        )
+
+        class _Resp:
+            def raise_for_status(self): pass
+            def json(self): return {"asset": {"value": {}}}  # no href
+
+        import requests as _req
+        monkeypatch.setattr(_req, "get", lambda *a, **kw: _Resp())
+        with pytest.raises(ValueError, match="no downloadable asset href"):
+            Catalog().download_job("xyz", tmp_path / "out.nc")
+
     def test_describe_returns_dataset_metadata(self):
         """``Catalog.describe`` returns a structured introspection record."""
         cat = Catalog()
