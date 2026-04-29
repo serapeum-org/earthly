@@ -4117,6 +4117,136 @@ datasets:
         types: state
         units: "%"
 
+  reanalysis-cerra-single-levels:
+    # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
+    # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
+    # vars are probe-confirmed; remaining 33 pending probes.
+    # ``data_type`` selects reanalysis vs ensemble_members; analysis
+    # has no leadtime, forecast has leadtime_hour 1-30.
+    extras:
+      product_type: [reanalysis]
+      data_type: reanalysis
+      level_type: surface_or_atmosphere
+    variables:
+
+      "albedo-cerra":
+        cds_variable: albedo
+        nc_variable: al
+        types: state
+        units: "%"
+
+      "evaporation-cerra":
+        cds_variable: evaporation
+        nc_variable: eva
+        types: flux
+        units: "kg m**-2"
+
+      "2m-relative-humidity-cerra":
+        cds_variable: 2m_relative_humidity
+        nc_variable: r2
+        types: state
+        units: "%"
+
+      "10m-wind-speed-cerra":
+        cds_variable: 10m_wind_speed
+        nc_variable: si10
+        types: state
+        units: "m s**-1"
+
+      "2m-temperature-cerra":
+        cds_variable: 2m_temperature
+        nc_variable: t2m
+        types: state
+        units: K
+
+      "10m-wind-direction-cerra":
+        cds_variable: 10m_wind_direction
+        nc_variable: wdir10
+        types: state
+        units: "Degree true"
+
+  reanalysis-cerra-height-levels:
+    # CERRA height-level variables on the European 5.5km grid.
+    # 5 of 10 catalogued vars probe-confirmed (at 100m); the
+    # ``height_level`` extra picks one of 15/30/50/75/100/150/200/
+    # 250/300/400/500 m. nc_variable suffix reflects the probed
+    # level (e.g. si100 = wind speed at 100m).
+    extras:
+      product_type: [reanalysis]
+      data_type: reanalysis
+      height_level: ["100_m"]
+    variables:
+
+      "pressure-cerra-h":
+        cds_variable: pressure
+        nc_variable: pres
+        types: state
+        units: Pa
+
+      "relative-humidity-cerra-h":
+        cds_variable: relative_humidity
+        nc_variable: r
+        types: state
+        units: "%"
+
+      "wind-speed-cerra-h":
+        cds_variable: wind_speed
+        nc_variable: si100
+        types: state
+        units: "m s**-1"
+
+      "temperature-cerra-h":
+        cds_variable: temperature
+        nc_variable: t
+        types: state
+        units: K
+
+      "wind-direction-cerra-h":
+        cds_variable: wind_direction
+        nc_variable: wdir
+        types: state
+        units: "Degree true"
+
+  reanalysis-cerra-pressure-levels:
+    # CERRA pressure-level variables. 5 of 11 catalogued vars
+    # probe-confirmed at 1000hPa; ``pressure_level`` extra selects
+    # one of 1..1000 hPa.
+    pressure_level: ["1000"]
+    extras:
+      product_type: [reanalysis]
+      data_type: reanalysis
+    variables:
+
+      "relative-humidity-cerra-p":
+        cds_variable: relative_humidity
+        nc_variable: r
+        types: state
+        units: "%"
+
+      "temperature-cerra-p":
+        cds_variable: temperature
+        nc_variable: t
+        types: state
+        units: K
+
+      "u-component-of-wind-cerra-p":
+        cds_variable: u_component_of_wind
+        nc_variable: u
+        types: state
+        units: "m s**-1"
+
+      "v-component-of-wind-cerra-p":
+        cds_variable: v_component_of_wind
+        nc_variable: v
+        types: state
+        units: "m s**-1"
+
+      "geopotential-cerra-p":
+        cds_variable: geopotential
+        nc_variable: z
+        types: state
+        units: "m**2 s**-2"
+
   seasonal-monthly-single-levels:
     # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
     # 38 catalogued vars are probe-confirmed. The remaining 27 vars
