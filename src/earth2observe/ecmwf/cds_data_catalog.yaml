@@ -4247,6 +4247,39 @@ datasets:
         types: state
         units: "m**2 s**-2"
 
+  reanalysis-cerra-model-levels:
+    # CERRA model-level variables (1-106 hybrid levels).
+    # All 4 catalogued vars probe-confirmed at model_level=1.
+    extras:
+      product_type: [reanalysis]
+      data_type: reanalysis
+      model_level: ["1"]
+    variables:
+
+      "specific-humidity-cerra-m":
+        cds_variable: specific_humidity
+        nc_variable: q
+        types: state
+        units: "kg kg**-1"
+
+      "temperature-cerra-m":
+        cds_variable: temperature
+        nc_variable: t
+        types: state
+        units: K
+
+      "u-component-of-wind-cerra-m":
+        cds_variable: u_component_of_wind
+        nc_variable: u
+        types: state
+        units: "m s**-1"
+
+      "v-component-of-wind-cerra-m":
+        cds_variable: v_component_of_wind
+        nc_variable: v
+        types: state
+        units: "m s**-1"
+
   seasonal-monthly-single-levels:
     # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
     # 38 catalogued vars are probe-confirmed. The remaining 27 vars
