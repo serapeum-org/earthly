@@ -228,6 +228,162 @@ class TestValidateRequest:
             )
 
 
+class TestDateValidity:
+    """Tests for the M17 date sanity check."""
+
+    def test_invalid_month_raises(self):
+        from earth2observe.ecmwf.constraints import _validate_date_validity
+
+        with pytest.raises(ValueError, match="month=.*must be 01-12"):
+            _validate_date_validity({"month": ["13"]})
+
+    def test_invalid_day_raises(self):
+        from earth2observe.ecmwf.constraints import _validate_date_validity
+
+        with pytest.raises(ValueError, match="day=.*must be 01-31"):
+            _validate_date_validity({"day": ["32"]})
+
+    def test_year_out_of_range_raises(self):
+        from earth2observe.ecmwf.constraints import _validate_date_validity
+
+        with pytest.raises(ValueError, match="year=.*plausible"):
+            _validate_date_validity({"year": ["1492"]})
+
+    def test_feb_30_raises(self):
+        from earth2observe.ecmwf.constraints import _validate_date_validity
+
+        with pytest.raises(ValueError, match="not a real date"):
+            _validate_date_validity(
+                {"year": ["2022"], "month": ["02"], "day": ["30"]}
+            )
+
+    def test_valid_date_passes(self):
+        from earth2observe.ecmwf.constraints import _validate_date_validity
+
+        _validate_date_validity(
+            {"year": ["2022"], "month": ["02"], "day": ["28"]}
+        )
+
+    def test_non_integer_values_skipped(self):
+        """Datasets that use ``year=['all']`` or non-numeric forms pass."""
+        from earth2observe.ecmwf.constraints import _validate_date_validity
+
+        _validate_date_validity({"year": ["all"], "month": ["any"]})
+
+
+class TestAreaSanity:
+    """Tests for the M17 area bbox sanity check."""
+
+    def test_wrong_length_raises(self):
+        from earth2observe.ecmwf.constraints import _validate_area
+
+        with pytest.raises(ValueError, match="4-element list"):
+            _validate_area({"area": [60, -10, 50]})
+
+    def test_swapped_north_south_raises(self):
+        from earth2observe.ecmwf.constraints import _validate_area
+
+        with pytest.raises(ValueError, match="south.*<=.*north"):
+            _validate_area({"area": [40, -10, 60, 0]})
+
+    def test_latitude_out_of_range_raises(self):
+        from earth2observe.ecmwf.constraints import _validate_area
+
+        with pytest.raises(ValueError, match="latitudes must be in"):
+            _validate_area({"area": [95, -10, 50, 0]})
+
+    def test_valid_area_passes(self):
+        from earth2observe.ecmwf.constraints import _validate_area
+
+        _validate_area({"area": [60, -10, 50, 0]})
+
+    def test_no_area_passes(self):
+        from earth2observe.ecmwf.constraints import _validate_area
+
+        _validate_area({})
+
+
+class TestVariableTypos:
+    """Tests for the M17 variable typo detector."""
+
+    def test_typo_suggests_close_match(self, monkeypatch):
+        """A near-miss variable name surfaces a `did you mean` hint."""
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {
+                    "variable": [
+                        "2m_temperature",
+                        "total_precipitation",
+                    ],
+                    "year": ["2022"],
+                }
+            ],
+        )
+        with pytest.raises(ValueError, match="did you mean"):
+            validate_request(
+                "reanalysis-era5-single-levels",
+                {
+                    "variable": ["2m_temprature"],
+                    "year": ["2022"],
+                },
+            )
+
+    def test_completely_unknown_variable_raises_without_suggestion(
+        self, monkeypatch
+    ):
+        _stub_urlopen(
+            monkeypatch,
+            [{"variable": ["a", "b"], "year": ["2022"]}],
+        )
+        with pytest.raises(ValueError, match="unknown variable"):
+            validate_request(
+                "ds",
+                {"variable": ["zzzzz_completely_off"], "year": ["2022"]},
+            )
+
+
+class TestRequiredFields:
+    """Tests for the M17 required-field detector."""
+
+    def test_missing_required_extra_raises(self, monkeypatch):
+        """Every constraint entry has ``experiment`` => it's required."""
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {
+                    "variable": ["tas"],
+                    "year": ["2000"],
+                    "experiment": ["historical"],
+                },
+                {
+                    "variable": ["tas"],
+                    "year": ["2020"],
+                    "experiment": ["ssp585"],
+                },
+            ],
+        )
+        with pytest.raises(ValueError, match="missing required key"):
+            validate_request(
+                "projections-cmip6",
+                {"variable": ["tas"], "year": ["2000"]},
+            )
+
+    def test_optional_extra_not_flagged(self, monkeypatch):
+        """A key absent from at least one entry is treated as optional."""
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {"variable": ["tas"], "year": ["2000"], "level": ["1"]},
+                {"variable": ["tas"], "year": ["2000"]},  # no level
+            ],
+        )
+        validate_request(
+            "ds",
+            {"variable": ["tas"], "year": ["2000"]},
+        )
+
+
 class TestFetchConstraints:
     """Tests for :func:`fetch_constraints`."""
 

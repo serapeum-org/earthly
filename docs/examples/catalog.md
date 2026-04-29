@@ -399,13 +399,31 @@ attempt it speculatively.
 
 Every CDS request passes through
 `earth2observe.ecmwf.constraints.validate_request()` before
-:meth:`cdsapi.Client.retrieve` is called. The validator fetches
-the dataset's published `constraints.json` (cached per-process)
-and rejects any request whose extras / variable / year combination
-is outside the published validity matrix. This catches typos and
-mis-guesses (e.g. CERRA-land's `level_type: surface` requires
-`product_type: forecast` not `analysis`) **before** the request
-takes a CDS queue slot — saving 1–30 minutes per failure.
+:meth:`cdsapi.Client.retrieve` is called. The validator runs five
+phases (cheap → expensive); the first failure is reported, so the
+user gets the most specific error possible:
+
+1. **Date sanity** — `month` must be 01-12, `day` must be 01-31,
+   `year` must be in 1850-2100, and the (year, month, day) triple
+   must be a real calendar date (no Feb 30, no Apr 31).
+2. **Area bbox sanity** — `area` must be a 4-element list
+   `[north, west, south, east]` with `south <= north`, latitudes
+   in [-90, 90], longitudes in [-360, 360].
+3. **Variable spell-check** — every requested `variable` must
+   appear in the catalogued set; near-misses surface
+   `did you mean X?` suggestions via `difflib`.
+4. **Required-field check** — keys present in *every* constraint
+   entry are reported as missing if absent from the request
+   (catches "you forgot to set `experiment`" for CMIP6).
+5. **Full combinatorial walk** — fetches the dataset's
+   `constraints.json` (cached per-process) and rejects any
+   request whose extras / variable / year combination falls
+   outside the published validity matrix.
+
+This catches typos and mis-guesses (e.g. CERRA-land's
+`level_type: surface` requires `product_type: forecast`, not
+`analysis`) **before** the request takes a CDS queue slot —
+saving 1–30 minutes per failure.
 
 Bypass the check with `E2O_SKIP_CONSTRAINTS=1` if a dataset's
 constraints endpoint is missing or outdated. The unit test suite

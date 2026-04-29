@@ -375,7 +375,10 @@ class TestApi:
             lambda *_a, **_kw: _Resp(),
         )
 
-        with pytest.raises(ValueError, match="does not match"):
+        # M17's variable-typo check fires before the full constraints
+        # walk, so the error names the unknown variable rather than
+        # the constraints-mismatch message.
+        with pytest.raises(ValueError, match="unknown variable"):
             ecmwf_stub.api(single_level_var_info)
         assert ecmwf_stub.client.retrieve.call_count == 0
 
