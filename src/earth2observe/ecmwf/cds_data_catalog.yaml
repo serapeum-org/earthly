@@ -4066,3 +4066,132 @@ datasets:
         types: state
         units: m
 
+  reanalysis-carra-means:
+    # CARRA-means: temporally-aggregated CARRA. Six forecast-based
+    # single-level variables are probe-confirmed. ``request_kind``
+    # is ``carra_means`` so api() drops the ``time`` selector — the
+    # aggregate is over the window indicated by ``time_aggregation``.
+    # Remaining 75 catalogued vars (analysis-based plus other
+    # level_types) are pending probes; partial coverage shipped here.
+    request_kind: carra_means
+    extras:
+      product_type: [forecast_based]
+      domain: east_domain
+      level_type: single_levels
+      time_aggregation: daily
+    variables:
+
+      "10m-wind-gust-carra-means":
+        cds_variable: 10m_wind_gust_since_previous_post_processing
+        nc_variable: fg10
+        types: flux
+        units: "m s**-1"
+
+      "10m-eastward-wind-gust-carra-means":
+        cds_variable: 10m_eastward_wind_gust_since_previous_post_processing
+        nc_variable: efg10
+        types: flux
+        units: "m s**-1"
+
+      "10m-northward-wind-gust-carra-means":
+        cds_variable: 10m_northward_wind_gust_since_previous_post_processing
+        nc_variable: nfg10
+        types: flux
+        units: "m s**-1"
+
+      "maximum-2m-temperature-carra-means":
+        cds_variable: maximum_2m_temperature_since_previous_post_processing
+        nc_variable: mx2t
+        types: state
+        units: K
+
+      "albedo-carra-means":
+        cds_variable: albedo
+        nc_variable: al
+        types: state
+        units: "%"
+
+      "fog-carra-means":
+        cds_variable: fog
+        nc_variable: fog
+        types: state
+        units: "%"
+
+  seasonal-monthly-single-levels:
+    # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
+    # 38 catalogued vars are probe-confirmed. The remaining 27 vars
+    # plus the other 6 seasonal sub-datasets (postprocessed-*,
+    # original-*, ocean) are pending probes.
+    extras:
+      product_type: [monthly_mean]
+      originating_centre: ecmwf
+      system: "5"
+      leadtime_month: ["1"]
+    variables:
+
+      "2m-temperature-seasonal":
+        cds_variable: 2m_temperature
+        nc_variable: t2m
+        types: state
+        units: K
+
+      "total-precipitation-seasonal":
+        cds_variable: total_precipitation
+        nc_variable: tprate
+        types: flux
+        units: "m s**-1"
+
+      "10m-wind-speed-seasonal":
+        cds_variable: 10m_wind_speed
+        nc_variable: si10
+        types: state
+        units: "m s**-1"
+
+      "2m-dewpoint-temperature-seasonal":
+        cds_variable: 2m_dewpoint_temperature
+        nc_variable: d2m
+        types: state
+        units: K
+
+      "evaporation-seasonal":
+        cds_variable: evaporation
+        nc_variable: erate
+        types: flux
+        units: "m of water equivalent s**-1"
+
+      "snowfall-seasonal":
+        cds_variable: snowfall
+        nc_variable: mtsfr
+        types: flux
+        units: "m of water equivalent s**-1"
+
+      "surface-solar-radiation-seasonal":
+        cds_variable: surface_solar_radiation
+        nc_variable: msnsrf
+        types: flux
+        units: "W m**-2"
+
+      "surface-sensible-heat-flux-seasonal":
+        cds_variable: surface_sensible_heat_flux
+        nc_variable: msshfl
+        types: flux
+        units: "W m**-2"
+
+      "sea-surface-temperature-seasonal":
+        cds_variable: sea_surface_temperature
+        nc_variable: sst
+        types: state
+        units: K
+
+      "sea-ice-cover-seasonal":
+        cds_variable: sea_ice_cover
+        nc_variable: siconc
+        types: state
+        units: "(0 - 1)"
+
+      "total-cloud-cover-seasonal":
+        cds_variable: total_cloud_cover
+        nc_variable: tcc
+        types: state
+        units: "(0 - 1)"
+

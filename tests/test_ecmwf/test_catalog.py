@@ -382,6 +382,30 @@ class TestCatalog:
         with pytest.raises(KeyError):
             Catalog().describe("definitely-not-a-dataset")
 
+    def test_carra_means_partial_loads(self):
+        """CARRA-means partial block (6 forecast-based single-level vars)."""
+        cat = Catalog()
+        ds = cat.datasets["reanalysis-carra-means"]
+        assert ds.request_kind == "carra_means"
+        assert ds.extras["product_type"] == ["forecast_based"]
+        assert ds.extras["time_aggregation"] == "daily"
+        assert len(ds.variables) == 6
+        spec = ds.variables["maximum-2m-temperature-carra-means"]
+        assert spec.cds_variable == "maximum_2m_temperature_since_previous_post_processing"
+        assert spec.nc_variable == "mx2t"
+        assert spec.units == "K"
+
+    def test_seasonal_monthly_single_partial_loads(self):
+        """Seasonal monthly-single partial block (11 of 38 vars)."""
+        cat = Catalog()
+        ds = cat.datasets["seasonal-monthly-single-levels"]
+        assert ds.extras["originating_centre"] == "ecmwf"
+        assert ds.extras["system"] == "5"
+        assert len(ds.variables) == 11
+        spec = ds.variables["2m-temperature-seasonal"]
+        assert spec.cds_variable == "2m_temperature"
+        assert spec.nc_variable == "t2m"
+
     def test_carra_loads(self):
         """CARRA family: pressure, height, model, single-levels round-trip."""
         cat = Catalog()
