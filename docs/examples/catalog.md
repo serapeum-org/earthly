@@ -158,6 +158,31 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
+### CARRA reanalysis (4 of 5 sub-datasets)
+
+The CARRA Copernicus Arctic Regional Reanalysis (~2.5 km on the
+East/West Greenland domains) ships with 4 of its 5 sub-datasets
+covered:
+
+- `reanalysis-carra-pressure-levels` — 14 of 14 variables (full).
+- `reanalysis-carra-height-levels` — 7 of 7 variables (full).
+- `reanalysis-carra-model-levels` — 11 of 11 variables (full).
+- `reanalysis-carra-single-levels` — 26 of 67 variables (partial;
+  surface analyses for the `east_domain`. The remaining 41
+  forecast-only / west-domain / time-integral variables stay
+  in `available_datasets:` for now).
+- `reanalysis-carra-means` is **not** curated — its request
+  shape (`product_type: analysis_based`/`forecast_based`,
+  `time_aggregation: daily`/`monthly`, no `time` selector) needs
+  the `request_kind: carra_means` plumbing from `M15`. See the
+  open `M1` row.
+
+Default extras: `product_type: analysis`, `domain: east_domain`,
+`leadtime_hour: 3`. Override per-request to switch domain or
+product type. Variable keys are suffixed with `-carra`,
+`-carra-h` (height), `-carra-m` (model) to namespace them away
+from the same-named ERA5 single-levels rows.
+
 ### CARRA, CERRA, PAN-CARRA, UERRA reanalysis families (deferred)
 
 The four high-resolution regional reanalysis families on CDS —

@@ -299,6 +299,33 @@ class TestCatalog:
         with pytest.raises(KeyError):
             Catalog().describe("definitely-not-a-dataset")
 
+    def test_carra_loads(self):
+        """CARRA family: pressure, height, model, single-levels round-trip."""
+        cat = Catalog()
+        press = cat.datasets["reanalysis-carra-pressure-levels"]
+        height = cat.datasets["reanalysis-carra-height-levels"]
+        model = cat.datasets["reanalysis-carra-model-levels"]
+        single = cat.datasets["reanalysis-carra-single-levels"]
+        assert len(press.variables) == 14
+        assert len(height.variables) == 7
+        assert len(model.variables) == 11
+        assert len(single.variables) == 26
+        # Parent extras propagate to every variable.
+        for ds in [press, height, model, single]:
+            assert ds.extras["domain"] == "east_domain"
+            assert ds.extras["product_type"] == ["analysis"]
+        # Spot-check: CARRA pressure-levels temperature -> t (K)
+        spec = press.variables["temperature-carra"]
+        assert spec.cds_variable == "temperature"
+        assert spec.nc_variable == "t"
+        assert spec.cds_pressure_level == ["1000"]
+        # Height-levels variables carry the height_level extra.
+        spec = height.variables["temperature-carra-h"]
+        assert spec.extras["height_level"] == ["100_m"]
+        # Model-levels carry the model_level extra.
+        spec = model.variables["temperature-carra-m"]
+        assert spec.extras["model_level"] == ["1"]
+
     def test_cmip5_monthly_loads(self):
         """CMIP5 monthly single-levels + pressure-levels round-trip."""
         cat = Catalog()

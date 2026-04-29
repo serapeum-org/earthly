@@ -3672,3 +3672,397 @@ datasets:
         types: state
         units: m
 
+  reanalysis-carra-pressure-levels:
+    # CARRA Copernicus Arctic Regional Reanalysis. Pressure-level
+    # variables on the East/West Greenland domain (~2.5km, 65-86°N).
+    # All 14 catalogued variables are probe-confirmed below. Default
+    # extras pin the ``east_domain`` analysis at leadtime_hour=3 on
+    # the 1000hPa level; override per-request.
+    pressure_level: ["1000"]
+    extras:
+      product_type: [analysis]
+      domain: east_domain
+      leadtime_hour: ["3"]
+    variables:
+
+      "cloud-cover-carra":
+        cds_variable: cloud_cover
+        nc_variable: ccl
+        types: state
+        units: "%"
+
+      "geometric-vertical-velocity-carra":
+        cds_variable: geometric_vertical_velocity
+        nc_variable: wz
+        types: state
+        units: "m s**-1"
+
+      "geopotential-carra":
+        cds_variable: geopotential
+        nc_variable: z
+        units: "m**2 s**-2"
+
+      "graupel-carra":
+        cds_variable: graupel
+        nc_variable: grle
+        types: state
+        units: "kg kg**-1"
+
+      "potential-vorticity-carra":
+        cds_variable: potential_vorticity
+        nc_variable: pv
+        types: state
+        units: "K m**2 kg**-1 s**-1"
+
+      "pseudo-adiabatic-potential-temperature-carra":
+        cds_variable: pseudo_adiabatic_potential_temperature
+        nc_variable: papt
+        types: state
+        units: K
+
+      "relative-humidity-carra":
+        cds_variable: relative_humidity
+        nc_variable: r
+        types: state
+        units: "%"
+
+      "specific-cloud-ice-water-content-carra":
+        cds_variable: specific_cloud_ice_water_content
+        nc_variable: ciwc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-liquid-water-content-carra":
+        cds_variable: specific_cloud_liquid_water_content
+        nc_variable: clwc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-rain-water-content-carra":
+        cds_variable: specific_cloud_rain_water_content
+        nc_variable: crwc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-snow-water-content-carra":
+        cds_variable: specific_cloud_snow_water_content
+        nc_variable: cswc
+        types: state
+        units: "kg kg**-1"
+
+      "temperature-carra":
+        cds_variable: temperature
+        nc_variable: t
+        types: state
+        units: K
+
+      "u-component-of-wind-carra":
+        cds_variable: u_component_of_wind
+        nc_variable: u
+        types: state
+        units: "m s**-1"
+
+      "v-component-of-wind-carra":
+        cds_variable: v_component_of_wind
+        nc_variable: v
+        types: state
+        units: "m s**-1"
+
+  reanalysis-carra-height-levels:
+    # CARRA height-level variables. All 7 catalogued vars probe-
+    # confirmed. The ``height_level`` extra picks the height in
+    # metres (one of 15/30/50/75/100/150/200/250/300/400/500 m).
+    extras:
+      product_type: [analysis]
+      domain: east_domain
+      leadtime_hour: ["3"]
+      height_level: ["100_m"]
+    variables:
+
+      "pressure-carra-h":
+        cds_variable: pressure
+        nc_variable: pres
+        types: state
+        units: Pa
+
+      "relative-humidity-carra-h":
+        cds_variable: relative_humidity
+        nc_variable: r
+        types: state
+        units: "%"
+
+      "specific-cloud-ice-water-content-carra-h":
+        cds_variable: specific_cloud_ice_water_content
+        nc_variable: ciwc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-liquid-water-content-carra-h":
+        cds_variable: specific_cloud_liquid_water_content
+        nc_variable: clwc
+        types: state
+        units: "kg kg**-1"
+
+      "temperature-carra-h":
+        cds_variable: temperature
+        nc_variable: t
+        types: state
+        units: K
+
+      "wind-direction-carra-h":
+        cds_variable: wind_direction
+        nc_variable: wdir
+        types: state
+        units: "Degree true"
+
+      "wind-speed-carra-h":
+        cds_variable: wind_speed
+        nc_variable: si100
+        types: state
+        units: "m s**-1"
+
+  reanalysis-carra-model-levels:
+    # CARRA model-level variables. All 11 catalogued vars probe-
+    # confirmed. ``model_level`` ranges 1-65; default to the lowest.
+    extras:
+      product_type: [analysis]
+      domain: east_domain
+      leadtime_hour: ["1"]
+      model_level: ["1"]
+    variables:
+
+      "cloud-cover-carra-m":
+        cds_variable: cloud_cover
+        nc_variable: ccl
+        types: state
+        units: "%"
+
+      "graupel-carra-m":
+        cds_variable: graupel
+        nc_variable: grle
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-ice-water-content-carra-m":
+        cds_variable: specific_cloud_ice_water_content
+        nc_variable: ciwc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-liquid-water-content-carra-m":
+        cds_variable: specific_cloud_liquid_water_content
+        nc_variable: clwc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-rain-water-content-carra-m":
+        cds_variable: specific_cloud_rain_water_content
+        nc_variable: crwc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-snow-water-content-carra-m":
+        cds_variable: specific_cloud_snow_water_content
+        nc_variable: cswc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-humidity-carra-m":
+        cds_variable: specific_humidity
+        nc_variable: q
+        types: state
+        units: "kg kg**-1"
+
+      "temperature-carra-m":
+        cds_variable: temperature
+        nc_variable: t
+        types: state
+        units: K
+
+      "turbulent-kinetic-energy-carra-m":
+        cds_variable: turbulent_kinetic_energy
+        nc_variable: tke
+        types: state
+        units: "J kg**-1"
+
+      "u-component-of-wind-carra-m":
+        cds_variable: u_component_of_wind
+        nc_variable: u
+        types: state
+        units: "m s**-1"
+
+      "v-component-of-wind-carra-m":
+        cds_variable: v_component_of_wind
+        nc_variable: v
+        types: state
+        units: "m s**-1"
+
+  reanalysis-carra-single-levels:
+    # CARRA single-level (surface / atmosphere) variables. 22 of 67
+    # catalogued vars are probe-confirmed below; the remaining 45 are
+    # deferred to a follow-up commit because they require the
+    # ``forecast`` product_type and/or specific date constraints, or
+    # are not present for the default ec_earth east_domain combo.
+    # Most ``time_integral_*`` and ``*_since_previous_post_processing``
+    # variables fall in the deferred set. Users who need those can
+    # construct the request manually until they are added.
+    extras:
+      product_type: [analysis]
+      domain: east_domain
+      leadtime_hour: ["3"]
+      level_type: surface_or_atmosphere
+    variables:
+
+      "10m-u-component-of-wind-carra":
+        cds_variable: 10m_u_component_of_wind
+        nc_variable: u10
+        types: state
+        units: "m s**-1"
+
+      "10m-v-component-of-wind-carra":
+        cds_variable: 10m_v_component_of_wind
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+
+      "10m-wind-direction-carra":
+        cds_variable: 10m_wind_direction
+        nc_variable: wdir10
+        types: state
+        units: "Degree true"
+
+      "10m-wind-speed-carra":
+        cds_variable: 10m_wind_speed
+        nc_variable: si10
+        types: state
+        units: "m s**-1"
+
+      "2m-relative-humidity-carra":
+        cds_variable: 2m_relative_humidity
+        nc_variable: r2
+        types: state
+        units: "%"
+
+      "2m-temperature-carra":
+        cds_variable: 2m_temperature
+        nc_variable: t2m
+        types: state
+        units: K
+
+      "albedo-carra":
+        cds_variable: albedo
+        nc_variable: al
+        types: state
+        units: "%"
+
+      "cloud-base-carra":
+        cds_variable: cloud_base
+        nc_variable: cdcb
+        types: state
+        units: m
+
+      "cloud-top-carra":
+        cds_variable: cloud_top
+        nc_variable: cdct
+        types: state
+        units: m
+
+      "high-cloud-cover-carra":
+        cds_variable: high_cloud_cover
+        nc_variable: hcc
+        types: state
+        units: "%"
+
+      "land-sea-mask-carra":
+        cds_variable: land_sea_mask
+        nc_variable: lsm
+        units: "(0 - 1)"
+
+      "low-cloud-cover-carra":
+        cds_variable: low_cloud_cover
+        nc_variable: lcc
+        types: state
+        units: "%"
+
+      "medium-cloud-cover-carra":
+        cds_variable: medium_cloud_cover
+        nc_variable: mcc
+        types: state
+        units: "%"
+
+      "orography-carra":
+        cds_variable: orography
+        nc_variable: orog
+        units: m
+
+      "percolation-carra":
+        cds_variable: percolation
+        nc_variable: perc
+        types: flux
+        units: "kg m**-2"
+
+      "sea-ice-area-fraction-carra":
+        cds_variable: sea_ice_area_fraction
+        nc_variable: siconc
+        types: state
+        units: "(0 - 1)"
+
+      "sea-surface-temperature-carra":
+        cds_variable: sea_surface_temperature
+        nc_variable: sst
+        types: state
+        units: K
+
+      "skin-temperature-carra":
+        cds_variable: skin_temperature
+        nc_variable: skt
+        types: state
+        units: K
+
+      "snow-density-carra":
+        cds_variable: snow_density
+        nc_variable: rsn
+        types: state
+        units: "kg m**-3"
+
+      "snow-depth-water-equivalent-carra":
+        cds_variable: snow_depth_water_equivalent
+        nc_variable: sd
+        types: state
+        units: "kg m**-2"
+
+      "surface-pressure-carra":
+        cds_variable: surface_pressure
+        nc_variable: sp
+        types: state
+        units: Pa
+
+      "surface-roughness-carra":
+        cds_variable: surface_roughness
+        nc_variable: sr
+        units: m
+
+      "surface-runoff-carra":
+        cds_variable: surface_runoff
+        nc_variable: sro
+        types: flux
+        units: "kg m**-2"
+
+      "total-cloud-cover-carra":
+        cds_variable: total_cloud_cover
+        nc_variable: tcc
+        types: state
+        units: "%"
+
+      "total-column-integrated-water-vapour-carra":
+        cds_variable: total_column_integrated_water_vapour
+        nc_variable: tciwv
+        types: state
+        units: "kg m**-2"
+
+      "visibility-carra":
+        cds_variable: visibility
+        nc_variable: vis
+        types: state
+        units: m
+
