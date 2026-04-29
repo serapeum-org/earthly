@@ -989,6 +989,15 @@ class ECMWF(AbstractDataSource):
             if stripped not in var_info.extras:
                 request.pop(stripped, None)
 
+        # Per-variable opt-out: any extras key explicitly set to
+        # ``None`` in the YAML row is dropped from the request. This
+        # is the per-row escape hatch for datasets that reject the
+        # default ``area`` bbox (Atlas / projections / rotated grids)
+        # without forcing the user to declare a new ``request_kind``.
+        for key, value in list(var_info.extras.items()):
+            if value is None:
+                request.pop(key, None)
+
         # Pre-flight check the assembled request against the CDS
         # ``constraints.json`` for this dataset. Catches typos and
         # invalid extras combinations client-side before they

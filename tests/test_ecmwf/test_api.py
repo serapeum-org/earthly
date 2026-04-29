@@ -382,6 +382,36 @@ class TestApi:
             ecmwf_stub.api(single_level_var_info)
         assert ecmwf_stub.client.retrieve.call_count == 0
 
+    def test_extras_with_none_value_drops_key_from_request(self, ecmwf_stub):
+        """Setting ``extras: {area: None}`` removes ``area`` from the request.
+
+        Per-row opt-out (M27) for datasets that reject the default
+        bbox without needing a new ``request_kind``.
+        """
+        spec = Variable(
+            cds_dataset="reanalysis-era5-single-levels",
+            cds_variable="2m_temperature",
+            nc_variable="t2m",
+            units="K",
+            extras={"area": None},
+        )
+        ecmwf_stub.api(spec)
+        request = captured_request(ecmwf_stub)
+        assert "area" not in request
+
+    def test_extras_with_none_value_drops_arbitrary_key(self, ecmwf_stub):
+        """The drop-on-None semantics works for any extras key."""
+        spec = Variable(
+            cds_dataset="reanalysis-era5-single-levels",
+            cds_variable="2m_temperature",
+            nc_variable="t2m",
+            units="K",
+            extras={"product_type": None},
+        )
+        ecmwf_stub.api(spec)
+        request = captured_request(ecmwf_stub)
+        assert "product_type" not in request
+
     def test_oceanic_monthly_strips_day_time_area_product_type(self, ecmwf_stub):
         """``request_kind=oceanic_monthly`` drops ERA5 template defaults.
 
