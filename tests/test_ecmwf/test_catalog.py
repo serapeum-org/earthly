@@ -382,6 +382,22 @@ class TestCatalog:
         with pytest.raises(KeyError):
             Catalog().describe("definitely-not-a-dataset")
 
+    def test_era5_land_monthly_means_routing(self):
+        """ERA5-Land's ``monthly:`` link routes to the monthly-means dataset.
+
+        M23: confirms the parent dataset's ``monthly:`` field
+        propagates into each Variable's ``cds_dataset_monthly``,
+        so ``Variable.dataset_for("monthly")`` returns the
+        ``-monthly-means`` variant.
+        """
+        cat = Catalog()
+        ds = cat.datasets["reanalysis-era5-land"]
+        assert ds.monthly == "reanalysis-era5-land-monthly-means"
+        spec = ds.variables["2m-temperature"]
+        assert spec.cds_dataset_monthly == "reanalysis-era5-land-monthly-means"
+        assert spec.dataset_for("daily") == "reanalysis-era5-land"
+        assert spec.dataset_for("monthly") == "reanalysis-era5-land-monthly-means"
+
     def test_carra_means_partial_loads(self):
         """CARRA-means partial block (6 forecast-based single-level vars)."""
         cat = Catalog()
