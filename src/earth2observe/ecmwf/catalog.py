@@ -378,6 +378,77 @@ class Catalog(AbstractCatalog):
             "variables": sorted(ds.variables),
         }
 
+    def minimal_valid_request(self, dataset_name: str) -> dict[str, Any]:
+        """Return a known-valid minimal request for ``dataset_name``.
+
+        Walks the dataset's published ``constraints.json`` (cached
+        per-process) and returns the first entry expanded into a
+        request dict with one value per selector. Useful for:
+
+        * verifying a CDS account is set up correctly (submit the
+          returned dict via :meth:`cdsapi.Client.retrieve` and watch
+          for a NetCDF rather than a 400),
+        * seeing what a valid extras schema looks like for a new
+          dataset before authoring catalog rows,
+        * starting points for tests.
+
+        The returned request always carries ``data_format: netcdf``;
+        the rest is whatever the first constraint entry enumerates.
+
+        Args:
+            dataset_name: CDS dataset short name. Does not need to be
+                in :attr:`datasets` — the constraints endpoint is
+                hit directly so any addressable dataset works.
+
+        Returns:
+            dict[str, Any]: A request dict ready to pass to
+            :meth:`cdsapi.Client.retrieve`. Empty dict (besides
+            ``data_format``) when the dataset's constraints are
+            empty / unreachable.
+
+        Examples:
+            - Inspect ECMWF's published shape for a new dataset
+              before authoring rows. Marked ``# doctest: +SKIP``
+              because it requires network access:
+
+                ```python
+                >>> from earth2observe.ecmwf import Catalog
+                >>> req = Catalog().minimal_valid_request(  # doctest: +SKIP
+                ...     "reanalysis-cerra-land",
+                ... )
+                >>> sorted(req.keys())  # doctest: +SKIP
+                ['data_format', 'day', 'leadtime_hour', 'level_type', ...]
+
+                ```
+        """
+        from earth2observe.ecmwf.constraints import fetch_constraints
+
+        constraints = fetch_constraints(dataset_name)
+        request: dict[str, Any] = {"data_format": "netcdf"}
+        if not constraints:
+            return request
+        # Pick the first entry that has at least one variable —
+        # entries with empty `variable` lists are dataset-form
+        # placeholders that don't make a usable retrieve request.
+        for entry in constraints:
+            if entry.get("variable"):
+                for key, value in entry.items():
+                    if isinstance(value, list) and value:
+                        request[key] = value[:1]
+                    else:
+                        request[key] = value
+                return request
+        # No entry had variables — fall back to the first one anyway
+        # (some datasets identify the data column via an extra rather
+        # than a `variable` list).
+        first = constraints[0]
+        for key, value in first.items():
+            if isinstance(value, list) and value:
+                request[key] = value[:1]
+            else:
+                request[key] = value
+        return request
+
     def get_variable(self, var_name):
         """Alias for :meth:`get_dataset` satisfying the abstract base.
 

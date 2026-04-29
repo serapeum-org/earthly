@@ -277,6 +277,89 @@ class TestCatalog:
         assert spec.nc_variable == "t"
         assert spec.cds_pressure_level == ["1000"]
 
+    def test_minimal_valid_request_picks_entry_with_variable(self, monkeypatch):
+        """``minimal_valid_request`` returns a known-valid request dict."""
+        from earth2observe.ecmwf import constraints as constraints_module
+
+        constraints_module._CACHE.clear()
+
+        class _Resp:
+            def __enter__(self): return self
+            def __exit__(self, *_): return False
+            def read(self):
+                import json
+                return json.dumps([
+                    # Entry without variables — should be skipped
+                    {"experiment": ["historical"], "year": ["2000"]},
+                    # Entry with variables — should be picked
+                    {
+                        "variable": ["2m_temperature", "skin_temperature"],
+                        "year": ["2022"],
+                        "month": ["01"],
+                        "level_type": ["surface_or_atmosphere"],
+                    },
+                ]).encode("utf-8")
+
+        monkeypatch.setattr(
+            constraints_module.urllib.request,
+            "urlopen",
+            lambda *_a, **_kw: _Resp(),
+        )
+        request = Catalog().minimal_valid_request("ds")
+        assert request["data_format"] == "netcdf"
+        assert request["variable"] == ["2m_temperature"]
+        assert request["year"] == ["2022"]
+        assert request["month"] == ["01"]
+        assert request["level_type"] == ["surface_or_atmosphere"]
+
+    def test_minimal_valid_request_falls_back_for_no_variable_datasets(
+        self, monkeypatch
+    ):
+        """For datasets without a ``variable`` field, return the first entry."""
+        from earth2observe.ecmwf import constraints as constraints_module
+
+        constraints_module._CACHE.clear()
+
+        class _Resp:
+            def __enter__(self): return self
+            def __exit__(self, *_): return False
+            def read(self):
+                import json
+                # No entry has `variable` — caller gets first entry expanded
+                return json.dumps([
+                    {"cdr_type": ["esa_cci"], "region": ["nh"]},
+                    {"cdr_type": ["osi_saf"], "region": ["sh"]},
+                ]).encode("utf-8")
+
+        monkeypatch.setattr(
+            constraints_module.urllib.request,
+            "urlopen",
+            lambda *_a, **_kw: _Resp(),
+        )
+        request = Catalog().minimal_valid_request("satellite-no-variable-ds")
+        assert request["cdr_type"] == ["esa_cci"]
+        assert request["region"] == ["nh"]
+
+    def test_minimal_valid_request_empty_constraints(self, monkeypatch):
+        """Empty constraints return a near-empty request (just data_format)."""
+        from earth2observe.ecmwf import constraints as constraints_module
+
+        constraints_module._CACHE.clear()
+
+        class _Resp:
+            def __enter__(self): return self
+            def __exit__(self, *_): return False
+            def read(self):
+                return b"[]"
+
+        monkeypatch.setattr(
+            constraints_module.urllib.request,
+            "urlopen",
+            lambda *_a, **_kw: _Resp(),
+        )
+        request = Catalog().minimal_valid_request("non-addressable")
+        assert request == {"data_format": "netcdf"}
+
     def test_describe_returns_dataset_metadata(self):
         """``Catalog.describe`` returns a structured introspection record."""
         cat = Catalog()

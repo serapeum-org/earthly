@@ -395,6 +395,44 @@ pointer for users; promoting any of them to a curated row under
 `datasets:` is a no-op until CDS publishes constraints, so don't
 attempt it speculatively.
 
+### Building a known-valid request
+
+For any addressable CDS dataset, `Catalog.minimal_valid_request(dataset_name)`
+returns a request dict drawn from the dataset's published
+`constraints.json`. Useful for verifying account setup, exploring a
+new dataset's extras schema, and seeding tests:
+
+```python
+>>> from earth2observe.ecmwf import Catalog
+>>> request = Catalog().minimal_valid_request("reanalysis-cerra-land")
+>>> sorted(request)
+['data_format', 'day', 'leadtime_hour', 'level_type', 'month',
+ 'product_type', 'time', 'variable', 'year']
+```
+
+The returned dict is the inverse of what `validate_request()`
+checks — submit it via `cdsapi.Client.retrieve()` directly and CDS
+should accept it without `400`.
+
+### Per-row opt-out via `extras: None`
+
+Setting any key in a variable's `extras` to `None` drops it from
+the request at api() build time. The most common use is suppressing
+the default bbox for datasets that reject `area` (CMIP6 atlases,
+projections on rotated grids, ORAS5):
+
+```yaml
+my-3d-variable:
+  nc_variable: foo
+  units: m
+  extras:
+    area:           # null → skip the bbox subset entirely
+```
+
+This works alongside `request_kind` — a `request_kind` strip is
+applied first, then per-row `None` values, then the constraints
+validator runs on the final request.
+
 ### Pre-flight constraints validation
 
 Every CDS request passes through
