@@ -398,6 +398,15 @@ class TestCatalog:
         assert spec.dataset_for("daily") == "reanalysis-era5-land"
         assert spec.dataset_for("monthly") == "reanalysis-era5-land-monthly-means"
 
+    def test_era5_pressure_levels_monthly_means_routing(self):
+        """M24: ERA5 pressure-levels routes monthly to its -monthly-means variant."""
+        cat = Catalog()
+        ds = cat.datasets["reanalysis-era5-pressure-levels"]
+        assert ds.monthly == "reanalysis-era5-pressure-levels-monthly-means"
+        spec = ds.variables["temperature"]
+        assert spec.dataset_for("daily") == "reanalysis-era5-pressure-levels"
+        assert spec.dataset_for("monthly") == "reanalysis-era5-pressure-levels-monthly-means"
+
     def test_carra_means_partial_loads(self):
         """CARRA-means partial block (6 forecast-based single-level vars)."""
         cat = Catalog()
