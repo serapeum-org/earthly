@@ -90,6 +90,12 @@ def fetch_one_batch(
         request.pop("day", None)
         request.pop("time", None)
         request.pop("area", None)
+    # Same M16 / M17 pre-flight validation the production
+    # ECMWF.api() uses. Probes that fail here would otherwise sit
+    # in the CDS queue for 5-30 min before failing server-side
+    # with the same answer.
+    from earth2observe.ecmwf.constraints import validate_request
+    validate_request(dataset, request)
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)
         client.retrieve(dataset, request, str(target))
