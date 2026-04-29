@@ -989,6 +989,14 @@ class ECMWF(AbstractDataSource):
             if stripped not in var_info.extras:
                 request.pop(stripped, None)
 
+        # Pre-flight check the assembled request against the CDS
+        # ``constraints.json`` for this dataset. Catches typos and
+        # invalid extras combinations client-side before they
+        # consume a CDS queue slot. Set
+        # ``E2O_SKIP_CONSTRAINTS=1`` to bypass.
+        from earth2observe.ecmwf.constraints import validate_request
+        validate_request(dataset, request)
+
         target = self.root_dir / f"{var_info.cds_variable}_{dataset}.nc"
         logger.info(
             f"Requesting {dataset} from CDS; this may take several minutes"

@@ -1,0 +1,247 @@
+"""Tests for :mod:`earth2observe.ecmwf.constraints`.
+
+Validates the pre-flight check that catches mismatched
+request / constraints.json combinations before they hit CDS.
+"""
+
+from __future__ import annotations
+
+import io
+import json
+from urllib.error import HTTPError
+
+import pytest
+
+from earth2observe.ecmwf import constraints as constraints_module
+from earth2observe.ecmwf.constraints import (
+    fetch_constraints,
+    validate_request,
+)
+
+pytestmark = [pytest.mark.unit]
+
+
+@pytest.fixture(autouse=True)
+def _clear_cache_and_env(monkeypatch):
+    """Reset the module-level cache and skip-flag between tests."""
+    constraints_module._CACHE.clear()
+    monkeypatch.delenv("E2O_SKIP_CONSTRAINTS", raising=False)
+    yield
+    constraints_module._CACHE.clear()
+
+
+def _stub_urlopen(monkeypatch, payload):
+    """Replace :func:`urllib.request.urlopen` with a static fake."""
+    body = json.dumps(payload).encode("utf-8") if payload is not None else b"x"
+
+    class _Resp:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def read(self):
+            return body
+
+    monkeypatch.setattr(
+        constraints_module.urllib.request,
+        "urlopen",
+        lambda *_a, **_kw: _Resp(),
+    )
+
+
+def _stub_urlopen_raise(monkeypatch, exc):
+    """Replace urlopen with one that raises the given exception."""
+
+    def _raise(*_a, **_kw):
+        raise exc
+
+    monkeypatch.setattr(
+        constraints_module.urllib.request,
+        "urlopen",
+        _raise,
+    )
+
+
+class TestValidateRequest:
+    """Tests for :func:`validate_request`."""
+
+    def test_valid_request_passes(self, monkeypatch):
+        """A request that matches a constraint entry returns silently."""
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {
+                    "variable": ["2m_temperature"],
+                    "year": ["2022"],
+                    "product_type": ["reanalysis"],
+                }
+            ],
+        )
+        validate_request(
+            "reanalysis-era5-single-levels",
+            {
+                "variable": ["2m_temperature"],
+                "year": ["2022"],
+                "product_type": ["reanalysis"],
+            },
+        )
+
+    def test_invalid_value_raises(self, monkeypatch):
+        """Mismatched request keys raise ValueError naming offenders."""
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {
+                    "variable": ["2m_temperature"],
+                    "year": ["2022"],
+                    "product_type": ["analysis"],
+                }
+            ],
+        )
+        with pytest.raises(ValueError, match="product_type"):
+            validate_request(
+                "reanalysis-cerra-land",
+                {
+                    "variable": ["2m_temperature"],
+                    "year": ["2022"],
+                    "product_type": ["forecast"],
+                },
+            )
+
+    def test_universal_keys_skip_validation(self, monkeypatch):
+        """``area`` / ``data_format`` are not validated (CDS accepts globally)."""
+        _stub_urlopen(
+            monkeypatch,
+            [{"variable": ["2m_temperature"], "year": ["2022"]}],
+        )
+        # ``area`` is not in any constraint entry — must still pass.
+        validate_request(
+            "reanalysis-era5-single-levels",
+            {
+                "variable": ["2m_temperature"],
+                "year": ["2022"],
+                "area": [60, -20, 50, 0],
+                "data_format": "netcdf",
+            },
+        )
+
+    def test_unknown_keys_skip_validation(self, monkeypatch):
+        """Keys the constraints document does not enumerate are ignored."""
+        _stub_urlopen(
+            monkeypatch,
+            [{"variable": ["2m_temperature"], "year": ["2022"]}],
+        )
+        # ``custom_key`` is not in constraints — should be ignored.
+        validate_request(
+            "reanalysis-era5-single-levels",
+            {
+                "variable": ["2m_temperature"],
+                "year": ["2022"],
+                "custom_key": "anything",
+            },
+        )
+
+    def test_empty_constraints_skip_validation(self, monkeypatch):
+        """An empty constraints document silently allows anything."""
+        _stub_urlopen(monkeypatch, [])
+        validate_request(
+            "reanalysis-era5-complete",
+            {"variable": ["any"], "year": ["2099"]},
+        )
+
+    def test_missing_endpoint_skip_validation(self, monkeypatch):
+        """A 404 / network error treats validation as a no-op."""
+        _stub_urlopen_raise(
+            monkeypatch,
+            HTTPError("u", 404, "Not Found", None, io.BytesIO(b"")),
+        )
+        # No exception expected — validation falls back to allow.
+        validate_request(
+            "provider-c3s-data-rescue-without",
+            {"variable": ["x"]},
+        )
+
+    def test_skip_flag_bypasses_fetch(self, monkeypatch):
+        """``E2O_SKIP_CONSTRAINTS=1`` shortcuts validation entirely."""
+
+        def _fail(*_a, **_kw):
+            raise AssertionError(
+                "urlopen must not be called when skip flag is set"
+            )
+
+        monkeypatch.setattr(
+            constraints_module.urllib.request, "urlopen", _fail
+        )
+        monkeypatch.setenv("E2O_SKIP_CONSTRAINTS", "1")
+        validate_request(
+            "reanalysis-era5-single-levels",
+            {"variable": ["nonsense"], "year": ["1492"]},
+        )
+
+    def test_constraints_cached_between_calls(self, monkeypatch):
+        """Two validations against the same dataset hit the network once."""
+        call_count = {"n": 0}
+
+        def _counting_urlopen(*_a, **_kw):
+            call_count["n"] += 1
+            return _Resp()
+
+        class _Resp:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_):
+                return False
+
+            def read(self):
+                return json.dumps(
+                    [{"variable": ["x"], "year": ["2022"]}]
+                ).encode("utf-8")
+
+        monkeypatch.setattr(
+            constraints_module.urllib.request,
+            "urlopen",
+            _counting_urlopen,
+        )
+        request = {"variable": ["x"], "year": ["2022"]}
+        validate_request("reanalysis-era5-single-levels", request)
+        validate_request("reanalysis-era5-single-levels", request)
+        assert call_count["n"] == 1
+
+    def test_partial_match_in_request_list_raises(self, monkeypatch):
+        """A request listing a value not in *any* constraint entry raises.
+
+        The constraint entry has ``year=[2022]``; if the request asks
+        for both ``[2022, 2099]``, validation must reject because no
+        entry covers ``2099``.
+        """
+        _stub_urlopen(
+            monkeypatch,
+            [{"variable": ["2m_temperature"], "year": ["2022"]}],
+        )
+        with pytest.raises(ValueError, match="year"):
+            validate_request(
+                "reanalysis-era5-single-levels",
+                {"variable": ["2m_temperature"], "year": ["2022", "2099"]},
+            )
+
+
+class TestFetchConstraints:
+    """Tests for :func:`fetch_constraints`."""
+
+    def test_returns_payload_on_success(self, monkeypatch):
+        _stub_urlopen(monkeypatch, [{"variable": ["x"]}])
+        assert fetch_constraints("ds") == [{"variable": ["x"]}]
+
+    def test_returns_empty_list_on_404(self, monkeypatch):
+        _stub_urlopen_raise(
+            monkeypatch,
+            HTTPError("u", 404, "Not Found", None, io.BytesIO(b"")),
+        )
+        assert fetch_constraints("ds") == []
+
+    def test_returns_empty_list_on_non_list_payload(self, monkeypatch):
+        _stub_urlopen(monkeypatch, {"unexpected": "object"})
+        assert fetch_constraints("ds") == []

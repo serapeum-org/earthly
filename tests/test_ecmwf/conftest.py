@@ -40,7 +40,14 @@ def _block_real_cdsapi(request, monkeypatch):
     need a fake client still call ``monkeypatch.setattr(cdsapi,
     "Client", ...)`` themselves; that later setattr wins because
     monkeypatch applies fixture-scoped overrides in order.
+
+    Also sets ``E2O_SKIP_CONSTRAINTS=1`` so the api() pre-flight
+    validator does not hit the live CDS catalogue endpoint during
+    unit tests that build synthetic requests. Tests targeting the
+    validator itself (in ``test_constraints.py``) override this
+    via ``monkeypatch.delenv``.
     """
+    monkeypatch.setenv("E2O_SKIP_CONSTRAINTS", "1")
     if request.cls is not None and request.cls.__name__ in _LIVE_CDS_TEST_CLASSES:
         return
 

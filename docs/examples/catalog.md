@@ -395,6 +395,23 @@ pointer for users; promoting any of them to a curated row under
 `datasets:` is a no-op until CDS publishes constraints, so don't
 attempt it speculatively.
 
+### Pre-flight constraints validation
+
+Every CDS request passes through
+`earth2observe.ecmwf.constraints.validate_request()` before
+:meth:`cdsapi.Client.retrieve` is called. The validator fetches
+the dataset's published `constraints.json` (cached per-process)
+and rejects any request whose extras / variable / year combination
+is outside the published validity matrix. This catches typos and
+mis-guesses (e.g. CERRA-land's `level_type: surface` requires
+`product_type: forecast` not `analysis`) **before** the request
+takes a CDS queue slot — saving 1–30 minutes per failure.
+
+Bypass the check with `E2O_SKIP_CONSTRAINTS=1` if a dataset's
+constraints endpoint is missing or outdated. The unit test suite
+sets this automatically so synthetic test requests aren't
+penalised by network-only validation logic.
+
 ### Refreshing `available_datasets`
 
 CDS adds and retires datasets a few times a year; the

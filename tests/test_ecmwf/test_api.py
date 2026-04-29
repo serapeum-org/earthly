@@ -336,6 +336,49 @@ class TestApi:
         ecmwf_stub.api(spec)
         assert captured_request(ecmwf_stub)["product_type"] == ["ensemble_mean"]
 
+    def test_invalid_request_caught_before_retrieve(
+        self, ecmwf_stub, single_level_var_info, monkeypatch
+    ):
+        """``api()`` calls ``validate_request`` before ``client.retrieve``.
+
+        Stubs the constraints fetch to return an entry that does NOT
+        cover the assembled request, then asserts the resulting
+        ``ValueError`` surfaces before any retrieve call.
+        """
+        from earth2observe.ecmwf import constraints as constraints_module
+
+        monkeypatch.delenv("E2O_SKIP_CONSTRAINTS", raising=False)
+        constraints_module._CACHE.clear()
+
+        class _Resp:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_):
+                return False
+
+            def read(self):
+                import json as _j
+
+                return _j.dumps(
+                    [
+                        {
+                            "variable": ["different_variable"],
+                            "year": ["1900"],
+                        }
+                    ]
+                ).encode("utf-8")
+
+        monkeypatch.setattr(
+            constraints_module.urllib.request,
+            "urlopen",
+            lambda *_a, **_kw: _Resp(),
+        )
+
+        with pytest.raises(ValueError, match="does not match"):
+            ecmwf_stub.api(single_level_var_info)
+        assert ecmwf_stub.client.retrieve.call_count == 0
+
     def test_oceanic_monthly_strips_day_time_area_product_type(self, ecmwf_stub):
         """``request_kind=oceanic_monthly`` drops ERA5 template defaults.
 
