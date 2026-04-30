@@ -4209,6 +4209,12 @@ datasets:
         types: state
         units: m
 
+      "low-cloud-cover-cerra":
+        cds_variable: low_cloud_cover
+        nc_variable: lcc
+        types: state
+        units: "%"
+
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
@@ -4257,6 +4263,12 @@ datasets:
         types: state
         units: "J kg**-1"
 
+      "specific-cloud-ice-water-content-cerra-h":
+        cds_variable: specific_cloud_ice_water_content
+        nc_variable: ciwc
+        types: state
+        units: "kg kg**-1"
+
   reanalysis-cerra-pressure-levels:
     # CERRA pressure-level variables. 5 of 11 catalogued vars
     # probe-confirmed at 1000hPa; ``pressure_level`` extra selects
@@ -4302,6 +4314,12 @@ datasets:
         nc_variable: ccl
         types: state
         units: "%"
+
+      "specific-cloud-ice-water-content-cerra-p":
+        cds_variable: specific_cloud_ice_water_content
+        nc_variable: ciwc
+        types: state
+        units: "kg kg**-1"
 
   reanalysis-cerra-model-levels:
     # CERRA model-level variables (1-106 hybrid levels).
@@ -4412,6 +4430,12 @@ datasets:
         nc_variable: rsn
         types: state
         units: "kg m**-3"
+
+      "surface-runoff-cerra-land":
+        cds_variable: surface_runoff
+        nc_variable: sro
+        types: flux
+        units: "kg m**-2"
 
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
@@ -4593,6 +4617,12 @@ datasets:
         nc_variable: LWdown
         types: flux
         units: "W m**-2"
+
+      "snowfall-flux-nsmv":
+        cds_variable: snowfall_flux
+        nc_variable: Snowf
+        types: flux
+        units: "kg m**-2 s**-1"
 
   ecv-for-climate-change:
     # ECV (Essential Climate Variables) for climate change.
