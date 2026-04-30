@@ -4157,6 +4157,14 @@ datasets:
         extras:
           product_type: [analysis_based]
 
+      "10m-wind-speed-carra-means":
+        cds_variable: 10m_wind_speed
+        nc_variable: si10
+        types: state
+        units: "m s**-1"
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
