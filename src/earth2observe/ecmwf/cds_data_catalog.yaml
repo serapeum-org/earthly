@@ -4374,6 +4374,47 @@ datasets:
         types: state
         units: "kg kg**-1"
 
+  derived-utci-historical:
+    # Universal Thermal Climate Index historical archive. The CDS
+    # response is a ZIP bundling per-statistic NetCDFs; the nc_variable
+    # listed below is the headline statistic in each bundle (the bundle
+    # itself contains many derived stat layers).
+    # 2 of 9 catalogued cds_variables probe-confirmed
+    # (yearly_statistics families). Daily / monthly / seasonal /
+    # mean_radiant_temperature pending probes.
+    extras:
+      product_type: [consolidated_dataset]
+      version: ["1_1"]
+    variables:
+
+      "utci-yearly-stats-utci":
+        cds_variable: universal_thermal_climate_index_yearly_statistics
+        nc_variable: utci_yearly_max
+        types: state
+        units: "K"
+
+      "tropical-nights-yearly-stats-utci":
+        cds_variable: tropical_nights_thermal_comfort_yearly_statistics
+        nc_variable: count_tropical_nights
+        types: state
+        units: "1"
+
+  derived-near-surface-meteorological-variables:
+    # WFDE5 / CRU near-surface meteorological variables.
+    # Only 1 of 9 catalogued vars probe-confirmed (orography / ASurf).
+    # Real climate vars (rainfall, near-surface temperature/wind,
+    # radiation) need fresh probes — original picker greedily chose
+    # grid_point_altitude alone.
+    extras:
+      version: ["2_1"]
+    variables:
+
+      "grid-point-altitude-nsmv":
+        cds_variable: grid_point_altitude
+        nc_variable: ASurf
+        types: state
+        units: "m"
+
   seasonal-monthly-single-levels:
     # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
     # 38 catalogued vars are probe-confirmed. The remaining 27 vars
