@@ -4165,6 +4165,12 @@ datasets:
         types: state
         units: "Degree true"
 
+      "snow-depth-cerra":
+        cds_variable: snow_depth
+        nc_variable: sde
+        types: state
+        units: m
+
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
@@ -4448,6 +4454,12 @@ datasets:
         types: state
         units: K
 
+      "precipitation-ecv":
+        cds_variable: precipitation
+        nc_variable: tp
+        types: flux
+        units: "m"
+
   reanalysis-pan-carra-means:
     # PAN-CARRA temporally-aggregated forecast-based reanalysis.
     # 1 of ~30 catalogued vars probe-confirmed (evaporation -> eva).
@@ -4484,6 +4496,12 @@ datasets:
         types: state
         units: "1"
 
+      "spi3-drought":
+        cds_variable: standardised_precipitation_index
+        nc_variable: SPI3
+        types: state
+        units: "1"
+
   derived-gridded-glacier-mass-change:
     # Gridded annual glacier mass change (WGMS FoG). 1 of 1 catalogued
     # var probe-confirmed (glacier_mass_change). Unit is Gt (Gigatonnes).
@@ -4513,6 +4531,41 @@ datasets:
         nc_variable: t2m
         types: state
         units: K
+
+  seasonal-postprocessed-single-levels:
+    # ECMWF seasonal forecast post-processed (anomalies / probabilities)
+    # single-levels. 1 var probe-confirmed
+    # (2m_dewpoint_temperature_anomaly -> d2a). Anomaly products reference
+    # a climate-base period and report deviations rather than raw values.
+    extras:
+      product_type: [ensemble_mean]
+      originating_centre: ukmo
+      system: "12"
+      leadtime_month: ["1"]
+    variables:
+
+      "2m-dewpoint-temperature-anomaly-seasonal-pp":
+        cds_variable: 2m_dewpoint_temperature_anomaly
+        nc_variable: d2a
+        types: state
+        units: K
+
+  seasonal-monthly-pressure-levels:
+    # ECMWF seasonal forecast monthly aggregates on pressure levels.
+    # 1 var probe-confirmed (geopotential -> z at 10 hPa).
+    pressure_level: ["10"]
+    extras:
+      product_type: [ensemble_mean]
+      originating_centre: ukmo
+      system: "601"
+      leadtime_month: ["1"]
+    variables:
+
+      "geopotential-seasonal-p":
+        cds_variable: geopotential
+        nc_variable: z
+        types: state
+        units: "m**2 s**-2"
 
   seasonal-monthly-single-levels:
     # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
