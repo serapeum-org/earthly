@@ -4333,6 +4333,12 @@ datasets:
         types: state
         units: K
 
+      "skin-temperature-cerra-land":
+        cds_variable: skin_temperature
+        nc_variable: skt
+        types: state
+        units: K
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -4411,6 +4417,12 @@ datasets:
         types: state
         units: K
 
+      "utci-daily-stats-utci":
+        cds_variable: universal_thermal_climate_index_daily_statistics
+        nc_variable: utci_daily_max
+        types: state
+        units: K
+
   derived-near-surface-meteorological-variables:
     # WFDE5 / CRU near-surface meteorological variables.
     # Only 1 of 9 catalogued vars probe-confirmed (orography / ASurf).
@@ -4459,6 +4471,12 @@ datasets:
         nc_variable: tp
         types: flux
         units: "m"
+
+      "surface-air-relative-humidity-ecv":
+        cds_variable: surface_air_relative_humidity
+        nc_variable: r2
+        types: state
+        units: "%"
 
   reanalysis-pan-carra-means:
     # PAN-CARRA temporally-aggregated forecast-based reanalysis.
@@ -4564,6 +4582,39 @@ datasets:
       "geopotential-seasonal-p":
         cds_variable: geopotential
         nc_variable: z
+        types: state
+        units: "m**2 s**-2"
+
+  seasonal-original-pressure-levels:
+    # ECMWF seasonal forecast original (un-aggregated) pressure-levels.
+    # 1 var probe-confirmed (geopotential -> z at 10 hPa).
+    pressure_level: ["10"]
+    extras:
+      originating_centre: ukmo
+      system: "601"
+      leadtime_hour: ["6"]
+    variables:
+
+      "geopotential-seasonal-orig-p":
+        cds_variable: geopotential
+        nc_variable: z
+        types: state
+        units: "m**2 s**-2"
+
+  seasonal-postprocessed-pressure-levels:
+    # ECMWF seasonal forecast post-processed pressure-levels (anomalies).
+    # 1 var probe-confirmed (geopotential_anomaly -> za at 10 hPa).
+    pressure_level: ["10"]
+    extras:
+      product_type: [ensemble_mean]
+      originating_centre: ukmo
+      system: "601"
+      leadtime_month: ["1"]
+    variables:
+
+      "geopotential-anomaly-seasonal-pp-p":
+        cds_variable: geopotential_anomaly
+        nc_variable: za
         types: state
         units: "m**2 s**-2"
 
