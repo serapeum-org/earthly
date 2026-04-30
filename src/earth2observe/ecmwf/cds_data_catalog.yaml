@@ -4399,6 +4399,12 @@ datasets:
         types: state
         units: "1"
 
+      "utci-raw-utci":
+        cds_variable: universal_thermal_climate_index
+        nc_variable: utci
+        types: state
+        units: K
+
   derived-near-surface-meteorological-variables:
     # WFDE5 / CRU near-surface meteorological variables.
     # Only 1 of 9 catalogued vars probe-confirmed (orography / ASurf).
@@ -4414,6 +4420,33 @@ datasets:
         nc_variable: ASurf
         types: state
         units: "m"
+
+      "near-surface-air-temperature-nsmv":
+        cds_variable: near_surface_air_temperature
+        nc_variable: Tair
+        types: state
+        units: K
+
+  ecv-for-climate-change:
+    # ECV (Essential Climate Variables) for climate change.
+    # 1 of 5 catalogued cds_variables probe-confirmed
+    # (surface_air_temperature -> t2m). The CDS default returns GRIB
+    # without an explicit data_format override, so the
+    # ``data_format: netcdf4`` extra is included to ensure NetCDF
+    # output. Remaining 4 vars (relative_humidity, soil_moisture,
+    # precipitation, sea_ice_cover) pending probes.
+    extras:
+      product_type: [monthly_mean]
+      origin: era5
+      time_aggregation: 1_month_mean
+      data_format: netcdf4
+    variables:
+
+      "surface-air-temperature-ecv":
+        cds_variable: surface_air_temperature
+        nc_variable: t2m
+        types: state
+        units: K
 
   seasonal-monthly-single-levels:
     # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
