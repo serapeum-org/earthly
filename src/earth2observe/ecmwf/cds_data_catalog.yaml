@@ -4265,6 +4265,12 @@ datasets:
         types: state
         units: Pa
 
+      "skin-temperature-cerra":
+        cds_variable: skin_temperature
+        nc_variable: skt
+        types: state
+        units: K
+
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
