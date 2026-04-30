@@ -508,17 +508,20 @@ class TestCatalog:
         assert spec.dataset_for("monthly") == "reanalysis-era5-single-levels-monthly-means"
 
     def test_carra_means_partial_loads(self):
-        """CARRA-means partial block (6 forecast-based single-level vars)."""
+        """CARRA-means partial block (6 forecast-based single-level vars + 1 analysis_based override)."""
         cat = Catalog()
         ds = cat.datasets["reanalysis-carra-means"]
         assert ds.request_kind == "carra_means"
         assert ds.extras["product_type"] == ["forecast_based"]
         assert ds.extras["time_aggregation"] == "daily"
-        assert len(ds.variables) == 6
+        assert len(ds.variables) == 7
         spec = ds.variables["maximum-2m-temperature-carra-means"]
         assert spec.cds_variable == "maximum_2m_temperature_since_previous_post_processing"
         assert spec.nc_variable == "mx2t"
         assert spec.units == "K"
+        # Per-row extras override: analysis_based var flips product_type.
+        analysis_spec = ds.variables["2m-specific-humidity-carra-means"]
+        assert analysis_spec.extras["product_type"] == ["analysis_based"]
 
     def test_seasonal_monthly_single_partial_loads(self):
         """Seasonal monthly-single partial block (11 of 38 vars)."""

@@ -4117,6 +4117,14 @@ datasets:
         types: state
         units: "%"
 
+      "2m-specific-humidity-carra-means":
+        cds_variable: 2m_specific_humidity
+        nc_variable: sh2
+        types: state
+        units: "kg kg**-1"
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
@@ -4392,6 +4400,15 @@ datasets:
         types: state
         units: "kg kg**-1"
 
+      "pressure-pancarra-h":
+        cds_variable: pressure
+        nc_variable: pres
+        types: state
+        units: Pa
+        extras:
+          level_type: height_levels
+          height_level: ["100_m"]
+
   derived-utci-historical:
     # Universal Thermal Climate Index historical archive. The CDS
     # response is a ZIP bundling per-statistic NetCDFs; the nc_variable
@@ -4435,6 +4452,12 @@ datasets:
         types: state
         units: K
 
+      "mean-radiant-temperature-utci":
+        cds_variable: mean_radiant_temperature
+        nc_variable: mrt
+        types: state
+        units: K
+
   derived-near-surface-meteorological-variables:
     # WFDE5 / CRU near-surface meteorological variables.
     # Only 1 of 9 catalogued vars probe-confirmed (orography / ASurf).
@@ -4462,6 +4485,12 @@ datasets:
         nc_variable: Rainf
         types: flux
         units: "kg m**-2 s**-1"
+
+      "near-surface-wind-speed-nsmv":
+        cds_variable: near_surface_wind_speed
+        nc_variable: Wind
+        types: state
+        units: "m s**-1"
 
   ecv-for-climate-change:
     # ECV (Essential Climate Variables) for climate change.
@@ -4501,6 +4530,12 @@ datasets:
         nc_variable: ci
         types: state
         units: "(0 - 1)"
+
+      "0-7cm-volumetric-soil-moisture-ecv":
+        cds_variable: 0_7cm_volumetric_soil_moisture
+        nc_variable: swvl1
+        types: state
+        units: "m**3 m**-3"
 
   reanalysis-pan-carra-means:
     # PAN-CARRA temporally-aggregated forecast-based reanalysis.
