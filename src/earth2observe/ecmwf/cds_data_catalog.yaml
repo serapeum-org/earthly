@@ -4448,6 +4448,72 @@ datasets:
         types: state
         units: K
 
+  reanalysis-pan-carra-means:
+    # PAN-CARRA temporally-aggregated forecast-based reanalysis.
+    # 1 of ~30 catalogued vars probe-confirmed (evaporation -> eva).
+    # ``request_kind`` would normally be ``carra_means`` to drop the
+    # ``time`` selector, but PAN-CARRA-means uses a different request
+    # shape — keep ``form`` and let the validator check on submit.
+    extras:
+      product_type: [forecast_based]
+      level_type: single_levels
+      time_aggregation: daily
+    variables:
+
+      "evaporation-pancarra-means":
+        cds_variable: evaporation
+        nc_variable: eva
+        types: flux
+        units: "kg m**-2"
+
+  derived-drought-historical-monthly:
+    # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
+    # historical monthly. 1 of 5 catalogued vars probe-confirmed
+    # (SPEI1 ensemble member). dataset_type / accumulation_period /
+    # version drive the cds_variable shape.
+    extras:
+      product_type: [ensemble_members]
+      accumulation_period: ["1"]
+      dataset_type: consolidated_dataset
+      version: "1_0"
+    variables:
+
+      "spei1-drought":
+        cds_variable: standardised_precipitation_evapotranspiration_index
+        nc_variable: SPEI1
+        types: state
+        units: "1"
+
+  derived-gridded-glacier-mass-change:
+    # Gridded annual glacier mass change (WGMS FoG). 1 of 1 catalogued
+    # var probe-confirmed (glacier_mass_change). Unit is Gt (Gigatonnes).
+    extras:
+      product_version: wgms_fog_2022_09
+      hydrological_year: ["1975_76"]
+    variables:
+
+      "glacier-mass-change-glaciers":
+        cds_variable: glacier_mass_change
+        nc_variable: glacier_mass_change
+        types: state
+        units: "Gt"
+
+  seasonal-original-single-levels:
+    # ECMWF seasonal forecast original (un-aggregated) single-levels.
+    # Sibling of seasonal-monthly-single-levels but without the
+    # monthly aggregation step. 1 var probe-confirmed (2m_temperature).
+    extras:
+      originating_centre: ecmwf
+      system: "5"
+      leadtime_hour: ["24"]
+    variables:
+
+      "2m-temperature-seasonal-orig":
+        cds_variable: 2m_temperature
+        nc_variable: t2m
+        types: state
+        units: K
+
   seasonal-monthly-single-levels:
     # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
     # 38 catalogued vars are probe-confirmed. The remaining 27 vars
