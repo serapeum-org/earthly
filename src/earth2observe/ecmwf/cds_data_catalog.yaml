@@ -4149,6 +4149,14 @@ datasets:
         extras:
           product_type: [analysis_based]
 
+      "10m-v-component-of-wind-carra-means":
+        cds_variable: 10m_v_component_of_wind
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
@@ -4398,6 +4406,12 @@ datasets:
         nc_variable: cswc
         types: state
         units: "kg kg**-1"
+
+      "turbulent-kinetic-energy-cerra-p":
+        cds_variable: turbulent_kinetic_energy
+        nc_variable: tke
+        types: state
+        units: "J kg**-1"
 
   reanalysis-cerra-model-levels:
     # CERRA model-level variables (1-106 hybrid levels).
