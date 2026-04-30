@@ -4125,6 +4125,14 @@ datasets:
         extras:
           product_type: [analysis_based]
 
+      "2m-temperature-carra-means":
+        cds_variable: 2m_temperature
+        nc_variable: t2m
+        types: state
+        units: K
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
@@ -4215,6 +4223,12 @@ datasets:
         types: state
         units: "%"
 
+      "medium-cloud-cover-cerra":
+        cds_variable: medium_cloud_cover
+        nc_variable: mcc
+        types: state
+        units: "%"
+
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
@@ -4269,6 +4283,12 @@ datasets:
         types: state
         units: "kg kg**-1"
 
+      "specific-cloud-liquid-water-content-cerra-h":
+        cds_variable: specific_cloud_liquid_water_content
+        nc_variable: clwc
+        types: state
+        units: "kg kg**-1"
+
   reanalysis-cerra-pressure-levels:
     # CERRA pressure-level variables. 5 of 11 catalogued vars
     # probe-confirmed at 1000hPa; ``pressure_level`` extra selects
@@ -4318,6 +4338,12 @@ datasets:
       "specific-cloud-ice-water-content-cerra-p":
         cds_variable: specific_cloud_ice_water_content
         nc_variable: ciwc
+        types: state
+        units: "kg kg**-1"
+
+      "specific-cloud-liquid-water-content-cerra-p":
+        cds_variable: specific_cloud_liquid_water_content
+        nc_variable: clwc
         types: state
         units: "kg kg**-1"
 
@@ -4435,6 +4461,12 @@ datasets:
         cds_variable: surface_runoff
         nc_variable: sro
         types: flux
+        units: "kg m**-2"
+
+      "snow-depth-water-equivalent-cerra-land":
+        cds_variable: snow_depth_water_equivalent
+        nc_variable: sd
+        types: state
         units: "kg m**-2"
 
   reanalysis-pan-carra:
