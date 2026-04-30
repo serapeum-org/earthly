@@ -4280,6 +4280,100 @@ datasets:
         types: state
         units: "m s**-1"
 
+  reanalysis-cerra-land:
+    # CERRA-Land surface variables on the European 5.5km grid.
+    # 6 of 36 catalogued vars are probe-confirmed; remaining 30 pending.
+    # forecast product_type with leadtime_hour 1-3 covers analysis-time
+    # plus first three forecast hours.
+    extras:
+      product_type: [forecast]
+      level_type: surface
+      leadtime_hour: ["1"]
+    variables:
+
+      "albedo-cerra-land":
+        cds_variable: albedo
+        nc_variable: al
+        types: state
+        units: "%"
+
+      "evaporation-cerra-land":
+        cds_variable: evaporation
+        nc_variable: eva
+        types: flux
+        units: "kg m**-2"
+
+      "fraction-of-snow-cover-cerra-land":
+        cds_variable: fraction_of_snow_cover
+        nc_variable: fscov
+        types: state
+        units: "Proportion"
+
+      "lake-bottom-temperature-cerra-land":
+        cds_variable: lake_bottom_temperature
+        nc_variable: lblt
+        types: state
+        units: K
+
+      "lake-ice-depth-cerra-land":
+        cds_variable: lake_ice_depth
+        nc_variable: licd
+        types: state
+        units: m
+
+      "lake-ice-temperature-cerra-land":
+        cds_variable: lake_ice_temperature
+        nc_variable: lict
+        types: state
+        units: K
+
+  reanalysis-pan-carra:
+    # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
+    # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
+    # ~40 single_levels vars probe-confirmed; height_levels,
+    # pressure_levels and model_levels not yet probed.
+    # ``level_type`` is required by CDS; default to single_levels.
+    extras:
+      product_type: [reanalysis]
+      level_type: single_levels
+    variables:
+
+      "10m-wind-speed-pancarra":
+        cds_variable: 10m_wind_speed
+        nc_variable: si10
+        types: state
+        units: "m s**-1"
+
+      "10m-u-component-of-wind-pancarra":
+        cds_variable: 10m_u_component_of_wind
+        nc_variable: u10
+        types: state
+        units: "m s**-1"
+
+      "10m-v-component-of-wind-pancarra":
+        cds_variable: 10m_v_component_of_wind
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+
+      "10m-wind-direction-pancarra":
+        cds_variable: 10m_wind_direction
+        nc_variable: wdir10
+        types: state
+        units: "Degree true"
+
+      "2m-relative-humidity-pancarra":
+        cds_variable: 2m_relative_humidity
+        nc_variable: r2
+        types: state
+        units: "%"
+
+      "2m-specific-humidity-pancarra":
+        cds_variable: 2m_specific_humidity
+        nc_variable: sh2
+        types: state
+        units: "kg kg**-1"
+
   seasonal-monthly-single-levels:
     # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
     # 38 catalogued vars are probe-confirmed. The remaining 27 vars
