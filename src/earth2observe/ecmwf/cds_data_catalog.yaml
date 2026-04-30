@@ -4549,6 +4549,12 @@ datasets:
         types: state
         units: "kg m**-2"
 
+      "surface-latent-heat-flux-cerra-land":
+        cds_variable: surface_latent_heat_flux
+        nc_variable: slhf
+        types: flux
+        units: "J m**-2"
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
