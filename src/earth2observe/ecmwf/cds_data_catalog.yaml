@@ -4191,6 +4191,12 @@ datasets:
         types: state
         units: Pa
 
+      "high-cloud-cover-cerra":
+        cds_variable: high_cloud_cover
+        nc_variable: hcc
+        types: state
+        units: "%"
+
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
@@ -4365,6 +4371,12 @@ datasets:
         types: state
         units: K
 
+      "snow-depth-cerra-land":
+        cds_variable: snow_depth
+        nc_variable: sde
+        types: state
+        units: m
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -4476,6 +4488,12 @@ datasets:
         types: state
         units: K
 
+      "tropical-nights-monthly-stats-utci":
+        cds_variable: tropical_nights_thermal_comfort_monthly_statistics
+        nc_variable: count_tropical_nights
+        types: state
+        units: "1"
+
   derived-near-surface-meteorological-variables:
     # WFDE5 / CRU near-surface meteorological variables.
     # Only 1 of 9 catalogued vars probe-confirmed (orography / ASurf).
@@ -4515,6 +4533,12 @@ datasets:
         nc_variable: PSurf
         types: state
         units: Pa
+
+      "surface-downwelling-shortwave-radiation-nsmv":
+        cds_variable: surface_downwelling_shortwave_radiation
+        nc_variable: SWdown
+        types: flux
+        units: "W m**-2"
 
   ecv-for-climate-change:
     # ECV (Essential Climate Variables) for climate change.
@@ -4606,6 +4630,12 @@ datasets:
       "prob-zero-precipitation-spi-drought":
         cds_variable: probability_of_zero_precipitation_spi
         nc_variable: pzero
+        types: state
+        units: "1"
+
+      "test-normality-spei-drought":
+        cds_variable: test_for_normality_spei
+        nc_variable: significance
         types: state
         units: "1"
 
