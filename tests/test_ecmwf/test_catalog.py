@@ -514,7 +514,7 @@ class TestCatalog:
         assert ds.request_kind == "carra_means"
         assert ds.extras["product_type"] == ["forecast_based"]
         assert ds.extras["time_aggregation"] == "daily"
-        assert len(ds.variables) == 9
+        assert len(ds.variables) == 10
         spec = ds.variables["maximum-2m-temperature-carra-means"]
         assert spec.cds_variable == "maximum_2m_temperature_since_previous_post_processing"
         assert spec.nc_variable == "mx2t"
