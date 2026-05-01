@@ -4072,6 +4072,12 @@ datasets:
         types: state
         units: "kg kg**-1"
 
+      "snow-albedo-carra":
+        cds_variable: snow_albedo
+        nc_variable: asn
+        types: state
+        units: "%"
+
   reanalysis-carra-means:
     # CARRA-means: temporally-aggregated CARRA. Six forecast-based
     # single-level variables are probe-confirmed. ``request_kind``
@@ -4332,6 +4338,12 @@ datasets:
       "liquid-volumetric-soil-moisture-cerra":
         cds_variable: liquid_volumetric_soil_moisture
         nc_variable: liqvsm
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-soil-moisture-cerra":
+        cds_variable: volumetric_soil_moisture
+        nc_variable: vsw
         types: state
         units: "m**3 m**-3"
 
@@ -4911,6 +4923,12 @@ datasets:
         nc_variable: sh2
         types: state
         units: "kg kg**-1"
+
+      "surface-pressure-pancarra-means":
+        cds_variable: surface_pressure
+        nc_variable: sp
+        types: state
+        units: Pa
 
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
