@@ -9,7 +9,7 @@ import pandas as pd
 from joblib import Parallel, delayed
 from pyramids.dataset import Dataset
 from pyramids._io import extract_from_gz
-from serapeum_utils.utils import print_progress_bar
+from tqdm import tqdm
 
 from earth2observe.base import AbstractCatalog, AbstractDataSource
 
@@ -192,30 +192,8 @@ class CHIRPS(AbstractDataSource):
         ]
 
         if not cores:
-            # Create Waitbar
-            if progress_bar:
-                total_amount = len(self.dates)
-                amount = 0
-                print_progress_bar(
-                    amount,
-                    total_amount,
-                    prefix="Progress:",
-                    suffix="Complete",
-                    length=50,
-                )
-
-            for date in self.dates:
+            for date in tqdm(self.dates, desc="Progress", disable=not progress_bar):
                 self.API(date, args)
-
-                if progress_bar:
-                    amount = amount + 1
-                    print_progress_bar(
-                        amount,
-                        total_amount,
-                        prefix="Progress:",
-                        suffix="Complete",
-                        length=50,
-                    )
             results = True
         else:
             results = Parallel(n_jobs=cores)(

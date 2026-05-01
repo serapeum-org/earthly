@@ -9,7 +9,7 @@ import boto3
 import botocore
 import pandas as pd
 from botocore import exceptions
-from serapeum_utils.utils import print_progress_bar
+from tqdm import tqdm
 
 from earth2observe.base import AbstractCatalog, AbstractDataSource
 
@@ -156,18 +156,7 @@ class S3(AbstractDataSource):
         progress_bar: [bool]
             True if you want to display a progress bar.
         """
-        if progress_bar:
-            total_amount = len(self.dates)
-            amount = 0
-            print_progress_bar(
-                amount,
-                total_amount,
-                prefix="Progress:",
-                suffix="Complete",
-                length=50,
-            )
-
-        for date in self.dates:
+        for date in tqdm(self.dates, desc="Progress", disable=not progress_bar):
             year = date.strftime("%Y")
             month = date.strftime("%m")
             # file path patterns for remote S3 objects and corresponding local file
@@ -177,16 +166,6 @@ class S3(AbstractDataSource):
             )
 
             self.API(s3_data_key, downloaded_file_dir)
-
-            if progress_bar:
-                amount = amount + 1
-                print_progress_bar(
-                    amount,
-                    total_amount,
-                    prefix="Progress:",
-                    suffix="Complete",
-                    length=50,
-                )
 
     def API(self, s3_file_path: str, local_dir_fname: str, bucket: str = "era5-pds"):
         """Download file from s3 bucket.

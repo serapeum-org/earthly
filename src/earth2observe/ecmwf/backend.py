@@ -11,7 +11,7 @@ import pandas as pd
 from loguru import logger
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 from pyramids.netcdf import NetCDF
-from serapeum_utils.utils import print_progress_bar
+from tqdm import tqdm
 
 from earth2observe.base import (
     AbstractDataSource,
@@ -1116,14 +1116,12 @@ class ECMWF(AbstractDataSource):
                 ]
             )
 
-            if progress_bar:
-                total_amount = len(self.time.dates)
-                amount = 0
-                print_progress_bar(
-                    amount, total_amount, prefix="Progress:", suffix="Complete", length=50
-                )
-
-            for date in self.time.dates:
+            dates_iter = tqdm(
+                self.time.dates,
+                desc="Progress",
+                disable=not progress_bar,
+            )
+            for date in dates_iter:
 
                 year = date.year
                 month = date.month
@@ -1155,15 +1153,5 @@ class ECMWF(AbstractDataSource):
                 # Create Tiff files
                 # Raster.Save_as_tiff(name_out, Data_end, geo, "WGS84")
                 # Raster.createRaster(path=name_out, arr=Data_end, geo=geo, epsg="WGS84")
-
-                if progress_bar:
-                    amount = amount + 1
-                    print_progress_bar(
-                        amount,
-                        total_amount,
-                        prefix="Progress:",
-                        suffix="Complete",
-                        length=50,
-                    )
 
         return per_date_outputs
