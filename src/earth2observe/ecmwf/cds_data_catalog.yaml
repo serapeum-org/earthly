@@ -4090,6 +4090,12 @@ datasets:
         types: flux
         units: "J m**-2"
 
+      "low-cloud-cover-carra":
+        cds_variable: low_cloud_cover
+        nc_variable: lcc
+        types: state
+        units: "%"
+
   reanalysis-carra-means:
     # CARRA-means: temporally-aggregated CARRA. Six forecast-based
     # single-level variables are probe-confirmed. ``request_kind``
@@ -4787,6 +4793,12 @@ datasets:
         types: state
         units: "(0 - 1)"
 
+      "liquid-volumetric-soil-moisture-cerra-land":
+        cds_variable: liquid_volumetric_soil_moisture
+        nc_variable: liqvsm
+        types: state
+        units: "m**3 m**-3"
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -5399,4 +5411,10 @@ datasets:
         nc_variable: sd
         types: state
         units: "m of water equivalent"
+
+      "100m-u-component-of-wind-seasonal":
+        cds_variable: 100m_u_component_of_wind
+        nc_variable: u100
+        types: state
+        units: "m s**-1"
 
