@@ -4781,6 +4781,12 @@ datasets:
         types: flux
         units: "kg m**-2"
 
+      "land-sea-mask-cerra-land":
+        cds_variable: land_sea_mask
+        nc_variable: lsm
+        types: state
+        units: "(0 - 1)"
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
