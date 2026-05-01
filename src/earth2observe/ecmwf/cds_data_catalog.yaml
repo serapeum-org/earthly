@@ -4066,6 +4066,12 @@ datasets:
         types: state
         units: m
 
+      "2m-specific-humidity-carra":
+        cds_variable: 2m_specific_humidity
+        nc_variable: sh2
+        types: state
+        units: "kg kg**-1"
+
   reanalysis-carra-means:
     # CARRA-means: temporally-aggregated CARRA. Six forecast-based
     # single-level variables are probe-confirmed. ``request_kind``
@@ -4170,6 +4176,14 @@ datasets:
         nc_variable: wdir10
         types: state
         units: "Degree true"
+        extras:
+          product_type: [analysis_based]
+
+      "2m-relative-humidity-carra-means":
+        cds_variable: 2m_relative_humidity
+        nc_variable: r2
+        types: state
+        units: "%"
         extras:
           product_type: [analysis_based]
 
@@ -4292,6 +4306,12 @@ datasets:
         nc_variable: sr
         types: state
         units: m
+
+      "land-sea-mask-cerra":
+        cds_variable: land_sea_mask
+        nc_variable: lsm
+        types: state
+        units: "(0 - 1)"
 
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
@@ -4575,6 +4595,12 @@ datasets:
         types: flux
         units: "kg m**-2"
 
+      "soil-heat-flux-cerra-land":
+        cds_variable: soil_heat_flux
+        nc_variable: sohf
+        types: flux
+        units: "W m**-2"
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -4839,6 +4865,12 @@ datasets:
         nc_variable: si10
         types: state
         units: "m s**-1"
+
+      "2m-temperature-pancarra-means":
+        cds_variable: 2m_temperature
+        nc_variable: t2m
+        types: state
+        units: K
 
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)

@@ -514,7 +514,7 @@ class TestCatalog:
         assert ds.request_kind == "carra_means"
         assert ds.extras["product_type"] == ["forecast_based"]
         assert ds.extras["time_aggregation"] == "daily"
-        assert len(ds.variables) == 13
+        assert len(ds.variables) == 14
         spec = ds.variables["maximum-2m-temperature-carra-means"]
         assert spec.cds_variable == "maximum_2m_temperature_since_previous_post_processing"
         assert spec.nc_variable == "mx2t"
@@ -544,7 +544,7 @@ class TestCatalog:
         assert len(press.variables) == 14
         assert len(height.variables) == 7
         assert len(model.variables) == 11
-        assert len(single.variables) == 26
+        assert len(single.variables) == 27
         # Parent extras propagate to every variable.
         for ds in [press, height, model, single]:
             assert ds.extras["domain"] == "east_domain"
