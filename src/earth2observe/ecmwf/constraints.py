@@ -49,6 +49,10 @@ import urllib.error
 import urllib.request
 from typing import Any
 
+from pydantic import BaseModel, ConfigDict, ValidationError, model_validator
+
+__all__ = ["CONSTRAINTS_URL_TEMPLATE", "fetch_constraints", "validate_request"]
+
 CONSTRAINTS_URL_TEMPLATE = (
     "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/"
     "{dataset}/constraints.json"
@@ -119,9 +123,15 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
 
 def _as_list(value: Any) -> list[Any]:
     """Normalise a request value to a list (CDS allows either form)."""
-    if isinstance(value, list):
-        return value
-    return [value]
+    return value if isinstance(value, list) else [value]
+
+
+def _try_int(value: Any) -> int | None:
+    """Coerce `value` to int, or return None if not coercible."""
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def _validate_date_validity(request: dict[str, Any]) -> None:
@@ -134,12 +144,6 @@ def _validate_date_validity(request: dict[str, Any]) -> None:
     years = _as_list(request.get("year", []))
     months = _as_list(request.get("month", []))
     days = _as_list(request.get("day", []))
-
-    def _try_int(value: Any) -> int | None:
-        try:
-            return int(value)
-        except (TypeError, ValueError):
-            return None
 
     for label, raw in (("year", years), ("month", months), ("day", days)):
         for value in raw:
@@ -177,6 +181,41 @@ def _validate_date_validity(request: dict[str, Any]) -> None:
                 ) from None
 
 
+class Area(BaseModel):
+    """CDS `area` bbox validated against lat/lon bounds.
+
+    Used by :func:`_validate_area` to fail fast on swapped indices,
+    out-of-range latitudes, or non-numeric values — before the
+    request reaches CDS and burns a queue slot.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    north: float
+    west: float
+    south: float
+    east: float
+
+    @model_validator(mode="after")
+    def _check_bounds(self) -> Area:
+        if not -90.0 <= self.south <= 90.0 or not -90.0 <= self.north <= 90.0:
+            raise ValueError(
+                f"area latitudes must be in [-90, 90]: north={self.north}, "
+                f"south={self.south}"
+            )
+        if self.south > self.north:
+            raise ValueError(
+                f"area south ({self.south}) must be <= north ({self.north}); "
+                "did you swap the north/south indices?"
+            )
+        if not -360.0 <= self.west <= 360.0 or not -360.0 <= self.east <= 360.0:
+            raise ValueError(
+                f"area longitudes must be in [-360, 360]: west={self.west}, "
+                f"east={self.east}"
+            )
+        return self
+
+
 def _validate_area(request: dict[str, Any]) -> None:
     """Reject malformed `area` bboxes before they reach MARS.
 
@@ -194,24 +233,14 @@ def _validate_area(request: dict[str, Any]) -> None:
             f"got {area!r}"
         )
     try:
-        north, west, south, east = (float(v) for v in area)
-    except (TypeError, ValueError) as exc:
-        raise ValueError(f"area values must be numeric: {area!r} ({exc})") from None
-    if not -90.0 <= south <= 90.0 or not -90.0 <= north <= 90.0:
-        raise ValueError(
-            f"area latitudes must be in [-90, 90]: north={north}, "
-            f"south={south}"
-        )
-    if south > north:
-        raise ValueError(
-            f"area south ({south}) must be <= north ({north}); "
-            "did you swap the north/south indices?"
-        )
-    if not -360.0 <= west <= 360.0 or not -360.0 <= east <= 360.0:
-        raise ValueError(
-            f"area longitudes must be in [-360, 360]: west={west}, "
-            f"east={east}"
-        )
+        Area(north=area[0], west=area[1], south=area[2], east=area[3])
+    except ValidationError as exc:
+        first = exc.errors()[0]
+        if "float" in first["type"]:
+            raise ValueError(
+                f"area values must be numeric: {area!r}"
+            ) from None
+        raise ValueError(first["msg"].removeprefix("Value error, ")) from None
 
 
 def _validate_variable_typos(
@@ -225,37 +254,33 @@ def _validate_variable_typos(
     flags any request variable that isn't in that set and offers up
     to 3 close matches via :func:`difflib.get_close_matches`.
     """
-    if not constraints:
-        return
     requested = _as_list(request.get("variable", []))
-    if not requested:
-        return
     catalogued: set[str] = set()
     for entry in constraints:
         catalogued.update(entry.get("variable", []))
-    if not catalogued:
-        return
+
     unknowns: list[tuple[str, list[str]]] = []
-    for variable in requested:
-        if variable not in catalogued:
-            suggestions = difflib.get_close_matches(
-                variable, catalogued, n=3, cutoff=0.6
-            )
-            unknowns.append((variable, suggestions))
-    if not unknowns:
-        return
-    parts: list[str] = []
-    for variable, suggestions in unknowns:
-        if suggestions:
-            parts.append(f"{variable!r} -> did you mean {suggestions}?")
-        else:
-            parts.append(f"{variable!r} (no close match in catalogue)")
-    raise ValueError(
-        f"Request for {dataset!r} names unknown variable(s): "
-        + "; ".join(parts)
-        + f"\nLive constraints: "
-        + CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
-    )
+    if requested and catalogued:
+        for variable in requested:
+            if variable not in catalogued:
+                suggestions = difflib.get_close_matches(
+                    variable, catalogued, n=3, cutoff=0.6
+                )
+                unknowns.append((variable, suggestions))
+
+    if unknowns:
+        parts: list[str] = []
+        for variable, suggestions in unknowns:
+            if suggestions:
+                parts.append(f"{variable!r} -> did you mean {suggestions}?")
+            else:
+                parts.append(f"{variable!r} (no close match in catalogue)")
+        raise ValueError(
+            f"Request for {dataset!r} names unknown variable(s): "
+            + "; ".join(parts)
+            + f"\nLive constraints: "
+            + CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
+        )
 
 
 def _validate_required_fields(
