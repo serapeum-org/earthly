@@ -4681,6 +4681,12 @@ datasets:
         types: flux
         units: "J m**-2"
 
+      "surface-net-thermal-radiation-cerra-land":
+        cds_variable: surface_net_thermal_radiation
+        nc_variable: str
+        types: flux
+        units: "J m**-2"
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -4976,6 +4982,12 @@ datasets:
         types: state
         units: K
 
+      "2m-relative-humidity-pancarra-means":
+        cds_variable: 2m_relative_humidity
+        nc_variable: r2
+        types: state
+        units: "%"
+
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
     # historical monthly. 1 of 5 catalogued vars probe-confirmed
@@ -5221,4 +5233,10 @@ datasets:
         nc_variable: v10
         types: state
         units: "m s**-1"
+
+      "mean-sea-level-pressure-seasonal":
+        cds_variable: mean_sea_level_pressure
+        nc_variable: msl
+        types: state
+        units: Pa
 
