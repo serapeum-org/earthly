@@ -4225,6 +4225,14 @@ datasets:
         extras:
           product_type: [analysis_based]
 
+      "surface-pressure-carra-means":
+        cds_variable: surface_pressure
+        nc_variable: sp
+        types: state
+        units: Pa
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
@@ -4374,6 +4382,12 @@ datasets:
         nc_variable: sd
         types: state
         units: "kg m**-2"
+
+      "momentum-flux-at-the-surface-u-component-cerra":
+        cds_variable: momentum_flux_at_the_surface_u_component
+        nc_variable: tisemf
+        types: flux
+        units: "N m**-2 s"
 
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
