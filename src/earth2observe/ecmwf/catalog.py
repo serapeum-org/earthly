@@ -38,7 +38,6 @@ Examples:
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from typing import Any
 
@@ -59,12 +58,10 @@ def _read_cdsapirc() -> dict[str, str]:
     calls without spinning up a full :class:`cdsapi.Client`.
     """
     cfg: dict[str, str] = {}
-    path = os.path.expanduser("~/.cdsapirc")
-    with open(path) as fh:
-        for line in fh:
-            if ":" in line:
-                key, _, value = line.partition(":")
-                cfg[key.strip()] = value.strip()
+    for line in (Path.home() / ".cdsapirc").read_text().splitlines():
+        if ":" in line:
+            key, _, value = line.partition(":")
+            cfg[key.strip()] = value.strip()
     return cfg
 
 
