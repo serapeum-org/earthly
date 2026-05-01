@@ -4084,6 +4084,12 @@ datasets:
         types: state
         units: Pa
 
+      "surface-sensible-heat-flux-carra":
+        cds_variable: surface_sensible_heat_flux
+        nc_variable: sshf
+        types: flux
+        units: "J m**-2"
+
   reanalysis-carra-means:
     # CARRA-means: temporally-aggregated CARRA. Six forecast-based
     # single-level variables are probe-confirmed. ``request_kind``
@@ -4424,6 +4430,12 @@ datasets:
       "surface-net-solar-radiation-cerra":
         cds_variable: surface_net_solar_radiation
         nc_variable: ssr
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation-cerra":
+        cds_variable: surface_net_thermal_radiation
+        nc_variable: str
         types: flux
         units: "J m**-2"
 
@@ -5100,6 +5112,12 @@ datasets:
         types: state
         units: m
 
+      "cloud-cover-pancarra-means":
+        cds_variable: cloud_cover
+        nc_variable: ccl
+        types: state
+        units: "%"
+
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
     # historical monthly. 1 of 5 catalogued vars probe-confirmed
@@ -5369,4 +5387,10 @@ datasets:
         nc_variable: mslhfl
         types: flux
         units: "W m**-2"
+
+      "snow-depth-seasonal":
+        cds_variable: snow_depth
+        nc_variable: sd
+        types: state
+        units: "m of water equivalent"
 
