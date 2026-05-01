@@ -1001,8 +1001,8 @@ class ECMWF(AbstractDataSource):
         # invalid extras combinations client-side before they
         # consume a CDS queue slot. Set
         # `E2O_SKIP_CONSTRAINTS=1` to bypass.
-        from earth2observe.ecmwf.constraints import validate_request
-        validate_request(dataset, request)
+        from earth2observe.ecmwf.constraints import RequestValidator
+        RequestValidator(dataset, request).check()
 
         target = self.root_dir / f"{var_info.cds_variable}_{dataset}.nc"
         logger.info(

@@ -22,7 +22,7 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 import cdsapi
-from earth2observe.ecmwf.constraints import fetch_constraints, validate_request
+from earth2observe.ecmwf.constraints import RequestValidator, fetch_constraints
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
 
@@ -98,7 +98,7 @@ def submit_async(dataset: str, request: dict[str, Any]) -> str:
     ID returned by CDS.
     """
     try:
-        validate_request(dataset, request)
+        RequestValidator(dataset, request).check()
     except ValueError as exc:
         return f"FAIL (validator): {str(exc).splitlines()[0][:90]}"
     cfg = _read_cdsapirc()
@@ -156,7 +156,7 @@ def main() -> int:
             continue
         if args.dry_run:
             try:
-                validate_request(dataset, request)
+                RequestValidator(dataset, request).check()
                 print(f"[VALID] {dataset}")
             except ValueError as exc:
                 print(f"[FAIL ] {dataset}: {str(exc).splitlines()[0][:90]}")

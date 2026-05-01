@@ -339,7 +339,7 @@ class TestApi:
     def test_invalid_request_caught_before_retrieve(
         self, ecmwf_stub, single_level_var_info, monkeypatch
     ):
-        """`api()` calls `validate_request` before `client.retrieve`.
+        """`api()` runs `RequestValidator` before `client.retrieve`.
 
         Stubs the constraints fetch to return an entry that does NOT
         cover the assembled request, then asserts the resulting

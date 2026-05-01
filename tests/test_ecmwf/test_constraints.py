@@ -16,8 +16,8 @@ from earth2observe.ecmwf import constraints as constraints_module
 from earth2observe.ecmwf.constraints import (
     Area,
     Dates,
+    RequestValidator,
     fetch_constraints,
-    validate_request,
 )
 
 pytestmark = [pytest.mark.unit]
@@ -67,7 +67,7 @@ def _stub_urlopen_raise(monkeypatch, exc):
 
 
 class TestValidateRequest:
-    """Tests for :func:`validate_request`."""
+    """Tests for :class:`RequestValidator`."""
 
     def test_valid_request_passes(self, monkeypatch):
         """A request that matches a constraint entry returns silently."""
@@ -81,14 +81,14 @@ class TestValidateRequest:
                 }
             ],
         )
-        validate_request(
+        RequestValidator(
             "reanalysis-era5-single-levels",
             {
                 "variable": ["2m_temperature"],
                 "year": ["2022"],
                 "product_type": ["reanalysis"],
             },
-        )
+        ).check()
 
     def test_invalid_value_raises(self, monkeypatch):
         """Mismatched request keys raise ValueError naming offenders."""
@@ -103,14 +103,14 @@ class TestValidateRequest:
             ],
         )
         with pytest.raises(ValueError, match="product_type"):
-            validate_request(
+            RequestValidator(
                 "reanalysis-cerra-land",
                 {
                     "variable": ["2m_temperature"],
                     "year": ["2022"],
                     "product_type": ["forecast"],
                 },
-            )
+            ).check()
 
     def test_universal_keys_skip_validation(self, monkeypatch):
         """`area` / `data_format` are not validated (CDS accepts globally)."""
@@ -119,7 +119,7 @@ class TestValidateRequest:
             [{"variable": ["2m_temperature"], "year": ["2022"]}],
         )
         # `area` is not in any constraint entry — must still pass.
-        validate_request(
+        RequestValidator(
             "reanalysis-era5-single-levels",
             {
                 "variable": ["2m_temperature"],
@@ -127,7 +127,7 @@ class TestValidateRequest:
                 "area": [60, -20, 50, 0],
                 "data_format": "netcdf",
             },
-        )
+        ).check()
 
     def test_unknown_keys_skip_validation(self, monkeypatch):
         """Keys the constraints document does not enumerate are ignored."""
@@ -136,22 +136,22 @@ class TestValidateRequest:
             [{"variable": ["2m_temperature"], "year": ["2022"]}],
         )
         # `custom_key` is not in constraints — should be ignored.
-        validate_request(
+        RequestValidator(
             "reanalysis-era5-single-levels",
             {
                 "variable": ["2m_temperature"],
                 "year": ["2022"],
                 "custom_key": "anything",
             },
-        )
+        ).check()
 
     def test_empty_constraints_skip_validation(self, monkeypatch):
         """An empty constraints document silently allows anything."""
         _stub_urlopen(monkeypatch, [])
-        validate_request(
+        RequestValidator(
             "reanalysis-era5-complete",
             {"variable": ["any"], "year": ["2099"]},
-        )
+        ).check()
 
     def test_missing_endpoint_skip_validation(self, monkeypatch):
         """A 404 / network error treats validation as a no-op."""
@@ -160,10 +160,10 @@ class TestValidateRequest:
             HTTPError("u", 404, "Not Found", None, io.BytesIO(b"")),
         )
         # No exception expected — validation falls back to allow.
-        validate_request(
+        RequestValidator(
             "provider-c3s-data-rescue-without",
             {"variable": ["x"]},
-        )
+        ).check()
 
     def test_skip_flag_bypasses_fetch(self, monkeypatch):
         """`E2O_SKIP_CONSTRAINTS=1` shortcuts validation entirely."""
@@ -177,10 +177,10 @@ class TestValidateRequest:
             constraints_module.urllib.request, "urlopen", _fail
         )
         monkeypatch.setenv("E2O_SKIP_CONSTRAINTS", "1")
-        validate_request(
+        RequestValidator(
             "reanalysis-era5-single-levels",
             {"variable": ["nonsense"], "year": ["1492"]},
-        )
+        ).check()
 
     def test_constraints_cached_between_calls(self, monkeypatch):
         """Two validations against the same dataset hit the network once."""
@@ -208,8 +208,8 @@ class TestValidateRequest:
             _counting_urlopen,
         )
         request = {"variable": ["x"], "year": ["2022"]}
-        validate_request("reanalysis-era5-single-levels", request)
-        validate_request("reanalysis-era5-single-levels", request)
+        RequestValidator("reanalysis-era5-single-levels", request).check()
+        RequestValidator("reanalysis-era5-single-levels", request).check()
         assert call_count["n"] == 1
 
     def test_partial_match_in_request_list_raises(self, monkeypatch):
@@ -224,10 +224,10 @@ class TestValidateRequest:
             [{"variable": ["2m_temperature"], "year": ["2022"]}],
         )
         with pytest.raises(ValueError, match="year"):
-            validate_request(
+            RequestValidator(
                 "reanalysis-era5-single-levels",
                 {"variable": ["2m_temperature"], "year": ["2022", "2099"]},
-            )
+            ).check()
 
 
 class TestDateValidity:
@@ -301,13 +301,13 @@ class TestVariableTypos:
             ],
         )
         with pytest.raises(ValueError, match="did you mean"):
-            validate_request(
+            RequestValidator(
                 "reanalysis-era5-single-levels",
                 {
                     "variable": ["2m_temprature"],
                     "year": ["2022"],
                 },
-            )
+            ).check()
 
     def test_completely_unknown_variable_raises_without_suggestion(
         self, monkeypatch
@@ -317,10 +317,10 @@ class TestVariableTypos:
             [{"variable": ["a", "b"], "year": ["2022"]}],
         )
         with pytest.raises(ValueError, match="unknown variable"):
-            validate_request(
+            RequestValidator(
                 "ds",
                 {"variable": ["zzzzz_completely_off"], "year": ["2022"]},
-            )
+            ).check()
 
 
 class TestRequiredFields:
@@ -344,10 +344,10 @@ class TestRequiredFields:
             ],
         )
         with pytest.raises(ValueError, match="missing required key"):
-            validate_request(
+            RequestValidator(
                 "projections-cmip6",
                 {"variable": ["tas"], "year": ["2000"]},
-            )
+            ).check()
 
     def test_optional_extra_not_flagged(self, monkeypatch):
         """A key absent from at least one entry is treated as optional."""
@@ -358,10 +358,10 @@ class TestRequiredFields:
                 {"variable": ["tas"], "year": ["2000"]},  # no level
             ],
         )
-        validate_request(
+        RequestValidator(
             "ds",
             {"variable": ["tas"], "year": ["2000"]},
-        )
+        ).check()
 
 
 class TestFetchConstraints:

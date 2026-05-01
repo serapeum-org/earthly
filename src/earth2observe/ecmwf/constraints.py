@@ -21,7 +21,7 @@ Examples:
     - Validate a request against ERA5 single-levels constraints:
 
         ```python
-        >>> from earth2observe.ecmwf.constraints import validate_request
+        >>> from earth2observe.ecmwf.constraints import RequestValidator
         >>> request = {
         ...     "variable": ["2m_temperature"],
         ...     "year": ["2022"],
@@ -30,9 +30,9 @@ Examples:
         ...     "time": ["00:00"],
         ...     "product_type": ["reanalysis"],
         ... }
-        >>> validate_request(  # doctest: +SKIP
+        >>> RequestValidator(  # doctest: +SKIP
         ...     "reanalysis-era5-single-levels", request,
-        ... )
+        ... ).check()
 
         ```
 """
@@ -58,7 +58,13 @@ from pydantic import (
     model_validator,
 )
 
-__all__ = ["CONSTRAINTS_URL_TEMPLATE", "fetch_constraints", "validate_request"]
+__all__ = [
+    "Area",
+    "CONSTRAINTS_URL_TEMPLATE",
+    "Dates",
+    "RequestValidator",
+    "fetch_constraints",
+]
 
 CONSTRAINTS_URL_TEMPLATE = (
     "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/"
@@ -120,11 +126,6 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
         # Cache `None` for "fetched, unusable" so later calls are cheap.
         _CACHE[dataset] = payload if isinstance(payload, list) else None
     return _CACHE[dataset] or []
-
-
-def _as_list(value: Any) -> list[Any]:
-    """Normalise a request value to a list (CDS allows either form)."""
-    return value if isinstance(value, list) else [value]
 
 
 class Dates(BaseModel):
@@ -266,166 +267,189 @@ class Area(BaseModel):
             raise ValueError(first["msg"].removeprefix("Value error, ")) from None
 
 
-def _validate_variable_typos(
-    dataset: str,
-    request: dict[str, Any],
-    constraints: list[dict[str, Any]],
-) -> None:
-    """Suggest typo fixes when a requested variable isn't catalogued.
+class RequestValidator:
+    """End-to-end pre-flight validator for a CDS retrieve request.
 
-    Walks `constraints` to collect every catalogued variable, then
-    flags any request variable that isn't in that set and offers up
-    to 3 close matches via :func:`difflib.get_close_matches`.
-    """
-    requested = _as_list(request.get("variable", []))
-    catalogued: set[str] = set()
-    for entry in constraints:
-        catalogued.update(entry.get("variable", []))
+    Bundles every check that pre-flights a request to the Climate
+    Data Store, in a fixed cheap-to-expensive order:
 
-    unknowns: list[tuple[str, list[str]]] = []
-    if requested and catalogued:
-        for variable in requested:
-            if variable not in catalogued:
-                suggestions = difflib.get_close_matches(
-                    variable, catalogued, n=3, cutoff=0.6
-                )
-                unknowns.append((variable, suggestions))
-
-    if unknowns:
-        parts: list[str] = []
-        for variable, suggestions in unknowns:
-            if suggestions:
-                parts.append(f"{variable!r} -> did you mean {suggestions}?")
-            else:
-                parts.append(f"{variable!r} (no close match in catalogue)")
-        raise ValueError(
-            f"Request for {dataset!r} names unknown variable(s): "
-            + "; ".join(parts)
-            + f"\nLive constraints: "
-            + CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
-        )
-
-
-def _validate_required_fields(
-    dataset: str,
-    request: dict[str, Any],
-    constraints: list[dict[str, Any]],
-) -> None:
-    """Flag request keys that every constraint entry requires.
-
-    Computes the intersection of keys present in every entry; any
-    key in that intersection that is not in the request (and isn't
-    universal) is reported as missing. Catches the common
-    "you forgot to set `experiment` for CMIP6" class of error.
-    """
-    if constraints:
-        required: set[str] = set(constraints[0])
-        for entry in constraints[1:]:
-            required &= set(entry)
-        required -= _UNIVERSAL_KEYS
-        missing = sorted(required - set(request))
-        if missing:
-            raise ValueError(
-                f"Request for {dataset!r} is missing required key(s): "
-                f"{missing}\n"
-                f"Live constraints: "
-                + CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
-            )
-
-
-def validate_request(dataset: str, request: dict[str, Any]) -> None:
-    """Validate `request` against the dataset's `constraints.json`.
-
-    Runs in five phases (cheap → expensive); stops at the first
-    failure so the user gets the most specific error possible:
-
-    1. Date sanity (`year`/`month`/`day` form a real date).
-    2. Area bbox sanity (`[north, west, south, east]` bounds).
+    1. Date sanity (`year` / `month` / `day` form a real date) — :class:`Dates`.
+    2. Area bbox sanity (`[north, west, south, east]`) — :class:`Area`.
     3. Variable name spell-check (with close-match suggestions).
     4. Required-field check (every key present in every constraint
        entry must be in the request).
-    5. Full combinatorial check against the constraints document.
+    5. Combinatorial cover check (request values must be a subset of
+       at least one constraint entry's allowed values).
 
-    Walks the cached constraints document looking for at least one
-    entry whose allowed-value sets cover every key in `request`
-    that the document enumerates. Universal keys
-    (:data:`_UNIVERSAL_KEYS` — `area` / `data_format` / etc.)
-    are ignored; keys the constraints document does not mention are
-    also ignored (they may be optional for that dataset).
+    Phases 1-2 are local and run unconditionally. Phases 3-5 walk the
+    dataset's `constraints.json` (fetched lazily and cached). Each
+    instance holds the dataset name, the request dict, and a lazy
+    handle to the fetched constraints; the per-phase methods share
+    that state instead of taking it as parameters.
 
-    Args:
-        dataset: CDS dataset short name.
-        request: The request dict that will be passed to
-            :meth:`cdsapi.Client.retrieve`.
+    Example:
+        ```python
+        >>> import os
+        >>> from earth2observe.ecmwf.constraints import RequestValidator
+        >>> os.environ["E2O_SKIP_CONSTRAINTS"] = "1"
+        >>> RequestValidator("any-dataset", {"variable": ["x"]}).check()
+        >>> os.environ.pop("E2O_SKIP_CONSTRAINTS", None) is not None
+        True
 
-    Raises:
-        ValueError: If no constraints entry covers the request.
-            The message names the dataset and the keys whose values
-            were not present in any constraint entry, plus a URL
-            pointing at the live constraints document.
-
-    Examples:
-        - The check is a no-op when `E2O_SKIP_CONSTRAINTS` is
-          set to a truthy value:
-
-            ```python
-            >>> import os
-            >>> from earth2observe.ecmwf.constraints import validate_request
-            >>> os.environ["E2O_SKIP_CONSTRAINTS"] = "1"
-            >>> validate_request("any-dataset", {"variable": ["x"]})
-            >>> os.environ.pop("E2O_SKIP_CONSTRAINTS", None) is not None
-            True
-
-            ```
+        ```
     """
-    if os.environ.get("E2O_SKIP_CONSTRAINTS"):
-        return
-    # Phase 1-2: cheap local sanity checks. Run before any network
-    # call so a typo gets flagged in milliseconds.
-    Dates.check(request)
-    Area.check(request)
-    constraints = fetch_constraints(dataset)
-    if not constraints:
-        return  # Nothing to validate against
-    # Phase 3-4: per-key checks against the cached constraints.
-    _validate_variable_typos(dataset, request, constraints)
-    _validate_required_fields(dataset, request, constraints)
-    constraint_keys: set[str] = set().union(
-        *(set(entry) for entry in constraints)
-    )
-    # Normalise the request to per-key sets, dropping keys the
-    # constraints document does not enumerate.
-    req_norm: dict[str, set[Any]] = {}
-    for key, value in request.items():
-        if key in _UNIVERSAL_KEYS or key not in constraint_keys:
-            continue
-        if isinstance(value, list):
-            req_norm[key] = set(value)
-        else:
-            req_norm[key] = {value}
-    if not req_norm:
-        return
-    for entry in constraints:
-        if all(
-            key in entry and req_norm[key] <= set(entry[key])
-            for key in req_norm
-        ):
+
+    def __init__(self, dataset: str, request: dict[str, Any]) -> None:
+        self.dataset = dataset
+        self.request = request
+        self._constraints: list[dict[str, Any]] | None = None
+
+    @property
+    def constraints(self) -> list[dict[str, Any]]:
+        """Lazily fetched (and cached) constraints document for `dataset`."""
+        if self._constraints is None:
+            self._constraints = fetch_constraints(self.dataset)
+        return self._constraints
+
+    def check(self) -> None:
+        """Run every validation phase; raise `ValueError` on first failure.
+
+        Honours the `E2O_SKIP_CONSTRAINTS` env-var bypass.
+        """
+        if os.environ.get("E2O_SKIP_CONSTRAINTS"):
             return
-    # No entry matched — surface the keys whose values were not in
-    # *any* entry, so the user can spot which extras to fix.
-    bad_keys: list[str] = []
-    for key, values in req_norm.items():
-        seen: set[Any] = set()
-        for entry in constraints:
-            if key in entry:
-                seen.update(entry[key])
-        missing = values - seen
+        # Phase 1-2: cheap local sanity checks. Run before any network
+        # call so a typo gets flagged in milliseconds.
+        Dates.check(self.request)
+        Area.check(self.request)
+        if self.constraints:
+            # Phase 3-5: cross-checks against the fetched constraints.
+            self._check_variable_typos()
+            self._check_required_fields()
+            self._check_combinatorial()
+
+    def _check_variable_typos(self) -> None:
+        """Phase 3: suggest typo fixes when a requested variable is unknown.
+
+        Walks `self.constraints` to collect every catalogued variable,
+        then flags any request variable that is not in that set and
+        offers up to 3 close matches via :func:`difflib.get_close_matches`.
+        """
+        raw = self.request.get("variable", [])
+        requested = raw if isinstance(raw, list) else [raw]
+        catalogued: set[str] = set()
+        for entry in self.constraints:
+            catalogued.update(entry.get("variable", []))
+
+        unknowns: list[tuple[str, list[str]]] = []
+        if requested and catalogued:
+            for variable in requested:
+                if variable not in catalogued:
+                    suggestions = difflib.get_close_matches(
+                        variable, catalogued, n=3, cutoff=0.6
+                    )
+                    unknowns.append((variable, suggestions))
+
+        if unknowns:
+            parts: list[str] = []
+            for variable, suggestions in unknowns:
+                if suggestions:
+                    parts.append(f"{variable!r} -> did you mean {suggestions}?")
+                else:
+                    parts.append(f"{variable!r} (no close match in catalogue)")
+            raise ValueError(
+                f"Request for {self.dataset!r} names unknown variable(s): "
+                + "; ".join(parts)
+                + f"\nLive constraints: "
+                + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
+            )
+
+    def _check_required_fields(self) -> None:
+        """Phase 4: flag request keys that every constraint entry requires.
+
+        Computes the intersection of keys present in every entry; any
+        key in that intersection that is not in the request (and is
+        not universal) is reported as missing. Catches the common
+        "you forgot to set `experiment` for CMIP6" class of error.
+        """
+        required: set[str] = set(self.constraints[0])
+        for entry in self.constraints[1:]:
+            required &= set(entry)
+        required -= _UNIVERSAL_KEYS
+        missing = sorted(required - set(self.request))
         if missing:
-            bad_keys.append(f"{key}={sorted(missing)!r}")
-    raise ValueError(
-        f"Request for {dataset!r} does not match any constraint "
-        f"entry. Offending values: {', '.join(bad_keys) or '(unclear)'}\n"
-        f"Submitted request: {request}\n"
-        f"Live constraints: "
-        + CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
-    )
+            raise ValueError(
+                f"Request for {self.dataset!r} is missing required key(s): "
+                f"{missing}\n"
+                f"Live constraints: "
+                + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
+            )
+
+    def _check_combinatorial(self) -> None:
+        """Phase 5: walk constraints for an entry covering all enumerated keys.
+
+        For each key the constraints document enumerates (excluding
+        universal keys), the request's value(s) must be a subset of
+        *some single entry's* allowed values, simultaneously across
+        all such keys. If no entry covers them all, raise with the
+        offending values surfaced so the user can fix the right extras.
+        """
+        constraint_keys: set[str] = set().union(
+            *(set(entry) for entry in self.constraints)
+        )
+        req_norm = self._normalise_request(constraint_keys)
+        if req_norm:
+            has_match = any(
+                all(
+                    key in entry and req_norm[key] <= set(entry[key])
+                    for key in req_norm
+                )
+                for entry in self.constraints
+            )
+            if not has_match:
+                bad_keys = self._find_offending_values(req_norm)
+                raise ValueError(
+                    f"Request for {self.dataset!r} does not match any "
+                    f"constraint entry. Offending values: "
+                    f"{', '.join(bad_keys) or '(unclear)'}\n"
+                    f"Submitted request: {self.request}\n"
+                    f"Live constraints: "
+                    + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
+                )
+
+    def _normalise_request(
+        self, constraint_keys: set[str]
+    ) -> dict[str, set[Any]]:
+        """Return per-key value sets for keys the constraints enumerate.
+
+        Drops universal keys and any key the constraints document does
+        not mention. Scalars are wrapped to a single-element set so
+        the combinatorial walk can do uniform `<=` subset comparisons.
+        """
+        norm: dict[str, set[Any]] = {}
+        for key, value in self.request.items():
+            if key in _UNIVERSAL_KEYS or key not in constraint_keys:
+                continue
+            norm[key] = set(value) if isinstance(value, list) else {value}
+        return norm
+
+    def _find_offending_values(
+        self, req_norm: dict[str, set[Any]]
+    ) -> list[str]:
+        """Per key, list the values absent from *every* constraint entry.
+
+        Used when the combinatorial walk finds no covering entry, so
+        the error message can name exactly which extras to fix.
+        """
+        bad_keys: list[str] = []
+        for key, values in req_norm.items():
+            seen: set[Any] = set()
+            for entry in self.constraints:
+                if key in entry:
+                    seen.update(entry[key])
+            missing = values - seen
+            if missing:
+                bad_keys.append(f"{key}={sorted(missing)!r}")
+        return bad_keys
+
+
