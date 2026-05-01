@@ -4233,6 +4233,14 @@ datasets:
         extras:
           product_type: [analysis_based]
 
+      "cloud-cover-carra-means":
+        cds_variable: cloud_cover
+        nc_variable: ccl
+        types: state
+        units: "%"
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
@@ -4701,6 +4709,12 @@ datasets:
         types: flux
         units: "J m**-2"
 
+      "lake-depth-cerra-land":
+        cds_variable: lake_depth
+        nc_variable: dl
+        types: state
+        units: m
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -5001,6 +5015,12 @@ datasets:
         nc_variable: r2
         types: state
         units: "%"
+
+      "sea-ice-area-fraction-pancarra-means":
+        cds_variable: sea_ice_area_fraction
+        nc_variable: siconc
+        types: state
+        units: "(0 - 1)"
 
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
