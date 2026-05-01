@@ -100,25 +100,19 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
 
             ```
     """
-    cached = _CACHE.get(dataset, "MISS")
-    if cached != "MISS":
-        return cached or []
-    url = CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
-    try:
-        with urllib.request.urlopen(url, timeout=15) as resp:
-            payload = json.loads(resp.read())
-    except (urllib.error.URLError, ValueError, OSError):
-        # Network failure or non-JSON response — treat as
-        # "no constraints" so callers fall back to letting CDS
-        # itself reject the request. Caching `None` makes
-        # later calls cheap.
-        _CACHE[dataset] = None
-        return []
-    if not isinstance(payload, list):
-        _CACHE[dataset] = None
-        return []
-    _CACHE[dataset] = payload
-    return payload
+    if dataset not in _CACHE:
+        url = CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
+        try:
+            with urllib.request.urlopen(url, timeout=15) as resp:
+                payload = json.loads(resp.read())
+        except (urllib.error.URLError, ValueError, OSError):
+            # Network failure or non-JSON response — treat as
+            # "no constraints" so callers fall back to letting CDS
+            # itself reject the request.
+            payload = None
+        # Cache `None` for "fetched, unusable" so later calls are cheap.
+        _CACHE[dataset] = payload if isinstance(payload, list) else None
+    return _CACHE[dataset] or []
 
 
 def _as_list(value: Any) -> list[Any]:
