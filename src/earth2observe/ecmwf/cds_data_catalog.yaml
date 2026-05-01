@@ -4165,6 +4165,14 @@ datasets:
         extras:
           product_type: [analysis_based]
 
+      "10m-wind-direction-carra-means":
+        cds_variable: 10m_wind_direction
+        nc_variable: wdir10
+        types: state
+        units: "Degree true"
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
@@ -4278,6 +4286,12 @@ datasets:
         nc_variable: skt
         types: state
         units: K
+
+      "surface-roughness-cerra":
+        cds_variable: surface_roughness
+        nc_variable: sr
+        types: state
+        units: m
 
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
@@ -4555,6 +4569,12 @@ datasets:
         types: flux
         units: "J m**-2"
 
+      "snow-melt-cerra-land":
+        cds_variable: snow_melt
+        nc_variable: snom
+        types: flux
+        units: "kg m**-2"
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -4813,6 +4833,12 @@ datasets:
         nc_variable: eva
         types: flux
         units: "kg m**-2"
+
+      "10m-wind-speed-pancarra-means":
+        cds_variable: 10m_wind_speed
+        nc_variable: si10
+        types: state
+        units: "m s**-1"
 
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
