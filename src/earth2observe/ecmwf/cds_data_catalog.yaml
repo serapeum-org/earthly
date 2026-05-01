@@ -4195,6 +4195,14 @@ datasets:
         extras:
           product_type: [analysis_based]
 
+      "cloud-top-carra-means":
+        cds_variable: cloud_top
+        nc_variable: cdct
+        types: state
+        units: m
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
@@ -4320,6 +4328,12 @@ datasets:
         nc_variable: lsm
         types: state
         units: "(0 - 1)"
+
+      "liquid-volumetric-soil-moisture-cerra":
+        cds_variable: liquid_volumetric_soil_moisture
+        nc_variable: liqvsm
+        types: state
+        units: "m**3 m**-3"
 
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
@@ -4609,6 +4623,12 @@ datasets:
         types: flux
         units: "W m**-2"
 
+      "temperature-of-snow-layer-cerra-land":
+        cds_variable: temperature_of_snow_layer
+        nc_variable: tsn
+        types: state
+        units: K
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -4885,6 +4905,12 @@ datasets:
         nc_variable: wdir10
         types: state
         units: "Degree true"
+
+      "2m-specific-humidity-pancarra-means":
+        cds_variable: 2m_specific_humidity
+        nc_variable: sh2
+        types: state
+        units: "kg kg**-1"
 
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
