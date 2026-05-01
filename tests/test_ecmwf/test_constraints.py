@@ -14,6 +14,8 @@ import pytest
 
 from earth2observe.ecmwf import constraints as constraints_module
 from earth2observe.ecmwf.constraints import (
+    Area,
+    DateRequest,
     fetch_constraints,
     validate_request,
 )
@@ -232,75 +234,53 @@ class TestDateValidity:
     """Tests for the M17 date sanity check."""
 
     def test_invalid_month_raises(self):
-        from earth2observe.ecmwf.constraints import _validate_date_validity
-
         with pytest.raises(ValueError, match="month=.*must be 01-12"):
-            _validate_date_validity({"month": ["13"]})
+            DateRequest.check({"month": ["13"]})
 
     def test_invalid_day_raises(self):
-        from earth2observe.ecmwf.constraints import _validate_date_validity
-
         with pytest.raises(ValueError, match="day=.*must be 01-31"):
-            _validate_date_validity({"day": ["32"]})
+            DateRequest.check({"day": ["32"]})
 
     def test_year_out_of_range_raises(self):
-        from earth2observe.ecmwf.constraints import _validate_date_validity
-
         with pytest.raises(ValueError, match="year=.*plausible"):
-            _validate_date_validity({"year": ["1492"]})
+            DateRequest.check({"year": ["1492"]})
 
     def test_feb_30_raises(self):
-        from earth2observe.ecmwf.constraints import _validate_date_validity
-
         with pytest.raises(ValueError, match="not a real date"):
-            _validate_date_validity(
+            DateRequest.check(
                 {"year": ["2022"], "month": ["02"], "day": ["30"]}
             )
 
     def test_valid_date_passes(self):
-        from earth2observe.ecmwf.constraints import _validate_date_validity
-
-        _validate_date_validity(
+        DateRequest.check(
             {"year": ["2022"], "month": ["02"], "day": ["28"]}
         )
 
     def test_non_integer_values_skipped(self):
         """Datasets that use `year=['all']` or non-numeric forms pass."""
-        from earth2observe.ecmwf.constraints import _validate_date_validity
-
-        _validate_date_validity({"year": ["all"], "month": ["any"]})
+        DateRequest.check({"year": ["all"], "month": ["any"]})
 
 
 class TestAreaSanity:
     """Tests for the M17 area bbox sanity check."""
 
     def test_wrong_length_raises(self):
-        from earth2observe.ecmwf.constraints import _validate_area
-
         with pytest.raises(ValueError, match="4-element list"):
-            _validate_area({"area": [60, -10, 50]})
+            Area.check({"area": [60, -10, 50]})
 
     def test_swapped_north_south_raises(self):
-        from earth2observe.ecmwf.constraints import _validate_area
-
         with pytest.raises(ValueError, match="south.*<=.*north"):
-            _validate_area({"area": [40, -10, 60, 0]})
+            Area.check({"area": [40, -10, 60, 0]})
 
     def test_latitude_out_of_range_raises(self):
-        from earth2observe.ecmwf.constraints import _validate_area
-
         with pytest.raises(ValueError, match="latitudes must be in"):
-            _validate_area({"area": [95, -10, 50, 0]})
+            Area.check({"area": [95, -10, 50, 0]})
 
     def test_valid_area_passes(self):
-        from earth2observe.ecmwf.constraints import _validate_area
-
-        _validate_area({"area": [60, -10, 50, 0]})
+        Area.check({"area": [60, -10, 50, 0]})
 
     def test_no_area_passes(self):
-        from earth2observe.ecmwf.constraints import _validate_area
-
-        _validate_area({})
+        Area.check({})
 
 
 class TestVariableTypos:

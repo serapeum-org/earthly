@@ -49,7 +49,14 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, ValidationError, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    ValidationError,
+    field_validator,
+    model_validator,
+)
 
 __all__ = ["CONSTRAINTS_URL_TEMPLATE", "fetch_constraints", "validate_request"]
 
@@ -120,67 +127,89 @@ def _as_list(value: Any) -> list[Any]:
     return value if isinstance(value, list) else [value]
 
 
-def _try_int(value: Any) -> int | None:
-    """Coerce `value` to int, or return None if not coercible."""
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return None
+class DateRequest(BaseModel):
+    """Year/month/day fields of a CDS request, validated for real dates.
 
+    Public entry point is :meth:`DateRequest.check` — fails fast on
+    obvious calendar mistakes (Feb 30, month=13, year=1492, …) before
+    the request is sent.
 
-def _validate_date_validity(request: dict[str, Any]) -> None:
-    """Reject obvious year/month/day mistakes (Feb 30, month=13, …).
-
-    Lenient: skips when a value is not an integer string (some
-    datasets use `year=["all"]` or period ranges and the strict
-    integer check should not flag those).
+    Lenient by design: values that are not integer-coercible (e.g.
+    `year=["all"]`) are coerced to `None` and skipped during checks,
+    not rejected. Extra request keys are ignored — the model only
+    owns date validation.
     """
-    years = _as_list(request.get("year", []))
-    months = _as_list(request.get("month", []))
-    days = _as_list(request.get("day", []))
 
-    for label, raw in (("year", years), ("month", months), ("day", days)):
-        for value in raw:
-            n = _try_int(value)
-            if n is None:
-                continue
-            if label == "month" and not (1 <= n <= 12):
-                raise ValueError(
-                    f"month={value!r} must be 01-12 (got {n})"
-                )
-            if label == "day" and not (1 <= n <= 31):
-                raise ValueError(
-                    f"day={value!r} must be 01-31 (got {n})"
-                )
-            if label == "year" and not (1850 <= n <= 2100):
-                raise ValueError(
-                    f"year={value!r} outside the plausible 1850-2100 range "
-                    f"(got {n})"
-                )
+    model_config = ConfigDict(extra="ignore", frozen=True)
 
-    # Cross-field: every (year, month, day) triple must be a real
-    # calendar date. Catches Feb 30, Apr 31, etc. — the constraints
-    # walk would also reject these but with a less specific message.
-    if years and months and days:
-        for y, m, d in itertools.product(years, months, days):
-            yi, mi, di = _try_int(y), _try_int(m), _try_int(d)
-            if yi is None or mi is None or di is None:
-                continue
+    year: list[int | None] = Field(default_factory=list)
+    month: list[int | None] = Field(default_factory=list)
+    day: list[int | None] = Field(default_factory=list)
+
+    @field_validator("year", "month", "day", mode="before")
+    @classmethod
+    def _wrap_and_coerce(cls, v: Any) -> list[int | None]:
+        items = v if isinstance(v, list) else [v]
+        coerced: list[int | None] = []
+        for item in items:
             try:
-                datetime.date(yi, mi, di)
-            except ValueError as exc:
+                coerced.append(int(item))
+            except (TypeError, ValueError):
+                coerced.append(None)
+        return coerced
+
+    @model_validator(mode="after")
+    def _check_dates(self) -> DateRequest:
+        for label, raw, lo, hi in (
+            ("year", self.year, 1850, 2100),
+            ("month", self.month, 1, 12),
+            ("day", self.day, 1, 31),
+        ):
+            for n in raw:
+                if n is None or lo <= n <= hi:
+                    continue
+                if label == "year":
+                    raise ValueError(
+                        f"year={n} outside the plausible 1850-2100 range"
+                    )
                 raise ValueError(
-                    f"year/month/day combination "
-                    f"{yi:04d}-{mi:02d}-{di:02d} is not a real date: {exc}"
-                ) from None
+                    f"{label}={n} must be {lo:02d}-{hi:02d}"
+                )
+        if self.year and self.month and self.day:
+            for yi, mi, di in itertools.product(self.year, self.month, self.day):
+                if yi is None or mi is None or di is None:
+                    continue
+                try:
+                    datetime.date(yi, mi, di)
+                except ValueError as exc:
+                    raise ValueError(
+                        f"year/month/day combination "
+                        f"{yi:04d}-{mi:02d}-{di:02d} is not a real date: {exc}"
+                    ) from None
+        return self
+
+    @classmethod
+    def check(cls, request: dict[str, Any]) -> None:
+        """Validate `request`'s date fields; raise `ValueError` on failure.
+
+        Thin wrapper that runs :meth:`model_validate` and translates
+        pydantic's :class:`ValidationError` to :class:`ValueError`
+        (matching the rest of this module's error contract).
+        """
+        try:
+            cls.model_validate(request)
+        except ValidationError as exc:
+            raise ValueError(
+                exc.errors()[0]["msg"].removeprefix("Value error, ")
+            ) from None
 
 
 class Area(BaseModel):
     """CDS `area` bbox validated against lat/lon bounds.
 
-    Used by :func:`_validate_area` to fail fast on swapped indices,
-    out-of-range latitudes, or non-numeric values — before the
-    request reaches CDS and burns a queue slot.
+    Public entry point is :meth:`Area.check` — fails fast on swapped
+    indices, out-of-range latitudes, or non-numeric values, before
+    the request reaches CDS and burns a queue slot.
     """
 
     model_config = ConfigDict(extra="forbid", frozen=True)
@@ -209,32 +238,32 @@ class Area(BaseModel):
             )
         return self
 
+    @classmethod
+    def check(cls, request: dict[str, Any]) -> None:
+        """Validate `request['area']` if present; raise `ValueError` on failure.
 
-def _validate_area(request: dict[str, Any]) -> None:
-    """Reject malformed `area` bboxes before they reach MARS.
-
-    CDS expects `[north, west, south, east]` with latitudes in
-    [-90, 90] and `south <= north`. Longitudes can wrap so the
-    check is wider; the goal is to catch user typos like swapping
-    north/south or passing the wrong number of values.
-    """
-    area = request.get("area")
-    if area is None:
-        return
-    if not isinstance(area, (list, tuple)) or len(area) != 4:
-        raise ValueError(
-            f"area must be a 4-element list [north, west, south, east], "
-            f"got {area!r}"
-        )
-    try:
-        Area(north=area[0], west=area[1], south=area[2], east=area[3])
-    except ValidationError as exc:
-        first = exc.errors()[0]
-        if "float" in first["type"]:
+        CDS expects `[north, west, south, east]` with latitudes in
+        [-90, 90] and `south <= north`. Longitudes can wrap so the
+        check is wider; the goal is to catch user typos like swapping
+        north/south or passing the wrong number of values.
+        """
+        area = request.get("area")
+        if area is None:
+            return
+        if not isinstance(area, (list, tuple)) or len(area) != 4:
             raise ValueError(
-                f"area values must be numeric: {area!r}"
-            ) from None
-        raise ValueError(first["msg"].removeprefix("Value error, ")) from None
+                f"area must be a 4-element list [north, west, south, east], "
+                f"got {area!r}"
+            )
+        try:
+            cls(north=area[0], west=area[1], south=area[2], east=area[3])
+        except ValidationError as exc:
+            first = exc.errors()[0]
+            if "float" in first["type"]:
+                raise ValueError(
+                    f"area values must be numeric: {area!r}"
+                ) from None
+            raise ValueError(first["msg"].removeprefix("Value error, ")) from None
 
 
 def _validate_variable_typos(
@@ -354,8 +383,8 @@ def validate_request(dataset: str, request: dict[str, Any]) -> None:
         return
     # Phase 1-2: cheap local sanity checks. Run before any network
     # call so a typo gets flagged in milliseconds.
-    _validate_date_validity(request)
-    _validate_area(request)
+    DateRequest.check(request)
+    Area.check(request)
     constraints = fetch_constraints(dataset)
     if not constraints:
         return  # Nothing to validate against
