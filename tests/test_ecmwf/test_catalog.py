@@ -514,7 +514,7 @@ class TestCatalog:
         assert ds.request_kind == "carra_means"
         assert ds.extras["product_type"] == ["forecast_based"]
         assert ds.extras["time_aggregation"] == "daily"
-        assert len(ds.variables) == 16
+        assert len(ds.variables) == 17
         spec = ds.variables["maximum-2m-temperature-carra-means"]
         assert spec.cds_variable == "maximum_2m_temperature_since_previous_post_processing"
         assert spec.nc_variable == "mx2t"
@@ -529,7 +529,7 @@ class TestCatalog:
         ds = cat.datasets["seasonal-monthly-single-levels"]
         assert ds.extras["originating_centre"] == "ecmwf"
         assert ds.extras["system"] == "5"
-        assert len(ds.variables) == 11
+        assert len(ds.variables) == 12
         spec = ds.variables["2m-temperature-seasonal"]
         assert spec.cds_variable == "2m_temperature"
         assert spec.nc_variable == "t2m"
