@@ -4415,6 +4415,12 @@ datasets:
         types: flux
         units: "J m**-2"
 
+      "surface-solar-radiation-downwards-cerra":
+        cds_variable: surface_solar_radiation_downwards
+        nc_variable: ssrd
+        types: flux
+        units: "J m**-2"
+
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
@@ -4745,6 +4751,12 @@ datasets:
         types: state
         units: K
 
+      "lake-shape-factor-cerra-land":
+        cds_variable: lake_shape_factor
+        nc_variable: lshf
+        types: state
+        units: "dimensionless"
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -5064,6 +5076,12 @@ datasets:
         types: state
         units: "m s**-1"
 
+      "total-precipitation-pancarra-means":
+        cds_variable: total_precipitation
+        nc_variable: tp
+        types: flux
+        units: "kg m**-2"
+
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
     # historical monthly. 1 of 5 catalogued vars probe-confirmed
@@ -5319,6 +5337,12 @@ datasets:
       "surface-thermal-radiation-downwards-seasonal":
         cds_variable: surface_thermal_radiation_downwards
         nc_variable: msdtrf
+        types: flux
+        units: "W m**-2"
+
+      "surface-solar-radiation-downwards-seasonal":
+        cds_variable: surface_solar_radiation_downwards
+        nc_variable: msdsrf
         types: flux
         units: "W m**-2"
 

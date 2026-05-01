@@ -529,7 +529,7 @@ class TestCatalog:
         ds = cat.datasets["seasonal-monthly-single-levels"]
         assert ds.extras["originating_centre"] == "ecmwf"
         assert ds.extras["system"] == "5"
-        assert len(ds.variables) == 14
+        assert len(ds.variables) == 16
         spec = ds.variables["2m-temperature-seasonal"]
         assert spec.cds_variable == "2m_temperature"
         assert spec.nc_variable == "t2m"
