@@ -4611,6 +4611,15 @@ datasets:
           level_type: height_levels
           height_level: ["100_m"]
 
+      "cloud-cover-pancarra-p":
+        cds_variable: cloud_cover
+        nc_variable: ccl
+        types: state
+        units: "%"
+        extras:
+          level_type: pressure_levels
+          pressure_level: ["1000"]
+
   derived-utci-historical:
     # Universal Thermal Climate Index historical archive. The CDS
     # response is a ZIP bundling per-statistic NetCDFs; the nc_variable
