@@ -4187,6 +4187,14 @@ datasets:
         extras:
           product_type: [analysis_based]
 
+      "cloud-base-carra-means":
+        cds_variable: cloud_base
+        nc_variable: cdcb
+        types: state
+        units: m
+        extras:
+          product_type: [analysis_based]
+
   reanalysis-cerra-single-levels:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
@@ -4871,6 +4879,12 @@ datasets:
         nc_variable: t2m
         types: state
         units: K
+
+      "10m-wind-direction-pancarra-means":
+        cds_variable: 10m_wind_direction
+        nc_variable: wdir10
+        types: state
+        units: "Degree true"
 
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
