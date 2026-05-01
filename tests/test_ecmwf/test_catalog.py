@@ -544,7 +544,7 @@ class TestCatalog:
         assert len(press.variables) == 14
         assert len(height.variables) == 7
         assert len(model.variables) == 11
-        assert len(single.variables) == 28
+        assert len(single.variables) == 29
         # Parent extras propagate to every variable.
         for ds in [press, height, model, single]:
             assert ds.extras["domain"] == "east_domain"

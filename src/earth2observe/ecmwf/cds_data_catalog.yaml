@@ -4078,6 +4078,12 @@ datasets:
         types: state
         units: "%"
 
+      "mean-sea-level-pressure-carra":
+        cds_variable: mean_sea_level_pressure
+        nc_variable: msl
+        types: state
+        units: Pa
+
   reanalysis-carra-means:
     # CARRA-means: temporally-aggregated CARRA. Six forecast-based
     # single-level variables are probe-confirmed. ``request_kind``
@@ -4403,6 +4409,12 @@ datasets:
         types: flux
         units: "N m**-2 s"
 
+      "time-integrated-surface-direct-short-wave-radiation-flux-cerra":
+        cds_variable: time_integrated_surface_direct_short_wave_radiation_flux
+        nc_variable: tidirswrf
+        types: flux
+        units: "J m**-2"
+
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
@@ -4727,6 +4739,12 @@ datasets:
         types: state
         units: K
 
+      "lake-total-layer-temperature-cerra-land":
+        cds_variable: lake_total_layer_temperature
+        nc_variable: ltlt
+        types: state
+        units: K
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -5040,6 +5058,12 @@ datasets:
         types: state
         units: "m s**-1"
 
+      "10m-v-component-of-wind-pancarra-means":
+        cds_variable: 10m_v_component_of_wind
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
     # historical monthly. 1 of 5 catalogued vars probe-confirmed
@@ -5291,4 +5315,10 @@ datasets:
         nc_variable: msl
         types: state
         units: Pa
+
+      "surface-thermal-radiation-downwards-seasonal":
+        cds_variable: surface_thermal_radiation_downwards
+        nc_variable: msdtrf
+        types: flux
+        units: "W m**-2"
 
