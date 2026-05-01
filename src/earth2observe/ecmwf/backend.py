@@ -3,6 +3,7 @@ from __future__ import annotations
 import calendar
 import datetime as dt
 import os
+from pathlib import Path
 from typing import Any
 
 import cdsapi
@@ -174,7 +175,6 @@ class Variable(BaseModel):
                 ```
             - A typo in a key name is caught at construction time —
               the wrapped pydantic error names the offending row:
-
                 ```python
                 >>> from earth2observe.ecmwf import Variable
                 >>> try:
@@ -310,15 +310,10 @@ def _looks_like_missing_credentials(exc: BaseException) -> bool:
         False for transport / network / library errors that should
         propagate untouched.
     """
-    cdsapirc_present = os.path.isfile(
-        os.path.expanduser("~/.cdsapirc")
-    )
+    cdsapirc_present = (Path.home() / ".cdsapirc").is_file()
     env_present = bool(
         os.environ.get("CDSAPI_URL") and os.environ.get("CDSAPI_KEY")
     )
-    if not cdsapirc_present and not env_present:
-        return True
-    message = str(exc).lower()
     auth_keywords = (
         "configuration",
         "credentials",
@@ -327,7 +322,10 @@ def _looks_like_missing_credentials(exc: BaseException) -> bool:
         "missing url",
         "missing key",
     )
-    return any(keyword in message for keyword in auth_keywords)
+    message = str(exc).lower()
+    no_credentials = not cdsapirc_present and not env_present
+    message_indicates_auth = any(keyword in message for keyword in auth_keywords)
+    return no_credentials or message_indicates_auth
 
 
 _TIME_VAR_CANDIDATES: tuple[str, ...] = ("valid_time", "time")
