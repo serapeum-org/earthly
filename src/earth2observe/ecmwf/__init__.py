@@ -10,7 +10,7 @@ Public surface (re-exported from this package):
   a bbox, and a list of variable short codes, then call
   :meth:`ECMWF.download` to fetch every variable.
 * :class:`Catalog` — pydantic-backed loader for
-  ``cds_data_catalog.yaml``. Exposes the YAML's structure as three
+  `cds_data_catalog.yaml`. Exposes the YAML's structure as three
   fields: :attr:`Catalog.available_datasets`, :attr:`Catalog.datasets`,
   and :attr:`Catalog.catalog` (flat per-variable map).
 * :class:`Dataset` — one CDS dataset's section inside the catalog
@@ -25,7 +25,7 @@ Public surface (re-exported from this package):
   monkey-patchable to redirect the loader.
 
 The catalog YAML ships with this package as data, loaded by
-:class:`Catalog` from ``Path(__file__).parent``.
+:class:`Catalog` from `Path(__file__).parent`.
 
 Examples:
     - List all entries in the bundled catalog:

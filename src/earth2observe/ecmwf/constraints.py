@@ -1,11 +1,11 @@
 """Pre-flight validation of CDS retrieve requests against `constraints.json`.
 
 Every CDS dataset publishes a constraints document at
-``https://cds.climate.copernicus.eu/api/catalogue/v1/collections/<id>/constraints.json``
+`https://cds.climate.copernicus.eu/api/catalogue/v1/collections/<id>/constraints.json`
 listing the (variable × extras) combinations the server actually
 accepts. Submitting a request with any value outside that document
-results in a 400 ``Request has not produced a valid combination of
-values`` after the request has already taken a per-dataset queue
+results in a 400 `Request has not produced a valid combination of
+values` after the request has already taken a per-dataset queue
 slot — wasting both queue capacity and wall-clock time.
 
 This module hits the constraints endpoint once per dataset (cached
@@ -13,7 +13,7 @@ in-process), and rejects mismatched requests at the call site so
 the user sees a clear error before :meth:`cdsapi.Client.retrieve`
 is invoked.
 
-Set the environment variable ``E2O_SKIP_CONSTRAINTS=1`` to bypass
+Set the environment variable `E2O_SKIP_CONSTRAINTS=1` to bypass
 validation — useful when the constraints endpoint is missing or
 known to be inaccurate for a particular dataset.
 
@@ -62,28 +62,28 @@ _UNIVERSAL_KEYS: frozenset[str] = frozenset(
 )
 
 # Module-level cache so each dataset is only fetched once per
-# Python process. ``None`` is reserved for "fetch attempted, no
+# Python process. `None` is reserved for "fetch attempted, no
 # constraints available" so we don't refetch on every retry.
 _CACHE: dict[str, list[dict[str, Any]] | None] = {}
 
 
 def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
-    """Fetch and cache the constraints document for ``dataset``.
+    """Fetch and cache the constraints document for `dataset`.
 
     Args:
         dataset: CDS dataset short name
-            (e.g. ``"reanalysis-era5-single-levels"``).
+            (e.g. `"reanalysis-era5-single-levels"`).
 
     Returns:
         list[dict[str, Any]]: Each entry is a dict mapping selector
-        names (``variable``, ``year``, ``level_type``, …) to the
+        names (`variable`, `year`, `level_type`, …) to the
         allowed values for that combination. Returns an empty list
         when the endpoint is missing, returns 404, or transport
         fails — callers should treat that as "skip validation".
 
     Examples:
         - First call hits the network; second call returns the
-          cached value (``# doctest: +SKIP`` because it requires
+          cached value (`# doctest: +SKIP` because it requires
           network access):
 
             ```python
@@ -106,7 +106,7 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
     except (urllib.error.URLError, ValueError, OSError):
         # Network failure or non-JSON response — treat as
         # "no constraints" so callers fall back to letting CDS
-        # itself reject the request. Caching ``None`` makes
+        # itself reject the request. Caching `None` makes
         # later calls cheap.
         _CACHE[dataset] = None
         return []
@@ -128,7 +128,7 @@ def _validate_date_validity(request: dict[str, Any]) -> None:
     """Reject obvious year/month/day mistakes (Feb 30, month=13, …).
 
     Lenient: skips when a value is not an integer string (some
-    datasets use ``year=["all"]`` or period ranges and the strict
+    datasets use `year=["all"]` or period ranges and the strict
     integer check should not flag those).
     """
     years = _as_list(request.get("year", []))
@@ -178,10 +178,10 @@ def _validate_date_validity(request: dict[str, Any]) -> None:
 
 
 def _validate_area(request: dict[str, Any]) -> None:
-    """Reject malformed ``area`` bboxes before they reach MARS.
+    """Reject malformed `area` bboxes before they reach MARS.
 
-    CDS expects ``[north, west, south, east]`` with latitudes in
-    [-90, 90] and ``south <= north``. Longitudes can wrap so the
+    CDS expects `[north, west, south, east]` with latitudes in
+    [-90, 90] and `south <= north`. Longitudes can wrap so the
     check is wider; the goal is to catch user typos like swapping
     north/south or passing the wrong number of values.
     """
@@ -221,7 +221,7 @@ def _validate_variable_typos(
 ) -> None:
     """Suggest typo fixes when a requested variable isn't catalogued.
 
-    Walks ``constraints`` to collect every catalogued variable, then
+    Walks `constraints` to collect every catalogued variable, then
     flags any request variable that isn't in that set and offers up
     to 3 close matches via :func:`difflib.get_close_matches`.
     """
@@ -268,7 +268,7 @@ def _validate_required_fields(
     Computes the intersection of keys present in every entry; any
     key in that intersection that is not in the request (and isn't
     universal) is reported as missing. Catches the common
-    "you forgot to set ``experiment`` for CMIP6" class of error.
+    "you forgot to set `experiment` for CMIP6" class of error.
     """
     if not constraints:
         return
@@ -287,22 +287,22 @@ def _validate_required_fields(
 
 
 def validate_request(dataset: str, request: dict[str, Any]) -> None:
-    """Validate ``request`` against the dataset's `constraints.json`.
+    """Validate `request` against the dataset's `constraints.json`.
 
     Runs in five phases (cheap → expensive); stops at the first
     failure so the user gets the most specific error possible:
 
-    1. Date sanity (``year``/``month``/``day`` form a real date).
-    2. Area bbox sanity (``[north, west, south, east]`` bounds).
+    1. Date sanity (`year`/`month`/`day` form a real date).
+    2. Area bbox sanity (`[north, west, south, east]` bounds).
     3. Variable name spell-check (with close-match suggestions).
     4. Required-field check (every key present in every constraint
        entry must be in the request).
     5. Full combinatorial check against the constraints document.
 
     Walks the cached constraints document looking for at least one
-    entry whose allowed-value sets cover every key in ``request``
+    entry whose allowed-value sets cover every key in `request`
     that the document enumerates. Universal keys
-    (:data:`_UNIVERSAL_KEYS` — ``area`` / ``data_format`` / etc.)
+    (:data:`_UNIVERSAL_KEYS` — `area` / `data_format` / etc.)
     are ignored; keys the constraints document does not mention are
     also ignored (they may be optional for that dataset).
 
@@ -318,7 +318,7 @@ def validate_request(dataset: str, request: dict[str, Any]) -> None:
             pointing at the live constraints document.
 
     Examples:
-        - The check is a no-op when ``E2O_SKIP_CONSTRAINTS`` is
+        - The check is a no-op when `E2O_SKIP_CONSTRAINTS` is
           set to a truthy value:
 
             ```python

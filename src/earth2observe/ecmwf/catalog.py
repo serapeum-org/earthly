@@ -1,20 +1,20 @@
 """Variable-catalog loader for the CDS-backed ECMWF data source.
 
 Hosts :class:`Catalog`, the pydantic-backed reader for
-``cds_data_catalog.yaml``. Split out of :mod:`earth2observe.ecmwf.backend`
+`cds_data_catalog.yaml`. Split out of :mod:`earth2observe.ecmwf.backend`
 so the request / download machinery and the catalog file-IO live in
 separate modules.
 
 The YAML's three top-level sections each map to a typed field on
 :class:`Catalog`:
 
-* ``available_datasets`` (informational list of CDS dataset names)
+* `available_datasets` (informational list of CDS dataset names)
   → :attr:`Catalog.available_datasets`
-* ``datasets`` (structural map of CDS datasets, each carrying a
+* `datasets` (structural map of CDS datasets, each carrying a
   monthly variant and a per-variable map) → :attr:`Catalog.datasets`,
   with each value a :class:`Dataset`
 * the flattened per-variable view → :attr:`Catalog.catalog`, kept
-  as a convenience for the ``catalog.get_dataset(code)`` lookup
+  as a convenience for the `catalog.get_dataset(code)` lookup
   pattern that pre-dates the structural view
 
 The flat and structural views share the same :class:`Variable`
@@ -51,7 +51,7 @@ CATALOG_PATH: Path = Path(__file__).parent / "cds_data_catalog.yaml"
 
 
 def _read_cdsapirc() -> dict[str, str]:
-    """Parse ``~/.cdsapirc`` into a {url, key} dict.
+    """Parse `~/.cdsapirc` into a {url, key} dict.
 
     Used by :meth:`Catalog.list_recent_jobs` and
     :meth:`Catalog.download_job` to authenticate the bare HTTP
@@ -68,8 +68,8 @@ def _read_cdsapirc() -> dict[str, str]:
 class Dataset(BaseModel):
     """One CDS dataset's section in the catalog.
 
-    Mirrors the shape of a single ``datasets.<name>:`` block in
-    ``cds_data_catalog.yaml`` — the monthly-aggregate variant of the
+    Mirrors the shape of a single `datasets.<name>:` block in
+    `cds_data_catalog.yaml` — the monthly-aggregate variant of the
     dataset, the default pressure levels (for pressure-level
     datasets), and the per-variable map. Same dataset name is used
     as the parent key in :attr:`Catalog.datasets`; it is not stored
@@ -77,20 +77,20 @@ class Dataset(BaseModel):
 
     Attributes:
         monthly: CDS dataset short name to use when
-            ``temporal_resolution == "monthly"``. ``None`` when the
+            `temporal_resolution == "monthly"`. `None` when the
             dataset has no monthly-aggregate variant.
         pressure_level: Default list of pressure levels (as strings,
-            e.g. ``["1000"]``) for pressure-level datasets. ``None``
+            e.g. `["1000"]`) for pressure-level datasets. `None`
             for single-level datasets. Propagated to each variable's
-            ``cds_pressure_level`` at load time.
+            `cds_pressure_level` at load time.
         extras: Default extra CDS request parameters propagated into
-            each child :class:`Variable`'s ``extras`` map. Per-row
-            ``extras:`` overrides win over these defaults. Carries
-            the family-wide selectors (e.g. ``domain``, ``leadtime_hour``,
-            ``experiment``, ``model``) that the dataset's request shape
+            each child :class:`Variable`'s `extras` map. Per-row
+            `extras:` overrides win over these defaults. Carries
+            the family-wide selectors (e.g. `domain`, `leadtime_hour`,
+            `experiment`, `model`) that the dataset's request shape
             requires beyond the ERA5 standard set.
         variables: Per-variable map keyed by the slugified short code
-            (e.g. ``"2m-temperature"``).
+            (e.g. `"2m-temperature"`).
 
     Examples:
         - Inspect a single-level dataset entry:
@@ -133,14 +133,14 @@ class Dataset(BaseModel):
 class Catalog(AbstractCatalog):
     """Variable catalog for the CDS-backed ECMWF data source.
 
-    Reads ``cds_data_catalog.yaml`` (shipped as package data) and
+    Reads `cds_data_catalog.yaml` (shipped as package data) and
     exposes its three top-level sections as typed pydantic fields.
-    Instantiate with no arguments (``Catalog()``) — :func:`model_post_init`
+    Instantiate with no arguments (`Catalog()`) — :func:`model_post_init`
     parses the YAML and populates every field in one pass.
 
     Attributes:
         available_datasets: Informational list of every CDS dataset
-            short name. Mirrors the ``available_datasets:`` block in
+            short name. Mirrors the `available_datasets:` block in
             the YAML; runtime code does not consume it.
         datasets: Structural map keyed by CDS dataset short name. Each
             value is a :class:`Dataset` carrying that dataset's
@@ -148,9 +148,9 @@ class Catalog(AbstractCatalog):
             this when you want to iterate variables grouped by
             dataset.
         catalog: Flat map from a variable's short code (e.g.
-            ``"2m-temperature"``) to its :class:`Variable`. The same
+            `"2m-temperature"`) to its :class:`Variable`. The same
             objects appear under :attr:`datasets`. Provided as a
-            convenience so existing call sites (``get_dataset(code)``)
+            convenience so existing call sites (`get_dataset(code)`)
             keep working without a two-level lookup.
 
     Examples:
@@ -191,7 +191,7 @@ class Catalog(AbstractCatalog):
     catalog: dict[str, Variable] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Parse ``cds_data_catalog.yaml`` into the three exposed fields.
+        """Parse `cds_data_catalog.yaml` into the three exposed fields.
 
         Overrides :func:`AbstractCatalog.model_post_init` to do all
         three parses in one pass instead of going through
@@ -201,7 +201,7 @@ class Catalog(AbstractCatalog):
 
         Raises:
             ValueError: If the YAML is missing or has an empty
-                ``datasets:`` block, or if no variables appear under
+                `datasets:` block, or if no variables appear under
                 any dataset.
         """
         catalog_path = CATALOG_PATH
@@ -231,7 +231,7 @@ class Catalog(AbstractCatalog):
                     merged["cds_dataset_monthly"] = monthly
                 # Default cds_variable to the slug-with-underscores form
                 # of the YAML key (e.g. "2m-temperature" -> "2m_temperature").
-                # A per-variable row may set ``cds_variable`` explicitly
+                # A per-variable row may set `cds_variable` explicitly
                 # to override this when the request name does not match.
                 merged.setdefault("cds_variable", code.replace("-", "_"))
                 # Per-variable override wins; otherwise inherit the
@@ -299,14 +299,14 @@ class Catalog(AbstractCatalog):
 
         Args:
             var_name: Short variable code as it appears as a YAML key
-                (e.g. ``"2m-temperature"`` or ``"total-precipitation"``).
+                (e.g. `"2m-temperature"` or `"total-precipitation"`).
 
         Returns:
             Variable: Per-variable metadata loaded from
-            ``cds_data_catalog.yaml``.
+            `cds_data_catalog.yaml`.
 
         Raises:
-            KeyError: If ``var_name`` is not in the catalog.
+            KeyError: If `var_name` is not in the catalog.
 
         Examples:
             - Look up a single-level ERA5 variable and read its CDS
@@ -321,7 +321,7 @@ class Catalog(AbstractCatalog):
                 ('t2m', 'K')
 
                 ```
-            - Pressure-level variables expose ``cds_pressure_level``:
+            - Pressure-level variables expose `cds_pressure_level`:
 
                 ```python
                 >>> from earth2observe.ecmwf import Catalog
@@ -330,7 +330,7 @@ class Catalog(AbstractCatalog):
                 ['1000']
 
                 ```
-            - Unknown codes raise ``KeyError``:
+            - Unknown codes raise `KeyError`:
 
                 ```python
                 >>> from earth2observe.ecmwf import Catalog
@@ -353,18 +353,18 @@ class Catalog(AbstractCatalog):
         Args:
             dataset_name: CDS dataset short name as it appears as a
                 key in :attr:`datasets` (e.g.
-                ``"reanalysis-era5-land"``).
+                `"reanalysis-era5-land"`).
 
         Returns:
-            dict with keys ``dataset`` (the short name), ``monthly``
-            (the monthly-aggregate dataset name or ``None``),
-            ``pressure_level`` (the default level list or ``None``),
-            ``extras`` (the parent-level request defaults), and
-            ``variables`` (sorted list of the variable short codes
+            dict with keys `dataset` (the short name), `monthly`
+            (the monthly-aggregate dataset name or `None`),
+            `pressure_level` (the default level list or `None`),
+            `extras` (the parent-level request defaults), and
+            `variables` (sorted list of the variable short codes
             available under this dataset).
 
         Raises:
-            KeyError: If ``dataset_name`` is not a curated dataset
+            KeyError: If `dataset_name` is not a curated dataset
                 (i.e. not present in :attr:`datasets`).
 
         Examples:
@@ -394,9 +394,9 @@ class Catalog(AbstractCatalog):
         }
 
     def minimal_valid_request(self, dataset_name: str) -> dict[str, Any]:
-        """Return a known-valid minimal request for ``dataset_name``.
+        """Return a known-valid minimal request for `dataset_name`.
 
-        Walks the dataset's published ``constraints.json`` (cached
+        Walks the dataset's published `constraints.json` (cached
         per-process) and returns the first entry expanded into a
         request dict with one value per selector. Useful for:
 
@@ -407,7 +407,7 @@ class Catalog(AbstractCatalog):
           dataset before authoring catalog rows,
         * starting points for tests.
 
-        The returned request always carries ``data_format: netcdf``;
+        The returned request always carries `data_format: netcdf`;
         the rest is whatever the first constraint entry enumerates.
 
         Args:
@@ -418,12 +418,12 @@ class Catalog(AbstractCatalog):
         Returns:
             dict[str, Any]: A request dict ready to pass to
             :meth:`cdsapi.Client.retrieve`. Empty dict (besides
-            ``data_format``) when the dataset's constraints are
+            `data_format`) when the dataset's constraints are
             empty / unreachable.
 
         Examples:
             - Inspect ECMWF's published shape for a new dataset
-              before authoring rows. Marked ``# doctest: +SKIP``
+              before authoring rows. Marked `# doctest: +SKIP`
               because it requires network access:
 
                 ```python
@@ -472,32 +472,32 @@ class Catalog(AbstractCatalog):
     ) -> list[dict[str, Any]]:
         """Return the user's recent CDS retrieval jobs.
 
-        Wraps ``GET /retrieve/v1/jobs`` with the same Personal
-        Access Token cdsapi uses (read from ``~/.cdsapirc``).
+        Wraps `GET /retrieve/v1/jobs` with the same Personal
+        Access Token cdsapi uses (read from `~/.cdsapirc`).
         Useful for resuming downloads after a script crash, or
         inspecting which probes have completed without rerunning
         them.
 
         Args:
-            status: Optional filter — one of ``"accepted"``,
-                ``"running"``, ``"successful"``, ``"failed"``,
-                ``"rejected"``. ``None`` returns every status.
+            status: Optional filter — one of `"accepted"`,
+                `"running"`, `"successful"`, `"failed"`,
+                `"rejected"`. `None` returns every status.
             max_age_min: Drop entries older than this many minutes
                 (CDS retains job records for a few weeks). Defaults
-                to ``60``.
+                to `60`.
             limit: Hard cap on returned entries, sent as the
-                ``limit`` query param. Defaults to ``50``.
+                `limit` query param. Defaults to `50`.
 
         Returns:
             list[dict[str, Any]]: Each entry has at least
-            ``jobID`` / ``processID`` (= dataset name) / ``status`` /
-            ``created``. See the CDS OGC API processes spec for the
+            `jobID` / `processID` (= dataset name) / `status` /
+            `created`. See the CDS OGC API processes spec for the
             full schema.
 
         Examples:
             - List successful retrievals from the last hour
-              (``# doctest: +SKIP`` — needs a configured
-              ``~/.cdsapirc``):
+              (`# doctest: +SKIP` — needs a configured
+              `~/.cdsapirc`):
 
                 ```python
                 >>> from earth2observe.ecmwf import Catalog
@@ -547,9 +547,9 @@ class Catalog(AbstractCatalog):
     ) -> Path:
         """Download the result asset of a successful CDS job.
 
-        Looks up ``job_id`` via ``GET /retrieve/v1/jobs/<id>/results``,
-        follows the asset's ``href``, and streams the body into
-        ``target``. Idempotent — if ``target`` already exists with a
+        Looks up `job_id` via `GET /retrieve/v1/jobs/<id>/results`,
+        follows the asset's `href`, and streams the body into
+        `target`. Idempotent — if `target` already exists with a
         non-zero size the download is skipped.
 
         Args:
@@ -560,7 +560,7 @@ class Catalog(AbstractCatalog):
                 1 MiB.
 
         Returns:
-            pathlib.Path: ``target``, after the download completes.
+            pathlib.Path: `target`, after the download completes.
 
         Raises:
             requests.HTTPError: If the job does not exist or its
@@ -595,8 +595,8 @@ class Catalog(AbstractCatalog):
     def get_variable(self, var_name):
         """Alias for :meth:`get_dataset` satisfying the abstract base.
 
-        :class:`AbstractCatalog` declares ``get_variable``; the legacy
-        ECMWF call sites use ``get_dataset``. Both names return the
+        :class:`AbstractCatalog` declares `get_variable`; the legacy
+        ECMWF call sites use `get_dataset`. Both names return the
         same metadata so either path works.
 
         Args:

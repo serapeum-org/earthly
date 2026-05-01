@@ -29,17 +29,17 @@ LEGACY_MARS_KEYS: frozenset[str] = frozenset(
 # Per-request-kind keys to drop from the request dict before the
 # retrieve call. The keys here name the *template defaults* (built
 # unconditionally by :meth:`ECMWF.api`) that are invalid for the
-# named request kind. Per-row ``extras`` are still merged on top, so
+# named request kind. Per-row `extras` are still merged on top, so
 # users can supply alternative values for any stripped key.
 REQUEST_KIND_STRIPS: dict[str, tuple[str, ...]] = {
     "form": (),
     # ORAS5 (and any monthly ocean dataset that mirrors NEMO's
-    # request shape): no ``day`` / ``time`` selectors, no ``area``
-    # bbox cropping. ``product_type`` arrives via ``extras``.
+    # request shape): no `day` / `time` selectors, no `area`
+    # bbox cropping. `product_type` arrives via `extras`.
     "oceanic_monthly": ("day", "time", "area", "product_type"),
-    # CARRA-means and similar aggregate datasets: drop ``time``
+    # CARRA-means and similar aggregate datasets: drop `time`
     # because the aggregate is over the window indicated by
-    # ``time_aggregation``. ``product_type`` arrives via extras.
+    # `time_aggregation`. `product_type` arrives via extras.
     "carra_means": ("time", "product_type"),
 }
 
@@ -48,8 +48,8 @@ class AuthenticationError(Exception):
     """Raised when cdsapi cannot authenticate against the Climate Data Store.
 
     The ECMWF backend uses :class:`cdsapi.Client` to talk to CDS. The
-    client reads its credentials from ``~/.cdsapirc`` (or the
-    ``CDSAPI_URL`` / ``CDSAPI_KEY`` environment variables). If the
+    client reads its credentials from `~/.cdsapirc` (or the
+    `CDSAPI_URL` / `CDSAPI_KEY` environment variables). If the
     config is missing or malformed, :meth:`ECMWF.initialize` wraps the
     underlying error in this exception so callers can distinguish auth
     problems from generic CDS server errors.
@@ -57,7 +57,7 @@ class AuthenticationError(Exception):
     See Also:
         https://cds.climate.copernicus.eu/how-to-api: Official cdsapi
             setup guide, including PAT generation and the
-            ``~/.cdsapirc`` format.
+            `~/.cdsapirc` format.
     """
 
     pass
@@ -67,38 +67,38 @@ class Variable(BaseModel):
     """Per-variable catalog entry consumed by :class:`ECMWF`.
 
     A frozen pydantic model carrying the metadata for one row in
-    ``cds_data_catalog.yaml``. Loading the YAML through
+    `cds_data_catalog.yaml`. Loading the YAML through
     :meth:`from_dict` validates required fields up front so a typo
-    in the file (e.g. ``cd_dataset`` vs ``cds_dataset``) surfaces at
+    in the file (e.g. `cd_dataset` vs `cds_dataset`) surfaces at
     import time, not mid-download.
 
     Attributes:
         cds_dataset: CDS dataset short name used for daily / sub-daily
-            requests, e.g. ``"reanalysis-era5-single-levels"``.
+            requests, e.g. `"reanalysis-era5-single-levels"`.
         cds_variable: CDS variable name passed in the retrieve()
-            request, e.g. ``"2m_temperature"``.
+            request, e.g. `"2m_temperature"`.
         nc_variable: Short variable name inside the CDS NetCDF
-            (e.g. ``"t2m"``); :meth:`ECMWF.post_download` uses it to
-            index ``fh.variables[...]``.
+            (e.g. `"t2m"`); :meth:`ECMWF.post_download` uses it to
+            index `fh.variables[...]`.
         units: Raw ERA5 unit string emitted by CDS for this variable
             (used in the output filename). The package returns values
             in their native ERA5 units; downstream code is responsible
-            for any unit conversion. See ``docs/examples/catalog.md``
+            for any unit conversion. See `docs/examples/catalog.md`
             for the conversion factors typical ERA5 workflows apply.
         cds_dataset_monthly: Optional CDS dataset short name used
-            when ``temporal_resolution == "monthly"``. Falls back to
-            ``cds_dataset`` when absent.
+            when `temporal_resolution == "monthly"`. Falls back to
+            `cds_dataset` when absent.
         cds_pressure_level: Optional list of pressure levels (as
-            strings, e.g. ``["1000"]``) for pressure-level datasets.
-        types: Optional ``"flux"`` or ``"state"`` marker. Flux values
+            strings, e.g. `["1000"]`) for pressure-level datasets.
+        types: Optional `"flux"` or `"state"` marker. Flux values
             are accumulated per timestep on CDS so monthly
             aggregation multiplies by the number of days in the
             month; state values are instantaneous.
         extras: Free-form bag of additional CDS request parameters
-            forwarded verbatim to ``client.retrieve()``. Holds the
+            forwarded verbatim to `client.retrieve()`. Holds the
             non-ERA5 request fields that newer CDS dataset families
-            require — e.g. ``{"domain": "east", "leadtime_hour": "1"}``
-            for CARRA, ``{"experiment": "ssp585", "model": "ec_earth3"}``
+            require — e.g. `{"domain": "east", "leadtime_hour": "1"}`
+            for CARRA, `{"experiment": "ssp585", "model": "ec_earth3"}`
             for CMIP6. Keys not enumerated in this model are not
             silently dropped: they live here and reach the server.
     """
@@ -118,9 +118,9 @@ class Variable(BaseModel):
     @field_validator("extras", mode="before")
     @classmethod
     def _reject_legacy_mars_keys(cls, value: Any) -> Any:
-        """Forbid the pre-cdsapi MARS keys from leaking back via ``extras``.
+        """Forbid the pre-cdsapi MARS keys from leaking back via `extras`.
 
-        ``number_para`` / ``download type`` / ``var_name`` were the
+        `number_para` / `download type` / `var_name` were the
         request-shape keys of the legacy MARS-ECMWFAPI flow. They are
         meaningless under cdsapi and would silently corrupt requests
         if they reached :meth:`ECMWF.api`; reject them at load time so
@@ -144,17 +144,17 @@ class Variable(BaseModel):
         the catalog row that failed.
 
         Args:
-            code: Catalog key (e.g. ``"2m-temperature"``) — used only in the
+            code: Catalog key (e.g. `"2m-temperature"`) — used only in the
                 error message so the user can see which row is broken.
-            data: The dict loaded from the YAML for ``code``.
+            data: The dict loaded from the YAML for `code`.
 
         Returns:
             Variable: The validated, frozen instance.
 
         Raises:
             ValueError: If a required key is missing or an unknown
-                key is present (catches typos like ``cd_dataset``
-                vs ``cds_dataset``).
+                key is present (catches typos like `cd_dataset`
+                vs `cds_dataset`).
 
         Examples:
             - Build a Variable from a complete entry and inspect it:
@@ -199,15 +199,15 @@ class Variable(BaseModel):
             ) from exc
 
     def dataset_for(self, temporal_resolution: str) -> str:
-        """Return the CDS dataset name to use for ``temporal_resolution``.
+        """Return the CDS dataset name to use for `temporal_resolution`.
 
         Args:
-            temporal_resolution: ``"daily"`` or ``"monthly"``.
+            temporal_resolution: `"daily"` or `"monthly"`.
 
         Returns:
-            str: ``cds_dataset_monthly`` when
-            ``temporal_resolution == "monthly"`` and the monthly
-            variant is set; ``cds_dataset`` otherwise.
+            str: `cds_dataset_monthly` when
+            `temporal_resolution == "monthly"` and the monthly
+            variant is set; `cds_dataset` otherwise.
 
         Examples:
             - Daily resolution returns the daily dataset name:
@@ -250,11 +250,11 @@ class Variable(BaseModel):
         """Whether this variable is a flux (drives monthly accumulation scaling).
 
         Returns:
-            bool: ``True`` when ``types == "flux"`` — flux values are
+            bool: `True` when `types == "flux"` — flux values are
             accumulated per timestep on CDS, so monthly aggregation
-            multiplies by the number of days in the month. ``False``
+            multiplies by the number of days in the month. `False`
             for state variables (instantaneous samples) and when
-            ``types`` is unset.
+            `types` is unset.
 
         Examples:
             - A state variable is not a flux:
@@ -295,14 +295,14 @@ def _looks_like_missing_credentials(exc: BaseException) -> bool:
     """Heuristic: does this exception come from missing CDS credentials?
 
     cdsapi does not expose typed exception classes for auth failures —
-    they surface as generic ``Exception`` with messages like "Missing/
+    they surface as generic `Exception` with messages like "Missing/
     incomplete configuration file" or "key not found". We classify by
     presence of the dotfile and env vars first (no dotfile + no env
     vars → almost certainly missing credentials), then fall back to a
     keyword scan of the exception message.
 
     Args:
-        exc: The exception raised by ``cdsapi.Client()``.
+        exc: The exception raised by `cdsapi.Client()`.
 
     Returns:
         True when the failure looks like a credential / config-file
@@ -336,12 +336,12 @@ _TIME_VAR_CANDIDATES: tuple[str, ...] = ("valid_time", "time")
 def _read_time_axis(fh: NetCDF) -> pd.DatetimeIndex:
     """Read the time coordinate from a CDS NetCDF as datetimes.
 
-    CDS-Beta switched the time variable name from ``time`` (legacy)
-    to ``valid_time`` (current) and the units from
-    ``"hours since 1900-01-01"`` to ``"seconds since 1970-01-01"``.
+    CDS-Beta switched the time variable name from `time` (legacy)
+    to `valid_time` (current) and the units from
+    `"hours since 1900-01-01"` to `"seconds since 1970-01-01"`.
     This helper hides both differences from the caller: it tries
     each candidate name in :data:`_TIME_VAR_CANDIDATES` and parses
-    the raw integer values via the variable's ``unit`` attribute,
+    the raw integer values via the variable's `unit` attribute,
     returning a :class:`pandas.DatetimeIndex` regardless of which
     flavour of NetCDF the server emits.
     """
@@ -353,8 +353,8 @@ def _read_time_axis(fh: NetCDF) -> pd.DatetimeIndex:
         raw = fh._read_variable(name)
         if units is None or raw is None:
             continue
-        # ``units`` is a CF string like "<unit> since <epoch>".
-        # ``pd.to_datetime(raw, unit=<u>, origin=<o>)`` parses it
+        # `units` is a CF string like "<unit> since <epoch>".
+        # `pd.to_datetime(raw, unit=<u>, origin=<o>)` parses it
         # natively for the unit aliases pandas recognises (s, m, h, D).
         unit_word, _, origin = units.partition(" since ")
         unit_alias = {
@@ -388,7 +388,7 @@ def _looks_like_licence_not_accepted(exc: BaseException) -> bool:
     dataset URL.
 
     Args:
-        exc: The exception raised by ``client.retrieve(...)``.
+        exc: The exception raised by `client.retrieve(...)`.
 
     Returns:
         True if the message looks like a licence-acceptance failure;
@@ -408,20 +408,20 @@ class ECMWF(AbstractDataSource):
 
     Downloads ERA5 reanalysis (and ERA5-Land where the catalog
     indicates) via :class:`cdsapi.Client`. The user-friendly variable
-    short codes (e.g. ``"2m-temperature"``, ``"total-precipitation"``) are resolved through
+    short codes (e.g. `"2m-temperature"`, `"total-precipitation"`) are resolved through
     :class:`Catalog`, which loads the per-variable metadata from
-    ``cds_data_catalog.yaml``.
+    `cds_data_catalog.yaml`.
 
     The two-step pipeline (per variable) is:
 
     1. :meth:`api` — build the cdsapi request dict (daily / monthly
-       branch on ``temporal_resolution``) and submit it via
-       ``client.retrieve(dataset, request, target)``. Returns the
+       branch on `temporal_resolution`) and submit it via
+       `client.retrieve(dataset, request, target)`. Returns the
        absolute path to the NetCDF that CDS wrote.
     2. :meth:`post_download` — open that NetCDF and slice it on the
        time axis. Values stay in raw ERA5 units. Per-date GeoTIFF
        writing is currently stubbed (see
-       ``planning/cdsapi/post-review-findings.md`` C1).
+       `planning/cdsapi/post-review-findings.md` C1).
 
     Attributes:
         temporal_resolution: Class-level list of valid temporal
@@ -447,24 +447,24 @@ class ECMWF(AbstractDataSource):
         """Initialize an ECMWF backend instance.
 
         Forwards every argument to :class:`AbstractDataSource`,
-        which captures the cdsapi client into ``self.client`` and
-        the bbox/date dict into ``self.space``/``self.time``.
+        which captures the cdsapi client into `self.client` and
+        the bbox/date dict into `self.space`/`self.time`.
 
         Args:
-            temporal_resolution: Either ``"daily"`` or ``"monthly"``.
-                Defaults to ``"daily"``.
+            temporal_resolution: Either `"daily"` or `"monthly"`.
+                Defaults to `"daily"`.
             start: Inclusive start date as a string (parsed with
-                ``fmt``). Defaults to ``None``.
-            end: Inclusive end date as a string. Defaults to ``None``.
+                `fmt`). Defaults to `None`.
+            end: Inclusive end date as a string. Defaults to `None`.
             path: Output directory. Created by the parent if it does
                 not exist. Defaults to the current working directory.
             variables: list of CDS catalog short codes (e.g.
-                ``["2m-temperature", "total-precipitation"]``); see ``cds_data_catalog.yaml`` for
+                `["2m-temperature", "total-precipitation"]`); see `cds_data_catalog.yaml` for
                 the registered codes.
-            lat_lim: ``[lat_min, lat_max]``.
-            lon_lim: ``[lon_min, lon_max]``.
-            fmt: ``strptime`` format for ``start`` / ``end``.
-                Defaults to ``"%Y-%m-%d"``.
+            lat_lim: `[lat_min, lat_max]`.
+            lon_lim: `[lon_min, lon_max]`.
+            fmt: `strptime` format for `start` / `end`.
+                Defaults to `"%Y-%m-%d"`.
         """
         super().__init__(
             start=start,
@@ -483,28 +483,28 @@ class ECMWF(AbstractDataSource):
         """Parse the date range and produce the iteration index.
 
         Returned dict is captured by
-        :meth:`AbstractDataSource.__init__` into ``self.time`` so
+        :meth:`AbstractDataSource.__init__` into `self.time` so
         :meth:`api` and :meth:`post_download` can access the parsed
         bounds and the per-date pandas range without re-parsing.
 
         Args:
             start: Inclusive start date as a string.
             end: Inclusive end date as a string.
-            temporal_resolution: ``"daily"`` (uses ``freq="D"``) or
-                ``"monthly"`` (uses ``freq="MS"``).
-            fmt: ``strptime`` format applied to ``start`` and ``end``.
+            temporal_resolution: `"daily"` (uses `freq="D"`) or
+                `"monthly"` (uses `freq="MS"`).
+            fmt: `strptime` format applied to `start` and `end`.
 
         Returns:
-            TemporalExtent: Frozen pydantic model with ``start_date``,
-            ``end_date``, ``resolution`` (pandas frequency alias —
-            ``"D"`` for daily, ``"MS"`` for month-start), and
-            ``dates`` (the :class:`pandas.DatetimeIndex` the
+            TemporalExtent: Frozen pydantic model with `start_date`,
+            `end_date`, `resolution` (pandas frequency alias —
+            `"D"` for daily, `"MS"` for month-start), and
+            `dates` (the :class:`pandas.DatetimeIndex` the
             download loop iterates).
 
         Raises:
-            ValueError: If ``temporal_resolution`` is neither
-                ``"daily"`` nor ``"monthly"``, or if the parsed
-                ``start`` is later than the parsed ``end``.
+            ValueError: If `temporal_resolution` is neither
+                `"daily"` nor `"monthly"`, or if the parsed
+                `start` is later than the parsed `end`.
         """
         start = dt.datetime.strptime(start, fmt)
         end = dt.datetime.strptime(end, fmt)
@@ -530,8 +530,8 @@ class ECMWF(AbstractDataSource):
     def initialize(self):
         """Construct the :class:`cdsapi.Client` for talking to CDS.
 
-        Reads credentials from ``~/.cdsapirc`` (or the ``CDSAPI_URL`` /
-        ``CDSAPI_KEY`` environment variables, which cdsapi falls back to
+        Reads credentials from `~/.cdsapirc` (or the `CDSAPI_URL` /
+        `CDSAPI_KEY` environment variables, which cdsapi falls back to
         when the dotfile is absent). If neither is configured, the
         underlying cdsapi exception is wrapped in
         :class:`AuthenticationError` with a message that tells the user
@@ -539,17 +539,17 @@ class ECMWF(AbstractDataSource):
 
         Returns:
             cdsapi.Client: Authenticated CDS client. Calls to
-            ``client.retrieve(...)`` use this connection.
+            `client.retrieve(...)` use this connection.
 
         Raises:
             AuthenticationError: If cdsapi cannot construct a Client —
-                typically because ``~/.cdsapirc`` is missing,
-                malformed, or contains an old-API-style ``email`` line.
+                typically because `~/.cdsapirc` is missing,
+                malformed, or contains an old-API-style `email` line.
 
         Examples:
             - Construct a client when credentials are properly
-              configured. Marked ``# doctest: +SKIP`` because it
-              requires a real ``~/.cdsapirc``:
+              configured. Marked `# doctest: +SKIP` because it
+              requires a real `~/.cdsapirc`:
 
                 ```python
                 >>> ecmwf = ECMWF(  # doctest: +SKIP
@@ -592,12 +592,12 @@ class ECMWF(AbstractDataSource):
         cell straddles the requested area boundary.
 
         Args:
-            lat_lim: ``[lat_min, lat_max]`` in degrees north.
-            lon_lim: ``[lon_min, lon_max]`` in degrees east.
+            lat_lim: `[lat_min, lat_max]` in degrees north.
+            lon_lim: `[lon_min, lon_max]` in degrees east.
 
         Returns:
             SpatialExtent: Grid-aligned bounding box with
-            ``resolution`` set to :data:`ERA5_GRID_DEGREES`.
+            `resolution` set to :data:`ERA5_GRID_DEGREES`.
 
         Examples:
             - Snap a 1° box to the ERA5 grid:
@@ -636,30 +636,30 @@ class ECMWF(AbstractDataSource):
         )
 
     def download(self, progress_bar: bool = True, *args, **kwargs):
-        """Download every variable in ``self.vars`` from CDS.
+        """Download every variable in `self.vars` from CDS.
 
-        Iterates the user-supplied ``variables`` list and, for each
+        Iterates the user-supplied `variables` list and, for each
         short code, looks the variable up in the CDS :class:`Catalog`
         and delegates to :meth:`download_dataset`. The CDS dataset
-        name is per-variable (``var_info["cds_dataset"]``); there is
-        no global ``dataset`` parameter under the cdsapi flow.
+        name is per-variable (`var_info["cds_dataset"]`); there is
+        no global `dataset` parameter under the cdsapi flow.
 
         Args:
             progress_bar: Whether :meth:`post_download` should print
                 a per-date progress bar inside each variable's
-                post-processing loop. Defaults to ``True``.
+                post-processing loop. Defaults to `True`.
             *args: Reserved; ignored. Kept for forward-compatibility
                 with backend-specific extras callers might pass via
                 :meth:`Earth2Observe.download`.
-            **kwargs: Reserved; ignored. Same rationale as ``*args``.
+            **kwargs: Reserved; ignored. Same rationale as `*args`.
 
         Returns:
             None. Per-variable NetCDFs land at
-            ``<self.root_dir>/<cds_variable>_<cds_dataset>.nc`` and
+            `<self.root_dir>/<cds_variable>_<cds_dataset>.nc` and
             the post-processed per-date GeoTIFFs alongside.
 
         Raises:
-            KeyError: If any ``var`` in ``self.vars`` is not in the
+            KeyError: If any `var` in `self.vars` is not in the
                 CDS catalog.
             Exception: Any error :meth:`api` propagates from
                 :meth:`cdsapi.Client.retrieve`.
@@ -667,8 +667,8 @@ class ECMWF(AbstractDataSource):
         Examples:
             - End-to-end download via the user-facing
               :class:`Earth2Observe` facade. Marked
-              ``# doctest: +SKIP`` because it requires a configured
-              ``~/.cdsapirc`` and several minutes of CDS queue time:
+              `# doctest: +SKIP` because it requires a configured
+              `~/.cdsapirc` and several minutes of CDS queue time:
 
                 ```python
                 >>> from earth2observe.earth2observe import Earth2Observe
@@ -693,9 +693,9 @@ class ECMWF(AbstractDataSource):
             :class:`Catalog`: Resolves short codes to per-variable
                 metadata.
         """
-        # Lazy import to avoid a circular dependency: ``catalog.py``
-        # imports ``Variable`` from this module, so a top-level
-        # import of ``Catalog`` would be cyclic.
+        # Lazy import to avoid a circular dependency: `catalog.py`
+        # imports `Variable` from this module, so a top-level
+        # import of `Catalog` would be cyclic.
         from earth2observe.ecmwf.catalog import Catalog
 
         catalog = Catalog()
@@ -748,37 +748,37 @@ class ECMWF(AbstractDataSource):
            that CDS wrote.
         2. :meth:`post_download` opens that exact file, applies the
            catalog's unit-conversion factors, and slices it into
-           per-date outputs under ``self.root_dir``.
+           per-date outputs under `self.root_dir`.
 
         Threading the path returned by :meth:`api` into
         :meth:`post_download` (rather than reconstructing a
-        ``data_<dataset>.nc`` filename) is what made the H1 fix:
-        ``api()`` writes ``<cds_variable>_<cds_dataset>.nc`` while
-        the legacy code was looking for ``data_<dataset>.nc``, so
+        `data_<dataset>.nc` filename) is what made the H1 fix:
+        `api()` writes `<cds_variable>_<cds_dataset>.nc` while
+        the legacy code was looking for `data_<dataset>.nc`, so
         the two never agreed.
 
         Args:
             var_info: Variable metadata pulled from
-                ``cds_data_catalog.yaml`` via :class:`Catalog`. See
+                `cds_data_catalog.yaml` via :class:`Catalog`. See
                 :meth:`api` for the keys :meth:`api` requires and
                 :meth:`post_download` for the additional keys
-                (``nc_variable``, optional ``types``) that the
+                (`nc_variable`, optional `types`) that the
                 post-processing step reads.
             progress_bar: Whether :meth:`post_download` should print
                 a progress bar during the per-date loop. Defaults to
-                ``True``.
+                `True`.
 
         Returns:
             None.
 
         Raises:
-            KeyError: If ``var_info`` is missing one of the keys
-                required by :meth:`api` (``cds_dataset``,
-                ``cds_variable``) or by :meth:`post_download`
-                (``nc_variable``, ``units``).
+            KeyError: If `var_info` is missing one of the keys
+                required by :meth:`api` (`cds_dataset`,
+                `cds_variable`) or by :meth:`post_download`
+                (`nc_variable`, `units`).
 
         Examples:
-            - The catalog ships ``var_info`` dicts ready for this
+            - The catalog ships `var_info` dicts ready for this
               method; inspect the keys this two-step pipeline reads:
 
                 ```python
@@ -796,8 +796,8 @@ class ECMWF(AbstractDataSource):
 
                 ```
             - Download via the user-facing :class:`Earth2Observe`
-              facade (recommended). Marked ``# doctest: +SKIP``
-              because it requires a configured ``~/.cdsapirc`` and
+              facade (recommended). Marked `# doctest: +SKIP`
+              because it requires a configured `~/.cdsapirc` and
               several minutes of CDS queue time:
 
                 ```python
@@ -822,8 +822,8 @@ class ECMWF(AbstractDataSource):
             :meth:`post_download`: Reads the NetCDF at the path
                 produced by :meth:`api`, applies unit conversions,
                 slices into per-date outputs.
-            :class:`Catalog`: Loads ``var_info`` dicts from
-                ``cds_data_catalog.yaml``.
+            :class:`Catalog`: Loads `var_info` dicts from
+                `cds_data_catalog.yaml`.
         """
         nc_path = self.api(var_info)
         self.post_download(var_info, nc_path, progress_bar)
@@ -837,58 +837,58 @@ class ECMWF(AbstractDataSource):
         CDS has served the request and the NetCDF file has been written
         to disk — typically minutes due to CDS queue times.
 
-        The request shape branches on ``self.temporal_resolution``:
+        The request shape branches on `self.temporal_resolution`:
 
-        * ``"daily"`` — submits to ``var_info['cds_dataset']`` with
-          ``product_type=['reanalysis']`` and four six-hourly time
-          slots (``00:00/06:00/12:00/18:00``).
-        * ``"monthly"`` — submits to ``var_info['cds_dataset_monthly']``
-          (falling back to ``cds_dataset`` when the monthly key is
-          absent) with ``product_type=['monthly_averaged_reanalysis']``
-          and no ``time`` key. ``-monthly-means`` datasets reject the
-          daily-style ``time`` list.
+        * `"daily"` — submits to `var_info['cds_dataset']` with
+          `product_type=['reanalysis']` and four six-hourly time
+          slots (`00:00/06:00/12:00/18:00`).
+        * `"monthly"` — submits to `var_info['cds_dataset_monthly']`
+          (falling back to `cds_dataset` when the monthly key is
+          absent) with `product_type=['monthly_averaged_reanalysis']`
+          and no `time` key. `-monthly-means` datasets reject the
+          daily-style `time` list.
 
-        Both branches use ``data_format='netcdf'`` so
+        Both branches use `data_format='netcdf'` so
         :class:`pyramids.netcdf.NetCDF` can read the result in
-        ``post_download``.
+        `post_download`.
 
         Args:
             var_info: Variable metadata pulled from
-                ``cds_data_catalog.yaml`` via :class:`Catalog`. Required
+                `cds_data_catalog.yaml` via :class:`Catalog`. Required
                 keys:
 
-                * ``cds_dataset`` — CDS dataset short name, e.g.
-                  ``"reanalysis-era5-single-levels"``.
-                * ``cds_variable`` — CDS variable name, e.g.
-                  ``"2m_temperature"``. Also used as the output
+                * `cds_dataset` — CDS dataset short name, e.g.
+                  `"reanalysis-era5-single-levels"`.
+                * `cds_variable` — CDS variable name, e.g.
+                  `"2m_temperature"`. Also used as the output
                   filename stem.
 
                 Optional keys:
 
-                * ``cds_pressure_level`` — Forwarded to the request as
-                  ``pressure_level`` for pressure-level datasets.
-                * ``extras`` — Free-form mapping of additional CDS
+                * `cds_pressure_level` — Forwarded to the request as
+                  `pressure_level` for pressure-level datasets.
+                * `extras` — Free-form mapping of additional CDS
                   request parameters merged into the request dict
                   immediately before submission. Row-level keys win
                   over the template defaults built from
-                  ``temporal_resolution`` and ``area``. This is the
+                  `temporal_resolution` and `area`. This is the
                   escape hatch for non-ERA5 dataset families that
-                  carry their own selectors (e.g. ``domain`` /
-                  ``leadtime_hour`` for CARRA, ``experiment`` /
-                  ``model`` for CMIP6, ``vertical_resolution`` for
+                  carry their own selectors (e.g. `domain` /
+                  `leadtime_hour` for CARRA, `experiment` /
+                  `model` for CMIP6, `vertical_resolution` for
                   ORAS5).
 
         Returns:
             pathlib.Path: Absolute path to the downloaded NetCDF file,
             written to
-            ``<self.root_dir>/<cds_variable>_<cds_dataset>.nc``.
+            `<self.root_dir>/<cds_variable>_<cds_dataset>.nc`.
 
         Raises:
-            KeyError: If ``var_info`` is missing one of the required
-                keys (``cds_dataset`` or ``cds_variable``).
+            KeyError: If `var_info` is missing one of the required
+                keys (`cds_dataset` or `cds_variable`).
             Exception: Any error raised by
                 :meth:`cdsapi.Client.retrieve`, including authentication
-                failures (no ``~/.cdsapirc``), licence-not-accepted
+                failures (no `~/.cdsapirc`), licence-not-accepted
                 errors, or transient CDS server errors.
 
         Examples:
@@ -904,7 +904,7 @@ class ECMWF(AbstractDataSource):
                 '2m_temperature_reanalysis-era5-single-levels.nc'
 
                 ```
-            - Pressure-level variables expose ``cds_pressure_level``;
+            - Pressure-level variables expose `cds_pressure_level`;
               :meth:`api` forwards it to the request:
 
                 ```python
@@ -916,8 +916,8 @@ class ECMWF(AbstractDataSource):
                 ```
             - Submit the request through the user-facing
               :class:`Earth2Observe` facade. Marked
-              ``# doctest: +SKIP`` because it requires a configured
-              ``~/.cdsapirc`` and several minutes of CDS queue time:
+              `# doctest: +SKIP` because it requires a configured
+              `~/.cdsapirc` and several minutes of CDS queue time:
 
                 ```python
                 >>> from earth2observe.earth2observe import Earth2Observe  # doctest: +SKIP
@@ -938,11 +938,11 @@ class ECMWF(AbstractDataSource):
         See Also:
             :class:`earth2observe.earth2observe.Earth2Observe`: The
                 user-facing facade that wires this method into the
-                ``download()`` flow.
+                `download()` flow.
             :meth:`download_dataset`: The single-variable wrapper that
                 calls this method and then post-processes the NetCDF.
-            :class:`Catalog`: Loads ``var_info`` dicts from
-                ``cds_data_catalog.yaml``.
+            :class:`Catalog`: Loads `var_info` dicts from
+                `cds_data_catalog.yaml`.
         """
         dates = self.time.dates
         request = {
@@ -960,11 +960,11 @@ class ECMWF(AbstractDataSource):
 
         dataset = var_info.dataset_for(self.temporal_resolution)
         if self.temporal_resolution == "monthly":
-            # ``-monthly-means`` datasets reject ``day`` (the
+            # `-monthly-means` datasets reject `day` (the
             # aggregate is over a whole month) and require a
-            # single ``time`` slot for ``monthly_averaged_reanalysis``.
+            # single `time` slot for `monthly_averaged_reanalysis`.
             # CDS-Beta enforces this with HTTP 400; the legacy CDS
-            # tolerated extra ``day`` entries.
+            # tolerated extra `day` entries.
             request["product_type"] = ["monthly_averaged_reanalysis"]
             request["time"] = ["00:00"]
         else:
@@ -976,13 +976,13 @@ class ECMWF(AbstractDataSource):
             request["pressure_level"] = var_info.cds_pressure_level
 
         # Merge per-variable extras last so a row-level field (e.g. a
-        # CMIP6 ``experiment`` / ``model`` selector or a CARRA ``domain``)
+        # CMIP6 `experiment` / `model` selector or a CARRA `domain`)
         # wins over any same-named template default. This is the escape
         # hatch the catalog uses to address non-ERA5 datasets.
         request.update(var_info.extras)
 
         # Strip template defaults that the dataset's request_kind
-        # forbids (e.g. ORAS5 rejects ``day``/``time``/``area``).
+        # forbids (e.g. ORAS5 rejects `day`/`time`/`area`).
         # Done after the extras merge so a user can re-introduce a
         # stripped key by setting it explicitly in extras.
         for stripped in REQUEST_KIND_STRIPS.get(var_info.request_kind, ()):
@@ -990,19 +990,19 @@ class ECMWF(AbstractDataSource):
                 request.pop(stripped, None)
 
         # Per-variable opt-out: any extras key explicitly set to
-        # ``None`` in the YAML row is dropped from the request. This
+        # `None` in the YAML row is dropped from the request. This
         # is the per-row escape hatch for datasets that reject the
-        # default ``area`` bbox (Atlas / projections / rotated grids)
-        # without forcing the user to declare a new ``request_kind``.
+        # default `area` bbox (Atlas / projections / rotated grids)
+        # without forcing the user to declare a new `request_kind`.
         for key, value in list(var_info.extras.items()):
             if value is None:
                 request.pop(key, None)
 
         # Pre-flight check the assembled request against the CDS
-        # ``constraints.json`` for this dataset. Catches typos and
+        # `constraints.json` for this dataset. Catches typos and
         # invalid extras combinations client-side before they
         # consume a CDS queue slot. Set
-        # ``E2O_SKIP_CONSTRAINTS=1`` to bypass.
+        # `E2O_SKIP_CONSTRAINTS=1` to bypass.
         from earth2observe.ecmwf.constraints import validate_request
         validate_request(dataset, request)
 
@@ -1028,10 +1028,10 @@ class ECMWF(AbstractDataSource):
     def API(self, *args, **kwargs):  # noqa: N802 — name dictated by the abstract base
         """Compatibility shim satisfying :meth:`AbstractDataSource.API`.
 
-        The abstract base class declares ``API`` (uppercase) as
+        The abstract base class declares `API` (uppercase) as
         abstract. The ECMWF backend works at variable granularity and
         exposes its real hook as :meth:`api` (lowercase) accepting a
-        ``var_info`` dict — a different signature than the per-date
+        `var_info` dict — a different signature than the per-date
         callable shape of CHIRPS / S3. This stub exists only so the
         abstract contract is satisfied and :class:`ECMWF` can be
         instantiated; callers should always use :meth:`api`.
@@ -1051,30 +1051,30 @@ class ECMWF(AbstractDataSource):
 
         Reads the NetCDF written by :meth:`api`, slices it on the
         time axis, and produces one per-date array under
-        ``self.root_dir`` in raw ERA5 units (no unit conversion).
+        `self.root_dir` in raw ERA5 units (no unit conversion).
 
         Args:
             var_info: Catalog metadata for the variable. Required keys:
 
-                * ``nc_variable`` — short variable name inside the
-                  CDS NetCDF (e.g. ``"t2m"`` for 2-metre temperature),
-                  used to index ``fh.variables[...]``. Differs from
-                  ``cds_variable`` (which is the request name and
+                * `nc_variable` — short variable name inside the
+                  CDS NetCDF (e.g. `"t2m"` for 2-metre temperature),
+                  used to index `fh.variables[...]`. Differs from
+                  `cds_variable` (which is the request name and
                   also the output filename stem).
-                * ``units`` — raw ERA5 unit string emitted by CDS for
+                * `units` — raw ERA5 unit string emitted by CDS for
                   this variable, used in the output filename.
 
                 Optional keys:
 
-                * ``types`` — ``"flux"`` or ``"state"``. Flux values
+                * `types` — `"flux"` or `"state"`. Flux values
                   are accumulated per timestep on CDS, so monthly
                   aggregation multiplies by the number of days in the
-                  month. Defaults to ``"state"`` when absent.
+                  month. Defaults to `"state"` when absent.
 
             nc_path: Path to the NetCDF written by :meth:`api`. Either
                 a :class:`pathlib.Path` or a string is accepted.
             progress_bar: Whether to print a per-date progress bar.
-                Defaults to ``True``.
+                Defaults to `True`.
 
         Returns:
             None. Per-date TIF writing via :mod:`pyramids` is currently

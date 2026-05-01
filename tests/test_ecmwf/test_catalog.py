@@ -1,7 +1,7 @@
 """Unit tests for :class:`earth2observe.ecmwf.Catalog`.
 
 Covers the H2 / H5 rewiring (the catalog reads
-``cds_data_catalog.yaml`` and exposes per-variable
+`cds_data_catalog.yaml` and exposes per-variable
 :class:`Variable` instances), the M2 fail-loud behaviour on
 malformed YAML, and the no-MARS-keys invariant on the schema.
 """
@@ -19,10 +19,10 @@ class TestCatalog:
     """Tests for :class:`Catalog` after the H2 / H5 / M1 / M2 work."""
 
     def test_catalog_loads_per_variable_map(self):
-        """``catalog`` is a per-variable map of :class:`Variable`.
+        """`catalog` is a per-variable map of :class:`Variable`.
 
         Test scenario:
-            After M1, ``Catalog`` returns frozen :class:`Variable`
+            After M1, `Catalog` returns frozen :class:`Variable`
             instances keyed by short variable codes.
         """
         cat = Catalog()
@@ -44,7 +44,7 @@ class TestCatalog:
     def test_get_dataset_returns_new_schema(
         self, var_code, expected_dataset, expected_variable
     ):
-        """``get_dataset`` returns a :class:`Variable` per variable.
+        """`get_dataset` returns a :class:`Variable` per variable.
 
         Test scenario:
             The five mappings the migration plan calls out explicitly
@@ -80,7 +80,7 @@ class TestCatalog:
     def test_flat_and_structural_views_share_variable_instances(self):
         """catalog and datasets[ds].variables point at the same Variable.
 
-        Uses a single-levels-only code (``evaporation``) so the flat
+        Uses a single-levels-only code (`evaporation`) so the flat
         view's "last-wins" behaviour for ERA5-Land overlaps does not
         confuse the assertion.
         """
@@ -92,29 +92,29 @@ class TestCatalog:
         assert flat is nested
 
     def test_pressure_level_var_carries_cds_pressure_level(self):
-        """Pressure-level variables expose ``cds_pressure_level``.
+        """Pressure-level variables expose `cds_pressure_level`.
 
         Test scenario:
             T, Q, R live on reanalysis-era5-pressure-levels; their
-            catalog entries must carry the ``cds_pressure_level``
+            catalog entries must carry the `cds_pressure_level`
             attribute so :meth:`ECMWF.api` can forward it to CDS.
         """
         spec = Catalog().get_dataset("temperature")
         assert spec.cds_pressure_level == ["1000"]
 
     def test_get_dataset_raises_key_error_for_unknown_code(self):
-        """Unknown variable codes raise ``KeyError``.
+        """Unknown variable codes raise `KeyError`.
 
         Test scenario:
             Asking for a code that isn't in the catalog must raise
-            ``KeyError`` immediately rather than returning ``None`` and
-            blowing up later inside ``api()``.
+            `KeyError` immediately rather than returning `None` and
+            blowing up later inside `api()`.
         """
         with pytest.raises(KeyError):
             Catalog().get_dataset("DEFINITELY_NOT_A_REAL_CODE")
 
     def test_get_variable_aliases_get_dataset(self):
-        """``get_variable`` returns the same Variable as ``get_dataset``."""
+        """`get_variable` returns the same Variable as `get_dataset`."""
         cat = Catalog()
         assert cat.get_variable("2m-temperature") == cat.get_dataset("2m-temperature")
 
@@ -126,7 +126,7 @@ class TestCatalog:
 
     @pytest.mark.parametrize("mars_key", ["number_para", "download type", "var_name"])
     def test_no_mars_schema_keys_in_extras(self, monkeypatch, tmp_path, mars_key):
-        """Legacy MARS keys are rejected inside ``extras``."""
+        """Legacy MARS keys are rejected inside `extras`."""
         from earth2observe.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
@@ -161,7 +161,7 @@ class TestCatalog:
             )
 
     def test_extras_propagate_from_parent_dataset(self, monkeypatch, tmp_path):
-        """Parent ``Dataset.extras`` propagates into each child Variable."""
+        """Parent `Dataset.extras` propagates into each child Variable."""
         from earth2observe.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
@@ -187,7 +187,7 @@ class TestCatalog:
         }
 
     def test_row_extras_override_parent_extras(self, monkeypatch, tmp_path):
-        """A per-row ``extras:`` key wins over the parent default."""
+        """A per-row `extras:` key wins over the parent default."""
         from earth2observe.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
@@ -211,9 +211,9 @@ class TestCatalog:
         assert spec.extras == {"domain": "west", "leadtime_hour": "1"}
 
     def test_era5_land_loads(self):
-        """ERA5-Land block round-trips through ``Catalog``.
+        """ERA5-Land block round-trips through `Catalog`.
 
-        Asserts the dataset is exposed under ``datasets``, carries the
+        Asserts the dataset is exposed under `datasets`, carries the
         correct monthly-aggregate variant, and that one of its
         unique-to-ERA5-Land rows resolves to the expected metadata.
         """
@@ -234,7 +234,7 @@ class TestCatalog:
         assert len(ds.variables) == 60
 
     def test_derived_era5_land_daily_statistics_loads(self):
-        """derived-era5-land-daily-statistics block round-trips through ``Catalog``."""
+        """derived-era5-land-daily-statistics block round-trips through `Catalog`."""
         cat = Catalog()
         ds = cat.datasets["derived-era5-land-daily-statistics"]
         assert ds.monthly is None
@@ -258,7 +258,7 @@ class TestCatalog:
         }
 
     def test_era5_daily_statistics_load(self):
-        """Both ERA5 daily-statistics datasets round-trip through ``Catalog``."""
+        """Both ERA5 daily-statistics datasets round-trip through `Catalog`."""
         cat = Catalog()
         single = cat.datasets["derived-era5-single-levels-daily-statistics"]
         press = cat.datasets["derived-era5-pressure-levels-daily-statistics"]
@@ -278,7 +278,7 @@ class TestCatalog:
         assert spec.cds_pressure_level == ["1000"]
 
     def test_minimal_valid_request_picks_entry_with_variable(self, monkeypatch):
-        """``minimal_valid_request`` returns a known-valid request dict."""
+        """`minimal_valid_request` returns a known-valid request dict."""
         from earth2observe.ecmwf import constraints as constraints_module
 
         constraints_module._CACHE.clear()
@@ -315,7 +315,7 @@ class TestCatalog:
     def test_minimal_valid_request_falls_back_for_no_variable_datasets(
         self, monkeypatch
     ):
-        """For datasets without a ``variable`` field, return the first entry."""
+        """For datasets without a `variable` field, return the first entry."""
         from earth2observe.ecmwf import constraints as constraints_module
 
         constraints_module._CACHE.clear()
@@ -363,7 +363,7 @@ class TestCatalog:
     def test_list_recent_jobs_filters_by_age_and_status(
         self, monkeypatch, tmp_path
     ):
-        """``list_recent_jobs`` returns jobs within ``max_age_min`` only."""
+        """`list_recent_jobs` returns jobs within `max_age_min` only."""
         import datetime
         import json
         from earth2observe.ecmwf import catalog as catalog_module
@@ -409,7 +409,7 @@ class TestCatalog:
     def test_download_job_skips_if_target_exists(
         self, monkeypatch, tmp_path
     ):
-        """``download_job`` is idempotent when the target file is already there."""
+        """`download_job` is idempotent when the target file is already there."""
         from earth2observe.ecmwf import catalog as catalog_module
 
         rc = tmp_path / ".cdsapirc"
@@ -430,7 +430,7 @@ class TestCatalog:
     def test_download_job_raises_when_no_asset_href(
         self, monkeypatch, tmp_path
     ):
-        """``download_job`` raises ValueError when results lack an asset href."""
+        """`download_job` raises ValueError when results lack an asset href."""
         from earth2observe.ecmwf import catalog as catalog_module
 
         rc = tmp_path / ".cdsapirc"
@@ -452,7 +452,7 @@ class TestCatalog:
             Catalog().download_job("xyz", tmp_path / "out.nc")
 
     def test_describe_returns_dataset_metadata(self):
-        """``Catalog.describe`` returns a structured introspection record."""
+        """`Catalog.describe` returns a structured introspection record."""
         cat = Catalog()
         info = cat.describe("reanalysis-era5-land")
         assert info["dataset"] == "reanalysis-era5-land"
@@ -463,23 +463,23 @@ class TestCatalog:
         assert len(info["variables"]) == 60
 
     def test_describe_includes_parent_extras(self):
-        """``describe`` surfaces the dataset-level extras (e.g. ORAS5)."""
+        """`describe` surfaces the dataset-level extras (e.g. ORAS5)."""
         info = Catalog().describe("reanalysis-oras5")
         assert info["extras"] == {"product_type": ["consolidated"]}
         assert len(info["variables"]) == 27
 
     def test_describe_raises_for_unknown_dataset(self):
-        """Unknown dataset names raise ``KeyError``."""
+        """Unknown dataset names raise `KeyError`."""
         with pytest.raises(KeyError):
             Catalog().describe("definitely-not-a-dataset")
 
     def test_era5_land_monthly_means_routing(self):
-        """ERA5-Land's ``monthly:`` link routes to the monthly-means dataset.
+        """ERA5-Land's `monthly:` link routes to the monthly-means dataset.
 
-        M23: confirms the parent dataset's ``monthly:`` field
-        propagates into each Variable's ``cds_dataset_monthly``,
-        so ``Variable.dataset_for("monthly")`` returns the
-        ``-monthly-means`` variant.
+        M23: confirms the parent dataset's `monthly:` field
+        propagates into each Variable's `cds_dataset_monthly`,
+        so `Variable.dataset_for("monthly")` returns the
+        `-monthly-means` variant.
         """
         cat = Catalog()
         ds = cat.datasets["reanalysis-era5-land"]
@@ -579,7 +579,7 @@ class TestCatalog:
         assert spec.cds_pressure_level == ["1000"]
 
     def test_cordex_loads(self):
-        """CORDEX block round-trips through ``Catalog``.
+        """CORDEX block round-trips through `Catalog`.
 
         Asserts the dataset is exposed, the parent extras carry the
         EURO-CORDEX EC-Earth/RACMO22E historical defaults, and a
@@ -603,15 +603,15 @@ class TestCatalog:
         """CORDEX ships 16 of 25 catalogued variables (probe-confirmed)."""
         ds = Catalog().datasets["projections-cordex-domains-single-levels"]
         assert len(ds.variables) == 16
-        # All variable keys end with the ``-cordex`` suffix to avoid
+        # All variable keys end with the `-cordex` suffix to avoid
         # colliding with the same-named ERA5 single-levels rows.
         for code in ds.variables:
             assert code.endswith("-cordex")
 
     def test_oras5_loads(self):
-        """ORAS5 ocean reanalysis block round-trips through ``Catalog``.
+        """ORAS5 ocean reanalysis block round-trips through `Catalog`.
 
-        Asserts the dataset is exposed under ``datasets``, has no
+        Asserts the dataset is exposed under `datasets`, has no
         monthly variant (it is monthly-only by design), and a known
         single-level variable resolves to the expected NEMO short name.
         """
@@ -628,7 +628,7 @@ class TestCatalog:
         assert spec.extras["product_type"] == ["consolidated"]
 
     def test_oras5_carries_oceanic_monthly_request_kind(self):
-        """ORAS5 declares ``request_kind=oceanic_monthly`` so api() can strip
+        """ORAS5 declares `request_kind=oceanic_monthly` so api() can strip
         ERA5-specific defaults at retrieve time."""
         cat = Catalog()
         ds = cat.datasets["reanalysis-oras5"]
@@ -638,7 +638,7 @@ class TestCatalog:
             assert var.request_kind == "oceanic_monthly"
 
     def test_default_request_kind_is_form(self):
-        """Datasets that don't set ``request_kind`` default to ``form``."""
+        """Datasets that don't set `request_kind` default to `form`."""
         cat = Catalog()
         ds = cat.datasets["reanalysis-era5-single-levels"]
         assert ds.request_kind == "form"
@@ -665,10 +665,10 @@ class TestCatalog:
         assert all_levels_vars["salinity"].nc_variable == "vosaline"
 
     def test_era5_land_snow_depth_uses_sde_not_sd(self):
-        """ERA5-Land's snow_depth maps to ``sde`` (m), not ``sd`` (m water equiv).
+        """ERA5-Land's snow_depth maps to `sde` (m), not `sd` (m water equiv).
 
-        ERA5-Land returns physical snow thickness as ``sde`` while
-        single-levels uses ``sd`` for the water-equivalent depth. The
+        ERA5-Land returns physical snow thickness as `sde` while
+        single-levels uses `sd` for the water-equivalent depth. The
         two are distinct fields and must not collide in the catalog.
         """
         cat = Catalog()

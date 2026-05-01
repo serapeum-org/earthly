@@ -1,10 +1,10 @@
 """Integration tests for the H1 parent-class wiring.
 
 After H1, :meth:`AbstractDataSource.__init__` captures the return
-values of the abstract hooks (``initialize``, ``create_grid``,
-``check_input_dates``) and exposes them as ``self.client`` /
-``self.space`` / ``self.time``. It also adds ``self.root_dir`` and
-keeps ``self.path`` as a legacy alias.
+values of the abstract hooks (`initialize`, `create_grid`,
+`check_input_dates`) and exposes them as `self.client` /
+`self.space` / `self.time`. It also adds `self.root_dir` and
+keeps `self.path` as a legacy alias.
 
 These tests construct a real :class:`ECMWF` instance (with cdsapi
 mocked) and assert the wiring end-to-end across both modules — they
@@ -55,12 +55,12 @@ class TestParentClassWiring:
         assert ecmwf.root_dir == tmp_path.resolve()
 
     def test_root_dir_and_path_are_aliases(self, tmp_path, monkeypatch):
-        """``self.path`` is preserved as an alias of ``self.root_dir``.
+        """`self.path` is preserved as an alias of `self.root_dir`.
 
         Test scenario:
-            CHIRPS and S3 both still reference ``self.path``. The H1
+            CHIRPS and S3 both still reference `self.path`. The H1
             change must keep that name working alongside the new
-            ``self.root_dir``.
+            `self.root_dir`.
         """
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
         ecmwf = ECMWF(
@@ -80,7 +80,7 @@ class TestParentClassWiring:
 
         Test scenario:
             With cdsapi mocked, building an ECMWF instance and calling
-            ``api(var_info)`` must:
+            `api(var_info)` must:
 
             * route to client.retrieve(dataset, request, target)
             * write the target path under self.root_dir
@@ -126,11 +126,11 @@ class TestParentClassWiring:
     def test_api_uppercase_compatibility_shim_raises(
         self, tmp_path, monkeypatch
     ):
-        """``API`` (uppercase) raises NotImplementedError on ECMWF.
+        """`API` (uppercase) raises NotImplementedError on ECMWF.
 
         Test scenario:
-            CHIRPS and S3 use ``API`` as a per-date download hook;
-            ECMWF works at variable granularity and exposes ``api``
+            CHIRPS and S3 use `API` as a per-date download hook;
+            ECMWF works at variable granularity and exposes `api`
             (lowercase) instead. The uppercase method exists only to
             satisfy the abstract base class — calling it must surface
             a clear NotImplementedError.

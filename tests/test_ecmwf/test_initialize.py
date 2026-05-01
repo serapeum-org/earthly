@@ -1,7 +1,7 @@
 """Unit tests for :meth:`ECMWF.initialize` and the credentials heuristic.
 
 Covers H3 (the rewritten error message), C2 (only wrap credential-
-shaped errors as ``AuthenticationError``), and the contract that
+shaped errors as `AuthenticationError`), and the contract that
 otherwise-valid errors propagate untouched.
 """
 
@@ -23,11 +23,11 @@ class TestInitialize:
     def test_returns_constructed_client_when_credentials_valid(
         self, monkeypatch
     ):
-        """``initialize()`` returns whatever ``cdsapi.Client()`` returns.
+        """`initialize()` returns whatever `cdsapi.Client()` returns.
 
         Test scenario:
-            With ``cdsapi.Client`` patched to a stub factory that
-            yields a sentinel object, ``initialize()`` must return the
+            With `cdsapi.Client` patched to a stub factory that
+            yields a sentinel object, `initialize()` must return the
             very same sentinel — proving it does not double-wrap or
             otherwise transform the client on the happy path.
         """
@@ -40,13 +40,13 @@ class TestInitialize:
     def test_raises_authentication_error_when_cdsapi_raises(
         self, monkeypatch
     ):
-        """A failing ``cdsapi.Client()`` is wrapped in AuthenticationError.
+        """A failing `cdsapi.Client()` is wrapped in AuthenticationError.
 
         Test scenario:
             When the CDS client constructor raises with a message that
             looks like a credentials problem (cdsapirc / configuration
-            keywords), ``initialize()`` must wrap it in
-            :class:`AuthenticationError` whose ``__cause__`` is the
+            keywords), `initialize()` must wrap it in
+            :class:`AuthenticationError` whose `__cause__` is the
             original error.
         """
         original = RuntimeError("missing/incomplete configuration file")
@@ -68,7 +68,7 @@ class TestInitialize:
         Test scenario:
             C2 narrowed the wrap: when the failure looks unrelated to
             credentials (e.g. an SSL handshake failure during
-            ``Client()`` construction), :meth:`initialize` must
+            `Client()` construction), :meth:`initialize` must
             re-raise the original exception so the user is not told
             to re-create their (working) ~/.cdsapirc.
         """
@@ -88,7 +88,7 @@ class TestInitialize:
         assert excinfo.value is original
 
     def test_error_message_points_at_cdsapirc(self, monkeypatch):
-        """The error message names ``~/.cdsapirc`` and the setup URL.
+        """The error message names `~/.cdsapirc` and the setup URL.
 
         Test scenario:
             The H3 acceptance criterion: a user reading the message
@@ -112,8 +112,8 @@ class TestInitialize:
         """The error message must not reference the dead env vars.
 
         Test scenario:
-            The pre-H3 message told users to set ``ECMWF_API_URL`` /
-            ``ECMWF_API_KEY`` / ``ECMWF_API_EMAIL`` — none of which
+            The pre-H3 message told users to set `ECMWF_API_URL` /
+            `ECMWF_API_KEY` / `ECMWF_API_EMAIL` — none of which
             cdsapi reads. Following that advice was a dead end.
         """
         def boom():

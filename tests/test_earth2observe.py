@@ -116,18 +116,18 @@ class TestS3Backend:
 class TestECMWFBackend:
     """Tests for the C1+L3 fix that registers ECMWF in the facade.
 
-    Pre-C1, ``Earth2Observe(data_source="ecmwf", ...)`` raised
-    ``ValueError: ecmwf not supported`` because the ``DataSources``
+    Pre-C1, `Earth2Observe(data_source="ecmwf", ...)` raised
+    `ValueError: ecmwf not supported` because the `DataSources`
     mapping omitted ECMWF. These tests pin the registration so
     regressions show up immediately.
     """
 
     def test_ecmwf_is_registered_in_data_sources(self):
-        """``Earth2Observe.DataSources`` maps ``"ecmwf"`` to :class:`ECMWF`.
+        """`Earth2Observe.DataSources` maps `"ecmwf"` to :class:`ECMWF`.
 
         Test scenario:
-            The class-level ``DataSources`` dict must contain the key
-            ``"ecmwf"`` whose value is the ``ECMWF`` class itself
+            The class-level `DataSources` dict must contain the key
+            `"ecmwf"` whose value is the `ECMWF` class itself
             (not an instance).
         """
         assert "ecmwf" in Earth2Observe.DataSources, (
@@ -140,12 +140,12 @@ class TestECMWFBackend:
         )
 
     def test_facade_accepts_ecmwf_data_source(self, tmp_path, monkeypatch):
-        """``Earth2Observe(data_source="ecmwf", ...)`` no longer raises.
+        """`Earth2Observe(data_source="ecmwf", ...)` no longer raises.
 
         Test scenario:
             With cdsapi.Client mocked, constructing the facade with
-            ``data_source="ecmwf"`` must succeed and produce an
-            :class:`ECMWF` backend bound to ``e2o.datasource``.
+            `data_source="ecmwf"` must succeed and produce an
+            :class:`ECMWF` backend bound to `e2o.datasource`.
         """
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
@@ -166,7 +166,7 @@ class TestECMWFBackend:
         )
 
     def test_unknown_data_source_still_raises(self, tmp_path):
-        """Unknown ``data_source`` values still raise ``ValueError``.
+        """Unknown `data_source` values still raise `ValueError`.
 
         Test scenario:
             Adding ECMWF to the registry must not weaken the rejection
@@ -189,11 +189,11 @@ class TestECMWFBackend:
         """The facade threads its constructor args into ECMWF unchanged.
 
         Test scenario:
-            ``variables``, ``lat_lim``/``lon_lim``, ``temporal_resolution``
-            and ``path`` passed to ``Earth2Observe`` must reach the
+            `variables`, `lat_lim`/`lon_lim`, `temporal_resolution`
+            and `path` passed to `Earth2Observe` must reach the
             underlying :class:`ECMWF` backend, since downstream code
-            (e.g. :meth:`ECMWF.api`) reads them from ``self.vars`` /
-            ``self.space`` / ``self.time`` / ``self.root_dir``.
+            (e.g. :meth:`ECMWF.api`) reads them from `self.vars` /
+            `self.space` / `self.time` / `self.root_dir`.
         """
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
@@ -223,24 +223,24 @@ class TestECMWFBackend:
     def test_full_download_through_facade_routes_to_cdsapi(
         self, tmp_path, monkeypatch
     ):
-        """End-to-end: ``Earth2Observe(...).download()`` reaches CDS.
+        """End-to-end: `Earth2Observe(...).download()` reaches CDS.
 
         Test scenario:
             The H2 fix proves that the full chain
-            ``Earth2Observe.download → ECMWF.download →
-            download_dataset → api → post_download``
+            `Earth2Observe.download → ECMWF.download →
+            download_dataset → api → post_download`
             wires up correctly under the facade. Pre-fix, no test
             exercised this whole pipeline together — the C1, C3,
             H1, H2, H3 issues only co-failed in the field.
 
-            Patches both ``cdsapi.Client`` (to capture every retrieve
-            call) and ``earth2observe.ecmwf.NetCDF`` (to give
+            Patches both `cdsapi.Client` (to capture every retrieve
+            call) and `earth2observe.ecmwf.NetCDF` (to give
             post_download a fake file to read), then runs a
             two-variable download and asserts:
 
             * Two cdsapi.Client.retrieve calls — one per variable
             * Each retrieve receives the right dataset name and
-              ``variable=[cds_variable]`` from the catalog
+              `variable=[cds_variable]` from the catalog
             * post_download opens both written paths and produces
               one per-date result per variable
         """

@@ -27,7 +27,7 @@ class TestApiE2E:
         """Daily 2m_temperature on reanalysis-era5-single-levels.
 
         Test scenario:
-            Exercise the daily single-level path end-to-end. ``api()``
+            Exercise the daily single-level path end-to-end. `api()`
             must call cdsapi.Client.retrieve, write a non-empty
             NetCDF, and return its absolute path.
         """
@@ -50,9 +50,9 @@ class TestApiE2E:
         """Daily temperature on reanalysis-era5-pressure-levels at 1000 hPa.
 
         Test scenario:
-            Exercise the pressure-level branch of ``api()``. The
-            catalog entry for ``T`` carries
-            ``cds_pressure_level=['1000']``; the request must
+            Exercise the pressure-level branch of `api()`. The
+            catalog entry for `T` carries
+            `cds_pressure_level=['1000']`; the request must
             include that key and the retrieve must succeed.
         """
         ecmwf = ECMWF(
@@ -75,11 +75,11 @@ class TestApiE2E:
 
         Test scenario:
             Exercise the M5 monthly branch. With
-            ``temporal_resolution='monthly'`` and a 1-month range,
-            ``api()`` must target ``cds_dataset_monthly``
-            (``reanalysis-era5-single-levels-monthly-means``) and
-            send ``product_type=['monthly_averaged_reanalysis']``
-            without a ``time`` key.
+            `temporal_resolution='monthly'` and a 1-month range,
+            `api()` must target `cds_dataset_monthly`
+            (`reanalysis-era5-single-levels-monthly-means`) and
+            send `product_type=['monthly_averaged_reanalysis']`
+            without a `time` key.
         """
         ecmwf = ECMWF(
             start="2022-01-01",
@@ -100,15 +100,15 @@ class TestApiE2E:
         ), f"Monthly retrieve should land at -monthly-means; got {target.name}"
 
     def test_live_post_download_reads_real_netcdf(self, tmp_path):
-        """``post_download`` parses a real CDS NetCDF and applies factors.
+        """`post_download` parses a real CDS NetCDF and applies factors.
 
         Test scenario:
             Run the full download_dataset → api → post_download
-            chain against the live service. ``post_download`` must
+            chain against the live service. `post_download` must
             open the real NetCDF written by CDS, slice on the time
             axis, and apply the K → C conversion. The 2m
             temperature for any inhabited surface point in January
-            is well within ``-50 °C .. +50 °C``; assert against
+            is well within `-50 °C .. +50 °C`; assert against
             that bound.
         """
         ecmwf = ECMWF(
@@ -146,16 +146,16 @@ class TestApiE2E:
 
 
 class TestFacadeE2E:
-    """End-to-end tests for the ``Earth2Observe`` facade."""
+    """End-to-end tests for the `Earth2Observe` facade."""
 
     def test_live_multi_variable_download_through_facade(self, tmp_path):
-        """``Earth2Observe(...).download()`` chains every stage end-to-end.
+        """`Earth2Observe(...).download()` chains every stage end-to-end.
 
         Test scenario:
             Exercise C1+C3+H1+H2+H3+M3 together: facade dispatch,
-            ``self.vars`` iteration, two retrieves (one per
-            variable), no spurious ``data_interim.nc`` deletion,
-            and partial-success aggregation. ``2T`` and ``TP`` are
+            `self.vars` iteration, two retrieves (one per
+            variable), no spurious `data_interim.nc` deletion,
+            and partial-success aggregation. `2T` and `TP` are
             both single-level so the request shape is uniform but
             distinct dataset+variable pairs go to CDS.
         """

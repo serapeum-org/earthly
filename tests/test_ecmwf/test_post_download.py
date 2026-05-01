@@ -3,10 +3,10 @@
 Covers the H1+H2+M2 rewrite (read the path threaded from api(), use
 the new schema keys), the H3+M5 numerical pipeline assertions on the
 flux scaling branch, and the M1 schema validation that rejects the
-legacy ``"file name"`` (with space) key.
+legacy `"file name"` (with space) key.
 
 All tests use the in-memory :class:`_FakeNetCDFDataset` from
-``_fakes.py`` so the suite runs without touching the file system or
+`_fakes.py` so the suite runs without touching the file system or
 the real pyramids library.
 """
 
@@ -30,12 +30,12 @@ class TestPostDownload:
     def test_post_download_opens_path_returned_by_api(
         self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
     ):
-        """``post_download`` opens the path it was given, not a hardcoded one.
+        """`post_download` opens the path it was given, not a hardcoded one.
 
         Test scenario:
-            After H1, ``post_download`` reads the NetCDF at the path
-            argument it receives — no ``os.path.join(self.root_dir,
-            f"data_{dataset}.nc")`` reconstruction.
+            After H1, `post_download` reads the NetCDF at the path
+            argument it receives — no `os.path.join(self.root_dir,
+            f"data_{dataset}.nc")` reconstruction.
         """
         instances = install_fake_netcdf(monkeypatch)
         nc_path = tmp_path / "2m_temperature_reanalysis-era5-single-levels.nc"
@@ -52,13 +52,13 @@ class TestPostDownload:
     def test_post_download_uses_nc_variable_not_var_name(
         self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
     ):
-        """``post_download`` indexes ``fh.variables[var_info.nc_variable]``.
+        """`post_download` indexes `fh.variables[var_info.nc_variable]`.
 
         Test scenario:
-            Pre-H2/M1, the function used ``var_info.get("var_name")``
-            (a MARS-only key) which always resolved to ``None`` —
-            ``fh.variables[None]`` raised. The new code reads
-            ``var_info.nc_variable``.
+            Pre-H2/M1, the function used `var_info.get("var_name")`
+            (a MARS-only key) which always resolved to `None` —
+            `fh.variables[None]` raised. The new code reads
+            `var_info.nc_variable`.
         """
         install_fake_netcdf(monkeypatch)
 
@@ -69,15 +69,15 @@ class TestPostDownload:
         )
 
     def test_variable_spec_rejects_legacy_spaced_file_name_key(self):
-        """:meth:`Variable.from_dict` rejects the legacy ``"file name"`` key.
+        """:meth:`Variable.from_dict` rejects the legacy `"file name"` key.
 
         Test scenario:
             Pre-M1 the post_download lookup was the only line that
             knew about the typo'd legacy key. M1's
             :meth:`Variable.from_dict` enforces the schema at
             load time: any unknown key (including the spaced
-            ``"file name"`` from the MARS catalog) raises
-            ``ValueError`` immediately.
+            `"file name"` from the MARS catalog) raises
+            `ValueError` immediately.
         """
         with pytest.raises(ValueError, match="file name"):
             Variable.from_dict(
@@ -94,14 +94,14 @@ class TestPostDownload:
     def test_post_download_raises_on_missing_required_keys(
         self, ecmwf_stub, monkeypatch, tmp_path
     ):
-        """Bare-dict callers raise ``AttributeError`` immediately.
+        """Bare-dict callers raise `AttributeError` immediately.
 
         Test scenario:
             With M1, the dataclass guarantees presence of every
             consumed key at construction. The only way to reach
-            ``post_download`` with a missing field is to pass a bare
+            `post_download` with a missing field is to pass a bare
             dict (a legacy-test-style invocation). The function still
-            raises ``AttributeError`` on a bare dict, exposing the
+            raises `AttributeError` on a bare dict, exposing the
             mistake.
         """
         install_fake_netcdf(monkeypatch)
@@ -119,7 +119,7 @@ class TestPostDownload:
     def test_post_download_flux_path_multiplies_by_days(
         self, ecmwf_stub, single_level_var_info, monkeypatch, tmp_path
     ):
-        """``types='flux'`` triggers the ``Data_end *= days_later`` step.
+        """`types='flux'` triggers the `Data_end *= days_later` step.
 
         Test scenario:
             Half the catalog is flux variables (TP, E, RO, SRO,
@@ -127,7 +127,7 @@ class TestPostDownload:
             (no-op for flux), with monthly resolution the multiplier
             equals the days in the month. Compares the flux outputs
             against state outputs to prove the difference is exactly
-            ``days_later``.
+            `days_later`.
         """
         spec_state = single_level_var_info.model_copy(
             update={"types": "state"}
@@ -172,12 +172,12 @@ class TestPostDownload:
         )
 
     def test_post_download_does_not_carry_legacy_signature(self):
-        """The signature is ``post_download(var_info, nc_path, progress_bar)``.
+        """The signature is `post_download(var_info, nc_path, progress_bar)`.
 
         Test scenario:
-            The pre-H1 signature was ``(var_info, out_dir, dataset,
-            progress_bar)``. Pin the new shape so a future refactor
-            that re-introduces the ``dataset`` positional argument
+            The pre-H1 signature was `(var_info, out_dir, dataset,
+            progress_bar)`. Pin the new shape so a future refactor
+            that re-introduces the `dataset` positional argument
             fails this test instead of silently working with the
             wrong meaning.
         """
@@ -188,10 +188,10 @@ class TestPostDownload:
         assert params == ["self", "var_info", "nc_path", "progress_bar"]
 
     def test_download_and_download_dataset_signatures_drop_dataset(self):
-        """``download`` / ``download_dataset`` no longer accept ``dataset``.
+        """`download` / `download_dataset` no longer accept `dataset`.
 
         Test scenario:
-            Pre-M1, both methods carried ``dataset: str = "interim"``
+            Pre-M1, both methods carried `dataset: str = "interim"`
             as a leftover from the MARS flow that no downstream code
             consumed. After M1 the parameter is removed entirely.
         """

@@ -111,12 +111,12 @@ class TestValidateRequest:
             )
 
     def test_universal_keys_skip_validation(self, monkeypatch):
-        """``area`` / ``data_format`` are not validated (CDS accepts globally)."""
+        """`area` / `data_format` are not validated (CDS accepts globally)."""
         _stub_urlopen(
             monkeypatch,
             [{"variable": ["2m_temperature"], "year": ["2022"]}],
         )
-        # ``area`` is not in any constraint entry — must still pass.
+        # `area` is not in any constraint entry — must still pass.
         validate_request(
             "reanalysis-era5-single-levels",
             {
@@ -133,7 +133,7 @@ class TestValidateRequest:
             monkeypatch,
             [{"variable": ["2m_temperature"], "year": ["2022"]}],
         )
-        # ``custom_key`` is not in constraints — should be ignored.
+        # `custom_key` is not in constraints — should be ignored.
         validate_request(
             "reanalysis-era5-single-levels",
             {
@@ -164,7 +164,7 @@ class TestValidateRequest:
         )
 
     def test_skip_flag_bypasses_fetch(self, monkeypatch):
-        """``E2O_SKIP_CONSTRAINTS=1`` shortcuts validation entirely."""
+        """`E2O_SKIP_CONSTRAINTS=1` shortcuts validation entirely."""
 
         def _fail(*_a, **_kw):
             raise AssertionError(
@@ -213,9 +213,9 @@ class TestValidateRequest:
     def test_partial_match_in_request_list_raises(self, monkeypatch):
         """A request listing a value not in *any* constraint entry raises.
 
-        The constraint entry has ``year=[2022]``; if the request asks
-        for both ``[2022, 2099]``, validation must reject because no
-        entry covers ``2099``.
+        The constraint entry has `year=[2022]`; if the request asks
+        for both `[2022, 2099]`, validation must reject because no
+        entry covers `2099`.
         """
         _stub_urlopen(
             monkeypatch,
@@ -265,7 +265,7 @@ class TestDateValidity:
         )
 
     def test_non_integer_values_skipped(self):
-        """Datasets that use ``year=['all']`` or non-numeric forms pass."""
+        """Datasets that use `year=['all']` or non-numeric forms pass."""
         from earth2observe.ecmwf.constraints import _validate_date_validity
 
         _validate_date_validity({"year": ["all"], "month": ["any"]})
@@ -347,7 +347,7 @@ class TestRequiredFields:
     """Tests for the M17 required-field detector."""
 
     def test_missing_required_extra_raises(self, monkeypatch):
-        """Every constraint entry has ``experiment`` => it's required."""
+        """Every constraint entry has `experiment` => it's required."""
         _stub_urlopen(
             monkeypatch,
             [

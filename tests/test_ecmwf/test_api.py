@@ -6,8 +6,8 @@ ordering, date deduplication, pressure-level forwarding, dataset
 naming, and CDS-side error translation lives here.
 
 All tests in this module are pure unit tests — they never touch the
-network. The autouse ``_block_real_cdsapi`` safeguard in
-``conftest.py`` makes that an enforced contract.
+network. The autouse `_block_real_cdsapi` safeguard in
+`conftest.py` makes that an enforced contract.
 """
 
 from __future__ import annotations
@@ -36,10 +36,10 @@ class TestApi:
         assert target == expected, f"Expected {expected}, got {target}"
 
     def test_calls_retrieve_exactly_once(self, ecmwf_stub, single_level_var_info):
-        """``api()`` triggers a single ``client.retrieve`` call.
+        """`api()` triggers a single `client.retrieve` call.
 
         Test scenario:
-            One invocation of ``api()`` must result in exactly one CDS
+            One invocation of `api()` must result in exactly one CDS
             retrieve request (idempotent dispatch, not a retry loop).
         """
         ecmwf_stub.api(single_level_var_info)
@@ -51,10 +51,10 @@ class TestApi:
     def test_retrieve_called_positionally_with_three_args(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``client.retrieve`` is called with three positional args.
+        """`client.retrieve` is called with three positional args.
 
         Test scenario:
-            The cdsapi signature is ``retrieve(name, request, target)``;
+            The cdsapi signature is `retrieve(name, request, target)`;
             the C1 fix must pass the dataset name first, the request
             dict second, and the stringified target path third — never
             via keyword arguments.
@@ -85,8 +85,8 @@ class TestApi:
 
         Test scenario:
             For a daily ERA5 single-levels request the dict must include
-            ``product_type``, ``variable``, ``year``/``month``/``day``,
-            ``time``, ``data_format``, and ``area``.
+            `product_type`, `variable`, `year`/`month`/`day`,
+            `time`, `data_format`, and `area`.
         """
         ecmwf_stub.api(single_level_var_info)
         request = captured_request(ecmwf_stub)
@@ -107,10 +107,10 @@ class TestApi:
     def test_product_type_defaults_to_reanalysis(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``product_type`` is the literal list ``['reanalysis']``.
+        """`product_type` is the literal list `['reanalysis']`.
 
         Test scenario:
-            Daily ERA5 requests use ``product_type=['reanalysis']``.
+            Daily ERA5 requests use `product_type=['reanalysis']`.
         """
         ecmwf_stub.api(single_level_var_info)
         assert captured_request(ecmwf_stub)["product_type"] == ["reanalysis"]
@@ -118,11 +118,11 @@ class TestApi:
     def test_variable_taken_from_var_info(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``variable`` mirrors ``var_info.cds_variable``.
+        """`variable` mirrors `var_info.cds_variable`.
 
         Test scenario:
-            For ``cds_variable='2m_temperature'`` the request must have
-            ``variable=['2m_temperature']``.
+            For `cds_variable='2m_temperature'` the request must have
+            `variable=['2m_temperature']`.
         """
         ecmwf_stub.api(single_level_var_info)
         assert captured_request(ecmwf_stub)["variable"] == ["2m_temperature"]
@@ -130,12 +130,12 @@ class TestApi:
     def test_dates_are_zero_padded_and_sorted(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``year``/``month``/``day`` are zero-padded, deduplicated, sorted.
+        """`year`/`month`/`day` are zero-padded, deduplicated, sorted.
 
         Test scenario:
-            For dates ``2022-01-01`` to ``2022-01-03`` (daily), the
-            request must carry ``year=['2022']``, ``month=['01']``, and
-            ``day=['01','02','03']``.
+            For dates `2022-01-01` to `2022-01-03` (daily), the
+            request must carry `year=['2022']`, `month=['01']`, and
+            `day=['01','02','03']`.
         """
         ecmwf_stub.api(single_level_var_info)
         request = captured_request(ecmwf_stub)
@@ -149,9 +149,9 @@ class TestApi:
         """Multi-year ranges deduplicate across year/month/day boundaries.
 
         Test scenario:
-            For dates ``2021-12-30`` to ``2022-01-02`` (daily), the
-            request must contain ``year=['2021','2022']``,
-            ``month=['01','12']`` and ``day=['01','02','30','31']``.
+            For dates `2021-12-30` to `2022-01-02` (daily), the
+            request must contain `year=['2021','2022']`,
+            `month=['01','12']` and `day=['01','02','30','31']`.
         """
         ecmwf_stub.time = ecmwf_stub.time.model_copy(
             update={
@@ -167,7 +167,7 @@ class TestApi:
     def test_time_defaults_to_six_hourly_slots(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``time`` defaults to ``['00:00','06:00','12:00','18:00']``.
+        """`time` defaults to `['00:00','06:00','12:00','18:00']`.
 
         Test scenario:
             Daily resolution requests cover four six-hourly snapshots
@@ -183,19 +183,19 @@ class TestApi:
         ]
 
     def test_data_format_is_netcdf(self, ecmwf_stub, single_level_var_info):
-        """``data_format`` is ``'netcdf'``."""
+        """`data_format` is `'netcdf'`."""
         ecmwf_stub.api(single_level_var_info)
         assert captured_request(ecmwf_stub)["data_format"] == "netcdf"
 
     def test_area_uses_north_west_south_east_order(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``area`` follows CDS convention ``[N, W, S, E]``.
+        """`area` follows CDS convention `[N, W, S, E]`.
 
         Test scenario:
-            Given ``lat_lim=[4.19, 4.64]`` and
-            ``lon_lim=[-75.65, -74.73]`` the ``area`` field must be
-            ``[4.64, -75.65, 4.19, -74.73]``.
+            Given `lat_lim=[4.19, 4.64]` and
+            `lon_lim=[-75.65, -74.73]` the `area` field must be
+            `[4.64, -75.65, 4.19, -74.73]`.
         """
         ecmwf_stub.api(single_level_var_info)
         assert captured_request(ecmwf_stub)["area"] == [
@@ -208,11 +208,11 @@ class TestApi:
     def test_no_pressure_level_for_single_level_var(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``pressure_level`` is omitted for single-level datasets.
+        """`pressure_level` is omitted for single-level datasets.
 
         Test scenario:
-            ``var_info`` without ``cds_pressure_level`` must not
-            produce a ``pressure_level`` key — sending one to a
+            `var_info` without `cds_pressure_level` must not
+            produce a `pressure_level` key — sending one to a
             single-level dataset is rejected by CDS.
         """
         ecmwf_stub.api(single_level_var_info)
@@ -221,11 +221,11 @@ class TestApi:
     def test_pressure_level_forwarded_when_present(
         self, ecmwf_stub, pressure_level_var_info
     ):
-        """``pressure_level`` is forwarded from ``var_info``.
+        """`pressure_level` is forwarded from `var_info`.
 
         Test scenario:
-            ``var_info.cds_pressure_level=['1000']`` must surface as
-            ``request['pressure_level']=['1000']``.
+            `var_info.cds_pressure_level=['1000']` must surface as
+            `request['pressure_level']=['1000']`.
         """
         ecmwf_stub.api(pressure_level_var_info)
         assert captured_request(ecmwf_stub)["pressure_level"] == ["1000"]
@@ -233,11 +233,11 @@ class TestApi:
     def test_single_date_produces_singleton_arrays(
         self, ecmwf_stub, single_level_var_info
     ):
-        """A one-day range produces length-1 ``year``/``month``/``day``.
+        """A one-day range produces length-1 `year`/`month`/`day`.
 
         Test scenario:
-            For dates ``[2022-06-15]`` the request fields collapse to
-            ``year=['2022']``, ``month=['06']``, ``day=['15']``.
+            For dates `[2022-06-15]` the request fields collapse to
+            `year=['2022']`, `month=['06']`, `day=['15']`.
         """
         ecmwf_stub.time = ecmwf_stub.time.model_copy(
             update={
@@ -285,7 +285,7 @@ class TestApi:
         Test scenario:
             cdsapi raises a generic exception whose message contains
             'licence' / 'license' for licence-acceptance failures.
-            ``api()`` must translate that into a ``PermissionError``
+            `api()` must translate that into a `PermissionError`
             naming the dataset's CDS page.
         """
         original = RuntimeError(
@@ -306,7 +306,7 @@ class TestApi:
         assert excinfo.value.__cause__ is original
 
     def test_extras_forwarded_into_request(self, ecmwf_stub):
-        """Variable.extras keys reach ``client.retrieve`` verbatim."""
+        """Variable.extras keys reach `client.retrieve` verbatim."""
         spec = Variable(
             cds_dataset="projections-cmip6",
             cds_variable="near_surface_air_temperature",
@@ -339,11 +339,11 @@ class TestApi:
     def test_invalid_request_caught_before_retrieve(
         self, ecmwf_stub, single_level_var_info, monkeypatch
     ):
-        """``api()`` calls ``validate_request`` before ``client.retrieve``.
+        """`api()` calls `validate_request` before `client.retrieve`.
 
         Stubs the constraints fetch to return an entry that does NOT
         cover the assembled request, then asserts the resulting
-        ``ValueError`` surfaces before any retrieve call.
+        `ValueError` surfaces before any retrieve call.
         """
         from earth2observe.ecmwf import constraints as constraints_module
 
@@ -383,10 +383,10 @@ class TestApi:
         assert ecmwf_stub.client.retrieve.call_count == 0
 
     def test_extras_with_none_value_drops_key_from_request(self, ecmwf_stub):
-        """Setting ``extras: {area: None}`` removes ``area`` from the request.
+        """Setting `extras: {area: None}` removes `area` from the request.
 
         Per-row opt-out (M27) for datasets that reject the default
-        bbox without needing a new ``request_kind``.
+        bbox without needing a new `request_kind`.
         """
         spec = Variable(
             cds_dataset="reanalysis-era5-single-levels",
@@ -413,12 +413,12 @@ class TestApi:
         assert "product_type" not in request
 
     def test_oceanic_monthly_strips_day_time_area_product_type(self, ecmwf_stub):
-        """``request_kind=oceanic_monthly`` drops ERA5 template defaults.
+        """`request_kind=oceanic_monthly` drops ERA5 template defaults.
 
-        ORAS5 rejects ``day`` / ``time`` / ``area`` and uses a
-        non-ERA5 ``product_type`` value. The strip happens after the
-        extras merge so the row's ``vertical_resolution`` and
-        ``product_type`` (consolidated) survive.
+        ORAS5 rejects `day` / `time` / `area` and uses a
+        non-ERA5 `product_type` value. The strip happens after the
+        extras merge so the row's `vertical_resolution` and
+        `product_type` (consolidated) survive.
         """
         ecmwf_stub.temporal_resolution = "daily"
         spec = Variable(
@@ -442,7 +442,7 @@ class TestApi:
         assert request["variable"] == ["sea_ice_thickness"]
 
     def test_carra_means_strips_time(self, ecmwf_stub):
-        """``request_kind=carra_means`` drops ``time`` (aggregate window)."""
+        """`request_kind=carra_means` drops `time` (aggregate window)."""
         spec = Variable(
             cds_dataset="reanalysis-carra-means",
             cds_variable="2m_temperature",
@@ -464,7 +464,7 @@ class TestApi:
     def test_form_request_kind_is_unchanged(
         self, ecmwf_stub, single_level_var_info
     ):
-        """The default ``form`` request_kind keeps every template key."""
+        """The default `form` request_kind keeps every template key."""
         ecmwf_stub.api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         for key in ("day", "time", "area", "product_type"):
@@ -512,7 +512,7 @@ class TestApi:
 
         Test scenario:
             A 5xx CDS server error or a transient connection drop
-            during ``retrieve()`` must surface unmodified — the
+            during `retrieve()` must surface unmodified — the
             licence translation only applies when the error message
             actually mentions a licence.
         """
@@ -544,7 +544,7 @@ class TestApiMonthly:
     def test_monthly_routes_to_monthly_dataset(
         self, ecmwf_stub, monthly_var_info
     ):
-        """Monthly resolution targets ``cds_dataset_monthly``."""
+        """Monthly resolution targets `cds_dataset_monthly`."""
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub.api(monthly_var_info)
         dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
@@ -553,7 +553,7 @@ class TestApiMonthly:
     def test_monthly_falls_back_to_daily_dataset_when_monthly_missing(
         self, ecmwf_stub, monthly_var_info
     ):
-        """When ``cds_dataset_monthly`` is absent, fall back to ``cds_dataset``."""
+        """When `cds_dataset_monthly` is absent, fall back to `cds_dataset`."""
         monthly_var_info = monthly_var_info.model_copy(
             update={"cds_dataset_monthly": None}
         )
@@ -565,7 +565,7 @@ class TestApiMonthly:
     def test_monthly_product_type_is_monthly_averaged_reanalysis(
         self, ecmwf_stub, monthly_var_info
     ):
-        """Monthly requests carry ``product_type=monthly_averaged_reanalysis``."""
+        """Monthly requests carry `product_type=monthly_averaged_reanalysis`."""
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub.api(monthly_var_info)
         request = captured_request(ecmwf_stub)
@@ -588,9 +588,9 @@ class TestApiMonthly:
 
         Test scenario:
             The M5 monthly branch must not regress the daily path.
-            With ``temporal_resolution='daily'`` the request must
-            still target ``cds_dataset`` (not the monthly variant)
-            and still carry ``product_type=['reanalysis']`` plus the
+            With `temporal_resolution='daily'` the request must
+            still target `cds_dataset` (not the monthly variant)
+            and still carry `product_type=['reanalysis']` plus the
             four six-hourly time slots.
         """
         ecmwf_stub.temporal_resolution = "daily"

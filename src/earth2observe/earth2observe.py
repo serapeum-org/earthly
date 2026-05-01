@@ -11,11 +11,11 @@ from earth2observe.chirps import CHIRPS
 from earth2observe.ecmwf import ECMWF
 from earth2observe.s3 import S3
 
-#: Default longitude bounds used when ``lon_lim`` is not supplied
+#: Default longitude bounds used when `lon_lim` is not supplied
 #: (whole-Earth coverage).
 DEFAULT_LONGITUDE_LIMIT = [-180, 180]
 
-#: Default latitude bounds used when ``lat_lim`` is not supplied
+#: Default latitude bounds used when `lat_lim` is not supplied
 #: (whole-Earth coverage).
 DEFAULT_LATITUDE_LIMIT = [-90, 90]
 
@@ -24,15 +24,15 @@ class Earth2Observe:
     """Facade that routes a download to the requested backend.
 
     The class-level :attr:`DataSources` mapping resolves a string key
-    (``"chirps"``, ``"amazon-s3"``, or ``"ecmwf"``) to the concrete
+    (`"chirps"`, `"amazon-s3"`, or `"ecmwf"`) to the concrete
     :class:`AbstractDataSource` subclass that owns the request shape,
     authentication, and post-processing for that provider. The C1+L3
-    migration commit registered ``"ecmwf"`` here; before that, asking
-    for ECMWF raised ``ValueError``.
+    migration commit registered `"ecmwf"` here; before that, asking
+    for ECMWF raised `ValueError`.
 
     Attributes:
         DataSources: Class-level dict of registered backends. Keys are
-            the user-facing names accepted by ``data_source``; values
+            the user-facing names accepted by `data_source`; values
             are the corresponding subclasses of
             :class:`earth2observe.abstractdatasource.AbstractDataSource`.
         datasource: Instance attribute set by :meth:`__init__` —
@@ -47,7 +47,7 @@ class Earth2Observe:
             ['amazon-s3', 'chirps', 'ecmwf']
 
             ```
-        - Asking for an unknown backend raises ``ValueError``:
+        - Asking for an unknown backend raises `ValueError`:
 
             ```python
             >>> from earth2observe.earth2observe import Earth2Observe
@@ -81,40 +81,40 @@ class Earth2Observe:
     ):
         """Resolve the backend and construct it with the user's parameters.
 
-        Validates ``data_source`` against :attr:`DataSources`, fills in
-        whole-Earth defaults for missing ``lat_lim`` / ``lon_lim``, and
-        instantiates the concrete backend bound to ``self.datasource``.
+        Validates `data_source` against :attr:`DataSources`, fills in
+        whole-Earth defaults for missing `lat_lim` / `lon_lim`, and
+        instantiates the concrete backend bound to `self.datasource`.
 
         Args:
-            data_source: Backend key — one of ``"chirps"``,
-                ``"amazon-s3"``, or ``"ecmwf"``. Defaults to
-                ``"chirps"``.
-            temporal_resolution: ``"daily"`` or ``"monthly"``. The
+            data_source: Backend key — one of `"chirps"`,
+                `"amazon-s3"`, or `"ecmwf"`. Defaults to
+                `"chirps"`.
+            temporal_resolution: `"daily"` or `"monthly"`. The
                 concrete backend may accept a narrower set; check its
-                ``temporal_resolution`` class attribute. Defaults to
-                ``"daily"``.
+                `temporal_resolution` class attribute. Defaults to
+                `"daily"`.
             start: Inclusive start date as a string (parsed with
-                ``fmt``). Defaults to ``None``.
-            end: Inclusive end date as a string. Defaults to ``None``.
+                `fmt`). Defaults to `None`.
+            end: Inclusive end date as a string. Defaults to `None`.
             path: Output directory. Created by the backend if it does
                 not exist. Defaults to the current working directory.
             variables: List of backend-specific variable short codes.
-                For ECMWF, see ``cds_data_catalog.yaml``; for CHIRPS,
-                use ``["precipitation"]``; for S3 / ERA5, see the S3
-                backend's catalog. Defaults to ``None``.
-            lat_lim: ``[lat_min, lat_max]``. Defaults to
+                For ECMWF, see `cds_data_catalog.yaml`; for CHIRPS,
+                use `["precipitation"]`; for S3 / ERA5, see the S3
+                backend's catalog. Defaults to `None`.
+            lat_lim: `[lat_min, lat_max]`. Defaults to
                 :data:`DEFAULT_LATITUDE_LIMIT` (whole Earth).
-            lon_lim: ``[lon_min, lon_max]``. Defaults to
+            lon_lim: `[lon_min, lon_max]`. Defaults to
                 :data:`DEFAULT_LONGITUDE_LIMIT` (whole Earth).
-            fmt: ``strptime`` format for ``start`` and ``end``.
-                Defaults to ``"%Y-%m-%d"``.
+            fmt: `strptime` format for `start` and `end`.
+                Defaults to `"%Y-%m-%d"`.
 
         Raises:
-            ValueError: If ``data_source`` is not a key of
+            ValueError: If `data_source` is not a key of
                 :attr:`DataSources`.
-            AuthenticationError: If ``data_source="ecmwf"`` and cdsapi
+            AuthenticationError: If `data_source="ecmwf"` and cdsapi
                 cannot authenticate (typically a missing
-                ``~/.cdsapirc``). See
+                `~/.cdsapirc`). See
                 :class:`earth2observe.ecmwf.AuthenticationError`.
 
         Examples:
@@ -129,7 +129,7 @@ class Earth2Observe:
                 'ECMWF'
 
                 ```
-            - An unknown ``data_source`` is rejected before any backend
+            - An unknown `data_source` is rejected before any backend
               code runs:
 
                 ```python
@@ -141,9 +141,9 @@ class Earth2Observe:
 
                 ```
             - Construct an ECMWF-backed facade. Marked
-              ``# doctest: +SKIP`` because it builds a real
+              `# doctest: +SKIP` because it builds a real
               :class:`cdsapi.Client`, which requires
-              ``~/.cdsapirc``:
+              `~/.cdsapirc`:
 
                 ```python
                 >>> from earth2observe.earth2observe import Earth2Observe
@@ -185,31 +185,31 @@ class Earth2Observe:
     def download(self, progress_bar: bool = True, *args, **kwargs):
         """Delegate the download to the bound backend.
 
-        Forwards every argument verbatim to ``self.datasource.download``.
-        Each backend's ``download`` accepts its own backend-specific
-        keyword arguments (for example, CHIRPS supports ``cores`` for
+        Forwards every argument verbatim to `self.datasource.download`.
+        Each backend's `download` accepts its own backend-specific
+        keyword arguments (for example, CHIRPS supports `cores` for
         parallel FTP retrieval), so unrecognised kwargs propagate
         through.
 
         Args:
             progress_bar: Whether the backend should print a per-date
-                progress bar during the loop. Defaults to ``True``.
-            *args: Forwarded positionally to ``backend.download``.
-            **kwargs: Forwarded as keywords to ``backend.download``.
+                progress bar during the loop. Defaults to `True`.
+            *args: Forwarded positionally to `backend.download`.
+            **kwargs: Forwarded as keywords to `backend.download`.
 
         Returns:
-            Whatever the bound backend's ``download`` method returns.
-            All backends currently return ``None`` and write files to
-            ``path`` as a side effect.
+            Whatever the bound backend's `download` method returns.
+            All backends currently return `None` and write files to
+            `path` as a side effect.
 
         Raises:
             Any exception the bound backend raises. ECMWF wraps
             authentication failures in
             :class:`earth2observe.ecmwf.AuthenticationError`; all
-            backends propagate ``KeyError`` for unknown variable codes.
+            backends propagate `KeyError` for unknown variable codes.
 
         Examples:
-            - End-to-end CHIRPS download. Marked ``# doctest: +SKIP``
+            - End-to-end CHIRPS download. Marked `# doctest: +SKIP`
               because it makes a live FTP connection:
 
                 ```python
@@ -227,8 +227,8 @@ class Earth2Observe:
 
                 ```
             - ECMWF download via the facade. Marked
-              ``# doctest: +SKIP`` because CDS requires
-              ``~/.cdsapirc`` and the request blocks for minutes
+              `# doctest: +SKIP` because CDS requires
+              `~/.cdsapirc` and the request blocks for minutes
               while the queue serves it:
 
                 ```python
@@ -248,7 +248,7 @@ class Earth2Observe:
 
         See Also:
             :meth:`earth2observe.chirps.CHIRPS.download`: CHIRPS
-                backend implementation, including the ``cores=``
+                backend implementation, including the `cores=`
                 keyword for parallel retrieval.
             :meth:`earth2observe.s3.S3.download`: S3/ERA5 backend
                 implementation.

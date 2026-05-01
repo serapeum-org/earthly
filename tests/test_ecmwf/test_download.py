@@ -1,10 +1,10 @@
 """Unit tests for :meth:`ECMWF.download` and :meth:`ECMWF.download_dataset`.
 
-Covers the C3 fix (iterate ``self.vars`` not ``self.variables``), the
-H3 cleanup of the hardcoded ``data_interim.nc`` deletion, the M3
+Covers the C3 fix (iterate `self.vars` not `self.variables`), the
+H3 cleanup of the hardcoded `data_interim.nc` deletion, the M3
 partial-success behaviour on per-variable failure, and the C1 call
-site change in ``download_dataset`` (drops the legacy ``dataset``
-arg, threads the path returned by ``api()`` into ``post_download``).
+site change in `download_dataset` (drops the legacy `dataset`
+arg, threads the path returned by `api()` into `post_download`).
 """
 
 from __future__ import annotations
@@ -22,13 +22,13 @@ class TestDownloadIteration:
     """Tests for :meth:`ECMWF.download` iteration (C3, M3, H3)."""
 
     def test_download_iterates_self_vars_not_self_variables(self, ecmwf_stub):
-        """``download()`` iterates ``self.vars`` (the parent's storage).
+        """`download()` iterates `self.vars` (the parent's storage).
 
         Test scenario:
             :class:`AbstractDataSource.__init__` stores the user's
-            ``variables`` list as ``self.vars``. Pre-C3, ECMWF.download
-            iterated ``self.variables`` instead, which raised
-            ``AttributeError`` on the first call.
+            `variables` list as `self.vars`. Pre-C3, ECMWF.download
+            iterated `self.variables` instead, which raised
+            `AttributeError` on the first call.
         """
         ecmwf_stub.vars = ["2m-temperature", "total-precipitation"]
         ecmwf_stub.download_dataset = MagicMock()
@@ -45,13 +45,13 @@ class TestDownloadIteration:
         ]
 
     def test_download_does_not_read_self_variables(self, ecmwf_stub):
-        """``download()`` must not depend on a non-existent ``self.variables``.
+        """`download()` must not depend on a non-existent `self.variables`.
 
         Test scenario:
             Even if a future refactor accidentally reintroduces the
-            wrong attribute name, this test fails fast: ``self.vars``
-            is set, ``self.variables`` is explicitly absent, and
-            ``download()`` must complete without an ``AttributeError``.
+            wrong attribute name, this test fails fast: `self.vars`
+            is set, `self.variables` is explicitly absent, and
+            `download()` must complete without an `AttributeError`.
         """
         ecmwf_stub.vars = ["2m-temperature"]
         ecmwf_stub.download_dataset = MagicMock()
@@ -62,7 +62,7 @@ class TestDownloadIteration:
         assert ecmwf_stub.download_dataset.call_count == 1
 
     def test_download_continues_after_per_variable_failure(self, ecmwf_stub):
-        """``download()`` collects failures and continues to the next var.
+        """`download()` collects failures and continues to the next var.
 
         Test scenario:
             Pre-M3, a single failing variable aborted the whole loop —
@@ -92,11 +92,11 @@ class TestDownloadIteration:
     def test_download_does_not_attempt_to_delete_legacy_files(
         self, ecmwf_stub, monkeypatch
     ):
-        """``download()`` no longer touches the hardcoded ``data_interim.nc``.
+        """`download()` no longer touches the hardcoded `data_interim.nc`.
 
         Test scenario:
-            Pre-H3, ``download()`` ended with
-            ``os.remove(os.path.join(self.root_dir, "data_interim.nc"))``
+            Pre-H3, `download()` ended with
+            `os.remove(os.path.join(self.root_dir, "data_interim.nc"))`
             — a leftover from the MARS flow that always raised
             FileNotFoundError under the cdsapi path.
         """
@@ -119,12 +119,12 @@ class TestDownloadDataset:
     def test_calls_api_with_var_info_only(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``download_dataset`` invokes ``api(var_info)`` with one arg.
+        """`download_dataset` invokes `api(var_info)` with one arg.
 
         Test scenario:
-            The C1 change dropped the ``dataset`` positional argument
-            from ``api()``. ``download_dataset`` must therefore pass
-            only ``var_info``.
+            The C1 change dropped the `dataset` positional argument
+            from `api()`. `download_dataset` must therefore pass
+            only `var_info`.
         """
         ecmwf_stub.api = MagicMock(return_value=ecmwf_stub.root_dir / "x.nc")
         ecmwf_stub.post_download = MagicMock()
@@ -139,14 +139,14 @@ class TestDownloadDataset:
     def test_post_download_receives_path_returned_by_api(
         self, ecmwf_stub, single_level_var_info
     ):
-        """``post_download`` is called with the path :meth:`api` returned.
+        """`post_download` is called with the path :meth:`api` returned.
 
         Test scenario:
-            After H1, ``download_dataset`` captures the
+            After H1, `download_dataset` captures the
             :class:`pathlib.Path` returned by :meth:`api` and threads
             it into :meth:`post_download` so the post-processing step
             opens the very same NetCDF that cdsapi just wrote — not a
-            hardcoded ``data_<dataset>.nc`` filename.
+            hardcoded `data_<dataset>.nc` filename.
         """
         api_target = (
             ecmwf_stub.root_dir

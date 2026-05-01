@@ -11,24 +11,24 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 class TemporalExtent(BaseModel):
     """Per-instance temporal context produced by :meth:`check_input_dates`.
 
-    Replaces the ``self.time`` dict that earlier versions of
+    Replaces the `self.time` dict that earlier versions of
     :class:`AbstractDataSource` accepted from subclass overrides. The
     frozen pydantic model enforces presence of every consumer-visible
     field at construction time, so a subclass that returns a malformed
-    container fails fast instead of surfacing as ``KeyError`` deep
+    container fails fast instead of surfacing as `KeyError` deep
     inside the download loop.
 
     Attributes:
         start_date: Inclusive start of the requested window. Typed
             :data:`~typing.Any` because pandas / numpy timestamp types
             are not native pydantic primitives; the cross-field
-            validator below enforces ``start_date <= end_date`` for
+            validator below enforces `start_date <= end_date` for
             anything that supports comparison.
         end_date: Inclusive end of the requested window.
         resolution: Spacing between consecutive entries in
             :attr:`dates`, expressed as a pandas frequency alias —
-            ``"D"`` for daily, ``"MS"`` for month-start. Same
-            shorthand pandas uses for ``date_range(freq=...)``.
+            `"D"` for daily, `"MS"` for month-start. Same
+            shorthand pandas uses for `date_range(freq=...)`.
         dates: The :class:`pandas.DatetimeIndex` the download loop
             iterates. Typed :data:`~typing.Any` to avoid a hard
             pandas import in the abstract module.
@@ -43,7 +43,7 @@ class TemporalExtent(BaseModel):
 
     @model_validator(mode="after")
     def _check_start_le_end(self) -> TemporalExtent:
-        """Validate that ``start_date <= end_date``.
+        """Validate that `start_date <= end_date`.
 
         Raises:
             ValueError: If the window is inverted.
@@ -62,14 +62,14 @@ class SpatialExtent(BaseModel):
 
     Backend-agnostic. Coordinates are in **degrees**:
 
-    * latitude in ``[-90, 90]`` (south negative, north positive)
-    * longitude in ``[-180, 180]`` (west negative, east positive)
+    * latitude in `[-90, 90]` (south negative, north positive)
+    * longitude in `[-180, 180]` (west negative, east positive)
 
     Each concrete data source converts this to whatever format its
-    protocol expects (CDS: ``[north, west, south, east]``; CHIRPS:
+    protocol expects (CDS: `[north, west, south, east]`; CHIRPS:
     per-row clipping; S3: prefix filter; GEE:
-    ``ee.Geometry.Rectangle(west, south, east, north)``). For
-    projected coordinates, define a separate ``ProjectedExtent``
+    `ee.Geometry.Rectangle(west, south, east, north)`). For
+    projected coordinates, define a separate `ProjectedExtent`
     type — do not reuse this one with metric values.
 
     Attributes:
@@ -78,7 +78,7 @@ class SpatialExtent(BaseModel):
         longitude_min: Inclusive west edge of the bbox, in degrees.
         longitude_max: Inclusive east edge of the bbox, in degrees.
         resolution: Grid cell size in degrees, applied to both
-            latitude and longitude. ``None`` for backends that work
+            latitude and longitude. `None` for backends that work
             on irregular grids or do not need a cell size for their
             request shape (e.g. CHIRPS FTP file lookup, S3 prefix
             listing). Mirrors :attr:`TemporalExtent.resolution` —
@@ -105,14 +105,14 @@ class SpatialExtent(BaseModel):
 
     @model_validator(mode="after")
     def _check_min_le_max(self) -> SpatialExtent:
-        """Validate that ``min <= max`` on both axes.
+        """Validate that `min <= max` on both axes.
 
-        Per-field range constraints (``Field(ge=..., le=...)``) cannot
+        Per-field range constraints (`Field(ge=..., le=...)`) cannot
         express the cross-field invariant.
 
         Raises:
-            ValueError: If either ``latitude_min > latitude_max`` or
-                ``longitude_min > longitude_max``.
+            ValueError: If either `latitude_min > latitude_max` or
+                `longitude_min > longitude_max`.
         """
         if self.latitude_min > self.latitude_max:
             raise ValueError(
@@ -133,17 +133,17 @@ class SpatialExtent(BaseModel):
         lon_lim: list[float],
         resolution: float | None = None,
     ) -> SpatialExtent:
-        """Build from the legacy ``[min, max]`` pair shape.
+        """Build from the legacy `[min, max]` pair shape.
 
-        :class:`AbstractDataSource.__init__` accepts ``lat_lim`` /
-        ``lon_lim`` as constructor kwargs in the public API; this
+        :class:`AbstractDataSource.__init__` accepts `lat_lim` /
+        `lon_lim` as constructor kwargs in the public API; this
         classmethod adapts that shape to the four named fields.
 
         Args:
-            lat_lim: ``[lat_min, lat_max]`` in degrees.
-            lon_lim: ``[lon_min, lon_max]`` in degrees.
+            lat_lim: `[lat_min, lat_max]` in degrees.
+            lon_lim: `[lon_min, lon_max]` in degrees.
             resolution: Grid cell size in degrees. Defaults to
-                ``None`` (unspecified — typical for backends that
+                `None` (unspecified — typical for backends that
                 work off file listings rather than gridded request
                 shapes).
 
@@ -160,22 +160,22 @@ class SpatialExtent(BaseModel):
 
     @property
     def north(self) -> float:
-        """Northern edge of the bbox (== ``latitude_max``)."""
+        """Northern edge of the bbox (== `latitude_max`)."""
         return self.latitude_max
 
     @property
     def south(self) -> float:
-        """Southern edge of the bbox (== ``latitude_min``)."""
+        """Southern edge of the bbox (== `latitude_min`)."""
         return self.latitude_min
 
     @property
     def east(self) -> float:
-        """Eastern edge of the bbox (== ``longitude_max``)."""
+        """Eastern edge of the bbox (== `longitude_max`)."""
         return self.longitude_max
 
     @property
     def west(self) -> float:
-        """Western edge of the bbox (== ``longitude_min``)."""
+        """Western edge of the bbox (== `longitude_min`)."""
         return self.longitude_min
 
 
@@ -196,36 +196,36 @@ class AbstractDataSource(ABC):
         """Initialize a data source instance.
 
         Captures the return values of the abstract hooks so subclasses
-        do not have to wire them onto ``self`` themselves:
+        do not have to wire them onto `self` themselves:
 
-        * ``self.client`` — whatever :meth:`initialize` returns (a CDS
-          client, an S3 client, ``None`` for FTP). Subclasses that
-          assign ``self.client`` inside :meth:`initialize` (e.g.
+        * `self.client` — whatever :meth:`initialize` returns (a CDS
+          client, an S3 client, `None` for FTP). Subclasses that
+          assign `self.client` inside :meth:`initialize` (e.g.
           :class:`S3`) keep their own assignment; the parent only sets
-          the attribute when :meth:`initialize` returns a non-``None``
+          the attribute when :meth:`initialize` returns a non-`None`
           value.
-        * ``self.space`` — the dict returned by :meth:`create_grid`,
-          containing ``lat_lim`` and ``lon_lim``. Subclasses that
+        * `self.space` — the dict returned by :meth:`create_grid`,
+          containing `lat_lim` and `lon_lim`. Subclasses that
           override :meth:`create_grid` to set attributes directly (e.g.
-          :class:`CHIRPS`) and return ``None`` are unaffected.
-        * ``self.time`` — the dict returned by :meth:`check_input_dates`,
-          containing ``start_date``, ``end_date``, ``time_freq`` and
-          ``dates``. Same opt-in semantics as ``self.space``.
-        * ``self.root_dir`` — the absolute :class:`pathlib.Path` of the
-          output directory. ``self.path`` is kept as a legacy alias so
+          :class:`CHIRPS`) and return `None` are unaffected.
+        * `self.time` — the dict returned by :meth:`check_input_dates`,
+          containing `start_date`, `end_date`, `time_freq` and
+          `dates`. Same opt-in semantics as `self.space`.
+        * `self.root_dir` — the absolute :class:`pathlib.Path` of the
+          output directory. `self.path` is kept as a legacy alias so
           older backends (CHIRPS, S3) continue to work.
 
         Args:
             start: Inclusive start date as a string. Format controlled
-                by ``fmt``. Defaults to ``None``.
-            end: Inclusive end date as a string. Defaults to ``None``.
+                by `fmt`. Defaults to `None`.
+            end: Inclusive end date as a string. Defaults to `None`.
             variables: List of variable short codes to download.
-            temporal_resolution: ``"daily"`` or ``"monthly"``. Defaults
-                to ``"daily"``.
-            lat_lim: ``[lat_min, lat_max]``.
-            lon_lim: ``[lon_min, lon_max]``.
-            fmt: ``strptime`` format for ``start`` / ``end``. Defaults
-                to ``"%Y-%m-%d"``.
+            temporal_resolution: `"daily"` or `"monthly"`. Defaults
+                to `"daily"`.
+            lat_lim: `[lat_min, lat_max]`.
+            lon_lim: `[lon_min, lon_max]`.
+            fmt: `strptime` format for `start` / `end`. Defaults
+                to `"%Y-%m-%d"`.
             path: Output directory. Created if it does not exist.
                 Defaults to the current working directory.
         """
@@ -305,11 +305,11 @@ class AbstractCatalog(BaseModel):
     :func:`model_post_init` hook eagerly populates :attr:`catalog`
     after pydantic validation runs, so subclasses can treat the
     catalog as a dict thereafter without writing their own
-    ``__init__``.
+    `__init__`.
 
-    Subclasses pass through pydantic's normal ``BaseModel.__init__``
+    Subclasses pass through pydantic's normal `BaseModel.__init__`
     — declare any backend-specific construction parameters as
-    pydantic fields rather than ``__init__`` arguments. Override
+    pydantic fields rather than `__init__` arguments. Override
     :meth:`get_catalog` (and optionally :meth:`get_variable`); the
     base implementations raise :class:`NotImplementedError` to flag
     a missing override at first use rather than silently returning
@@ -320,7 +320,7 @@ class AbstractCatalog(BaseModel):
             :meth:`get_catalog`. Populated post-init; defaults to an
             empty dict so the field is always present. Type and
             shape are backend-specific (a concrete subclass typically
-            stores typed value objects, e.g. ``dict[str, Variable]``
+            stores typed value objects, e.g. `dict[str, Variable]`
             for the ECMWF backend).
     """
 
@@ -333,7 +333,7 @@ class AbstractCatalog(BaseModel):
 
         Pydantic calls this hook automatically; subclasses that need
         their own post-init wiring should override it and call
-        ``super().model_post_init(__context)`` first to keep the
+        `super().model_post_init(__context)` first to keep the
         catalog-loading behaviour.
         """
         self.catalog = self.get_catalog()
