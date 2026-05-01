@@ -318,20 +318,19 @@ def _validate_required_fields(
     universal) is reported as missing. Catches the common
     "you forgot to set `experiment` for CMIP6" class of error.
     """
-    if not constraints:
-        return
-    required: set[str] = set(constraints[0])
-    for entry in constraints[1:]:
-        required &= set(entry)
-    required -= _UNIVERSAL_KEYS
-    missing = sorted(required - set(request))
-    if missing:
-        raise ValueError(
-            f"Request for {dataset!r} is missing required key(s): "
-            f"{missing}\n"
-            f"Live constraints: "
-            + CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
-        )
+    if constraints:
+        required: set[str] = set(constraints[0])
+        for entry in constraints[1:]:
+            required &= set(entry)
+        required -= _UNIVERSAL_KEYS
+        missing = sorted(required - set(request))
+        if missing:
+            raise ValueError(
+                f"Request for {dataset!r} is missing required key(s): "
+                f"{missing}\n"
+                f"Live constraints: "
+                + CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
+            )
 
 
 def validate_request(dataset: str, request: dict[str, Any]) -> None:
