@@ -127,10 +127,10 @@ def _as_list(value: Any) -> list[Any]:
     return value if isinstance(value, list) else [value]
 
 
-class DateRequest(BaseModel):
+class Dates(BaseModel):
     """Year/month/day fields of a CDS request, validated for real dates.
 
-    Public entry point is :meth:`DateRequest.check` — fails fast on
+    Public entry point is :meth:`Dates.check` — fails fast on
     obvious calendar mistakes (Feb 30, month=13, year=1492, …) before
     the request is sent.
 
@@ -159,7 +159,7 @@ class DateRequest(BaseModel):
         return coerced
 
     @model_validator(mode="after")
-    def _check_dates(self) -> DateRequest:
+    def _check_dates(self) -> Dates:
         for label, raw, lo, hi in (
             ("year", self.year, 1850, 2100),
             ("month", self.month, 1, 12),
@@ -383,7 +383,7 @@ def validate_request(dataset: str, request: dict[str, Any]) -> None:
         return
     # Phase 1-2: cheap local sanity checks. Run before any network
     # call so a typo gets flagged in milliseconds.
-    DateRequest.check(request)
+    Dates.check(request)
     Area.check(request)
     constraints = fetch_constraints(dataset)
     if not constraints:

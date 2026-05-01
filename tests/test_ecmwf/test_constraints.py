@@ -15,7 +15,7 @@ import pytest
 from earth2observe.ecmwf import constraints as constraints_module
 from earth2observe.ecmwf.constraints import (
     Area,
-    DateRequest,
+    Dates,
     fetch_constraints,
     validate_request,
 )
@@ -235,30 +235,30 @@ class TestDateValidity:
 
     def test_invalid_month_raises(self):
         with pytest.raises(ValueError, match="month=.*must be 01-12"):
-            DateRequest.check({"month": ["13"]})
+            Dates.check({"month": ["13"]})
 
     def test_invalid_day_raises(self):
         with pytest.raises(ValueError, match="day=.*must be 01-31"):
-            DateRequest.check({"day": ["32"]})
+            Dates.check({"day": ["32"]})
 
     def test_year_out_of_range_raises(self):
         with pytest.raises(ValueError, match="year=.*plausible"):
-            DateRequest.check({"year": ["1492"]})
+            Dates.check({"year": ["1492"]})
 
     def test_feb_30_raises(self):
         with pytest.raises(ValueError, match="not a real date"):
-            DateRequest.check(
+            Dates.check(
                 {"year": ["2022"], "month": ["02"], "day": ["30"]}
             )
 
     def test_valid_date_passes(self):
-        DateRequest.check(
+        Dates.check(
             {"year": ["2022"], "month": ["02"], "day": ["28"]}
         )
 
     def test_non_integer_values_skipped(self):
         """Datasets that use `year=['all']` or non-numeric forms pass."""
-        DateRequest.check({"year": ["all"], "month": ["any"]})
+        Dates.check({"year": ["all"], "month": ["any"]})
 
 
 class TestAreaSanity:
