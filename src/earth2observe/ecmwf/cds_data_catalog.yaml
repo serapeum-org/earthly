@@ -4397,6 +4397,12 @@ datasets:
         types: flux
         units: "N m**-2 s"
 
+      "momentum-flux-at-the-surface-v-component-cerra":
+        cds_variable: momentum_flux_at_the_surface_v_component
+        nc_variable: tisnmf
+        types: flux
+        units: "N m**-2 s"
+
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
@@ -4715,6 +4721,12 @@ datasets:
         types: state
         units: m
 
+      "lake-mix-layer-temperature-cerra-land":
+        cds_variable: lake_mix_layer_temperature
+        nc_variable: lmlt
+        types: state
+        units: K
+
   reanalysis-pan-carra:
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
@@ -5021,6 +5033,12 @@ datasets:
         nc_variable: siconc
         types: state
         units: "(0 - 1)"
+
+      "10m-u-component-of-wind-pancarra-means":
+        cds_variable: 10m_u_component_of_wind
+        nc_variable: u10
+        types: state
+        units: "m s**-1"
 
   derived-drought-historical-monthly:
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
