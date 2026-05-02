@@ -256,10 +256,15 @@ def _cli() -> None:
         help="Output directory for the GeoTIFFs (must already exist)",
     )
     parser.add_argument(
+        "dataset",
+        help="CDS dataset short name, e.g. "
+        "'reanalysis-era5-single-levels' or 'reanalysis-era5-land'.",
+    )
+    parser.add_argument(
         "variable",
-        help="Catalog short code, e.g. '2m-temperature' or "
-        "'total-precipitation'. Resolved through the package "
-        "`Catalog` so units and flux flag are inferred.",
+        help="Catalog short code under that dataset, e.g. "
+        "'2m-temperature' or 'total-precipitation'. Resolved through "
+        "the package `Catalog` so units and flux flag are inferred.",
     )
     parser.add_argument(
         "--start", required=True, help="Start date (YYYY-MM-DD)"
@@ -281,7 +286,7 @@ def _cli() -> None:
 
     from earthly.ecmwf import Catalog
 
-    spec = Catalog().get_variable(args.variable)
+    spec = Catalog().get_variable(args.dataset, args.variable)
     freq = "D" if args.resolution == "daily" else "MS"
     dates = pd.date_range(args.start, args.end, freq=freq)
 

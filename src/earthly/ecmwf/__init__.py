@@ -28,15 +28,17 @@ The catalog YAML ships with this package as data, loaded by
 :class:`Catalog` from `Path(__file__).parent`.
 
 Examples:
-    - List all entries in the bundled catalog:
+    - List datasets and look up a variable by `(dataset, code)`:
 
         ```python
         >>> from earthly.ecmwf import Catalog
         >>> cat = Catalog()
-        >>> "2m-temperature" in cat.catalog
+        >>> "reanalysis-era5-single-levels" in cat.datasets
         True
-        >>> cat.datasets["reanalysis-era5-single-levels"].monthly
-        'reanalysis-era5-single-levels-monthly-means'
+        >>> cat.get_variable(
+        ...     "reanalysis-era5-single-levels", "2m-temperature"
+        ... ).nc_variable
+        't2m'
 
         ```
 """

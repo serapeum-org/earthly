@@ -5,34 +5,36 @@ Hosts :class:`Catalog`, the pydantic-backed reader for
 so the request / download machinery and the catalog file-IO live in
 separate modules.
 
-The YAML's three top-level sections each map to a typed field on
-:class:`Catalog`:
+The YAML's two consumed top-level sections each map to a typed
+field on :class:`Catalog`:
 
 * `available_datasets` (informational list of CDS dataset names)
   → :attr:`Catalog.available_datasets`
 * `datasets` (structural map of CDS datasets, each carrying a
   monthly variant and a per-variable map) → :attr:`Catalog.datasets`,
   with each value a :class:`Dataset`
-* the flattened per-variable view → :attr:`Catalog.catalog`, kept
-  as a convenience for the `cat.get_variable(code)` lookup pattern.
-  When the same short code appears in more than one dataset (e.g.
-  `"2m-temperature"` lives in both `reanalysis-era5-single-levels`
-  and `reanalysis-era5-land`), the first dataset to declare it in
-  YAML order wins the flat slot; callers needing a different
-  dataset must pass `dataset=` to :meth:`Catalog.get_variable`.
 
-The flat and structural views share the same :class:`Variable`
-instances (one allocation per row, two references). The path to the
-bundled YAML lives at :data:`CATALOG_PATH`; tests can monkey-patch
-that module attribute to redirect the loader at a temporary file.
+The catalog has no flat per-variable view: variables are addressed
+by the `(dataset_name, variable_name)` pair via
+:meth:`Catalog.get_variable`. The same short code can legitimately
+appear under more than one dataset (e.g. `"2m-temperature"` lives
+in both `reanalysis-era5-single-levels` and
+`reanalysis-era5-land`), so the dataset name is part of the
+identity.
+
+The path to the bundled YAML lives at :data:`CATALOG_PATH`; tests
+can monkey-patch that module attribute to redirect the loader at a
+temporary file.
 
 Examples:
-    - Construct the catalog and reach into both views:
+    - Construct the catalog and reach the structural map:
 
         ```python
         >>> from earthly.ecmwf import Catalog
         >>> cat = Catalog()
-        >>> cat.get_variable("2m-temperature").nc_variable
+        >>> cat.get_variable(
+        ...     "reanalysis-era5-single-levels", "2m-temperature"
+        ... ).nc_variable
         't2m'
         >>> cat.get_dataset("reanalysis-era5-pressure-levels").pressure_level
         ['1000']
@@ -138,9 +140,16 @@ class Catalog(AbstractCatalog):
     """Variable catalog for the CDS-backed ECMWF data source.
 
     Reads `cds_data_catalog.yaml` (shipped as package data) and
-    exposes its three top-level sections as typed pydantic fields.
+    exposes its consumed top-level sections as typed pydantic fields.
     Instantiate with no arguments (`Catalog()`) — :func:`model_post_init`
     parses the YAML and populates every field in one pass.
+
+    Variables are addressed by the `(dataset_name, variable_name)`
+    pair via :meth:`get_variable`; there is no flat per-code lookup.
+    The same short code can legitimately appear under more than one
+    dataset (e.g. `"2m-temperature"` lives in both
+    `reanalysis-era5-single-levels` and `reanalysis-era5-land`), so
+    the dataset name is part of the identity.
 
     Attributes:
         available_datasets: Informational list of every CDS dataset
@@ -148,42 +157,31 @@ class Catalog(AbstractCatalog):
             the YAML; runtime code does not consume it.
         datasets: Structural map keyed by CDS dataset short name. Each
             value is a :class:`Dataset` carrying that dataset's
-            monthly-aggregate variant and its per-variable map. Use
-            this when you want to iterate variables grouped by
-            dataset.
-        catalog: Flat map from a variable's short code (e.g.
-            `"2m-temperature"`) to its :class:`Variable`. Populated
-            with first-wins precedence: when a short code appears in
-            more than one dataset, the dataset that declares it first
-            in YAML order owns the flat slot. The :attr:`duplicates`
-            map records every code that lost the race so callers can
-            still reach the alternate definitions through
-            :meth:`get_variable` with `dataset=`.
-        duplicates: Audit map of short codes that appear in more than
-            one dataset, listing every dataset that declares each one
-            (in YAML order). Empty when the catalog has no
-            collisions.
+            monthly-aggregate variant and its per-variable map. The
+            authoritative store: every catalog lookup goes through
+            it.
 
     Examples:
-        - Look up a single variable by short code (flat):
+        - Look up a variable by `(dataset_name, variable_name)`:
 
             ```python
             >>> from earthly.ecmwf import Catalog
-            >>> spec = Catalog().get_variable("2m-temperature")
+            >>> spec = Catalog().get_variable(
+            ...     "reanalysis-era5-single-levels", "2m-temperature"
+            ... )
             >>> spec.cds_dataset
             'reanalysis-era5-single-levels'
             >>> spec.nc_variable
             't2m'
 
             ```
-        - Reach an alternate definition explicitly when a code is
-          shared across datasets:
+        - The same short code under a different dataset is a
+          different :class:`Variable`:
 
             ```python
             >>> from earthly.ecmwf import Catalog
-            >>> cat = Catalog()
-            >>> cat.get_variable(
-            ...     "2m-temperature", dataset="reanalysis-era5-land"
+            >>> Catalog().get_variable(
+            ...     "reanalysis-era5-land", "2m-temperature"
             ... ).cds_dataset
             'reanalysis-era5-land'
 
@@ -211,17 +209,13 @@ class Catalog(AbstractCatalog):
 
     available_datasets: list[str] = Field(default_factory=list)
     datasets: dict[str, Dataset] = Field(default_factory=dict)
-    catalog: dict[str, Variable] = Field(default_factory=dict)
-    duplicates: dict[str, list[str]] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Parse `cds_data_catalog.yaml` into the three exposed fields.
+        """Parse `cds_data_catalog.yaml` into the exposed fields.
 
-        Overrides :func:`AbstractCatalog.model_post_init` to do all
-        three parses in one pass instead of going through
-        :meth:`get_catalog`. The flat :attr:`catalog` is built from
-        the same :class:`Variable` instances that populate
-        :attr:`datasets` so the two views stay consistent.
+        Overrides :func:`AbstractCatalog.model_post_init` to populate
+        :attr:`available_datasets` and :attr:`datasets` directly,
+        bypassing the flat-`get_catalog` path the base class assumes.
 
         Raises:
             ValueError: If the YAML is missing or has an empty
@@ -241,8 +235,7 @@ class Catalog(AbstractCatalog):
             )
 
         structural: dict[str, Dataset] = {}
-        flat: dict[str, Variable] = {}
-        owner_of: dict[str, list[str]] = {}
+        total_vars = 0
         for ds_name, ds_body in datasets_yaml.items():
             monthly = ds_body.get("monthly")
             pressure_level = ds_body.get("pressure_level")
@@ -271,18 +264,8 @@ class Catalog(AbstractCatalog):
                 row_extras = dict(merged.get("extras") or {})
                 merged["extras"] = {**ds_extras, **row_extras}
                 merged.setdefault("request_kind", ds_request_kind)
-                var = Variable.from_dict(code, merged)
-                ds_vars[code] = var
-                # First-wins: keep the earliest dataset's Variable in
-                # the flat slot so a stale duplicate cannot silently
-                # change the resolved dataset for an existing caller.
-                # Every dataset that declared the code is recorded in
-                # `owner_of` so :attr:`duplicates` can surface the
-                # collision and :meth:`get_variable` can route around
-                # it via the `dataset=` argument.
-                owner_of.setdefault(code, []).append(ds_name)
-                if code not in flat:
-                    flat[code] = var
+                ds_vars[code] = Variable.from_dict(code, merged)
+                total_vars += 1
             structural[ds_name] = Dataset(
                 monthly=monthly,
                 pressure_level=pressure_level,
@@ -291,7 +274,7 @@ class Catalog(AbstractCatalog):
                 variables=ds_vars,
             )
 
-        if not flat:
+        if total_vars == 0:
             raise ValueError(
                 f"{catalog_path} has no variables under any dataset. "
                 "The catalog must contain at least one variable. "
@@ -300,56 +283,50 @@ class Catalog(AbstractCatalog):
 
         self.available_datasets = list(data.get("available_datasets") or [])
         self.datasets = structural
-        self.catalog = flat
-        self.duplicates = {
-            code: owners for code, owners in owner_of.items() if len(owners) > 1
-        }
 
-    def get_catalog(self):
-        """Return the flat per-variable map populated by :func:`model_post_init`.
+    def get_catalog(self) -> dict[str, Dataset]:
+        """Return the structural per-dataset map.
 
-        Satisfies the abstract base's contract; the actual parsing is
-        done in :func:`model_post_init` so all three fields can be
-        built in one pass.
+        Satisfies the abstract base's contract; the actual parsing
+        is done in :func:`model_post_init`.
 
         Returns:
-            dict[str, Variable]: One entry per variable across every
-            dataset in the catalog. Same object as :attr:`catalog`.
+            dict[str, Dataset]: One entry per CDS dataset. Same
+            object as :attr:`datasets`.
 
         Examples:
-            - Inspect the count and a sample of the loaded catalog:
+            - Inspect the dataset count and a sample:
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
                 >>> mapping = Catalog().get_catalog()
-                >>> "2m-temperature" in mapping
+                >>> "reanalysis-era5-single-levels" in mapping
                 True
-                >>> mapping["2m-temperature"].nc_variable
-                't2m'
+                >>> mapping["reanalysis-era5-single-levels"].monthly
+                'reanalysis-era5-single-levels-monthly-means'
 
                 ```
         """
-        return self.catalog
+        return self.datasets
 
-    def get_variable(self, code: str, dataset: str | None = None) -> Variable:
-        """Return the :class:`Variable` for a short variable code.
+    def get_variable(self, dataset_name: str, variable_name: str) -> Variable:
+        """Return the :class:`Variable` for a `(dataset, code)` pair.
 
         Args:
-            code: Short variable code as it appears as a YAML key
-                (e.g. `"2m-temperature"` or `"total-precipitation"`).
-            dataset: Optional CDS dataset short name to scope the
-                lookup to. Required when `code` appears in more than
-                one dataset (see :attr:`duplicates`); otherwise
-                optional. When `None`, the first dataset that
-                declared `code` in YAML order wins.
+            dataset_name: CDS dataset short name as it appears as a
+                key in :attr:`datasets` (e.g.
+                `"reanalysis-era5-single-levels"`).
+            variable_name: Short variable code as it appears as a
+                YAML key under that dataset (e.g.
+                `"2m-temperature"`, `"total-precipitation"`).
 
         Returns:
             Variable: Per-variable metadata loaded from
             `cds_data_catalog.yaml`.
 
         Raises:
-            KeyError: If `code` is not in the catalog, or if
-                `dataset` is provided but does not declare `code`.
+            KeyError: If `dataset_name` is not curated, or if
+                `variable_name` is not declared under that dataset.
 
         Examples:
             - Look up a single-level ERA5 variable and read its CDS
@@ -357,7 +334,9 @@ class Catalog(AbstractCatalog):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_variable("2m-temperature")
+                >>> spec = Catalog().get_variable(
+                ...     "reanalysis-era5-single-levels", "2m-temperature"
+                ... )
                 >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
                 >>> spec.nc_variable, spec.units
@@ -368,35 +347,38 @@ class Catalog(AbstractCatalog):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_variable("temperature")
+                >>> spec = Catalog().get_variable(
+                ...     "reanalysis-era5-pressure-levels", "temperature"
+                ... )
                 >>> spec.cds_pressure_level
                 ['1000']
 
                 ```
-            - Disambiguate a code that lives in multiple datasets:
+            - The same short code under a different dataset is a
+              different Variable:
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
                 >>> Catalog().get_variable(
-                ...     "2m-temperature", dataset="reanalysis-era5-land"
+                ...     "reanalysis-era5-land", "2m-temperature"
                 ... ).cds_dataset
                 'reanalysis-era5-land'
 
                 ```
-            - Unknown codes raise `KeyError`:
+            - Unknown dataset or variable raises `KeyError`:
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> Catalog().get_variable("not-a-real-variable")
+                >>> Catalog().get_variable(
+                ...     "reanalysis-era5-single-levels", "not-a-variable"
+                ... )
                 Traceback (most recent call last):
                     ...
-                KeyError: 'not-a-real-variable'
+                KeyError: 'not-a-variable'
 
                 ```
         """
-        if dataset is not None:
-            return self.datasets[dataset].variables[code]
-        return self.catalog[code]
+        return self.datasets[dataset_name].variables[variable_name]
 
     def get_dataset(self, name: str) -> Dataset:
         """Return the :class:`Dataset` record for a CDS dataset short name.

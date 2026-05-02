@@ -393,7 +393,7 @@ class ECMWF(AbstractDataSource):
         start: str = None,
         end: str = None,
         path: Path = None,
-        variables: list = None,
+        variables: dict[str, list[str]] = None,
         lat_lim: list = None,
         lon_lim: list = None,
         fmt: str = "%Y-%m-%d",
@@ -413,9 +413,13 @@ class ECMWF(AbstractDataSource):
             end: Inclusive end date as a string. Defaults to `None`.
             path: Output directory. Created by the parent if it does
                 not exist. Defaults to the current working directory.
-            variables: list of CDS catalog short codes (e.g.
-                `["2m-temperature", "total-precipitation"]`); see `cds_data_catalog.yaml` for
-                the registered codes.
+            variables: Mapping from CDS dataset short name to a list
+                of variable codes drawn from that dataset, e.g.
+                `{"reanalysis-era5-single-levels": ["2m-temperature",
+                "total-precipitation"]}`. The dataset name must be a
+                key of :attr:`Catalog.datasets`; each variable name
+                must appear under that dataset's `variables:` block.
+                See `cds_data_catalog.yaml` for the registered keys.
             lat_lim: `[lat_min, lat_max]`.
             lon_lim: `[lon_min, lon_max]`.
             fmt: `strptime` format for `start` / `end`.
@@ -518,7 +522,9 @@ class ECMWF(AbstractDataSource):
                 >>> ecmwf = ECMWF(  # doctest: +SKIP
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2m-temperature"],
+                ...     variables={
+                ...         "reanalysis-era5-single-levels": ["2m-temperature"],
+                ...     },
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
@@ -599,13 +605,12 @@ class ECMWF(AbstractDataSource):
         )
 
     def download(self, progress_bar: bool = True, *args, **kwargs):
-        """Download every variable in `self.vars` from CDS.
+        """Download every `(dataset, variable)` pair in `self.vars` from CDS.
 
-        Iterates the user-supplied `variables` list and, for each
-        short code, looks the variable up in the CDS :class:`Catalog`
-        and delegates to :meth:`download_dataset`. The CDS dataset
-        name is per-variable (`var_info["cds_dataset"]`); there is
-        no global `dataset` parameter under the cdsapi flow.
+        Iterates the user-supplied `variables` mapping (CDS dataset
+        short name → list of variable codes) and, for each pair,
+        looks the variable up in the CDS :class:`Catalog` and
+        delegates to :meth:`download_dataset`.
 
         Args:
             progress_bar: Reserved; currently unused since the
@@ -625,8 +630,9 @@ class ECMWF(AbstractDataSource):
             output directory.
 
         Raises:
-            KeyError: If any `var` in `self.vars` is not in the
-                CDS catalog.
+            KeyError: If any dataset key in `self.vars` is not a
+                curated CDS dataset, or if a listed variable is not
+                declared under that dataset.
             Exception: Any error :meth:`api` propagates from
                 :meth:`cdsapi.Client.retrieve`.
 
@@ -643,7 +649,11 @@ class ECMWF(AbstractDataSource):
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2m-temperature", "total-precipitation"],
+                ...     variables={
+                ...         "reanalysis-era5-single-levels": [
+                ...             "2m-temperature", "total-precipitation"
+                ...         ],
+                ...     },
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
@@ -656,8 +666,8 @@ class ECMWF(AbstractDataSource):
             :meth:`download_dataset`: Per-variable download +
                 post-processing.
             :meth:`api`: Builds and submits the cdsapi request.
-            :class:`Catalog`: Resolves short codes to per-variable
-                metadata.
+            :class:`Catalog`: Resolves `(dataset, code)` pairs to
+                per-variable metadata.
         """
         # Lazy import to avoid a circular dependency: `catalog.py`
         # imports `Variable` from this module, so a top-level
@@ -665,30 +675,33 @@ class ECMWF(AbstractDataSource):
         from earthly.ecmwf.catalog import Catalog
 
         catalog = Catalog()
-        succeeded: list[str] = []
-        failed: list[tuple[str, BaseException]] = []
+        succeeded: list[tuple[str, str]] = []
+        failed: list[tuple[tuple[str, str], BaseException]] = []
 
-        for var in self.vars:
-            start = self.time.start_date
-            end = self.time.end_date
-            logger.info(
-                f"Download ECMWF {var} data for period {start} till {end}"
-            )
-            try:
-                var_info = catalog.get_variable(var)
-                self.download_dataset(var_info, progress_bar=progress_bar)
-            except Exception as exc:
-                logger.error(
-                    f"ECMWF download for {var!r} failed: "
-                    f"{type(exc).__name__}: {exc}"
+        for dataset_name, var_codes in self.vars.items():
+            for var in var_codes:
+                start = self.time.start_date
+                end = self.time.end_date
+                logger.info(
+                    f"Download ECMWF {dataset_name}/{var} data for "
+                    f"period {start} till {end}"
                 )
-                failed.append((var, exc))
-            else:
-                succeeded.append(var)
+                try:
+                    var_info = catalog.get_variable(dataset_name, var)
+                    self.download_dataset(var_info, progress_bar=progress_bar)
+                except Exception as exc:
+                    logger.error(
+                        f"ECMWF download for {dataset_name}/{var} failed: "
+                        f"{type(exc).__name__}: {exc}"
+                    )
+                    failed.append(((dataset_name, var), exc))
+                else:
+                    succeeded.append((dataset_name, var))
 
         if failed:
             failed_summary = ", ".join(
-                f"{var} ({type(exc).__name__})" for var, exc in failed
+                f"{ds}/{var} ({type(exc).__name__})"
+                for (ds, var), exc in failed
             )
             logger.warning(
                 f"ECMWF download summary: {len(succeeded)} succeeded "
@@ -805,7 +818,9 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_variable("2m-temperature")
+                >>> spec = Catalog().get_variable(
+                ...     "reanalysis-era5-single-levels", "2m-temperature"
+                ... )
                 >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
                 >>> f"{spec.cds_variable}_{spec.cds_dataset}.nc"
@@ -817,7 +832,9 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_variable("temperature")
+                >>> spec = Catalog().get_variable(
+                ...     "reanalysis-era5-pressure-levels", "temperature"
+                ... )
                 >>> spec.cds_pressure_level
                 ['1000']
 
@@ -834,7 +851,9 @@ class ECMWF(AbstractDataSource):
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2m-temperature"],
+                ...     variables={
+                ...         "reanalysis-era5-single-levels": ["2m-temperature"],
+                ...     },
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",

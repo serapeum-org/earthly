@@ -28,28 +28,27 @@ print(chirps_catalog.catalog)
 ## ECMWF (Copernicus Climate Data Store)
 
 The ECMWF catalog is shipped as `cds_data_catalog.yaml` (package data)
-and exposes a per-variable map keyed by slugified CDS variable names
-(`evaporation`, `temperature`, `2m-temperature`, `total-precipitation`,
-...). Each entry tells `ECMWF.api()` which CDS dataset hosts the
-variable, the official CDS variable name, and the unit-conversion
-factors used during post-processing.
+and exposes a structural map keyed by CDS dataset short name. Each
+dataset block carries its monthly-aggregate variant, parent-level
+extras, and a per-variable map. There is no flat per-code lookup —
+variables are addressed by the `(dataset_name, variable_name)` pair.
 
 ```python
 from earthly.ecmwf import Catalog
 
 catalog = Catalog()
-list(catalog.catalog)[:5]
+list(catalog.datasets)[:3]
 ```
 
 ```python
-["2m-temperature", "2m-dewpoint-temperature", "surface-pressure", "total-precipitation", "evaporation"]
+["reanalysis-era5-single-levels", "reanalysis-era5-pressure-levels", "reanalysis-era5-land"]
 ```
 
 To get the attributes for a specific variable (e.g., 2-metre
-temperature):
+temperature on ERA5 single-levels):
 
 ```python
-catalog.get_variable("2m-temperature")
+catalog.get_variable("reanalysis-era5-single-levels", "2m-temperature")
 ```
 
 ```python
@@ -92,13 +91,11 @@ across three core datasets:
   higher-resolution 0.1° land-only grid; `monthly:` resolves to
   `reanalysis-era5-land-monthly-means`. Where a variable code
   (e.g. `2m-temperature`, `total-precipitation`) appears in both
-  ERA5-Land and ERA5 single-levels, the flat
-  `Catalog().get_variable(code)` resolves to ERA5 single-levels —
-  the first dataset that declared the code in YAML order. To pull
-  the ERA5-Land variant, pass the dataset explicitly:
-  `Catalog().get_variable(code, dataset="reanalysis-era5-land")`.
-  Every code that lives in more than one dataset is listed under
-  `Catalog().duplicates` for audit.
+  ERA5-Land and ERA5 single-levels, address each variant through
+  its dataset:
+  `Catalog().get_variable("reanalysis-era5-single-levels", code)`
+  vs.
+  `Catalog().get_variable("reanalysis-era5-land", code)`.
 - `derived-era5-land-daily-statistics` — 31 daily-aggregated state
   variables from ERA5-Land. Keys are the ERA5-Land code suffixed with
   `-daily` (e.g. `2m-temperature-daily`). The dataset-level `extras`
@@ -159,8 +156,9 @@ variable, append an entry to
 `src/earthly/ecmwf/cds_data_catalog.yaml` following the schema
 in the file's header comment.
 
-`get_variable(var_name)` is provided as an alias of `get_dataset` so
-either name works; it satisfies the abstract base class contract.
+`get_variable(dataset_name, variable_name)` is the canonical lookup;
+`get_dataset(name)` returns the structural :class:`Dataset` record,
+and `describe(name)` is a thin serializer over it.
 
 ### Regional reanalysis families: CARRA / CERRA / PAN-CARRA
 

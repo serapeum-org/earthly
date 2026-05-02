@@ -18,46 +18,49 @@ pytestmark = [pytest.mark.unit]
 class TestCatalog:
     """Tests for :class:`Catalog` after the H2 / H5 / M1 / M2 work."""
 
-    def test_catalog_loads_per_variable_map(self):
-        """`catalog` is a per-variable map of :class:`Variable`.
-
-        Test scenario:
-            After M1, `Catalog` returns frozen :class:`Variable`
-            instances keyed by short variable codes.
-        """
-        cat = Catalog()
-        assert isinstance(cat.catalog, dict)
-        assert "2m-temperature" in cat.catalog
-        assert isinstance(cat.catalog["2m-temperature"], Variable)
-        assert cat.catalog["2m-temperature"].cds_dataset
-
     @pytest.mark.parametrize(
-        "var_code, expected_dataset, expected_variable",
+        "dataset_name, var_code, expected_variable",
         [
-            ("2m-temperature", "reanalysis-era5-land", "2m_temperature"),
-            ("total-precipitation", "reanalysis-era5-land", "total_precipitation"),
-            ("surface-pressure", "reanalysis-era5-land", "surface_pressure"),
-            ("evaporation", "reanalysis-era5-single-levels", "evaporation"),
-            ("temperature", "reanalysis-era5-pressure-levels", "temperature"),
+            (
+                "reanalysis-era5-single-levels",
+                "2m-temperature",
+                "2m_temperature",
+            ),
+            (
+                "reanalysis-era5-single-levels",
+                "total-precipitation",
+                "total_precipitation",
+            ),
+            (
+                "reanalysis-era5-single-levels",
+                "surface-pressure",
+                "surface_pressure",
+            ),
+            (
+                "reanalysis-era5-single-levels",
+                "evaporation",
+                "evaporation",
+            ),
+            (
+                "reanalysis-era5-pressure-levels",
+                "temperature",
+                "temperature",
+            ),
         ],
     )
     def test_get_variable_returns_new_schema(
-        self, var_code, expected_dataset, expected_variable
+        self, dataset_name, var_code, expected_variable
     ):
-        """`get_variable` returns a :class:`Variable` per variable.
-
-        Test scenario:
-            The five mappings the migration plan calls out explicitly
-            (E, T, 2T, TP, SP) must round-trip through the catalog
-            and expose the right dataset/variable as attributes.
-        """
-        spec = Catalog().get_variable(var_code)
-        assert spec.cds_dataset == expected_dataset
+        """`get_variable(dataset, code)` returns the row for that pair."""
+        spec = Catalog().get_variable(dataset_name, var_code)
+        assert spec.cds_dataset == dataset_name
         assert spec.cds_variable == expected_variable
 
     def test_get_variable_returns_raw_era5_units(self):
         """2m-temperature carries the raw ERA5 unit (Kelvin)."""
-        spec = Catalog().get_variable("2m-temperature")
+        spec = Catalog().get_variable(
+            "reanalysis-era5-single-levels", "2m-temperature"
+        )
         assert spec.units == "K"
 
     def test_available_datasets_lists_cds_collection(self):
@@ -77,64 +80,40 @@ class TestCatalog:
             "reanalysis-era5-single-levels"
         )
 
-    def test_flat_and_structural_views_share_variable_instances(self):
-        """catalog and datasets[ds].variables point at the same Variable.
-
-        Uses a single-levels-only code (`evaporation`) so the flat
-        view's first-wins behaviour for ERA5-Land overlaps does not
-        confuse the assertion.
-        """
-        cat = Catalog()
-        flat = cat.catalog["evaporation"]
-        nested = cat.datasets["reanalysis-era5-single-levels"].variables[
-            "evaporation"
-        ]
-        assert flat is nested
-
     def test_pressure_level_var_carries_cds_pressure_level(self):
         """Pressure-level variables expose `cds_pressure_level`.
 
-        Test scenario:
-            T, Q, R live on reanalysis-era5-pressure-levels; their
-            catalog entries must carry the `cds_pressure_level`
-            attribute so :meth:`ECMWF.api` can forward it to CDS.
+        T, Q, R live on reanalysis-era5-pressure-levels; their
+        catalog entries must carry the `cds_pressure_level`
+        attribute so :meth:`ECMWF.api` can forward it to CDS.
         """
-        spec = Catalog().get_variable("temperature")
+        spec = Catalog().get_variable(
+            "reanalysis-era5-pressure-levels", "temperature"
+        )
         assert spec.cds_pressure_level == ["1000"]
 
-    def test_get_variable_raises_key_error_for_unknown_code(self):
-        """Unknown variable codes raise `KeyError`.
-
-        Test scenario:
-            Asking for a code that isn't in the catalog must raise
-            `KeyError` immediately rather than returning `None` and
-            blowing up later inside `api()`.
-        """
+    def test_get_variable_raises_key_error_for_unknown_dataset(self):
+        """Unknown dataset names raise `KeyError`."""
         with pytest.raises(KeyError):
-            Catalog().get_variable("DEFINITELY_NOT_A_REAL_CODE")
+            Catalog().get_variable("bogus-dataset", "2m-temperature")
 
-    def test_get_variable_first_wins_on_duplicate_code(self):
-        """When a code lives in two datasets, the YAML-first one wins."""
-        cat = Catalog()
-        spec = cat.get_variable("2m-temperature")
-        assert spec.cds_dataset == "reanalysis-era5-single-levels"
+    def test_get_variable_raises_key_error_for_unknown_code(self):
+        """Unknown variable codes (under a real dataset) raise `KeyError`."""
+        with pytest.raises(KeyError):
+            Catalog().get_variable(
+                "reanalysis-era5-single-levels", "DEFINITELY_NOT_A_REAL_CODE"
+            )
 
-    def test_get_variable_dataset_argument_disambiguates(self):
-        """Pass `dataset=` to reach the alternate definition."""
+    def test_same_code_under_different_datasets_is_distinct(self):
+        """`(dataset, code)` is the identity; same code, different datasets."""
         cat = Catalog()
-        spec = cat.get_variable(
-            "2m-temperature", dataset="reanalysis-era5-land"
+        single = cat.get_variable(
+            "reanalysis-era5-single-levels", "2m-temperature"
         )
-        assert spec.cds_dataset == "reanalysis-era5-land"
-
-    def test_duplicates_lists_codes_present_in_multiple_datasets(self):
-        """`Catalog.duplicates` records every collision in YAML order."""
-        cat = Catalog()
-        assert "2m-temperature" in cat.duplicates
-        assert cat.duplicates["2m-temperature"] == [
-            "reanalysis-era5-single-levels",
-            "reanalysis-era5-land",
-        ]
+        land = cat.get_variable("reanalysis-era5-land", "2m-temperature")
+        assert single.cds_dataset == "reanalysis-era5-single-levels"
+        assert land.cds_dataset == "reanalysis-era5-land"
+        assert single is not land
 
     def test_get_dataset_returns_dataset_object(self):
         """`get_dataset(name)` returns the structural :class:`Dataset`."""
@@ -209,7 +188,9 @@ class TestCatalog:
         )
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
         cat = Catalog()
-        spec = cat.get_variable("2m-temperature")
+        spec = cat.get_variable(
+            "reanalysis-carra-single-levels", "2m-temperature"
+        )
         assert spec.extras == {"domain": "east", "leadtime_hour": "1"}
         assert cat.datasets["reanalysis-carra-single-levels"].extras == {
             "domain": "east",
@@ -237,7 +218,9 @@ class TestCatalog:
         )
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
         cat = Catalog()
-        spec = cat.get_variable("2m-temperature")
+        spec = cat.get_variable(
+            "reanalysis-carra-single-levels", "2m-temperature"
+        )
         assert spec.extras == {"domain": "west", "leadtime_hour": "1"}
 
     def test_era5_land_loads(self):
@@ -715,7 +698,9 @@ class TestCatalog:
             encoding="utf-8",
         )
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
-        spec = Catalog().get_variable("near-surface-air-temperature")
+        spec = Catalog().get_variable(
+            "projections-cmip6", "near-surface-air-temperature"
+        )
         assert spec.extras == {
             "experiment": "ssp585",
             "model": "ec_earth3",

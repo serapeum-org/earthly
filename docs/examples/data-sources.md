@@ -53,9 +53,12 @@ the relevant ERA5 dataset on the CDS website.
 ```python
 source = "ecmwf"
 path = "examples/data/era5"
-variables = ["2m-temperature"]  # 2-metre temperature; see Catalog for the full list
+# Variables are addressed by (CDS dataset short name, variable code).
+variables = {
+    "reanalysis-era5-single-levels": ["2m-temperature"],
+}
 
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -65,7 +68,7 @@ e2o = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-e2o.download()
+earthly.download()
 ```
 
 !!! note "Expect to wait"

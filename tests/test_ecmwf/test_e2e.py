@@ -34,14 +34,20 @@ class TestApiE2E:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2m-temperature"],
+            variables={
+                "reanalysis-era5-single-levels": ["2m-temperature"],
+            },
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=str(tmp_path),
             temporal_resolution="daily",
         )
 
-        target = ecmwf.api(Catalog().get_variable("2m-temperature"))
+        target = ecmwf.api(
+            Catalog().get_variable(
+                "reanalysis-era5-single-levels", "2m-temperature"
+            )
+        )
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -58,14 +64,20 @@ class TestApiE2E:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["temperature"],
+            variables={
+                "reanalysis-era5-pressure-levels": ["temperature"],
+            },
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=str(tmp_path),
             temporal_resolution="daily",
         )
 
-        target = ecmwf.api(Catalog().get_variable("temperature"))
+        target = ecmwf.api(
+            Catalog().get_variable(
+                "reanalysis-era5-pressure-levels", "temperature"
+            )
+        )
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -84,14 +96,20 @@ class TestApiE2E:
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2m-temperature"],
+            variables={
+                "reanalysis-era5-single-levels": ["2m-temperature"],
+            },
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=str(tmp_path),
             temporal_resolution="monthly",
         )
 
-        target = ecmwf.api(Catalog().get_variable("2m-temperature"))
+        target = ecmwf.api(
+            Catalog().get_variable(
+                "reanalysis-era5-single-levels", "2m-temperature"
+            )
+        )
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -119,7 +137,11 @@ class TestFacadeE2E:
             temporal_resolution="daily",
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2m-temperature", "total-precipitation"],
+            variables={
+                "reanalysis-era5-single-levels": [
+                    "2m-temperature", "total-precipitation",
+                ],
+            },
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
             path=tmp_path,

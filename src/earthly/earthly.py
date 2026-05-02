@@ -74,7 +74,7 @@ class Earthly:
         start: str = None,
         end: str = None,
         path: Path = None,
-        variables: list = None,
+        variables=None,
         lat_lim: list = None,
         lon_lim: list = None,
         fmt: str = "%Y-%m-%d",
@@ -98,10 +98,19 @@ class Earthly:
             end: Inclusive end date as a string. Defaults to `None`.
             path: Output directory. Created by the backend if it does
                 not exist. Defaults to the current working directory.
-            variables: List of backend-specific variable short codes.
-                For ECMWF, see `cds_data_catalog.yaml`; for CHIRPS,
-                use `["precipitation"]`; for S3 / ERA5, see the S3
-                backend's catalog. Defaults to `None`.
+            variables: Backend-specific variable specification.
+                Shape depends on the backend:
+
+                * ECMWF: `dict[str, list[str]]` mapping CDS dataset
+                  short name to a list of variable codes drawn from
+                  that dataset, e.g.
+                  `{"reanalysis-era5-single-levels": ["2m-temperature"]}`.
+                * CHIRPS: `list[str]` of variable codes
+                  (e.g. `["precipitation"]`).
+                * S3 / ERA5: `list[str]` of variable codes from the
+                  S3 backend's catalog.
+
+                Defaults to `None`.
             lat_lim: `[lat_min, lat_max]`. Defaults to
                 :data:`DEFAULT_LATITUDE_LIMIT` (whole Earth).
             lon_lim: `[lon_min, lon_max]`. Defaults to
@@ -147,12 +156,14 @@ class Earthly:
 
                 ```python
                 >>> from earthly.earthly import Earthly
-                >>> e2o = Earthly(  # doctest: +SKIP
+                >>> earthly = Earthly(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2m-temperature"],
+                ...     variables={
+                ...         "reanalysis-era5-single-levels": ["2m-temperature"],
+                ...     },
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
@@ -233,16 +244,18 @@ class Earthly:
 
                 ```python
                 >>> from earthly.earthly import Earthly
-                >>> e2o = Earthly(  # doctest: +SKIP
+                >>> earthly = Earthly(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
-                ...     variables=["2m-temperature"],
+                ...     variables={
+                ...         "reanalysis-era5-single-levels": ["2m-temperature"],
+                ...     },
                 ...     lat_lim=[4.0, 5.0],
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
                 ... )
-                >>> e2o.download()  # doctest: +SKIP
+                >>> earthly.download()  # doctest: +SKIP
 
                 ```
 

@@ -108,10 +108,9 @@ classDiagram
     }
     class ECMWF_Catalog["Catalog (ECMWF)"] {
         +get_catalog()
-        +get_variable(code, dataset=None)
+        +get_variable(dataset_name, variable_name)
         +get_dataset(name)
         +describe(name)
-        +duplicates: Dict
     }
 ```
 
