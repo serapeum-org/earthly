@@ -41,7 +41,7 @@ class TestApiE2E:
             temporal_resolution="daily",
         )
 
-        target = ecmwf.api(Catalog().get_dataset("2m-temperature"))
+        target = ecmwf.api(Catalog().get_variable("2m-temperature"))
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -65,7 +65,7 @@ class TestApiE2E:
             temporal_resolution="daily",
         )
 
-        target = ecmwf.api(Catalog().get_dataset("temperature"))
+        target = ecmwf.api(Catalog().get_variable("temperature"))
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -91,7 +91,7 @@ class TestApiE2E:
             temporal_resolution="monthly",
         )
 
-        target = ecmwf.api(Catalog().get_dataset("2m-temperature"))
+        target = ecmwf.api(Catalog().get_variable("2m-temperature"))
 
         assert target.exists(), f"NetCDF file not created at {target}"
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
@@ -114,7 +114,7 @@ class TestFacadeE2E:
             both single-level so the request shape is uniform but
             distinct dataset+variable pairs go to CDS.
         """
-        e2o = Earthly(
+        earthly = Earthly(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -122,10 +122,10 @@ class TestFacadeE2E:
             variables=["2m-temperature", "total-precipitation"],
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
-            path=str(tmp_path),
+            path=tmp_path,
         )
 
-        e2o.download(progress_bar=False)
+        earthly.download(progress_bar=False)
 
         # Each variable gets its own
         # <cds_variable>_<cds_dataset>.nc under tmp_path.

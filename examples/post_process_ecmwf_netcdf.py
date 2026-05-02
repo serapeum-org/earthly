@@ -281,7 +281,7 @@ def _cli() -> None:
 
     from earthly.ecmwf import Catalog
 
-    spec = Catalog().get_dataset(args.variable)
+    spec = Catalog().get_variable(args.variable)
     freq = "D" if args.resolution == "daily" else "MS"
     dates = pd.date_range(args.start, args.end, freq=freq)
 

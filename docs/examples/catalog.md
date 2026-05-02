@@ -49,7 +49,7 @@ To get the attributes for a specific variable (e.g., 2-metre
 temperature):
 
 ```python
-catalog.get_dataset("2m-temperature")
+catalog.get_variable("2m-temperature")
 ```
 
 ```python
@@ -93,10 +93,12 @@ across three core datasets:
   `reanalysis-era5-land-monthly-means`. Where a variable code
   (e.g. `2m-temperature`, `total-precipitation`) appears in both
   ERA5-Land and ERA5 single-levels, the flat
-  `Catalog().get_dataset(code)` resolves to ERA5-Land — the higher
-  resolution land-surface field. Use the structural map
-  (`Catalog().datasets["reanalysis-era5-single-levels"].variables[code]`)
-  to address the single-levels variant explicitly.
+  `Catalog().get_variable(code)` resolves to ERA5 single-levels —
+  the first dataset that declared the code in YAML order. To pull
+  the ERA5-Land variant, pass the dataset explicitly:
+  `Catalog().get_variable(code, dataset="reanalysis-era5-land")`.
+  Every code that lives in more than one dataset is listed under
+  `Catalog().duplicates` for audit.
 - `derived-era5-land-daily-statistics` — 31 daily-aggregated state
   variables from ERA5-Land. Keys are the ERA5-Land code suffixed with
   `-daily` (e.g. `2m-temperature-daily`). The dataset-level `extras`
@@ -461,9 +463,11 @@ This catches typos and mis-guesses (e.g. CERRA-land's
 `analysis`) **before** the request takes a CDS queue slot —
 saving 1–30 minutes per failure.
 
-Bypass the check with `E2O_SKIP_CONSTRAINTS=1` if a dataset's
-constraints endpoint is missing or outdated. The unit test suite
-sets this automatically so synthetic test requests aren't
+Bypass the check by passing `skip_constraints=True` to
+`ECMWF(...)` (or `RequestValidator(..., skip=True)` if calling the
+validator directly) when a dataset's constraints endpoint is
+missing or outdated. The unit-test suite sets `skip_constraints`
+on its synthetic backend instances so test requests aren't
 penalised by network-only validation logic.
 
 ### Refreshing `available_datasets`

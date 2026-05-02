@@ -40,8 +40,8 @@ class TestDownloadIteration:
             args[0] for args, _kwargs in ecmwf_stub.download_dataset.call_args_list
         ]
         assert called_with == [
-            Catalog().get_dataset("2m-temperature"),
-            Catalog().get_dataset("total-precipitation"),
+            Catalog().get_variable("2m-temperature"),
+            Catalog().get_variable("total-precipitation"),
         ]
 
     def test_download_does_not_read_self_variables(self, ecmwf_stub):

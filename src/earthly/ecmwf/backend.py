@@ -666,7 +666,7 @@ class ECMWF(AbstractDataSource):
                 f"Download ECMWF {var} data for period {start} till {end}"
             )
             try:
-                var_info = catalog.get_dataset(var)
+                var_info = catalog.get_variable(var)
                 self.download_dataset(var_info, progress_bar=progress_bar)
             except Exception as exc:
                 logger.error(
@@ -796,7 +796,7 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_dataset("2m-temperature")
+                >>> spec = Catalog().get_variable("2m-temperature")
                 >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
                 >>> f"{spec.cds_variable}_{spec.cds_dataset}.nc"
@@ -808,7 +808,7 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_dataset("temperature")
+                >>> spec = Catalog().get_variable("temperature")
                 >>> spec.cds_pressure_level
                 ['1000']
 

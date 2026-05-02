@@ -47,7 +47,7 @@ classDiagram
         <<abstract>>
         +catalog: Dict
         +get_catalog()
-        +get_dataset(var_name)
+        +get_variable(var_name)
     }
 
     class CHIRPS {
@@ -108,7 +108,10 @@ classDiagram
     }
     class ECMWF_Catalog["Catalog (ECMWF)"] {
         +get_catalog()
-        +get_dataset(var_name)
+        +get_variable(code, dataset=None)
+        +get_dataset(name)
+        +describe(name)
+        +duplicates: Dict
     }
 ```
 

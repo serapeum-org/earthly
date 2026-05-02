@@ -14,8 +14,12 @@ The YAML's three top-level sections each map to a typed field on
   monthly variant and a per-variable map) → :attr:`Catalog.datasets`,
   with each value a :class:`Dataset`
 * the flattened per-variable view → :attr:`Catalog.catalog`, kept
-  as a convenience for the `catalog.get_dataset(code)` lookup
-  pattern that pre-dates the structural view
+  as a convenience for the `cat.get_variable(code)` lookup pattern.
+  When the same short code appears in more than one dataset (e.g.
+  `"2m-temperature"` lives in both `reanalysis-era5-single-levels`
+  and `reanalysis-era5-land`), the first dataset to declare it in
+  YAML order wins the flat slot; callers needing a different
+  dataset must pass `dataset=` to :meth:`Catalog.get_variable`.
 
 The flat and structural views share the same :class:`Variable`
 instances (one allocation per row, two references). The path to the
@@ -28,9 +32,9 @@ Examples:
         ```python
         >>> from earthly.ecmwf import Catalog
         >>> cat = Catalog()
-        >>> cat.get_dataset("2m-temperature").nc_variable
+        >>> cat.get_variable("2m-temperature").nc_variable
         't2m'
-        >>> cat.datasets["reanalysis-era5-pressure-levels"].pressure_level
+        >>> cat.get_dataset("reanalysis-era5-pressure-levels").pressure_level
         ['1000']
 
         ```
@@ -148,21 +152,40 @@ class Catalog(AbstractCatalog):
             this when you want to iterate variables grouped by
             dataset.
         catalog: Flat map from a variable's short code (e.g.
-            `"2m-temperature"`) to its :class:`Variable`. The same
-            objects appear under :attr:`datasets`. Provided as a
-            convenience so existing call sites (`get_dataset(code)`)
-            keep working without a two-level lookup.
+            `"2m-temperature"`) to its :class:`Variable`. Populated
+            with first-wins precedence: when a short code appears in
+            more than one dataset, the dataset that declares it first
+            in YAML order owns the flat slot. The :attr:`duplicates`
+            map records every code that lost the race so callers can
+            still reach the alternate definitions through
+            :meth:`get_variable` with `dataset=`.
+        duplicates: Audit map of short codes that appear in more than
+            one dataset, listing every dataset that declares each one
+            (in YAML order). Empty when the catalog has no
+            collisions.
 
     Examples:
         - Look up a single variable by short code (flat):
 
             ```python
             >>> from earthly.ecmwf import Catalog
-            >>> spec = Catalog().get_dataset("2m-temperature")
+            >>> spec = Catalog().get_variable("2m-temperature")
             >>> spec.cds_dataset
             'reanalysis-era5-single-levels'
             >>> spec.nc_variable
             't2m'
+
+            ```
+        - Reach an alternate definition explicitly when a code is
+          shared across datasets:
+
+            ```python
+            >>> from earthly.ecmwf import Catalog
+            >>> cat = Catalog()
+            >>> cat.get_variable(
+            ...     "2m-temperature", dataset="reanalysis-era5-land"
+            ... ).cds_dataset
+            'reanalysis-era5-land'
 
             ```
         - Iterate variables grouped by dataset (structural):
@@ -170,9 +193,9 @@ class Catalog(AbstractCatalog):
             ```python
             >>> from earthly.ecmwf import Catalog
             >>> cat = Catalog()
-            >>> cat.datasets["reanalysis-era5-pressure-levels"].monthly
+            >>> cat.get_dataset("reanalysis-era5-pressure-levels").monthly
             'reanalysis-era5-pressure-levels-monthly-means'
-            >>> sorted(cat.datasets["reanalysis-era5-pressure-levels"].variables)[:3]
+            >>> sorted(cat.get_dataset("reanalysis-era5-pressure-levels").variables)[:3]
             ['divergence', 'fraction-of-cloud-cover', 'geopotential']
 
             ```
@@ -189,6 +212,7 @@ class Catalog(AbstractCatalog):
     available_datasets: list[str] = Field(default_factory=list)
     datasets: dict[str, Dataset] = Field(default_factory=dict)
     catalog: dict[str, Variable] = Field(default_factory=dict)
+    duplicates: dict[str, list[str]] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
         """Parse `cds_data_catalog.yaml` into the three exposed fields.
@@ -218,6 +242,7 @@ class Catalog(AbstractCatalog):
 
         structural: dict[str, Dataset] = {}
         flat: dict[str, Variable] = {}
+        owner_of: dict[str, list[str]] = {}
         for ds_name, ds_body in datasets_yaml.items():
             monthly = ds_body.get("monthly")
             pressure_level = ds_body.get("pressure_level")
@@ -248,7 +273,16 @@ class Catalog(AbstractCatalog):
                 merged.setdefault("request_kind", ds_request_kind)
                 var = Variable.from_dict(code, merged)
                 ds_vars[code] = var
-                flat[code] = var
+                # First-wins: keep the earliest dataset's Variable in
+                # the flat slot so a stale duplicate cannot silently
+                # change the resolved dataset for an existing caller.
+                # Every dataset that declared the code is recorded in
+                # `owner_of` so :attr:`duplicates` can surface the
+                # collision and :meth:`get_variable` can route around
+                # it via the `dataset=` argument.
+                owner_of.setdefault(code, []).append(ds_name)
+                if code not in flat:
+                    flat[code] = var
             structural[ds_name] = Dataset(
                 monthly=monthly,
                 pressure_level=pressure_level,
@@ -267,6 +301,9 @@ class Catalog(AbstractCatalog):
         self.available_datasets = list(data.get("available_datasets") or [])
         self.datasets = structural
         self.catalog = flat
+        self.duplicates = {
+            code: owners for code, owners in owner_of.items() if len(owners) > 1
+        }
 
     def get_catalog(self):
         """Return the flat per-variable map populated by :func:`model_post_init`.
@@ -294,19 +331,25 @@ class Catalog(AbstractCatalog):
         """
         return self.catalog
 
-    def get_dataset(self, var_name):
+    def get_variable(self, code: str, dataset: str | None = None) -> Variable:
         """Return the :class:`Variable` for a short variable code.
 
         Args:
-            var_name: Short variable code as it appears as a YAML key
+            code: Short variable code as it appears as a YAML key
                 (e.g. `"2m-temperature"` or `"total-precipitation"`).
+            dataset: Optional CDS dataset short name to scope the
+                lookup to. Required when `code` appears in more than
+                one dataset (see :attr:`duplicates`); otherwise
+                optional. When `None`, the first dataset that
+                declared `code` in YAML order wins.
 
         Returns:
             Variable: Per-variable metadata loaded from
             `cds_data_catalog.yaml`.
 
         Raises:
-            KeyError: If `var_name` is not in the catalog.
+            KeyError: If `code` is not in the catalog, or if
+                `dataset` is provided but does not declare `code`.
 
         Examples:
             - Look up a single-level ERA5 variable and read its CDS
@@ -314,7 +357,7 @@ class Catalog(AbstractCatalog):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_dataset("2m-temperature")
+                >>> spec = Catalog().get_variable("2m-temperature")
                 >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
                 >>> spec.nc_variable, spec.units
@@ -325,23 +368,65 @@ class Catalog(AbstractCatalog):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_dataset("temperature")
+                >>> spec = Catalog().get_variable("temperature")
                 >>> spec.cds_pressure_level
                 ['1000']
+
+                ```
+            - Disambiguate a code that lives in multiple datasets:
+
+                ```python
+                >>> from earthly.ecmwf import Catalog
+                >>> Catalog().get_variable(
+                ...     "2m-temperature", dataset="reanalysis-era5-land"
+                ... ).cds_dataset
+                'reanalysis-era5-land'
 
                 ```
             - Unknown codes raise `KeyError`:
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
-                >>> Catalog().get_dataset("not-a-real-variable")
+                >>> Catalog().get_variable("not-a-real-variable")
                 Traceback (most recent call last):
                     ...
                 KeyError: 'not-a-real-variable'
 
                 ```
         """
-        return self.catalog[var_name]
+        if dataset is not None:
+            return self.datasets[dataset].variables[code]
+        return self.catalog[code]
+
+    def get_dataset(self, name: str) -> Dataset:
+        """Return the :class:`Dataset` record for a CDS dataset short name.
+
+        Args:
+            name: CDS dataset short name as it appears as a key in
+                :attr:`datasets` (e.g. `"reanalysis-era5-land"`).
+
+        Returns:
+            Dataset: Structural record carrying the dataset's
+            monthly-aggregate variant, default pressure levels,
+            parent-level extras, request kind, and per-variable map.
+
+        Raises:
+            KeyError: If `name` is not a curated dataset.
+
+        Examples:
+            - Read a dataset's monthly variant and variable count:
+
+                ```python
+                >>> from earthly.ecmwf import Catalog
+                >>> ds = Catalog().get_dataset("reanalysis-era5-pressure-levels")
+                >>> ds.monthly
+                'reanalysis-era5-pressure-levels-monthly-means'
+                >>> sorted(ds.variables)[:3]
+                ['divergence', 'fraction-of-cloud-cover', 'geopotential']
+
+                ```
+        """
+        return self.datasets[name]
 
     def describe(self, dataset_name: str) -> dict[str, Any]:
         """Return a structured introspection record for a CDS dataset.
@@ -384,7 +469,7 @@ class Catalog(AbstractCatalog):
 
                 ```
         """
-        ds = self.datasets[dataset_name]
+        ds = self.get_dataset(dataset_name)
         return {
             "dataset": dataset_name,
             "monthly": ds.monthly,
@@ -592,29 +677,3 @@ class Catalog(AbstractCatalog):
                 out.write(chunk)
         return target_path
 
-    def get_variable(self, var_name):
-        """Alias for :meth:`get_dataset` satisfying the abstract base.
-
-        :class:`AbstractCatalog` declares `get_variable`; the legacy
-        ECMWF call sites use `get_dataset`. Both names return the
-        same metadata so either path works.
-
-        Args:
-            var_name: Short user-friendly variable code.
-
-        Returns:
-            Variable: Per-variable metadata. Same object
-            :meth:`get_dataset` returns.
-
-        Examples:
-            - The two methods return identical objects:
-
-                ```python
-                >>> from earthly.ecmwf import Catalog
-                >>> cat = Catalog()
-                >>> cat.get_variable("2m-temperature") is cat.get_dataset("2m-temperature")
-                True
-
-                ```
-        """
-        return self.get_dataset(var_name)
