@@ -7966,19 +7966,19 @@ datasets:
 
       "100-metre-u-wind-component-anomaly-seasonal-pp":
         cds_variable: 100_metre_u_wind_component_anomaly
-        nc_variable: u100a
+        nc_variable: ua100
         types: state
         units: "m s**-1"
 
       "100-metre-v-wind-component-anomaly-seasonal-pp":
         cds_variable: 100_metre_v_wind_component_anomaly
-        nc_variable: v100a
+        nc_variable: va100
         types: state
         units: "m s**-1"
 
       "100-metre-wind-speed-anomaly-seasonal-pp":
         cds_variable: 100_metre_wind_speed_anomaly
-        nc_variable: si100a
+        nc_variable: sia100
         types: state
         units: "m s**-1"
 

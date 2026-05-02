@@ -79,7 +79,9 @@ Key reference:
 - `units` — raw ERA5 unit string emitted by CDS for this variable
   (used in the output filename).
 
-The catalog ships ~338 ERA5 entries across three datasets:
+The catalog ships **1364 entries across 34 datasets** as of the
+current snapshot. ERA5-flavoured datasets contribute ~338 of those
+across three core datasets:
 
 - `reanalysis-era5-single-levels` — 261 atmospheric / surface
   variables on the global 0.25° ERA5 grid.
@@ -158,78 +160,74 @@ in the file's header comment.
 `get_variable(var_name)` is provided as an alias of `get_dataset` so
 either name works; it satisfies the abstract base class contract.
 
-### CARRA reanalysis (4 of 5 sub-datasets)
+### Regional reanalysis families: CARRA / CERRA / PAN-CARRA
 
-The CARRA Copernicus Arctic Regional Reanalysis (~2.5 km on the
-East/West Greenland domains) ships with 4 of its 5 sub-datasets
-covered:
+The three high-resolution regional reanalysis families now ship
+fully curated:
 
-- `reanalysis-carra-pressure-levels` — 14 of 14 variables (full).
-- `reanalysis-carra-height-levels` — 7 of 7 variables (full).
-- `reanalysis-carra-model-levels` — 11 of 11 variables (full).
-- `reanalysis-carra-single-levels` — 26 of 67 variables (partial;
-  surface analyses for the `east_domain`. The remaining 41
-  forecast-only / west-domain / time-integral variables stay
-  in `available_datasets:` for now).
-- `reanalysis-carra-means` is **not** curated — its request
-  shape (`product_type: analysis_based`/`forecast_based`,
-  `time_aggregation: daily`/`monthly`, no `time` selector) needs
-  the `request_kind: carra_means` plumbing from `M15`. See the
-  open `M1` row.
+- **CARRA** (Arctic, ~2.5 km on East/West Greenland) — 5/5 sub-datasets:
+    - `reanalysis-carra-pressure-levels` (14)
+    - `reanalysis-carra-height-levels` (7)
+    - `reanalysis-carra-model-levels` (11)
+    - `reanalysis-carra-single-levels` (67)
+    - `reanalysis-carra-means` (112 entries spanning `analysis_based`
+      and `forecast_based` × `level_type` (single/height/model)
+      × `time_aggregation` (daily/monthly), with `request_kind:
+      carra_means` to drop the `time` selector at request time).
+- **CERRA** (European, ~5.5 km) — 5/5 sub-datasets:
+    - `reanalysis-cerra-single-levels` (39)
+    - `reanalysis-cerra-height-levels` (10)
+    - `reanalysis-cerra-pressure-levels` (11)
+    - `reanalysis-cerra-model-levels` (4)
+    - `reanalysis-cerra-land` (36)
+- **PAN-CARRA** (pan-Arctic) — 2/2 sub-datasets:
+    - `reanalysis-pan-carra` (90 entries spanning all four
+      `level_type` × `product_type` combos via per-row `extras`
+      override).
+    - `reanalysis-pan-carra-means` (86 entries).
 
-Default extras: `product_type: analysis`, `domain: east_domain`,
-`leadtime_hour: 3`. Override per-request to switch domain or
-product type. Variable keys are suffixed with `-carra`,
-`-carra-h` (height), `-carra-m` (model) to namespace them away
-from the same-named ERA5 single-levels rows.
+Variable-key suffixes namespace each family / level_type to avoid
+collisions in the flat catalog: `-carra` / `-carra-h` / `-carra-m`,
+`-cerra` / `-cerra-h` / `-cerra-m` / `-cerra-p`,
+`-pancarra` / `-pancarra-h` / `-pancarra-p` / `-pancarra-m`,
+`-carra-means` / `-carra-means-h` / `-carra-means-m`
+(plus `-analysisbased` for analysis-based product type).
 
-### CARRA, CERRA, PAN-CARRA, UERRA reanalysis families (deferred)
+Default extras pin the most common combo (e.g. `domain: east_domain`,
+`leadtime_hour: 3` for CARRA; `data_type: reanalysis`,
+`product_type: reanalysis` for CERRA). Override per-request when
+needed.
 
-The four high-resolution regional reanalysis families on CDS —
-**CARRA** (5 datasets, ~167 vars; East/West Greenland domains),
-**CERRA** (5 datasets, ~100 vars; European domain with `data_type`
-+ `soil_layer` extras), **PAN-CARRA** (2 datasets, ~145 vars;
-pan-Arctic, mirrors CARRA's request shape minus the East/West
-domain split, uses `level_location` instead of `soil_level`), and
-**UERRA Europe** (4 datasets, ~34 vars: single / pressure /
-height / soil-levels; `origin` extra picks between UERRA-HARMONIE
-and MESCAN-SURFEX surface analyses; ECMWF deprecated this dataset
-in 2025-01 but it is still served as-is) — are all licence-accepted
-on this account
-but **the CDS reanalysis-* queue is degraded** for these
-collections at the time of writing: probe requests sit in
-`accepted` status for 30+ minutes without transitioning to
-`running`, even after stale-job cleanup. ERA5 / ORAS5 retrievals
-on the same account complete in 1-3 minutes; the regional
-reanalyses appear to be on a separate, slower worker pool.
+### UERRA Europe reanalysis (blocked upstream)
 
-**These datasets are not curated by this package today.** Each
-family already has its `request_kind` plumbing in place (`M15`):
-CARRA-means and CERRA-means need `request_kind: carra_means` to
-strip the `time` selector; the others fit `form` with extras
-(`domain`, `leadtime_hour`, `level_type`, etc.). Retrying probes
-when the CDS queue clears (or via the slower web form
-interactively) should produce the catalog rows; the CMIP-style
-naming convention used elsewhere does not apply here — CARRA /
-CERRA return ECMWF GRIB short names. Worth re-running in a
-future session.
+**UERRA Europe** (4 datasets, ~34 vars: single / pressure / height /
+soil-levels; `origin` extra picks between UERRA-HARMONIE and
+MESCAN-SURFEX surface analyses; ECMWF deprecated this dataset in
+2025-01 but it is still served as-is) is **not curated** because
+upstream MARS returns `Ambiguous: ur could be UNITED KINGDOM or
+UNITED UERRA HACK` — a server-side catalog ambiguity bug at ECMWF
+that no client-side fix can work around. Tracked under M4. Wait for
+ECMWF to disambiguate or accept that UERRA stays unaddressable.
 
-### Seasonal forecast family (deferred)
+### Seasonal forecast family (7 sub-datasets)
 
-The seven seasonal forecast datasets — `seasonal-monthly-*`
-(monthly aggregates of pressure-levels / single-levels),
-`seasonal-postprocessed-*` (post-processed pressure-levels /
-single-levels), `seasonal-original-*` (raw forecasts), and
-`seasonal-monthly-ocean` (~143 vars total across all seven) —
-are also licence-accepted but share the same CDS queue
-degradation observed for the regional reanalysis families. Probes for
-`seasonal-monthly-single-levels` sat in `accepted` status for 30+
-minutes without progress; deferring to a future session. The
-extras schema is well-defined per the plan
-(`leadtime_month` or `leadtime_hour`, `originating_centre`,
-`system`); once the queue clears, probing one variable per
-sub-dataset should be enough to confirm nc_var naming, then a
-catalog block can be authored mechanically.
+All seven seasonal forecast datasets ship fully curated:
+
+- `seasonal-monthly-single-levels` (38), `seasonal-monthly-pressure-levels`
+  (5), `seasonal-monthly-ocean` (13) — monthly aggregates.
+- `seasonal-postprocessed-single-levels` (38),
+  `seasonal-postprocessed-pressure-levels` (5) — anomaly products
+  with `*_anomaly` cds_variables and `a` / `da` / `ra` suffix
+  nc_variables.
+- `seasonal-original-single-levels` (40),
+  `seasonal-original-pressure-levels` (5) — raw (non-aggregated)
+  forecasts.
+
+Variable-key suffixes: `-seasonal`, `-seasonal-p`, `-seasonal-orig`,
+`-seasonal-orig-p`, `-seasonal-pp`, `-seasonal-pp-p`,
+`-seasonal-ocean`. Default extras carry sensible
+`originating_centre` / `system` / `leadtime_month` defaults per
+sub-dataset; override per-request to switch issuing centre.
 
 ### CMIP6 datasets (partially deferred)
 

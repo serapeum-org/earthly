@@ -365,17 +365,12 @@ class TestCatalog:
     ):
         """`list_recent_jobs` returns jobs within `max_age_min` only."""
         import datetime
-        import json
-        from earth2observe.ecmwf import catalog as catalog_module
 
         rc = tmp_path / ".cdsapirc"
         rc.write_text(
             "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
         )
-        monkeypatch.setattr(
-            catalog_module.os.path, "expanduser",
-            lambda p: str(rc) if "cdsapirc" in p else os.path.expanduser(p),
-        )
+        monkeypatch.setattr("pathlib.Path.home", lambda: tmp_path)
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
         recent = (now - datetime.timedelta(minutes=10)).isoformat()
         old = (now - datetime.timedelta(minutes=120)).isoformat()
@@ -410,16 +405,11 @@ class TestCatalog:
         self, monkeypatch, tmp_path
     ):
         """`download_job` is idempotent when the target file is already there."""
-        from earth2observe.ecmwf import catalog as catalog_module
-
         rc = tmp_path / ".cdsapirc"
         rc.write_text(
             "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
         )
-        monkeypatch.setattr(
-            catalog_module.os.path, "expanduser",
-            lambda p: str(rc) if "cdsapirc" in p else os.path.expanduser(p),
-        )
+        monkeypatch.setattr("pathlib.Path.home", lambda: tmp_path)
         target = tmp_path / "x.nc"
         target.write_bytes(b"already here")
         # No mocked HTTP — proves we don't reach for the network.
@@ -431,16 +421,11 @@ class TestCatalog:
         self, monkeypatch, tmp_path
     ):
         """`download_job` raises ValueError when results lack an asset href."""
-        from earth2observe.ecmwf import catalog as catalog_module
-
         rc = tmp_path / ".cdsapirc"
         rc.write_text(
             "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
         )
-        monkeypatch.setattr(
-            catalog_module.os.path, "expanduser",
-            lambda p: str(rc) if "cdsapirc" in p else os.path.expanduser(p),
-        )
+        monkeypatch.setattr("pathlib.Path.home", lambda: tmp_path)
 
         class _Resp:
             def raise_for_status(self): pass
