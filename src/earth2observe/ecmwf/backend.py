@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
+from pyramids.dataset import Dataset
 from pyramids.netcdf import NetCDF
 from tqdm import tqdm
 
@@ -19,6 +20,9 @@ from earth2observe.base import (
     SpatialExtent,
     TemporalExtent,
 )
+from earth2observe.ecmwf.constraints import RequestValidator
+
+__all__ = ["AuthenticationError", "ECMWF", "ERA5_GRID_DEGREES", "Variable"]
 
 
 ERA5_GRID_DEGREES: float = 0.125
@@ -1001,7 +1005,6 @@ class ECMWF(AbstractDataSource):
         # invalid extras combinations client-side before they
         # consume a CDS queue slot. Set
         # `E2O_SKIP_CONSTRAINTS=1` to bypass.
-        from earth2observe.ecmwf.constraints import RequestValidator
         RequestValidator(dataset, request).check()
 
         target = self.root_dir / f"{var_info.cds_variable}_{dataset}.nc"
@@ -1043,76 +1046,45 @@ class ECMWF(AbstractDataSource):
         )
 
     def post_download(
-        self, var_info: dict[str, str], nc_path, progress_bar: bool = True
+        self, var_info: Variable, nc_path, progress_bar: bool = True
     ):
         """Slice the downloaded NetCDF into per-date GeoTIFFs.
 
         Reads the NetCDF written by :meth:`api`, slices it on the
-        time axis, and produces one per-date array under
-        `self.root_dir` in raw ERA5 units (no unit conversion).
+        time axis, and writes one GeoTIFF per date under
+        `self.root_dir` in raw ERA5 units (no unit conversion). For
+        monthly resolution and flux variables, the per-date mean is
+        multiplied by the number of days in the month.
 
         Args:
-            var_info: Catalog metadata for the variable. Required keys:
-
-                * `nc_variable` — short variable name inside the
-                  CDS NetCDF (e.g. `"t2m"` for 2-metre temperature),
-                  used to index `fh.variables[...]`. Differs from
-                  `cds_variable` (which is the request name and
-                  also the output filename stem).
-                * `units` — raw ERA5 unit string emitted by CDS for
-                  this variable, used in the output filename.
-
-                Optional keys:
-
-                * `types` — `"flux"` or `"state"`. Flux values
-                  are accumulated per timestep on CDS, so monthly
-                  aggregation multiplies by the number of days in the
-                  month. Defaults to `"state"` when absent.
-
-            nc_path: Path to the NetCDF written by :meth:`api`. Either
-                a :class:`pathlib.Path` or a string is accepted.
+            var_info: Catalog row for the variable. The
+                `nc_variable`, `units`, `cds_variable`, and `is_flux`
+                attributes are read.
+            nc_path: Path to the NetCDF written by :meth:`api`.
+                Either a :class:`pathlib.Path` or a string is
+                accepted.
             progress_bar: Whether to print a per-date progress bar.
                 Defaults to `True`.
 
         Returns:
-            None. Per-date TIF writing via :mod:`pyramids` is currently
-            stubbed (commented out below the unit-conversion); the
-            method runs the read / slice / convert pipeline so callers
-            can verify the request shape end-to-end and is wired up to
-            output once the GeoTIFF integration is restored.
+            list[tuple]: One entry per date in `self.time.dates`,
+            carrying `(timestamp, per_date_array, output_path)`.
+            `per_date_array` is the time-window mean (flux-scaled
+            when `var_info.is_flux`); `output_path` is the `.tif`
+            file just written.
         """
-        logger.warning(
-            "ECMWF.post_download: GeoTIFF output is currently disabled "
-            "(pyramids write integration pending). The NetCDF at %s "
-            "is the only artefact produced; no per-date .tif files "
-            "will be created.",
-            nc_path,
-        )
-
         nc_variable = var_info.nc_variable
         unit_label = var_info.units
         is_flux = var_info.is_flux
-        per_date_outputs: list[tuple[Any, Any, str]] = []
+        cell_size = self.space.resolution
+        per_date_outputs: list[tuple[Any, Any, Path]] = []
 
         with NetCDF.read_file(str(nc_path), read_only=True) as fh:
-            Data = fh.read_array(variable=nc_variable)
-            Data_time = _read_time_axis(fh)
-            lons = fh.lon
-            lats = fh.lat
-
-            geo_four = np.nanmax(lats)
-            geo_one = np.nanmin(lons)
-            cell_size = self.space.resolution
-            geo = tuple(
-                [
-                    geo_one,
-                    cell_size,
-                    0.0,
-                    geo_four,
-                    0.0,
-                    -1 * cell_size,
-                ]
-            )
+            data = fh.read_array(variable=nc_variable)
+            data_time = _read_time_axis(fh)
+            top_y = float(np.nanmax(fh.lat))
+            left_x = float(np.nanmin(fh.lon))
+            geo = (left_x, cell_size, 0.0, top_y, 0.0, -cell_size)
 
             dates_iter = tqdm(
                 self.time.dates,
@@ -1120,7 +1092,6 @@ class ECMWF(AbstractDataSource):
                 disable=not progress_bar,
             )
             for date in dates_iter:
-
                 year = date.year
                 month = date.month
                 day = date.day
@@ -1133,23 +1104,20 @@ class ECMWF(AbstractDataSource):
                 window_start = pd.Timestamp(year=year, month=month, day=day)
                 window_end = window_start + pd.Timedelta(days=days_later)
 
-                in_window = (Data_time >= window_start) & (Data_time < window_end)
-
-                Data_one = Data[in_window, :, :]
-
-                Data_end = np.nanmean(Data_one, 0)
+                in_window = (data_time >= window_start) & (data_time < window_end)
+                data_one = data[in_window, :, :]
+                data_end = np.nanmean(data_one, 0)
 
                 if is_flux:
-                    Data_end = Data_end * days_later
+                    data_end = data_end * days_later
 
-                name_out = os.path.join(
-                    self.root_dir,
-                    f"{var_info.cds_variable}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif",
+                name_out = (
+                    Path(self.root_dir)
+                    / f"{var_info.cds_variable}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif"
                 )
-                per_date_outputs.append((date, Data_end, name_out))
-
-                # Create Tiff files
-                # Raster.Save_as_tiff(name_out, Data_end, geo, "WGS84")
-                # Raster.createRaster(path=name_out, arr=Data_end, geo=geo, epsg="WGS84")
+                Dataset.create_from_array(
+                    arr=data_end, geo=geo, epsg=4326
+                ).to_file(str(name_out))
+                per_date_outputs.append((date, data_end, name_out))
 
         return per_date_outputs
