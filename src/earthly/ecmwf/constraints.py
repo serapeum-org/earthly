@@ -13,9 +13,10 @@ in-process), and rejects mismatched requests at the call site so
 the user sees a clear error before :meth:`cdsapi.Client.retrieve`
 is invoked.
 
-Set the environment variable `E2O_SKIP_CONSTRAINTS=1` to bypass
-validation — useful when the constraints endpoint is missing or
-known to be inaccurate for a particular dataset.
+Pass `skip=True` to :class:`RequestValidator` — or, equivalently,
+construct :class:`earthly.ecmwf.ECMWF` with `skip_constraints=True` —
+to bypass validation entirely. Useful when the constraints endpoint
+is missing or known to be inaccurate for a particular dataset.
 
 Examples:
     - Validate a request against ERA5 single-levels constraints:
@@ -44,7 +45,6 @@ import datetime
 import difflib
 import itertools
 import json
-import os
 import urllib.error
 import urllib.request
 from typing import Any
@@ -287,21 +287,29 @@ class RequestValidator:
     handle to the fetched constraints; the per-phase methods share
     that state instead of taking it as parameters.
 
+    Pass `skip=True` to bypass every phase — useful when CDS's
+    published `constraints.json` is known to be stale or wrong for
+    the dataset, or when running offline.
+
     Example:
         ```python
-        >>> import os
         >>> from earthly.ecmwf.constraints import RequestValidator
-        >>> os.environ["E2O_SKIP_CONSTRAINTS"] = "1"
-        >>> RequestValidator("any-dataset", {"variable": ["x"]}).check()
-        >>> os.environ.pop("E2O_SKIP_CONSTRAINTS", None) is not None
-        True
+        >>> RequestValidator(
+        ...     "any-dataset", {"variable": ["x"]}, skip=True
+        ... ).check()
 
         ```
     """
 
-    def __init__(self, dataset: str, request: dict[str, Any]) -> None:
+    def __init__(
+        self,
+        dataset: str,
+        request: dict[str, Any],
+        skip: bool = False,
+    ) -> None:
         self.dataset = dataset
         self.request = request
+        self.skip = skip
         self._constraints: list[dict[str, Any]] | None = None
 
     @property
@@ -314,9 +322,10 @@ class RequestValidator:
     def check(self) -> None:
         """Run every validation phase; raise `ValueError` on first failure.
 
-        Honours the `E2O_SKIP_CONSTRAINTS` env-var bypass.
+        Honours the constructor's `skip` flag — when `True`, every
+        phase is short-circuited and no validation runs.
         """
-        if os.environ.get("E2O_SKIP_CONSTRAINTS"):
+        if self.skip:
             return
         # Phase 1-2: cheap local sanity checks. Run before any network
         # call so a typo gets flagged in milliseconds.

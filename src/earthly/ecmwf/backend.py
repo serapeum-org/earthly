@@ -397,6 +397,7 @@ class ECMWF(AbstractDataSource):
         lat_lim: list = None,
         lon_lim: list = None,
         fmt: str = "%Y-%m-%d",
+        skip_constraints: bool = False,
     ):
         """Initialize an ECMWF backend instance.
 
@@ -419,7 +420,15 @@ class ECMWF(AbstractDataSource):
             lon_lim: `[lon_min, lon_max]`.
             fmt: `strptime` format for `start` / `end`.
                 Defaults to `"%Y-%m-%d"`.
+            skip_constraints: When `True`, every CDS pre-flight
+                validation phase (date / area sanity, variable typo
+                check, required-fields check, combinatorial cover
+                check) is bypassed and the request is sent to CDS
+                unchecked. Useful when CDS's published
+                `constraints.json` is stale or wrong for the
+                dataset, or when running offline. Defaults to `False`.
         """
+        self.skip_constraints = skip_constraints
         super().__init__(
             start=start,
             end=end,
@@ -900,9 +909,11 @@ class ECMWF(AbstractDataSource):
         # Pre-flight check the assembled request against the CDS
         # `constraints.json` for this dataset. Catches typos and
         # invalid extras combinations client-side before they
-        # consume a CDS queue slot. Set
-        # `E2O_SKIP_CONSTRAINTS=1` to bypass.
-        RequestValidator(dataset, request).check()
+        # consume a CDS queue slot. Pass `skip_constraints=True`
+        # to `ECMWF(...)` to bypass.
+        RequestValidator(
+            dataset, request, skip=self.skip_constraints
+        ).check()
 
         target = self.root_dir / f"{var_info.cds_variable}_{dataset}.nc"
         logger.info(
