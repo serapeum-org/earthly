@@ -4864,6 +4864,12 @@ datasets:
           level_type: pressure_levels
           pressure_level: ["1000"]
 
+      "sea-surface-temperature-pancarra":
+        cds_variable: sea_surface_temperature
+        nc_variable: sst
+        types: state
+        units: K
+
   derived-utci-historical:
     # Universal Thermal Climate Index historical archive. The CDS
     # response is a ZIP bundling per-statistic NetCDFs; the nc_variable
@@ -5208,6 +5214,12 @@ datasets:
         types: state
         units: K
 
+      "10m-v-component-of-wind-seasonal-orig":
+        cds_variable: 10m_v_component_of_wind
+        nc_variable: v10
+        types: state
+        units: "m s**-1"
+
   seasonal-postprocessed-single-levels:
     # ECMWF seasonal forecast post-processed (anomalies / probabilities)
     # single-levels. 1 var probe-confirmed
@@ -5223,6 +5235,12 @@ datasets:
       "2m-dewpoint-temperature-anomaly-seasonal-pp":
         cds_variable: 2m_dewpoint_temperature_anomaly
         nc_variable: d2a
+        types: state
+        units: K
+
+      "2m-temperature-anomaly-seasonal-pp":
+        cds_variable: 2m_temperature_anomaly
+        nc_variable: t2a
         types: state
         units: K
 
@@ -5415,6 +5433,12 @@ datasets:
       "100m-u-component-of-wind-seasonal":
         cds_variable: 100m_u_component_of_wind
         nc_variable: u100
+        types: state
+        units: "m s**-1"
+
+      "100m-v-component-of-wind-seasonal":
+        cds_variable: 100m_v_component_of_wind
+        nc_variable: v100
         types: state
         units: "m s**-1"
 
