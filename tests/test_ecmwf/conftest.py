@@ -40,13 +40,14 @@ def _block_real_cdsapi(request, monkeypatch):
     "Client", ...)` themselves; that later setattr wins because
     monkeypatch applies fixture-scoped overrides in order.
 
-    Also sets `E2O_SKIP_CONSTRAINTS=1` so the api() pre-flight
-    validator does not hit the live CDS catalogue endpoint during
-    unit tests that build synthetic requests. Tests targeting the
-    validator itself (in `test_constraints.py`) override this
-    via `monkeypatch.delenv`.
+    The :func:`ecmwf_stub` fixture sets `skip_constraints=True` on
+    the synthetic instance so tests that build synthetic requests
+    via `api()` bypass the pre-flight validator (which would
+    otherwise hit the live CDS catalogue endpoint). Tests targeting
+    the validator itself (in `test_constraints.py`) construct
+    :class:`RequestValidator` directly so this default doesn't
+    interfere.
     """
-    monkeypatch.setenv("E2O_SKIP_CONSTRAINTS", "1")
     if request.cls is not None and request.cls.__name__ in _LIVE_CDS_TEST_CLASSES:
         return
 
@@ -129,4 +130,5 @@ def ecmwf_stub(tmp_path):
         resolution=0.125,
     )
     ecmwf.temporal_resolution = "daily"
+    ecmwf.skip_constraints = True
     return ecmwf

@@ -15,10 +15,12 @@ from __future__ import annotations
 
 import pandas as pd
 import pytest
+import json
 
 from earthly.ecmwf import Variable
 
 from tests.test_ecmwf._fakes import captured_request
+from earthly.ecmwf import constraints as constraints_module
 
 pytestmark = [pytest.mark.unit]
 
@@ -345,9 +347,9 @@ class TestApi:
         cover the assembled request, then asserts the resulting
         `ValueError` surfaces before any retrieve call.
         """
-        from earthly.ecmwf import constraints as constraints_module
-
-        monkeypatch.delenv("E2O_SKIP_CONSTRAINTS", raising=False)
+        # Default ecmwf_stub bypasses validation; this test wants
+        # the validator to actually run.
+        ecmwf_stub.skip_constraints = False
         constraints_module._CACHE.clear()
 
         class _Resp:
@@ -358,9 +360,7 @@ class TestApi:
                 return False
 
             def read(self):
-                import json as _j
-
-                return _j.dumps(
+                return json.dumps(
                     [
                         {
                             "variable": ["different_variable"],

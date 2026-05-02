@@ -24,10 +24,9 @@ pytestmark = [pytest.mark.unit]
 
 
 @pytest.fixture(autouse=True)
-def _clear_cache_and_env(monkeypatch):
-    """Reset the module-level cache and skip-flag between tests."""
+def _clear_cache(monkeypatch):
+    """Reset the module-level cache between tests."""
     constraints_module._CACHE.clear()
-    monkeypatch.delenv("E2O_SKIP_CONSTRAINTS", raising=False)
     yield
     constraints_module._CACHE.clear()
 
@@ -166,20 +165,20 @@ class TestValidateRequest:
         ).check()
 
     def test_skip_flag_bypasses_fetch(self, monkeypatch):
-        """`E2O_SKIP_CONSTRAINTS=1` shortcuts validation entirely."""
+        """`skip=True` short-circuits validation entirely."""
 
         def _fail(*_a, **_kw):
             raise AssertionError(
-                "urlopen must not be called when skip flag is set"
+                "urlopen must not be called when skip is True"
             )
 
         monkeypatch.setattr(
             constraints_module.urllib.request, "urlopen", _fail
         )
-        monkeypatch.setenv("E2O_SKIP_CONSTRAINTS", "1")
         RequestValidator(
             "reanalysis-era5-single-levels",
             {"variable": ["nonsense"], "year": ["1492"]},
+            skip=True,
         ).check()
 
     def test_constraints_cached_between_calls(self, monkeypatch):
