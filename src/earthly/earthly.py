@@ -6,7 +6,7 @@ on the Copernicus Climate Data Store) behind a single string key so
 callers do not have to import each backend module directly.
 """
 from __future__ import annotations
-
+from pathlib import Path
 from earthly.chirps import CHIRPS
 from earthly.ecmwf import ECMWF
 from earthly.s3 import S3
@@ -73,7 +73,7 @@ class Earthly:
         temporal_resolution: str = "daily",
         start: str = None,
         end: str = None,
-        path: str = "",
+        path: Path = None,
         variables: list = None,
         lat_lim: list = None,
         lon_lim: list = None,

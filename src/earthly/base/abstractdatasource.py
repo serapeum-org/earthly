@@ -191,7 +191,7 @@ class AbstractDataSource(ABC):
         lat_lim: list = None,
         lon_lim: list = None,
         fmt: str = "%Y-%m-%d",
-        path: str = "",
+        path: Path = None,
     ):
         """Initialize a data source instance.
 

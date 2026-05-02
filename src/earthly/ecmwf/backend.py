@@ -392,7 +392,7 @@ class ECMWF(AbstractDataSource):
         temporal_resolution: str = "daily",
         start: str = None,
         end: str = None,
-        path: str = "",
+        path: Path = None,
         variables: list = None,
         lat_lim: list = None,
         lon_lim: list = None,
@@ -638,7 +638,7 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> from earthly.earthly import Earthly
-                >>> e2o = Earthly(  # doctest: +SKIP
+                >>> earthly = Earthly(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -648,7 +648,7 @@ class ECMWF(AbstractDataSource):
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
                 ... )
-                >>> e2o.download()  # doctest: +SKIP
+                >>> earthly.download()  # doctest: +SKIP
 
                 ```
 
@@ -829,7 +829,7 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> from earthly.earthly import Earthly  # doctest: +SKIP
-                >>> e2o = Earthly(  # doctest: +SKIP
+                >>> earthly = Earthly(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -839,7 +839,7 @@ class ECMWF(AbstractDataSource):
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
                 ... )
-                >>> e2o.download()  # doctest: +SKIP
+                >>> earthly.download()  # doctest: +SKIP
 
                 ```
 
