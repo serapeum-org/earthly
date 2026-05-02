@@ -23,7 +23,7 @@ time = "monthly"
 path = rf"{rdir}\s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     temporal_resolution=time,
     start=start,
@@ -32,7 +32,7 @@ e2o = Earthly(
     variables=variables,
 )
 
-e2o.download()
+earthly.download()
 #%%
 """
 Convert the downloaded netcdf into rasters one for each time stamp in the ncdf file

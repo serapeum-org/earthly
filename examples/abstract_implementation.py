@@ -10,7 +10,7 @@ lonlim = [-75.65, -74.73]
 source = "chirps"
 path = r"examples\data\chirps"
 variables = ["precipitation"]
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -20,11 +20,11 @@ e2o = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-# e2o.download()
+# earthly.download()
 #%%
 path = r"examples\data\chirps-cores"
 
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -34,13 +34,13 @@ e2o = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-# e2o.download(cores=4)
+# earthly.download(cores=4)
 #%%
 
 path = r"examples\data\ecmwf"
 source = "ecmwf"
 variables = ["precipitation"]
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -50,13 +50,13 @@ e2o = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-# e2o.download()
+# earthly.download()
 
 #%%
 path = r"examples\data\s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -66,6 +66,6 @@ e2o = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-e2o.download()
+earthly.download()
 
 #%%
