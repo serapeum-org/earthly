@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import calendar
 import datetime as dt
 import os
 from pathlib import Path
@@ -11,9 +10,6 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
-from pyramids.dataset import Dataset
-from pyramids.netcdf import NetCDF
-from tqdm import tqdm
 
 from earth2observe.base import (
     AbstractDataSource,
@@ -83,8 +79,9 @@ class Variable(BaseModel):
         cds_variable: CDS variable name passed in the retrieve()
             request, e.g. `"2m_temperature"`.
         nc_variable: Short variable name inside the CDS NetCDF
-            (e.g. `"t2m"`); :meth:`ECMWF.post_download` uses it to
-            index `fh.variables[...]`.
+            (e.g. `"t2m"`); used by post-processing scripts to
+            index `fh.variables[...]`. See
+            `examples/post_process_ecmwf_netcdf.py`.
         units: Raw ERA5 unit string emitted by CDS for this variable
             (used in the output filename). The package returns values
             in their native ERA5 units; downstream code is responsible
@@ -332,52 +329,6 @@ def _looks_like_missing_credentials(exc: BaseException) -> bool:
     return no_credentials or message_indicates_auth
 
 
-_TIME_VAR_CANDIDATES: tuple[str, ...] = ("valid_time", "time")
-
-
-def _read_time_axis(fh: NetCDF) -> pd.DatetimeIndex:
-    """Read the time coordinate from a CDS NetCDF as datetimes.
-
-    CDS-Beta switched the time variable name from `time` (legacy)
-    to `valid_time` (current) and the units from
-    `"hours since 1900-01-01"` to `"seconds since 1970-01-01"`.
-    This helper hides both differences from the caller: it tries
-    each candidate name in :data:`_TIME_VAR_CANDIDATES` and parses
-    the raw integer values via the variable's `unit` attribute,
-    returning a :class:`pandas.DatetimeIndex` regardless of which
-    flavour of NetCDF the server emits.
-    """
-    metadata_vars = fh.meta_data.variables
-    for name in _TIME_VAR_CANDIDATES:
-        if name not in metadata_vars:
-            continue
-        units = metadata_vars[name].unit
-        raw = fh._read_variable(name)
-        if units is None or raw is None:
-            continue
-        # `units` is a CF string like "<unit> since <epoch>".
-        # `pd.to_datetime(raw, unit=<u>, origin=<o>)` parses it
-        # natively for the unit aliases pandas recognises (s, m, h, D).
-        unit_word, _, origin = units.partition(" since ")
-        unit_alias = {
-            "seconds": "s",
-            "minutes": "m",
-            "hours": "h",
-            "days": "D",
-        }.get(unit_word.strip().lower())
-        if unit_alias is None:
-            raise ValueError(
-                f"unsupported time unit {unit_word!r} on {name!r} "
-                f"(full units string: {units!r})"
-            )
-        return pd.to_datetime(raw, unit=unit_alias, origin=origin.strip())
-    raise KeyError(
-        f"NetCDF at {fh.file_name!r} has no recognised time variable "
-        f"(tried {list(_TIME_VAR_CANDIDATES)}; got "
-        f"{sorted(metadata_vars)})"
-    )
-
-
 def _looks_like_licence_not_accepted(exc: BaseException) -> bool:
     """Heuristic: does this exception come from an unaccepted CDS licence?
 
@@ -414,16 +365,17 @@ class ECMWF(AbstractDataSource):
     :class:`Catalog`, which loads the per-variable metadata from
     `cds_data_catalog.yaml`.
 
-    The two-step pipeline (per variable) is:
+    The download pipeline (per variable) is a single step:
 
-    1. :meth:`api` — build the cdsapi request dict (daily / monthly
-       branch on `temporal_resolution`) and submit it via
-       `client.retrieve(dataset, request, target)`. Returns the
-       absolute path to the NetCDF that CDS wrote.
-    2. :meth:`post_download` — open that NetCDF and slice it on the
-       time axis. Values stay in raw ERA5 units. Per-date GeoTIFF
-       writing is currently stubbed (see
-       `planning/cdsapi/post-review-findings.md` C1).
+    * :meth:`api` — build the cdsapi request dict (daily / monthly
+      branch on `temporal_resolution`) and submit it via
+      `client.retrieve(dataset, request, target)`. Returns the
+      absolute path to the NetCDF that CDS wrote.
+
+    Per-date GeoTIFF post-processing (time-window mean, flux
+    scaling, raster output) is intentionally not part of the
+    package — see `examples/post_process_ecmwf_netcdf.py` for a
+    runnable script that consumes the NetCDF this method writes.
 
     Attributes:
         temporal_resolution: Class-level list of valid temporal
@@ -486,8 +438,8 @@ class ECMWF(AbstractDataSource):
 
         Returned dict is captured by
         :meth:`AbstractDataSource.__init__` into `self.time` so
-        :meth:`api` and :meth:`post_download` can access the parsed
-        bounds and the per-date pandas range without re-parsing.
+        :meth:`api` can access the parsed bounds and the per-date
+        pandas range without re-parsing.
 
         Args:
             start: Inclusive start date as a string.
@@ -647,9 +599,10 @@ class ECMWF(AbstractDataSource):
         no global `dataset` parameter under the cdsapi flow.
 
         Args:
-            progress_bar: Whether :meth:`post_download` should print
-                a per-date progress bar inside each variable's
-                post-processing loop. Defaults to `True`.
+            progress_bar: Reserved; currently unused since the
+                slicing pipeline that previously consumed it has
+                been moved out of the package. Defaults to `True`
+                so existing callers keep working.
             *args: Reserved; ignored. Kept for forward-compatibility
                 with backend-specific extras callers might pass via
                 :meth:`Earth2Observe.download`.
@@ -657,8 +610,10 @@ class ECMWF(AbstractDataSource):
 
         Returns:
             None. Per-variable NetCDFs land at
-            `<self.root_dir>/<cds_variable>_<cds_dataset>.nc` and
-            the post-processed per-date GeoTIFFs alongside.
+            `<self.root_dir>/<cds_variable>_<cds_dataset>.nc`. To
+            slice each NetCDF into per-date GeoTIFFs, run
+            `examples/post_process_ecmwf_netcdf.py` against the
+            output directory.
 
         Raises:
             KeyError: If any `var` in `self.vars` is not in the
@@ -738,99 +693,40 @@ class ECMWF(AbstractDataSource):
 
     def download_dataset(
         self,
-        var_info: dict[str, str],
+        var_info: Variable,
         progress_bar: bool = True,
     ):
-        """Download a single variable from CDS and post-process the NetCDF.
+        """Download a single variable from CDS.
 
-        Two-step pipeline:
+        Thin wrapper around :meth:`api` — builds the cdsapi request,
+        submits it, and returns the absolute :class:`pathlib.Path`
+        to the NetCDF that CDS wrote.
 
-        1. :meth:`api` builds the cdsapi request, submits it, and
-           returns the absolute :class:`pathlib.Path` to the NetCDF
-           that CDS wrote.
-        2. :meth:`post_download` opens that exact file, applies the
-           catalog's unit-conversion factors, and slices it into
-           per-date outputs under `self.root_dir`.
-
-        Threading the path returned by :meth:`api` into
-        :meth:`post_download` (rather than reconstructing a
-        `data_<dataset>.nc` filename) is what made the H1 fix:
-        `api()` writes `<cds_variable>_<cds_dataset>.nc` while
-        the legacy code was looking for `data_<dataset>.nc`, so
-        the two never agreed.
+        Per-date GeoTIFF slicing is **not** done here. Users who
+        want per-date `.tif` outputs can run
+        `examples/post_process_ecmwf_netcdf.py` against the
+        returned NetCDF.
 
         Args:
-            var_info: Variable metadata pulled from
-                `cds_data_catalog.yaml` via :class:`Catalog`. See
-                :meth:`api` for the keys :meth:`api` requires and
-                :meth:`post_download` for the additional keys
-                (`nc_variable`, optional `types`) that the
-                post-processing step reads.
-            progress_bar: Whether :meth:`post_download` should print
-                a progress bar during the per-date loop. Defaults to
-                `True`.
+            var_info: Catalog row for the variable. See :meth:`api`
+                for the attributes consumed.
+            progress_bar: Reserved; currently unused since the
+                slicing pipeline that previously consumed it has
+                been moved out of the package. Defaults to `True`
+                so existing callers keep working.
 
         Returns:
-            None.
-
-        Raises:
-            KeyError: If `var_info` is missing one of the keys
-                required by :meth:`api` (`cds_dataset`,
-                `cds_variable`) or by :meth:`post_download`
-                (`nc_variable`, `units`).
-
-        Examples:
-            - The catalog ships `var_info` dicts ready for this
-              method; inspect the keys this two-step pipeline reads:
-
-                ```python
-                >>> var_info = {
-                ...     "cds_dataset": "reanalysis-era5-single-levels",
-                ...     "cds_variable": "2m_temperature",
-                ...     "nc_variable": "t2m",
-                ...     "types": "state",
-                ...     "units": "K",
-                ... }
-                >>> var_info["cds_variable"], var_info["nc_variable"]
-                ('2m_temperature', 't2m')
-                >>> f"{var_info['cds_variable']}_{var_info['cds_dataset']}.nc"
-                '2m_temperature_reanalysis-era5-single-levels.nc'
-
-                ```
-            - Download via the user-facing :class:`Earth2Observe`
-              facade (recommended). Marked `# doctest: +SKIP`
-              because it requires a configured `~/.cdsapirc` and
-              several minutes of CDS queue time:
-
-                ```python
-                >>> from earth2observe.earth2observe import Earth2Observe  # doctest: +SKIP
-                >>> e2o = Earth2Observe(  # doctest: +SKIP
-                ...     data_source="ecmwf",
-                ...     temporal_resolution="daily",
-                ...     start="2022-01-01",
-                ...     end="2022-01-01",
-                ...     variables=["2m-temperature"],
-                ...     lat_lim=[4.0, 5.0],
-                ...     lon_lim=[-75.0, -74.0],
-                ...     path="examples/data/era5",
-                ... )
-                >>> e2o.download()  # doctest: +SKIP
-
-                ```
+            pathlib.Path: Absolute path to the downloaded NetCDF.
 
         See Also:
             :meth:`api`: Builds and submits the CDS request, returns
                 the path to the NetCDF.
-            :meth:`post_download`: Reads the NetCDF at the path
-                produced by :meth:`api`, applies unit conversions,
-                slices into per-date outputs.
-            :class:`Catalog`: Loads `var_info` dicts from
+            :class:`Catalog`: Loads `Variable` instances from
                 `cds_data_catalog.yaml`.
         """
-        nc_path = self.api(var_info)
-        self.post_download(var_info, nc_path, progress_bar)
+        return self.api(var_info)
 
-    def api(self, var_info: dict[str, str]):
+    def api(self, var_info: Variable):
         """Build a CDS request and submit it via :class:`cdsapi.Client`.
 
         Constructs the request dictionary expected by
@@ -850,9 +746,10 @@ class ECMWF(AbstractDataSource):
           and no `time` key. `-monthly-means` datasets reject the
           daily-style `time` list.
 
-        Both branches use `data_format='netcdf'` so
-        :class:`pyramids.netcdf.NetCDF` can read the result in
-        `post_download`.
+        Both branches use `data_format='netcdf'` so the resulting
+        file can be opened with :class:`pyramids.netcdf.NetCDF`,
+        `xarray`, or any standard NetCDF reader for downstream
+        post-processing.
 
         Args:
             var_info: Variable metadata pulled from
@@ -1045,79 +942,3 @@ class ECMWF(AbstractDataSource):
             "ECMWF uses the lowercase api(var_info) — see ECMWF.api"
         )
 
-    def post_download(
-        self, var_info: Variable, nc_path, progress_bar: bool = True
-    ):
-        """Slice the downloaded NetCDF into per-date GeoTIFFs.
-
-        Reads the NetCDF written by :meth:`api`, slices it on the
-        time axis, and writes one GeoTIFF per date under
-        `self.root_dir` in raw ERA5 units (no unit conversion). For
-        monthly resolution and flux variables, the per-date mean is
-        multiplied by the number of days in the month.
-
-        Args:
-            var_info: Catalog row for the variable. The
-                `nc_variable`, `units`, `cds_variable`, and `is_flux`
-                attributes are read.
-            nc_path: Path to the NetCDF written by :meth:`api`.
-                Either a :class:`pathlib.Path` or a string is
-                accepted.
-            progress_bar: Whether to print a per-date progress bar.
-                Defaults to `True`.
-
-        Returns:
-            list[tuple]: One entry per date in `self.time.dates`,
-            carrying `(timestamp, per_date_array, output_path)`.
-            `per_date_array` is the time-window mean (flux-scaled
-            when `var_info.is_flux`); `output_path` is the `.tif`
-            file just written.
-        """
-        nc_variable = var_info.nc_variable
-        unit_label = var_info.units
-        is_flux = var_info.is_flux
-        cell_size = self.space.resolution
-        per_date_outputs: list[tuple[Any, Any, Path]] = []
-
-        with NetCDF.read_file(str(nc_path), read_only=True) as fh:
-            data = fh.read_array(variable=nc_variable)
-            data_time = _read_time_axis(fh)
-            top_y = float(np.nanmax(fh.lat))
-            left_x = float(np.nanmin(fh.lon))
-            geo = (left_x, cell_size, 0.0, top_y, 0.0, -cell_size)
-
-            dates_iter = tqdm(
-                self.time.dates,
-                desc="Progress",
-                disable=not progress_bar,
-            )
-            for date in dates_iter:
-                year = date.year
-                month = date.month
-                day = date.day
-
-                if self.temporal_resolution == "daily":
-                    days_later = 1
-                elif self.temporal_resolution == "monthly":
-                    days_later = calendar.monthrange(year, month)[1]
-
-                window_start = pd.Timestamp(year=year, month=month, day=day)
-                window_end = window_start + pd.Timedelta(days=days_later)
-
-                in_window = (data_time >= window_start) & (data_time < window_end)
-                data_one = data[in_window, :, :]
-                data_end = np.nanmean(data_one, 0)
-
-                if is_flux:
-                    data_end = data_end * days_later
-
-                name_out = (
-                    Path(self.root_dir)
-                    / f"{var_info.cds_variable}_ECMWF_ERA5_{unit_label}_{self.temporal_resolution}_{year}.{month}.{day}.tif"
-                )
-                Dataset.create_from_array(
-                    arr=data_end, geo=geo, epsg=4326
-                ).to_file(str(name_out))
-                per_date_outputs.append((date, data_end, name_out))
-
-        return per_date_outputs

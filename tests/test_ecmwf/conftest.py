@@ -6,13 +6,12 @@ Holds the four pieces every test in this directory needs:
   test (other than `TestApiE2E`) from constructing a real
   :class:`cdsapi.Client`.
 * :func:`single_level_var_info` and :func:`pressure_level_var_info`
-  — :class:`Variable` fixtures used across the api / post_download
-  tests.
+  — :class:`Variable` fixtures used across the api tests.
 * :func:`ecmwf_stub` — a hand-constructed :class:`ECMWF` instance with
-  the four attributes `api()` / `post_download()` consume
-  (`self.client`, `self.root_dir`, `self.time`, `self.space`)
-  set by hand. Bypasses :meth:`AbstractDataSource.__init__` so unit
-  tests can run without going through cdsapi or the file system.
+  the four attributes `api()` consumes (`self.client`,
+  `self.root_dir`, `self.time`, `self.space`) set by hand.
+  Bypasses :meth:`AbstractDataSource.__init__` so unit tests can run
+  without going through cdsapi or the file system.
 """
 
 from __future__ import annotations

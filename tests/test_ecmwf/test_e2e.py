@@ -99,51 +99,6 @@ class TestApiE2E:
             "reanalysis-era5-single-levels-monthly-means" in target.name
         ), f"Monthly retrieve should land at -monthly-means; got {target.name}"
 
-    def test_live_post_download_reads_real_netcdf(self, tmp_path):
-        """`post_download` parses a real CDS NetCDF and applies factors.
-
-        Test scenario:
-            Run the full download_dataset → api → post_download
-            chain against the live service. `post_download` must
-            open the real NetCDF written by CDS, slice on the time
-            axis, and apply the K → C conversion. The 2m
-            temperature for any inhabited surface point in January
-            is well within `-50 °C .. +50 °C`; assert against
-            that bound.
-        """
-        ecmwf = ECMWF(
-            start="2022-01-01",
-            end="2022-01-01",
-            variables=["2m-temperature"],
-            lat_lim=_BBOX_LAT,
-            lon_lim=_BBOX_LON,
-            path=str(tmp_path),
-            temporal_resolution="daily",
-        )
-        spec = Catalog().get_dataset("2m-temperature")
-
-        ecmwf.download_dataset(spec, progress_bar=False)
-
-        # download_dataset returns None; api() return value is
-        # consumed internally. Re-call api() to get the file path
-        # for the read-back assertion (CDS will return the same
-        # cached request quickly the second time).
-        target = ecmwf.api(spec)
-        assert target.exists()
-
-        per_date = ecmwf.post_download(spec, target, progress_bar=False)
-        assert len(per_date) == 1, (
-            f"Daily post_download for one date should yield 1 array; "
-            f"got {len(per_date)}"
-        )
-        _date, arr, _name_out = per_date[0]
-        finite = arr[np.isfinite(arr)]
-        assert finite.size > 0, "post_download array is entirely non-finite"
-        assert -50.0 <= float(np.nanmean(finite)) <= 50.0, (
-            f"2m_temperature in Celsius should fall in [-50, 50]; "
-            f"got mean {float(np.nanmean(finite))}"
-        )
-
 
 class TestFacadeE2E:
     """End-to-end tests for the `Earth2Observe` facade."""

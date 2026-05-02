@@ -226,23 +226,19 @@ class TestECMWFBackend:
         """End-to-end: `Earth2Observe(...).download()` reaches CDS.
 
         Test scenario:
-            The H2 fix proves that the full chain
-            `Earth2Observe.download → ECMWF.download →
-            download_dataset → api → post_download`
-            wires up correctly under the facade. Pre-fix, no test
-            exercised this whole pipeline together — the C1, C3,
-            H1, H2, H3 issues only co-failed in the field.
-
-            Patches both `cdsapi.Client` (to capture every retrieve
-            call) and `earth2observe.ecmwf.NetCDF` (to give
-            post_download a fake file to read), then runs a
-            two-variable download and asserts:
+            Verifies the full chain `Earth2Observe.download →
+            ECMWF.download → download_dataset → api` wires up
+            correctly under the facade. Patches `cdsapi.Client` to
+            capture every retrieve call, runs a two-variable
+            download, and asserts:
 
             * Two cdsapi.Client.retrieve calls — one per variable
             * Each retrieve receives the right dataset name and
               `variable=[cds_variable]` from the catalog
-            * post_download opens both written paths and produces
-              one per-date result per variable
+
+            Per-date GeoTIFF post-processing is intentionally not
+            part of the package; see
+            `examples/post_process_ecmwf_netcdf.py`.
         """
         retrieved = []
 
@@ -251,52 +247,6 @@ class TestECMWFBackend:
                 retrieved.append((dataset, request, target))
 
         monkeypatch.setattr(cdsapi, "Client", FakeClient)
-
-        opened_paths = []
-
-        class _FakeVariable:
-            def __init__(self, array):
-                self._array = array
-
-            def read_array(self, **_kwargs):
-                return self._array
-
-        class _Fake:
-            def __init__(self, path):
-                opened_paths.append(path)
-                time_axis = np.arange(0, 24 * 4, 6, dtype=float) + (
-                    (
-                        pd.Timestamp("2022-01-01")
-                        - pd.Timestamp("1900-01-01")
-                    ).total_seconds()
-                    / 3600
-                )
-                self.variables = {"time": _FakeVariable(time_axis)}
-                self.lon = np.linspace(-75.0, -74.0, 9)
-                self.lat = np.linspace(5.0, 4.0, 9)
-                self._array = np.full(
-                    (len(time_axis), 9, 9), 273.15, dtype=float
-                )
-
-            def read_array(self, variable=None, **_kwargs):
-                return self._array
-
-            def close(self):
-                pass
-
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *_a):
-                self.close()
-                return False
-
-        fake_netcdf = type(
-            "FakeNetCDF",
-            (),
-            {"read_file": staticmethod(lambda path, read_only=True: _Fake(path))},
-        )
-        monkeypatch.setattr("earth2observe.ecmwf.backend.NetCDF", fake_netcdf)
 
         e2o = Earth2Observe(
             data_source="ecmwf",
@@ -324,12 +274,3 @@ class TestECMWFBackend:
             ["2m_temperature"],
             ["total_precipitation"],
         ], f"variables: {variables!r}"
-
-        assert len(opened_paths) == 2, (
-            f"post_download should open one NetCDF per variable; "
-            f"got {len(opened_paths)}"
-        )
-        for path in opened_paths:
-            assert str(tmp_path) in path, (
-                f"opened path should sit under tmp_path; got {path}"
-            )

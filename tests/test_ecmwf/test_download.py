@@ -4,7 +4,7 @@ Covers the C3 fix (iterate `self.vars` not `self.variables`), the
 H3 cleanup of the hardcoded `data_interim.nc` deletion, the M3
 partial-success behaviour on per-variable failure, and the C1 call
 site change in `download_dataset` (drops the legacy `dataset`
-arg, threads the path returned by `api()` into `post_download`).
+arg, returns the path that `api()` produces).
 """
 
 from __future__ import annotations
@@ -127,7 +127,6 @@ class TestDownloadDataset:
             only `var_info`.
         """
         ecmwf_stub.api = MagicMock(return_value=ecmwf_stub.root_dir / "x.nc")
-        ecmwf_stub.post_download = MagicMock()
 
         ecmwf_stub.download_dataset(single_level_var_info, progress_bar=False)
 
@@ -136,29 +135,26 @@ class TestDownloadDataset:
         assert kwargs == {}
         assert args == (single_level_var_info,)
 
-    def test_post_download_receives_path_returned_by_api(
+    def test_returns_path_from_api(
         self, ecmwf_stub, single_level_var_info
     ):
-        """`post_download` is called with the path :meth:`api` returned.
+        """`download_dataset` returns the path :meth:`api` produced.
 
         Test scenario:
-            After H1, `download_dataset` captures the
-            :class:`pathlib.Path` returned by :meth:`api` and threads
-            it into :meth:`post_download` so the post-processing step
-            opens the very same NetCDF that cdsapi just wrote — not a
-            hardcoded `data_<dataset>.nc` filename.
+            After post-processing was lifted out of the package,
+            `download_dataset` collapsed to a thin pass-through
+            around `api()`. Callers receive the absolute
+            :class:`pathlib.Path` so they can hand it to a
+            post-processing script.
         """
         api_target = (
             ecmwf_stub.root_dir
             / "2m_temperature_reanalysis-era5-single-levels.nc"
         )
         ecmwf_stub.api = MagicMock(return_value=api_target)
-        ecmwf_stub.post_download = MagicMock()
 
-        ecmwf_stub.download_dataset(single_level_var_info, progress_bar=True)
+        result = ecmwf_stub.download_dataset(
+            single_level_var_info, progress_bar=True
+        )
 
-        assert ecmwf_stub.post_download.call_count == 1
-        args, _ = ecmwf_stub.post_download.call_args
-        assert args[0] == single_level_var_info
-        assert args[1] == api_target
-        assert args[2] is True
+        assert result == api_target
