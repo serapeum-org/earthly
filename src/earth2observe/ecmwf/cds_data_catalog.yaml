@@ -4096,6 +4096,234 @@ datasets:
         types: state
         units: "%"
 
+      "10m-eastward-wind-gust-since-previous-post-processing-carra":
+        cds_variable: 10m_eastward_wind_gust_since_previous_post_processing
+        nc_variable: efg10
+        types: flux
+        units: "m s**-1"
+
+      "10m-northward-wind-gust-since-previous-post-processing-carra":
+        cds_variable: 10m_northward_wind_gust_since_previous_post_processing
+        nc_variable: nfg10
+        types: flux
+        units: "m s**-1"
+
+      "10m-wind-gust-since-previous-post-processing-carra":
+        cds_variable: 10m_wind_gust_since_previous_post_processing
+        nc_variable: fg10
+        types: flux
+        units: "m s**-1"
+
+      "direct-solar-radiation-carra":
+        cds_variable: direct_solar_radiation
+        nc_variable: dirsrf
+        types: flux
+        units: "J m**-2"
+
+      "evaporation-carra":
+        cds_variable: evaporation
+        nc_variable: eva
+        types: flux
+        units: "kg m**-2"
+
+      "fog-carra":
+        cds_variable: fog
+        nc_variable: fog
+        types: state
+        units: "%"
+
+      "fraction-of-snow-cover-carra":
+        cds_variable: fraction_of_snow_cover
+        nc_variable: fscov
+        types: state
+        units: "Proportion"
+
+      "maximum-2m-temperature-since-previous-post-processing-carra":
+        cds_variable: maximum_2m_temperature_since_previous_post_processing
+        nc_variable: mx2t
+        types: state
+        units: K
+
+      "minimum-2m-temperature-since-previous-post-processing-carra":
+        cds_variable: minimum_2m_temperature_since_previous_post_processing
+        nc_variable: mn2t
+        types: state
+        units: K
+
+      "precipitation-type-carra":
+        cds_variable: precipitation_type
+        nc_variable: ptype
+        types: state
+        units: "(0 - 8)"
+
+      "sea-ice-surface-temperature-carra":
+        cds_variable: sea_ice_surface_temperature
+        nc_variable: ist
+        types: state
+        units: K
+
+      "sea-ice-thickness-carra":
+        cds_variable: sea_ice_thickness
+        nc_variable: siti
+        types: state
+        units: m
+
+      "snow-on-ice-total-depth-carra":
+        cds_variable: snow_on_ice_total_depth
+        nc_variable: soit
+        types: state
+        units: m
+
+      "surface-latent-heat-flux-carra":
+        cds_variable: surface_latent_heat_flux
+        nc_variable: slhf
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-solar-radiation-carra":
+        cds_variable: surface_net_solar_radiation
+        nc_variable: ssr
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-solar-radiation-clear-sky-carra":
+        cds_variable: "surface_net_solar_radiation,_clear_sky"
+        nc_variable: ssrc
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation-carra":
+        cds_variable: surface_net_thermal_radiation
+        nc_variable: str
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation-clear-sky-carra":
+        cds_variable: "surface_net_thermal_radiation,_clear_sky"
+        nc_variable: strc
+        types: flux
+        units: "J m**-2"
+
+      "surface-roughness-length-for-heat-carra":
+        cds_variable: surface_roughness_length_for_heat
+        nc_variable: flsr
+        types: state
+        units: m
+
+      "surface-solar-radiation-downwards-carra":
+        cds_variable: surface_solar_radiation_downwards
+        nc_variable: ssrd
+        types: flux
+        units: "J m**-2"
+
+      "thermal-surface-radiation-downwards-carra":
+        cds_variable: thermal_surface_radiation_downwards
+        nc_variable: strd
+        types: flux
+        units: "J m**-2"
+
+      "time-integral-of-rain-flux-carra":
+        cds_variable: time_integral_of_rain_flux
+        nc_variable: tirf
+        types: flux
+        units: "kg m**-2"
+
+      "time-integral-of-snow-evaporation-flux-carra":
+        cds_variable: time_integral_of_snow_evaporation_flux
+        nc_variable: tisef
+        types: flux
+        units: "kg m**-2"
+
+      "time-integral-of-surface-eastward-momentum-flux-carra":
+        cds_variable: time_integral_of_surface_eastward_momentum_flux
+        nc_variable: tisemf
+        types: flux
+        units: "N m**-2 s"
+
+      "time-integral-of-surface-latent-heat-evaporation-flux-carra":
+        cds_variable: time_integral_of_surface_latent_heat_evaporation_flux
+        nc_variable: tislhef
+        types: flux
+        units: "J m**-2"
+
+      "time-integral-of-surface-latent-heat-sublimation-flux-carra":
+        cds_variable: time_integral_of_surface_latent_heat_sublimation_flux
+        nc_variable: tislhsf
+        types: flux
+        units: "J m**-2"
+
+      "time-integral-of-surface-northward-momentum-flux-carra":
+        cds_variable: time_integral_of_surface_northward_momentum_flux
+        nc_variable: tisnmf
+        types: flux
+        units: "N m**-2 s"
+
+      "time-integral-of-total-solid-precipitation-flux-carra":
+        cds_variable: time_integral_of_total_solid_precipitation_flux
+        nc_variable: titspf
+        types: flux
+        units: "kg m**-2"
+
+      "time-integrated-surface-direct-short-wave-radiation-flux-carra":
+        cds_variable: time_integrated_surface_direct_short_wave_radiation_flux
+        nc_variable: tidirswrf
+        types: flux
+        units: "J m**-2"
+
+      "top-net-solar-radiation-carra":
+        cds_variable: top_net_solar_radiation
+        nc_variable: tsr
+        types: flux
+        units: "J m**-2"
+
+      "top-net-thermal-radiation-carra":
+        cds_variable: top_net_thermal_radiation
+        nc_variable: ttr
+        types: flux
+        units: "J m**-2"
+
+      "total-column-cloud-ice-water-carra":
+        cds_variable: total_column_cloud_ice_water
+        nc_variable: tciw
+        types: state
+        units: "kg m**-2"
+
+      "total-column-cloud-liquid-water-carra":
+        cds_variable: total_column_cloud_liquid_water
+        nc_variable: tclw
+        types: state
+        units: "kg m**-2"
+
+      "total-column-graupel-carra":
+        cds_variable: total_column_graupel
+        nc_variable: tcgr
+        types: state
+        units: "kg m**-2"
+
+      "total-column-integrated-water-vapour-carra":
+        cds_variable: total_column_integrated_water_vapour
+        nc_variable: tcwv
+        types: state
+        units: "kg m**-2"
+
+      "total-precipitation-carra":
+        cds_variable: total_precipitation
+        nc_variable: tp
+        types: flux
+        units: "kg m**-2"
+
+      "volumetric-soil-ice-carra":
+        cds_variable: volumetric_soil_ice
+        nc_variable: vsi
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-soil-moisture-carra":
+        cds_variable: volumetric_soil_moisture
+        nc_variable: vsw
+        types: state
+        units: "m**3 m**-3"
+
   reanalysis-carra-means:
     # CARRA-means: temporally-aggregated CARRA. Six forecast-based
     # single-level variables are probe-confirmed. ``request_kind``
@@ -4444,6 +4672,66 @@ datasets:
         nc_variable: str
         types: flux
         units: "J m**-2"
+
+      "10m-wind-gust-since-previous-post-processing-cerra":
+        cds_variable: 10m_wind_gust_since_previous_post_processing
+        nc_variable: fg10
+        types: state
+        units: "m s**-1"
+
+      "maximum-2m-temperature-since-previous-post-processing-cerra":
+        cds_variable: maximum_2m_temperature_since_previous_post_processing
+        nc_variable: mx2t
+        types: state
+        units: K
+
+      "minimum-2m-temperature-since-previous-post-processing-cerra":
+        cds_variable: minimum_2m_temperature_since_previous_post_processing
+        nc_variable: mn2t
+        types: state
+        units: K
+
+      "snow-fall-water-equivalent-cerra":
+        cds_variable: snow_fall_water_equivalent
+        nc_variable: sf
+        types: flux
+        units: "kg m**-2"
+
+      "surface-latent-heat-flux-cerra":
+        cds_variable: surface_latent_heat_flux
+        nc_variable: slhf
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-solar-radiation-clear-sky-cerra":
+        cds_variable: surface_net_solar_radiation_clear_sky
+        nc_variable: ssrc
+        types: flux
+        units: "J m**-2"
+
+      "surface-net-thermal-radiation-clear-sky-cerra":
+        cds_variable: surface_net_thermal_radiation_clear_sky
+        nc_variable: strc
+        types: flux
+        units: "J m**-2"
+
+      "surface-sensible-heat-flux-cerra":
+        cds_variable: surface_sensible_heat_flux
+        nc_variable: sshf
+        types: flux
+        units: "J m**-2"
+
+      "surface-thermal-radiation-downwards-cerra":
+        cds_variable: surface_thermal_radiation_downwards
+        nc_variable: strd
+        types: flux
+        units: "J m**-2"
+
+      "total-column-integrated-water-vapour-cerra":
+        cds_variable: total_column_integrated_water_vapour
+        nc_variable: tcwv
+        types: state
+        units: "kg m**-2"
 
   reanalysis-cerra-height-levels:
     # CERRA height-level variables on the European 5.5km grid.
@@ -4796,6 +5084,60 @@ datasets:
       "liquid-volumetric-soil-moisture-cerra-land":
         cds_variable: liquid_volumetric_soil_moisture
         nc_variable: liqvsm
+        types: state
+        units: "m**3 m**-3"
+
+      "lake-mix-layer-depth-cerra-land":
+        cds_variable: lake_mix_layer_depth
+        nc_variable: lmld
+        types: state
+        units: m
+
+      "orography-cerra-land":
+        cds_variable: orography
+        nc_variable: orog
+        types: state
+        units: m
+
+      "surface-roughness-cerra-land":
+        cds_variable: surface_roughness
+        nc_variable: sr
+        types: state
+        units: m
+
+      "surface-solar-radiation-downwards-cerra-land":
+        cds_variable: surface_solar_radiation_downwards
+        nc_variable: ssrd
+        types: flux
+        units: "J m**-2"
+
+      "surface-thermal-radiation-downwards-cerra-land":
+        cds_variable: surface_thermal_radiation_downwards
+        nc_variable: strd
+        types: flux
+        units: "J m**-2"
+
+      "total-precipitation-cerra-land":
+        cds_variable: total_precipitation
+        nc_variable: tp
+        types: flux
+        units: "kg m**-2"
+
+      "volumetric-soil-moisture-cerra-land":
+        cds_variable: volumetric_soil_moisture
+        nc_variable: vsw
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-transpiration-stress-onset-cerra-land":
+        cds_variable: volumetric_transpiration_stress_onset
+        nc_variable: vtso
+        types: state
+        units: "m**3 m**-3"
+
+      "volumetric-wilting-point-cerra-land":
+        cds_variable: volumetric_wilting_point
+        nc_variable: vwp
         types: state
         units: "m**3 m**-3"
 
@@ -5441,4 +5783,112 @@ datasets:
         nc_variable: v100
         types: state
         units: "m s**-1"
+
+      "100m-wind-speed-seasonal":
+        cds_variable: 100m_wind_speed
+        nc_variable: si100
+        types: state
+        units: "m s**-1"
+
+      "10m-wind-gust-since-previous-post-processing-seasonal":
+        cds_variable: 10m_wind_gust_since_previous_post_processing
+        nc_variable: 10fg
+        types: state
+        units: "m s**-1"
+
+      "east-west-surface-stress-rate-of-accumulation-seasonal":
+        cds_variable: east_west_surface_stress_rate_of_accumulation
+        nc_variable: ewss
+        types: flux
+        units: "N m**-2 s"
+
+      "maximum-2m-temperature-in-the-last-24-hours-seasonal":
+        cds_variable: maximum_2m_temperature_in_the_last_24_hours
+        nc_variable: mx2t24
+        types: state
+        units: K
+
+      "mean-sub-surface-runoff-rate-seasonal":
+        cds_variable: mean_sub_surface_runoff_rate
+        nc_variable: mssror
+        types: flux
+        units: "kg m**-2 s**-1"
+
+      "mean-surface-runoff-rate-seasonal":
+        cds_variable: mean_surface_runoff_rate
+        nc_variable: msror
+        types: flux
+        units: "kg m**-2 s**-1"
+
+      "minimum-2m-temperature-in-the-last-24-hours-seasonal":
+        cds_variable: minimum_2m_temperature_in_the_last_24_hours
+        nc_variable: mn2t24
+        types: state
+        units: K
+
+      "north-south-surface-stress-rate-of-accumulation-seasonal":
+        cds_variable: north_south_surface_stress_rate_of_accumulation
+        nc_variable: nsss
+        types: flux
+        units: "N m**-2 s"
+
+      "runoff-seasonal":
+        cds_variable: runoff
+        nc_variable: ro
+        types: flux
+        units: "m"
+
+      "snow-density-seasonal":
+        cds_variable: snow_density
+        nc_variable: rsn
+        types: state
+        units: "kg m**-3"
+
+      "soil-temperature-level-1-seasonal":
+        cds_variable: soil_temperature_level_1
+        nc_variable: stl1
+        types: state
+        units: K
+
+      "solar-insolation-rate-of-accumulation-seasonal":
+        cds_variable: solar_insolation_rate_of_accumulation
+        nc_variable: sira
+        types: flux
+        units: "J m**-2"
+
+      "surface-thermal-radiation-seasonal":
+        cds_variable: surface_thermal_radiation
+        nc_variable: str
+        types: flux
+        units: "J m**-2"
+
+      "top-solar-radiation-seasonal":
+        cds_variable: top_solar_radiation
+        nc_variable: tsr
+        types: flux
+        units: "J m**-2"
+
+      "top-thermal-radiation-seasonal":
+        cds_variable: top_thermal_radiation
+        nc_variable: ttr
+        types: flux
+        units: "J m**-2"
+
+      "total-column-cloud-ice-water-seasonal":
+        cds_variable: total_column_cloud_ice_water
+        nc_variable: tciw
+        types: state
+        units: "kg m**-2"
+
+      "total-column-cloud-liquid-water-seasonal":
+        cds_variable: total_column_cloud_liquid_water
+        nc_variable: tclw
+        types: state
+        units: "kg m**-2"
+
+      "total-column-water-vapour-seasonal":
+        cds_variable: total_column_water_vapour
+        nc_variable: tcwv
+        types: state
+        units: "kg m**-2"
 

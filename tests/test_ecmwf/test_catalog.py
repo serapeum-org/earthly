@@ -529,7 +529,7 @@ class TestCatalog:
         ds = cat.datasets["seasonal-monthly-single-levels"]
         assert ds.extras["originating_centre"] == "ecmwf"
         assert ds.extras["system"] == "5"
-        assert len(ds.variables) == 20
+        assert len(ds.variables) == 38
         spec = ds.variables["2m-temperature-seasonal"]
         assert spec.cds_variable == "2m_temperature"
         assert spec.nc_variable == "t2m"
@@ -544,7 +544,7 @@ class TestCatalog:
         assert len(press.variables) == 14
         assert len(height.variables) == 7
         assert len(model.variables) == 11
-        assert len(single.variables) == 30
+        assert len(single.variables) == 67
         # Parent extras propagate to every variable.
         for ds in [press, height, model, single]:
             assert ds.extras["domain"] == "east_domain"
