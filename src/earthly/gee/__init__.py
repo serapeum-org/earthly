@@ -32,11 +32,11 @@ for dependency in hard_dependencies:
 if missing_dependencies:
     raise ImportError("Missing required dependencies {0}".format(missing_dependencies))
 
-# import earth2observe.gee.data as data
-# import earth2observe.gee.dataset as dataset
-# import earth2observe.gee.features as features
-# import earth2observe.gee.gee as gee
-# import earth2observe.gee.images as images
+# import earthly.gee.data as data
+# import earthly.gee.dataset as dataset
+# import earthly.gee.features as features
+# import earthly.gee.gee as gee
+# import earthly.gee.images as images
 
 __doc__ = """
 gee - google earth engine

@@ -94,7 +94,7 @@ def fetch_one_batch(
     # ECMWF.api() uses. Probes that fail here would otherwise sit
     # in the CDS queue for 5-30 min before failing server-side
     # with the same answer.
-    from earth2observe.ecmwf.constraints import RequestValidator
+    from earthly.ecmwf.constraints import RequestValidator
     RequestValidator(dataset, request).check()
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)

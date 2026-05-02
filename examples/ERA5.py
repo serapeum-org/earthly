@@ -10,7 +10,7 @@ from osgeo import gdal
 from osgeo.gdal import Dataset
 import numpy as np
 from pyramids.indexing import H3
-from earth2observe.earth2observe import Earth2Observe
+from earthly.earthly import Earthly
 rpath = os.getcwd()
 rdir = "examples\project"
 #%%
@@ -23,7 +23,7 @@ time = "monthly"
 path = rf"{rdir}\s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     temporal_resolution=time,
     start=start,

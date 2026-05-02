@@ -2,7 +2,7 @@
 
 Background
 ----------
-`earth2observe.ecmwf.ECMWF.api()` retrieves a NetCDF from the Climate
+`earthly.ecmwf.ECMWF.api()` retrieves a NetCDF from the Climate
 Data Store and writes it to disk. That NetCDF is the package's
 **primary** product. Many users stop there and operate on the NetCDF
 directly with `xarray`, `netCDF4`, `pyramids`, or any other tool of
@@ -279,7 +279,7 @@ def _cli() -> None:
     )
     args = parser.parse_args()
 
-    from earth2observe.ecmwf import Catalog
+    from earthly.ecmwf import Catalog
 
     spec = Catalog().get_dataset(args.variable)
     freq = "D" if args.resolution == "daily" else "MS"

@@ -13,7 +13,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from earth2observe.ecmwf import Catalog
+from earthly.ecmwf import Catalog
 
 pytestmark = [pytest.mark.unit]
 
@@ -104,7 +104,7 @@ class TestDownloadIteration:
         ecmwf_stub.vars = ["2m-temperature"]
         ecmwf_stub.download_dataset = MagicMock()
         monkeypatch.setattr(
-            "earth2observe.ecmwf.backend.os.remove",
+            "earthly.ecmwf.backend.os.remove",
             lambda path: removed.append(path),
         )
 

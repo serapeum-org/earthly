@@ -2,11 +2,11 @@
 
 ## Design Concept
 
-earth2observe is designed following the Template/Factory design pattern to create an abstract class as a template for different data sources.
+earthly is designed following the Template/Factory design pattern to create an abstract class as a template for different data sources.
 
 The main objective is to provide a unified API for all remote sensing data sources, where you only have to worry about the domain of your data (date range and spatial extent) and the package does everything in the backend.
 
-`earth2observe` provides a unified API for the following data sources:
+`earthly` provides a unified API for the following data sources:
 
 - ECMWF
 - CHIRPS
@@ -20,10 +20,10 @@ The API takes a few parameters to determine the domain of your data:
 
 - **Date range**: `start`, `end`, and `temporal_resolution`
 - **Spatial extent**: `lat_lim` (latitude limits) and `lon_lim` (longitude limits)
-- If `lat_lim` and `lon_lim` are not provided, the `Earth2Observe` class defaults to longitude `[-180, 180]` and latitude `[-90, 90]`.
+- If `lat_lim` and `lon_lim` are not provided, the `Earthly` class defaults to longitude `[-180, 180]` and latitude `[-90, 90]`.
 
 ```python
-from earth2observe.earth2observe import Earth2Observe
+from earthly.earthly import Earthly
 
 start = "2009-01-01"
 end = "2009-01-10"
@@ -55,7 +55,7 @@ source = "ecmwf"
 path = "examples/data/era5"
 variables = ["2m-temperature"]  # 2-metre temperature; see Catalog for the full list
 
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -82,7 +82,7 @@ source = "chirps"
 path = "examples/data/chirps"
 variables = ["precipitation"]
 
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -100,7 +100,7 @@ e2o.download()
 ```python
 path = "examples/data/chirps-cores"
 
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -120,7 +120,7 @@ path = "examples/data/s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
 
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     start=start,
     end=end,

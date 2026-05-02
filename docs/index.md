@@ -1,14 +1,14 @@
-# earth2observe
+# earthly
 
-[![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://serapeum-org.github.io/earth2observe/)
-[![PyPI version](https://badge.fury.io/py/earth2observe.svg)](https://badge.fury.io/py/earth2observe)
-[![Conda Version](https://img.shields.io/conda/vn/conda-forge/earth2observe.svg)](https://anaconda.org/conda-forge/earth2observe)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/earth2observe)
+[![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://serapeum-org.github.io/earthly/)
+[![PyPI version](https://badge.fury.io/py/earthly.svg)](https://badge.fury.io/py/earthly)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/earthly.svg)](https://anaconda.org/conda-forge/earthly)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/earthly)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![codecov](https://codecov.io/gh/serapeum-org/earth2observe/branch/main/graph/badge.svg)](https://codecov.io/gh/serapeum-org/earth2observe)
+[![codecov](https://codecov.io/gh/serapeum-org/earthly/branch/main/graph/badge.svg)](https://codecov.io/gh/serapeum-org/earthly)
 
-**earth2observe** is a Python package providing a unified API for several remote sensing data sources.
+**earthly** is a Python package providing a unified API for several remote sensing data sources.
 
 ## Main Features
 
@@ -19,18 +19,18 @@
 
 ```mermaid
 graph LR
-    earth2observe --> ECMWF
-    earth2observe --> CHIRPS
-    earth2observe --> Amazon-S3
-    earth2observe --> Google-Earth-Engine
+    earthly --> ECMWF
+    earthly --> CHIRPS
+    earthly --> Amazon-S3
+    earthly --> Google-Earth-Engine
 ```
 
 ## Quick Start
 
 ```python
-from earth2observe.earth2observe import Earth2Observe
+from earthly.earthly import Earthly
 
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source="chirps",
     temporal_resolution="daily",
     start="2009-01-01",
@@ -48,17 +48,17 @@ e2o.download()
 === "conda"
 
     ```bash
-    conda install -c conda-forge earth2observe
+    conda install -c conda-forge earthly
     ```
 
 === "pip"
 
     ```bash
-    pip install earth2observe
+    pip install earthly
     ```
 
 === "GitHub"
 
     ```bash
-    pip install git+https://github.com/serapeum-org/earth2observe.git
+    pip install git+https://github.com/serapeum-org/earthly.git
     ```

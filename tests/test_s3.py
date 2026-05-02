@@ -7,7 +7,7 @@ from typing import List
 
 import pytest
 
-from earth2observe.s3 import S3
+from earthly.s3 import S3
 
 
 @pytest.fixture(scope="module")

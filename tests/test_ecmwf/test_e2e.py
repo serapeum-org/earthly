@@ -11,8 +11,8 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from earth2observe.earth2observe import Earth2Observe
-from earth2observe.ecmwf import Catalog, ECMWF
+from earthly.earthly import Earthly
+from earthly.ecmwf import Catalog, ECMWF
 
 pytestmark = [pytest.mark.e2e]
 
@@ -101,10 +101,10 @@ class TestApiE2E:
 
 
 class TestFacadeE2E:
-    """End-to-end tests for the `Earth2Observe` facade."""
+    """End-to-end tests for the `Earthly` facade."""
 
     def test_live_multi_variable_download_through_facade(self, tmp_path):
-        """`Earth2Observe(...).download()` chains every stage end-to-end.
+        """`Earthly(...).download()` chains every stage end-to-end.
 
         Test scenario:
             Exercise C1+C3+H1+H2+H3+M3 together: facade dispatch,
@@ -114,7 +114,7 @@ class TestFacadeE2E:
             both single-level so the request shape is uniform but
             distinct dataset+variable pairs go to CDS.
         """
-        e2o = Earth2Observe(
+        e2o = Earthly(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",

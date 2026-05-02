@@ -4,7 +4,7 @@ Pulls the current STAC catalogue from
 ``https://cds.climate.copernicus.eu/api/catalogue/v1/collections``,
 filters for the ECMWF / Copernicus Climate Data Store entries the
 package targets, and rewrites the ``available_datasets:`` block in
-``src/earth2observe/ecmwf/cds_data_catalog.yaml`` in place. Other
+``src/earthly/ecmwf/cds_data_catalog.yaml`` in place. Other
 parts of the YAML (the ``datasets:`` curated map, the schema header
 comments) are preserved verbatim.
 
@@ -26,7 +26,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
-CATALOG_PATH = Path("src/earth2observe/ecmwf/cds_data_catalog.yaml")
+CATALOG_PATH = Path("src/earthly/ecmwf/cds_data_catalog.yaml")
 CDS_COLLECTIONS_URL = (
     "https://cds.climate.copernicus.eu/api/catalogue/v1/collections"
 )

@@ -1,7 +1,7 @@
 """Variable-catalog loader for the CDS-backed ECMWF data source.
 
 Hosts :class:`Catalog`, the pydantic-backed reader for
-`cds_data_catalog.yaml`. Split out of :mod:`earth2observe.ecmwf.backend`
+`cds_data_catalog.yaml`. Split out of :mod:`earthly.ecmwf.backend`
 so the request / download machinery and the catalog file-IO live in
 separate modules.
 
@@ -26,7 +26,7 @@ Examples:
     - Construct the catalog and reach into both views:
 
         ```python
-        >>> from earth2observe.ecmwf import Catalog
+        >>> from earthly.ecmwf import Catalog
         >>> cat = Catalog()
         >>> cat.get_dataset("2m-temperature").nc_variable
         't2m'
@@ -44,8 +44,8 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict, Field
 
-from earth2observe.base import AbstractCatalog
-from earth2observe.ecmwf.backend import Variable
+from earthly.base import AbstractCatalog
+from earthly.ecmwf.backend import Variable
 
 CATALOG_PATH: Path = Path(__file__).parent / "cds_data_catalog.yaml"
 
@@ -96,7 +96,7 @@ class Dataset(BaseModel):
         - Inspect a single-level dataset entry:
 
             ```python
-            >>> from earth2observe.ecmwf import Catalog
+            >>> from earthly.ecmwf import Catalog
             >>> cat = Catalog()
             >>> single = cat.datasets["reanalysis-era5-single-levels"]
             >>> single.monthly
@@ -110,7 +110,7 @@ class Dataset(BaseModel):
         - Pressure-level datasets carry the default level list:
 
             ```python
-            >>> from earth2observe.ecmwf import Catalog
+            >>> from earthly.ecmwf import Catalog
             >>> cat = Catalog()
             >>> press = cat.datasets["reanalysis-era5-pressure-levels"]
             >>> press.pressure_level
@@ -157,7 +157,7 @@ class Catalog(AbstractCatalog):
         - Look up a single variable by short code (flat):
 
             ```python
-            >>> from earth2observe.ecmwf import Catalog
+            >>> from earthly.ecmwf import Catalog
             >>> spec = Catalog().get_dataset("2m-temperature")
             >>> spec.cds_dataset
             'reanalysis-era5-single-levels'
@@ -168,7 +168,7 @@ class Catalog(AbstractCatalog):
         - Iterate variables grouped by dataset (structural):
 
             ```python
-            >>> from earth2observe.ecmwf import Catalog
+            >>> from earthly.ecmwf import Catalog
             >>> cat = Catalog()
             >>> cat.datasets["reanalysis-era5-pressure-levels"].monthly
             'reanalysis-era5-pressure-levels-monthly-means'
@@ -179,7 +179,7 @@ class Catalog(AbstractCatalog):
         - Inspect what CDS hosts overall:
 
             ```python
-            >>> from earth2observe.ecmwf import Catalog
+            >>> from earthly.ecmwf import Catalog
             >>> len(Catalog().available_datasets)
             134
 
@@ -283,7 +283,7 @@ class Catalog(AbstractCatalog):
             - Inspect the count and a sample of the loaded catalog:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> mapping = Catalog().get_catalog()
                 >>> "2m-temperature" in mapping
                 True
@@ -313,7 +313,7 @@ class Catalog(AbstractCatalog):
               dataset and NetCDF short name:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> spec = Catalog().get_dataset("2m-temperature")
                 >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
@@ -324,7 +324,7 @@ class Catalog(AbstractCatalog):
             - Pressure-level variables expose `cds_pressure_level`:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> spec = Catalog().get_dataset("temperature")
                 >>> spec.cds_pressure_level
                 ['1000']
@@ -333,7 +333,7 @@ class Catalog(AbstractCatalog):
             - Unknown codes raise `KeyError`:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> Catalog().get_dataset("not-a-real-variable")
                 Traceback (most recent call last):
                     ...
@@ -371,7 +371,7 @@ class Catalog(AbstractCatalog):
             - Describe ERA5-Land at a glance:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> info = Catalog().describe("reanalysis-era5-land")
                 >>> info["dataset"]
                 'reanalysis-era5-land'
@@ -427,7 +427,7 @@ class Catalog(AbstractCatalog):
               because it requires network access:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> req = Catalog().minimal_valid_request(  # doctest: +SKIP
                 ...     "reanalysis-cerra-land",
                 ... )
@@ -436,7 +436,7 @@ class Catalog(AbstractCatalog):
 
                 ```
         """
-        from earth2observe.ecmwf.constraints import fetch_constraints
+        from earthly.ecmwf.constraints import fetch_constraints
 
         constraints = fetch_constraints(dataset_name)
         request: dict[str, Any] = {"data_format": "netcdf"}
@@ -500,7 +500,7 @@ class Catalog(AbstractCatalog):
               `~/.cdsapirc`):
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> cat = Catalog()
                 >>> jobs = cat.list_recent_jobs(  # doctest: +SKIP
                 ...     status="successful", max_age_min=60,
@@ -610,7 +610,7 @@ class Catalog(AbstractCatalog):
             - The two methods return identical objects:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> cat = Catalog()
                 >>> cat.get_variable("2m-temperature") is cat.get_dataset("2m-temperature")
                 True

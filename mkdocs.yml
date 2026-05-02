@@ -1,8 +1,8 @@
-site_name: earth2observe
+site_name: earthly
 site_description: Remote sensing package
-site_url: https://serapeum-org.github.io/earth2observe/
-repo_url: https://github.com/serapeum-org/earth2observe
-repo_name: serapeum-org/earth2observe
+site_url: https://serapeum-org.github.io/earthly/
+repo_url: https://github.com/serapeum-org/earthly
+repo_name: serapeum-org/earthly
 
 theme:
   name: material
@@ -110,7 +110,7 @@ nav:
   - Data Catalog: catalog.md
   - Post Processing: post-processing.md
   - Reference:
-    - Earth2Observe: reference/earth2observe.md
+    - Earthly: reference/earthly.md
     - AbstractDataSource: reference/abstractdatasource.md
     - CHIRPS: reference/chirps.md
     - Amazon S3: reference/s3.md
@@ -122,7 +122,7 @@ nav:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/serapeum-org/earth2observe
+      link: https://github.com/serapeum-org/earthly
   version:
       provider: mike
   version_selector: true

@@ -7,7 +7,7 @@ from typing import List
 
 import pytest
 
-from earth2observe.chirps import CHIRPS
+from earthly.chirps import CHIRPS
 
 
 @pytest.fixture(scope="module")

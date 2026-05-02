@@ -2,6 +2,6 @@
 
 Base classes that define the interface for all data source implementations.
 
-::: earth2observe.abstractdatasource.AbstractDataSource
+::: earthly.abstractdatasource.AbstractDataSource
 
-::: earth2observe.abstractdatasource.AbstractCatalog
+::: earthly.abstractdatasource.AbstractCatalog

@@ -6,7 +6,7 @@
 """
 import os
 
-from earth2observe.ecmwf import ECMWF, Catalog
+from earthly.ecmwf import ECMWF, Catalog
 
 rpath = os.getcwd()
 path = rf"{rpath}\delete\data\ecmwf"

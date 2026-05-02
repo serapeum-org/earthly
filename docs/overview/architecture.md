@@ -1,15 +1,15 @@
 # Architecture
 
-This page documents the internal architecture of `earth2observe` using [Mermaid](https://mermaid.js.org/) diagrams. It replaces the original draw.io class diagram.
+This page documents the internal architecture of `earthly` using [Mermaid](https://mermaid.js.org/) diagrams. It replaces the original draw.io class diagram.
 
 ## System Overview
 
-The `Earth2Observe` facade exposes a uniform API on top of several concrete data-source backends. Each backend implements the `AbstractDataSource` interface, and each has a companion `Catalog` class that describes available variables.
+The `Earthly` facade exposes a uniform API on top of several concrete data-source backends. Each backend implements the `AbstractDataSource` interface, and each has a companion `Catalog` class that describes available variables.
 
 ```mermaid
 flowchart LR
     user([User])
-    e2o[Earth2Observe]
+    e2o[Earthly]
     user --> e2o
     e2o --> CHIRPS
     e2o --> S3
@@ -85,7 +85,7 @@ classDiagram
         +post_download(...)
     }
 
-    class Earth2Observe {
+    class Earthly {
         +DataSources: Dict
         +datasource: AbstractDataSource
         +download(progress_bar, *args, **kwargs)
@@ -94,7 +94,7 @@ classDiagram
     AbstractDataSource <|-- CHIRPS
     AbstractDataSource <|-- S3
     AbstractDataSource <|-- ECMWF
-    Earth2Observe o--> AbstractDataSource : delegates to
+    Earthly o--> AbstractDataSource : delegates to
     AbstractCatalog <|-- CHIRPS_Catalog
     AbstractCatalog <|-- S3_Catalog
     AbstractCatalog <|-- ECMWF_Catalog
@@ -137,18 +137,18 @@ classDiagram
 
 ## Download Sequence
 
-The user calls `Earth2Observe.download()`, which delegates to the selected backend. Each backend follows the same high-level sequence: authenticate / open a session, iterate over dates × variables, fetch, and post-process.
+The user calls `Earthly.download()`, which delegates to the selected backend. Each backend follows the same high-level sequence: authenticate / open a session, iterate over dates × variables, fetch, and post-process.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor User
-    participant E2O as Earth2Observe
+    participant E2O as Earthly
     participant DS as AbstractDataSource
     participant Server as Remote server<br/>(FTP / S3 / CDS)
     participant Pyramids as pyramids-gis
 
-    User->>E2O: Earth2Observe(data_source, start, end, ...)
+    User->>E2O: Earthly(data_source, start, end, ...)
     E2O->>DS: instantiate backend
     DS->>DS: initialize() / check_input_dates() / create_grid()
     User->>E2O: download()

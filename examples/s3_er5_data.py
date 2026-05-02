@@ -1,6 +1,6 @@
 import os
 
-from earth2observe.s3 import S3, Catalog
+from earthly.s3 import S3, Catalog
 
 #%%
 s3_catalog = Catalog()

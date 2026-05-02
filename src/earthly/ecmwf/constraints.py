@@ -21,7 +21,7 @@ Examples:
     - Validate a request against ERA5 single-levels constraints:
 
         ```python
-        >>> from earth2observe.ecmwf.constraints import RequestValidator
+        >>> from earthly.ecmwf.constraints import RequestValidator
         >>> request = {
         ...     "variable": ["2m_temperature"],
         ...     "year": ["2022"],
@@ -104,7 +104,7 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
           network access):
 
             ```python
-            >>> from earth2observe.ecmwf.constraints import fetch_constraints
+            >>> from earthly.ecmwf.constraints import fetch_constraints
             >>> entries = fetch_constraints(  # doctest: +SKIP
             ...     "reanalysis-era5-single-levels",
             ... )
@@ -290,7 +290,7 @@ class RequestValidator:
     Example:
         ```python
         >>> import os
-        >>> from earth2observe.ecmwf.constraints import RequestValidator
+        >>> from earthly.ecmwf.constraints import RequestValidator
         >>> os.environ["E2O_SKIP_CONSTRAINTS"] = "1"
         >>> RequestValidator("any-dataset", {"variable": ["x"]}).check()
         >>> os.environ.pop("E2O_SKIP_CONSTRAINTS", None) is not None

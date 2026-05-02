@@ -31,7 +31,7 @@ Examples:
     - List all entries in the bundled catalog:
 
         ```python
-        >>> from earth2observe.ecmwf import Catalog
+        >>> from earthly.ecmwf import Catalog
         >>> cat = Catalog()
         >>> "2m-temperature" in cat.catalog
         True
@@ -43,13 +43,13 @@ Examples:
 
 from __future__ import annotations
 
-from earth2observe.ecmwf.backend import (
+from earthly.ecmwf.backend import (
     ERA5_GRID_DEGREES,
     AuthenticationError,
     ECMWF,
     Variable,
 )
-from earth2observe.ecmwf.catalog import CATALOG_PATH, Catalog, Dataset
+from earthly.ecmwf.catalog import CATALOG_PATH, Catalog, Dataset
 
 __all__ = [
     "ECMWF",

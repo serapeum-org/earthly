@@ -1,4 +1,4 @@
-"""Unit tests for :class:`earth2observe.ecmwf.Catalog`.
+"""Unit tests for :class:`earthly.ecmwf.Catalog`.
 
 Covers the H2 / H5 rewiring (the catalog reads
 `cds_data_catalog.yaml` and exposes per-variable
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from earth2observe.ecmwf import Catalog, Variable
+from earthly.ecmwf import Catalog, Variable
 
 pytestmark = [pytest.mark.unit]
 
@@ -127,7 +127,7 @@ class TestCatalog:
     @pytest.mark.parametrize("mars_key", ["number_para", "download type", "var_name"])
     def test_no_mars_schema_keys_in_extras(self, monkeypatch, tmp_path, mars_key):
         """Legacy MARS keys are rejected inside `extras`."""
-        from earth2observe.ecmwf import catalog as catalog_module
+        from earthly.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -162,7 +162,7 @@ class TestCatalog:
 
     def test_extras_propagate_from_parent_dataset(self, monkeypatch, tmp_path):
         """Parent `Dataset.extras` propagates into each child Variable."""
-        from earth2observe.ecmwf import catalog as catalog_module
+        from earthly.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -188,7 +188,7 @@ class TestCatalog:
 
     def test_row_extras_override_parent_extras(self, monkeypatch, tmp_path):
         """A per-row `extras:` key wins over the parent default."""
-        from earth2observe.ecmwf import catalog as catalog_module
+        from earthly.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -279,7 +279,7 @@ class TestCatalog:
 
     def test_minimal_valid_request_picks_entry_with_variable(self, monkeypatch):
         """`minimal_valid_request` returns a known-valid request dict."""
-        from earth2observe.ecmwf import constraints as constraints_module
+        from earthly.ecmwf import constraints as constraints_module
 
         constraints_module._CACHE.clear()
 
@@ -316,7 +316,7 @@ class TestCatalog:
         self, monkeypatch
     ):
         """For datasets without a `variable` field, return the first entry."""
-        from earth2observe.ecmwf import constraints as constraints_module
+        from earthly.ecmwf import constraints as constraints_module
 
         constraints_module._CACHE.clear()
 
@@ -342,7 +342,7 @@ class TestCatalog:
 
     def test_minimal_valid_request_empty_constraints(self, monkeypatch):
         """Empty constraints return a near-empty request (just data_format)."""
-        from earth2observe.ecmwf import constraints as constraints_module
+        from earthly.ecmwf import constraints as constraints_module
 
         constraints_module._CACHE.clear()
 
@@ -386,7 +386,7 @@ class TestCatalog:
             def raise_for_status(self): pass
             def json(self): return payload
 
-        import earth2observe.ecmwf.catalog as cat_mod
+        import earthly.ecmwf.catalog as cat_mod
         captured = {}
 
         def _fake_get(url, headers=None, params=None, timeout=None):
@@ -668,7 +668,7 @@ class TestCatalog:
 
     def test_extras_roundtrip_through_yaml(self, monkeypatch, tmp_path):
         """Arbitrary extras survive a YAML load-and-read round trip."""
-        from earth2observe.ecmwf import catalog as catalog_module
+        from earthly.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -698,7 +698,7 @@ class TestCatalog:
         empty_yaml.write_text(
             "version: 3\navailable_datasets: []\n", encoding="utf-8"
         )
-        from earth2observe.ecmwf import catalog as catalog_module
+        from earthly.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", empty_yaml)
         with pytest.raises(ValueError, match="datasets"):
@@ -708,7 +708,7 @@ class TestCatalog:
         """A YAML with datasets: null also raises ValueError."""
         null_yaml = tmp_path / "cds_data_catalog.yaml"
         null_yaml.write_text("datasets:\n", encoding="utf-8")
-        from earth2observe.ecmwf import catalog as catalog_module
+        from earthly.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", null_yaml)
         with pytest.raises(ValueError, match="datasets"):
@@ -721,7 +721,7 @@ class TestCatalog:
             "datasets:\n  reanalysis-era5-single-levels:\n    monthly: x\n    variables:\n",
             encoding="utf-8",
         )
-        from earth2observe.ecmwf import catalog as catalog_module
+        from earthly.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", no_vars)
         with pytest.raises(ValueError, match="no variables"):

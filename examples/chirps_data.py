@@ -1,4 +1,4 @@
-from earth2observe.chirps import CHIRPS, Catalog
+from earthly.chirps import CHIRPS, Catalog
 
 #%%
 chirps_catalog = Catalog()

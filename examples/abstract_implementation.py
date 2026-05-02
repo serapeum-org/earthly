@@ -1,4 +1,4 @@
-from earth2observe.earth2observe import Earth2Observe
+from earthly.earthly import Earthly
 
 # unified parameters for all data sources.
 start = "2009-01-01"
@@ -10,7 +10,7 @@ lonlim = [-75.65, -74.73]
 source = "chirps"
 path = r"examples\data\chirps"
 variables = ["precipitation"]
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -24,7 +24,7 @@ e2o = Earth2Observe(
 #%%
 path = r"examples\data\chirps-cores"
 
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -40,7 +40,7 @@ e2o = Earth2Observe(
 path = r"examples\data\ecmwf"
 source = "ecmwf"
 variables = ["precipitation"]
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -56,7 +56,7 @@ e2o = Earth2Observe(
 path = r"examples\data\s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     start=start,
     end=end,

@@ -1,15 +1,15 @@
 """Front-end facade that routes downloads to a concrete data-source backend.
 
-The :class:`Earth2Observe` class is the user-facing entry point of the
+The :class:`Earthly` class is the user-facing entry point of the
 package. It keeps the choice of backend (CHIRPS, ERA5 on AWS S3, ECMWF
 on the Copernicus Climate Data Store) behind a single string key so
 callers do not have to import each backend module directly.
 """
 from __future__ import annotations
 
-from earth2observe.chirps import CHIRPS
-from earth2observe.ecmwf import ECMWF
-from earth2observe.s3 import S3
+from earthly.chirps import CHIRPS
+from earthly.ecmwf import ECMWF
+from earthly.s3 import S3
 
 #: Default longitude bounds used when `lon_lim` is not supplied
 #: (whole-Earth coverage).
@@ -20,7 +20,7 @@ DEFAULT_LONGITUDE_LIMIT = [-180, 180]
 DEFAULT_LATITUDE_LIMIT = [-90, 90]
 
 
-class Earth2Observe:
+class Earthly:
     """Facade that routes a download to the requested backend.
 
     The class-level :attr:`DataSources` mapping resolves a string key
@@ -34,7 +34,7 @@ class Earth2Observe:
         DataSources: Class-level dict of registered backends. Keys are
             the user-facing names accepted by `data_source`; values
             are the corresponding subclasses of
-            :class:`earth2observe.abstractdatasource.AbstractDataSource`.
+            :class:`earthly.abstractdatasource.AbstractDataSource`.
         datasource: Instance attribute set by :meth:`__init__` —
             holds the concrete backend that :meth:`download` routes to.
 
@@ -42,16 +42,16 @@ class Earth2Observe:
         - Inspect the registered backends:
 
             ```python
-            >>> from earth2observe.earth2observe import Earth2Observe
-            >>> sorted(Earth2Observe.DataSources)
+            >>> from earthly.earthly import Earthly
+            >>> sorted(Earthly.DataSources)
             ['amazon-s3', 'chirps', 'ecmwf']
 
             ```
         - Asking for an unknown backend raises `ValueError`:
 
             ```python
-            >>> from earth2observe.earth2observe import Earth2Observe
-            >>> Earth2Observe(data_source="not-a-real-source")
+            >>> from earthly.earthly import Earthly
+            >>> Earthly(data_source="not-a-real-source")
             Traceback (most recent call last):
                 ...
             ValueError: not-a-real-source not supported
@@ -59,9 +59,9 @@ class Earth2Observe:
             ```
 
     See Also:
-        :class:`earth2observe.chirps.CHIRPS`: CHIRPS rainfall over FTP.
-        :class:`earth2observe.s3.S3`: ERA5 on AWS public S3 bucket.
-        :class:`earth2observe.ecmwf.ECMWF`: ERA5 via the Copernicus
+        :class:`earthly.chirps.CHIRPS`: CHIRPS rainfall over FTP.
+        :class:`earthly.s3.S3`: ERA5 on AWS public S3 bucket.
+        :class:`earthly.ecmwf.ECMWF`: ERA5 via the Copernicus
             Climate Data Store (cdsapi).
     """
 
@@ -115,17 +115,17 @@ class Earth2Observe:
             AuthenticationError: If `data_source="ecmwf"` and cdsapi
                 cannot authenticate (typically a missing
                 `~/.cdsapirc`). See
-                :class:`earth2observe.ecmwf.AuthenticationError`.
+                :class:`earthly.ecmwf.AuthenticationError`.
 
         Examples:
             - The DataSources registry resolves the backend class
               before construction. Inspect what each key points to:
 
                 ```python
-                >>> from earth2observe.earth2observe import Earth2Observe
-                >>> Earth2Observe.DataSources["chirps"].__name__
+                >>> from earthly.earthly import Earthly
+                >>> Earthly.DataSources["chirps"].__name__
                 'CHIRPS'
-                >>> Earth2Observe.DataSources["ecmwf"].__name__
+                >>> Earthly.DataSources["ecmwf"].__name__
                 'ECMWF'
 
                 ```
@@ -133,8 +133,8 @@ class Earth2Observe:
               code runs:
 
                 ```python
-                >>> from earth2observe.earth2observe import Earth2Observe
-                >>> Earth2Observe(data_source="bogus")
+                >>> from earthly.earthly import Earthly
+                >>> Earthly(data_source="bogus")
                 Traceback (most recent call last):
                     ...
                 ValueError: bogus not supported
@@ -146,8 +146,8 @@ class Earth2Observe:
               `~/.cdsapirc`:
 
                 ```python
-                >>> from earth2observe.earth2observe import Earth2Observe
-                >>> e2o = Earth2Observe(  # doctest: +SKIP
+                >>> from earthly.earthly import Earthly
+                >>> e2o = Earthly(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -205,7 +205,7 @@ class Earth2Observe:
         Raises:
             Any exception the bound backend raises. ECMWF wraps
             authentication failures in
-            :class:`earth2observe.ecmwf.AuthenticationError`; all
+            :class:`earthly.ecmwf.AuthenticationError`; all
             backends propagate `KeyError` for unknown variable codes.
 
         Examples:
@@ -213,8 +213,8 @@ class Earth2Observe:
               because it makes a live FTP connection:
 
                 ```python
-                >>> from earth2observe.earth2observe import Earth2Observe
-                >>> e2o = Earth2Observe(  # doctest: +SKIP
+                >>> from earthly.earthly import Earthly
+                >>> e2o = Earthly(  # doctest: +SKIP
                 ...     data_source="chirps",
                 ...     start="2009-01-01",
                 ...     end="2009-01-02",
@@ -232,8 +232,8 @@ class Earth2Observe:
               while the queue serves it:
 
                 ```python
-                >>> from earth2observe.earth2observe import Earth2Observe
-                >>> e2o = Earth2Observe(  # doctest: +SKIP
+                >>> from earthly.earthly import Earthly
+                >>> e2o = Earthly(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
@@ -247,12 +247,12 @@ class Earth2Observe:
                 ```
 
         See Also:
-            :meth:`earth2observe.chirps.CHIRPS.download`: CHIRPS
+            :meth:`earthly.chirps.CHIRPS.download`: CHIRPS
                 backend implementation, including the `cores=`
                 keyword for parallel retrieval.
-            :meth:`earth2observe.s3.S3.download`: S3/ERA5 backend
+            :meth:`earthly.s3.S3.download`: S3/ERA5 backend
                 implementation.
-            :meth:`earth2observe.ecmwf.ECMWF.download`: ECMWF/CDS
+            :meth:`earthly.ecmwf.ECMWF.download`: ECMWF/CDS
                 backend implementation.
         """
         self.datasource.download(progress_bar=progress_bar, *args, **kwargs)

@@ -16,9 +16,9 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from bulk_add_remaining import EXTRA_MAPPING, build_known
-from earth2observe.ecmwf.constraints import fetch_constraints
+from earthly.ecmwf.constraints import fetch_constraints
 
-CATALOG_PATH = Path("src/earth2observe/ecmwf/cds_data_catalog.yaml")
+CATALOG_PATH = Path("src/earthly/ecmwf/cds_data_catalog.yaml")
 
 LEVEL_DEFAULTS = {
     "height_levels": {"height_level": ["100_m"]},

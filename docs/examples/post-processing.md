@@ -2,7 +2,7 @@
 
 In this tutorial we will:
 
-- Download ERA5 precipitation data from Amazon S3 using earth2observe
+- Download ERA5 precipitation data from Amazon S3 using earthly
 - Convert the downloaded data from NetCDF to GeoTIFF rasters (one per time stamp)
 - Create an index map to refer to each cell with an index number
 - Create point and polygon geometries as spatial indices
@@ -11,26 +11,26 @@ In this tutorial we will:
 
 We will be using:
 
-- `earth2observe` package
-- The convert module in the [pyramids](https://github.com/serapeum-org/pyramids) package (dependency of earth2observe)
+- `earthly` package
+- The convert module in the [pyramids](https://github.com/serapeum-org/pyramids) package (dependency of earthly)
 
 !!! tip
-    You can find the whole tutorial as a Jupyter notebook: [post processing of ERA5 data](https://github.com/serapeum-org/earth2observe/blob/main/examples/post-processing-tutorial.ipynb)
+    You can find the whole tutorial as a Jupyter notebook: [post processing of ERA5 data](https://github.com/serapeum-org/earthly/blob/main/examples/post-processing-tutorial.ipynb)
 
 ## Packages
 
-Install `earth2observe`:
+Install `earthly`:
 
 === "conda"
 
     ```bash
-    conda install -c conda-forge earth2observe
+    conda install -c conda-forge earthly
     ```
 
 === "pip"
 
     ```bash
-    pip install earth2observe
+    pip install earthly
     ```
 
 Import packages:
@@ -48,7 +48,7 @@ from osgeo import gdal
 from osgeo.gdal import Dataset
 import numpy as np
 from pyramids.indexing import H3
-from earth2observe.earth2observe import Earth2Observe
+from earthly.earthly import Earthly
 ```
 
 ## Setup
@@ -71,9 +71,9 @@ project/
 
 ![Project directory](_images/project-directory.png){ width="300" }
 
-## Earth2Observe Download
+## Earthly Download
 
-Define the earth2observe parameters and download:
+Define the earthly parameters and download:
 
 ```python
 start = "2022-05-01"
@@ -83,7 +83,7 @@ path = f"{rdir}/s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
 
-e2o = Earth2Observe(
+e2o = Earthly(
     data_source=source,
     temporal_resolution=time,
     start=start,

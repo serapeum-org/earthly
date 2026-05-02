@@ -16,7 +16,7 @@ from __future__ import annotations
 import pandas as pd
 import pytest
 
-from earth2observe.ecmwf import Variable
+from earthly.ecmwf import Variable
 
 from tests.test_ecmwf._fakes import captured_request
 
@@ -345,7 +345,7 @@ class TestApi:
         cover the assembled request, then asserts the resulting
         `ValueError` surfaces before any retrieve call.
         """
-        from earth2observe.ecmwf import constraints as constraints_module
+        from earthly.ecmwf import constraints as constraints_module
 
         monkeypatch.delenv("E2O_SKIP_CONSTRAINTS", raising=False)
         constraints_module._CACHE.clear()

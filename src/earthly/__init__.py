@@ -50,5 +50,5 @@ def configuration(parent_package="", top_path=None):
 
 
 __doc__ = """
-earth2observe - remote sensing package
+earthly - remote sensing package
 """

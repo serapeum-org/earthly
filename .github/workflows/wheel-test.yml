@@ -76,7 +76,7 @@ jobs:
 
       - name: Verify package import
         shell: bash -el {0}
-        run: python -c "import earth2observe; print(earth2observe.__version__)"
+        run: python -c "import earthly; print(earthly.__version__)"
 
       - name: Install test dependencies
         shell: bash -el {0}

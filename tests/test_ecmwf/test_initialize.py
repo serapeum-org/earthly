@@ -10,7 +10,7 @@ from __future__ import annotations
 import cdsapi
 import pytest
 
-from earth2observe.ecmwf import ECMWF, AuthenticationError
+from earthly.ecmwf import ECMWF, AuthenticationError
 
 from tests.test_ecmwf._fakes import _SentinelClient
 

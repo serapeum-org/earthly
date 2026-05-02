@@ -1,4 +1,4 @@
-"""Tests for :mod:`earth2observe.ecmwf.constraints`.
+"""Tests for :mod:`earthly.ecmwf.constraints`.
 
 Validates the pre-flight check that catches mismatched
 request / constraints.json combinations before they hit CDS.
@@ -12,8 +12,8 @@ from urllib.error import HTTPError
 
 import pytest
 
-from earth2observe.ecmwf import constraints as constraints_module
-from earth2observe.ecmwf.constraints import (
+from earthly.ecmwf import constraints as constraints_module
+from earthly.ecmwf.constraints import (
     Area,
     Dates,
     RequestValidator,

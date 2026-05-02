@@ -11,12 +11,12 @@ import pandas as pd
 from loguru import logger
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
-from earth2observe.base import (
+from earthly.base import (
     AbstractDataSource,
     SpatialExtent,
     TemporalExtent,
 )
-from earth2observe.ecmwf.constraints import RequestValidator
+from earthly.ecmwf.constraints import RequestValidator
 
 __all__ = ["AuthenticationError", "ECMWF", "ERA5_GRID_DEGREES", "Variable"]
 
@@ -162,7 +162,7 @@ class Variable(BaseModel):
             - Build a Variable from a complete entry and inspect it:
 
                 ```python
-                >>> from earth2observe.ecmwf import Variable
+                >>> from earthly.ecmwf import Variable
                 >>> spec = Variable.from_dict("2m-temperature", {
                 ...     "cds_dataset": "reanalysis-era5-single-levels",
                 ...     "cds_variable": "2m_temperature",
@@ -177,7 +177,7 @@ class Variable(BaseModel):
             - A typo in a key name is caught at construction time —
               the wrapped pydantic error names the offending row:
                 ```python
-                >>> from earth2observe.ecmwf import Variable
+                >>> from earthly.ecmwf import Variable
                 >>> try:
                 ...     Variable.from_dict("2m-temperature", {
                 ...         "cd_dataset": "reanalysis-era5-single-levels",
@@ -214,7 +214,7 @@ class Variable(BaseModel):
             - Daily resolution returns the daily dataset name:
 
                 ```python
-                >>> from earth2observe.ecmwf import Variable
+                >>> from earthly.ecmwf import Variable
                 >>> spec = Variable(
                 ...     cds_dataset="reanalysis-era5-single-levels",
                 ...     cds_dataset_monthly="reanalysis-era5-single-levels-monthly-means",
@@ -230,7 +230,7 @@ class Variable(BaseModel):
               when no monthly variant is configured:
 
                 ```python
-                >>> from earth2observe.ecmwf import Variable
+                >>> from earthly.ecmwf import Variable
                 >>> spec = Variable(
                 ...     cds_dataset="reanalysis-era5-single-levels",
                 ...     cds_variable="2m_temperature",
@@ -261,7 +261,7 @@ class Variable(BaseModel):
             - A state variable is not a flux:
 
                 ```python
-                >>> from earth2observe.ecmwf import Variable
+                >>> from earthly.ecmwf import Variable
                 >>> spec = Variable(
                 ...     cds_dataset="reanalysis-era5-single-levels",
                 ...     cds_variable="2m_temperature",
@@ -276,7 +276,7 @@ class Variable(BaseModel):
             - A flux variable reports True:
 
                 ```python
-                >>> from earth2observe.ecmwf import Variable
+                >>> from earthly.ecmwf import Variable
                 >>> spec = Variable(
                 ...     cds_dataset="reanalysis-era5-single-levels",
                 ...     cds_variable="total_precipitation",
@@ -605,7 +605,7 @@ class ECMWF(AbstractDataSource):
                 so existing callers keep working.
             *args: Reserved; ignored. Kept for forward-compatibility
                 with backend-specific extras callers might pass via
-                :meth:`Earth2Observe.download`.
+                :meth:`Earthly.download`.
             **kwargs: Reserved; ignored. Same rationale as `*args`.
 
         Returns:
@@ -623,13 +623,13 @@ class ECMWF(AbstractDataSource):
 
         Examples:
             - End-to-end download via the user-facing
-              :class:`Earth2Observe` facade. Marked
+              :class:`Earthly` facade. Marked
               `# doctest: +SKIP` because it requires a configured
               `~/.cdsapirc` and several minutes of CDS queue time:
 
                 ```python
-                >>> from earth2observe.earth2observe import Earth2Observe
-                >>> e2o = Earth2Observe(  # doctest: +SKIP
+                >>> from earthly.earthly import Earthly
+                >>> e2o = Earthly(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -653,7 +653,7 @@ class ECMWF(AbstractDataSource):
         # Lazy import to avoid a circular dependency: `catalog.py`
         # imports `Variable` from this module, so a top-level
         # import of `Catalog` would be cyclic.
-        from earth2observe.ecmwf.catalog import Catalog
+        from earthly.ecmwf.catalog import Catalog
 
         catalog = Catalog()
         succeeded: list[str] = []
@@ -795,7 +795,7 @@ class ECMWF(AbstractDataSource):
               file name it produces:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> spec = Catalog().get_dataset("2m-temperature")
                 >>> spec.cds_dataset
                 'reanalysis-era5-single-levels'
@@ -807,20 +807,20 @@ class ECMWF(AbstractDataSource):
               :meth:`api` forwards it to the request:
 
                 ```python
-                >>> from earth2observe.ecmwf import Catalog
+                >>> from earthly.ecmwf import Catalog
                 >>> spec = Catalog().get_dataset("temperature")
                 >>> spec.cds_pressure_level
                 ['1000']
 
                 ```
             - Submit the request through the user-facing
-              :class:`Earth2Observe` facade. Marked
+              :class:`Earthly` facade. Marked
               `# doctest: +SKIP` because it requires a configured
               `~/.cdsapirc` and several minutes of CDS queue time:
 
                 ```python
-                >>> from earth2observe.earth2observe import Earth2Observe  # doctest: +SKIP
-                >>> e2o = Earth2Observe(  # doctest: +SKIP
+                >>> from earthly.earthly import Earthly  # doctest: +SKIP
+                >>> e2o = Earthly(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -835,7 +835,7 @@ class ECMWF(AbstractDataSource):
                 ```
 
         See Also:
-            :class:`earth2observe.earth2observe.Earth2Observe`: The
+            :class:`earthly.earthly.Earthly`: The
                 user-facing facade that wires this method into the
                 `download()` flow.
             :meth:`download_dataset`: The single-variable wrapper that

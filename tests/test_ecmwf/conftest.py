@@ -22,8 +22,8 @@ import cdsapi
 import pandas as pd
 import pytest
 
-from earth2observe.base import SpatialExtent, TemporalExtent
-from earth2observe.ecmwf import ECMWF, Variable
+from earthly.base import SpatialExtent, TemporalExtent
+from earthly.ecmwf import ECMWF, Variable
 
 
 _LIVE_CDS_TEST_CLASSES = frozenset({"TestApiE2E", "TestFacadeE2E"})

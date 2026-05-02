@@ -10,10 +10,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from earth2observe.chirps import CHIRPS
-from earth2observe.earth2observe import Earth2Observe
-from earth2observe.ecmwf import ECMWF
-from earth2observe.s3 import S3
+from earthly.chirps import CHIRPS
+from earthly.earthly import Earthly
+from earthly.ecmwf import ECMWF
+from earthly.s3 import S3
 
 
 class _SentinelClient:
@@ -32,7 +32,7 @@ class TestChirpsBackend:
         lon_bounds: List,
         chirps_data_source_output_dir: str,
     ):
-        e2o = Earth2Observe(
+        e2o = Earthly(
             data_source=chirps_data_source,
             start=dates[0],
             end=dates[1],
@@ -81,7 +81,7 @@ class TestS3Backend:
         lon_bounds: List,
         s3_era5_data_source_output_dir: str,
     ):
-        e2o = Earth2Observe(
+        e2o = Earthly(
             data_source=s3_data_source,
             start=monthly_dates[0],
             end=monthly_dates[1],
@@ -116,31 +116,31 @@ class TestS3Backend:
 class TestECMWFBackend:
     """Tests for the C1+L3 fix that registers ECMWF in the facade.
 
-    Pre-C1, `Earth2Observe(data_source="ecmwf", ...)` raised
+    Pre-C1, `Earthly(data_source="ecmwf", ...)` raised
     `ValueError: ecmwf not supported` because the `DataSources`
     mapping omitted ECMWF. These tests pin the registration so
     regressions show up immediately.
     """
 
     def test_ecmwf_is_registered_in_data_sources(self):
-        """`Earth2Observe.DataSources` maps `"ecmwf"` to :class:`ECMWF`.
+        """`Earthly.DataSources` maps `"ecmwf"` to :class:`ECMWF`.
 
         Test scenario:
             The class-level `DataSources` dict must contain the key
             `"ecmwf"` whose value is the `ECMWF` class itself
             (not an instance).
         """
-        assert "ecmwf" in Earth2Observe.DataSources, (
+        assert "ecmwf" in Earthly.DataSources, (
             f"'ecmwf' missing from DataSources keys: "
-            f"{sorted(Earth2Observe.DataSources)}"
+            f"{sorted(Earthly.DataSources)}"
         )
-        assert Earth2Observe.DataSources["ecmwf"] is ECMWF, (
+        assert Earthly.DataSources["ecmwf"] is ECMWF, (
             f"DataSources['ecmwf'] should be the ECMWF class; got "
-            f"{Earth2Observe.DataSources['ecmwf']!r}"
+            f"{Earthly.DataSources['ecmwf']!r}"
         )
 
     def test_facade_accepts_ecmwf_data_source(self, tmp_path, monkeypatch):
-        """`Earth2Observe(data_source="ecmwf", ...)` no longer raises.
+        """`Earthly(data_source="ecmwf", ...)` no longer raises.
 
         Test scenario:
             With cdsapi.Client mocked, constructing the facade with
@@ -149,7 +149,7 @@ class TestECMWFBackend:
         """
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
-        e2o = Earth2Observe(
+        e2o = Earthly(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -173,7 +173,7 @@ class TestECMWFBackend:
             of unrecognised data-source names.
         """
         with pytest.raises(ValueError, match="not supported"):
-            Earth2Observe(
+            Earthly(
                 data_source="not-a-real-source",
                 start="2022-01-01",
                 end="2022-01-01",
@@ -190,14 +190,14 @@ class TestECMWFBackend:
 
         Test scenario:
             `variables`, `lat_lim`/`lon_lim`, `temporal_resolution`
-            and `path` passed to `Earth2Observe` must reach the
+            and `path` passed to `Earthly` must reach the
             underlying :class:`ECMWF` backend, since downstream code
             (e.g. :meth:`ECMWF.api`) reads them from `self.vars` /
             `self.space` / `self.time` / `self.root_dir`.
         """
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
-        e2o = Earth2Observe(
+        e2o = Earthly(
             data_source="ecmwf",
             temporal_resolution="monthly",
             start="2022-01-01",
@@ -223,10 +223,10 @@ class TestECMWFBackend:
     def test_full_download_through_facade_routes_to_cdsapi(
         self, tmp_path, monkeypatch
     ):
-        """End-to-end: `Earth2Observe(...).download()` reaches CDS.
+        """End-to-end: `Earthly(...).download()` reaches CDS.
 
         Test scenario:
-            Verifies the full chain `Earth2Observe.download →
+            Verifies the full chain `Earthly.download →
             ECMWF.download → download_dataset → api` wires up
             correctly under the facade. Patches `cdsapi.Client` to
             capture every retrieve call, runs a two-variable
@@ -248,7 +248,7 @@ class TestECMWFBackend:
 
         monkeypatch.setattr(cdsapi, "Client", FakeClient)
 
-        e2o = Earth2Observe(
+        e2o = Earthly(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",

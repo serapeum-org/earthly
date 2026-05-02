@@ -22,7 +22,7 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 import cdsapi
-from earth2observe.ecmwf.constraints import RequestValidator, fetch_constraints
+from earthly.ecmwf.constraints import RequestValidator, fetch_constraints
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
 

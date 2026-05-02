@@ -2,6 +2,6 @@
 
 ECMWF Climate Data Store data source via cdsapi.
 
-::: earth2observe.ecmwf.ECMWF
+::: earthly.ecmwf.ECMWF
 
-::: earth2observe.ecmwf.Catalog
+::: earthly.ecmwf.Catalog
