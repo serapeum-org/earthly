@@ -186,7 +186,7 @@ class AbstractDataSource(ABC):
         self,
         start: str = None,
         end: str = None,
-        variables: list = None,
+        variables: dict[str, list[str]] = None,
         temporal_resolution: str = "daily",
         lat_lim: list = None,
         lon_lim: list = None,
