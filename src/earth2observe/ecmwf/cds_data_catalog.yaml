@@ -8336,31 +8336,31 @@ datasets:
 
       "depth-of-14-c-isotherm-seasonal-ocean":
         cds_variable: depth_of_14_c_isotherm
-        nc_variable: d14
+        nc_variable: t14d
         types: state
         units: "m"
 
       "depth-of-17-c-isotherm-seasonal-ocean":
         cds_variable: depth_of_17_c_isotherm
-        nc_variable: d17
+        nc_variable: t17d
         types: state
         units: "m"
 
       "depth-of-20-c-isotherm-seasonal-ocean":
         cds_variable: depth_of_20_c_isotherm
-        nc_variable: d20
+        nc_variable: t20d
         types: state
         units: "m"
 
       "depth-of-26-c-isotherm-seasonal-ocean":
         cds_variable: depth_of_26_c_isotherm
-        nc_variable: d26
+        nc_variable: t26d
         types: state
         units: "m"
 
       "depth-of-28-c-isotherm-seasonal-ocean":
         cds_variable: depth_of_28_c_isotherm
-        nc_variable: d28
+        nc_variable: t28d
         types: state
         units: "m"
 
