@@ -22,6 +22,7 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 import cdsapi
+import requests as _requests
 from earthly.ecmwf.constraints import RequestValidator, fetch_constraints
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
@@ -73,9 +74,6 @@ def first_valid_combo(dataset: str) -> dict[str, Any] | None:
                     request[key] = value
             return request
     return None
-
-
-import requests as _requests
 
 
 def _read_cdsapirc() -> dict[str, str]:

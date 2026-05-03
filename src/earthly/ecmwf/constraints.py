@@ -40,7 +40,6 @@ Examples:
 
 from __future__ import annotations
 
-import calendar
 import datetime
 import difflib
 import itertools
@@ -369,7 +368,7 @@ class RequestValidator:
             raise ValueError(
                 f"Request for {self.dataset!r} names unknown variable(s): "
                 + "; ".join(parts)
-                + f"\nLive constraints: "
+                + "\nLive constraints: "
                 + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
             )
 
