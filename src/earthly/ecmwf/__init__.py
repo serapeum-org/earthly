@@ -49,9 +49,8 @@ from earthly.ecmwf.backend import (
     ECMWF,
     ERA5_GRID_DEGREES,
     AuthenticationError,
-    Variable,
 )
-from earthly.ecmwf.catalog import CATALOG_PATH, Catalog, Dataset
+from earthly.ecmwf.catalog import CATALOG_PATH, Catalog, Dataset, Variable
 
 __all__ = [
     "ECMWF",

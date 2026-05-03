@@ -9,23 +9,19 @@ import cdsapi
 import numpy as np
 import pandas as pd
 from loguru import logger
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 from earthly.base import (
     AbstractDataSource,
     SpatialExtent,
     TemporalExtent,
 )
+from earthly.ecmwf.catalog import Catalog, Variable
 from earthly.ecmwf.constraints import RequestValidator
 
-__all__ = ["AuthenticationError", "ECMWF", "ERA5_GRID_DEGREES", "Variable"]
+__all__ = ["AuthenticationError", "ECMWF", "ERA5_GRID_DEGREES"]
 
 
 ERA5_GRID_DEGREES: float = 0.125
-
-LEGACY_MARS_KEYS: frozenset[str] = frozenset(
-    {"number_para", "download type", "var_name"}
-)
 
 # Per-request-kind keys to drop from the request dict before the
 # retrieve call. The keys here name the *template defaults* (built
@@ -62,233 +58,6 @@ class AuthenticationError(Exception):
     """
 
     pass
-
-
-class Variable(BaseModel):
-    """Per-variable catalog entry consumed by :class:`ECMWF`.
-
-    A frozen pydantic model carrying the metadata for one row in
-    `cds_data_catalog.yaml`. Loading the YAML through
-    :meth:`from_dict` validates required fields up front so a typo
-    in the file (e.g. `cd_dataset` vs `cds_dataset`) surfaces at
-    import time, not mid-download.
-
-    Attributes:
-        cds_dataset: CDS dataset short name used for daily / sub-daily
-            requests, e.g. `"reanalysis-era5-single-levels"`.
-        cds_variable: CDS variable name passed in the retrieve()
-            request, e.g. `"2m_temperature"`.
-        nc_variable: Short variable name inside the CDS NetCDF
-            (e.g. `"t2m"`); used by post-processing scripts to
-            index `fh.variables[...]`. See
-            `examples/post_process_ecmwf_netcdf.py`.
-        units: Raw ERA5 unit string emitted by CDS for this variable
-            (used in the output filename). The package returns values
-            in their native ERA5 units; downstream code is responsible
-            for any unit conversion. See `docs/examples/catalog.md`
-            for the conversion factors typical ERA5 workflows apply.
-        cds_dataset_monthly: Optional CDS dataset short name used
-            when `temporal_resolution == "monthly"`. Falls back to
-            `cds_dataset` when absent.
-        cds_pressure_level: Optional list of pressure levels (as
-            strings, e.g. `["1000"]`) for pressure-level datasets.
-        types: Optional `"flux"` or `"state"` marker. Flux values
-            are accumulated per timestep on CDS so monthly
-            aggregation multiplies by the number of days in the
-            month; state values are instantaneous.
-        extras: Free-form bag of additional CDS request parameters
-            forwarded verbatim to `client.retrieve()`. Holds the
-            non-ERA5 request fields that newer CDS dataset families
-            require — e.g. `{"domain": "east", "leadtime_hour": "1"}`
-            for CARRA, `{"experiment": "ssp585", "model": "ec_earth3"}`
-            for CMIP6. Keys not enumerated in this model are not
-            silently dropped: they live here and reach the server.
-    """
-
-    model_config = ConfigDict(frozen=True, extra="forbid")
-
-    cds_dataset: str
-    cds_variable: str
-    nc_variable: str
-    units: str
-    cds_dataset_monthly: str | None = None
-    cds_pressure_level: list[str] | None = None
-    types: str | None = None
-    extras: dict[str, Any] = Field(default_factory=dict)
-    request_kind: str = "form"
-
-    @field_validator("extras", mode="before")
-    @classmethod
-    def _reject_legacy_mars_keys(cls, value: Any) -> Any:
-        """Forbid the pre-cdsapi MARS keys from leaking back via `extras`.
-
-        `number_para` / `download type` / `var_name` were the
-        request-shape keys of the legacy MARS-ECMWFAPI flow. They are
-        meaningless under cdsapi and would silently corrupt requests
-        if they reached :meth:`ECMWF._api`; reject them at load time so
-        a stale catalog row fails loud instead of mid-download.
-        """
-        if not isinstance(value, dict):
-            return value
-        offending = LEGACY_MARS_KEYS & set(value)
-        if offending:
-            raise ValueError(
-                f"extras carries legacy MARS keys {sorted(offending)!r}; "
-                "these are not valid under cdsapi"
-            )
-        return value
-
-    @classmethod
-    def from_dict(cls, code: str, data: dict[str, Any]) -> Variable:
-        """Build a :class:`Variable` from a raw catalog entry.
-
-        Wraps :class:`pydantic.ValidationError` so the message names
-        the catalog row that failed.
-
-        Args:
-            code: Catalog key (e.g. `"2m-temperature"`) — used only in the
-                error message so the user can see which row is broken.
-            data: The dict loaded from the YAML for `code`.
-
-        Returns:
-            Variable: The validated, frozen instance.
-
-        Raises:
-            ValueError: If a required key is missing or an unknown
-                key is present (catches typos like `cd_dataset`
-                vs `cds_dataset`).
-
-        Examples:
-            - Build a Variable from a complete entry and inspect it:
-
-                ```python
-                >>> from earthly.ecmwf import Variable
-                >>> spec = Variable.from_dict("2m-temperature", {
-                ...     "cds_dataset": "reanalysis-era5-single-levels",
-                ...     "cds_variable": "2m_temperature",
-                ...     "nc_variable": "t2m",
-                ...     "units": "K",
-                ...     "types": "state",
-                ... })
-                >>> spec.cds_variable, spec.nc_variable, spec.units
-                ('2m_temperature', 't2m', 'K')
-
-                ```
-            - A typo in a key name is caught at construction time —
-              the wrapped pydantic error names the offending row:
-                ```python
-                >>> from earthly.ecmwf import Variable
-                >>> try:
-                ...     Variable.from_dict("2m-temperature", {
-                ...         "cd_dataset": "reanalysis-era5-single-levels",
-                ...         "cds_variable": "2m_temperature",
-                ...         "nc_variable": "t2m",
-                ...         "units": "K",
-                ...     })
-                ... except ValueError as exc:
-                ...     str(exc).splitlines()[0]
-                "cds_data_catalog.yaml entry '2m-temperature' failed validation:"
-
-                ```
-        """
-        try:
-            return cls(**data)
-        except ValidationError as exc:
-            raise ValueError(
-                f"cds_data_catalog.yaml entry {code!r} failed " f"validation:\n{exc}"
-            ) from exc
-
-    def dataset_for(self, temporal_resolution: str) -> str:
-        """Return the CDS dataset name to use for `temporal_resolution`.
-
-        Args:
-            temporal_resolution: `"daily"` or `"monthly"`.
-
-        Returns:
-            str: `cds_dataset_monthly` when
-            `temporal_resolution == "monthly"` and the monthly
-            variant is set; `cds_dataset` otherwise.
-
-        Examples:
-            - Daily resolution returns the daily dataset name:
-
-                ```python
-                >>> from earthly.ecmwf import Variable
-                >>> spec = Variable(
-                ...     cds_dataset="reanalysis-era5-single-levels",
-                ...     cds_dataset_monthly="reanalysis-era5-single-levels-monthly-means",
-                ...     cds_variable="2m_temperature",
-                ...     nc_variable="t2m",
-                ...     units="K",
-                ... )
-                >>> spec.dataset_for("daily")
-                'reanalysis-era5-single-levels'
-
-                ```
-            - Monthly resolution falls back to the daily dataset
-              when no monthly variant is configured:
-
-                ```python
-                >>> from earthly.ecmwf import Variable
-                >>> spec = Variable(
-                ...     cds_dataset="reanalysis-era5-single-levels",
-                ...     cds_variable="2m_temperature",
-                ...     nc_variable="t2m",
-                ...     units="K",
-                ... )
-                >>> spec.dataset_for("monthly")
-                'reanalysis-era5-single-levels'
-
-                ```
-        """
-        if temporal_resolution == "monthly" and self.cds_dataset_monthly:
-            return self.cds_dataset_monthly
-        return self.cds_dataset
-
-    @property
-    def is_flux(self) -> bool:
-        """Whether this variable is a flux (drives monthly accumulation scaling).
-
-        Returns:
-            bool: `True` when `types == "flux"` — flux values are
-            accumulated per timestep on CDS, so monthly aggregation
-            multiplies by the number of days in the month. `False`
-            for state variables (instantaneous samples) and when
-            `types` is unset.
-
-        Examples:
-            - A state variable is not a flux:
-
-                ```python
-                >>> from earthly.ecmwf import Variable
-                >>> spec = Variable(
-                ...     cds_dataset="reanalysis-era5-single-levels",
-                ...     cds_variable="2m_temperature",
-                ...     nc_variable="t2m",
-                ...     units="K",
-                ...     types="state",
-                ... )
-                >>> spec.is_flux
-                False
-
-                ```
-            - A flux variable reports True:
-
-                ```python
-                >>> from earthly.ecmwf import Variable
-                >>> spec = Variable(
-                ...     cds_dataset="reanalysis-era5-single-levels",
-                ...     cds_variable="total_precipitation",
-                ...     nc_variable="tp",
-                ...     units="m",
-                ...     types="flux",
-                ... )
-                >>> spec.is_flux
-                True
-
-                ```
-        """
-        return self.types == "flux"
 
 
 def _looks_like_missing_credentials(exc: BaseException) -> bool:
@@ -666,11 +435,6 @@ class ECMWF(AbstractDataSource):
             :class:`Catalog`: Resolves `(dataset, code)` pairs to
                 per-variable metadata.
         """
-        # Lazy import to avoid a circular dependency: `catalog.py`
-        # imports `Variable` from this module, so a top-level
-        # import of `Catalog` would be cyclic.
-        from earthly.ecmwf.catalog import Catalog
-
         catalog = Catalog()
         succeeded: list[tuple[str, str]] = []
         failed: list[tuple[tuple[str, str], BaseException]] = []
