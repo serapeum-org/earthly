@@ -12,7 +12,7 @@ from shapely.geometry import LineString, Point, Polygon
 
 
 def createGeometry(
-    shapely_geometry: Union[Polygon, Point, LineString],
+    shapely_geometry: Polygon | Point | LineString,
     epsg: int = 4326,
 ) -> Geometry:
     """createGeometry.
@@ -49,7 +49,7 @@ def createGeometry(
 
 
 def createFeature(
-    gdf: GeoDataFrame, columns: Optional[List[str]] = None
+    gdf: GeoDataFrame, columns: list[str] | None = None
 ) -> FeatureCollection:
     """createFeature.
 

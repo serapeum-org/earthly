@@ -195,7 +195,7 @@ class S3(AbstractDataSource):
             print(f"The file {local_dir_fname} already in your local directory")
 
     @staticmethod
-    def parse_response_metadata(response: Dict[str, str]):
+    def parse_response_metadata(response: dict[str, str]):
         """parse client response.
 
         Parameters
@@ -282,7 +282,7 @@ class Catalog(AbstractCatalog):
             }
         }
 
-    def get_variable(self, var_name) -> Dict[str, str]:
+    def get_variable(self, var_name) -> dict[str, str]:
         """get the details of a specific variable."""
         return super().get_variable(var_name)
 
@@ -322,7 +322,7 @@ class Catalog(AbstractCatalog):
         bucket: str = "era5-pds",
         fmt: str = "%Y-%m-%d",
         absolute_path: bool = False,
-    ) -> List[str]:
+    ) -> list[str]:
         """get the available data at a given year.
 
         - Granule variable structure and metadata attributes are stored in main.nc. This file contains coordinate and

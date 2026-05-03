@@ -21,6 +21,15 @@ if TYPE_CHECKING:
     from earthly.base import AbstractDataSource
 
 
+#: Default longitude bounds used when `lon_lim` is not supplied
+#: (whole-Earth coverage).
+DEFAULT_LONGITUDE_LIMIT = [-180, 180]
+
+#: Default latitude bounds used when `lat_lim` is not supplied
+#: (whole-Earth coverage).
+DEFAULT_LATITUDE_LIMIT = [-90, 90]
+
+
 class _LazyRegistry(Mapping):
     """Maps a data-source key to its backend class, importing on demand.
 
@@ -63,14 +72,6 @@ class _LazyRegistry(Mapping):
                 f"dependency is not installed.{hint}"
             ) from exc
         return getattr(module, class_name)
-
-#: Default longitude bounds used when `lon_lim` is not supplied
-#: (whole-Earth coverage).
-DEFAULT_LONGITUDE_LIMIT = [-180, 180]
-
-#: Default latitude bounds used when `lat_lim` is not supplied
-#: (whole-Earth coverage).
-DEFAULT_LATITUDE_LIMIT = [-90, 90]
 
 
 class Earthly:
