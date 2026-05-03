@@ -202,12 +202,15 @@ class S3(AbstractDataSource):
         Parameters
         ----------
         response:
+            Dict returned by boto3 S3 calls. Example shape (placeholder
+            values shown for clarity — real `HostId` / `x-amz-id-2`
+            are opaque high-entropy strings):
         >>> {
-        >>>     'RequestId': 'E01V3VYXERE4JV8Z',
-        >>>     'HostId': 'Nb33s2L/qsQ/oMb8tyT737ymO5sNnAv+KeKEbhvjILbDPvUi0sDVj6zbuRPh/kpmK5BY6Y3EK/A=',
+        >>>     'RequestId': '<example-request-id>',
+        >>>     'HostId': '<example-host-id>',
         >>>     'HTTPStatusCode': 200,
-        >>>     'HTTPHeaders': {'x-amz-id-2': 'Nb33s2L/qsQ/oMb8tyT737ymO5sNnAv+KeKEbhvjILbDPvUi0sDVj6zbuRPh/kpmK5BY6Y3EK/A=',
-        >>>     'x-amz-request-id': 'E01V3VYXERE4JV8Z',
+        >>>     'HTTPHeaders': {'x-amz-id-2': '<example-amz-id-2>',
+        >>>     'x-amz-request-id': '<example-request-id>',
         >>>     'date': 'Sun, 15 Jan 2023 22:36:28 GMT',
         >>>     'x-amz-bucket-region': 'us-east-1',
         >>>     'content-type': 'application/xml',
