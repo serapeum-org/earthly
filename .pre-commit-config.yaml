@@ -36,6 +36,9 @@ repos:
         args: [ --autofix,
                 --indent=4,
                 --no-sort-keys ]
+        # Notebooks are JSON but reformatting them rewrites cell
+        # metadata / outputs / kernel info and can corrupt the file.
+        exclude: '\.ipynb$'
       - id: check-yaml
         name: "[yaml -  check] validate yaml"
         exclude: mkdocs\.yml
@@ -75,6 +78,25 @@ repos:
     rev: 26.3.1
     hooks:
       - id: black
+
+  # Run the same Python linters / formatters on notebook code cells.
+  # nbqa wraps each tool so it sees only the code cells and does not
+  # touch the surrounding JSON envelope (cell metadata, outputs,
+  # kernel info).
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.9.1
+    hooks:
+      - id: nbqa-pyupgrade
+        name: "[ipynb - format] pyupgrade"
+      - id: nbqa-isort
+        name: "[ipynb - format] isort"
+      - id: nbqa-black
+        name: "[ipynb - format] black"
+      - id: nbqa-flake8
+        name: "[ipynb -   lint] flake8"
+        additional_dependencies: [Flake8-pyproject]
+        exclude: ^(examples/|tests/)
+
   - repo: https://github.com/lovesegfault/beautysh
     rev: v6.4.3
     hooks:
@@ -118,7 +140,7 @@ repos:
     rev: v1.5.0
     hooks:
       - id: detect-secrets
-        exclude: '\.(ipynb|drawio)$'
+        exclude: '\.drawio$'
   - repo: https://github.com/bridgecrewio/checkov
     rev: 3.2.510
     hooks:
