@@ -692,7 +692,9 @@ class Catalog(AbstractCatalog):
         if target_path.exists() and target_path.stat().st_size > 0:
             return target_path
         rurl = cfg["url"].rstrip("/") + f"/retrieve/v1/jobs/{job_id}/results"
-        resp = requests.get(rurl, headers={"PRIVATE-TOKEN": cfg["key"]})
+        resp = requests.get(
+            rurl, headers={"PRIVATE-TOKEN": cfg["key"]}, timeout=30
+        )
         resp.raise_for_status()
         href = resp.json().get("asset", {}).get("value", {}).get("href")
         if not href:
@@ -701,6 +703,13 @@ class Catalog(AbstractCatalog):
                 "results record"
             )
         target_path.parent.mkdir(parents=True, exist_ok=True)
+        # `href` comes from CDS server JSON; reject anything that
+        # is not http(s) so a malicious / corrupted response can't
+        # coerce us into reading a local file via `file://`.
+        if not href.startswith(("https://", "http://")):
+            raise ValueError(
+                f"refusing to download from non-http(s) href: {href!r}"
+            )
         with (
             urllib.request.urlopen(href, timeout=60) as src,
             open(target_path, "wb") as out,
