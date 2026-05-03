@@ -1,9 +1,9 @@
 """Submit pre-validated probes for every open dataset in parallel.
 
-For each dataset, walks ``constraints.json`` to find the first entry
-that lists at least one variable, builds a single-cell request from
-that entry's first values, runs the M16+M17 validator locally, and
-submits the request only if the validator passes.
+For each dataset, asks the package's `Catalog.minimal_valid_request`
+for a known-valid request (drawn from the public `constraints.json`),
+runs the M16+M17 validator locally, and submits via fire-and-forget
+POST only if the validator passes.
 
 Usage::
 
@@ -12,13 +12,14 @@ Usage::
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from typing import Any
 
 import requests as _requests
 
-from earthly.ecmwf.constraints import RequestValidator, fetch_constraints
+from earthly.ecmwf import Catalog
+from earthly.ecmwf.catalog import _read_cdsapirc
+from earthly.ecmwf.constraints import RequestValidator
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
 
@@ -50,36 +51,6 @@ OPEN_DATASETS: tuple[str, ...] = (
     "derived-utci-historical",
     "ecv-for-climate-change",
 )
-
-
-def first_valid_combo(dataset: str) -> dict[str, Any] | None:
-    """Pick the first constraint entry that has a non-empty variable list."""
-    constraints = fetch_constraints(dataset)
-    if not constraints:
-        return None
-    for entry in constraints:
-        if entry.get("variable"):
-            request: dict[str, Any] = {"data_format": "netcdf"}
-            for key, value in entry.items():
-                if key == "variable":
-                    request["variable"] = value[:6]
-                elif isinstance(value, list) and value:
-                    request[key] = value[:1]
-                else:
-                    request[key] = value
-            return request
-    return None
-
-
-def _read_cdsapirc() -> dict[str, str]:
-    """Parse ``~/.cdsapirc`` into a {url, key} dict."""
-    cfg: dict[str, str] = {}
-    with open(os.path.expanduser("~/.cdsapirc")) as fh:
-        for line in fh:
-            if ":" in line:
-                k, _, v = line.partition(":")
-                cfg[k.strip()] = v.strip()
-    return cfg
 
 
 def submit_async(dataset: str, request: dict[str, Any]) -> str:
@@ -139,12 +110,12 @@ def main() -> int:
     )
     args = parser.parse_args()
     pool = args.only or list(OPEN_DATASETS)
+    catalog = Catalog()
     for i, dataset in enumerate(pool):
         if i > 0 and not args.dry_run:
             time.sleep(args.delay)
-        # noqa: continue on the for-loop scope
-        request = first_valid_combo(dataset)
-        if request is None:
+        request = catalog.minimal_valid_request(dataset)
+        if set(request) <= {"data_format"}:
             print(f"[SKIP] {dataset}: no usable constraint entry")
             continue
         if args.dry_run:
