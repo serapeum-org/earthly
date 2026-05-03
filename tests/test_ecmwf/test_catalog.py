@@ -169,6 +169,58 @@ class TestCatalog:
                 },
             )
 
+    def test_duplicate_variable_in_same_dataset_rejected(
+        self, monkeypatch, tmp_path
+    ):
+        """Two `variables:` entries with the same code in one dataset fail.
+
+        PyYAML's default loader silently merges duplicate mapping
+        keys (last-wins). The catalog's strict loader must instead
+        raise so a copy-paste typo in the YAML cannot let the second
+        entry shadow the first.
+        """
+        from earthly.ecmwf import catalog as catalog_module
+
+        catalog_yaml = tmp_path / "cds_data_catalog.yaml"
+        catalog_yaml.write_text(
+            "datasets:\n"
+            "  reanalysis-era5-single-levels:\n"
+            "    variables:\n"
+            "      2m-temperature:\n"
+            "        nc_variable: t2m\n"
+            "        units: K\n"
+            "      2m-temperature:\n"
+            "        nc_variable: foo\n"
+            "        units: bar\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
+        with pytest.raises(ValueError, match="duplicate YAML key"):
+            Catalog()
+
+    def test_duplicate_dataset_name_rejected(self, monkeypatch, tmp_path):
+        """Two top-level dataset entries with the same name fail loud."""
+        from earthly.ecmwf import catalog as catalog_module
+
+        catalog_yaml = tmp_path / "cds_data_catalog.yaml"
+        catalog_yaml.write_text(
+            "datasets:\n"
+            "  reanalysis-era5-single-levels:\n"
+            "    variables:\n"
+            "      2m-temperature:\n"
+            "        nc_variable: t2m\n"
+            "        units: K\n"
+            "  reanalysis-era5-single-levels:\n"
+            "    variables:\n"
+            "      total-precipitation:\n"
+            "        nc_variable: tp\n"
+            "        units: m\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
+        with pytest.raises(ValueError, match="duplicate YAML key"):
+            Catalog()
+
     def test_extras_propagate_from_parent_dataset(self, monkeypatch, tmp_path):
         """Parent `Dataset.extras` propagates into each child Variable."""
         from earthly.ecmwf import catalog as catalog_module

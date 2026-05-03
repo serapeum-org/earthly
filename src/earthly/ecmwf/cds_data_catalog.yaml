@@ -4090,12 +4090,6 @@ datasets:
         types: flux
         units: "J m**-2"
 
-      "low-cloud-cover-carra":
-        cds_variable: low_cloud_cover
-        nc_variable: lcc
-        types: state
-        units: "%"
-
       "10m-eastward-wind-gust-since-previous-post-processing-carra":
         cds_variable: 10m_eastward_wind_gust_since_previous_post_processing
         nc_variable: efg10
@@ -4297,12 +4291,6 @@ datasets:
       "total-column-graupel-carra":
         cds_variable: total_column_graupel
         nc_variable: tcgr
-        types: state
-        units: "kg m**-2"
-
-      "total-column-integrated-water-vapour-carra":
-        cds_variable: total_column_integrated_water_vapour
-        nc_variable: tcwv
         types: state
         units: "kg m**-2"
 
@@ -8634,4 +8622,3 @@ datasets:
         nc_variable: tcwv
         types: state
         units: "kg m**-2"
-
