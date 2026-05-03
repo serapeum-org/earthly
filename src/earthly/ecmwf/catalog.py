@@ -272,7 +272,10 @@ class Catalog(AbstractCatalog):
         """
         catalog_path = CATALOG_PATH
         with open(catalog_path, encoding="utf-8") as stream:
-            data = yaml.load(stream, Loader=_StrictSafeLoader) or {}
+            # `_StrictSafeLoader` subclasses `yaml.SafeLoader`; it is
+            # safe (no arbitrary object instantiation). bandit's B506
+            # pattern flags any `yaml.load` regardless of the loader.
+            data = yaml.load(stream, Loader=_StrictSafeLoader) or {}  # nosec B506
         datasets_yaml = data.get("datasets")
         if not datasets_yaml:
             raise ValueError(
@@ -705,9 +708,7 @@ class Catalog(AbstractCatalog):
         # is not http(s) so a malicious / corrupted response can't
         # coerce us into reading a local file via `file://`.
         if not href.startswith(("https://", "http://")):
-            raise ValueError(
-                f"refusing to download from non-http(s) href: {href!r}"
-            )
+            raise ValueError(f"refusing to download from non-http(s) href: {href!r}")
         with (
             # Scheme validated above — bandit B310 does not apply.
             urllib.request.urlopen(href, timeout=60) as src,  # nosec B310
