@@ -45,11 +45,14 @@ _CATEGORY_PREFIXES: tuple[tuple[str, str], ...] = (
 
 def fetch_collections() -> list[str]:
     """Return every CDS collection short name, sorted."""
+    if not CDS_COLLECTIONS_URL.startswith(("https://", "http://")):
+        raise ValueError(f"refusing to fetch non-http(s) URL: {CDS_COLLECTIONS_URL!r}")
     req = urllib.request.Request(
         CDS_COLLECTIONS_URL,
         headers={"Accept": "application/json"},
     )
-    with urllib.request.urlopen(req, timeout=30) as resp:
+    # Scheme validated above — bandit B310 does not apply.
+    with urllib.request.urlopen(req, timeout=30) as resp:  # nosec B310
         payload = json.loads(resp.read())
     raw = payload.get("collections") or []
     return sorted({c["id"] for c in raw if c.get("id")})
