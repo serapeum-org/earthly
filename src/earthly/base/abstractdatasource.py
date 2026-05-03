@@ -198,17 +198,17 @@ class AbstractDataSource(ABC):
         Captures the return values of the abstract hooks so subclasses
         do not have to wire them onto `self` themselves:
 
-        * `self.client` — whatever :meth:`initialize` returns (a CDS
+        * `self.client` — whatever :meth:`_initialize` returns (a CDS
           client, an S3 client, `None` for FTP). Subclasses that
-          assign `self.client` inside :meth:`initialize` (e.g.
+          assign `self.client` inside :meth:`_initialize` (e.g.
           :class:`S3`) keep their own assignment; the parent only sets
-          the attribute when :meth:`initialize` returns a non-`None`
+          the attribute when :meth:`_initialize` returns a non-`None`
           value.
-        * `self.space` — the dict returned by :meth:`create_grid`,
+        * `self.space` — the dict returned by :meth:`_create_grid`,
           containing `lat_lim` and `lon_lim`. Subclasses that
-          override :meth:`create_grid` to set attributes directly (e.g.
+          override :meth:`_create_grid` to set attributes directly (e.g.
           :class:`CHIRPS`) and return `None` are unaffected.
-        * `self.time` — the dict returned by :meth:`check_input_dates`,
+        * `self.time` — the dict returned by :meth:`_check_input_dates`,
           containing `start_date`, `end_date`, `time_freq` and
           `dates`. Same opt-in semantics as `self.space`.
         * `self.root_dir` — the absolute :class:`pathlib.Path` of the
@@ -229,14 +229,14 @@ class AbstractDataSource(ABC):
             path: Output directory. Created if it does not exist.
                 Defaults to the current working directory.
         """
-        client = self.initialize()
+        client = self._initialize()
         if client is not None:
             self.client = client
 
         self.temporal_resolution = temporal_resolution
         self.vars = variables
 
-        space = self.create_grid(lat_lim, lon_lim)
+        space = self._create_grid(lat_lim, lon_lim)
         if isinstance(space, SpatialExtent):
             self.space = space
         elif isinstance(space, dict):
@@ -244,7 +244,7 @@ class AbstractDataSource(ABC):
                 lat_lim=space["lat_lim"], lon_lim=space["lon_lim"]
             )
 
-        time = self.check_input_dates(start, end, temporal_resolution, fmt)
+        time = self._check_input_dates(start, end, temporal_resolution, fmt)
         if isinstance(time, TemporalExtent):
             self.time = time
         elif isinstance(time, dict):
@@ -261,20 +261,24 @@ class AbstractDataSource(ABC):
             os.makedirs(self.root_dir)
 
     @abstractmethod
-    def check_input_dates(
+    def _check_input_dates(
         self, start: str, end: str, temporal_resolution: str, fmt: str
     ):
-        """Check validity of input dates."""
+        """Check validity of input dates. Called by `__init__`."""
         pass
 
     @abstractmethod
-    def initialize(self, *args, **kwargs):
-        """Initialize connection with the data source server (for non ftp servers)"""
+    def _initialize(self, *args, **kwargs):
+        """Initialize connection with the data source server (for non-FTP servers).
+
+        Called once by :meth:`__init__`; the return value is captured
+        into `self.client` when non-`None`.
+        """
         pass
 
     @abstractmethod
-    def create_grid(self, lat_lim: list, lon_lim: list):
-        """create a grid from the lat/lon boundaries."""
+    def _create_grid(self, lat_lim: list, lon_lim: list):
+        """Create a grid from the lat/lon boundaries. Called by `__init__`."""
         pass
 
     @abstractmethod
@@ -284,15 +288,18 @@ class AbstractDataSource(ABC):
         # list of dates
         pass
 
-    # @abstractmethod
-    def downloadDataset(self):
-        """Download single variable/dataset."""
-        # used for non ftp servers
+    def _download_dataset(self):
+        """Download a single variable/dataset (called by :meth:`download`)."""
         pass
 
     @abstractmethod
-    def API(self):
-        """send/recieve request to the dataset server."""
+    def _api(self, *args, **kwargs):
+        """Send / receive a single request to the data source server.
+
+        Called by :meth:`download` (or :meth:`_download_dataset`) once
+        per `(dataset, variable)` pair. The signature is
+        backend-specific.
+        """
         pass
 
 

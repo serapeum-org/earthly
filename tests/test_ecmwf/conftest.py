@@ -8,7 +8,7 @@ Holds the four pieces every test in this directory needs:
 * :func:`single_level_var_info` and :func:`pressure_level_var_info`
   — :class:`Variable` fixtures used across the api tests.
 * :func:`ecmwf_stub` — a hand-constructed :class:`ECMWF` instance with
-  the four attributes `api()` consumes (`self.client`,
+  the four attributes `_api()` consumes (`self.client`,
   `self.root_dir`, `self.time`, `self.space`) set by hand.
   Bypasses :meth:`AbstractDataSource.__init__` so unit tests can run
   without going through cdsapi or the file system.
@@ -42,7 +42,7 @@ def _block_real_cdsapi(request, monkeypatch):
 
     The :func:`ecmwf_stub` fixture sets `skip_constraints=True` on
     the synthetic instance so tests that build synthetic requests
-    via `api()` bypass the pre-flight validator (which would
+    via `_api()` bypass the pre-flight validator (which would
     otherwise hit the live CDS catalogue endpoint). Tests targeting
     the validator itself (in `test_constraints.py`) construct
     :class:`RequestValidator` directly so this default doesn't
@@ -98,12 +98,12 @@ def pressure_level_var_info():
 
 @pytest.fixture
 def ecmwf_stub(tmp_path):
-    """Minimal `ECMWF` instance with the attributes `api()` consumes.
+    """Minimal `ECMWF` instance with the attributes `_api()` consumes.
 
     Skips the full parent `__init__` chain (which would still call
     :meth:`cdsapi.Client` for real) and instead constructs the
     instance via `ECMWF.__new__` and wires up the four attributes
-    :meth:`ECMWF.api` reads — `self.client`, `self.root_dir`,
+    :meth:`ECMWF._api` reads — `self.client`, `self.root_dir`,
     `self.time` and `self.space` — by hand.
 
     Args:
@@ -111,7 +111,7 @@ def ecmwf_stub(tmp_path):
             `self.root_dir` so target paths land on the test fs.
 
     Returns:
-        ECMWF: An `ECMWF` instance ready for `api()` invocation.
+        ECMWF: An `ECMWF` instance ready for `_api()` invocation.
     """
     ecmwf = ECMWF.__new__(ECMWF)
     ecmwf.client = MagicMock()

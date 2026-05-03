@@ -2,8 +2,11 @@
 
 Background
 ----------
-`earthly.ecmwf.ECMWF.api()` retrieves a NetCDF from the Climate
-Data Store and writes it to disk. That NetCDF is the package's
+`earthly.ecmwf.ECMWF._api()` retrieves a NetCDF from the Climate
+Data Store and writes it to disk. (`_api()` is the lower-level
+per-variable retrieve hook; the high-level entry point is
+`ECMWF.download()`, which calls it in a loop over the user's
+`(dataset, variables)` mapping.) That NetCDF is the package's
 **primary** product. Many users stop there and operate on the NetCDF
 directly with `xarray`, `netCDF4`, `pyramids`, or any other tool of
 their choice.
@@ -138,7 +141,7 @@ def post_process(
     """Slice a CDS NetCDF into per-date GeoTIFFs.
 
     Args:
-        nc_path: Path to the NetCDF written by `ECMWF.api()` (or any
+        nc_path: Path to the NetCDF written by `ECMWF._api()` (or any
             CDS-shaped NetCDF with a recognised time variable).
         out_dir: Directory the GeoTIFFs are written into. Must
             already exist.
@@ -248,7 +251,7 @@ def _cli() -> None:
     parser.add_argument(
         "nc_path",
         type=Path,
-        help="Path to the NetCDF written by ECMWF.api()",
+        help="Path to the NetCDF written by ECMWF._api()",
     )
     parser.add_argument(
         "out_dir",

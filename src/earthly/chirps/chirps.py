@@ -69,7 +69,7 @@ class CHIRPS(AbstractDataSource):
             path=path,
         )
 
-    def check_input_dates(
+    def _check_input_dates(
         self, start: str, end: str, temporal_resolution: str, fmt: str
     ):
         """check validity of input dates.
@@ -111,12 +111,12 @@ class CHIRPS(AbstractDataSource):
         # Create days
         self.dates = pd.date_range(self.start, self.end, freq=self.time_freq)
 
-    def initialize(self):
+    def _initialize(self):
         """Initialize FTP server."""
         print("FTP server datasources does not need server initialization")
         pass
 
-    def create_grid(self, lat_lim: list, lon_lim: list):
+    def _create_grid(self, lat_lim: list, lon_lim: list):
         """Create_grid.
 
             create grid from the lat/lon boundaries
@@ -193,15 +193,15 @@ class CHIRPS(AbstractDataSource):
 
         if not cores:
             for date in tqdm(self.dates, desc="Progress", disable=not progress_bar):
-                self.API(date, args)
+                self._api(date, args)
             results = True
         else:
             results = Parallel(n_jobs=cores)(
-                delayed(self.API)(date, args) for date in self.dates
+                delayed(self._api)(date, args) for date in self.dates
             )
         return results
 
-    def API(self, date, args):
+    def _api(self, date, args):
         """form the request url abd trigger the request.
 
         Parameters
@@ -246,13 +246,13 @@ class CHIRPS(AbstractDataSource):
         else:
             raise KeyError("The input temporal_resolution interval is not supported")
 
-        self.callAPI(pathFTP, path, filename)
+        self._call_api(pathFTP, path, filename)
         self.post_download(
             path, filename, lon_lim, latlim, xID, yID, outfilename, DirFileEnd
         )
 
     @staticmethod
-    def callAPI(pathFTP: str, path: str, filename: str):
+    def _call_api(pathFTP: str, path: str, filename: str):
         """send the request to the server.
 
         RetrieveData method retrieves CHIRPS data for a given date from the

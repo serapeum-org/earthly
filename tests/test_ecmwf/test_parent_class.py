@@ -33,7 +33,7 @@ class TestParentClassWiring:
 
         Test scenario:
             With cdsapi.Client patched out, instantiating ECMWF must
-            populate every attribute the api() method consumes —
+            populate every attribute the `_api()` method consumes —
             without the fixture having to set them by hand.
         """
         sentinel = _SentinelClient()
@@ -76,19 +76,19 @@ class TestParentClassWiring:
     def test_api_works_directly_off_a_real_constructed_instance(
         self, tmp_path, monkeypatch
     ):
-        """End-to-end: ECMWF().api(var_info) submits a real request.
+        """End-to-end: ECMWF()._api(var_info) submits a real request.
 
         Test scenario:
             With cdsapi mocked, building an ECMWF instance and calling
-            `api(var_info)` must:
+            `_api(var_info)` must:
 
             * route to client.retrieve(dataset, request, target)
             * write the target path under self.root_dir
             * return the target
 
-            This is the H1 acceptance check — the api() rewrite from
-            C1 actually runs against a normally-constructed instance,
-            not a hand-stubbed one.
+            This is the H1 acceptance check — the `_api()` rewrite
+            from C1 actually runs against a normally-constructed
+            instance, not a hand-stubbed one.
         """
         retrieved = []
 
@@ -107,7 +107,7 @@ class TestParentClassWiring:
             path=str(tmp_path),
         )
 
-        target = ecmwf.api(
+        target = ecmwf._api(
             Variable(
                 cds_dataset="reanalysis-era5-single-levels",
                 cds_variable="2m_temperature",
@@ -123,26 +123,3 @@ class TestParentClassWiring:
         assert target_str == str(target)
         assert target.parent == tmp_path.resolve()
 
-    def test_api_uppercase_compatibility_shim_raises(
-        self, tmp_path, monkeypatch
-    ):
-        """`API` (uppercase) raises NotImplementedError on ECMWF.
-
-        Test scenario:
-            CHIRPS and S3 use `API` as a per-date download hook;
-            ECMWF works at variable granularity and exposes `api`
-            (lowercase) instead. The uppercase method exists only to
-            satisfy the abstract base class — calling it must surface
-            a clear NotImplementedError.
-        """
-        monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
-        ecmwf = ECMWF(
-            start="2022-01-01",
-            end="2022-01-01",
-            variables=["2m-temperature"],
-            lat_lim=[4.0, 5.0],
-            lon_lim=[-75.0, -74.0],
-            path=str(tmp_path),
-        )
-        with pytest.raises(NotImplementedError, match="api"):
-            ecmwf.API()

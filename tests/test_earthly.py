@@ -154,7 +154,9 @@ class TestECMWFBackend:
             temporal_resolution="daily",
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2m-temperature"],
+            variables={
+                "reanalysis-era5-single-levels": ["2m-temperature"],
+            },
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
@@ -192,7 +194,7 @@ class TestECMWFBackend:
             `variables`, `lat_lim`/`lon_lim`, `temporal_resolution`
             and `path` passed to `Earthly` must reach the
             underlying :class:`ECMWF` backend, since downstream code
-            (e.g. :meth:`ECMWF.api`) reads them from `self.vars` /
+            (e.g. :meth:`ECMWF._api`) reads them from `self.vars` /
             `self.space` / `self.time` / `self.root_dir`.
         """
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
@@ -202,16 +204,22 @@ class TestECMWFBackend:
             temporal_resolution="monthly",
             start="2022-01-01",
             end="2022-02-01",
-            variables=["2m-temperature", "total-precipitation"],
+            variables={
+                "reanalysis-era5-single-levels": [
+                    "2m-temperature", "total-precipitation",
+                ],
+            },
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
         )
 
         ecmwf = e2o.datasource
-        assert ecmwf.vars == ["2m-temperature", "total-precipitation"], (
-            f"variables should be threaded through; got {ecmwf.vars!r}"
-        )
+        assert ecmwf.vars == {
+            "reanalysis-era5-single-levels": [
+                "2m-temperature", "total-precipitation",
+            ],
+        }, f"variables should be threaded through; got {ecmwf.vars!r}"
         assert ecmwf.temporal_resolution == "monthly", (
             f"temporal_resolution should be 'monthly'; got "
             f"{ecmwf.temporal_resolution!r}"
@@ -253,7 +261,11 @@ class TestECMWFBackend:
             temporal_resolution="daily",
             start="2022-01-01",
             end="2022-01-01",
-            variables=["2m-temperature", "total-precipitation"],
+            variables={
+                "reanalysis-era5-single-levels": [
+                    "2m-temperature", "total-precipitation",
+                ],
+            },
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),

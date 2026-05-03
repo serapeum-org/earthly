@@ -305,7 +305,7 @@ apply.
 **These datasets are not curated by this package today.** Adding
 them would require:
 
-1. A new `request_kind="timeseries"` branch in `ECMWF.api()` that
+1. A new `request_kind="timeseries"` branch in `ECMWF._api()` that
    builds `{date: f"{start}/{end}"}` from `self.time.start_date` /
    `self.time.end_date` instead of the year/month/day arrays.
 2. A new reader for the Zarr/CSV output (parallel to the NetCDF

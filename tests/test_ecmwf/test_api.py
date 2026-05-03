@@ -1,4 +1,4 @@
-"""Unit tests for :meth:`ECMWF.api`.
+"""Unit tests for :meth:`ECMWF._api`.
 
 Covers the daily request shape (TestApi) and the monthly branch
 (TestApiMonthly). The full set of assertions on request keys, area
@@ -26,11 +26,11 @@ pytestmark = [pytest.mark.unit]
 
 
 class TestApi:
-    """Tests for :meth:`ECMWF.api` — the C1-rewritten request builder."""
+    """Tests for :meth:`ECMWF._api` — the C1-rewritten request builder."""
 
     def test_returns_path_under_root_dir(self, ecmwf_stub, single_level_var_info):
         """api() returns <root_dir>/<cds_variable>_<cds_dataset>.nc."""
-        target = ecmwf_stub.api(single_level_var_info)
+        target = ecmwf_stub._api(single_level_var_info)
         expected = (
             ecmwf_stub.root_dir
             / "2m_temperature_reanalysis-era5-single-levels.nc"
@@ -44,7 +44,7 @@ class TestApi:
             One invocation of `api()` must result in exactly one CDS
             retrieve request (idempotent dispatch, not a retry loop).
         """
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         assert ecmwf_stub.client.retrieve.call_count == 1, (
             f"Expected exactly 1 retrieve call, got "
             f"{ecmwf_stub.client.retrieve.call_count}"
@@ -61,7 +61,7 @@ class TestApi:
             dict second, and the stringified target path third — never
             via keyword arguments.
         """
-        target = ecmwf_stub.api(single_level_var_info)
+        target = ecmwf_stub._api(single_level_var_info)
         args, kwargs = ecmwf_stub.client.retrieve.call_args
         assert kwargs == {}, (
             f"retrieve must be called positionally; got kwargs={kwargs}"
@@ -90,7 +90,7 @@ class TestApi:
             `product_type`, `variable`, `year`/`month`/`day`,
             `time`, `data_format`, and `area`.
         """
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         for key in (
             "product_type",
@@ -114,7 +114,7 @@ class TestApi:
         Test scenario:
             Daily ERA5 requests use `product_type=['reanalysis']`.
         """
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["product_type"] == ["reanalysis"]
 
     def test_variable_taken_from_var_info(
@@ -126,7 +126,7 @@ class TestApi:
             For `cds_variable='2m_temperature'` the request must have
             `variable=['2m_temperature']`.
         """
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["variable"] == ["2m_temperature"]
 
     def test_dates_are_zero_padded_and_sorted(
@@ -139,7 +139,7 @@ class TestApi:
             request must carry `year=['2022']`, `month=['01']`, and
             `day=['01','02','03']`.
         """
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         assert request["year"] == ["2022"]
         assert request["month"] == ["01"]
@@ -160,7 +160,7 @@ class TestApi:
                 "dates": pd.date_range("2021-12-30", "2022-01-02", freq="D"),
             }
         )
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         assert request["year"] == ["2021", "2022"]
         assert request["month"] == ["01", "12"]
@@ -176,7 +176,7 @@ class TestApi:
             so downstream post-processing can aggregate to a daily
             value.
         """
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["time"] == [
             "00:00",
             "06:00",
@@ -186,7 +186,7 @@ class TestApi:
 
     def test_data_format_is_netcdf(self, ecmwf_stub, single_level_var_info):
         """`data_format` is `'netcdf'`."""
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["data_format"] == "netcdf"
 
     def test_area_uses_north_west_south_east_order(
@@ -199,7 +199,7 @@ class TestApi:
             `lon_lim=[-75.65, -74.73]` the `area` field must be
             `[4.64, -75.65, 4.19, -74.73]`.
         """
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["area"] == [
             4.64,
             -75.65,
@@ -217,7 +217,7 @@ class TestApi:
             produce a `pressure_level` key — sending one to a
             single-level dataset is rejected by CDS.
         """
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         assert "pressure_level" not in captured_request(ecmwf_stub)
 
     def test_pressure_level_forwarded_when_present(
@@ -229,7 +229,7 @@ class TestApi:
             `var_info.cds_pressure_level=['1000']` must surface as
             `request['pressure_level']=['1000']`.
         """
-        ecmwf_stub.api(pressure_level_var_info)
+        ecmwf_stub._api(pressure_level_var_info)
         assert captured_request(ecmwf_stub)["pressure_level"] == ["1000"]
 
     def test_single_date_produces_singleton_arrays(
@@ -246,7 +246,7 @@ class TestApi:
                 "dates": pd.date_range("2022-06-15", "2022-06-15", freq="D"),
             }
         )
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         assert request["year"] == ["2022"]
         assert request["month"] == ["06"]
@@ -256,7 +256,7 @@ class TestApi:
         self, ecmwf_stub, pressure_level_var_info
     ):
         """Target filename follows <cds_variable>_<cds_dataset>.nc."""
-        target = ecmwf_stub.api(pressure_level_var_info)
+        target = ecmwf_stub._api(pressure_level_var_info)
         assert target.name == "temperature_reanalysis-era5-pressure-levels.nc"
 
     def test_variable_spec_requires_cds_dataset(self):
@@ -301,7 +301,7 @@ class TestApi:
 
         ecmwf_stub.client.retrieve.side_effect = boom
         with pytest.raises(PermissionError) as excinfo:
-            ecmwf_stub.api(single_level_var_info)
+            ecmwf_stub._api(single_level_var_info)
         message = str(excinfo.value)
         assert "reanalysis-era5-single-levels" in message
         assert "https://cds.climate.copernicus.eu/datasets/" in message
@@ -320,7 +320,7 @@ class TestApi:
                 "temporal_resolution": "monthly",
             },
         )
-        ecmwf_stub.api(spec)
+        ecmwf_stub._api(spec)
         request = captured_request(ecmwf_stub)
         assert request["experiment"] == "ssp585"
         assert request["model"] == "ec_earth3"
@@ -335,7 +335,7 @@ class TestApi:
             units="K",
             extras={"product_type": ["ensemble_mean"]},
         )
-        ecmwf_stub.api(spec)
+        ecmwf_stub._api(spec)
         assert captured_request(ecmwf_stub)["product_type"] == ["ensemble_mean"]
 
     def test_invalid_request_caught_before_retrieve(
@@ -379,7 +379,7 @@ class TestApi:
         # walk, so the error names the unknown variable rather than
         # the constraints-mismatch message.
         with pytest.raises(ValueError, match="unknown variable"):
-            ecmwf_stub.api(single_level_var_info)
+            ecmwf_stub._api(single_level_var_info)
         assert ecmwf_stub.client.retrieve.call_count == 0
 
     def test_extras_with_none_value_drops_key_from_request(self, ecmwf_stub):
@@ -395,7 +395,7 @@ class TestApi:
             units="K",
             extras={"area": None},
         )
-        ecmwf_stub.api(spec)
+        ecmwf_stub._api(spec)
         request = captured_request(ecmwf_stub)
         assert "area" not in request
 
@@ -408,7 +408,7 @@ class TestApi:
             units="K",
             extras={"product_type": None},
         )
-        ecmwf_stub.api(spec)
+        ecmwf_stub._api(spec)
         request = captured_request(ecmwf_stub)
         assert "product_type" not in request
 
@@ -432,7 +432,7 @@ class TestApi:
                 "vertical_resolution": "single_level",
             },
         )
-        ecmwf_stub.api(spec)
+        ecmwf_stub._api(spec)
         request = captured_request(ecmwf_stub)
         assert "day" not in request
         assert "time" not in request
@@ -455,7 +455,7 @@ class TestApi:
                 "time_aggregation": "daily",
             },
         )
-        ecmwf_stub.api(spec)
+        ecmwf_stub._api(spec)
         request = captured_request(ecmwf_stub)
         assert "time" not in request
         assert request["product_type"] == ["analysis_based"]
@@ -465,7 +465,7 @@ class TestApi:
         self, ecmwf_stub, single_level_var_info
     ):
         """The default `form` request_kind keeps every template key."""
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         for key in ("day", "time", "area", "product_type"):
             assert key in request
@@ -483,7 +483,7 @@ class TestApi:
                 "product_type": ["operational"],
             },
         )
-        ecmwf_stub.api(spec)
+        ecmwf_stub._api(spec)
         request = captured_request(ecmwf_stub)
         assert request["area"] == [60, -10, 50, 5]
 
@@ -491,7 +491,7 @@ class TestApi:
         self, ecmwf_stub, single_level_var_info
     ):
         """An empty extras dict does not introduce extra request keys."""
-        ecmwf_stub.api(single_level_var_info)
+        ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         baseline = {
             "variable",
@@ -523,12 +523,12 @@ class TestApi:
 
         ecmwf_stub.client.retrieve.side_effect = boom
         with pytest.raises(RuntimeError) as excinfo:
-            ecmwf_stub.api(single_level_var_info)
+            ecmwf_stub._api(single_level_var_info)
         assert excinfo.value is original
 
 
 class TestApiMonthly:
-    """Tests for :meth:`ECMWF.api` on the monthly path (M5)."""
+    """Tests for :meth:`ECMWF._api` on the monthly path (M5)."""
 
     @pytest.fixture
     def monthly_var_info(self):
@@ -546,7 +546,7 @@ class TestApiMonthly:
     ):
         """Monthly resolution targets `cds_dataset_monthly`."""
         ecmwf_stub.temporal_resolution = "monthly"
-        ecmwf_stub.api(monthly_var_info)
+        ecmwf_stub._api(monthly_var_info)
         dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
         assert dataset_arg == "reanalysis-era5-single-levels-monthly-means"
 
@@ -558,7 +558,7 @@ class TestApiMonthly:
             update={"cds_dataset_monthly": None}
         )
         ecmwf_stub.temporal_resolution = "monthly"
-        ecmwf_stub.api(monthly_var_info)
+        ecmwf_stub._api(monthly_var_info)
         dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
         assert dataset_arg == "reanalysis-era5-single-levels"
 
@@ -567,7 +567,7 @@ class TestApiMonthly:
     ):
         """Monthly requests carry `product_type=monthly_averaged_reanalysis`."""
         ecmwf_stub.temporal_resolution = "monthly"
-        ecmwf_stub.api(monthly_var_info)
+        ecmwf_stub._api(monthly_var_info)
         request = captured_request(ecmwf_stub)
         assert request["product_type"] == ["monthly_averaged_reanalysis"]
 
@@ -576,7 +576,7 @@ class TestApiMonthly:
     ):
         """Monthly requests pin time to one 00:00 slot and drop day."""
         ecmwf_stub.temporal_resolution = "monthly"
-        ecmwf_stub.api(monthly_var_info)
+        ecmwf_stub._api(monthly_var_info)
         request = captured_request(ecmwf_stub)
         assert request["time"] == ["00:00"]
         assert "day" not in request
@@ -594,7 +594,7 @@ class TestApiMonthly:
             four six-hourly time slots.
         """
         ecmwf_stub.temporal_resolution = "daily"
-        ecmwf_stub.api(monthly_var_info)
+        ecmwf_stub._api(monthly_var_info)
         dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
         request = captured_request(ecmwf_stub)
         assert dataset_arg == "reanalysis-era5-single-levels"

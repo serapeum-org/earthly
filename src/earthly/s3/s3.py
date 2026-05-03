@@ -60,7 +60,7 @@ class S3(AbstractDataSource):
             path=path,
         )
 
-    def initialize(self, bucket: str = "era5-pds") -> object:
+    def _initialize(self, bucket: str = "era5-pds") -> object:
         """initialize connection with amazon s3 and create a client.
 
         Parameters
@@ -84,11 +84,11 @@ class S3(AbstractDataSource):
         self.client = client
         return client
 
-    def create_grid(self, lat_lim: list, lon_lim: list):
+    def _create_grid(self, lat_lim: list, lon_lim: list):
         """TODO:"""
         pass
 
-    def check_input_dates(
+    def _check_input_dates(
         self, start: str, end: str, temporal_resolution: str, fmt: str
     ):
         """check validity of input dates.
@@ -135,9 +135,9 @@ class S3(AbstractDataSource):
         for var in self.vars:
             var_info = catalog.get_variable(var)
             var_s3_name = var_info.get("bucket_name")
-            self.downloadDataset(var_s3_name, progress_bar=progress_bar)
+            self._download_dataset(var_s3_name, progress_bar=progress_bar)
 
-    def downloadDataset(self, var: str, progress_bar: bool = True):
+    def _download_dataset(self, var: str, progress_bar: bool = True):
         """Download a climate variable.
 
                     This function downloads ECMWF six-hourly, daily or monthly data.
@@ -165,9 +165,9 @@ class S3(AbstractDataSource):
                 f"{self.path}/{year}{month}_{self.temporal_resolution}_{var}.nc"
             )
 
-            self.API(s3_data_key, downloaded_file_dir)
+            self._api(s3_data_key, downloaded_file_dir)
 
-    def API(self, s3_file_path: str, local_dir_fname: str, bucket: str = "era5-pds"):
+    def _api(self, s3_file_path: str, local_dir_fname: str, bucket: str = "era5-pds"):
         """Download file from s3 bucket.
 
         Parameters

@@ -27,7 +27,7 @@ class TestApiE2E:
         """Daily 2m_temperature on reanalysis-era5-single-levels.
 
         Test scenario:
-            Exercise the daily single-level path end-to-end. `api()`
+            Exercise the daily single-level path end-to-end. `_api()`
             must call cdsapi.Client.retrieve, write a non-empty
             NetCDF, and return its absolute path.
         """
@@ -39,11 +39,11 @@ class TestApiE2E:
             },
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
-            path=str(tmp_path),
+            path=tmp_path,
             temporal_resolution="daily",
         )
 
-        target = ecmwf.api(
+        target = ecmwf._api(
             Catalog().get_variable(
                 "reanalysis-era5-single-levels", "2m-temperature"
             )
@@ -56,7 +56,7 @@ class TestApiE2E:
         """Daily temperature on reanalysis-era5-pressure-levels at 1000 hPa.
 
         Test scenario:
-            Exercise the pressure-level branch of `api()`. The
+            Exercise the pressure-level branch of `_api()`. The
             catalog entry for `T` carries
             `cds_pressure_level=['1000']`; the request must
             include that key and the retrieve must succeed.
@@ -69,11 +69,11 @@ class TestApiE2E:
             },
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
-            path=str(tmp_path),
+            path=tmp_path,
             temporal_resolution="daily",
         )
 
-        target = ecmwf.api(
+        target = ecmwf._api(
             Catalog().get_variable(
                 "reanalysis-era5-pressure-levels", "temperature"
             )
@@ -88,7 +88,7 @@ class TestApiE2E:
         Test scenario:
             Exercise the M5 monthly branch. With
             `temporal_resolution='monthly'` and a 1-month range,
-            `api()` must target `cds_dataset_monthly`
+            `_api()` must target `cds_dataset_monthly`
             (`reanalysis-era5-single-levels-monthly-means`) and
             send `product_type=['monthly_averaged_reanalysis']`
             without a `time` key.
@@ -101,11 +101,11 @@ class TestApiE2E:
             },
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
-            path=str(tmp_path),
+            path=tmp_path,
             temporal_resolution="monthly",
         )
 
-        target = ecmwf.api(
+        target = ecmwf._api(
             Catalog().get_variable(
                 "reanalysis-era5-single-levels", "2m-temperature"
             )

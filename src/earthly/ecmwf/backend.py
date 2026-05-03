@@ -29,7 +29,7 @@ LEGACY_MARS_KEYS: frozenset[str] = frozenset(
 
 # Per-request-kind keys to drop from the request dict before the
 # retrieve call. The keys here name the *template defaults* (built
-# unconditionally by :meth:`ECMWF.api`) that are invalid for the
+# unconditionally by :meth:`ECMWF._api`) that are invalid for the
 # named request kind. Per-row `extras` are still merged on top, so
 # users can supply alternative values for any stripped key.
 REQUEST_KIND_STRIPS: dict[str, tuple[str, ...]] = {
@@ -51,7 +51,7 @@ class AuthenticationError(Exception):
     The ECMWF backend uses :class:`cdsapi.Client` to talk to CDS. The
     client reads its credentials from `~/.cdsapirc` (or the
     `CDSAPI_URL` / `CDSAPI_KEY` environment variables). If the
-    config is missing or malformed, :meth:`ECMWF.initialize` wraps the
+    config is missing or malformed, :meth:`ECMWF._initialize` wraps the
     underlying error in this exception so callers can distinguish auth
     problems from generic CDS server errors.
 
@@ -125,7 +125,7 @@ class Variable(BaseModel):
         `number_para` / `download type` / `var_name` were the
         request-shape keys of the legacy MARS-ECMWFAPI flow. They are
         meaningless under cdsapi and would silently corrupt requests
-        if they reached :meth:`ECMWF.api`; reject them at load time so
+        if they reached :meth:`ECMWF._api`; reject them at load time so
         a stale catalog row fails loud instead of mid-download.
         """
         if not isinstance(value, dict):
@@ -367,7 +367,7 @@ class ECMWF(AbstractDataSource):
 
     The download pipeline (per variable) is a single step:
 
-    * :meth:`api` — build the cdsapi request dict (daily / monthly
+    * :meth:`_api` — build the cdsapi request dict (daily / monthly
       branch on `temporal_resolution`) and submit it via
       `client.retrieve(dataset, request, target)`. Returns the
       absolute path to the NetCDF that CDS wrote.
@@ -381,7 +381,7 @@ class ECMWF(AbstractDataSource):
         temporal_resolution: Class-level list of valid temporal
             resolutions accepted by the backend. The instance-level
             spatial cell size lives on :attr:`SpatialExtent.resolution`
-            (populated by :meth:`create_grid`) and is sourced from
+            (populated by :meth:`_create_grid`) and is sourced from
             :data:`ERA5_GRID_DEGREES`.
     """
 
@@ -444,14 +444,14 @@ class ECMWF(AbstractDataSource):
             path=path,
         )
 
-    def check_input_dates(
+    def _check_input_dates(
         self, start: str, end: str, temporal_resolution: str, fmt: str
     ):
         """Parse the date range and produce the iteration index.
 
         Returned dict is captured by
         :meth:`AbstractDataSource.__init__` into `self.time` so
-        :meth:`api` can access the parsed bounds and the per-date
+        :meth:`_api` can access the parsed bounds and the per-date
         pandas range without re-parsing.
 
         Args:
@@ -494,7 +494,7 @@ class ECMWF(AbstractDataSource):
             dates=dates,
         )
 
-    def initialize(self):
+    def _initialize(self):
         """Construct the :class:`cdsapi.Client` for talking to CDS.
 
         Reads credentials from `~/.cdsapirc` (or the `CDSAPI_URL` /
@@ -552,7 +552,7 @@ class ECMWF(AbstractDataSource):
 
         return client
 
-    def create_grid(self, lat_lim: list, lon_lim: list):
+    def _create_grid(self, lat_lim: list, lon_lim: list):
         """Snap a lat/lon bounding box to ERA5 grid edges.
 
         Floors the south/west limits and ceils the north/east limits to
@@ -573,7 +573,7 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> ecmwf = ECMWF.__new__(ECMWF)
-                >>> extent = ecmwf.create_grid([4.19, 4.64], [-75.65, -74.73])
+                >>> extent = ecmwf._create_grid([4.19, 4.64], [-75.65, -74.73])
                 >>> round(extent.resolution, 3)
                 0.125
                 >>> round(extent.latitude_min, 3), round(extent.latitude_max, 3)
@@ -584,7 +584,7 @@ class ECMWF(AbstractDataSource):
 
                 ```python
                 >>> ecmwf = ECMWF.__new__(ECMWF)
-                >>> extent = ecmwf.create_grid([0.05, 0.95], [0.05, 0.95])
+                >>> extent = ecmwf._create_grid([0.05, 0.95], [0.05, 0.95])
                 >>> round(extent.latitude_min, 3), round(extent.latitude_max, 3)
                 (0.0, 1.0)
                 >>> round(extent.longitude_min, 3), round(extent.longitude_max, 3)
@@ -610,7 +610,7 @@ class ECMWF(AbstractDataSource):
         Iterates the user-supplied `variables` mapping (CDS dataset
         short name → list of variable codes) and, for each pair,
         looks the variable up in the CDS :class:`Catalog` and
-        delegates to :meth:`download_dataset`.
+        delegates to :meth:`_download_dataset`.
 
         Args:
             progress_bar: Reserved; currently unused since the
@@ -633,7 +633,7 @@ class ECMWF(AbstractDataSource):
             KeyError: If any dataset key in `self.vars` is not a
                 curated CDS dataset, or if a listed variable is not
                 declared under that dataset.
-            Exception: Any error :meth:`api` propagates from
+            Exception: Any error :meth:`_api` propagates from
                 :meth:`cdsapi.Client.retrieve`.
 
         Examples:
@@ -663,9 +663,9 @@ class ECMWF(AbstractDataSource):
                 ```
 
         See Also:
-            :meth:`download_dataset`: Per-variable download +
+            :meth:`_download_dataset`: Per-variable download +
                 post-processing.
-            :meth:`api`: Builds and submits the cdsapi request.
+            :meth:`_api`: Builds and submits the cdsapi request.
             :class:`Catalog`: Resolves `(dataset, code)` pairs to
                 per-variable metadata.
         """
@@ -688,7 +688,7 @@ class ECMWF(AbstractDataSource):
                 )
                 try:
                     var_info = catalog.get_variable(dataset_name, var)
-                    self.download_dataset(var_info, progress_bar=progress_bar)
+                    self._download_dataset(var_info, progress_bar=progress_bar)
                 except Exception as exc:
                     logger.error(
                         f"ECMWF download for {dataset_name}/{var} failed: "
@@ -713,14 +713,14 @@ class ECMWF(AbstractDataSource):
                 f"variables succeeded ({succeeded})"
             )
 
-    def download_dataset(
+    def _download_dataset(
         self,
         var_info: Variable,
         progress_bar: bool = True,
     ):
         """Download a single variable from CDS.
 
-        Thin wrapper around :meth:`api` — builds the cdsapi request,
+        Thin wrapper around :meth:`_api` — builds the cdsapi request,
         submits it, and returns the absolute :class:`pathlib.Path`
         to the NetCDF that CDS wrote.
 
@@ -730,7 +730,7 @@ class ECMWF(AbstractDataSource):
         returned NetCDF.
 
         Args:
-            var_info: Catalog row for the variable. See :meth:`api`
+            var_info: Catalog row for the variable. See :meth:`_api`
                 for the attributes consumed.
             progress_bar: Reserved; currently unused since the
                 slicing pipeline that previously consumed it has
@@ -741,14 +741,14 @@ class ECMWF(AbstractDataSource):
             pathlib.Path: Absolute path to the downloaded NetCDF.
 
         See Also:
-            :meth:`api`: Builds and submits the CDS request, returns
+            :meth:`_api`: Builds and submits the CDS request, returns
                 the path to the NetCDF.
             :class:`Catalog`: Loads `Variable` instances from
                 `cds_data_catalog.yaml`.
         """
-        return self.api(var_info)
+        return self._api(var_info)
 
-    def api(self, var_info: Variable):
+    def _api(self, var_info: Variable):
         """Build a CDS request and submit it via :class:`cdsapi.Client`.
 
         Constructs the request dictionary expected by
@@ -828,7 +828,7 @@ class ECMWF(AbstractDataSource):
 
                 ```
             - Pressure-level variables expose `cds_pressure_level`;
-              :meth:`api` forwards it to the request:
+              :meth:`_api` forwards it to the request:
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
@@ -866,7 +866,7 @@ class ECMWF(AbstractDataSource):
             :class:`earthly.earthly.Earthly`: The
                 user-facing facade that wires this method into the
                 `download()` flow.
-            :meth:`download_dataset`: The single-variable wrapper that
+            :meth:`_download_dataset`: The single-variable wrapper that
                 calls this method and then post-processes the NetCDF.
             :class:`Catalog`: Loads `var_info` dicts from
                 `cds_data_catalog.yaml`.
@@ -952,23 +952,4 @@ class ECMWF(AbstractDataSource):
                 ) from exc
             raise
         return target
-
-    def API(self, *args, **kwargs):  # noqa: N802 — name dictated by the abstract base
-        """Compatibility shim satisfying :meth:`AbstractDataSource.API`.
-
-        The abstract base class declares `API` (uppercase) as
-        abstract. The ECMWF backend works at variable granularity and
-        exposes its real hook as :meth:`api` (lowercase) accepting a
-        `var_info` dict — a different signature than the per-date
-        callable shape of CHIRPS / S3. This stub exists only so the
-        abstract contract is satisfied and :class:`ECMWF` can be
-        instantiated; callers should always use :meth:`api`.
-
-        Raises:
-            NotImplementedError: Always. ECMWF requests are built
-                and submitted from :meth:`api`, not from this method.
-        """
-        raise NotImplementedError(
-            "ECMWF uses the lowercase api(var_info) — see ECMWF.api"
-        )
 

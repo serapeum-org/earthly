@@ -1,10 +1,10 @@
-"""Unit tests for :meth:`ECMWF.download` and :meth:`ECMWF.download_dataset`.
+"""Unit tests for :meth:`ECMWF.download` and :meth:`ECMWF._download_dataset`.
 
 Covers the C3 fix (iterate `self.vars` not `self.variables`), the
 H3 cleanup of the hardcoded `data_interim.nc` deletion, the M3
 partial-success behaviour on per-variable failure, and the C1 call
-site change in `download_dataset` (drops the legacy `dataset`
-arg, returns the path that `api()` produces).
+site change in `_download_dataset` (drops the legacy `dataset`
+arg, returns the path that `_api()` produces).
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ class TestDownloadIteration:
 
         :class:`AbstractDataSource.__init__` stores the user's
         `variables` mapping as `self.vars`. `download()` walks the
-        `(dataset, [vars])` pairs and calls `download_dataset` once
+        `(dataset, [vars])` pairs and calls `_download_dataset` once
         per `(dataset, var_code)` pair.
         """
         ecmwf_stub.vars = {
@@ -34,13 +34,13 @@ class TestDownloadIteration:
                 "2m-temperature", "total-precipitation",
             ],
         }
-        ecmwf_stub.download_dataset = MagicMock()
+        ecmwf_stub._download_dataset = MagicMock()
 
         ecmwf_stub.download(progress_bar=False)
 
-        assert ecmwf_stub.download_dataset.call_count == 2
+        assert ecmwf_stub._download_dataset.call_count == 2
         called_with = [
-            args[0] for args, _kwargs in ecmwf_stub.download_dataset.call_args_list
+            args[0] for args, _kwargs in ecmwf_stub._download_dataset.call_args_list
         ]
         cat = Catalog()
         assert called_with == [
@@ -62,12 +62,12 @@ class TestDownloadIteration:
         ecmwf_stub.vars = {
             "reanalysis-era5-single-levels": ["2m-temperature"],
         }
-        ecmwf_stub.download_dataset = MagicMock()
+        ecmwf_stub._download_dataset = MagicMock()
         assert not hasattr(ecmwf_stub, "variables")
 
         ecmwf_stub.download(progress_bar=False)
 
-        assert ecmwf_stub.download_dataset.call_count == 1
+        assert ecmwf_stub._download_dataset.call_count == 1
 
     def test_download_continues_after_per_variable_failure(self, ecmwf_stub):
         """`download()` collects failures and continues to the next var.
@@ -91,7 +91,7 @@ class TestDownloadIteration:
                 "2m-temperature", "total-precipitation", "evaporation",
             ],
         }
-        ecmwf_stub.download_dataset = flaky
+        ecmwf_stub._download_dataset = flaky
 
         ecmwf_stub.download(progress_bar=False)
 
@@ -116,7 +116,7 @@ class TestDownloadIteration:
         ecmwf_stub.vars = {
             "reanalysis-era5-single-levels": ["2m-temperature"],
         }
-        ecmwf_stub.download_dataset = MagicMock()
+        ecmwf_stub._download_dataset = MagicMock()
         monkeypatch.setattr(
             "earthly.ecmwf.backend.os.remove",
             lambda path: removed.append(path),
@@ -128,36 +128,36 @@ class TestDownloadIteration:
 
 
 class TestDownloadDataset:
-    """Tests for :meth:`ECMWF.download_dataset` after the C1 call-site fix."""
+    """Tests for :meth:`ECMWF._download_dataset` after the C1 call-site fix."""
 
     def test_calls_api_with_var_info_only(
         self, ecmwf_stub, single_level_var_info
     ):
-        """`download_dataset` invokes `api(var_info)` with one arg.
+        """`_download_dataset` invokes `_api(var_info)` with one arg.
 
         Test scenario:
             The C1 change dropped the `dataset` positional argument
-            from `api()`. `download_dataset` must therefore pass
+            from `_api()`. `_download_dataset` must therefore pass
             only `var_info`.
         """
-        ecmwf_stub.api = MagicMock(return_value=ecmwf_stub.root_dir / "x.nc")
+        ecmwf_stub._api = MagicMock(return_value=ecmwf_stub.root_dir / "x.nc")
 
-        ecmwf_stub.download_dataset(single_level_var_info, progress_bar=False)
+        ecmwf_stub._download_dataset(single_level_var_info, progress_bar=False)
 
-        assert ecmwf_stub.api.call_count == 1
-        args, kwargs = ecmwf_stub.api.call_args
+        assert ecmwf_stub._api.call_count == 1
+        args, kwargs = ecmwf_stub._api.call_args
         assert kwargs == {}
         assert args == (single_level_var_info,)
 
     def test_returns_path_from_api(
         self, ecmwf_stub, single_level_var_info
     ):
-        """`download_dataset` returns the path :meth:`api` produced.
+        """`_download_dataset` returns the path :meth:`_api` produced.
 
         Test scenario:
             After post-processing was lifted out of the package,
-            `download_dataset` collapsed to a thin pass-through
-            around `api()`. Callers receive the absolute
+            `_download_dataset` collapsed to a thin pass-through
+            around `_api()`. Callers receive the absolute
             :class:`pathlib.Path` so they can hand it to a
             post-processing script.
         """
@@ -165,9 +165,9 @@ class TestDownloadDataset:
             ecmwf_stub.root_dir
             / "2m_temperature_reanalysis-era5-single-levels.nc"
         )
-        ecmwf_stub.api = MagicMock(return_value=api_target)
+        ecmwf_stub._api = MagicMock(return_value=api_target)
 
-        result = ecmwf_stub.download_dataset(
+        result = ecmwf_stub._download_dataset(
             single_level_var_info, progress_bar=True
         )
 

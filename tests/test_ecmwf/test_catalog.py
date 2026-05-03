@@ -85,7 +85,7 @@ class TestCatalog:
 
         T, Q, R live on reanalysis-era5-pressure-levels; their
         catalog entries must carry the `cds_pressure_level`
-        attribute so :meth:`ECMWF.api` can forward it to CDS.
+        attribute so :meth:`ECMWF._api` can forward it to CDS.
         """
         spec = Catalog().get_variable(
             "reanalysis-era5-pressure-levels", "temperature"
@@ -626,8 +626,8 @@ class TestCatalog:
         assert spec.extras["product_type"] == ["consolidated"]
 
     def test_oras5_carries_oceanic_monthly_request_kind(self):
-        """ORAS5 declares `request_kind=oceanic_monthly` so api() can strip
-        ERA5-specific defaults at retrieve time."""
+        """ORAS5 declares `request_kind=oceanic_monthly` so `_api()` can
+        strip ERA5-specific defaults at retrieve time."""
         cat = Catalog()
         ds = cat.datasets["reanalysis-oras5"]
         assert ds.request_kind == "oceanic_monthly"

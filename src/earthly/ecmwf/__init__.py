@@ -20,7 +20,7 @@ Public surface (re-exported from this package):
 * :class:`AuthenticationError` — raised when cdsapi cannot
   authenticate against CDS.
 * :data:`ERA5_GRID_DEGREES` — ERA5 native grid spacing (0.125°),
-  used by :meth:`ECMWF.create_grid` to snap user bboxes.
+  used by :meth:`ECMWF._create_grid` to snap user bboxes.
 * :data:`CATALOG_PATH` — absolute path to the bundled YAML catalog;
   monkey-patchable to redirect the loader.
 
