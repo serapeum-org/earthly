@@ -692,9 +692,7 @@ class Catalog(AbstractCatalog):
         if target_path.exists() and target_path.stat().st_size > 0:
             return target_path
         rurl = cfg["url"].rstrip("/") + f"/retrieve/v1/jobs/{job_id}/results"
-        resp = requests.get(
-            rurl, headers={"PRIVATE-TOKEN": cfg["key"]}, timeout=30
-        )
+        resp = requests.get(rurl, headers={"PRIVATE-TOKEN": cfg["key"]}, timeout=30)
         resp.raise_for_status()
         href = resp.json().get("asset", {}).get("value", {}).get("href")
         if not href:
@@ -711,7 +709,8 @@ class Catalog(AbstractCatalog):
                 f"refusing to download from non-http(s) href: {href!r}"
             )
         with (
-            urllib.request.urlopen(href, timeout=60) as src,
+            # Scheme validated above — bandit B310 does not apply.
+            urllib.request.urlopen(href, timeout=60) as src,  # nosec B310
             open(target_path, "wb") as out,
         ):
             while chunk := src.read(chunk_size):
