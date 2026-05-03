@@ -67,5 +67,3 @@ earthly = Earthly(
     path=path,
 )
 earthly.download()
-
-#%%
