@@ -70,7 +70,7 @@ repos:
 #         name: "[py   - check] pydocstyle"
 #         files: ^hydrolib/.*\.py$
   - repo: https://github.com/pycqa/isort
-    rev: 8.0.1
+    rev: 9.0.0a3
     hooks:
       - id: isort
         name: "[py   - format] isort"
@@ -142,12 +142,12 @@ repos:
       - id: detect-secrets
         exclude: '\.drawio$'
   - repo: https://github.com/bridgecrewio/checkov
-    rev: 3.2.510
+    rev: 3.2.526
     hooks:
       - id: checkov
 
   - repo: https://github.com/trufflesecurity/truffleHog
-    rev: v3.94.0
+    rev: v3.95.2
     hooks:
       - id: trufflehog
 
