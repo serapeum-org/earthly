@@ -12,11 +12,11 @@ from earthly.s3 import S3
 
 @pytest.fixture(scope="module")
 def test_create_s3_object(
-    monthly_dates: List,
-    lat_bounds: List,
-    lon_bounds: List,
+    monthly_dates: list,
+    lat_bounds: list,
+    lon_bounds: list,
     s3_era5_base_dir: str,
-    s3_era5_variables: List[str],
+    s3_era5_variables: list[str],
 ):
     Coello = S3(
         start=monthly_dates[0],

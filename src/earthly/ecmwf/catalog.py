@@ -271,7 +271,7 @@ class Catalog(AbstractCatalog):
                 same key twice.
         """
         catalog_path = CATALOG_PATH
-        with open(catalog_path, "r", encoding="utf-8") as stream:
+        with open(catalog_path, encoding="utf-8") as stream:
             data = yaml.load(stream, Loader=_StrictSafeLoader) or {}
         datasets_yaml = data.get("datasets")
         if not datasets_yaml:

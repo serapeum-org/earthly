@@ -26,11 +26,11 @@ class TestChirpsBackend:
     def test_chirps_data_source_instantiate_object(
         self,
         chirps_data_source: str,
-        dates: List,
+        dates: list,
         daily_temporal_resolution: str,
-        chirps_variables: List[str],
-        lat_bounds: List,
-        lon_bounds: List,
+        chirps_variables: list[str],
+        lat_bounds: list,
+        lon_bounds: list,
         chirps_data_source_output_dir: str,
     ):
         e2o = Earthly(
@@ -75,11 +75,11 @@ class TestS3Backend:
     def test_s3_data_source_instantiate_object(
         self,
         s3_data_source: str,
-        monthly_dates: List,
+        monthly_dates: list,
         monthly_temporal_resolution: str,
-        s3_era5_variables: List[str],
-        lat_bounds: List,
-        lon_bounds: List,
+        s3_era5_variables: list[str],
+        lat_bounds: list,
+        lon_bounds: list,
         s3_era5_data_source_output_dir: str,
     ):
         e2o = Earthly(

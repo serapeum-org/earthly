@@ -122,4 +122,3 @@ class TestParentClassWiring:
         assert request["variable"] == ["2m_temperature"]
         assert target_str == str(target)
         assert target.parent == tmp_path.resolve()
-
