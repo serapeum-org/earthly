@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import datetime as dt
 import os
-from ftplib import FTP
+from ftplib import FTP  # nosec B402  # noqa: S402
 
 import numpy as np
 import pandas as pd
@@ -275,7 +275,7 @@ class CHIRPS(AbstractDataSource):
         bool
             DESCRIPTION.
         """
-        ftp = FTP(CHIRPS.api_url)
+        ftp = FTP(CHIRPS.api_url)  # nosec B321
         ftp.login()
         # find the document name in this directory
         ftp.cwd(pathFTP)

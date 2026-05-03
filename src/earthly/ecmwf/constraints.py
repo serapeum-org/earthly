@@ -112,8 +112,12 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
     """
     if dataset not in _CACHE:
         url = CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
+        if not url.startswith(("https://", "http://")):
+            raise ValueError(f"refusing to fetch non-http(s) URL: {url!r}")
         try:
-            with urllib.request.urlopen(url, timeout=15) as resp:
+            # Scheme validated above — bandit B310 (file:// vector)
+            # does not apply.
+            with urllib.request.urlopen(url, timeout=15) as resp:  # nosec B310
                 payload = json.loads(resp.read())
         except (urllib.error.URLError, ValueError, OSError):
             # Network failure or non-JSON response — treat as
