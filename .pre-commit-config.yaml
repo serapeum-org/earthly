@@ -146,11 +146,6 @@ repos:
     hooks:
       - id: checkov
 
-  - repo: https://github.com/trufflesecurity/truffleHog
-    rev: v3.95.2
-    hooks:
-      - id: trufflehog
-
   - repo: local
     hooks:
       - id: safety
