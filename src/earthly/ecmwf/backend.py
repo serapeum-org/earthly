@@ -195,8 +195,7 @@ class Variable(BaseModel):
             return cls(**data)
         except ValidationError as exc:
             raise ValueError(
-                f"cds_data_catalog.yaml entry {code!r} failed "
-                f"validation:\n{exc}"
+                f"cds_data_catalog.yaml entry {code!r} failed " f"validation:\n{exc}"
             ) from exc
 
     def dataset_for(self, temporal_resolution: str) -> str:
@@ -312,9 +311,7 @@ def _looks_like_missing_credentials(exc: BaseException) -> bool:
         propagate untouched.
     """
     cdsapirc_present = (Path.home() / ".cdsapirc").is_file()
-    env_present = bool(
-        os.environ.get("CDSAPI_URL") and os.environ.get("CDSAPI_KEY")
-    )
+    env_present = bool(os.environ.get("CDSAPI_URL") and os.environ.get("CDSAPI_KEY"))
     auth_keywords = (
         "configuration",
         "credentials",
@@ -700,8 +697,7 @@ class ECMWF(AbstractDataSource):
 
         if failed:
             failed_summary = ", ".join(
-                f"{ds}/{var} ({type(exc).__name__})"
-                for (ds, var), exc in failed
+                f"{ds}/{var} ({type(exc).__name__})" for (ds, var), exc in failed
             )
             logger.warning(
                 f"ECMWF download summary: {len(succeeded)} succeeded "
@@ -930,14 +926,10 @@ class ECMWF(AbstractDataSource):
         # invalid extras combinations client-side before they
         # consume a CDS queue slot. Pass `skip_constraints=True`
         # to `ECMWF(...)` to bypass.
-        RequestValidator(
-            dataset, request, skip=self.skip_constraints
-        ).check()
+        RequestValidator(dataset, request, skip=self.skip_constraints).check()
 
         target = self.root_dir / f"{var_info.cds_variable}_{dataset}.nc"
-        logger.info(
-            f"Requesting {dataset} from CDS; this may take several minutes"
-        )
+        logger.info(f"Requesting {dataset} from CDS; this may take several minutes")
         try:
             self.client.retrieve(dataset, request, str(target))
         except Exception as exc:

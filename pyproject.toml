@@ -178,4 +178,3 @@ python = "3.14.*"
 
 [tool.pixi.dependencies]
 pyramids = ">=0.15.0"
-

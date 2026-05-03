@@ -12,15 +12,14 @@ network. The autouse `_block_real_cdsapi` safeguard in
 
 from __future__ import annotations
 
+import json
 
 import pandas as pd
 import pytest
-import json
 
 from earthly.ecmwf import Variable
-
-from tests.test_ecmwf._fakes import captured_request
 from earthly.ecmwf import constraints as constraints_module
+from tests.test_ecmwf._fakes import captured_request
 
 pytestmark = [pytest.mark.unit]
 
@@ -32,8 +31,7 @@ class TestApi:
         """api() returns <root_dir>/<cds_variable>_<cds_dataset>.nc."""
         target = ecmwf_stub._api(single_level_var_info)
         expected = (
-            ecmwf_stub.root_dir
-            / "2m_temperature_reanalysis-era5-single-levels.nc"
+            ecmwf_stub.root_dir / "2m_temperature_reanalysis-era5-single-levels.nc"
         )
         assert target == expected, f"Expected {expected}, got {target}"
 
@@ -63,21 +61,18 @@ class TestApi:
         """
         target = ecmwf_stub._api(single_level_var_info)
         args, kwargs = ecmwf_stub.client.retrieve.call_args
-        assert kwargs == {}, (
-            f"retrieve must be called positionally; got kwargs={kwargs}"
-        )
-        assert len(args) == 3, (
-            f"Expected 3 positional args, got {len(args)}: {args}"
-        )
-        assert args[0] == single_level_var_info.cds_dataset, (
-            f"First arg must be dataset name, got {args[0]!r}"
-        )
-        assert isinstance(args[1], dict), (
-            f"Second arg must be a request dict, got {type(args[1])}"
-        )
+        assert (
+            kwargs == {}
+        ), f"retrieve must be called positionally; got kwargs={kwargs}"
+        assert len(args) == 3, f"Expected 3 positional args, got {len(args)}: {args}"
+        assert (
+            args[0] == single_level_var_info.cds_dataset
+        ), f"First arg must be dataset name, got {args[0]!r}"
+        assert isinstance(
+            args[1], dict
+        ), f"Second arg must be a request dict, got {type(args[1])}"
         assert args[2] == str(target), (
-            f"Third arg must equal str(target); "
-            f"got {args[2]!r} vs {str(target)!r}"
+            f"Third arg must equal str(target); " f"got {args[2]!r} vs {str(target)!r}"
         )
 
     def test_request_carries_required_default_keys(
@@ -102,9 +97,7 @@ class TestApi:
             "data_format",
             "area",
         ):
-            assert key in request, (
-                f"Missing required key {key!r} in request: {request}"
-            )
+            assert key in request, f"Missing required key {key!r} in request: {request}"
 
     def test_product_type_defaults_to_reanalysis(
         self, ecmwf_stub, single_level_var_info
@@ -117,9 +110,7 @@ class TestApi:
         ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["product_type"] == ["reanalysis"]
 
-    def test_variable_taken_from_var_info(
-        self, ecmwf_stub, single_level_var_info
-    ):
+    def test_variable_taken_from_var_info(self, ecmwf_stub, single_level_var_info):
         """`variable` mirrors `var_info.cds_variable`.
 
         Test scenario:
@@ -129,9 +120,7 @@ class TestApi:
         ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["variable"] == ["2m_temperature"]
 
-    def test_dates_are_zero_padded_and_sorted(
-        self, ecmwf_stub, single_level_var_info
-    ):
+    def test_dates_are_zero_padded_and_sorted(self, ecmwf_stub, single_level_var_info):
         """`year`/`month`/`day` are zero-padded, deduplicated, sorted.
 
         Test scenario:
@@ -145,9 +134,7 @@ class TestApi:
         assert request["month"] == ["01"]
         assert request["day"] == ["01", "02", "03"]
 
-    def test_dates_handle_multi_year_range(
-        self, ecmwf_stub, single_level_var_info
-    ):
+    def test_dates_handle_multi_year_range(self, ecmwf_stub, single_level_var_info):
         """Multi-year ranges deduplicate across year/month/day boundaries.
 
         Test scenario:
@@ -166,9 +153,7 @@ class TestApi:
         assert request["month"] == ["01", "12"]
         assert request["day"] == ["01", "02", "30", "31"]
 
-    def test_time_defaults_to_six_hourly_slots(
-        self, ecmwf_stub, single_level_var_info
-    ):
+    def test_time_defaults_to_six_hourly_slots(self, ecmwf_stub, single_level_var_info):
         """`time` defaults to `['00:00','06:00','12:00','18:00']`.
 
         Test scenario:
@@ -461,9 +446,7 @@ class TestApi:
         assert request["product_type"] == ["analysis_based"]
         assert request["time_aggregation"] == "daily"
 
-    def test_form_request_kind_is_unchanged(
-        self, ecmwf_stub, single_level_var_info
-    ):
+    def test_form_request_kind_is_unchanged(self, ecmwf_stub, single_level_var_info):
         """The default `form` request_kind keeps every template key."""
         ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
@@ -541,9 +524,7 @@ class TestApiMonthly:
             units="K",
         )
 
-    def test_monthly_routes_to_monthly_dataset(
-        self, ecmwf_stub, monthly_var_info
-    ):
+    def test_monthly_routes_to_monthly_dataset(self, ecmwf_stub, monthly_var_info):
         """Monthly resolution targets `cds_dataset_monthly`."""
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub._api(monthly_var_info)
@@ -571,9 +552,7 @@ class TestApiMonthly:
         request = captured_request(ecmwf_stub)
         assert request["product_type"] == ["monthly_averaged_reanalysis"]
 
-    def test_monthly_request_uses_single_time_slot(
-        self, ecmwf_stub, monthly_var_info
-    ):
+    def test_monthly_request_uses_single_time_slot(self, ecmwf_stub, monthly_var_info):
         """Monthly requests pin time to one 00:00 slot and drop day."""
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub._api(monthly_var_info)

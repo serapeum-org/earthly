@@ -11,7 +11,6 @@ import cdsapi
 import pytest
 
 from earthly.ecmwf import ECMWF, AuthenticationError
-
 from tests.test_ecmwf._fakes import _SentinelClient
 
 pytestmark = [pytest.mark.unit]
@@ -20,9 +19,7 @@ pytestmark = [pytest.mark.unit]
 class TestInitialize:
     """Tests for :meth:`ECMWF._initialize` (H3, C2)."""
 
-    def test_returns_constructed_client_when_credentials_valid(
-        self, monkeypatch
-    ):
+    def test_returns_constructed_client_when_credentials_valid(self, monkeypatch):
         """`initialize()` returns whatever `cdsapi.Client()` returns.
 
         Test scenario:
@@ -37,9 +34,7 @@ class TestInitialize:
         result = ecmwf._initialize()
         assert result is sentinel
 
-    def test_raises_authentication_error_when_cdsapi_raises(
-        self, monkeypatch
-    ):
+    def test_raises_authentication_error_when_cdsapi_raises(self, monkeypatch):
         """A failing `cdsapi.Client()` is wrapped in AuthenticationError.
 
         Test scenario:
@@ -60,9 +55,7 @@ class TestInitialize:
             ecmwf._initialize()
         assert excinfo.value.__cause__ is original
 
-    def test_non_credentials_exception_propagates_untouched(
-        self, monkeypatch
-    ):
+    def test_non_credentials_exception_propagates_untouched(self, monkeypatch):
         """Network / library errors are not branded as auth failures.
 
         Test scenario:
@@ -74,9 +67,7 @@ class TestInitialize:
         """
         original = ConnectionError("TLS handshake failed")
         monkeypatch.setenv("CDSAPI_URL", "https://example.invalid/api")
-        monkeypatch.setenv(
-            "CDSAPI_KEY", "00000000-0000-0000-0000-000000000000"
-        )
+        monkeypatch.setenv("CDSAPI_KEY", "00000000-0000-0000-0000-000000000000")
 
         def boom():
             raise original
@@ -95,6 +86,7 @@ class TestInitialize:
             should know exactly which file to create and where to find
             the official setup guide.
         """
+
         def boom():
             raise Exception("missing/incomplete configuration file")
 
@@ -106,9 +98,7 @@ class TestInitialize:
         assert "~/.cdsapirc" in message
         assert "cds.climate.copernicus.eu/how-to-api" in message
 
-    def test_error_message_does_not_reference_legacy_env_vars(
-        self, monkeypatch
-    ):
+    def test_error_message_does_not_reference_legacy_env_vars(self, monkeypatch):
         """The error message must not reference the dead env vars.
 
         Test scenario:
@@ -116,6 +106,7 @@ class TestInitialize:
             `ECMWF_API_KEY` / `ECMWF_API_EMAIL` — none of which
             cdsapi reads. Following that advice was a dead end.
         """
+
         def boom():
             raise Exception("missing/incomplete configuration file")
 

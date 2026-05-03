@@ -19,14 +19,12 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import zipfile
 from pathlib import Path
 from typing import Any
 
 import cdsapi
 from pyramids.netcdf import NetCDF
-
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
 
@@ -95,6 +93,7 @@ def fetch_one_batch(
     # in the CDS queue for 5-30 min before failing server-side
     # with the same answer.
     from earthly.ecmwf.constraints import RequestValidator
+
     RequestValidator(dataset, request).check()
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)

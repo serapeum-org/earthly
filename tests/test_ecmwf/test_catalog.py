@@ -58,9 +58,7 @@ class TestCatalog:
 
     def test_get_variable_returns_raw_era5_units(self):
         """2m-temperature carries the raw ERA5 unit (Kelvin)."""
-        spec = Catalog().get_variable(
-            "reanalysis-era5-single-levels", "2m-temperature"
-        )
+        spec = Catalog().get_variable("reanalysis-era5-single-levels", "2m-temperature")
         assert spec.units == "K"
 
     def test_available_datasets_lists_cds_collection(self):
@@ -87,9 +85,7 @@ class TestCatalog:
         catalog entries must carry the `cds_pressure_level`
         attribute so :meth:`ECMWF._api` can forward it to CDS.
         """
-        spec = Catalog().get_variable(
-            "reanalysis-era5-pressure-levels", "temperature"
-        )
+        spec = Catalog().get_variable("reanalysis-era5-pressure-levels", "temperature")
         assert spec.cds_pressure_level == ["1000"]
 
     def test_get_variable_raises_key_error_for_unknown_dataset(self):
@@ -107,9 +103,7 @@ class TestCatalog:
     def test_same_code_under_different_datasets_is_distinct(self):
         """`(dataset, code)` is the identity; same code, different datasets."""
         cat = Catalog()
-        single = cat.get_variable(
-            "reanalysis-era5-single-levels", "2m-temperature"
-        )
+        single = cat.get_variable("reanalysis-era5-single-levels", "2m-temperature")
         land = cat.get_variable("reanalysis-era5-land", "2m-temperature")
         assert single.cds_dataset == "reanalysis-era5-single-levels"
         assert land.cds_dataset == "reanalysis-era5-land"
@@ -169,9 +163,7 @@ class TestCatalog:
                 },
             )
 
-    def test_duplicate_variable_in_same_dataset_rejected(
-        self, monkeypatch, tmp_path
-    ):
+    def test_duplicate_variable_in_same_dataset_rejected(self, monkeypatch, tmp_path):
         """Two `variables:` entries with the same code in one dataset fail.
 
         PyYAML's default loader silently merges duplicate mapping
@@ -240,9 +232,7 @@ class TestCatalog:
         )
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
         cat = Catalog()
-        spec = cat.get_variable(
-            "reanalysis-carra-single-levels", "2m-temperature"
-        )
+        spec = cat.get_variable("reanalysis-carra-single-levels", "2m-temperature")
         assert spec.extras == {"domain": "east", "leadtime_hour": "1"}
         assert cat.datasets["reanalysis-carra-single-levels"].extras == {
             "domain": "east",
@@ -270,9 +260,7 @@ class TestCatalog:
         )
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
         cat = Catalog()
-        spec = cat.get_variable(
-            "reanalysis-carra-single-levels", "2m-temperature"
-        )
+        spec = cat.get_variable("reanalysis-carra-single-levels", "2m-temperature")
         assert spec.extras == {"domain": "west", "leadtime_hour": "1"}
 
     def test_era5_land_loads(self):
@@ -349,21 +337,28 @@ class TestCatalog:
         constraints_module._CACHE.clear()
 
         class _Resp:
-            def __enter__(self): return self
-            def __exit__(self, *_): return False
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_):
+                return False
+
             def read(self):
                 import json
-                return json.dumps([
-                    # Entry without variables — should be skipped
-                    {"experiment": ["historical"], "year": ["2000"]},
-                    # Entry with variables — should be picked
-                    {
-                        "variable": ["2m_temperature", "skin_temperature"],
-                        "year": ["2022"],
-                        "month": ["01"],
-                        "level_type": ["surface_or_atmosphere"],
-                    },
-                ]).encode("utf-8")
+
+                return json.dumps(
+                    [
+                        # Entry without variables — should be skipped
+                        {"experiment": ["historical"], "year": ["2000"]},
+                        # Entry with variables — should be picked
+                        {
+                            "variable": ["2m_temperature", "skin_temperature"],
+                            "year": ["2022"],
+                            "month": ["01"],
+                            "level_type": ["surface_or_atmosphere"],
+                        },
+                    ]
+                ).encode("utf-8")
 
         monkeypatch.setattr(
             constraints_module.urllib.request,
@@ -386,15 +381,22 @@ class TestCatalog:
         constraints_module._CACHE.clear()
 
         class _Resp:
-            def __enter__(self): return self
-            def __exit__(self, *_): return False
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_):
+                return False
+
             def read(self):
                 import json
+
                 # No entry has `variable` — caller gets first entry expanded
-                return json.dumps([
-                    {"cdr_type": ["esa_cci"], "region": ["nh"]},
-                    {"cdr_type": ["osi_saf"], "region": ["sh"]},
-                ]).encode("utf-8")
+                return json.dumps(
+                    [
+                        {"cdr_type": ["esa_cci"], "region": ["nh"]},
+                        {"cdr_type": ["osi_saf"], "region": ["sh"]},
+                    ]
+                ).encode("utf-8")
 
         monkeypatch.setattr(
             constraints_module.urllib.request,
@@ -412,8 +414,12 @@ class TestCatalog:
         constraints_module._CACHE.clear()
 
         class _Resp:
-            def __enter__(self): return self
-            def __exit__(self, *_): return False
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_):
+                return False
+
             def read(self):
                 return b"[]"
 
@@ -425,33 +431,44 @@ class TestCatalog:
         request = Catalog().minimal_valid_request("non-addressable")
         assert request == {"data_format": "netcdf"}
 
-    def test_list_recent_jobs_filters_by_age_and_status(
-        self, monkeypatch, tmp_path
-    ):
+    def test_list_recent_jobs_filters_by_age_and_status(self, monkeypatch, tmp_path):
         """`list_recent_jobs` returns jobs within `max_age_min` only."""
         import datetime
 
         rc = tmp_path / ".cdsapirc"
-        rc.write_text(
-            "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
-        )
+        rc.write_text("url: https://example.invalid/api\nkey: tok\n", encoding="utf-8")
         monkeypatch.setattr("pathlib.Path.home", lambda: tmp_path)
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
         recent = (now - datetime.timedelta(minutes=10)).isoformat()
         old = (now - datetime.timedelta(minutes=120)).isoformat()
         payload = {
             "jobs": [
-                {"jobID": "abc", "processID": "ds-a", "status": "successful", "created": recent},
-                {"jobID": "def", "processID": "ds-b", "status": "successful", "created": old},
+                {
+                    "jobID": "abc",
+                    "processID": "ds-a",
+                    "status": "successful",
+                    "created": recent,
+                },
+                {
+                    "jobID": "def",
+                    "processID": "ds-b",
+                    "status": "successful",
+                    "created": old,
+                },
             ]
         }
 
         class _Resp:
             status_code = 200
-            def raise_for_status(self): pass
-            def json(self): return payload
+
+            def raise_for_status(self):
+                pass
+
+            def json(self):
+                return payload
 
         import earthly.ecmwf.catalog as cat_mod
+
         captured = {}
 
         def _fake_get(url, headers=None, params=None, timeout=None):
@@ -460,20 +477,17 @@ class TestCatalog:
             return _Resp()
 
         import requests as _req
+
         monkeypatch.setattr(_req, "get", _fake_get)
         jobs = Catalog().list_recent_jobs(status="successful", max_age_min=60)
         assert len(jobs) == 1
         assert jobs[0]["jobID"] == "abc"
         assert captured["params"]["status"] == "successful"
 
-    def test_download_job_skips_if_target_exists(
-        self, monkeypatch, tmp_path
-    ):
+    def test_download_job_skips_if_target_exists(self, monkeypatch, tmp_path):
         """`download_job` is idempotent when the target file is already there."""
         rc = tmp_path / ".cdsapirc"
-        rc.write_text(
-            "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
-        )
+        rc.write_text("url: https://example.invalid/api\nkey: tok\n", encoding="utf-8")
         monkeypatch.setattr("pathlib.Path.home", lambda: tmp_path)
         target = tmp_path / "x.nc"
         target.write_bytes(b"already here")
@@ -482,21 +496,21 @@ class TestCatalog:
         assert result == target
         assert target.read_bytes() == b"already here"
 
-    def test_download_job_raises_when_no_asset_href(
-        self, monkeypatch, tmp_path
-    ):
+    def test_download_job_raises_when_no_asset_href(self, monkeypatch, tmp_path):
         """`download_job` raises ValueError when results lack an asset href."""
         rc = tmp_path / ".cdsapirc"
-        rc.write_text(
-            "url: https://example.invalid/api\nkey: tok\n", encoding="utf-8"
-        )
+        rc.write_text("url: https://example.invalid/api\nkey: tok\n", encoding="utf-8")
         monkeypatch.setattr("pathlib.Path.home", lambda: tmp_path)
 
         class _Resp:
-            def raise_for_status(self): pass
-            def json(self): return {"asset": {"value": {}}}  # no href
+            def raise_for_status(self):
+                pass
+
+            def json(self):
+                return {"asset": {"value": {}}}  # no href
 
         import requests as _req
+
         monkeypatch.setattr(_req, "get", lambda *a, **kw: _Resp())
         with pytest.raises(ValueError, match="no downloadable asset href"):
             Catalog().download_job("xyz", tmp_path / "out.nc")
@@ -546,7 +560,10 @@ class TestCatalog:
         assert ds.monthly == "reanalysis-era5-pressure-levels-monthly-means"
         spec = ds.variables["temperature"]
         assert spec.dataset_for("daily") == "reanalysis-era5-pressure-levels"
-        assert spec.dataset_for("monthly") == "reanalysis-era5-pressure-levels-monthly-means"
+        assert (
+            spec.dataset_for("monthly")
+            == "reanalysis-era5-pressure-levels-monthly-means"
+        )
 
     def test_era5_single_levels_monthly_means_routing(self):
         """M25: ERA5 single-levels routes monthly to its -monthly-means variant."""
@@ -555,7 +572,9 @@ class TestCatalog:
         assert ds.monthly == "reanalysis-era5-single-levels-monthly-means"
         spec = ds.variables["2m-temperature"]
         assert spec.dataset_for("daily") == "reanalysis-era5-single-levels"
-        assert spec.dataset_for("monthly") == "reanalysis-era5-single-levels-monthly-means"
+        assert (
+            spec.dataset_for("monthly") == "reanalysis-era5-single-levels-monthly-means"
+        )
 
     def test_carra_means_partial_loads(self):
         """CARRA-means partial block (6 forecast-based single-level vars + 1 analysis_based override)."""
@@ -566,7 +585,9 @@ class TestCatalog:
         assert ds.extras["time_aggregation"] == "daily"
         assert len(ds.variables) == 112
         spec = ds.variables["maximum-2m-temperature-carra-means"]
-        assert spec.cds_variable == "maximum_2m_temperature_since_previous_post_processing"
+        assert (
+            spec.cds_variable == "maximum_2m_temperature_since_previous_post_processing"
+        )
         assert spec.nc_variable == "mx2t"
         assert spec.units == "K"
         # Per-row extras override: analysis_based var flips product_type.
@@ -762,9 +783,7 @@ class TestCatalog:
     def test_get_catalog_raises_on_empty_datasets(self, monkeypatch, tmp_path):
         """A YAML with no datasets raises ValueError."""
         empty_yaml = tmp_path / "cds_data_catalog.yaml"
-        empty_yaml.write_text(
-            "version: 3\navailable_datasets: []\n", encoding="utf-8"
-        )
+        empty_yaml.write_text("version: 3\navailable_datasets: []\n", encoding="utf-8")
         from earthly.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", empty_yaml)

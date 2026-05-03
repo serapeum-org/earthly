@@ -87,12 +87,8 @@ class SpatialExtent(BaseModel):
 
     model_config = ConfigDict(frozen=True)
 
-    latitude_min: float = Field(
-        ge=-90.0, le=90.0, description="South edge in degrees"
-    )
-    latitude_max: float = Field(
-        ge=-90.0, le=90.0, description="North edge in degrees"
-    )
+    latitude_min: float = Field(ge=-90.0, le=90.0, description="South edge in degrees")
+    latitude_max: float = Field(ge=-90.0, le=90.0, description="North edge in degrees")
     longitude_min: float = Field(
         ge=-180.0, le=180.0, description="West edge in degrees"
     )

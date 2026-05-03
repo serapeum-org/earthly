@@ -12,11 +12,11 @@ import numpy as np
 import pytest
 
 from earthly.earthly import Earthly
-from earthly.ecmwf import Catalog, ECMWF
+from earthly.ecmwf import ECMWF, Catalog
 
 pytestmark = [pytest.mark.e2e]
 
-_BBOX_LAT = [4.0, 5.0]   # ~1° square over Colombia, small footprint
+_BBOX_LAT = [4.0, 5.0]  # ~1° square over Colombia, small footprint
 _BBOX_LON = [-75.0, -74.0]
 
 
@@ -44,9 +44,7 @@ class TestApiE2E:
         )
 
         target = ecmwf._api(
-            Catalog().get_variable(
-                "reanalysis-era5-single-levels", "2m-temperature"
-            )
+            Catalog().get_variable("reanalysis-era5-single-levels", "2m-temperature")
         )
 
         assert target.exists(), f"NetCDF file not created at {target}"
@@ -74,9 +72,7 @@ class TestApiE2E:
         )
 
         target = ecmwf._api(
-            Catalog().get_variable(
-                "reanalysis-era5-pressure-levels", "temperature"
-            )
+            Catalog().get_variable("reanalysis-era5-pressure-levels", "temperature")
         )
 
         assert target.exists(), f"NetCDF file not created at {target}"
@@ -106,9 +102,7 @@ class TestApiE2E:
         )
 
         target = ecmwf._api(
-            Catalog().get_variable(
-                "reanalysis-era5-single-levels", "2m-temperature"
-            )
+            Catalog().get_variable("reanalysis-era5-single-levels", "2m-temperature")
         )
 
         assert target.exists(), f"NetCDF file not created at {target}"
@@ -139,7 +133,8 @@ class TestFacadeE2E:
             end="2022-01-01",
             variables={
                 "reanalysis-era5-single-levels": [
-                    "2m-temperature", "total-precipitation",
+                    "2m-temperature",
+                    "total-precipitation",
                 ],
             },
             lat_lim=_BBOX_LAT,
@@ -152,9 +147,9 @@ class TestFacadeE2E:
         # Each variable gets its own
         # <cds_variable>_<cds_dataset>.nc under tmp_path.
         produced = sorted(p.name for p in tmp_path.glob("*.nc"))
-        assert "2m_temperature_reanalysis-era5-single-levels.nc" in produced, (
-            f"2T NetCDF missing from outputs: {produced}"
-        )
-        assert "total_precipitation_reanalysis-era5-single-levels.nc" in produced, (
-            f"TP NetCDF missing from outputs: {produced}"
-        )
+        assert (
+            "2m_temperature_reanalysis-era5-single-levels.nc" in produced
+        ), f"2T NetCDF missing from outputs: {produced}"
+        assert (
+            "total_precipitation_reanalysis-era5-single-levels.nc" in produced
+        ), f"TP NetCDF missing from outputs: {produced}"

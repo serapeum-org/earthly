@@ -132,8 +132,7 @@ class TestECMWFBackend:
             (not an instance).
         """
         assert "ecmwf" in Earthly.DataSources, (
-            f"'ecmwf' missing from DataSources keys: "
-            f"{sorted(Earthly.DataSources)}"
+            f"'ecmwf' missing from DataSources keys: " f"{sorted(Earthly.DataSources)}"
         )
         assert Earthly.DataSources["ecmwf"] is ECMWF, (
             f"DataSources['ecmwf'] should be the ECMWF class; got "
@@ -186,9 +185,7 @@ class TestECMWFBackend:
                 path=str(tmp_path),
             )
 
-    def test_ecmwf_facade_propagates_constructor_arguments(
-        self, tmp_path, monkeypatch
-    ):
+    def test_ecmwf_facade_propagates_constructor_arguments(self, tmp_path, monkeypatch):
         """The facade threads its constructor args into ECMWF unchanged.
 
         Test scenario:
@@ -207,7 +204,8 @@ class TestECMWFBackend:
             end="2022-02-01",
             variables={
                 "reanalysis-era5-single-levels": [
-                    "2m-temperature", "total-precipitation",
+                    "2m-temperature",
+                    "total-precipitation",
                 ],
             },
             lat_lim=[4.0, 5.0],
@@ -218,20 +216,19 @@ class TestECMWFBackend:
         ecmwf = e2o.datasource
         assert ecmwf.vars == {
             "reanalysis-era5-single-levels": [
-                "2m-temperature", "total-precipitation",
+                "2m-temperature",
+                "total-precipitation",
             ],
         }, f"variables should be threaded through; got {ecmwf.vars!r}"
         assert ecmwf.temporal_resolution == "monthly", (
             f"temporal_resolution should be 'monthly'; got "
             f"{ecmwf.temporal_resolution!r}"
         )
-        assert ecmwf.root_dir == tmp_path.resolve(), (
-            f"root_dir should be the tmp path; got {ecmwf.root_dir}"
-        )
+        assert (
+            ecmwf.root_dir == tmp_path.resolve()
+        ), f"root_dir should be the tmp path; got {ecmwf.root_dir}"
 
-    def test_full_download_through_facade_routes_to_cdsapi(
-        self, tmp_path, monkeypatch
-    ):
+    def test_full_download_through_facade_routes_to_cdsapi(self, tmp_path, monkeypatch):
         """End-to-end: `Earthly(...).download()` reaches CDS.
 
         Test scenario:
@@ -264,7 +261,8 @@ class TestECMWFBackend:
             end="2022-01-01",
             variables={
                 "reanalysis-era5-single-levels": [
-                    "2m-temperature", "total-precipitation",
+                    "2m-temperature",
+                    "total-precipitation",
                 ],
             },
             lat_lim=[4.0, 5.0],
@@ -274,8 +272,7 @@ class TestECMWFBackend:
         e2o.download(progress_bar=False)
 
         assert len(retrieved) == 2, (
-            f"Expected 2 retrieve calls (one per variable); "
-            f"got {len(retrieved)}"
+            f"Expected 2 retrieve calls (one per variable); " f"got {len(retrieved)}"
         )
         datasets = [args[0] for args in retrieved]
         variables = [args[1]["variable"] for args in retrieved]

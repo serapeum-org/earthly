@@ -31,7 +31,8 @@ class TestDownloadIteration:
         """
         ecmwf_stub.vars = {
             "reanalysis-era5-single-levels": [
-                "2m-temperature", "total-precipitation",
+                "2m-temperature",
+                "total-precipitation",
             ],
         }
         ecmwf_stub._download_dataset = MagicMock()
@@ -45,9 +46,7 @@ class TestDownloadIteration:
         cat = Catalog()
         assert called_with == [
             cat.get_variable("reanalysis-era5-single-levels", "2m-temperature"),
-            cat.get_variable(
-                "reanalysis-era5-single-levels", "total-precipitation"
-            ),
+            cat.get_variable("reanalysis-era5-single-levels", "total-precipitation"),
         ]
 
     def test_download_does_not_read_self_variables(self, ecmwf_stub):
@@ -88,7 +87,9 @@ class TestDownloadIteration:
 
         ecmwf_stub.vars = {
             "reanalysis-era5-single-levels": [
-                "2m-temperature", "total-precipitation", "evaporation",
+                "2m-temperature",
+                "total-precipitation",
+                "evaporation",
             ],
         }
         ecmwf_stub._download_dataset = flaky
@@ -130,9 +131,7 @@ class TestDownloadIteration:
 class TestDownloadDataset:
     """Tests for :meth:`ECMWF._download_dataset` after the C1 call-site fix."""
 
-    def test_calls_api_with_var_info_only(
-        self, ecmwf_stub, single_level_var_info
-    ):
+    def test_calls_api_with_var_info_only(self, ecmwf_stub, single_level_var_info):
         """`_download_dataset` invokes `_api(var_info)` with one arg.
 
         Test scenario:
@@ -149,9 +148,7 @@ class TestDownloadDataset:
         assert kwargs == {}
         assert args == (single_level_var_info,)
 
-    def test_returns_path_from_api(
-        self, ecmwf_stub, single_level_var_info
-    ):
+    def test_returns_path_from_api(self, ecmwf_stub, single_level_var_info):
         """`_download_dataset` returns the path :meth:`_api` produced.
 
         Test scenario:
@@ -162,13 +159,10 @@ class TestDownloadDataset:
             post-processing script.
         """
         api_target = (
-            ecmwf_stub.root_dir
-            / "2m_temperature_reanalysis-era5-single-levels.nc"
+            ecmwf_stub.root_dir / "2m_temperature_reanalysis-era5-single-levels.nc"
         )
         ecmwf_stub._api = MagicMock(return_value=api_target)
 
-        result = ecmwf_stub._download_dataset(
-            single_level_var_info, progress_bar=True
-        )
+        result = ecmwf_stub._download_dataset(single_level_var_info, progress_bar=True)
 
         assert result == api_target

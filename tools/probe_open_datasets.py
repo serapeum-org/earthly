@@ -12,14 +12,12 @@ Usage::
 
 from __future__ import annotations
 
-import json
 import os
-import urllib.request
 from pathlib import Path
 from typing import Any
 
-import cdsapi
 import requests as _requests
+
 from earthly.ecmwf.constraints import RequestValidator, fetch_constraints
 
 CACHE_DIR = Path("C:/tmp/cds_probe")

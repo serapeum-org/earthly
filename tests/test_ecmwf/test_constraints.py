@@ -168,13 +168,9 @@ class TestValidateRequest:
         """`skip=True` short-circuits validation entirely."""
 
         def _fail(*_a, **_kw):
-            raise AssertionError(
-                "urlopen must not be called when skip is True"
-            )
+            raise AssertionError("urlopen must not be called when skip is True")
 
-        monkeypatch.setattr(
-            constraints_module.urllib.request, "urlopen", _fail
-        )
+        monkeypatch.setattr(constraints_module.urllib.request, "urlopen", _fail)
         RequestValidator(
             "reanalysis-era5-single-levels",
             {"variable": ["nonsense"], "year": ["1492"]},
@@ -197,9 +193,9 @@ class TestValidateRequest:
                 return False
 
             def read(self):
-                return json.dumps(
-                    [{"variable": ["x"], "year": ["2022"]}]
-                ).encode("utf-8")
+                return json.dumps([{"variable": ["x"], "year": ["2022"]}]).encode(
+                    "utf-8"
+                )
 
         monkeypatch.setattr(
             constraints_module.urllib.request,
@@ -246,14 +242,10 @@ class TestDateValidity:
 
     def test_feb_30_raises(self):
         with pytest.raises(ValueError, match="not a real date"):
-            Dates.check(
-                {"year": ["2022"], "month": ["02"], "day": ["30"]}
-            )
+            Dates.check({"year": ["2022"], "month": ["02"], "day": ["30"]})
 
     def test_valid_date_passes(self):
-        Dates.check(
-            {"year": ["2022"], "month": ["02"], "day": ["28"]}
-        )
+        Dates.check({"year": ["2022"], "month": ["02"], "day": ["28"]})
 
     def test_non_integer_values_skipped(self):
         """Datasets that use `year=['all']` or non-numeric forms pass."""
@@ -308,9 +300,7 @@ class TestVariableTypos:
                 },
             ).check()
 
-    def test_completely_unknown_variable_raises_without_suggestion(
-        self, monkeypatch
-    ):
+    def test_completely_unknown_variable_raises_without_suggestion(self, monkeypatch):
         _stub_urlopen(
             monkeypatch,
             [{"variable": ["a", "b"], "year": ["2022"]}],

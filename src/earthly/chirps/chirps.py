@@ -7,8 +7,8 @@ from ftplib import FTP
 import numpy as np
 import pandas as pd
 from joblib import Parallel, delayed
-from pyramids.dataset import Dataset
 from pyramids._io import extract_from_gz
+from pyramids.dataset import Dataset
 from tqdm import tqdm
 
 from earthly.base import AbstractCatalog, AbstractDataSource
@@ -328,14 +328,16 @@ class CHIRPS(AbstractDataSource):
             no_data_value = dataset.no_data_value[0]
 
             # clip dataset to the given extent
-            data = data[y_id[0]: y_id[1], x_id[0]: x_id[1]]
+            data = data[y_id[0] : y_id[1], x_id[0] : x_id[1]]
             # replace -ve values with -9999
             data[data < 0] = -9999
 
             # save dataset as a geotiff file
             geo = [lon_lim[0], 0.05, 0, lat_lim[1], 0, -0.05]
 
-            new_dataset = Dataset.create_from_array(data, geo=geo, epsg=dataset.epsg, no_data_value=no_data_value)
+            new_dataset = Dataset.create_from_array(
+                data, geo=geo, epsg=dataset.epsg, no_data_value=no_data_value
+            )
             new_dataset.to_file(dir_file_end)
 
             # delete old tif file

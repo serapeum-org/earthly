@@ -27,9 +27,7 @@ import urllib.request
 from pathlib import Path
 
 CATALOG_PATH = Path("src/earthly/ecmwf/cds_data_catalog.yaml")
-CDS_COLLECTIONS_URL = (
-    "https://cds.climate.copernicus.eu/api/catalogue/v1/collections"
-)
+CDS_COLLECTIONS_URL = "https://cds.climate.copernicus.eu/api/catalogue/v1/collections"
 
 
 _CATEGORY_PREFIXES: tuple[tuple[str, str], ...] = (
@@ -96,10 +94,8 @@ def splice_into_yaml(yaml_text: str, new_block: str) -> str:
     )
     match = pattern.search(yaml_text)
     if not match:
-        raise ValueError(
-            f"{CATALOG_PATH} is missing an ``available_datasets:`` block"
-        )
-    return yaml_text[: match.start()] + new_block + yaml_text[match.end():]
+        raise ValueError(f"{CATALOG_PATH} is missing an ``available_datasets:`` block")
+    return yaml_text[: match.start()] + new_block + yaml_text[match.end() :]
 
 
 def main() -> int:

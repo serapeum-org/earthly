@@ -86,7 +86,6 @@ from pyramids.dataset import Dataset
 from pyramids.netcdf import NetCDF
 from tqdm import tqdm
 
-
 _TIME_VAR_CANDIDATES: tuple[str, ...] = ("valid_time", "time")
 
 
@@ -192,9 +191,7 @@ def post_process(
         left_x = float(np.nanmin(fh.lon))
         geo = (left_x, cell_size, 0.0, top_y, 0.0, -cell_size)
 
-        dates_iter = tqdm(
-            dates, desc="Post-processing", disable=not progress_bar
-        )
+        dates_iter = tqdm(dates, desc="Post-processing", disable=not progress_bar)
         for date in dates_iter:
             year, month, day = date.year, date.month, date.day
 
@@ -231,13 +228,12 @@ def post_process(
             # Step 5: write the GeoTIFF. EPSG 4326 is WGS84
             # geographic — CDS's native projection.
             name_out = (
-                out_dir
-                / f"{variable_name}_ECMWF_ERA5_{units}_{temporal_resolution}_"
-                  f"{year}.{month}.{day}.tif"
+                out_dir / f"{variable_name}_ECMWF_ERA5_{units}_{temporal_resolution}_"
+                f"{year}.{month}.{day}.tif"
             )
-            Dataset.create_from_array(
-                arr=data_end, geo=geo, epsg=4326
-            ).to_file(str(name_out))
+            Dataset.create_from_array(arr=data_end, geo=geo, epsg=4326).to_file(
+                str(name_out)
+            )
             per_date_outputs.append((date, data_end, name_out))
 
     return per_date_outputs
@@ -269,9 +265,7 @@ def _cli() -> None:
         "'2m-temperature' or 'total-precipitation'. Resolved through "
         "the package `Catalog` so units and flux flag are inferred.",
     )
-    parser.add_argument(
-        "--start", required=True, help="Start date (YYYY-MM-DD)"
-    )
+    parser.add_argument("--start", required=True, help="Start date (YYYY-MM-DD)")
     parser.add_argument("--end", required=True, help="End date (YYYY-MM-DD)")
     parser.add_argument(
         "--resolution",

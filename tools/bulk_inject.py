@@ -12,8 +12,8 @@ import sys
 from pathlib import Path
 
 import yaml
-
 from bulk_add_remaining import EXTRA_MAPPING, build_known
+
 from earthly.ecmwf.constraints import fetch_constraints
 
 CATALOG_PATH = Path("src/earthly/ecmwf/cds_data_catalog.yaml")
@@ -95,7 +95,7 @@ def gen_carra_means(known, existing_keys):
             for pt in entry.get("product_type", []):
                 combos.setdefault((lt, pt), set()).update(entry.get("variable", []))
     out = []
-    for (lt, pt) in sorted(combos):
+    for lt, pt in sorted(combos):
         for cv in sorted(combos[(lt, pt)]):
             m = lookup(cv, known)
             if not m:
@@ -176,15 +176,43 @@ def main() -> int:
 
     # Build inserts per dataset
     targets = [
-        ("reanalysis-pan-carra", lambda keys: gen_pan_carra(known, "reanalysis-pan-carra", keys)),
-        ("reanalysis-pan-carra-means", lambda keys: gen_pan_carra(known, "reanalysis-pan-carra-means", keys)),
+        (
+            "reanalysis-pan-carra",
+            lambda keys: gen_pan_carra(known, "reanalysis-pan-carra", keys),
+        ),
+        (
+            "reanalysis-pan-carra-means",
+            lambda keys: gen_pan_carra(known, "reanalysis-pan-carra-means", keys),
+        ),
         ("reanalysis-carra-means", lambda keys: gen_carra_means(known, keys)),
-        ("seasonal-monthly-pressure-levels", lambda keys: gen_sibling("seasonal-monthly-pressure-levels", known, keys)),
-        ("seasonal-original-single-levels", lambda keys: gen_sibling("seasonal-original-single-levels", known, keys)),
-        ("seasonal-original-pressure-levels", lambda keys: gen_sibling("seasonal-original-pressure-levels", known, keys)),
-        ("seasonal-postprocessed-single-levels", lambda keys: gen_sibling("seasonal-postprocessed-single-levels", known, keys)),
-        ("seasonal-postprocessed-pressure-levels", lambda keys: gen_sibling("seasonal-postprocessed-pressure-levels", known, keys)),
-        ("seasonal-monthly-ocean", lambda keys: gen_sibling("seasonal-monthly-ocean", known, keys)),
+        (
+            "seasonal-monthly-pressure-levels",
+            lambda keys: gen_sibling("seasonal-monthly-pressure-levels", known, keys),
+        ),
+        (
+            "seasonal-original-single-levels",
+            lambda keys: gen_sibling("seasonal-original-single-levels", known, keys),
+        ),
+        (
+            "seasonal-original-pressure-levels",
+            lambda keys: gen_sibling("seasonal-original-pressure-levels", known, keys),
+        ),
+        (
+            "seasonal-postprocessed-single-levels",
+            lambda keys: gen_sibling(
+                "seasonal-postprocessed-single-levels", known, keys
+            ),
+        ),
+        (
+            "seasonal-postprocessed-pressure-levels",
+            lambda keys: gen_sibling(
+                "seasonal-postprocessed-pressure-levels", known, keys
+            ),
+        ),
+        (
+            "seasonal-monthly-ocean",
+            lambda keys: gen_sibling("seasonal-monthly-ocean", known, keys),
+        ),
     ]
 
     for ds_name, gen_fn in targets:

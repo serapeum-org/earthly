@@ -46,9 +46,9 @@ Examples:
 from __future__ import annotations
 
 from earthly.ecmwf.backend import (
+    ECMWF,
     ERA5_GRID_DEGREES,
     AuthenticationError,
-    ECMWF,
     Variable,
 )
 from earthly.ecmwf.catalog import CATALOG_PATH, Catalog, Dataset

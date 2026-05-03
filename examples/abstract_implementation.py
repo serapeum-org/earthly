@@ -6,7 +6,7 @@ end = "2009-01-10"
 temporal_resolution = "daily"
 latlim = [4.19, 4.64]
 lonlim = [-75.65, -74.73]
-#%%
+# %%
 source = "chirps"
 path = r"examples\data\chirps"
 variables = ["precipitation"]
@@ -21,7 +21,7 @@ earthly = Earthly(
     path=path,
 )
 # earthly.download()
-#%%
+# %%
 path = r"examples\data\chirps-cores"
 
 earthly = Earthly(
@@ -35,7 +35,7 @@ earthly = Earthly(
     path=path,
 )
 # earthly.download(cores=4)
-#%%
+# %%
 
 path = r"examples\data\ecmwf"
 source = "ecmwf"
@@ -52,7 +52,7 @@ earthly = Earthly(
 )
 # earthly.download()
 
-#%%
+# %%
 path = r"examples\data\s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]

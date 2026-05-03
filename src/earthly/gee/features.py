@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-
 import ee
 import pandas as pd
 from ee.featurecollection import FeatureCollection

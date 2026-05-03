@@ -16,8 +16,8 @@ import sys
 from pathlib import Path
 
 import yaml
-
 from bulk_add_remaining import EXTRA_MAPPING, build_known
+
 from earthly.ecmwf.constraints import fetch_constraints
 
 CATALOG_PATH = Path("src/earthly/ecmwf/cds_data_catalog.yaml")
@@ -102,7 +102,7 @@ def gen_pan_carra(catalog, known) -> tuple[str, list[str]]:
         existing_keys = collect_existing_keys(catalog, ds)
         ds_block = []
         ds_block.append(f"\n  # ===== {ds} bulk-fill =====\n")
-        ds_block.append(f"# (insert into reanalysis-pan-carra block)\n")
+        ds_block.append("# (insert into reanalysis-pan-carra block)\n")
         for lt in sorted(per_lt):
             for cv in sorted(per_lt[lt]):
                 m = lookup(cv, known)
@@ -136,15 +136,13 @@ def gen_carra_means(catalog, known):
     for entry in constraints:
         for lt in entry.get("level_type", []):
             for pt in entry.get("product_type", []):
-                combos.setdefault((lt, pt), set()).update(
-                    entry.get("variable", [])
-                )
+                combos.setdefault((lt, pt), set()).update(entry.get("variable", []))
     existing_keys = collect_existing_keys(catalog, ds)
     out = []
     skipped = []
     out.append(f"\n  # ===== {ds} bulk-fill =====\n")
-    out.append(f"# (insert into reanalysis-carra-means block)\n")
-    for (lt, pt) in sorted(combos):
+    out.append("# (insert into reanalysis-carra-means block)\n")
+    for lt, pt in sorted(combos):
         for cv in sorted(combos[(lt, pt)]):
             m = lookup(cv, known)
             if m is None:
@@ -153,7 +151,7 @@ def gen_carra_means(catalog, known):
             nv, un, ty = m
             # suffix: -carra-means + level-suffix + analysis_based variant
             level_suffix = LEVEL_SUFFIX.get(lt, "")
-            pt_suffix = "" if pt == "forecast_based" else f"-{pt.replace('_','')}"
+            pt_suffix = "" if pt == "forecast_based" else f"-{pt.replace('_', '')}"
             suffix = f"-carra-means{level_suffix}{pt_suffix}"
             key = f"{slug(cv)}{suffix}"
             if key in existing_keys:

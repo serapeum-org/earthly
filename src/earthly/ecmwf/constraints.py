@@ -73,9 +73,7 @@ CONSTRAINTS_URL_TEMPLATE = (
 # Keys the constraints document never enumerates because they are
 # universally accepted by the cdsapi front-end (geographic /
 # format / output controls). Skipped during validation.
-_UNIVERSAL_KEYS: frozenset[str] = frozenset(
-    {"area", "data_format", "format", "grid"}
-)
+_UNIVERSAL_KEYS: frozenset[str] = frozenset({"area", "data_format", "format", "grid"})
 
 # Module-level cache so each dataset is only fetched once per
 # Python process. `None` is reserved for "fetch attempted, no
@@ -169,12 +167,8 @@ class Dates(BaseModel):
                 if n is None or lo <= n <= hi:
                     continue
                 if label == "year":
-                    raise ValueError(
-                        f"year={n} outside the plausible 1850-2100 range"
-                    )
-                raise ValueError(
-                    f"{label}={n} must be {lo:02d}-{hi:02d}"
-                )
+                    raise ValueError(f"year={n} outside the plausible 1850-2100 range")
+                raise ValueError(f"{label}={n} must be {lo:02d}-{hi:02d}")
         if self.year and self.month and self.day:
             for yi, mi, di in itertools.product(self.year, self.month, self.day):
                 if yi is None or mi is None or di is None:
@@ -260,9 +254,7 @@ class Area(BaseModel):
         except ValidationError as exc:
             first = exc.errors()[0]
             if "float" in first["type"]:
-                raise ValueError(
-                    f"area values must be numeric: {area!r}"
-                ) from None
+                raise ValueError(f"area values must be numeric: {area!r}") from None
             raise ValueError(first["msg"].removeprefix("Value error, ")) from None
 
 
@@ -425,9 +417,7 @@ class RequestValidator:
                     + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
                 )
 
-    def _normalise_request(
-        self, constraint_keys: set[str]
-    ) -> dict[str, set[Any]]:
+    def _normalise_request(self, constraint_keys: set[str]) -> dict[str, set[Any]]:
         """Return per-key value sets for keys the constraints enumerate.
 
         Drops universal keys and any key the constraints document does
@@ -441,9 +431,7 @@ class RequestValidator:
             norm[key] = set(value) if isinstance(value, list) else {value}
         return norm
 
-    def _find_offending_values(
-        self, req_norm: dict[str, set[Any]]
-    ) -> list[str]:
+    def _find_offending_values(self, req_norm: dict[str, set[Any]]) -> list[str]:
         """Per key, list the values absent from *every* constraint entry.
 
         Used when the combinatorial walk finds no covering entry, so

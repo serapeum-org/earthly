@@ -626,6 +626,7 @@ class Catalog(AbstractCatalog):
                 ```
         """
         import datetime
+
         import requests
 
         cfg = _read_cdsapirc()
@@ -647,8 +648,7 @@ class Catalog(AbstractCatalog):
             if not created:
                 continue
             ago = (
-                now
-                - datetime.datetime.fromisoformat(created.replace("Z", ""))
+                now - datetime.datetime.fromisoformat(created.replace("Z", ""))
             ).total_seconds() / 60
             if ago <= max_age_min:
                 out.append(job)
@@ -683,8 +683,9 @@ class Catalog(AbstractCatalog):
             ValueError: If the job's results record contains no
                 downloadable asset href.
         """
-        import requests
         import urllib.request
+
+        import requests
 
         cfg = _read_cdsapirc()
         target_path = Path(target)
@@ -700,9 +701,10 @@ class Catalog(AbstractCatalog):
                 "results record"
             )
         target_path.parent.mkdir(parents=True, exist_ok=True)
-        with urllib.request.urlopen(href, timeout=60) as src, open(
-            target_path, "wb"
-        ) as out:
+        with (
+            urllib.request.urlopen(href, timeout=60) as src,
+            open(target_path, "wb") as out,
+        ):
             while chunk := src.read(chunk_size):
                 out.write(chunk)
         return target_path

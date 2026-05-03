@@ -4,13 +4,14 @@
 
 2 - Install ECMWF key (instruction are here https://confluence.ecmwf.int/display/WEBAPI/Access+ECMWF+Public+Datasets#AccessECMWFPublicDatasets-key)
 """
+
 import os
 
 from earthly.ecmwf import ECMWF, Catalog
 
 rpath = os.getcwd()
 path = rf"{rpath}\delete\data\ecmwf"
-#%% precipitation
+# %% precipitation
 start = "2009-01-01"
 end = "2009-01-10"
 time = "daily"
@@ -21,11 +22,11 @@ variables = {
     "reanalysis-era5-pressure-levels": ["temperature"],
     "reanalysis-era5-single-levels": ["evaporation"],
 }
-#%%
+# %%
 catalog = Catalog()
 print(list(catalog.datasets))
 catalog.get_variable("reanalysis-era5-pressure-levels", "temperature")
-#%% Temperature
+# %% Temperature
 start = "2009-01-01"
 end = "2009-02-01"
 time = "daily"
@@ -48,7 +49,7 @@ Coello = ECMWF(
 )
 
 Coello.download()
-#%%
+# %%
 variables = {
     "reanalysis-era5-single-levels": ["surface-runoff"],
 }

@@ -24,7 +24,6 @@ from pathlib import Path
 from typing import Any
 
 import requests
-
 from probe_cds_netcdf import collect_metadata, maybe_unzip
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
@@ -57,7 +56,9 @@ def list_jobs(cfg: dict[str, str], max_age_min: int) -> list[dict[str, Any]]:
         created = j.get("created", "")
         if not created:
             continue
-        ago = (now - datetime.datetime.fromisoformat(created.replace("Z", ""))).total_seconds() / 60
+        ago = (
+            now - datetime.datetime.fromisoformat(created.replace("Z", ""))
+        ).total_seconds() / 60
         if ago < max_age_min:
             out.append(j)
     return out
@@ -91,7 +92,9 @@ def fetch_result(cfg: dict[str, str], job: dict[str, Any]) -> Path | None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-age-min", type=int, default=60)
-    parser.add_argument("--out-json", type=Path, default=CACHE_DIR / "_open_summary.json")
+    parser.add_argument(
+        "--out-json", type=Path, default=CACHE_DIR / "_open_summary.json"
+    )
     args = parser.parse_args()
     cfg = _read_cdsapirc()
     jobs = list_jobs(cfg, args.max_age_min)

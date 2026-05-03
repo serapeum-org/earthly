@@ -253,12 +253,36 @@ EXTRA_MAPPING: dict[str, tuple[str, str, str]] = {
     "snow_density_anomaly": ("rsna", "kg m**-3", "state"),
     "snowfall_anomalous_rate_of_accumulation": ("sfa", "kg m**-2 s**-1", "flux"),
     "soil_temperature_anomaly_level_1": ("stl1a", "K", "state"),
-    "surface_latent_heat_flux_anomalous_rate_of_accumulation": ("slhfa", "W m**-2", "flux"),
-    "surface_sensible_heat_flux_anomalous_rate_of_accumulation": ("sshfa", "W m**-2", "flux"),
-    "surface_solar_radiation_anomalous_rate_of_accumulation": ("ssra", "W m**-2", "flux"),
-    "surface_solar_radiation_downwards_anomalous_rate_of_accumulation": ("ssrda", "W m**-2", "flux"),
-    "surface_thermal_radiation_anomalous_rate_of_accumulation": ("stra", "W m**-2", "flux"),
-    "surface_thermal_radiation_downwards_anomalous_rate_of_accumulation": ("strda", "W m**-2", "flux"),
+    "surface_latent_heat_flux_anomalous_rate_of_accumulation": (
+        "slhfa",
+        "W m**-2",
+        "flux",
+    ),
+    "surface_sensible_heat_flux_anomalous_rate_of_accumulation": (
+        "sshfa",
+        "W m**-2",
+        "flux",
+    ),
+    "surface_solar_radiation_anomalous_rate_of_accumulation": (
+        "ssra",
+        "W m**-2",
+        "flux",
+    ),
+    "surface_solar_radiation_downwards_anomalous_rate_of_accumulation": (
+        "ssrda",
+        "W m**-2",
+        "flux",
+    ),
+    "surface_thermal_radiation_anomalous_rate_of_accumulation": (
+        "stra",
+        "W m**-2",
+        "flux",
+    ),
+    "surface_thermal_radiation_downwards_anomalous_rate_of_accumulation": (
+        "strda",
+        "W m**-2",
+        "flux",
+    ),
     "top_solar_radiation_anomalous_rate_of_accumulation": ("tsra", "W m**-2", "flux"),
     "top_thermal_radiation_anomalous_rate_of_accumulation": ("ttra", "W m**-2", "flux"),
     "total_column_ice_water_anomaly": ("tciwa", "kg m**-2", "state"),
@@ -296,7 +320,9 @@ def collect_existing(catalog: dict[str, Any], ds_name: str) -> set[str]:
     }
 
 
-def lookup(cv: str, catalog_known: dict[str, tuple[str, str, str]]) -> tuple[str, str, str] | None:
+def lookup(
+    cv: str, catalog_known: dict[str, tuple[str, str, str]]
+) -> tuple[str, str, str] | None:
     if cv in catalog_known:
         return catalog_known[cv]
     if cv in EXTRA_MAPPING:
@@ -339,11 +365,17 @@ def _emit_var_block(
             if isinstance(v, list):
                 lines.append(f"          {k}: {v}")
             else:
-                lines.append(f'          {k}: "{v}"' if isinstance(v, str) else f"          {k}: {v}")
+                lines.append(
+                    f'          {k}: "{v}"'
+                    if isinstance(v, str)
+                    else f"          {k}: {v}"
+                )
     return "\n".join(lines) + "\n"
 
 
-def report_dataset(name: str, missing: Iterable[str], known: dict[str, tuple[str, str, str]]) -> tuple[list[str], list[str]]:
+def report_dataset(
+    name: str, missing: Iterable[str], known: dict[str, tuple[str, str, str]]
+) -> tuple[list[str], list[str]]:
     """Return (resolvable_blocks, unresolved_vars)."""
     blocks: list[str] = []
     unresolved: list[str] = []

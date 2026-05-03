@@ -10,6 +10,7 @@ Each backend's runtime SDK is an optional dependency
 imports the backend module on first dispatch and rewrites a missing
 SDK into a friendly `ImportError` naming the extra to install.
 """
+
 from __future__ import annotations
 
 import importlib
@@ -62,11 +63,7 @@ class _LazyRegistry(Mapping):
         try:
             module = importlib.import_module(module_name)
         except ImportError as exc:
-            hint = (
-                f" Install with `pip install earthly[{extras}]`."
-                if extras
-                else ""
-            )
+            hint = f" Install with `pip install earthly[{extras}]`." if extras else ""
             raise ImportError(
                 f"Backend {key!r} is unavailable — its runtime "
                 f"dependency is not installed.{hint}"
