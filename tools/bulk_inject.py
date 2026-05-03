@@ -13,8 +13,6 @@ from pathlib import Path
 
 import yaml
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
 from bulk_add_remaining import EXTRA_MAPPING, build_known
 from earthly.ecmwf.constraints import fetch_constraints
 

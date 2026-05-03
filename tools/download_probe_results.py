@@ -19,15 +19,13 @@ import argparse
 import datetime
 import json
 import os
-import sys
 import urllib.request
 from pathlib import Path
 from typing import Any
 
 import requests
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from probe_cds_netcdf import collect_metadata, maybe_unzip  # noqa: E402
+from probe_cds_netcdf import collect_metadata, maybe_unzip
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
 
