@@ -16,6 +16,7 @@ Holds the four pieces every test in this directory needs:
 
 from __future__ import annotations
 
+from pathlib import Path
 from unittest.mock import MagicMock
 
 import cdsapi
@@ -26,6 +27,25 @@ from earthly.base import SpatialExtent, TemporalExtent
 from earthly.ecmwf import ECMWF, Variable
 
 _LIVE_CDS_TEST_CLASSES = frozenset({"TestApiE2E", "TestFacadeE2E"})
+
+
+def pytest_collection_modifyitems(items):
+    """Tag every test in this subtree with `@pytest.mark.ecmwf`.
+
+    Lets the suite be filtered with `-m ecmwf` and lets the
+    `test-ecmwf` pixi task / GitHub workflow step run only the
+    ECMWF backend's tests.
+
+    Pytest delivers the FULL item list to every conftest hook,
+    not just items from this subtree, so we filter by path.
+    """
+    here = Path(__file__).parent.resolve()
+    for item in items:
+        try:
+            if Path(item.fspath).resolve().is_relative_to(here):
+                item.add_marker(pytest.mark.ecmwf)
+        except (OSError, ValueError):
+            continue
 
 
 @pytest.fixture(autouse=True)

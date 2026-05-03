@@ -8,7 +8,6 @@ small. CDS queue times are real — expect each test to block.
 
 from __future__ import annotations
 
-import numpy as np
 import pytest
 
 from earthly.earthly import Earthly

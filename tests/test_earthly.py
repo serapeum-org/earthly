@@ -21,6 +21,7 @@ class _SentinelClient:
     """Stand-in for :class:`cdsapi.Client` used in facade tests."""
 
 
+@pytest.mark.chirps
 class TestChirpsBackend:
     @pytest.fixture(scope="module")
     def test_chirps_data_source_instantiate_object(
@@ -69,6 +70,7 @@ class TestChirpsBackend:
             print("the downloaded files could not be deleted")
 
 
+@pytest.mark.s3
 class TestS3Backend:
 
     @pytest.fixture(scope="module")
@@ -114,6 +116,7 @@ class TestS3Backend:
             print("the downloaded files could not be deleted")
 
 
+@pytest.mark.ecmwf
 class TestECMWFBackend:
     """Tests for the C1+L3 fix that registers ECMWF in the facade.
 

@@ -9,6 +9,8 @@ import pytest
 
 from earthly.s3 import S3
 
+pytestmark = [pytest.mark.s3]
+
 
 @pytest.fixture(scope="module")
 def test_create_s3_object(
@@ -30,6 +32,7 @@ def test_create_s3_object(
     return Coello
 
 
+@pytest.mark.e2e
 def test_download(
     test_create_s3_object: S3,
     s3_era5_base_dir: str,

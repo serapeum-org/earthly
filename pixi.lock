@@ -7788,7 +7788,7 @@ packages:
 - pypi: ./
   name: earthly
   version: 0.2.2
-  sha256: 519529b3904ba15647671a4cbfd6dd7687d2a0fbd832e7411bfd1c42ad4504f5
+  sha256: bd682ad30e2bb6f0d5d7412225b0023e9a4091c12cc8134f4d56076dfb35d8cf
   requires_dist:
   - joblib>=1.2.0
   - loguru>=0.7.2

@@ -9,6 +9,8 @@ import pytest
 
 from earthly.chirps import CHIRPS
 
+pytestmark = [pytest.mark.chirps]
+
 
 @pytest.fixture(scope="module")
 def test_create_chirps_object(
