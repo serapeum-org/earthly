@@ -130,14 +130,14 @@ class Earthly:
 
     def __init__(
         self,
+        variables,
         data_source: str = "chirps",
         temporal_resolution: str = "daily",
-        start: str = None,
-        end: str = None,
-        path: Path = None,
-        variables=None,
-        lat_lim: list = None,
-        lon_lim: list = None,
+        start: str | None = None,
+        end: str | None = None,
+        path: Path | str = "",
+        lat_lim: list[float] | None = None,
+        lon_lim: list[float] | None = None,
         fmt: str = "%Y-%m-%d",
     ):
         """Resolve the backend and construct it with the user's parameters.

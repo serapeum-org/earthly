@@ -20,7 +20,6 @@ class CHIRPS(AbstractDataSource):
     api_url: str = "data.chc.ucsb.edu"
     start_date: str = "1981-01-01"
     end_date: str = "Now"
-    temporal_resolution = ["daily", "monthly"]
     lat_bondaries = [-50, 50]
     lon_boundaries = [-180, 180]
     globe_fname = "chirps-v2.0"
@@ -28,13 +27,13 @@ class CHIRPS(AbstractDataSource):
 
     def __init__(
         self,
+        variables: list[str],
+        lat_lim: list[float],
+        lon_lim: list[float],
         temporal_resolution: str = "daily",
-        start: str = None,
-        end: str = None,
+        start: str | None = None,
+        end: str | None = None,
         path: str = "",
-        variables: list = None,
-        lat_lim: list = None,
-        lon_lim: list = None,
         fmt: str = "%Y-%m-%d",
     ):
         """CHIRPS.
@@ -58,6 +57,14 @@ class CHIRPS(AbstractDataSource):
         fmt (str, optional):
             [description]. Defaults to "%Y-%m-%d".
         """
+        # Resolve None → CHIRPS dataset bounds before delegating up.
+        # The abstract base now requires real `str` values; CHIRPS
+        # is the only backend that supports omitting them, so the
+        # fallback lives here.
+        if start is None:
+            start = str(pd.Timestamp(self.start_date).date())
+        if end is None:
+            end = str(pd.Timestamp.now().date())
         super().__init__(
             start=start,
             end=end,
@@ -85,16 +92,11 @@ class CHIRPS(AbstractDataSource):
         fmt: (str, optional)
             [description]. Defaults to "%Y-%m-%d".
         """
-        # check temporal_resolution variables
-        if start is None:
-            self.start = pd.Timestamp(self.start_date)
-        else:
-            self.start = dt.datetime.strptime(start, fmt)
-
-        if end is None:
-            self.end = pd.Timestamp(self.end_date)
-        else:
-            self.end = dt.datetime.strptime(end, fmt)
+        # `start` and `end` are guaranteed real strings here:
+        # `CHIRPS.__init__` resolves None to dataset bounds before
+        # delegating up.
+        self.start = dt.datetime.strptime(start, fmt)
+        self.end = dt.datetime.strptime(end, fmt)
 
         # Define timestep for the timedates
         if temporal_resolution.lower() == "daily":

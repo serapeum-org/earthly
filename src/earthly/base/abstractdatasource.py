@@ -180,14 +180,14 @@ class AbstractDataSource(ABC):
 
     def __init__(
         self,
-        start: str = None,
-        end: str = None,
-        variables: dict[str, list[str]] = None,
+        start: str,
+        end: str,
+        variables: dict[str, list[str]] | list[str],
+        lat_lim: list[float],
+        lon_lim: list[float],
         temporal_resolution: str = "daily",
-        lat_lim: list = None,
-        lon_lim: list = None,
         fmt: str = "%Y-%m-%d",
-        path: Path = None,
+        path: Path | str = "",
     ):
         """Initialize a data source instance.
 

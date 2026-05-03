@@ -143,25 +143,23 @@ class ECMWF(AbstractDataSource):
     package — see `examples/post_process_ecmwf_netcdf.py` for a
     runnable script that consumes the NetCDF this method writes.
 
-    Attributes:
-        temporal_resolution: Class-level list of valid temporal
-            resolutions accepted by the backend. The instance-level
-            spatial cell size lives on :attr:`SpatialExtent.resolution`
-            (populated by :meth:`_create_grid`) and is sourced from
-            :data:`ERA5_GRID_DEGREES`.
+    The valid `temporal_resolution` values are `"daily"` and
+    `"monthly"`. `_check_input_dates` raises `ValueError` for
+    anything else; that is the authoritative gate. Spatial cell
+    size lives on :attr:`SpatialExtent.resolution` (populated by
+    :meth:`_create_grid`) and is sourced from
+    :data:`ERA5_GRID_DEGREES`.
     """
-
-    temporal_resolution = ["daily", "monthly"]
 
     def __init__(
         self,
+        start: str,
+        end: str,
+        variables: dict[str, list[str]],
+        lat_lim: list[float],
+        lon_lim: list[float],
         temporal_resolution: str = "daily",
-        start: str = None,
-        end: str = None,
-        path: Path = None,
-        variables: dict[str, list[str]] = None,
-        lat_lim: list = None,
-        lon_lim: list = None,
+        path: Path | str = "",
         fmt: str = "%Y-%m-%d",
         skip_constraints: bool = False,
     ):
@@ -172,13 +170,9 @@ class ECMWF(AbstractDataSource):
         the bbox/date dict into `self.space`/`self.time`.
 
         Args:
-            temporal_resolution: Either `"daily"` or `"monthly"`.
-                Defaults to `"daily"`.
             start: Inclusive start date as a string (parsed with
-                `fmt`). Defaults to `None`.
-            end: Inclusive end date as a string. Defaults to `None`.
-            path: Output directory. Created by the parent if it does
-                not exist. Defaults to the current working directory.
+                `fmt`). Required.
+            end: Inclusive end date as a string. Required.
             variables: Mapping from CDS dataset short name to a list
                 of variable codes drawn from that dataset, e.g.
                 `{"reanalysis-era5-single-levels": ["2m-temperature",
@@ -186,8 +180,14 @@ class ECMWF(AbstractDataSource):
                 key of :attr:`Catalog.datasets`; each variable name
                 must appear under that dataset's `variables:` block.
                 See `cds_data_catalog.yaml` for the registered keys.
-            lat_lim: `[lat_min, lat_max]`.
-            lon_lim: `[lon_min, lon_max]`.
+                Required.
+            lat_lim: `[lat_min, lat_max]`. Required.
+            lon_lim: `[lon_min, lon_max]`. Required.
+            temporal_resolution: Either `"daily"` or `"monthly"`.
+                Defaults to `"daily"`.
+            path: Output directory. Created by the parent if it does
+                not exist. Defaults to `""` (the current working
+                directory).
             fmt: `strptime` format for `start` / `end`.
                 Defaults to `"%Y-%m-%d"`.
             skip_constraints: When `True`, every CDS pre-flight

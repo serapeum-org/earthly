@@ -20,13 +20,13 @@ class S3(AbstractDataSource):
 
     def __init__(
         self,
+        start: str,
+        end: str,
+        lat_lim: list[float],
+        lon_lim: list[float],
         temporal_resolution: str = "monthly",
-        start: str = None,
-        end: str = None,
         path: str = "",
-        variables: list = "precipitation_amount_1hour_Accumulation",
-        lat_lim: list = None,
-        lon_lim: list = None,
+        variables: list[str] | str = "precipitation_amount_1hour_Accumulation",
         fmt: str = "%Y-%m-%d",
     ):
         """S3.

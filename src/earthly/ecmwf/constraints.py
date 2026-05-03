@@ -379,6 +379,7 @@ class RequestValidator:
         required: set[str] = set(self.constraints[0])
         for entry in self.constraints[1:]:
             required &= set(entry)
+
         required -= _UNIVERSAL_KEYS
         missing = sorted(required - set(self.request))
         if missing:
