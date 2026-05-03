@@ -42,11 +42,21 @@ This creates a new environment with the name `earthly`. To activate it:
 conda activate earthly
 ```
 
-Then install a release of earthly from PyPI:
+Then install a release of earthly from PyPI. Each backend's SDK
+is an optional extra — pick the ones you actually need:
 
 ```bash
-pip install earthly
+pip install earthly[ecmwf]    # ECMWF / Copernicus CDS (cdsapi)
+pip install earthly[s3]       # ERA5 on AWS S3 (boto3)
+pip install earthly[gee]      # Google Earth Engine
+pip install earthly[all]      # everything
 ```
+
+A bare `pip install earthly` installs only the core dependencies
+(numpy, pandas, etc.) plus the CHIRPS FTP backend (no SDK needed).
+Asking the facade for `data_source="ecmwf"` (or `"amazon-s3"`,
+or `"gee"`) without the matching extra raises a clear
+`ImportError` naming the missing extra.
 
 ## From Sources
 
@@ -64,22 +74,25 @@ Or download the tarball:
 curl -OJL https://github.com/serapeum-org/earthly/tarball/main
 ```
 
-Once you have a copy of the source, you can install it with:
+Once you have a copy of the source, you can install it with the
+extras you need:
 
 ```bash
-pip install -e .
+pip install -e ".[ecmwf]"
+# or all backends at once:
+pip install -e ".[all]"
 ```
 
 To install directly from GitHub (from the HEAD of the main branch):
 
 ```bash
-pip install git+https://github.com/serapeum-org/earthly.git
+pip install "earthly[ecmwf] @ git+https://github.com/serapeum-org/earthly.git"
 ```
 
 Or from a specific release:
 
 ```bash
-pip install git+https://github.com/serapeum-org/earthly.git@{release}
+pip install "earthly[ecmwf] @ git+https://github.com/serapeum-org/earthly.git@{release}"
 ```
 
 Now you should be able to start Python and try `import earthly` to verify the installation.
@@ -92,21 +105,24 @@ Besides the recommended conda environment setup, you can also install earthly wi
 conda install numpy scipy gdal pyproj
 ```
 
-Then install earthly with pip:
+Then install earthly with pip, picking the backend extras you
+need (see "From PyPI" above for the available extras):
 
 ```bash
-pip install earthly
+pip install earthly[ecmwf]
 ```
 
 ## Development install
 
-If you are planning to contribute to earthly, do an editable install:
+If you are planning to contribute to earthly, do an editable install
+with the `[all]` extra so the full test suite (which exercises every
+backend) can run:
 
 ```bash
 git clone https://github.com/serapeum-org/earthly.git
 cd earthly
 conda activate earthly
-pip install -e .[dev,test]
+pip install -e ".[all]"
 ```
 
 More details on conda environments: [Managing environments](https://conda.io/docs/user-guide/tasks/manage-environments.html)

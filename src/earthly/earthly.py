@@ -4,12 +4,65 @@ The :class:`Earthly` class is the user-facing entry point of the
 package. It keeps the choice of backend (CHIRPS, ERA5 on AWS S3, ECMWF
 on the Copernicus Climate Data Store) behind a single string key so
 callers do not have to import each backend module directly.
+
+Each backend's runtime SDK is an optional dependency
+(`pip install earthly[ecmwf]`, `[s3]`, `[gee]`); the registry below
+imports the backend module on first dispatch and rewrites a missing
+SDK into a friendly `ImportError` naming the extra to install.
 """
 from __future__ import annotations
+
+import importlib
+from collections.abc import Mapping
 from pathlib import Path
-from earthly.chirps import CHIRPS
-from earthly.ecmwf import ECMWF
-from earthly.s3 import S3
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from earthly.base import AbstractDataSource
+
+
+class _LazyRegistry(Mapping):
+    """Maps a data-source key to its backend class, importing on demand.
+
+    A read-only :class:`collections.abc.Mapping` over the registered
+    backend keys: containment, iteration, `len()`, `.keys()` /
+    `.values()` / `.items()` all work. The value is resolved on
+    `__getitem__`, so backends whose optional SDK is not installed do
+    not crash at package import time — a missing SDK surfaces as an
+    `ImportError` naming the extra to install.
+
+    Attributes:
+        _mapping: Internal `key -> (module, class_name, extras_hint)`
+            table populated at construction.
+    """
+
+    def __init__(self, mapping: dict[str, tuple[str, str, str]]) -> None:
+        self._mapping = mapping
+
+    def __contains__(self, key: object) -> bool:
+        return key in self._mapping
+
+    def __iter__(self):
+        return iter(self._mapping)
+
+    def __len__(self) -> int:
+        return len(self._mapping)
+
+    def __getitem__(self, key: str) -> type[AbstractDataSource]:
+        module_name, class_name, extras = self._mapping[key]
+        try:
+            module = importlib.import_module(module_name)
+        except ImportError as exc:
+            hint = (
+                f" Install with `pip install earthly[{extras}]`."
+                if extras
+                else ""
+            )
+            raise ImportError(
+                f"Backend {key!r} is unavailable — its runtime "
+                f"dependency is not installed.{hint}"
+            ) from exc
+        return getattr(module, class_name)
 
 #: Default longitude bounds used when `lon_lim` is not supplied
 #: (whole-Earth coverage).
@@ -26,15 +79,19 @@ class Earthly:
     The class-level :attr:`DataSources` mapping resolves a string key
     (`"chirps"`, `"amazon-s3"`, or `"ecmwf"`) to the concrete
     :class:`AbstractDataSource` subclass that owns the request shape,
-    authentication, and post-processing for that provider. The C1+L3
-    migration commit registered `"ecmwf"` here; before that, asking
-    for ECMWF raised `ValueError`.
+    authentication, and post-processing for that provider. Each
+    backend's SDK is an optional dependency, so :attr:`DataSources`
+    is a :class:`_LazyRegistry`: indexing it imports the backend on
+    demand and rewrites a missing SDK into a friendly
+    `ImportError` naming the extra to install
+    (e.g. `pip install earthly[ecmwf]`).
 
     Attributes:
-        DataSources: Class-level dict of registered backends. Keys are
-            the user-facing names accepted by `data_source`; values
-            are the corresponding subclasses of
-            :class:`earthly.abstractdatasource.AbstractDataSource`.
+        DataSources: Class-level lazy registry of registered backends.
+            Keys are the user-facing names accepted by `data_source`;
+            values resolve at access time to the corresponding
+            subclasses of
+            :class:`earthly.base.AbstractDataSource`.
         datasource: Instance attribute set by :meth:`__init__` —
             holds the concrete backend that :meth:`download` routes to.
 
@@ -65,7 +122,13 @@ class Earthly:
             Climate Data Store (cdsapi).
     """
 
-    DataSources = {"chirps": CHIRPS, "amazon-s3": S3, "ecmwf": ECMWF}
+    DataSources = _LazyRegistry(
+        {
+            "chirps": ("earthly.chirps", "CHIRPS", ""),
+            "amazon-s3": ("earthly.s3", "S3", "s3"),
+            "ecmwf": ("earthly.ecmwf", "ECMWF", "ecmwf"),
+        }
+    )
 
     def __init__(
         self,

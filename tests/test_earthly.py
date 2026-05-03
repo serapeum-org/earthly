@@ -3,6 +3,7 @@ from __future__ import annotations
 import glob
 import os
 import shutil
+from collections.abc import Mapping
 from typing import List
 
 import cdsapi
@@ -42,7 +43,7 @@ class TestChirpsBackend:
             temporal_resolution=daily_temporal_resolution,
             path=chirps_data_source_output_dir,
         )
-        assert isinstance(e2o.DataSources, dict)
+        assert isinstance(e2o.DataSources, Mapping)
         assert isinstance(e2o.datasource, CHIRPS)
         assert e2o.datasource.vars == chirps_variables
         assert isinstance(e2o.datasource.lat_lim, list)
@@ -91,7 +92,7 @@ class TestS3Backend:
             temporal_resolution=monthly_temporal_resolution,
             path=s3_era5_data_source_output_dir,
         )
-        assert isinstance(e2o.DataSources, dict)
+        assert isinstance(e2o.DataSources, Mapping)
         assert isinstance(e2o.datasource, S3)
         assert e2o.datasource.vars == s3_era5_variables
         return e2o

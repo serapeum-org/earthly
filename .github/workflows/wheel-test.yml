@@ -72,7 +72,10 @@ jobs:
 
       - name: Install wheel
         shell: bash -el {0}
-        run: pip install dist/*.whl
+        # `[all]` pulls every backend's optional SDK
+        # (boto3 / cdsapi / earthengine-api) so the test suite —
+        # which exercises every backend — can import them.
+        run: pip install "$(echo dist/*.whl)[all]"
 
       - name: Verify package import
         shell: bash -el {0}
