@@ -208,7 +208,9 @@ available_datasets:
 datasets:
 
   reanalysis-era5-single-levels:
+    product_type: [reanalysis]
     monthly: reanalysis-era5-single-levels-monthly-means
+    monthly_product_type: [monthly_averaged_reanalysis]
     variables:
 
       "2m-temperature":
@@ -1275,7 +1277,9 @@ datasets:
         units: m
 
   reanalysis-era5-pressure-levels:
+    product_type: [reanalysis]
     monthly: reanalysis-era5-pressure-levels-monthly-means
+    monthly_product_type: [monthly_averaged_reanalysis]
     pressure_level: ["1000"]
     variables:
 
@@ -1347,7 +1351,9 @@ datasets:
         units: "s**-1"
 
   reanalysis-era5-land:
+    product_type: [reanalysis]
     monthly: reanalysis-era5-land-monthly-means
+    monthly_product_type: [monthly_averaged_reanalysis]
     variables:
 
       "10m-u-component-of-wind":
@@ -1631,6 +1637,7 @@ datasets:
         units: "m**3 m**-3"
 
   derived-era5-land-daily-statistics:
+    product_type: [reanalysis]
     # CDS daily aggregations of ERA5-Land. The dataset-level extras
     # below carry sensible defaults; per-request callers can override
     # ``daily_statistic`` (one of daily_mean/daily_minimum/daily_maximum),
@@ -1818,6 +1825,7 @@ datasets:
         units: "m**3 m**-3"
 
   reanalysis-oras5:
+    product_type: [reanalysis]
     # Monthly-only ocean reanalysis from ECMWF (NEMO 3.4.1, ORCA025
     # grid). ``product_type`` selects the temporal coverage:
     # ``consolidated`` covers 1958-2014 (the default); ``operational``
@@ -1997,6 +2005,7 @@ datasets:
           vertical_resolution: single_level
 
   derived-era5-single-levels-daily-statistics:
+    product_type: [reanalysis]
     # CDS daily aggregations of ERA5 single-levels. Each variable
     # row carries the same nc_variable / units as the underlying
     # reanalysis-era5-single-levels row; the daily aggregation is
@@ -3334,6 +3343,7 @@ datasets:
         units: m
 
   derived-era5-pressure-levels-daily-statistics:
+    product_type: [reanalysis]
     # CDS daily aggregations of ERA5 pressure-levels. Mirrors the
     # reanalysis-era5-pressure-levels variable set, with the same
     # nc_variable / units. ``pressure_level`` is propagated from
@@ -3429,6 +3439,7 @@ datasets:
         units: "s**-1"
 
   projections-cordex-domains-single-levels:
+    product_type: [reanalysis]
     # CORDEX regional climate projections. Each request identifies
     # a (gcm_model × rcm_model × domain × experiment) tuple — only
     # certain combinations were actually run; consult the CORDEX
@@ -3552,6 +3563,7 @@ datasets:
         units: m
 
   projections-cmip5-monthly-single-levels:
+    product_type: [reanalysis]
     # CMIP5 monthly atmospheric / surface variables. Each request
     # selects a (model × experiment × ensemble_member × period)
     # tuple — the CMIP5 ESGF archive is sparse, so the same model
@@ -3626,6 +3638,7 @@ datasets:
         units: "kg m-2 s-1"
 
   projections-cmip5-monthly-pressure-levels:
+    product_type: [reanalysis]
     # CMIP5 monthly atmospheric variables on pressure levels. The
     # ``pressure_level`` is a per-request selector; the parent's
     # ``["1000"]`` default mirrors the ERA5 pressure-levels
@@ -3673,6 +3686,7 @@ datasets:
         units: m
 
   reanalysis-carra-pressure-levels:
+    product_type: [reanalysis]
     # CARRA Copernicus Arctic Regional Reanalysis. Pressure-level
     # variables on the East/West Greenland domain (~2.5km, 65-86°N).
     # All 14 catalogued variables are probe-confirmed below. Default
@@ -3769,6 +3783,7 @@ datasets:
         units: "m s**-1"
 
   reanalysis-carra-height-levels:
+    product_type: [reanalysis]
     # CARRA height-level variables. All 7 catalogued vars probe-
     # confirmed. The ``height_level`` extra picks the height in
     # metres (one of 15/30/50/75/100/150/200/250/300/400/500 m).
@@ -3822,6 +3837,7 @@ datasets:
         units: "m s**-1"
 
   reanalysis-carra-model-levels:
+    product_type: [reanalysis]
     # CARRA model-level variables. All 11 catalogued vars probe-
     # confirmed. ``model_level`` ranges 1-65; default to the lowest.
     extras:
@@ -3898,6 +3914,7 @@ datasets:
         units: "m s**-1"
 
   reanalysis-carra-single-levels:
+    product_type: [reanalysis]
     # CARRA single-level (surface / atmosphere) variables. 22 of 67
     # catalogued vars are probe-confirmed below; the remaining 45 are
     # deferred to a follow-up commit because they require the
@@ -4313,6 +4330,7 @@ datasets:
         units: "m**3 m**-3"
 
   reanalysis-carra-means:
+    product_type: [reanalysis]
     # CARRA-means: temporally-aggregated CARRA. Six forecast-based
     # single-level variables are probe-confirmed. ``request_kind``
     # is ``carra_means`` so api() drops the ``time`` selector — the
@@ -5337,6 +5355,7 @@ datasets:
 
 
   reanalysis-cerra-single-levels:
+    product_type: [reanalysis]
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
     # vars are probe-confirmed; remaining 33 pending probes.
@@ -5583,6 +5602,7 @@ datasets:
         units: "kg m**-2"
 
   reanalysis-cerra-height-levels:
+    product_type: [reanalysis]
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
     # ``height_level`` extra picks one of 15/30/50/75/100/150/200/
@@ -5655,6 +5675,7 @@ datasets:
         units: "kg kg**-1"
 
   reanalysis-cerra-pressure-levels:
+    product_type: [reanalysis]
     # CERRA pressure-level variables. 5 of 11 catalogued vars
     # probe-confirmed at 1000hPa; ``pressure_level`` extra selects
     # one of 1..1000 hPa.
@@ -5731,6 +5752,7 @@ datasets:
         units: "J kg**-1"
 
   reanalysis-cerra-model-levels:
+    product_type: [reanalysis]
     # CERRA model-level variables (1-106 hybrid levels).
     # All 4 catalogued vars probe-confirmed at model_level=1.
     extras:
@@ -5764,6 +5786,7 @@ datasets:
         units: "m s**-1"
 
   reanalysis-cerra-land:
+    product_type: [reanalysis]
     # CERRA-Land surface variables on the European 5.5km grid.
     # 6 of 36 catalogued vars are probe-confirmed; remaining 30 pending.
     # forecast product_type with leadtime_hour 1-3 covers analysis-time
@@ -5991,6 +6014,7 @@ datasets:
         units: "m**3 m**-3"
 
   reanalysis-pan-carra:
+    product_type: [reanalysis]
     # PAN-CARRA: Pan-Arctic regional reanalysis spanning the four
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
     # ~40 single_levels vars probe-confirmed; height_levels,
@@ -6741,6 +6765,7 @@ datasets:
 
 
   derived-utci-historical:
+    product_type: [reanalysis]
     # Universal Thermal Climate Index historical archive. The CDS
     # response is a ZIP bundling per-statistic NetCDFs; the nc_variable
     # listed below is the headline statistic in each bundle (the bundle
@@ -6808,6 +6833,7 @@ datasets:
         units: "1"
 
   derived-near-surface-meteorological-variables:
+    product_type: [reanalysis]
     # WFDE5 / CRU near-surface meteorological variables.
     # Only 1 of 9 catalogued vars probe-confirmed (orography / ASurf).
     # Real climate vars (rainfall, near-surface temperature/wind,
@@ -6872,6 +6898,7 @@ datasets:
         units: "kg m**-2 s**-1"
 
   ecv-for-climate-change:
+    product_type: [reanalysis]
     # ECV (Essential Climate Variables) for climate change.
     # 1 of 5 catalogued cds_variables probe-confirmed
     # (surface_air_temperature -> t2m). The CDS default returns GRIB
@@ -6917,6 +6944,7 @@ datasets:
         units: "m**3 m**-3"
 
   reanalysis-pan-carra-means:
+    product_type: [reanalysis]
     # PAN-CARRA temporally-aggregated forecast-based reanalysis.
     # 1 of ~30 catalogued vars probe-confirmed (evaporation -> eva).
     # ``request_kind`` would normally be ``carra_means`` to drop the
@@ -7622,6 +7650,7 @@ datasets:
 
 
   derived-drought-historical-monthly:
+    product_type: [reanalysis]
     # Standardised Precipitation/Evapotranspiration Index (SPEI/SPI)
     # historical monthly. 1 of 5 catalogued vars probe-confirmed
     # (SPEI1 ensemble member). dataset_type / accumulation_period /
@@ -7664,6 +7693,7 @@ datasets:
         units: "1"
 
   derived-gridded-glacier-mass-change:
+    product_type: [reanalysis]
     # Gridded annual glacier mass change (WGMS FoG). 1 of 1 catalogued
     # var probe-confirmed (glacier_mass_change). Unit is Gt (Gigatonnes).
     extras:
@@ -7678,6 +7708,7 @@ datasets:
         units: "Gt"
 
   seasonal-original-single-levels:
+    product_type: [reanalysis]
     # ECMWF seasonal forecast original (un-aggregated) single-levels.
     # Sibling of seasonal-monthly-single-levels but without the
     # monthly aggregation step. 1 var probe-confirmed (2m_temperature).
@@ -7929,6 +7960,7 @@ datasets:
 
 
   seasonal-postprocessed-single-levels:
+    product_type: [reanalysis]
     # ECMWF seasonal forecast post-processed (anomalies / probabilities)
     # single-levels. 1 var probe-confirmed
     # (2m_dewpoint_temperature_anomaly -> d2a). Anomaly products reference
@@ -8170,6 +8202,7 @@ datasets:
 
 
   seasonal-monthly-pressure-levels:
+    product_type: [reanalysis]
     # ECMWF seasonal forecast monthly aggregates on pressure levels.
     # 1 var probe-confirmed (geopotential -> z at 10 hPa).
     pressure_level: ["10"]
@@ -8212,6 +8245,7 @@ datasets:
 
 
   seasonal-original-pressure-levels:
+    product_type: [reanalysis]
     # ECMWF seasonal forecast original (un-aggregated) pressure-levels.
     # 1 var probe-confirmed (geopotential -> z at 10 hPa).
     pressure_level: ["10"]
@@ -8253,6 +8287,7 @@ datasets:
 
 
   seasonal-postprocessed-pressure-levels:
+    product_type: [reanalysis]
     # ECMWF seasonal forecast post-processed pressure-levels (anomalies).
     # 1 var probe-confirmed (geopotential_anomaly -> za at 10 hPa).
     pressure_level: ["10"]
@@ -8295,6 +8330,7 @@ datasets:
 
 
   seasonal-monthly-ocean:
+    product_type: [reanalysis]
     # ECMWF seasonal forecast monthly ocean variables (HadGEM3-GC3.2).
     # 1 var probe-confirmed (depth_average_potential_temperature_of_upper_300m
     # -> thetaot300). Closes the seasonal family at 7/7 sub-datasets.
@@ -8384,6 +8420,7 @@ datasets:
 
 
   seasonal-monthly-single-levels:
+    product_type: [reanalysis]
     # ECMWF seasonal forecast monthly aggregates (system 5). 11 of
     # 38 catalogued vars are probe-confirmed. The remaining 27 vars
     # plus the other 6 seasonal sub-datasets (postprocessed-*,

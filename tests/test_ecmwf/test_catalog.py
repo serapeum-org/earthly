@@ -137,6 +137,8 @@ class TestCatalog:
             "datasets:\n"
             "  reanalysis-era5-single-levels:\n"
             "    monthly: x\n"
+            "    monthly_product_type: [monthly_averaged_reanalysis]\n"
+            "    product_type: [reanalysis]\n"
             "    variables:\n"
             "      2m-temperature:\n"
             "        nc_variable: t2m\n"
@@ -151,7 +153,7 @@ class TestCatalog:
 
     def test_unknown_top_level_key_still_fails_validation(self):
         """An unknown key on a Variable row still fails pydantic validation."""
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError, match="totally_unknown"):
             Variable.from_dict(
                 "x",
                 {
@@ -159,6 +161,7 @@ class TestCatalog:
                     "cds_variable": "v",
                     "nc_variable": "n",
                     "units": "K",
+                    "product_type": ["reanalysis"],
                     "totally_unknown": "boom",
                 },
             )
@@ -177,6 +180,7 @@ class TestCatalog:
         catalog_yaml.write_text(
             "datasets:\n"
             "  reanalysis-era5-single-levels:\n"
+            "    product_type: [reanalysis]\n"
             "    variables:\n"
             "      2m-temperature:\n"
             "        nc_variable: t2m\n"
@@ -198,11 +202,13 @@ class TestCatalog:
         catalog_yaml.write_text(
             "datasets:\n"
             "  reanalysis-era5-single-levels:\n"
+            "    product_type: [reanalysis]\n"
             "    variables:\n"
             "      2m-temperature:\n"
             "        nc_variable: t2m\n"
             "        units: K\n"
             "  reanalysis-era5-single-levels:\n"
+            "    product_type: [reanalysis]\n"
             "    variables:\n"
             "      total-precipitation:\n"
             "        nc_variable: tp\n"
@@ -221,6 +227,7 @@ class TestCatalog:
         catalog_yaml.write_text(
             "datasets:\n"
             "  reanalysis-carra-single-levels:\n"
+            "    product_type: [analysis]\n"
             "    extras:\n"
             "      domain: east\n"
             "      leadtime_hour: '1'\n"
@@ -247,6 +254,7 @@ class TestCatalog:
         catalog_yaml.write_text(
             "datasets:\n"
             "  reanalysis-carra-single-levels:\n"
+            "    product_type: [analysis]\n"
             "    extras:\n"
             "      domain: east\n"
             "      leadtime_hour: '1'\n"
@@ -537,44 +545,46 @@ class TestCatalog:
         with pytest.raises(KeyError):
             Catalog().describe("definitely-not-a-dataset")
 
-    def test_era5_land_monthly_means_routing(self):
-        """ERA5-Land's `monthly:` link routes to the monthly-means dataset.
+    def test_era5_land_monthly_means_synthesized(self):
+        """ERA5-Land's `monthly:` link materializes a sibling catalog entry.
 
-        M23: confirms the parent dataset's `monthly:` field
-        propagates into each Variable's `cds_dataset_monthly`,
-        so `Variable.dataset_for("monthly")` returns the
-        `-monthly-means` variant.
+        The catalog loader auto-synthesizes a first-class entry under
+        the monthly dataset name, with each Variable's `cds_dataset`
+        rebranded and `product_type` flipped to the monthly flavor.
         """
         cat = Catalog()
-        ds = cat.datasets["reanalysis-era5-land"]
-        assert ds.monthly == "reanalysis-era5-land-monthly-means"
-        spec = ds.variables["2m-temperature"]
-        assert spec.cds_dataset_monthly == "reanalysis-era5-land-monthly-means"
-        assert spec.dataset_for("daily") == "reanalysis-era5-land"
-        assert spec.dataset_for("monthly") == "reanalysis-era5-land-monthly-means"
+        parent = cat.datasets["reanalysis-era5-land"]
+        assert parent.monthly == "reanalysis-era5-land-monthly-means"
+        # Sibling entry exists under the monthly name.
+        monthly_ds = cat.datasets["reanalysis-era5-land-monthly-means"]
+        spec = monthly_ds.variables["2m-temperature"]
+        assert spec.cds_dataset == "reanalysis-era5-land-monthly-means"
+        assert spec.product_type == ["monthly_averaged_reanalysis"]
+        # Daily row is unaffected.
+        daily_spec = parent.variables["2m-temperature"]
+        assert daily_spec.cds_dataset == "reanalysis-era5-land"
+        assert daily_spec.product_type == ["reanalysis"]
 
-    def test_era5_pressure_levels_monthly_means_routing(self):
-        """M24: ERA5 pressure-levels routes monthly to its -monthly-means variant."""
+    def test_era5_pressure_levels_monthly_means_synthesized(self):
+        """ERA5 pressure-levels monthly sibling is synthesized correctly."""
         cat = Catalog()
-        ds = cat.datasets["reanalysis-era5-pressure-levels"]
-        assert ds.monthly == "reanalysis-era5-pressure-levels-monthly-means"
-        spec = ds.variables["temperature"]
-        assert spec.dataset_for("daily") == "reanalysis-era5-pressure-levels"
-        assert (
-            spec.dataset_for("monthly")
-            == "reanalysis-era5-pressure-levels-monthly-means"
-        )
+        parent = cat.datasets["reanalysis-era5-pressure-levels"]
+        assert parent.monthly == "reanalysis-era5-pressure-levels-monthly-means"
+        monthly_ds = cat.datasets["reanalysis-era5-pressure-levels-monthly-means"]
+        spec = monthly_ds.variables["temperature"]
+        assert spec.cds_dataset == "reanalysis-era5-pressure-levels-monthly-means"
+        assert spec.product_type == ["monthly_averaged_reanalysis"]
+        assert spec.cds_pressure_level == ["1000"]
 
-    def test_era5_single_levels_monthly_means_routing(self):
-        """M25: ERA5 single-levels routes monthly to its -monthly-means variant."""
+    def test_era5_single_levels_monthly_means_synthesized(self):
+        """ERA5 single-levels monthly sibling is synthesized correctly."""
         cat = Catalog()
-        ds = cat.datasets["reanalysis-era5-single-levels"]
-        assert ds.monthly == "reanalysis-era5-single-levels-monthly-means"
-        spec = ds.variables["2m-temperature"]
-        assert spec.dataset_for("daily") == "reanalysis-era5-single-levels"
-        assert (
-            spec.dataset_for("monthly") == "reanalysis-era5-single-levels-monthly-means"
-        )
+        parent = cat.datasets["reanalysis-era5-single-levels"]
+        assert parent.monthly == "reanalysis-era5-single-levels-monthly-means"
+        monthly_ds = cat.datasets["reanalysis-era5-single-levels-monthly-means"]
+        spec = monthly_ds.variables["2m-temperature"]
+        assert spec.cds_dataset == "reanalysis-era5-single-levels-monthly-means"
+        assert spec.product_type == ["monthly_averaged_reanalysis"]
 
     def test_carra_means_partial_loads(self):
         """CARRA-means partial block (6 forecast-based single-level vars + 1 analysis_based override)."""
@@ -760,6 +770,7 @@ class TestCatalog:
         catalog_yaml.write_text(
             "datasets:\n"
             "  projections-cmip6:\n"
+            "    product_type: [reanalysis]\n"
             "    extras:\n"
             "      experiment: ssp585\n"
             "      model: ec_earth3\n"
@@ -804,7 +815,12 @@ class TestCatalog:
         """A YAML with datasets but no variables under any of them raises."""
         no_vars = tmp_path / "cds_data_catalog.yaml"
         no_vars.write_text(
-            "datasets:\n  reanalysis-era5-single-levels:\n    monthly: x\n    variables:\n",
+            "datasets:\n"
+            "  reanalysis-era5-single-levels:\n"
+            "    monthly: x\n"
+            "    monthly_product_type: [monthly_averaged_reanalysis]\n"
+            "    product_type: [reanalysis]\n"
+            "    variables:\n",
             encoding="utf-8",
         )
         from earthly.ecmwf import catalog as catalog_module

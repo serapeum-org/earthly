@@ -143,11 +143,17 @@ class Variable(BaseModel):
             in their native ERA5 units; downstream code is responsible
             for any unit conversion. See `docs/examples/catalog.md`
             for the conversion factors typical ERA5 workflows apply.
-        cds_dataset_monthly: Optional CDS dataset short name used
-            when `temporal_resolution == "monthly"`. Falls back to
-            `cds_dataset` when absent.
         cds_pressure_level: Optional list of pressure levels (as
             strings, e.g. `["1000"]`) for pressure-level datasets.
+        product_type: CDS `product_type` request parameter. Picks
+            the data flavor within a dataset (e.g. `["reanalysis"]`
+            vs `["ensemble_mean"]` for ERA5; `["analysis"]` vs
+            `["forecast_based"]` for CARRA). Default
+            `["reanalysis"]` matches vanilla ERA5; auto-synthesized
+            monthly-means entries override to
+            `["monthly_averaged_reanalysis"]`. Per-dataset and
+            per-variable overrides land here via the catalog
+            loader's merge.
         types: Optional `"flux"` or `"state"` marker. Flux values
             are accumulated per timestep on CDS so monthly
             aggregation multiplies by the number of days in the
@@ -167,7 +173,7 @@ class Variable(BaseModel):
     cds_variable: str
     nc_variable: str
     units: str
-    cds_dataset_monthly: str | None = None
+    product_type: list[str]
     cds_pressure_level: list[str] | None = None
     types: str | None = None
     extras: dict[str, Any] = Field(default_factory=dict)
@@ -255,21 +261,6 @@ class Variable(BaseModel):
                 f"cds_data_catalog.yaml entry {code!r} failed validation:\n{exc}"
             ) from exc
 
-    def dataset_for(self, temporal_resolution: str) -> str:
-        """Return the CDS dataset name to use for `temporal_resolution`.
-
-        Args:
-            temporal_resolution: `"daily"` or `"monthly"`.
-
-        Returns:
-            str: `cds_dataset_monthly` when
-            `temporal_resolution == "monthly"` and the monthly
-            variant is set; `cds_dataset` otherwise.
-        """
-        if temporal_resolution == "monthly" and self.cds_dataset_monthly:
-            return self.cds_dataset_monthly
-        return self.cds_dataset
-
     @property
     def is_flux(self) -> bool:
         """Whether this variable is a flux (drives monthly accumulation scaling).
@@ -344,6 +335,7 @@ class Dataset(BaseModel):
 
     monthly: str | None = None
     pressure_level: list[str] | None = None
+    product_type: list[str] | None = None
     extras: dict[str, Any] = Field(default_factory=dict)
     request_kind: str = "form"
     variables: dict[str, Variable] = Field(default_factory=dict)
@@ -457,14 +449,13 @@ class Catalog(AbstractCatalog):
         for ds_name, ds_body in datasets_yaml.items():
             monthly = ds_body.get("monthly")
             pressure_level = ds_body.get("pressure_level")
+            ds_product_type = ds_body.get("product_type")
             ds_extras = dict(ds_body.get("extras") or {})
             ds_request_kind = ds_body.get("request_kind", "form")
             ds_vars: dict[str, Variable] = {}
             for code, entry in (ds_body.get("variables") or {}).items():
                 merged = dict(entry)
                 merged["cds_dataset"] = ds_name
-                if monthly is not None:
-                    merged["cds_dataset_monthly"] = monthly
                 # Default cds_variable to the slug-with-underscores form
                 # of the YAML key (e.g. "2m-temperature" -> "2m_temperature").
                 # A per-variable row may set `cds_variable` explicitly
@@ -475,6 +466,11 @@ class Catalog(AbstractCatalog):
                 # leave both unset.
                 if "cds_pressure_level" not in merged and pressure_level is not None:
                     merged["cds_pressure_level"] = pressure_level
+                # Same parent-default / per-row-override pattern for
+                # product_type. Parent unset → Variable's own default
+                # (`["reanalysis"]`) applies.
+                if "product_type" not in merged and ds_product_type is not None:
+                    merged["product_type"] = ds_product_type
                 # Merge parent-level extras under per-row overrides:
                 # row-level keys win on collision so a variable can
                 # diverge from the family defaults (e.g. one CARRA row
@@ -487,10 +483,54 @@ class Catalog(AbstractCatalog):
             structural[ds_name] = Dataset(
                 monthly=monthly,
                 pressure_level=pressure_level,
+                product_type=ds_product_type,
                 extras=ds_extras,
                 request_kind=ds_request_kind,
                 variables=ds_vars,
             )
+
+        # Auto-synthesize a first-class entry for each `monthly:`
+        # cross-reference. The YAML keeps `monthly: <name>` on the
+        # parent dataset (compact); the catalog presents both names
+        # as queryable datasets with the same variable set, so users
+        # can name either form in their `variables` dict. The
+        # synthesized entry rebrands each variable's `cds_dataset` to
+        # the monthly name; everything else (variable code, units,
+        # nc_variable, extras) is shared.
+        # The synthesized monthly-means entry needs its own
+        # product_type — it cannot be inferred. The parent must
+        # declare `monthly_product_type:` alongside `monthly:`. No
+        # hardcoded fallback.
+        for ds_name, ds_body in datasets_yaml.items():
+            ds = structural[ds_name]
+            if ds.monthly and ds.monthly not in structural:
+                monthly_pt = ds_body.get("monthly_product_type")
+                if monthly_pt is None:
+                    raise ValueError(
+                        f"dataset {ds_name!r} declares `monthly: "
+                        f"{ds.monthly!r}` but no `monthly_product_type:`. "
+                        "Auto-synthesis of the monthly-means catalog "
+                        "entry needs an explicit product_type for the "
+                        "synthesized variables (e.g. "
+                        "`monthly_product_type: [monthly_averaged_reanalysis]`)."
+                    )
+                rebranded = {
+                    code: var.model_copy(
+                        update={
+                            "cds_dataset": ds.monthly,
+                            "product_type": monthly_pt,
+                        }
+                    )
+                    for code, var in ds.variables.items()
+                }
+                structural[ds.monthly] = Dataset(
+                    monthly=None,
+                    pressure_level=ds.pressure_level,
+                    product_type=monthly_pt,
+                    extras=dict(ds.extras),
+                    request_kind=ds.request_kind,
+                    variables=rebranded,
+                )
 
         if total_vars == 0:
             raise ValueError(

@@ -78,21 +78,20 @@ class TestApiE2E:
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
 
     def test_live_monthly_aggregation(self, tmp_path):
-        """Monthly 2m_temperature routes to -monthly-means dataset.
+        """Monthly 2m_temperature on the synthesized -monthly-means dataset.
 
-        Test scenario:
-            Exercise the M5 monthly branch. With
-            `temporal_resolution='monthly'` and a 1-month range,
-            `_api()` must target `cds_dataset_monthly`
-            (`reanalysis-era5-single-levels-monthly-means`) and
-            send `product_type=['monthly_averaged_reanalysis']`
-            without a `time` key.
+        After the dataset/product_type decoupling, the monthly path
+        is selected by naming the monthly dataset directly in
+        `variables`. The catalog's auto-synthesized row carries
+        `product_type=['monthly_averaged_reanalysis']` and
+        `temporal_resolution='monthly'` shapes the request body
+        (single `time` slot, no `day` field).
         """
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
             variables={
-                "reanalysis-era5-single-levels": ["2m-temperature"],
+                "reanalysis-era5-single-levels-monthly-means": ["2m-temperature"],
             },
             lat_lim=_BBOX_LAT,
             lon_lim=_BBOX_LON,
@@ -101,7 +100,9 @@ class TestApiE2E:
         )
 
         target = ecmwf._api(
-            Catalog().get_variable("reanalysis-era5-single-levels", "2m-temperature")
+            Catalog().get_variable(
+                "reanalysis-era5-single-levels-monthly-means", "2m-temperature"
+            )
         )
 
         assert target.exists(), f"NetCDF file not created at {target}"

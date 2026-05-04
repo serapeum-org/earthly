@@ -95,6 +95,7 @@ def single_level_var_info():
         cds_variable="2m_temperature",
         nc_variable="t2m",
         units="K",
+        product_type=["reanalysis"],
     )
 
 
@@ -112,6 +113,7 @@ def pressure_level_var_info():
         cds_pressure_level=["1000"],
         nc_variable="t",
         units="K",
+        product_type=["reanalysis"],
     )
 
 

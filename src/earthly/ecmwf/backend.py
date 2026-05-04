@@ -28,16 +28,18 @@ ERA5_GRID_DEGREES: float = 0.125
 # unconditionally by :meth:`ECMWF._api`) that are invalid for the
 # named request kind. Per-row `extras` are still merged on top, so
 # users can supply alternative values for any stripped key.
+# `product_type` is catalog-driven (see `Variable.product_type`) and
+# no longer appears in any strip list.
 REQUEST_KIND_STRIPS: dict[str, tuple[str, ...]] = {
     "form": (),
     # ORAS5 (and any monthly ocean dataset that mirrors NEMO's
     # request shape): no `day` / `time` selectors, no `area`
-    # bbox cropping. `product_type` arrives via `extras`.
-    "oceanic_monthly": ("day", "time", "area", "product_type"),
+    # bbox cropping.
+    "oceanic_monthly": ("day", "time", "area"),
     # CARRA-means and similar aggregate datasets: drop `time`
     # because the aggregate is over the window indicated by
-    # `time_aggregation`. `product_type` arrives via extras.
-    "carra_means": ("time", "product_type"),
+    # `time_aggregation`.
+    "carra_means": ("time",),
 }
 
 
@@ -517,16 +519,19 @@ class ECMWF(AbstractDataSource):
         CDS has served the request and the NetCDF file has been written
         to disk — typically minutes due to CDS queue times.
 
-        The request shape branches on `self.temporal_resolution`:
+        The request always submits to `var_info.cds_dataset` — the
+        dataset name the user named in the `variables` dict. The
+        `temporal_resolution` parameter only shapes the request body,
+        not the dataset choice:
 
-        * `"daily"` — submits to `var_info['cds_dataset']` with
-          `product_type=['reanalysis']` and four six-hourly time
-          slots (`00:00/06:00/12:00/18:00`).
-        * `"monthly"` — submits to `var_info['cds_dataset_monthly']`
-          (falling back to `cds_dataset` when the monthly key is
-          absent) with `product_type=['monthly_averaged_reanalysis']`
-          and no `time` key. `-monthly-means` datasets reject the
-          daily-style `time` list.
+        * `"daily"` — `product_type=['reanalysis']` and four
+          six-hourly time slots (`00:00/06:00/12:00/18:00`).
+        * `"monthly"` — `product_type=['monthly_averaged_reanalysis']`
+          with a single `time=['00:00']` slot and no `day` key
+          (CDS's `-monthly-means` datasets reject those). Pair this
+          mode with a monthly-aggregated CDS dataset name in
+          `variables` (e.g.
+          `"reanalysis-era5-single-levels-monthly-means"`).
 
         Both branches use `data_format='netcdf'` so the resulting
         file can be opened with :class:`pyramids.netcdf.NetCDF`,
@@ -645,17 +650,20 @@ class ECMWF(AbstractDataSource):
             ],
         }
 
-        dataset = var_info.dataset_for(self.temporal_resolution)
+        # The dataset comes straight from the user's `variables` dict
+        # (propagated through `Variable.cds_dataset` by the catalog
+        # loader). `temporal_resolution` only shapes the request body;
+        # it does not pick a different dataset and it does not pick
+        # the `product_type` (that's catalog-driven now — see
+        # `Variable.product_type`).
+        dataset = var_info.cds_dataset
+        request["product_type"] = var_info.product_type
         if self.temporal_resolution == "monthly":
-            # `-monthly-means` datasets reject `day` (the
-            # aggregate is over a whole month) and require a
-            # single `time` slot for `monthly_averaged_reanalysis`.
-            # CDS-Beta enforces this with HTTP 400; the legacy CDS
-            # tolerated extra `day` entries.
-            request["product_type"] = ["monthly_averaged_reanalysis"]
+            # Monthly-means CDS datasets reject `day` and want a
+            # single `time` slot. CDS-Beta enforces this with HTTP
+            # 400; the legacy CDS tolerated extra `day` entries.
             request["time"] = ["00:00"]
         else:
-            request["product_type"] = ["reanalysis"]
             request["day"] = sorted({f"{d.day:02d}" for d in dates})
             request["time"] = ["00:00", "06:00", "12:00", "18:00"]
 

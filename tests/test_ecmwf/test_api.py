@@ -299,6 +299,7 @@ class TestApi:
             cds_variable="near_surface_air_temperature",
             nc_variable="tas",
             units="K",
+            product_type=["reanalysis"],
             extras={
                 "experiment": "ssp585",
                 "model": "ec_earth3",
@@ -318,6 +319,7 @@ class TestApi:
             cds_variable="2m_temperature",
             nc_variable="t2m",
             units="K",
+            product_type=["reanalysis"],
             extras={"product_type": ["ensemble_mean"]},
         )
         ecmwf_stub._api(spec)
@@ -378,6 +380,7 @@ class TestApi:
             cds_variable="2m_temperature",
             nc_variable="t2m",
             units="K",
+            product_type=["reanalysis"],
             extras={"area": None},
         )
         ecmwf_stub._api(spec)
@@ -391,6 +394,7 @@ class TestApi:
             cds_variable="2m_temperature",
             nc_variable="t2m",
             units="K",
+            product_type=["reanalysis"],
             extras={"product_type": None},
         )
         ecmwf_stub._api(spec)
@@ -411,6 +415,7 @@ class TestApi:
             cds_variable="sea_ice_thickness",
             nc_variable="iicethic",
             units="m",
+            product_type=["operational"],
             request_kind="oceanic_monthly",
             extras={
                 "product_type": ["consolidated"],
@@ -433,6 +438,7 @@ class TestApi:
             cds_variable="2m_temperature",
             nc_variable="t2m",
             units="K",
+            product_type=["forecast_based"],
             request_kind="carra_means",
             extras={
                 "product_type": ["analysis_based"],
@@ -460,6 +466,7 @@ class TestApi:
             cds_variable="sea_surface_temperature",
             nc_variable="sosstsst",
             units="C",
+            product_type=["consolidated"],
             request_kind="oceanic_monthly",
             extras={
                 "area": [60, -10, 50, 5],
@@ -511,42 +518,44 @@ class TestApi:
 
 
 class TestApiMonthly:
-    """Tests for :meth:`ECMWF._api` on the monthly path (M5)."""
+    """Tests for :meth:`ECMWF._api` on the monthly path.
+
+    After the dataset/product_type decoupling, the user names the
+    monthly dataset directly in `variables`; the catalog's
+    auto-synthesized monthly row carries
+    `product_type=['monthly_averaged_reanalysis']`. `_api()` then
+    only shapes the time/day fields based on `temporal_resolution`.
+    """
 
     @pytest.fixture
     def monthly_var_info(self):
-        """Catalog entry with both daily and monthly CDS datasets."""
+        """Auto-synthesized monthly-means catalog row.
+
+        Mirrors what `Catalog.get_variable("...-monthly-means", ...)`
+        returns: `cds_dataset` is the monthly dataset name and
+        `product_type` is the monthly-averaged flavor.
+        """
         return Variable(
-            cds_dataset="reanalysis-era5-single-levels",
-            cds_dataset_monthly="reanalysis-era5-single-levels-monthly-means",
+            cds_dataset="reanalysis-era5-single-levels-monthly-means",
             cds_variable="2m_temperature",
             nc_variable="t2m",
             units="K",
+            product_type=["monthly_averaged_reanalysis"],
         )
 
-    def test_monthly_routes_to_monthly_dataset(self, ecmwf_stub, monthly_var_info):
-        """Monthly resolution targets `cds_dataset_monthly`."""
+    def test_monthly_targets_dataset_from_var_info(
+        self, ecmwf_stub, monthly_var_info
+    ):
+        """`_api()` retrieves from `var_info.cds_dataset` verbatim."""
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub._api(monthly_var_info)
         dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
         assert dataset_arg == "reanalysis-era5-single-levels-monthly-means"
 
-    def test_monthly_falls_back_to_daily_dataset_when_monthly_missing(
+    def test_monthly_product_type_comes_from_var_info(
         self, ecmwf_stub, monthly_var_info
     ):
-        """When `cds_dataset_monthly` is absent, fall back to `cds_dataset`."""
-        monthly_var_info = monthly_var_info.model_copy(
-            update={"cds_dataset_monthly": None}
-        )
-        ecmwf_stub.temporal_resolution = "monthly"
-        ecmwf_stub._api(monthly_var_info)
-        dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
-        assert dataset_arg == "reanalysis-era5-single-levels"
-
-    def test_monthly_product_type_is_monthly_averaged_reanalysis(
-        self, ecmwf_stub, monthly_var_info
-    ):
-        """Monthly requests carry `product_type=monthly_averaged_reanalysis`."""
+        """The catalog's `product_type` reaches the request unchanged."""
         ecmwf_stub.temporal_resolution = "monthly"
         ecmwf_stub._api(monthly_var_info)
         request = captured_request(ecmwf_stub)
@@ -560,22 +569,21 @@ class TestApiMonthly:
         assert request["time"] == ["00:00"]
         assert "day" not in request
 
-    def test_daily_request_still_includes_time_and_reanalysis(
-        self, ecmwf_stub, monthly_var_info
+    def test_daily_resolution_keeps_var_info_dataset_and_product_type(
+        self, ecmwf_stub, single_level_var_info
     ):
-        """Daily resolution still uses the original product_type and time.
+        """Daily resolution targets `cds_dataset` and keeps its product_type.
 
-        Test scenario:
-            The M5 monthly branch must not regress the daily path.
-            With `temporal_resolution='daily'` the request must
-            still target `cds_dataset` (not the monthly variant)
-            and still carry `product_type=['reanalysis']` plus the
-            four six-hourly time slots.
+        With `temporal_resolution='daily'` `_api()` must submit to
+        the dataset the catalog pinned (not flip to a monthly
+        variant) and forward `product_type` from the row, plus the
+        four six-hourly time slots and the day list.
         """
         ecmwf_stub.temporal_resolution = "daily"
-        ecmwf_stub._api(monthly_var_info)
+        ecmwf_stub._api(single_level_var_info)
         dataset_arg = ecmwf_stub.client.retrieve.call_args[0][0]
         request = captured_request(ecmwf_stub)
         assert dataset_arg == "reanalysis-era5-single-levels"
         assert request["product_type"] == ["reanalysis"]
         assert request["time"] == ["00:00", "06:00", "12:00", "18:00"]
+        assert "day" in request

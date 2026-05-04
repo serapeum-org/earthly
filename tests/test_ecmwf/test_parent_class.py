@@ -104,6 +104,7 @@ class TestParentClassWiring:
             lat_lim=[4.0, 5.0],
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
+            skip_constraints=True,
         )
 
         target = ecmwf._api(
@@ -112,6 +113,7 @@ class TestParentClassWiring:
                 cds_variable="2m_temperature",
                 nc_variable="t2m",
                 units="K",
+                product_type=["reanalysis"],
             )
         )
 
