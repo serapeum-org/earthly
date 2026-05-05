@@ -204,6 +204,57 @@ class TestDownloadAggregateIntegration:
             f"{ecmwf_stub._download_dataset.call_count}"
         )
 
+    def test_multi_variable_happy_path_invokes_aggregator_per_variable(
+        self, ecmwf_stub, monkeypatch, tmp_path
+    ):
+        """Two healthy variables produce two aggregator calls in order.
+
+        Test scenario:
+            With a `vars` map carrying two variables under one
+            dataset and no failures anywhere, `aggregate_netcdf`
+            must be invoked once per variable, in the dict's
+            iteration order, each with its matching NetCDF path.
+        """
+        ecmwf_stub.vars = {
+            "reanalysis-era5-single-levels": [
+                "2m-temperature",
+                "total-precipitation",
+            ],
+        }
+        nc_paths = [
+            tmp_path / "2m_temperature_reanalysis-era5-single-levels.nc",
+            tmp_path / "total_precipitation_reanalysis-era5-single-levels.nc",
+        ]
+        ecmwf_stub._download_dataset = MagicMock(side_effect=nc_paths)
+
+        recorder: list = []
+
+        def _record(nc_path, var_info, config):
+            recorder.append((nc_path, var_info.cds_variable))
+            return []
+
+        monkeypatch.setattr(
+            "earthly.ecmwf.backend.aggregate_netcdf",
+            _record,
+        )
+        ecmwf_stub.download(
+            progress_bar=False,
+            aggregate=AggregationConfig(freq="1D"),
+        )
+
+        assert len(recorder) == 2, (
+            f"Expected 2 aggregator calls (one per variable); "
+            f"got {len(recorder)}"
+        )
+        assert [name for _, name in recorder] == [
+            "2m_temperature",
+            "total_precipitation",
+        ], f"Aggregator should see variables in iteration order; got {recorder}"
+        assert [path for path, _ in recorder] == nc_paths, (
+            f"Each aggregator call should receive its variable's NetCDF "
+            f"path; got {recorder}"
+        )
+
     def test_retrieve_failure_skips_aggregator_for_that_variable(
         self, ecmwf_stub, monkeypatch, tmp_path
     ):

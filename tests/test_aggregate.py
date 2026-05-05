@@ -1180,3 +1180,112 @@ class TestAggregateNetcdfRoundTrip:
         assert out_dir.exists(), (
             f"`out_dir` should be created with parents; missing at {out_dir}"
         )
+
+    def test_skipna_false_propagates_nan_through_body(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """`skipna=False` must propagate end-to-end through `aggregate_netcdf`.
+
+        Test scenario:
+            One NaN-tainted day + `skipna=False` → that day's mean
+            comes out NaN, while a clean day stays clean. Verifies
+            the body forwards `config.skipna` to `_reduce` faithfully.
+        """
+        cube = self._daily_six_hourly_array(n_days=2)
+        cube[1, 0, 0] = np.nan
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(2)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=None, skipna=False),
+        )
+        day1 = results[0][1]
+        day2 = results[1][1]
+        assert np.isnan(day1[0, 0]), (
+            f"Day 1 pixel (0, 0) was NaN-tainted; with skipna=False it "
+            f"should propagate NaN, got {day1[0, 0]}"
+        )
+        assert day2[0, 0] == pytest.approx(6.5), (
+            f"Day 2 was clean; mean should be 6.5, got {day2[0, 0]}"
+        )
+
+    def test_monthly_grouping_runs_end_to_end(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """A 32-day cube + `freq="1MS"` produces 2 monthly windows.
+
+        Test scenario:
+            Confirms the windowing/reduction loop runs for non-daily
+            frequencies. Pulls 32 daily samples spanning January
+            and February 1; the loop must emit a January window and
+            a February window with the correct labels.
+        """
+        n_days = 32
+        cube = np.zeros((n_days, 2, 2), dtype=float)
+        cube[:31, :, :] = 1.0  # January: 31 days of 1.0
+        cube[31, :, :] = 2.0  # February 1
+        idx = pd.date_range("2022-01-01", periods=n_days, freq="D")
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": [t.strftime("%Y-%m-%d") for t in idx]},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1MS", op="mean", out_dir=None),
+        )
+        labels = [label for label, _, _ in results]
+        assert labels == [pd.Timestamp("2022-01-01"), pd.Timestamp("2022-02-01")], (
+            f"Expected monthly labels [Jan-1, Feb-1], got {labels}"
+        )
+        assert results[0][1][0, 0] == pytest.approx(1.0), (
+            f"January mean should be 1.0, got {results[0][1][0, 0]}"
+        )
+        assert results[1][1][0, 0] == pytest.approx(2.0), (
+            f"February mean (1 sample) should be 2.0, got {results[1][1][0, 0]}"
+        )
+
+    def test_geotransform_forwarded_to_geotiff_writer(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """`nc.geotransform` reaches `Dataset.create_from_array(geo=...)` verbatim.
+
+        Test scenario:
+            The 6-tuple from the source NetCDF must be forwarded to
+            every per-window GeoTIFF write so the output rasters
+            inherit the source projection / pixel layout.
+        """
+        cube = self._daily_six_hourly_array(n_days=1)
+        source_geo = (-75.0, 0.125, 0.0, 5.0, 0.0, -0.125)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+            geotransform=source_geo,
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        writes = _patch_geotiff_write(monkeypatch)
+
+        aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=tmp_path),
+        )
+        assert len(writes) == 1, f"Expected 1 write, got {len(writes)}"
+        _shape, geo, epsg, _path = writes[0]
+        assert geo == source_geo, (
+            f"Geotransform should be forwarded verbatim; "
+            f"expected {source_geo}, got {geo}"
+        )
+        assert epsg == 4326, f"EPSG should be 4326 (WGS84); got {epsg}"
