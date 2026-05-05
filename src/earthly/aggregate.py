@@ -207,6 +207,52 @@ class AggregationConfig(BaseModel):
         min_count: Minimum non-NaN samples required for a window to
             produce a non-NaN value. Windows with fewer samples emit
             NaN. `None` (default) means no minimum.
+
+    Examples:
+        - Daily-mean defaults — only `freq` is required, the rest
+          stays at sensible CDS-shaped defaults:
+
+            ```python
+            >>> from earthly.aggregate import AggregationConfig
+            >>> cfg = AggregationConfig(freq="1D")
+            >>> cfg.op
+            'auto'
+            >>> cfg.skipna
+            True
+            >>> cfg.cell_size
+            0.125
+            >>> cfg.out_dir is None
+            True
+
+            ```
+        - Monthly sum into an explicit output directory:
+
+            ```python
+            >>> from pathlib import Path
+            >>> from earthly.aggregate import AggregationConfig
+            >>> cfg = AggregationConfig(
+            ...     freq="1MS",
+            ...     op="sum",
+            ...     out_dir=Path("out") / "monthly",
+            ... )
+            >>> cfg.freq, cfg.op
+            ('1MS', 'sum')
+            >>> cfg.out_dir.name
+            'monthly'
+
+            ```
+        - Pin a pressure level for 4-D inputs and require a minimum
+          sample count per window:
+
+            ```python
+            >>> from earthly.aggregate import AggregationConfig
+            >>> cfg = AggregationConfig(
+            ...     freq="7D", op="mean", level=1000, min_count=20,
+            ... )
+            >>> cfg.level, cfg.min_count
+            (1000, 20)
+
+            ```
     """
 
     model_config = ConfigDict(frozen=True, extra="forbid")
@@ -252,6 +298,14 @@ def aggregate_netcdf(
     Raises:
         NotImplementedError: This is the H1 skeleton; the body is
             wired up by H5.
+
+    See Also:
+        - :class:`AggregationConfig`: the frozen request payload.
+        - :class:`earthly.ecmwf.Catalog`: resolves `(dataset, code)`
+          pairs to the :class:`earthly.ecmwf.Variable` rows that
+          drive `var_info.is_flux` and the output filename.
+        - `examples/post_process_ecmwf_netcdf.py`: thin CLI demo of
+          this function (after task L1).
     """
     raise NotImplementedError(
         "aggregate_netcdf is implemented in task H5; H1 only ships the "
