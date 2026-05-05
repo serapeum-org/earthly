@@ -1,12 +1,11 @@
-"""Unit tests for `earthly.aggregate` (H1 / H2 / M1 / H3 / H4 / M2 surface).
+"""Unit tests for `earthly.aggregate`.
 
 Covers `AggregationConfig` validation, `_read_time_axis` (the
 candidate-loop and KeyError fallback), `_find_level_dim`, the
 four-cell decision matrix in `_resolve_pressure_level`,
 `_window_groups`, `_reduce` (op dispatch + skipna + min_count),
-`_resolve_op` (auto-routing from `Variable.is_flux`), and the
-`aggregate_netcdf` skeleton's `NotImplementedError`. The body of
-`aggregate_netcdf` is wired up by H5 and is not exercised here.
+`_resolve_op` (auto-routing from `Variable.is_flux`), and round-trip
+runs of `aggregate_netcdf` against synthetic NetCDFs (H7).
 """
 
 from __future__ import annotations
@@ -769,9 +768,9 @@ class TestResolveOp:
 class TestAggregateNetcdf:
     """Smoke tests for the public entry point.
 
-    Round-trip behaviour against a real on-disk NetCDF lives in
-    `H7` / `H8`. These checks only verify the function reaches the
-    pyramids layer — i.e., the skeleton is gone.
+    Heavy round-trip behaviour against a synthetic NetCDF lives in
+    :class:`TestAggregateNetcdfRoundTrip` (H7). These checks only
+    verify the function reaches the pyramids layer.
     """
 
     def test_missing_file_raises_at_pyramids_layer(self, tmp_path):
@@ -791,3 +790,393 @@ class TestAggregateNetcdf:
                 MagicMock(),
                 AggregationConfig(freq="1D"),
             )
+
+
+class _FakeNetCDF:
+    """Minimal `pyramids.netcdf.NetCDF` stand-in for round-trip tests.
+
+    Implements the four surfaces `aggregate_netcdf` consumes —
+    `read_array`, `get_time_variable`, `dimension_names`,
+    `geotransform`, and (optionally) `sel`. Lets tests exercise the
+    body of `aggregate_netcdf` without writing a real on-disk
+    NetCDF (the test environment has no NetCDF writer).
+    """
+
+    def __init__(
+        self,
+        *,
+        array: np.ndarray,
+        time_strs_by_var: dict[str, list[str] | None],
+        dimension_names: list[str] | None = None,
+        geotransform: tuple = (0.0, 1.0, 0.0, 1.0, 0.0, -1.0),
+        on_sel: object | None = None,
+    ):
+        self._array = array
+        self._times = time_strs_by_var
+        self.dimension_names = dimension_names
+        self.geotransform = geotransform
+        self._on_sel = on_sel
+
+    def read_array(self, variable: str) -> np.ndarray:
+        """Return the stored array regardless of variable name (test stub)."""
+        return self._array
+
+    def get_time_variable(self, var_name: str) -> list[str] | None:
+        """Look up the time strings registered for `var_name`."""
+        return self._times.get(var_name)
+
+    def sel(self, **kwargs):
+        """Return the configured `_on_sel` instance to simulate level pinning."""
+        return self._on_sel
+
+
+class _RealVariable(SimpleNamespace):
+    """Lightweight stand-in for `earthly.ecmwf.Variable` in tests.
+
+    Exposes only the four attributes `aggregate_netcdf` reads
+    (`is_flux`, `cds_variable`, `nc_variable`, `units`) so the
+    round-trip tests don't have to construct a full pydantic model.
+    """
+
+
+def _patch_netcdf_read(monkeypatch, fake_nc):
+    """Patch `pyramids.netcdf.NetCDF.read_file` to return `fake_nc`."""
+    from pyramids.netcdf import NetCDF as RealNetCDF
+
+    monkeypatch.setattr(RealNetCDF, "read_file", staticmethod(lambda *_a, **_kw: fake_nc))
+
+
+def _patch_geotiff_write(monkeypatch):
+    """Patch `pyramids.dataset.Dataset.create_from_array(...).to_file(...)` to a no-op recorder.
+
+    Returns the list of `(arr_shape, geo, epsg, target)` tuples that
+    were "written" so tests can inspect call sites without hitting
+    GDAL / disk.
+    """
+    from pyramids.dataset import Dataset as RealDataset
+
+    writes: list[tuple] = []
+
+    class _StubGeoTiff:
+        def __init__(self, arr, geo, epsg):
+            self.arr = arr
+            self.geo = geo
+            self.epsg = epsg
+
+        def to_file(self, path):
+            writes.append((self.arr.shape, self.geo, self.epsg, path))
+
+    monkeypatch.setattr(
+        RealDataset,
+        "create_from_array",
+        staticmethod(lambda arr, geo, epsg: _StubGeoTiff(arr, geo, epsg)),
+    )
+    return writes
+
+
+class TestAggregateNetcdfRoundTrip:
+    """End-to-end body runs against a synthetic in-memory NetCDF (H7)."""
+
+    @pytest.fixture
+    def state_var(self):
+        """A state-flagged variable (`is_flux=False`).
+
+        Returns:
+            _RealVariable: stand-in carrying the four attributes
+            `aggregate_netcdf` consumes.
+        """
+        return _RealVariable(
+            is_flux=False,
+            cds_variable="2m_temperature",
+            nc_variable="t2m",
+            units="K",
+        )
+
+    @pytest.fixture
+    def flux_var(self):
+        """A flux-flagged variable (`is_flux=True`).
+
+        Returns:
+            _RealVariable: stand-in for `total_precipitation`.
+        """
+        return _RealVariable(
+            is_flux=True,
+            cds_variable="total_precipitation",
+            nc_variable="tp",
+            units="m",
+        )
+
+    def _daily_six_hourly_array(self, n_days: int = 2) -> np.ndarray:
+        """Build `(n_days * 4, 2, 2)` increasing values, four slots per day."""
+        n_slots = n_days * 4
+        cube = np.zeros((n_slots, 2, 2), dtype=float)
+        for i in range(n_slots):
+            cube[i, :, :] = float(i + 1)
+        return cube
+
+    def _date_strings_six_hourly(self, n_days: int = 2) -> list[str]:
+        """Build `n_days * 4` six-hourly date strings starting Jan 1."""
+        idx = pd.date_range("2022-01-01", periods=n_days * 4, freq="6h")
+        return [t.strftime("%Y-%m-%d %H:%M:%S") for t in idx]
+
+    def test_daily_mean_collapses_to_one_slice_per_day(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """Eight 6-hourly slots → 2 daily slices, each = mean of 4.
+
+        Test scenario:
+            With `freq="1D"` on a synthetic 2-day cube, each output
+            slice's pixel value should equal the mean of the four
+            slot values that fell into that window.
+        """
+        cube = self._daily_six_hourly_array(n_days=2)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(2)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        writes = _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=tmp_path),
+        )
+
+        assert len(results) == 2, f"Expected 2 daily windows, got {len(results)}"
+        first_label, first_arr, _ = results[0]
+        assert first_label == pd.Timestamp("2022-01-01"), (
+            f"First label should be 2022-01-01, got {first_label}"
+        )
+        assert first_arr[0, 0] == pytest.approx(2.5), (
+            f"Day 1 mean should be (1+2+3+4)/4 = 2.5, got {first_arr[0, 0]}"
+        )
+        second_arr = results[1][1]
+        assert second_arr[0, 0] == pytest.approx(6.5), (
+            f"Day 2 mean should be (5+6+7+8)/4 = 6.5, got {second_arr[0, 0]}"
+        )
+        assert len(writes) == 2, (
+            f"Expected 2 GeoTIFFs to be written, got {len(writes)}"
+        )
+
+    def test_op_auto_routes_state_to_mean(self, monkeypatch, tmp_path, state_var):
+        """`op="auto"` + `is_flux=False` → mean over the window."""
+        cube = self._daily_six_hourly_array(n_days=1)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="auto", out_dir=None),
+        )
+        _, arr, _ = results[0]
+        assert arr[0, 0] == pytest.approx(2.5), (
+            f"Auto on state var should mean to 2.5, got {arr[0, 0]}"
+        )
+
+    def test_op_auto_routes_flux_to_sum(self, monkeypatch, tmp_path, flux_var):
+        """`op="auto"` + `is_flux=True` → sum over the window."""
+        cube = self._daily_six_hourly_array(n_days=1)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            flux_var,
+            AggregationConfig(freq="1D", op="auto", out_dir=None),
+        )
+        _, arr, _ = results[0]
+        assert arr[0, 0] == pytest.approx(10.0), (
+            f"Auto on flux var should sum to 1+2+3+4=10.0, got {arr[0, 0]}"
+        )
+
+    def test_min_count_emits_nan_for_partial_windows(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """A window with fewer non-NaN samples than `min_count` emits NaN."""
+        cube = np.full((4, 2, 2), np.nan)
+        cube[0, 0, 0] = 1.0
+        cube[1, 0, 0] = 2.0
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(
+                freq="1D", op="mean", out_dir=None, min_count=4,
+            ),
+        )
+        _, arr, _ = results[0]
+        assert np.isnan(arr[0, 0]), (
+            f"Pixel with only 2 non-NaN samples and min_count=4 should be NaN, "
+            f"got {arr[0, 0]}"
+        )
+
+    def test_pressure_level_without_level_raises(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """A 4-D NetCDF with no `level` set raises ValueError."""
+        cube = np.zeros((4, 1, 2, 2))
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "pressure_level", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        _patch_geotiff_write(monkeypatch)
+
+        with pytest.raises(ValueError, match="pressure_level"):
+            aggregate_netcdf(
+                tmp_path / "fake.nc",
+                state_var,
+                AggregationConfig(freq="1D", op="mean", out_dir=None),
+            )
+
+    def test_pressure_level_with_level_pins_via_sel(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """`level=1000` calls `nc.sel(pressure_level=1000)` and aggregates the result."""
+        cube_3d = self._daily_six_hourly_array(n_days=1)
+        pinned = _FakeNetCDF(
+            array=cube_3d,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        outer = _FakeNetCDF(
+            array=np.zeros((4, 1, 2, 2)),
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "pressure_level", "lat", "lon"],
+            on_sel=pinned,
+        )
+        _patch_netcdf_read(monkeypatch, outer)
+        _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=None, level=1000),
+        )
+        _, arr, _ = results[0]
+        assert arr[0, 0] == pytest.approx(2.5), (
+            f"After level pin, daily mean should be 2.5, got {arr[0, 0]}"
+        )
+
+    def test_out_dir_none_skips_writes(self, monkeypatch, tmp_path, state_var):
+        """`out_dir=None` returns arrays in memory and writes no files.
+
+        Test scenario:
+            The third tuple element is `None` and no GeoTIFF write
+            calls reach pyramids.
+        """
+        cube = self._daily_six_hourly_array(n_days=1)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        writes = _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=None),
+        )
+        assert results[0][2] is None, (
+            f"Third tuple element should be None, got {results[0][2]!r}"
+        )
+        assert writes == [], (
+            f"No GeoTIFF writes should occur when out_dir=None; got {writes!r}"
+        )
+
+    def test_geotiff_filename_carries_variable_freq_and_window(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """Output GeoTIFF filename matches `<cds_variable>_<freq>_<YYYYMMDD>.tif`."""
+        cube = self._daily_six_hourly_array(n_days=1)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        writes = _patch_geotiff_write(monkeypatch)
+
+        out_dir = tmp_path / "agg"
+        aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=out_dir),
+        )
+        target_path = writes[0][3]
+        assert target_path.endswith("2m_temperature_1D_20220101.tif"), (
+            f"Filename should match `<var>_<freq>_<window>.tif` shape, "
+            f"got {target_path!r}"
+        )
+
+    def test_valid_time_variable_is_picked_over_time(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """A NetCDF carrying both `valid_time` and `time` uses `valid_time`."""
+        cube = self._daily_six_hourly_array(n_days=1)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={
+                "valid_time": self._date_strings_six_hourly(1),
+                "time": ["1900-01-01"] * 4,
+            },
+            dimension_names=["valid_time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        _patch_geotiff_write(monkeypatch)
+
+        results = aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=None),
+        )
+        label, _, _ = results[0]
+        assert label == pd.Timestamp("2022-01-01"), (
+            f"`valid_time` should drive the time axis (2022-01-01); "
+            f"got {label}"
+        )
+
+    def test_out_dir_created_if_missing(self, monkeypatch, tmp_path, state_var):
+        """A non-existent `out_dir` is created with parents."""
+        cube = self._daily_six_hourly_array(n_days=1)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        _patch_geotiff_write(monkeypatch)
+
+        out_dir = tmp_path / "deeply" / "nested" / "out"
+        assert not out_dir.exists()
+        aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=out_dir),
+        )
+        assert out_dir.exists(), (
+            f"`out_dir` should be created with parents; missing at {out_dir}"
+        )
