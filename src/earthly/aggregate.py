@@ -526,8 +526,12 @@ def aggregate_netcdf(
         the GeoTIFF path (or `None` when `config.out_dir` was `None`).
 
     Raises:
-        NotImplementedError: This is the H1 skeleton; the body is
-            wired up by H5.
+        KeyError: If the NetCDF has no recognised time variable
+            (`valid_time` / `time`); see :func:`_read_time_axis`.
+        ValueError: If `config.level` is set but the NetCDF has no
+            pressure-level dimension, or vice versa; see
+            :func:`_resolve_pressure_level`. Also raised by pandas
+            when `config.freq` is not a recognised offset alias.
 
     See Also:
         - :class:`AggregationConfig`: the frozen request payload.
@@ -537,7 +541,37 @@ def aggregate_netcdf(
         - `examples/post_process_ecmwf_netcdf.py`: thin CLI demo of
           this function (after task L1).
     """
-    raise NotImplementedError(
-        "aggregate_netcdf is implemented in task H5; H1 only ships the "
-        "skeleton + AggregationConfig."
-    )
+    from pyramids.dataset import Dataset
+    from pyramids.netcdf import NetCDF
+
+    out_dir: Path | None = config.out_dir
+    if out_dir is not None:
+        out_dir = Path(out_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+    op = _resolve_op(config.op, var_info)
+
+    nc = NetCDF.read_file(str(nc_path))
+    nc = _resolve_pressure_level(nc, config.level)
+    arr = nc.read_array(variable=var_info.nc_variable)
+    time_axis = _read_time_axis(nc)
+    geo = nc.geotransform
+
+    results: list[tuple[pd.Timestamp, np.ndarray, Path | None]] = []
+    for window_label, mask in _window_groups(time_axis, config.freq):
+        slice_ = arr[mask, :, :]
+        reduced = _reduce(slice_, op=op, skipna=config.skipna, min_count=config.min_count)
+
+        target: Path | None = None
+        if out_dir is not None:
+            target = out_dir / (
+                f"{var_info.cds_variable}_{config.freq}_"
+                f"{window_label:%Y%m%d}.tif"
+            )
+            Dataset.create_from_array(
+                arr=reduced, geo=geo, epsg=4326
+            ).to_file(str(target))
+
+        results.append((window_label, reduced, target))
+
+    return results

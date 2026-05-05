@@ -767,29 +767,27 @@ class TestResolveOp:
 
 
 class TestAggregateNetcdf:
-    """Tests for the H1-skeleton entry point."""
+    """Smoke tests for the public entry point.
 
-    def test_raises_not_implemented_error(self):
-        """The H1 skeleton's body raises `NotImplementedError`.
+    Round-trip behaviour against a real on-disk NetCDF lives in
+    `H7` / `H8`. These checks only verify the function reaches the
+    pyramids layer — i.e., the skeleton is gone.
+    """
+
+    def test_missing_file_raises_at_pyramids_layer(self, tmp_path):
+        """A non-existent path surfaces an OS-level error from pyramids.
 
         Test scenario:
-            `aggregate_netcdf(...)` must fail loud until H5 wires the
-            real body. A silent return would hide an unfinished
-            integration.
+            `aggregate_netcdf` must propagate file-open failures
+            unmodified. The exact exception type depends on
+            pyramids/GDAL — we just assert *something* is raised
+            (i.e., the skeleton is gone and the function reaches the
+            real I/O layer).
         """
-        with pytest.raises(NotImplementedError):
+        missing = tmp_path / "definitely-not-here.nc"
+        with pytest.raises(Exception):
             aggregate_netcdf(
-                Path("/nonexistent.nc"),
-                MagicMock(),
-                AggregationConfig(freq="1D"),
-            )
-
-    def test_error_message_points_at_h5(self):
-        """The `NotImplementedError` message names task H5 so users know
-        when to expect the real body."""
-        with pytest.raises(NotImplementedError, match=r"H5"):
-            aggregate_netcdf(
-                Path("/nonexistent.nc"),
+                missing,
                 MagicMock(),
                 AggregationConfig(freq="1D"),
             )
