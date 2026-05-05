@@ -95,6 +95,81 @@ def _read_time_axis(nc: NetCDF) -> pd.DatetimeIndex:
     )
 
 
+_LEVEL_DIM_CANDIDATES: tuple[str, ...] = ("pressure_level", "level")
+
+
+def _find_level_dim(nc: NetCDF) -> str | None:
+    """Return the pressure-level dimension name, or `None` for 3-D files.
+
+    Walks `nc.dimension_names` looking for any of
+    :data:`_LEVEL_DIM_CANDIDATES`. CDS pressure-level NetCDFs use
+    `pressure_level`; some derived datasets use plain `level`. The
+    first match wins.
+
+    Args:
+        nc: An open :class:`pyramids.netcdf.NetCDF` instance.
+
+    Returns:
+        str | None: The matched dimension name when the NetCDF has a
+        pressure-level axis; `None` for 3-D `(time, lat, lon)` files.
+    """
+    dim_names = nc.dimension_names or ()
+    for candidate in _LEVEL_DIM_CANDIDATES:
+        if candidate in dim_names:
+            return candidate
+    return None
+
+
+def _resolve_pressure_level(
+    nc: NetCDF,
+    level: int | float | None,
+) -> NetCDF:
+    """Pin a pressure level on a 4-D NetCDF, or pass through 3-D files.
+
+    Decision matrix:
+
+    | Has level dim? | `level` set? | Result                         |
+    |----------------|--------------|--------------------------------|
+    | Yes            | Yes          | `nc.sel(<level_dim>=level)`    |
+    | Yes            | No           | `ValueError` (ambiguous)       |
+    | No             | Yes          | `ValueError` (no level to set) |
+    | No             | No           | Pass-through                   |
+
+    Args:
+        nc: The NetCDF to examine.
+        level: The :attr:`AggregationConfig.level` value.
+
+    Returns:
+        NetCDF: Either the original `nc` (3-D pass-through) or a new
+        instance from :meth:`pyramids.netcdf.NetCDF.sel` with the
+        chosen level pinned.
+
+    Raises:
+        ValueError: When the NetCDF has a pressure-level dimension
+            but no `level` was passed, or when `level` was passed but
+            the NetCDF has no pressure-level dimension.
+    """
+    level_dim = _find_level_dim(nc)
+    if level_dim is None and level is None:
+        return nc
+    if level_dim is None and level is not None:
+        raise ValueError(
+            f"`level={level!r}` was set but the NetCDF has no "
+            f"pressure-level dimension (looked for "
+            f"{list(_LEVEL_DIM_CANDIDATES)!r} in "
+            f"{list(nc.dimension_names or ())!r}). Drop `level` or "
+            "point at a 4-D pressure-level file."
+        )
+    if level_dim is not None and level is None:
+        raise ValueError(
+            f"NetCDF has a {level_dim!r} dimension; pass "
+            "`level=<value>` on AggregationConfig to pin one (e.g. "
+            "`level=1000`). 4-D aggregation across all levels at "
+            "once is not supported."
+        )
+    return nc.sel(**{level_dim: level})
+
+
 OperationLiteral = Literal["mean", "sum", "min", "max", "std", "auto"]
 
 
