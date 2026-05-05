@@ -40,7 +40,7 @@ Examples:
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Iterator, Literal
 
 import numpy as np
 import pandas as pd
@@ -168,6 +168,70 @@ def _resolve_pressure_level(
             "once is not supported."
         )
     return nc.sel(**{level_dim: level})
+
+
+def _window_groups(
+    time_axis: pd.DatetimeIndex,
+    freq: str,
+) -> Iterator[tuple[pd.Timestamp, np.ndarray]]:
+    """Yield `(window_label, mask)` pairs that bucket `time_axis` by `freq`.
+
+    Builds a `pandas.Series` indexed by `time_axis` and groups it
+    with `pandas.Grouper(freq=freq)`. Each group's `index` gives the
+    timestamps belonging to that window; the boolean mask is built
+    by membership against `time_axis` so callers can use it to slice
+    a numpy array along its first axis.
+
+    Empty groups (windows with no samples) are silently skipped —
+    `aggregate_netcdf` doesn't write a GeoTIFF for a window it has
+    no data for.
+
+    Args:
+        time_axis: Time coordinate as a :class:`pandas.DatetimeIndex`.
+            Typically the result of :func:`_read_time_axis`.
+        freq: Pandas offset alias (`"1D"`, `"7D"`, `"1MS"`, `"QS-DEC"`,
+            `"AS"`, ...). Anything :class:`pandas.Grouper` accepts.
+
+    Yields:
+        tuple[pd.Timestamp, np.ndarray]: For each non-empty window:
+        the group key (window's left-edge timestamp) paired with a
+        boolean mask of length `len(time_axis)`.
+
+    Examples:
+        - Group four 6-hourly slots into one daily window:
+
+            ```python
+            >>> import pandas as pd
+            >>> from earthly.aggregate import _window_groups
+            >>> idx = pd.date_range("2022-01-01", periods=4, freq="6h")
+            >>> windows = list(_window_groups(idx, "1D"))
+            >>> len(windows)
+            1
+            >>> label, mask = windows[0]
+            >>> label
+            Timestamp('2022-01-01 00:00:00')
+            >>> mask.tolist()
+            [True, True, True, True]
+
+            ```
+        - Group two days of 6-hourly samples into two daily windows:
+
+            ```python
+            >>> import pandas as pd
+            >>> from earthly.aggregate import _window_groups
+            >>> idx = pd.date_range("2022-01-01", periods=8, freq="6h")
+            >>> [label.strftime("%Y-%m-%d") for label, _ in _window_groups(idx, "1D")]
+            ['2022-01-01', '2022-01-02']
+
+            ```
+    """
+    indexer = pd.Series(np.arange(len(time_axis)), index=time_axis)
+    timestamps = pd.Index(time_axis)
+    for window_label, group in indexer.groupby(pd.Grouper(freq=freq)):
+        if group.empty:
+            continue
+        mask = np.asarray(timestamps.isin(group.index))
+        yield window_label, mask
 
 
 OperationLiteral = Literal["mean", "sum", "min", "max", "std", "auto"]
