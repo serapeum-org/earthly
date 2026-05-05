@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
+from earthly.aggregate import AggregationConfig, aggregate_netcdf
 from earthly.base import (
     AbstractDataSource,
     SpatialExtent,
@@ -372,7 +373,13 @@ class ECMWF(AbstractDataSource):
             lat_lim=lat_lim, lon_lim=lon_lim, resolution=cell_size
         )
 
-    def download(self, progress_bar: bool = True, *args, **kwargs):
+    def download(
+        self,
+        progress_bar: bool = True,
+        aggregate: AggregationConfig | None = None,
+        *args,
+        **kwargs,
+    ):
         """Download every `(dataset, variable)` pair in `self.vars` from CDS.
 
         Iterates the user-supplied `variables` mapping (CDS dataset
@@ -385,6 +392,15 @@ class ECMWF(AbstractDataSource):
                 slicing pipeline that previously consumed it has
                 been moved out of the package. Defaults to `True`
                 so existing callers keep working.
+            aggregate: Optional :class:`earthly.aggregate.AggregationConfig`.
+                When provided, every retrieved NetCDF is fed through
+                :func:`earthly.aggregate.aggregate_netcdf` immediately
+                after `_api()` returns. When the config's `out_dir`
+                is `None`, it is defaulted to
+                `<self.root_dir>/aggregated/`. Aggregation failures
+                surface in the per-variable failure summary alongside
+                retrieve failures, so a single bad variable does not
+                abort the rest of the loop.
             *args: Reserved; ignored. Kept for forward-compatibility
                 with backend-specific extras callers might pass via
                 :meth:`Earthly.download`.
@@ -392,10 +408,9 @@ class ECMWF(AbstractDataSource):
 
         Returns:
             None. Per-variable NetCDFs land at
-            `<self.root_dir>/<cds_variable>_<cds_dataset>.nc`. To
-            slice each NetCDF into per-date GeoTIFFs, run
-            `examples/post_process_ecmwf_netcdf.py` against the
-            output directory.
+            `<self.root_dir>/<cds_variable>_<cds_dataset>.nc`. When
+            `aggregate` is set, per-window GeoTIFFs land at
+            `<aggregate.out_dir or self.root_dir/aggregated>/<cds_variable>_<freq>_<window>.tif`.
 
         Raises:
             KeyError: If any dataset key in `self.vars` is not a
@@ -441,6 +456,15 @@ class ECMWF(AbstractDataSource):
         succeeded: list[tuple[str, str]] = []
         failed: list[tuple[tuple[str, str], BaseException]] = []
 
+        effective_aggregate: AggregationConfig | None = None
+        if aggregate is not None:
+            if aggregate.out_dir is None:
+                effective_aggregate = aggregate.model_copy(
+                    update={"out_dir": self.root_dir / "aggregated"}
+                )
+            else:
+                effective_aggregate = aggregate
+
         for dataset_name, var_codes in self.vars.items():
             for var in var_codes:
                 start = self.time.start_date
@@ -451,15 +475,29 @@ class ECMWF(AbstractDataSource):
                 )
                 try:
                     var_info = catalog.get_variable(dataset_name, var)
-                    self._download_dataset(var_info, progress_bar=progress_bar)
+                    nc_path = self._download_dataset(
+                        var_info, progress_bar=progress_bar
+                    )
                 except Exception as exc:
                     logger.error(
                         f"ECMWF download for {dataset_name}/{var} failed: "
                         f"{type(exc).__name__}: {exc}"
                     )
                     failed.append(((dataset_name, var), exc))
-                else:
-                    succeeded.append((dataset_name, var))
+                    continue
+
+                if effective_aggregate is not None:
+                    try:
+                        aggregate_netcdf(nc_path, var_info, effective_aggregate)
+                    except Exception as exc:
+                        logger.error(
+                            f"ECMWF aggregate for {dataset_name}/{var} failed: "
+                            f"{type(exc).__name__}: {exc}"
+                        )
+                        failed.append(((dataset_name, var), exc))
+                        continue
+
+                succeeded.append((dataset_name, var))
 
         if failed:
             failed_summary = ", ".join(
