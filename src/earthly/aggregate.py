@@ -48,8 +48,51 @@ from pydantic import BaseModel, ConfigDict
 
 if TYPE_CHECKING:
     from earthly.ecmwf import Variable
+    from pyramids.netcdf import NetCDF
 
 __all__ = ["AggregationConfig", "OperationLiteral", "aggregate_netcdf"]
+
+
+_TIME_VAR_CANDIDATES: tuple[str, ...] = ("valid_time", "time")
+
+
+def _read_time_axis(nc: NetCDF) -> pd.DatetimeIndex:
+    """Return a NetCDF's time coordinate as a :class:`pandas.DatetimeIndex`.
+
+    Tries each name in :data:`_TIME_VAR_CANDIDATES` in order
+    (`"valid_time"` first to cover CDS-Beta NetCDFs, then `"time"`
+    for legacy CDS). The first candidate that resolves to a non-empty
+    list of date strings via
+    :meth:`pyramids.netcdf.NetCDF.get_time_variable` is returned as a
+    :class:`pandas.DatetimeIndex`.
+
+    pyramids' :meth:`get_time_variable` already parses the CF
+    `"<unit> since <epoch>"` units string for us through
+    `create_time_conversion_func`; this helper just chooses the
+    candidate name and converts the formatted strings back to
+    timestamps with :func:`pandas.to_datetime`.
+
+    Args:
+        nc: An open :class:`pyramids.netcdf.NetCDF` instance pointed
+            at the source file.
+
+    Returns:
+        pd.DatetimeIndex: One entry per timestep in the NetCDF's
+        time dimension.
+
+    Raises:
+        KeyError: If none of :data:`_TIME_VAR_CANDIDATES` is present
+            on the NetCDF as a parseable time variable.
+    """
+    for name in _TIME_VAR_CANDIDATES:
+        time_strs = nc.get_time_variable(var_name=name)
+        if time_strs:
+            return pd.to_datetime(time_strs)
+    raise KeyError(
+        f"NetCDF has no recognised time variable; tried "
+        f"{list(_TIME_VAR_CANDIDATES)!r}. Re-check the file's time "
+        "dimension name and CF `units` attribute."
+    )
 
 
 OperationLiteral = Literal["mean", "sum", "min", "max", "std", "auto"]
