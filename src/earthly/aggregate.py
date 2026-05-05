@@ -237,6 +237,108 @@ def _window_groups(
 OperationLiteral = Literal["mean", "sum", "min", "max", "std", "auto"]
 
 
+_REDUCERS_SKIPNA: dict[str, np.ufunc | callable] = {
+    "mean": np.nanmean,
+    "sum": np.nansum,
+    "min": np.nanmin,
+    "max": np.nanmax,
+    "std": np.nanstd,
+}
+
+_REDUCERS_STRICT: dict[str, np.ufunc | callable] = {
+    "mean": np.mean,
+    "sum": np.sum,
+    "min": np.min,
+    "max": np.max,
+    "std": np.std,
+}
+
+
+def _reduce(
+    arr: np.ndarray,
+    op: str,
+    skipna: bool,
+    min_count: int | None,
+) -> np.ndarray:
+    """Reduce a `(time, lat, lon)` slice along axis 0 with the named op.
+
+    Dispatches `op` to the matching numpy reducer (`np.nanmean` etc.
+    when `skipna=True`, plain `np.mean` etc. when `skipna=False`),
+    then masks pixels whose non-NaN sample count falls below
+    `min_count`.
+
+    `op="auto"` is **not** accepted here — `aggregate_netcdf` resolves
+    `auto` to a concrete operator before calling this helper. Passing
+    `"auto"` raises `KeyError` to surface the mistake at the call site.
+
+    Args:
+        arr: Array to reduce. The first axis is collapsed; the
+            remaining axes pass through unchanged. Typically
+            `(N_in_window, lat, lon)`.
+        op: One of `"mean" / "sum" / "min" / "max" / "std"`. Resolved
+            to a numpy reducer via the dispatch table.
+        skipna: When `True`, the NaN-aware reducer is used
+            (`np.nanmean` etc.); when `False`, the strict variant is
+            used and any NaN in a window propagates to the output.
+        min_count: When set, pixels with fewer than this many non-NaN
+            samples along axis 0 emit NaN regardless of the reduction
+            result. `None` disables the floor.
+
+    Returns:
+        np.ndarray: Reduced array with axis 0 collapsed.
+
+    Raises:
+        KeyError: If `op` is not in the dispatch table (in particular,
+            `"auto"` is rejected — resolve it to a concrete op first).
+
+    Examples:
+        - NaN-aware mean over the time axis:
+
+            ```python
+            >>> import numpy as np
+            >>> from earthly.aggregate import _reduce
+            >>> arr = np.array([[[1.0, 2.0]], [[3.0, np.nan]], [[5.0, 6.0]]])
+            >>> _reduce(arr, op="mean", skipna=True, min_count=None).tolist()
+            [[3.0, 4.0]]
+
+            ```
+        - Strict mean propagates NaN when `skipna=False`:
+
+            ```python
+            >>> import numpy as np
+            >>> from earthly.aggregate import _reduce
+            >>> arr = np.array([[[1.0, np.nan]], [[3.0, 4.0]]])
+            >>> result = _reduce(arr, op="mean", skipna=False, min_count=None)
+            >>> bool(np.isnan(result[0, 1])), float(result[0, 0])
+            (True, 2.0)
+
+            ```
+        - `min_count` masks under-sampled pixels:
+
+            ```python
+            >>> import numpy as np
+            >>> from earthly.aggregate import _reduce
+            >>> arr = np.array([[[1.0, np.nan]], [[2.0, np.nan]]])
+            >>> result = _reduce(arr, op="mean", skipna=True, min_count=2)
+            >>> float(result[0, 0]), bool(np.isnan(result[0, 1]))
+            (1.5, True)
+
+            ```
+    """
+    table = _REDUCERS_SKIPNA if skipna else _REDUCERS_STRICT
+    if op not in table:
+        raise KeyError(
+            f"unknown reduction op {op!r}; expected one of "
+            f"{sorted(table)!r} (resolve 'auto' before calling _reduce)"
+        )
+    reducer = table[op]
+    result = reducer(arr, axis=0)
+    if min_count is not None:
+        non_nan_count = np.count_nonzero(~np.isnan(arr), axis=0)
+        result = np.where(non_nan_count >= min_count, result, np.nan)
+    return result
+
+
 class AggregationConfig(BaseModel):
     """Frozen request shape consumed by :func:`aggregate_netcdf`.
 
