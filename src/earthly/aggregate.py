@@ -339,6 +339,70 @@ def _reduce(
     return result
 
 
+def _resolve_op(op: OperationLiteral, var_info: Variable) -> str:
+    """Turn `op="auto"` into a concrete reduction based on the catalog row.
+
+    `Variable.is_flux` (in `earthly.ecmwf.catalog`) is `True` for CDS
+    flux variables — precipitation, evaporation, runoff, radiation
+    accumulations — and `False` for state variables (temperature,
+    pressure, humidity, ...).
+
+    Resolution rules:
+
+    * `op="auto"` + `var_info.is_flux=True` → `"sum"`
+    * `op="auto"` + `var_info.is_flux=False` → `"mean"`
+    * any explicit op → returned unchanged
+
+    This **replaces** the legacy `mean × days_later` scaling that
+    `examples/post_process_ecmwf_netcdf.py:226` (pre-rewrite) used.
+    The two are equivalent only when every slot inside a window has
+    a sample; for partial windows, true `sum` is correct and
+    `mean × N` overcounts. `_reduce(..., op="sum", ...)` gives the
+    correct per-window total in both cases.
+
+    Args:
+        op: The :attr:`AggregationConfig.op` value, possibly `"auto"`.
+        var_info: Catalog entry for the variable being aggregated.
+            Only `is_flux` is consulted; the rest is ignored.
+
+    Returns:
+        str: The concrete operator name (`"mean"`, `"sum"`, `"min"`,
+        `"max"`, or `"std"`) ready for :func:`_reduce`.
+
+    Examples:
+        - State variable with `is_flux=False` resolves to `"mean"`:
+
+            ```python
+            >>> from types import SimpleNamespace
+            >>> from earthly.aggregate import _resolve_op
+            >>> _resolve_op("auto", SimpleNamespace(is_flux=False))
+            'mean'
+
+            ```
+        - Flux variable with `is_flux=True` resolves to `"sum"`:
+
+            ```python
+            >>> from types import SimpleNamespace
+            >>> from earthly.aggregate import _resolve_op
+            >>> _resolve_op("auto", SimpleNamespace(is_flux=True))
+            'sum'
+
+            ```
+        - Explicit ops pass through verbatim:
+
+            ```python
+            >>> from types import SimpleNamespace
+            >>> from earthly.aggregate import _resolve_op
+            >>> _resolve_op("max", SimpleNamespace(is_flux=True))
+            'max'
+
+            ```
+    """
+    if op != "auto":
+        return op
+    return "sum" if var_info.is_flux else "mean"
+
+
 class AggregationConfig(BaseModel):
     """Frozen request shape consumed by :func:`aggregate_netcdf`.
 
