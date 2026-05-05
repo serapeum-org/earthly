@@ -7,6 +7,10 @@ except ImportError:  # pragma: no cover
     from importlib_metadata import PackageNotFoundError  # type: ignore
     from importlib_metadata import version
 
+from earthly.aggregate import AggregationConfig, aggregate_netcdf
+
+__all__ = ["AggregationConfig", "aggregate_netcdf"]
+
 
 try:
     __version__ = version(__name__)
