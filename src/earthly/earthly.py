@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from earthly.aggregate import AggregationConfig
     from earthly.base import AbstractDataSource
 
 
@@ -254,7 +255,13 @@ class Earthly:
             fmt=fmt,
         )
 
-    def download(self, progress_bar: bool = True, *args, **kwargs):
+    def download(
+        self,
+        progress_bar: bool = True,
+        aggregate: AggregationConfig | None = None,
+        *args,
+        **kwargs,
+    ):
         """Delegate the download to the bound backend.
 
         Forwards every argument verbatim to `self.datasource.download`.
@@ -266,6 +273,11 @@ class Earthly:
         Args:
             progress_bar: Whether the backend should print a per-date
                 progress bar during the loop. Defaults to `True`.
+            aggregate: Optional :class:`earthly.aggregate.AggregationConfig`.
+                Forwarded to backends that support it (currently
+                ECMWF). Other backends accept `**kwargs` and ignore
+                an unused `aggregate` payload, so passing it against
+                a non-ECMWF backend is a no-op rather than an error.
             *args: Forwarded positionally to `backend.download`.
             **kwargs: Forwarded as keywords to `backend.download`.
 
@@ -329,4 +341,6 @@ class Earthly:
             :meth:`earthly.ecmwf.ECMWF.download`: ECMWF/CDS
                 backend implementation.
         """
+        if aggregate is not None:
+            kwargs["aggregate"] = aggregate
         self.datasource.download(progress_bar=progress_bar, *args, **kwargs)

@@ -114,7 +114,7 @@ class S3(AbstractDataSource):
         elif temporal_resolution == "monthly":
             self.dates = pd.date_range(self.start, self.end, freq="MS")
 
-    def download(self, progress_bar: bool = True):
+    def download(self, progress_bar: bool = True, **kwargs):
         """Download wrapper over all given variables.
 
         ECMWF method downloads ECMWF daily data for a given variable, temporal_resolution
