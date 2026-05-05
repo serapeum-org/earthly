@@ -20,7 +20,11 @@ also re-exported from `earthly` so callers can write
 `from earthly import AggregationConfig, aggregate_netcdf`.
 
 Examples:
-    - Standalone aggregation against a NetCDF on disk:
+    - Standalone aggregation: read a CDS NetCDF, write per-month
+      GeoTIFFs to disk. `Catalog` is only consulted to resolve the
+      `(dataset, code)` pair into the `Variable` row that drives
+      `is_flux` and the output filename — no `ECMWF` instance is
+      built:
 
         ```python
         >>> from earthly import AggregationConfig, aggregate_netcdf  # doctest: +SKIP
@@ -32,6 +36,48 @@ Examples:
         ...     "out/2m_temperature_reanalysis-era5-single-levels.nc",
         ...     spec,
         ...     AggregationConfig(freq="1MS", op="mean", out_dir="out/monthly"),
+        ... )
+        >>> for window_label, arr, target in results:  # doctest: +SKIP
+        ...     print(window_label, arr.shape, target.name)
+
+        ```
+    - In-memory aggregation: pass `out_dir=None` to skip disk writes
+      and inspect the per-window arrays directly:
+
+        ```python
+        >>> from earthly import AggregationConfig, aggregate_netcdf  # doctest: +SKIP
+        >>> from earthly.ecmwf import Catalog  # doctest: +SKIP
+        >>> spec = Catalog().get_variable(  # doctest: +SKIP
+        ...     "reanalysis-era5-single-levels", "2m-temperature"
+        ... )
+        >>> results = aggregate_netcdf(  # doctest: +SKIP
+        ...     "out/2m_temperature_reanalysis-era5-single-levels.nc",
+        ...     spec,
+        ...     AggregationConfig(freq="1D", op="auto"),
+        ... )
+        >>> first_label, first_array, first_path = results[0]  # doctest: +SKIP
+        >>> first_path is None  # doctest: +SKIP
+        True
+
+        ```
+    - Bundled with download via the ECMWF backend (single call
+      retrieves and aggregates each variable):
+
+        ```python
+        >>> from earthly import AggregationConfig  # doctest: +SKIP
+        >>> from earthly.earthly import Earthly  # doctest: +SKIP
+        >>> earthly = Earthly(  # doctest: +SKIP
+        ...     data_source="ecmwf",
+        ...     temporal_resolution="daily",
+        ...     start="2022-01-01",
+        ...     end="2022-01-31",
+        ...     variables={"reanalysis-era5-single-levels": ["2m-temperature"]},
+        ...     lat_lim=[4.0, 5.0],
+        ...     lon_lim=[-75.0, -74.0],
+        ...     path="out/era5",
+        ... )
+        >>> earthly.download(  # doctest: +SKIP
+        ...     aggregate=AggregationConfig(freq="1MS", op="mean"),
         ... )
 
         ```
