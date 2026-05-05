@@ -116,6 +116,7 @@ nav:
     - Amazon S3: reference/s3.md
     - ECMWF: reference/ecmwf.md
     - ECMWF · Catalog & probes: reference/ecmwf/catalog.md
+    - Aggregation: reference/aggregation.md
     - GEE: reference/gee.md
   - About:
     - Change Log: change-log.md
