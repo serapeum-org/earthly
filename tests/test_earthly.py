@@ -5,12 +5,14 @@ import os
 import shutil
 from collections.abc import Mapping
 from typing import List
+from unittest.mock import MagicMock
 
 import cdsapi
 import numpy as np
 import pandas as pd
 import pytest
 
+from earthly.aggregate import AggregationConfig
 from earthly.chirps import CHIRPS
 from earthly.earthly import Earthly
 from earthly.ecmwf import ECMWF
@@ -287,3 +289,91 @@ class TestECMWFBackend:
             ["2m_temperature"],
             ["total_precipitation"],
         ], f"variables: {variables!r}"
+
+
+@pytest.mark.unit
+class TestEarthlyDownloadAggregate:
+    """Tests for the M3 `aggregate` pass-through on `Earthly.download`."""
+
+    @pytest.fixture
+    def stub_facade(self, tmp_path, monkeypatch):
+        """Build an `Earthly` whose `.datasource` is a MagicMock.
+
+        The facade is instantiated normally (with cdsapi.Client
+        mocked) so its constructor logic runs unchanged; then
+        `.datasource` is replaced with a MagicMock so we can inspect
+        what `download()` forwards into the backend without
+        exercising the real `ECMWF.download` body.
+
+        Returns:
+            Earthly: Facade ready for `download(...)` calls; its
+            `datasource.download` is a `MagicMock` exposing
+            `call_args`.
+        """
+        monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
+
+        e2o = Earthly(
+            data_source="ecmwf",
+            temporal_resolution="daily",
+            start="2022-01-01",
+            end="2022-01-01",
+            variables={"reanalysis-era5-single-levels": ["2m-temperature"]},
+            lat_lim=[4.0, 5.0],
+            lon_lim=[-75.0, -74.0],
+            path=str(tmp_path),
+        )
+        e2o.datasource = MagicMock(name="stub_backend")
+        return e2o
+
+    def test_aggregate_none_does_not_reach_backend(self, stub_facade):
+        """`aggregate=None` (default) leaves the backend kwargs untouched.
+
+        Test scenario:
+            Calling `download()` without `aggregate=` must not
+            inject an `aggregate` kwarg into the backend. Existing
+            backends that don't know about aggregation thus see no
+            change in their call signature.
+        """
+        stub_facade.download(progress_bar=False)
+        _, kwargs = stub_facade.datasource.download.call_args
+        assert "aggregate" not in kwargs, (
+            f"`aggregate` should not appear in backend kwargs when None; "
+            f"got kwargs={kwargs!r}"
+        )
+
+    def test_aggregate_config_forwarded_to_backend(self, stub_facade):
+        """`aggregate=cfg` reaches the backend's `download` as a kwarg.
+
+        Test scenario:
+            With a non-None `AggregationConfig`, the facade must
+            forward it to `backend.download(..., aggregate=cfg)` so
+            ECMWF's wired-up handler picks it up.
+        """
+        cfg = AggregationConfig(freq="1MS", op="sum")
+        stub_facade.download(progress_bar=False, aggregate=cfg)
+        _, kwargs = stub_facade.datasource.download.call_args
+        assert kwargs.get("aggregate") is cfg, (
+            f"Expected backend to receive the same config instance; "
+            f"got kwargs={kwargs!r}"
+        )
+
+    def test_progress_bar_still_forwarded_alongside_aggregate(self, stub_facade):
+        """Adding `aggregate` does not displace `progress_bar` in the kwargs."""
+        cfg = AggregationConfig(freq="1D")
+        stub_facade.download(progress_bar=False, aggregate=cfg)
+        _, kwargs = stub_facade.datasource.download.call_args
+        assert kwargs.get("progress_bar") is False, (
+            f"`progress_bar` should still be forwarded; got kwargs={kwargs!r}"
+        )
+        assert kwargs.get("aggregate") is cfg, (
+            f"`aggregate` should be forwarded alongside; got kwargs={kwargs!r}"
+        )
+
+    def test_extra_kwargs_pass_through_unchanged(self, stub_facade):
+        """Backend-specific kwargs (e.g. CHIRPS `cores=`) still pass through."""
+        stub_facade.download(progress_bar=False, cores=4)
+        _, kwargs = stub_facade.datasource.download.call_args
+        assert kwargs.get("cores") == 4, (
+            f"Passed-through kwargs should reach the backend verbatim; "
+            f"got kwargs={kwargs!r}"
+        )
