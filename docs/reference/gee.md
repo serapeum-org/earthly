@@ -6,6 +6,6 @@ Google Earth Engine data source subpackage.
 
 ::: earthly.gee.dataset
 
-::: earthly.gee.catalog
+::: earthly.gee.data
 
 ::: earthly.gee.features
