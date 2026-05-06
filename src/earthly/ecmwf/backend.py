@@ -31,7 +31,7 @@ ERA5_GRID_DEGREES: float = 0.125
 # users can supply alternative values for any stripped key.
 # `product_type` is catalog-driven (see `Variable.product_type`) and
 # no longer appears in any strip list.
-REQUEST_KIND_STRIPS: dict[str, tuple[str, ...]] = {
+_REQUEST_KIND_STRIPS: dict[str, tuple[str, ...]] = {
     "form": (),
     # ORAS5 (and any monthly ocean dataset that mirrors NEMO's
     # request shape): no `day` / `time` selectors, no `area`
@@ -750,7 +750,7 @@ class ECMWF(AbstractDataSource):
         # forbids (e.g. ORAS5 rejects `day`/`time`/`area`).
         # Done after the extras merge so a user can re-introduce a
         # stripped key by setting it explicitly in extras.
-        for stripped in REQUEST_KIND_STRIPS.get(var_info.request_kind, ()):
+        for stripped in _REQUEST_KIND_STRIPS.get(var_info.request_kind, ()):
             if stripped not in var_info.extras:
                 request.pop(stripped, None)
 

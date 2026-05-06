@@ -52,7 +52,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_valida
 
 from earthly.base import AbstractCatalog
 
-LEGACY_MARS_KEYS: frozenset[str] = frozenset(
+_LEGACY_MARS_KEYS: frozenset[str] = frozenset(
     {"number_para", "download type", "var_name"}
 )
 
@@ -192,7 +192,7 @@ class Variable(BaseModel):
         """
         if not isinstance(value, dict):
             return value
-        offending = LEGACY_MARS_KEYS & set(value)
+        offending = _LEGACY_MARS_KEYS & set(value)
         if offending:
             raise ValueError(
                 f"extras carries legacy MARS keys {sorted(offending)!r}; "

@@ -156,7 +156,7 @@ enforce that; it's the YAML author's responsibility.
 ##### `request_kind`
 
 *Optional.* String tag, one of `"form"` (default), `"oceanic_monthly"`,
-or `"carra_means"`. Drives the `REQUEST_KIND_STRIPS` table in
+or `"carra_means"`. Drives the `_REQUEST_KIND_STRIPS` table in
 `src/earthly/ecmwf/backend.py` — at request-build time, the named
 template-default fields are stripped from the request because the
 dataset rejects them.
@@ -169,7 +169,7 @@ dataset rejects them.
   pre-aggregated datasets that don't accept a `time` field because
   the aggregation already covers the relevant window.
 
-To add a new request-kind category, extend `REQUEST_KIND_STRIPS` in
+To add a new request-kind category, extend `_REQUEST_KIND_STRIPS` in
 code with the new key and the field tuple to strip, then use the new
 key in YAML.
 
