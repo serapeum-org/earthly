@@ -332,3 +332,39 @@ class TestEarthlyDownloadAggregate:
             f"Passed-through kwargs should reach the backend verbatim; "
             f"got kwargs={kwargs!r}"
         )
+
+
+@pytest.mark.unit
+class TestTopLevelReExports:
+    """Pin the top-level `earthly` package surface (L2)."""
+
+    def test_earthly_facade_importable_from_package_root(self):
+        """`from earthly import Earthly` resolves to the facade class."""
+        import earthly
+
+        assert earthly.Earthly is Earthly, (
+            f"Top-level re-export should be the facade class; got "
+            f"{earthly.Earthly!r}"
+        )
+
+    def test_aggregate_symbols_importable_from_package_root(self):
+        """`AggregationConfig` and `aggregate_netcdf` resolve at top level."""
+        import earthly
+
+        assert earthly.AggregationConfig is AggregationConfig, (
+            f"Top-level AggregationConfig drift: {earthly.AggregationConfig!r}"
+        )
+        assert callable(earthly.aggregate_netcdf), (
+            f"Top-level aggregate_netcdf must be callable; got "
+            f"{earthly.aggregate_netcdf!r}"
+        )
+
+    def test_all_lists_only_sdk_free_symbols(self):
+        """`__all__` excludes the per-backend classes (each needs an extra)."""
+        import earthly
+
+        assert sorted(earthly.__all__) == [
+            "AggregationConfig",
+            "Earthly",
+            "aggregate_netcdf",
+        ], f"Unexpected top-level __all__: {earthly.__all__!r}"
