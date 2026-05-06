@@ -207,6 +207,16 @@ class Variable(BaseModel):
         Wraps :class:`pydantic.ValidationError` so the message names
         the catalog row that failed.
 
+        Implementation note (L4 in `planning/cdsapi/backend-review.md`):
+        The proposal was to collapse this method into a
+        `model_validator(mode='wrap')` on the model itself. Empirically
+        that does not pay off in pydantic v2: any `ValueError` raised
+        from inside a wrap validator gets re-wrapped into
+        :class:`pydantic.ValidationError` at the `model_validate`
+        boundary, so the row-naming exception type is lost. Keeping
+        the rewrap in this classmethod is the cleanest way to surface
+        a `ValueError` whose message names the offending YAML row.
+
         Args:
             code: Catalog key (e.g. `"2m-temperature"`) — used only in the
                 error message so the user can see which row is broken.
