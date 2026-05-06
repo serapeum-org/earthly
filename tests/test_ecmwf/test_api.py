@@ -619,3 +619,86 @@ class TestBuildRequest:
             f"_build_request should be idempotent; got first={first!r} "
             f"second={second!r}"
         )
+
+    def test_daily_branch_carries_day_and_four_time_slots(
+        self, ecmwf_stub, single_level_var_info
+    ):
+        """Daily resolution adds `day` and four 6-hourly `time` slots."""
+        ecmwf_stub.temporal_resolution = "daily"
+        request = ecmwf_stub._build_request(single_level_var_info)
+        assert "day" in request, f"daily branch should set `day`; got {request}"
+        assert request["time"] == ["00:00", "06:00", "12:00", "18:00"], (
+            f"daily branch should pin four 6-hourly slots; got {request['time']!r}"
+        )
+
+    def test_monthly_branch_omits_day_and_pins_single_time(
+        self, ecmwf_stub, single_level_var_info
+    ):
+        """Monthly resolution omits `day` and pins `time=['00:00']`."""
+        ecmwf_stub.temporal_resolution = "monthly"
+        request = ecmwf_stub._build_request(single_level_var_info)
+        assert "day" not in request, (
+            f"monthly branch must omit `day` (CDS rejects it); got {request}"
+        )
+        assert request["time"] == ["00:00"], (
+            f"monthly branch should pin single 00:00 slot; got {request['time']!r}"
+        )
+
+    def test_pressure_level_forwarded_to_request(
+        self, ecmwf_stub, pressure_level_var_info
+    ):
+        """`var_info.cds_pressure_level` becomes `pressure_level` in the request."""
+        request = ecmwf_stub._build_request(pressure_level_var_info)
+        assert request["pressure_level"] == ["1000"], (
+            f"`cds_pressure_level=['1000']` should forward to "
+            f"`pressure_level`; got {request.get('pressure_level')!r}"
+        )
+
+    def test_extras_override_template_defaults(self, ecmwf_stub):
+        """Per-row `extras` win over the template-default `product_type`."""
+        spec = Variable(
+            cds_dataset="reanalysis-era5-single-levels",
+            cds_variable="2m_temperature",
+            nc_variable="t2m",
+            units="K",
+            product_type=["reanalysis"],
+            extras={"product_type": ["ensemble_mean"]},
+        )
+        request = ecmwf_stub._build_request(spec)
+        assert request["product_type"] == ["ensemble_mean"], (
+            f"extras `product_type` should win over template default; "
+            f"got {request['product_type']!r}"
+        )
+
+    def test_oceanic_monthly_strips_day_time_area(self, ecmwf_stub):
+        """`request_kind=oceanic_monthly` drops the day/time/area template defaults."""
+        spec = Variable(
+            cds_dataset="reanalysis-oras5",
+            cds_variable="sea_ice_thickness",
+            nc_variable="iicethic",
+            units="m",
+            product_type=["consolidated"],
+            request_kind="oceanic_monthly",
+        )
+        request = ecmwf_stub._build_request(spec)
+        for stripped in ("day", "time", "area"):
+            assert stripped not in request, (
+                f"`oceanic_monthly` should strip {stripped!r}; got {request}"
+            )
+
+    def test_extras_re_introduce_a_stripped_key(self, ecmwf_stub):
+        """An explicit `extras[area]` survives the request_kind strip."""
+        spec = Variable(
+            cds_dataset="reanalysis-oras5",
+            cds_variable="sea_surface_temperature",
+            nc_variable="sosstsst",
+            units="C",
+            product_type=["consolidated"],
+            request_kind="oceanic_monthly",
+            extras={"area": [60, -10, 50, 5]},
+        )
+        request = ecmwf_stub._build_request(spec)
+        assert request["area"] == [60, -10, 50, 5], (
+            f"explicit `extras[area]` should re-introduce the stripped key; "
+            f"got {request.get('area')!r}"
+        )
