@@ -66,12 +66,7 @@ class TestAggregationConfig:
     """Tests for :class:`AggregationConfig` (H1 surface)."""
 
     def test_freq_is_required(self):
-        """`freq` has no default — omitting it raises ValidationError.
-
-        Test scenario:
-            `AggregationConfig()` with no arguments must fail because
-            `freq` carries no default value.
-        """
+        """`freq` has no default — omitting it raises ValidationError."""
         with pytest.raises(ValidationError) as excinfo:
             AggregationConfig()
         assert "freq" in str(excinfo.value), (
@@ -140,10 +135,6 @@ class TestAggregationConfig:
 
         Args:
             op_value: One of the valid op literals.
-
-        Test scenario:
-            All six operators (`mean`, `sum`, `min`, `max`, `std`,
-            `auto`) must round-trip through pydantic validation.
         """
         cfg = AggregationConfig(freq="1D", op=op_value)
         assert cfg.op == op_value, f"Expected op {op_value!r}, got {cfg.op!r}"
@@ -190,13 +181,7 @@ class TestReadTimeAxis:
     """Tests for the private `_read_time_axis` helper (H2)."""
 
     def test_valid_time_takes_priority(self):
-        """When both `valid_time` and `time` are present, `valid_time` wins.
-
-        Test scenario:
-            CDS-Beta uses `valid_time`; the helper must prefer it
-            over the legacy `time` to avoid format-string round-trip
-            precision loss.
-        """
+        """When both `valid_time` and `time` are present, `valid_time` wins."""
         nc = _make_nc(
             time_strs_by_var={
                 "valid_time": ["2022-06-15"],
@@ -209,12 +194,7 @@ class TestReadTimeAxis:
         )
 
     def test_falls_back_to_time_when_valid_time_absent(self):
-        """`time` is used when `valid_time` returns None.
-
-        Test scenario:
-            Legacy CDS NetCDFs only carry `time`; the helper must
-            fall through to the second candidate.
-        """
+        """`time` is used when `valid_time` returns None."""
         nc = _make_nc(
             time_strs_by_var={"valid_time": None, "time": ["2020-01-01"]}
         )
@@ -262,12 +242,7 @@ class TestReadTimeAxis:
             )
 
     def test_get_time_variable_called_with_var_name_kwarg(self):
-        """The helper passes each candidate as a keyword argument.
-
-        Test scenario:
-            pyramids' `get_time_variable(var_name=...)` is keyword-only
-            in spirit; the helper must respect that.
-        """
+        """The helper passes each candidate as a keyword argument."""
         nc = _make_nc(time_strs_by_var={"time": ["2022-01-01"]})
         _read_time_axis(nc)
         call_kwargs = [call.kwargs for call in nc.get_time_variable.call_args_list]
@@ -326,12 +301,7 @@ class TestResolvePressureLevel:
     """Tests for the four-cell decision matrix in `_resolve_pressure_level`."""
 
     def test_3d_no_level_returns_input_unchanged(self):
-        """3-D NetCDF + no `level` → pass-through (same instance).
-
-        Test scenario:
-            The cleanest case: nothing to do, return the input
-            untouched and never call `sel`.
-        """
+        """3-D NetCDF + no `level` → pass-through (same instance)."""
         nc = _make_nc(dimension_names=["time", "lat", "lon"])
         result = _resolve_pressure_level(nc, level=None)
         assert result is nc, "Expected input nc returned unchanged"
@@ -404,13 +374,7 @@ class TestWindowGroups:
     """Tests for the private `_window_groups` helper (H3)."""
 
     def test_daily_grouping_six_hourly_input_yields_one_window(self):
-        """Four 6-hourly slots in one day collapse to one daily window.
-
-        Test scenario:
-            CDS daily NetCDFs typically carry four sub-daily samples;
-            grouping by `"1D"` must produce one window covering all
-            four.
-        """
+        """Four 6-hourly slots in one day collapse to one daily window."""
         idx = pd.date_range("2022-01-01", periods=4, freq="6h")
         windows = list(_window_groups(idx, "1D"))
         assert len(windows) == 1, f"Expected 1 daily window, got {len(windows)}"
@@ -423,11 +387,7 @@ class TestWindowGroups:
         )
 
     def test_daily_grouping_two_days_yields_two_windows(self):
-        """Eight 6-hourly slots over two days produce two daily windows.
-
-        Test scenario:
-            Cross-day boundary handling: 8 slots / 4-per-day = 2 windows.
-        """
+        """Eight 6-hourly slots over two days produce two daily windows."""
         idx = pd.date_range("2022-01-01", periods=8, freq="6h")
         labels = [label for label, _ in _window_groups(idx, "1D")]
         assert labels == [pd.Timestamp("2022-01-01"), pd.Timestamp("2022-01-02")], (
@@ -456,12 +416,7 @@ class TestWindowGroups:
         assert mask.sum() == 31, f"Expected 31 samples, got {mask.sum()}"
 
     def test_monthly_ms_two_months_yields_two_windows(self):
-        """A 32-day range across Jan/Feb yields two month-start windows.
-
-        Test scenario:
-            32 daily samples from Jan 1 land at Jan 1-31 (=> Jan
-            window) plus Feb 1 (=> Feb window).
-        """
+        """A 32-day range across Jan/Feb yields two month-start windows."""
         idx = pd.date_range("2022-01-01", periods=32, freq="D")
         labels = [label for label, _ in _window_groups(idx, "1MS")]
         assert labels == [pd.Timestamp("2022-01-01"), pd.Timestamp("2022-02-01")], (
@@ -469,14 +424,7 @@ class TestWindowGroups:
         )
 
     def test_seasonal_grouping_qs_dec_yields_three_aligned_seasons(self):
-        """`QS-DEC` aligns seasons on Dec/Mar/Jun/Sep starts.
-
-        Test scenario:
-            Nine monthly samples from Mar→Nov fall into three full
-            QS-DEC seasons: MAM (Mar-May), JJA (Jun-Aug), SON
-            (Sep-Nov). Excluding Dec/Jan/Feb avoids the partial DJF
-            window the alias would otherwise produce.
-        """
+        """`QS-DEC` aligns seasons on Dec/Mar/Jun/Sep starts."""
         idx = pd.date_range("2022-03-01", periods=9, freq="MS")
         labels = [label for label, _ in _window_groups(idx, "QS-DEC")]
         assert labels == [
@@ -541,12 +489,7 @@ class TestWindowGroups:
         assert mask.tolist() == [True], f"Expected [True], got {mask.tolist()}"
 
     def test_invalid_freq_raises(self):
-        """An unparseable `freq` string surfaces a pandas error.
-
-        Test scenario:
-            pandas owns the freq grammar; bad values should propagate
-            its `ValueError` rather than be silently swallowed.
-        """
+        """An unparseable `freq` string surfaces a pandas error."""
         idx = pd.date_range("2022-01-01", periods=4, freq="6h")
         with pytest.raises(ValueError):
             list(_window_groups(idx, "not-a-real-freq"))
@@ -587,10 +530,6 @@ class TestReduce:
             cube: Class fixture providing a `(4, 2, 2)` test array.
             op: Reduction operator under test.
             expected_pixel_00: Known result at pixel `(0, 0)`.
-
-        Test scenario:
-            Confirms the dispatch table maps each op name to the
-            matching numpy reducer.
         """
         result = _reduce(cube, op=op, skipna=True, min_count=None)
         assert result.shape == (2, 2), f"Expected (2, 2), got {result.shape}"
@@ -606,11 +545,7 @@ class TestReduce:
         )
 
     def test_skipna_true_excludes_nan_from_mean(self):
-        """NaN-aware mean ignores NaN samples in the window.
-
-        Test scenario:
-            `[1, 2, NaN, 3]` with `skipna=True` should average to 2.0.
-        """
+        """NaN-aware mean ignores NaN samples in the window."""
         arr = np.array([[[1.0]], [[2.0]], [[np.nan]], [[3.0]]])
         result = _reduce(arr, op="mean", skipna=True, min_count=None)
         assert result[0, 0] == pytest.approx(2.0), (
@@ -618,12 +553,7 @@ class TestReduce:
         )
 
     def test_skipna_false_propagates_nan_to_output(self):
-        """Strict mean propagates any NaN to the result.
-
-        Test scenario:
-            With `skipna=False`, plain `np.mean` is used; one NaN in
-            the window forces the output to NaN.
-        """
+        """Strict mean propagates any NaN to the result."""
         arr = np.array([[[1.0, 2.0]], [[np.nan, 3.0]]])
         result = _reduce(arr, op="mean", skipna=False, min_count=None)
         assert np.isnan(result[0, 0]), (
@@ -648,13 +578,7 @@ class TestReduce:
         )
 
     def test_min_count_masks_under_sampled_pixel(self):
-        """Pixels with fewer non-NaN samples than `min_count` emit NaN.
-
-        Test scenario:
-            A two-sample window where one pixel has 1 valid sample
-            and another has 2; with `min_count=2` only the
-            fully-sampled pixel survives.
-        """
+        """Pixels with fewer non-NaN samples than `min_count` emit NaN."""
         arr = np.array([[[1.0, 2.0]], [[np.nan, 3.0]]])
         result = _reduce(arr, op="mean", skipna=True, min_count=2)
         assert np.isnan(result[0, 0]), (
@@ -702,24 +626,12 @@ class TestResolveOp:
     """Tests for `_resolve_op` (M2 — `op="auto"` routing)."""
 
     def test_auto_with_flux_returns_sum(self):
-        """`op="auto"` + `is_flux=True` resolves to `"sum"`.
-
-        Test scenario:
-            Flux variables (precipitation, evaporation, ...) are CDS
-            per-timestep accumulations; aggregation must sum them
-            within a window.
-        """
+        """`op="auto"` + `is_flux=True` resolves to `"sum"`."""
         result = _resolve_op("auto", SimpleNamespace(is_flux=True))
         assert result == "sum", f"Expected 'sum', got {result!r}"
 
     def test_auto_with_state_returns_mean(self):
-        """`op="auto"` + `is_flux=False` resolves to `"mean"`.
-
-        Test scenario:
-            State variables (temperature, pressure, humidity) are
-            instantaneous samples; `mean` is the natural per-window
-            reduction.
-        """
+        """`op="auto"` + `is_flux=False` resolves to `"mean"`."""
         result = _resolve_op("auto", SimpleNamespace(is_flux=False))
         assert result == "mean", f"Expected 'mean', got {result!r}"
 
@@ -729,9 +641,6 @@ class TestResolveOp:
 
         Args:
             explicit_op: The op literal under test.
-
-        Test scenario:
-            `_resolve_op` must not override an explicit user choice.
         """
         result = _resolve_op(explicit_op, SimpleNamespace(is_flux=True))
         assert result == explicit_op, (
@@ -739,12 +648,7 @@ class TestResolveOp:
         )
 
     def test_explicit_op_does_not_consult_is_flux(self):
-        """Explicit ops do not read `var_info.is_flux`.
-
-        Test scenario:
-            Use a sentinel that raises if accessed; an explicit op
-            must finish without touching the attribute.
-        """
+        """Explicit ops do not read `var_info.is_flux`."""
 
         class TrackedVar:
             """Var stub that records access to `is_flux`."""
@@ -774,15 +678,7 @@ class TestAggregateNetcdf:
     """
 
     def test_missing_file_raises_at_pyramids_layer(self, tmp_path):
-        """A non-existent path surfaces an OS-level error from pyramids.
-
-        Test scenario:
-            `aggregate_netcdf` must propagate file-open failures
-            unmodified. The exact exception type depends on
-            pyramids/GDAL — we just assert *something* is raised
-            (i.e., the skeleton is gone and the function reaches the
-            real I/O layer).
-        """
+        """A non-existent path surfaces an OS-level error from pyramids."""
         missing = tmp_path / "definitely-not-here.nc"
         with pytest.raises(Exception):
             aggregate_netcdf(
@@ -922,13 +818,7 @@ class TestAggregateNetcdfRoundTrip:
     def test_daily_mean_collapses_to_one_slice_per_day(
         self, monkeypatch, tmp_path, state_var
     ):
-        """Eight 6-hourly slots → 2 daily slices, each = mean of 4.
-
-        Test scenario:
-            With `freq="1D"` on a synthetic 2-day cube, each output
-            slice's pixel value should equal the mean of the four
-            slot values that fell into that window.
-        """
+        """Eight 6-hourly slots → 2 daily slices, each = mean of 4."""
         cube = self._daily_six_hourly_array(n_days=2)
         nc = _FakeNetCDF(
             array=cube,
@@ -1080,12 +970,7 @@ class TestAggregateNetcdfRoundTrip:
         )
 
     def test_out_dir_none_skips_writes(self, monkeypatch, tmp_path, state_var):
-        """`out_dir=None` returns arrays in memory and writes no files.
-
-        Test scenario:
-            The third tuple element is `None` and no GeoTIFF write
-            calls reach pyramids.
-        """
+        """`out_dir=None` returns arrays in memory and writes no files."""
         cube = self._daily_six_hourly_array(n_days=1)
         nc = _FakeNetCDF(
             array=cube,
@@ -1184,13 +1069,7 @@ class TestAggregateNetcdfRoundTrip:
     def test_skipna_false_propagates_nan_through_body(
         self, monkeypatch, tmp_path, state_var
     ):
-        """`skipna=False` must propagate end-to-end through `aggregate_netcdf`.
-
-        Test scenario:
-            One NaN-tainted day + `skipna=False` → that day's mean
-            comes out NaN, while a clean day stays clean. Verifies
-            the body forwards `config.skipna` to `_reduce` faithfully.
-        """
+        """`skipna=False` must propagate end-to-end through `aggregate_netcdf`."""
         cube = self._daily_six_hourly_array(n_days=2)
         cube[1, 0, 0] = np.nan
         nc = _FakeNetCDF(
@@ -1219,14 +1098,7 @@ class TestAggregateNetcdfRoundTrip:
     def test_monthly_grouping_runs_end_to_end(
         self, monkeypatch, tmp_path, state_var
     ):
-        """A 32-day cube + `freq="1MS"` produces 2 monthly windows.
-
-        Test scenario:
-            Confirms the windowing/reduction loop runs for non-daily
-            frequencies. Pulls 32 daily samples spanning January
-            and February 1; the loop must emit a January window and
-            a February window with the correct labels.
-        """
+        """A 32-day cube + `freq="1MS"` produces 2 monthly windows."""
         n_days = 32
         cube = np.zeros((n_days, 2, 2), dtype=float)
         cube[:31, :, :] = 1.0  # January: 31 days of 1.0
@@ -1307,13 +1179,7 @@ class TestAggregateNetcdfRoundTrip:
     def test_geotransform_forwarded_to_geotiff_writer(
         self, monkeypatch, tmp_path, state_var
     ):
-        """`nc.geotransform` reaches `Dataset.create_from_array(geo=...)` verbatim.
-
-        Test scenario:
-            The 6-tuple from the source NetCDF must be forwarded to
-            every per-window GeoTIFF write so the output rasters
-            inherit the source projection / pixel layout.
-        """
+        """`nc.geotransform` reaches `Dataset.create_from_array(geo=...)` verbatim."""
         cube = self._daily_six_hourly_array(n_days=1)
         source_geo = (-75.0, 0.125, 0.0, 5.0, 0.0, -0.125)
         nc = _FakeNetCDF(

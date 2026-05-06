@@ -129,13 +129,7 @@ class TestECMWFBackend:
     """
 
     def test_ecmwf_is_registered_in_data_sources(self):
-        """`Earthly.DataSources` maps `"ecmwf"` to :class:`ECMWF`.
-
-        Test scenario:
-            The class-level `DataSources` dict must contain the key
-            `"ecmwf"` whose value is the `ECMWF` class itself
-            (not an instance).
-        """
+        """`Earthly.DataSources` maps `"ecmwf"` to :class:`ECMWF`."""
         assert "ecmwf" in Earthly.DataSources, (
             f"'ecmwf' missing from DataSources keys: " f"{sorted(Earthly.DataSources)}"
         )
@@ -145,13 +139,7 @@ class TestECMWFBackend:
         )
 
     def test_facade_accepts_ecmwf_data_source(self, tmp_path, monkeypatch):
-        """`Earthly(data_source="ecmwf", ...)` no longer raises.
-
-        Test scenario:
-            With cdsapi.Client mocked, constructing the facade with
-            `data_source="ecmwf"` must succeed and produce an
-            :class:`ECMWF` backend bound to `e2o.datasource`.
-        """
+        """`Earthly(data_source="ecmwf", ...)` no longer raises."""
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
         e2o = Earthly(
@@ -173,12 +161,7 @@ class TestECMWFBackend:
         )
 
     def test_unknown_data_source_still_raises(self, tmp_path):
-        """Unknown `data_source` values still raise `ValueError`.
-
-        Test scenario:
-            Adding ECMWF to the registry must not weaken the rejection
-            of unrecognised data-source names.
-        """
+        """Unknown `data_source` values still raise `ValueError`."""
         with pytest.raises(ValueError, match="not supported"):
             Earthly(
                 data_source="not-a-real-source",
@@ -191,15 +174,7 @@ class TestECMWFBackend:
             )
 
     def test_ecmwf_facade_propagates_constructor_arguments(self, tmp_path, monkeypatch):
-        """The facade threads its constructor args into ECMWF unchanged.
-
-        Test scenario:
-            `variables`, `lat_lim`/`lon_lim`, `temporal_resolution`
-            and `path` passed to `Earthly` must reach the
-            underlying :class:`ECMWF` backend, since downstream code
-            (e.g. :meth:`ECMWF._api`) reads them from `self.vars` /
-            `self.space` / `self.time` / `self.root_dir`.
-        """
+        """The facade threads its constructor args into ECMWF unchanged."""
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
         e2o = Earthly(
@@ -235,13 +210,6 @@ class TestECMWFBackend:
 
     def test_full_download_through_facade_routes_to_cdsapi(self, tmp_path, monkeypatch):
         """End-to-end: `Earthly(...).download()` reaches CDS.
-
-        Test scenario:
-            Verifies the full chain `Earthly.download →
-            ECMWF.download → download_dataset → api` wires up
-            correctly under the facade. Patches `cdsapi.Client` to
-            capture every retrieve call, runs a two-variable
-            download, and asserts:
 
             * Two cdsapi.Client.retrieve calls — one per variable
             * Each retrieve receives the right dataset name and
@@ -326,14 +294,7 @@ class TestEarthlyDownloadAggregate:
         return e2o
 
     def test_aggregate_none_does_not_reach_backend(self, stub_facade):
-        """`aggregate=None` (default) leaves the backend kwargs untouched.
-
-        Test scenario:
-            Calling `download()` without `aggregate=` must not
-            inject an `aggregate` kwarg into the backend. Existing
-            backends that don't know about aggregation thus see no
-            change in their call signature.
-        """
+        """`aggregate=None` (default) leaves the backend kwargs untouched."""
         stub_facade.download(progress_bar=False)
         _, kwargs = stub_facade.datasource.download.call_args
         assert "aggregate" not in kwargs, (
@@ -342,13 +303,7 @@ class TestEarthlyDownloadAggregate:
         )
 
     def test_aggregate_config_forwarded_to_backend(self, stub_facade):
-        """`aggregate=cfg` reaches the backend's `download` as a kwarg.
-
-        Test scenario:
-            With a non-None `AggregationConfig`, the facade must
-            forward it to `backend.download(..., aggregate=cfg)` so
-            ECMWF's wired-up handler picks it up.
-        """
+        """`aggregate=cfg` reaches the backend's `download` as a kwarg."""
         cfg = AggregationConfig(freq="1MS", op="sum")
         stub_facade.download(progress_bar=False, aggregate=cfg)
         _, kwargs = stub_facade.datasource.download.call_args

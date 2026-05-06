@@ -73,12 +73,7 @@ class TestDownloadAggregateIntegration:
     def test_aggregate_none_skips_aggregator(
         self, stubbed_download, aggregate_recorder
     ):
-        """`download(aggregate=None)` does not invoke the aggregator.
-
-        Test scenario:
-            Default behaviour must remain unchanged — only the
-            retrieve loop runs.
-        """
+        """`download(aggregate=None)` does not invoke the aggregator."""
         stubbed_download.download(progress_bar=False)
         assert aggregate_recorder == [], (
             f"Aggregator should not be invoked when aggregate=None; "
@@ -88,13 +83,7 @@ class TestDownloadAggregateIntegration:
     def test_aggregate_config_invokes_aggregator_per_variable(
         self, stubbed_download, aggregate_recorder, tmp_path
     ):
-        """Each retrieved variable triggers exactly one aggregator call.
-
-        Test scenario:
-            With one variable in `self.vars` and a non-None config,
-            the aggregator must be called once with the matching
-            `(nc_path, var_info, effective_config)` tuple.
-        """
+        """Each retrieved variable triggers exactly one aggregator call."""
         cfg = AggregationConfig(freq="1MS", op="mean")
         stubbed_download.download(progress_bar=False, aggregate=cfg)
 
@@ -120,13 +109,7 @@ class TestDownloadAggregateIntegration:
     def test_default_out_dir_is_root_dir_aggregated(
         self, stubbed_download, aggregate_recorder, tmp_path
     ):
-        """When `aggregate.out_dir` is None, it is defaulted to `<root_dir>/aggregated`.
-
-        Test scenario:
-            The user passes `AggregationConfig(freq="1D")` without an
-            `out_dir`; the backend must rewrite the config so the
-            aggregator sees `<root_dir>/aggregated/`.
-        """
+        """When `aggregate.out_dir` is None, it is defaulted to `<root_dir>/aggregated`."""
         cfg = AggregationConfig(freq="1D")
         assert cfg.out_dir is None
         stubbed_download.download(progress_bar=False, aggregate=cfg)
@@ -140,12 +123,7 @@ class TestDownloadAggregateIntegration:
     def test_explicit_out_dir_is_preserved(
         self, stubbed_download, aggregate_recorder, tmp_path
     ):
-        """An explicit `out_dir` survives untouched.
-
-        Test scenario:
-            When the user supplies their own `out_dir`, the backend
-            must not override it.
-        """
+        """An explicit `out_dir` survives untouched."""
         explicit = tmp_path / "user_chosen"
         cfg = AggregationConfig(freq="1D", out_dir=explicit)
         stubbed_download.download(progress_bar=False, aggregate=cfg)
@@ -158,13 +136,7 @@ class TestDownloadAggregateIntegration:
     def test_aggregate_failure_does_not_abort_remaining_variables(
         self, ecmwf_stub, monkeypatch, tmp_path
     ):
-        """A crash in `aggregate_netcdf` for one variable does not stop the rest.
-
-        Test scenario:
-            Two variables in `self.vars`; the first aggregator call
-            raises; the second variable must still be retrieved AND
-            its aggregator invocation must still run.
-        """
+        """A crash in `aggregate_netcdf` for one variable does not stop the rest."""
         ecmwf_stub.vars = {
             "reanalysis-era5-single-levels": [
                 "2m-temperature",
@@ -207,14 +179,7 @@ class TestDownloadAggregateIntegration:
     def test_multi_variable_happy_path_invokes_aggregator_per_variable(
         self, ecmwf_stub, monkeypatch, tmp_path
     ):
-        """Two healthy variables produce two aggregator calls in order.
-
-        Test scenario:
-            With a `vars` map carrying two variables under one
-            dataset and no failures anywhere, `aggregate_netcdf`
-            must be invoked once per variable, in the dict's
-            iteration order, each with its matching NetCDF path.
-        """
+        """Two healthy variables produce two aggregator calls in order."""
         ecmwf_stub.vars = {
             "reanalysis-era5-single-levels": [
                 "2m-temperature",
@@ -258,12 +223,7 @@ class TestDownloadAggregateIntegration:
     def test_retrieve_failure_skips_aggregator_for_that_variable(
         self, ecmwf_stub, monkeypatch, tmp_path
     ):
-        """If a variable's retrieve fails, its aggregator call is skipped.
-
-        Test scenario:
-            One variable in `self.vars`; `_download_dataset` raises;
-            the aggregator must not be invoked for that variable.
-        """
+        """If a variable's retrieve fails, its aggregator call is skipped."""
         ecmwf_stub.vars = {
             "reanalysis-era5-single-levels": ["2m-temperature"],
         }
