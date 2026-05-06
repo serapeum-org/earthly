@@ -375,3 +375,18 @@ class TestFetchConstraints:
         """Broken JSON syntax falls through the ValueError except branch."""
         _stub_urlopen(monkeypatch, None)
         assert fetch_constraints("ds-malformed") == []
+
+    def test_non_https_url_template_rejected(self, monkeypatch):
+        """A URL template not starting with `https://` raises before urlopen."""
+        monkeypatch.setattr(
+            constraints_module,
+            "CONSTRAINTS_URL_TEMPLATE",
+            "http://malicious.example/constraints/{dataset}.json",
+        )
+
+        def _fail(*_a, **_kw):
+            raise AssertionError("urlopen must not run for non-https URLs")
+
+        monkeypatch.setattr(constraints_module.urllib.request, "urlopen", _fail)
+        with pytest.raises(ValueError, match="non-https URL"):
+            fetch_constraints("any-dataset")

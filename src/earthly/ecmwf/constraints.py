@@ -114,11 +114,15 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
     """
     if dataset not in _CACHE:
         url = CONSTRAINTS_URL_TEMPLATE.format(dataset=dataset)
-        if not url.startswith(("https://", "http://")):
-            raise ValueError(f"refusing to fetch non-http(s) URL: {url!r}")
+        if not url.startswith("https://"):
+            raise ValueError(
+                f"refusing to fetch constraints from non-https URL: {url!r}"
+            )
         try:
-            # Scheme validated above — bandit B310 (file:// vector)
-            # does not apply.
+            # Scheme validated above — bandit B310 (file:// / ftp://
+            # vectors) does not apply, and we additionally rule out
+            # plaintext http to defeat MITM-injected constraint
+            # documents that could trick the validator.
             with urllib.request.urlopen(url, timeout=15) as resp:  # nosec B310
                 payload = json.loads(resp.read())
         except (urllib.error.URLError, ValueError, OSError):
