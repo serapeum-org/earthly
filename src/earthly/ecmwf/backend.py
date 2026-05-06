@@ -581,75 +581,56 @@ class ECMWF(AbstractDataSource):
         return self._api(var_info)
 
     def _api(self, var_info: Variable):
-        """Build a CDS request and submit it via :class:`cdsapi.Client`.
+        """Submit a CDS retrieve request for one variable and return the path.
 
-        Constructs the request dictionary expected by
-        :meth:`cdsapi.Client.retrieve` from the catalog metadata for a
-        single variable, then submits it. The retrieve call blocks until
-        CDS has served the request and the NetCDF file has been written
-        to disk — typically minutes due to CDS queue times.
+        Five-stage pipeline:
 
-        The request always submits to `var_info.cds_dataset` — the
-        dataset name the user named in the `variables` dict. The
-        `temporal_resolution` parameter only shapes the request body,
-        not the dataset choice:
+        1. Derive the dataset name from `var_info.cds_dataset`.
+        2. Delegate request-dict assembly to :meth:`_build_request`.
+        3. Pre-flight the request via
+           :class:`earthly.ecmwf.constraints.RequestValidator`
+           (skipped when the constructor was given
+           `skip_constraints=True`).
+        4. Submit via :meth:`cdsapi.Client.retrieve`. The call blocks
+           until CDS has served the request and written the NetCDF
+           — typically minutes due to CDS queue times.
+        5. On failure, rewrite licence-not-accepted exceptions into a
+           :class:`PermissionError` carrying the dataset's licence
+           page URL. All other exceptions propagate untouched.
 
-        * `"daily"` — `product_type=['reanalysis']` and four
-          six-hourly time slots (`00:00/06:00/12:00/18:00`).
-        * `"monthly"` — `product_type=['monthly_averaged_reanalysis']`
-          with a single `time=['00:00']` slot and no `day` key
-          (CDS's `-monthly-means` datasets reject those). Pair this
-          mode with a monthly-aggregated CDS dataset name in
-          `variables` (e.g.
-          `"reanalysis-era5-single-levels-monthly-means"`).
-
-        Both branches use `data_format='netcdf'` so the resulting
-        file can be opened with :class:`pyramids.netcdf.NetCDF`,
-        `xarray`, or any standard NetCDF reader for downstream
-        post-processing.
+        Output filename:
+        `<self.root_dir>/<cds_variable>_<cds_dataset>.nc`.
 
         Args:
-            var_info: Variable metadata pulled from
-                `cds_data_catalog.yaml` via :class:`Catalog`. Required
-                keys:
-
-                * `cds_dataset` — CDS dataset short name, e.g.
-                  `"reanalysis-era5-single-levels"`.
-                * `cds_variable` — CDS variable name, e.g.
-                  `"2m_temperature"`. Also used as the output
-                  filename stem.
-
-                Optional keys:
-
-                * `cds_pressure_level` — Forwarded to the request as
-                  `pressure_level` for pressure-level datasets.
-                * `extras` — Free-form mapping of additional CDS
-                  request parameters merged into the request dict
-                  immediately before submission. Row-level keys win
-                  over the template defaults built from
-                  `temporal_resolution` and `area`. This is the
-                  escape hatch for non-ERA5 dataset families that
-                  carry their own selectors (e.g. `domain` /
-                  `leadtime_hour` for CARRA, `experiment` /
-                  `model` for CMIP6, `vertical_resolution` for
-                  ORAS5).
+            var_info: Catalog row resolved by :class:`Catalog`.
+                See :meth:`_build_request` for the full list of
+                fields consumed during request assembly. `_api`
+                itself reads `cds_dataset` (the retrieve target)
+                and `cds_variable` (the output filename stem).
 
         Returns:
-            pathlib.Path: Absolute path to the downloaded NetCDF file,
-            written to
-            `<self.root_dir>/<cds_variable>_<cds_dataset>.nc`.
+            pathlib.Path: Absolute path to the downloaded NetCDF
+            file.
 
         Raises:
-            KeyError: If `var_info` is missing one of the required
-                keys (`cds_dataset` or `cds_variable`).
-            Exception: Any error raised by
-                :meth:`cdsapi.Client.retrieve`, including authentication
-                failures (no `~/.cdsapirc`), licence-not-accepted
-                errors, or transient CDS server errors.
+            PermissionError: When CDS rejects the request because
+                the dataset's licence has not been accepted on the
+                user's CDS account. Message links to the dataset's
+                licence page.
+            ValueError: Propagated from
+                :class:`earthly.ecmwf.constraints.RequestValidator`
+                when the assembled request fails the pre-flight
+                check (variable typo, unknown extras, malformed
+                date / area, ...). Skipped entirely when
+                `skip_constraints=True`.
+            Exception: Other transport-level errors from
+                :meth:`cdsapi.Client.retrieve` (authentication
+                failures, transient CDS 5xx, network drops)
+                propagate untouched.
 
         Examples:
-            - Inspect a single-level :class:`Variable` and the
-              file name it produces:
+            - Inspect the variable + filename pattern this method
+              produces (no network access — pure catalog read):
 
                 ```python
                 >>> from earthly.ecmwf import Catalog
@@ -660,18 +641,6 @@ class ECMWF(AbstractDataSource):
                 'reanalysis-era5-single-levels'
                 >>> f"{spec.cds_variable}_{spec.cds_dataset}.nc"
                 '2m_temperature_reanalysis-era5-single-levels.nc'
-
-                ```
-            - Pressure-level variables expose `cds_pressure_level`;
-              :meth:`_api` forwards it to the request:
-
-                ```python
-                >>> from earthly.ecmwf import Catalog
-                >>> spec = Catalog().get_variable(
-                ...     "reanalysis-era5-pressure-levels", "temperature"
-                ... )
-                >>> spec.cds_pressure_level
-                ['1000']
 
                 ```
             - Submit the request through the user-facing
@@ -698,13 +667,16 @@ class ECMWF(AbstractDataSource):
                 ```
 
         See Also:
-            :class:`earthly.earthly.Earthly`: The
-                user-facing facade that wires this method into the
-                `download()` flow.
-            :meth:`_download_dataset`: The single-variable wrapper that
-                calls this method and then post-processes the NetCDF.
-            :class:`Catalog`: Loads `var_info` dicts from
-                `cds_data_catalog.yaml`.
+            :meth:`_build_request`: Assembles the CDS request dict
+                this method submits — the pure-builder collaborator.
+            :class:`earthly.ecmwf.constraints.RequestValidator`: The
+                pre-flight check applied to the assembled request.
+            :meth:`_download_dataset`: Thin pass-through wrapper —
+                calls this method and returns the same path.
+            :class:`Catalog`: Resolves `(dataset, variable)` pairs
+                to :class:`Variable` rows.
+            :class:`earthly.earthly.Earthly`: User-facing facade
+                that wires this method into the `download()` flow.
         """
         dataset = var_info.cds_dataset
         request = self._build_request(var_info)
