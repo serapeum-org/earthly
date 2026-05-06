@@ -706,62 +706,8 @@ class ECMWF(AbstractDataSource):
             :class:`Catalog`: Loads `var_info` dicts from
                 `cds_data_catalog.yaml`.
         """
-        dates = self.time.dates
-        request = {
-            "variable": [var_info.cds_variable],
-            "year": sorted({str(d.year) for d in dates}),
-            "month": sorted({f"{d.month:02d}" for d in dates}),
-            "data_format": "netcdf",
-            "area": [
-                self.space.north,
-                self.space.west,
-                self.space.south,
-                self.space.east,
-            ],
-        }
-
-        # The dataset comes straight from the user's `variables` dict
-        # (propagated through `Variable.cds_dataset` by the catalog
-        # loader). `temporal_resolution` only shapes the request body;
-        # it does not pick a different dataset and it does not pick
-        # the `product_type` (that's catalog-driven now — see
-        # `Variable.product_type`).
         dataset = var_info.cds_dataset
-        request["product_type"] = var_info.product_type
-        if self.temporal_resolution == "monthly":
-            # Monthly-means CDS datasets reject `day` and want a
-            # single `time` slot. CDS-Beta enforces this with HTTP
-            # 400; the legacy CDS tolerated extra `day` entries.
-            request["time"] = ["00:00"]
-        else:
-            request["day"] = sorted({f"{d.day:02d}" for d in dates})
-            request["time"] = ["00:00", "06:00", "12:00", "18:00"]
-
-        if var_info.cds_pressure_level is not None:
-            request["pressure_level"] = var_info.cds_pressure_level
-
-        # Merge per-variable extras last so a row-level field (e.g. a
-        # CMIP6 `experiment` / `model` selector or a CARRA `domain`)
-        # wins over any same-named template default. This is the escape
-        # hatch the catalog uses to address non-ERA5 datasets.
-        request.update(var_info.extras)
-
-        # Strip template defaults that the dataset's request_kind
-        # forbids (e.g. ORAS5 rejects `day`/`time`/`area`).
-        # Done after the extras merge so a user can re-introduce a
-        # stripped key by setting it explicitly in extras.
-        for stripped in _REQUEST_KIND_STRIPS.get(var_info.request_kind, ()):
-            if stripped not in var_info.extras:
-                request.pop(stripped, None)
-
-        # Per-variable opt-out: any extras key explicitly set to
-        # `None` in the YAML row is dropped from the request. This
-        # is the per-row escape hatch for datasets that reject the
-        # default `area` bbox (Atlas / projections / rotated grids)
-        # without forcing the user to declare a new `request_kind`.
-        for key, value in list(var_info.extras.items()):
-            if value is None:
-                request.pop(key, None)
+        request = self._build_request(var_info)
 
         # Pre-flight check the assembled request against the CDS
         # `constraints.json` for this dataset. Catches typos and
@@ -786,3 +732,81 @@ class ECMWF(AbstractDataSource):
                 ) from exc
             raise
         return target
+
+    def _build_request(self, var_info: Variable) -> dict[str, Any]:
+        """Assemble the CDS retrieve-request dict for one variable.
+
+        Pure function over `var_info`, `self.time.dates`,
+        `self.space`, and `self.temporal_resolution`. No I/O, no
+        validation, no client calls — just dictionary assembly.
+        :meth:`_api` consumes the result and submits it via
+        :meth:`cdsapi.Client.retrieve`.
+
+        Build order (later steps override earlier ones):
+
+        1. Template defaults (`variable`, `year`, `month`,
+           `data_format`, `area`, `product_type`).
+        2. Daily / monthly branch — daily adds `day` plus four
+           six-hourly `time` slots; monthly pins `time=["00:00"]`
+           and omits `day` (CDS monthly-means datasets reject
+           `day`).
+        3. Pressure-level forward — `cds_pressure_level` becomes
+           `pressure_level` on the request.
+        4. `var_info.extras` merge — per-row catalog overrides win
+           over the template defaults.
+        5. `request_kind` strip — drop template-default keys the
+           dataset family rejects (e.g. ORAS5 rejects
+           `day`/`time`/`area`). Done after the extras merge so a
+           user can re-introduce a stripped key by setting it
+           explicitly in extras.
+        6. Per-row `None` opt-outs — any `extras` key set to `None`
+           is dropped from the request, the per-row escape hatch
+           for datasets that reject the default bbox without
+           forcing a new `request_kind`.
+
+        Args:
+            var_info: Catalog row for the variable being requested.
+                Drives every field on the request except `area` /
+                `year` / `month` / `day` / `time` (which come from
+                `self.space` and `self.time`).
+
+        Returns:
+            dict[str, Any]: Request dict ready to pass as the
+            second positional argument to
+            :meth:`cdsapi.Client.retrieve`.
+        """
+        dates = self.time.dates
+        request: dict[str, Any] = {
+            "variable": [var_info.cds_variable],
+            "year": sorted({str(d.year) for d in dates}),
+            "month": sorted({f"{d.month:02d}" for d in dates}),
+            "data_format": "netcdf",
+            "area": [
+                self.space.north,
+                self.space.west,
+                self.space.south,
+                self.space.east,
+            ],
+            "product_type": var_info.product_type,
+        }
+
+        if self.temporal_resolution == "monthly":
+            request["time"] = ["00:00"]
+        else:
+            request["day"] = sorted({f"{d.day:02d}" for d in dates})
+            request["time"] = ["00:00", "06:00", "12:00", "18:00"]
+
+        if var_info.cds_pressure_level is not None:
+            request["pressure_level"] = var_info.cds_pressure_level
+
+        request.update(var_info.extras)
+
+        for stripped in _REQUEST_KIND_STRIPS.get(var_info.request_kind, ()):
+            if stripped not in var_info.extras:
+                request.pop(stripped, None)
+
+        for key, value in list(var_info.extras.items()):
+            if value is None:
+                request.pop(key, None)
+
+        return request

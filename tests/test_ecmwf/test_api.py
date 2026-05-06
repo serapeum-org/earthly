@@ -587,3 +587,35 @@ class TestApiMonthly:
         assert request["product_type"] == ["reanalysis"]
         assert request["time"] == ["00:00", "06:00", "12:00", "18:00"]
         assert "day" in request
+
+
+class TestBuildRequest:
+    """Tests for :meth:`ECMWF._build_request` (M5 — extracted pure builder)."""
+
+    def test_returns_dict_with_required_keys(self, ecmwf_stub, single_level_var_info):
+        """`_build_request` returns a dict carrying every CDS-required key."""
+        request = ecmwf_stub._build_request(single_level_var_info)
+        for key in (
+            "product_type", "variable", "year", "month", "day",
+            "time", "data_format", "area",
+        ):
+            assert key in request, f"Missing required key {key!r}: {request}"
+
+    def test_does_not_call_client_retrieve(
+        self, ecmwf_stub, single_level_var_info
+    ):
+        """The pure builder must not touch `self.client.retrieve`."""
+        ecmwf_stub._build_request(single_level_var_info)
+        assert ecmwf_stub.client.retrieve.call_count == 0, (
+            f"_build_request must not submit; got "
+            f"{ecmwf_stub.client.retrieve.call_count} retrieve calls"
+        )
+
+    def test_is_pure_idempotent(self, ecmwf_stub, single_level_var_info):
+        """Two consecutive calls produce equal dicts (no hidden state)."""
+        first = ecmwf_stub._build_request(single_level_var_info)
+        second = ecmwf_stub._build_request(single_level_var_info)
+        assert first == second, (
+            f"_build_request should be idempotent; got first={first!r} "
+            f"second={second!r}"
+        )
