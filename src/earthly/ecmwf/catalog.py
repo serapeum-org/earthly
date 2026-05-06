@@ -124,10 +124,10 @@ class Variable(BaseModel):
     """Per-variable catalog entry consumed by :class:`ECMWF`.
 
     A frozen pydantic model carrying the metadata for one row in
-    `cds_data_catalog.yaml`. Loading the YAML through
-    :meth:`from_dict` validates required fields up front so a typo
-    in the file (e.g. `cd_dataset` vs `cds_dataset`) surfaces at
-    import time, not mid-download.
+    `cds_data_catalog.yaml`. Loaded through :class:`Catalog`, which
+    rewraps any :class:`pydantic.ValidationError` with the offending
+    row's catalog key so a typo in the file (e.g. `cd_dataset` vs
+    `cds_dataset`) surfaces at import time, not mid-download.
 
     Attributes:
         cds_dataset: CDS dataset short name used for daily / sub-daily
@@ -199,79 +199,6 @@ class Variable(BaseModel):
                 "these are not valid under cdsapi"
             )
         return value
-
-    @classmethod
-    def from_dict(cls, code: str, data: dict[str, Any]) -> Variable:
-        """Build a :class:`Variable` from a raw catalog entry.
-
-        Wraps :class:`pydantic.ValidationError` so the message names
-        the catalog row that failed.
-
-        Implementation note (L4 in `planning/cdsapi/backend-review.md`):
-        The proposal was to collapse this method into a
-        `model_validator(mode='wrap')` on the model itself. Empirically
-        that does not pay off in pydantic v2: any `ValueError` raised
-        from inside a wrap validator gets re-wrapped into
-        :class:`pydantic.ValidationError` at the `model_validate`
-        boundary, so the row-naming exception type is lost. Keeping
-        the rewrap in this classmethod is the cleanest way to surface
-        a `ValueError` whose message names the offending YAML row.
-
-        Args:
-            code: Catalog key (e.g. `"2m-temperature"`) — used only in the
-                error message so the user can see which row is broken.
-            data: The dict loaded from the YAML for `code`.
-
-        Returns:
-            Variable: The validated, frozen instance.
-
-        Raises:
-            ValueError: If a required key is missing or an unknown
-                key is present (catches typos like `cd_dataset`
-                vs `cds_dataset`).
-
-        Examples:
-            - Build a Variable from a complete entry and inspect it:
-
-                ```python
-                >>> from earthly.ecmwf import Variable
-                >>> spec = Variable.from_dict("2m-temperature", {
-                ...     "cds_dataset": "reanalysis-era5-single-levels",
-                ...     "cds_variable": "2m_temperature",
-                ...     "nc_variable": "t2m",
-                ...     "units": "K",
-                ...     "product_type": ["reanalysis"],
-                ...     "types": "state",
-                ... })
-                >>> spec.cds_variable, spec.nc_variable, spec.units
-                ('2m_temperature', 't2m', 'K')
-
-                ```
-            - A typo in a key name is caught at construction time —
-              the wrapped pydantic error names the offending row:
-
-                ```python
-                >>> from earthly.ecmwf import Variable
-                >>> try:
-                ...     Variable.from_dict("2m-temperature", {
-                ...         "cd_dataset": "reanalysis-era5-single-levels",
-                ...         "cds_variable": "2m_temperature",
-                ...         "nc_variable": "t2m",
-                ...         "units": "K",
-                ...         "product_type": ["reanalysis"],
-                ...     })
-                ... except ValueError as exc:
-                ...     str(exc).splitlines()[0]
-                "cds_data_catalog.yaml entry '2m-temperature' failed validation:"
-
-                ```
-        """
-        try:
-            return cls(**data)
-        except ValidationError as exc:
-            raise ValueError(
-                f"cds_data_catalog.yaml entry {code!r} failed validation:\n{exc}"
-            ) from exc
 
     @property
     def is_flux(self) -> bool:
@@ -490,7 +417,13 @@ class Catalog(AbstractCatalog):
                 row_extras = dict(merged.get("extras") or {})
                 merged["extras"] = {**ds_extras, **row_extras}
                 merged.setdefault("request_kind", ds_request_kind)
-                ds_vars[code] = Variable.from_dict(code, merged)
+                try:
+                    ds_vars[code] = Variable(**merged)
+                except ValidationError as exc:
+                    raise ValueError(
+                        f"cds_data_catalog.yaml entry {code!r} failed "
+                        f"validation:\n{exc}"
+                    ) from exc
                 total_vars += 1
             structural[ds_name] = Dataset(
                 monthly=monthly,

@@ -16,6 +16,7 @@ import json
 
 import pandas as pd
 import pytest
+from pydantic import ValidationError
 
 from earthly.ecmwf import Variable
 from earthly.ecmwf import constraints as constraints_module
@@ -246,23 +247,23 @@ class TestApi:
 
     def test_variable_spec_requires_cds_dataset(self):
         """Variable cannot be built without cds_dataset."""
-        catalog_entry = {
-            "cds_variable": "2m_temperature",
-            "nc_variable": "t2m",
-            "units": "K",
-        }
-        with pytest.raises(ValueError, match="cds_dataset"):
-            Variable.from_dict("2m-temperature", catalog_entry)
+        with pytest.raises(ValidationError, match="cds_dataset"):
+            Variable(
+                cds_variable="2m_temperature",
+                nc_variable="t2m",
+                units="K",
+                product_type=["reanalysis"],
+            )
 
     def test_variable_spec_requires_cds_variable(self):
         """Variable cannot be built without cds_variable."""
-        catalog_entry = {
-            "cds_dataset": "reanalysis-era5-single-levels",
-            "nc_variable": "t2m",
-            "units": "K",
-        }
-        with pytest.raises(ValueError, match="cds_variable"):
-            Variable.from_dict("2m-temperature", catalog_entry)
+        with pytest.raises(ValidationError, match="cds_variable"):
+            Variable(
+                cds_dataset="reanalysis-era5-single-levels",
+                nc_variable="t2m",
+                units="K",
+                product_type=["reanalysis"],
+            )
 
     def test_licence_not_accepted_is_translated(
         self, ecmwf_stub, single_level_var_info

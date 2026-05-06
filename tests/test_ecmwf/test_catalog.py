@@ -151,20 +151,27 @@ class TestCatalog:
         with pytest.raises(ValueError, match="legacy MARS keys"):
             Catalog()
 
-    def test_unknown_top_level_key_still_fails_validation(self):
-        """An unknown key on a Variable row still fails pydantic validation."""
+    def test_unknown_top_level_key_still_fails_validation(
+        self, monkeypatch, tmp_path
+    ):
+        """An unknown key on a Variable row fails the catalog loader with the row name."""
+        from earthly.ecmwf import catalog as catalog_module
+
+        catalog_yaml = tmp_path / "cds_data_catalog.yaml"
+        catalog_yaml.write_text(
+            "datasets:\n"
+            "  reanalysis-era5-single-levels:\n"
+            "    product_type: [reanalysis]\n"
+            "    variables:\n"
+            "      2m-temperature:\n"
+            "        nc_variable: t2m\n"
+            "        units: K\n"
+            "        totally_unknown: boom\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
         with pytest.raises(ValueError, match="totally_unknown"):
-            Variable.from_dict(
-                "x",
-                {
-                    "cds_dataset": "ds",
-                    "cds_variable": "v",
-                    "nc_variable": "n",
-                    "units": "K",
-                    "product_type": ["reanalysis"],
-                    "totally_unknown": "boom",
-                },
-            )
+            Catalog()
 
     def test_duplicate_variable_in_same_dataset_rejected(self, monkeypatch, tmp_path):
         """Two `variables:` entries with the same code in one dataset fail.
