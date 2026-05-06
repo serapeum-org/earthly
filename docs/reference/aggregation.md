@@ -96,17 +96,101 @@ for the full grammar (e.g. `"3H"`, `"30min"`, `"6MS"`, `"AS-OCT"`,
 
 ## `op="auto"` semantics — flux vs state
 
-`Variable.is_flux` is `True` for CDS flux variables (precipitation,
-evaporation, runoff, radiation accumulations) and `False` for state
-variables (temperature, pressure, humidity, ...).
+`op="auto"` is a sentinel that defers the choice of reducer to the
+catalog. The resolver is `_resolve_op` in `earthly.aggregate`:
 
-- `op="auto"` + `is_flux=True` → `"sum"` over the window.
-- `op="auto"` + `is_flux=False` → `"mean"` over the window.
+```python
+def _resolve_op(op, var_info):
+    if op != "auto":
+        return op
+    return "sum" if var_info.is_flux else "mean"
+```
 
-This **replaces** the legacy `mean × days_later` flux scaling that
-the pre-rewrite example script used. The two are equivalent only
-when every slot inside a window has a sample; for partial windows,
-true `sum` is correct and `mean × N` overcounts.
+Two-line decision:
+
+- An **explicit** `op` (`"mean"`, `"sum"`, `"min"`, `"max"`, `"std"`)
+  is returned unchanged. User choice always wins.
+- `op="auto"` reads `var_info.is_flux`:
+  - `True` → `"sum"`
+  - `False` → `"mean"`
+
+`Variable.is_flux` is itself a thin property over the catalog row's
+`types` field (`return self.types == "flux"`). Set `types: flux` on
+the YAML row for accumulation-style variables; leave it unset (or
+set `types: state`) for instantaneous samples.
+
+### Why state → mean, flux → sum
+
+CDS daily ERA5 NetCDFs carry **four 6-hourly slots per day** at
+00:00, 06:00, 12:00, 18:00.
+
+- **State** variables (temperature, pressure, humidity, wind
+  components, geopotential) — each slot is the *instantaneous*
+  value at that timestamp. The window mean is the natural
+  daily/monthly summary.
+- **Flux** variables (precipitation, evaporation, runoff,
+  radiation accumulations) — each slot is the *accumulation since
+  the previous post-processing step* (6 hours of evaporation, in
+  the legacy daily case). Summing the slots inside a window gives
+  the actual window total; taking the mean does not.
+
+### Worked example — daily evaporation
+
+Imagine the four sample values for one pixel on 2009-01-01 (in m
+of water equivalent):
+
+| Slot   | Value (m) | Physical meaning |
+|--------|-----------|------------------|
+| 00:00  | 0.001     | water that evaporated 18:00 (prev day) → 00:00 |
+| 06:00  | 0.002     | water that evaporated 00:00 → 06:00 |
+| 12:00  | 0.005     | water that evaporated 06:00 → 12:00 |
+| 18:00  | 0.004     | water that evaporated 12:00 → 18:00 |
+
+The physically correct daily total is the sum of the four 6-hour
+accumulations:
+
+```
+daily total = 0.001 + 0.002 + 0.005 + 0.004 = 0.012 m
+```
+
+`op="auto"` (resolves to `"sum"` for evaporation) writes
+**`0.012 m`** to the GeoTIFF — the actual daily total water that
+evaporated.
+
+A plain `op="mean"` would write
+`(0.001 + 0.002 + 0.005 + 0.004) / 4 = 0.003 m` — the average
+6-hour accumulation. Same number for state variables (because the
+"mean of instantaneous samples" *is* what you want for state); 4×
+too small for fluxes at daily resolution, since you'd need to
+multiply by the slot count to recover the daily total.
+
+For monthly resolution, the slot count is roughly `4 ×
+days_in_month`; using `mean` would be off by that same factor.
+
+### Migration note (vs. the pre-refactor `post_download`)
+
+The legacy `post_download` did `mean × days_later` for fluxes.
+That scaling under-counted: for daily it gave `(s1+s2+s3+s4)/4 × 1`
+which is **a quarter** of the real daily total. The new
+`op="auto"` produces the correct total. Downstream code calibrated
+against the old (buggy) output will see flux GeoTIFF values 4×
+larger now (at daily resolution).
+
+For state variables (e.g. `2m-temperature`), the old
+`mean × days_later = mean × 1 = mean` matches the new `op="auto"`
+exactly — no change.
+
+### Overriding the routing
+
+`auto` is just a default. Pass an explicit op when you want
+different semantics:
+
+| Use case | `op` |
+|---|---|
+| Reproduce the legacy buggy daily-flux output | `"mean"` |
+| Daily *max* / *min* temperature | `"max"` / `"min"` |
+| Per-window standard deviation | `"std"` |
+| Pre-aggregated CDS datasets like `derived-era5-*-daily-statistics` (each NetCDF sample is *already* a daily aggregate; summing 4 of them would multiply by 4) | `"mean"` |
 
 ## Pressure-level support (`level=`)
 

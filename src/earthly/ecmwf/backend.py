@@ -401,6 +401,45 @@ class ECMWF(AbstractDataSource):
                 surface in the per-variable failure summary alongside
                 retrieve failures, so a single bad variable does not
                 abort the rest of the loop.
+
+                **`op="auto"` semantics.** When the config's `op` is
+                left at its default `"auto"`, the reducer is picked
+                per-variable from the catalog row's `types` field
+                (`Variable.is_flux`):
+
+                * **State** (`types` unset or `"state"` — e.g.
+                  `2m-temperature`, `surface-pressure`,
+                  `relative-humidity`). Each NetCDF sample is the
+                  instantaneous value at that timestamp. `auto` →
+                  `"mean"`. The window mean is the natural daily /
+                  monthly summary.
+                * **Flux** (`types: flux` — e.g.
+                  `total-precipitation`, `evaporation`,
+                  `surface-runoff`, radiation accumulations). Each
+                  NetCDF sample is the accumulation since the
+                  previous post-processing step (a 6-hour
+                  accumulation in legacy daily ERA5, 1-hour in
+                  CDS-Beta). `auto` → `"sum"`. The per-slot
+                  accumulations are summed inside the window to
+                  recover the actual window total.
+
+                Worked example — daily `evaporation` for one pixel
+                with the four 6-hourly slots
+                `[0.001, 0.002, 0.005, 0.004]` m of water
+                equivalent. `op="auto"` resolves to `"sum"` and
+                writes `0.012 m` (the day's total evaporation) to
+                the GeoTIFF. A plain `op="mean"` would write
+                `0.003 m` (the average 6-hour accumulation, **not**
+                a daily total).
+
+                Pass an explicit `op="mean"` / `"sum"` / `"min"` /
+                `"max"` / `"std"` to bypass auto-routing — for
+                example, on pre-aggregated CDS datasets like
+                `derived-era5-single-levels-daily-statistics` where
+                each NetCDF sample is already a daily aggregate and
+                summing four of them would multiply by 4. See
+                `docs/reference/aggregation.md` for the full
+                walkthrough.
             *args: Reserved; ignored. Kept for forward-compatibility
                 with backend-specific extras callers might pass via
                 :meth:`Earthly.download`.
