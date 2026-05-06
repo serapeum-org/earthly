@@ -127,6 +127,18 @@ class TestDownloadIteration:
 
         assert removed == []
 
+    def test_empty_vars_completes_without_retrieves(self, ecmwf_stub):
+        """An empty `self.vars` dict is a clean no-op — no retrieves, no failures."""
+        ecmwf_stub.vars = {}
+        ecmwf_stub._download_dataset = MagicMock()
+
+        ecmwf_stub.download(progress_bar=False)
+
+        assert ecmwf_stub._download_dataset.call_count == 0, (
+            f"No retrieves should occur with empty self.vars; "
+            f"got {ecmwf_stub._download_dataset.call_count}"
+        )
+
 
 class TestDownloadDataset:
     """Tests for :meth:`ECMWF._download_dataset` after the C1 call-site fix."""

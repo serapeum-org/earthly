@@ -219,6 +219,26 @@ class TestCatalog:
         with pytest.raises(ValueError, match="duplicate YAML key"):
             Catalog()
 
+    def test_monthly_without_monthly_product_type_raises(self, monkeypatch, tmp_path):
+        """`monthly:` without `monthly_product_type:` fails auto-synthesis."""
+        from earthly.ecmwf import catalog as catalog_module
+
+        catalog_yaml = tmp_path / "cds_data_catalog.yaml"
+        catalog_yaml.write_text(
+            "datasets:\n"
+            "  reanalysis-era5-single-levels:\n"
+            "    monthly: reanalysis-era5-single-levels-monthly-means\n"
+            "    product_type: [reanalysis]\n"
+            "    variables:\n"
+            "      2m-temperature:\n"
+            "        nc_variable: t2m\n"
+            "        units: K\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", catalog_yaml)
+        with pytest.raises(ValueError, match="monthly_product_type"):
+            Catalog()
+
     def test_extras_propagate_from_parent_dataset(self, monkeypatch, tmp_path):
         """Parent `Dataset.extras` propagates into each child Variable."""
         from earthly.ecmwf import catalog as catalog_module

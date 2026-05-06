@@ -370,3 +370,8 @@ class TestFetchConstraints:
     def test_returns_empty_list_on_non_list_payload(self, monkeypatch):
         _stub_urlopen(monkeypatch, {"unexpected": "object"})
         assert fetch_constraints("ds") == []
+
+    def test_returns_empty_list_on_malformed_json(self, monkeypatch):
+        """Broken JSON syntax falls through the ValueError except branch."""
+        _stub_urlopen(monkeypatch, None)
+        assert fetch_constraints("ds-malformed") == []

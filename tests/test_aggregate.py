@@ -1256,6 +1256,54 @@ class TestAggregateNetcdfRoundTrip:
             f"February mean (1 sample) should be 2.0, got {results[1][1][0, 0]}"
         )
 
+    def test_empty_time_axis_returns_empty_results(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """A NetCDF with zero time samples returns an empty result list, not an error."""
+        nc = _FakeNetCDF(
+            array=np.zeros((0, 2, 2)),
+            time_strs_by_var={"time": []},
+            dimension_names=["time", "lat", "lon"],
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        writes = _patch_geotiff_write(monkeypatch)
+
+        with pytest.raises(KeyError):
+            aggregate_netcdf(
+                tmp_path / "fake.nc",
+                state_var,
+                AggregationConfig(freq="1D", op="mean", out_dir=tmp_path),
+            )
+        assert writes == [], (
+            f"No writes should occur on empty time axis, got {writes!r}"
+        )
+
+    def test_cell_size_does_not_affect_geotransform(
+        self, monkeypatch, tmp_path, state_var
+    ):
+        """`cell_size` is informational; the GeoTIFF geotransform comes from `nc.geotransform`."""
+        cube = self._daily_six_hourly_array(n_days=1)
+        source_geo = (-75.0, 0.5, 0.0, 5.0, 0.0, -0.5)
+        nc = _FakeNetCDF(
+            array=cube,
+            time_strs_by_var={"time": self._date_strings_six_hourly(1)},
+            dimension_names=["time", "lat", "lon"],
+            geotransform=source_geo,
+        )
+        _patch_netcdf_read(monkeypatch, nc)
+        writes = _patch_geotiff_write(monkeypatch)
+
+        aggregate_netcdf(
+            tmp_path / "fake.nc",
+            state_var,
+            AggregationConfig(freq="1D", op="mean", out_dir=tmp_path, cell_size=0.25),
+        )
+        _, geo, _, _ = writes[0]
+        assert geo == source_geo, (
+            f"Output geotransform should equal nc.geotransform regardless "
+            f"of config.cell_size; got {geo}"
+        )
+
     def test_geotransform_forwarded_to_geotiff_writer(
         self, monkeypatch, tmp_path, state_var
     ):
