@@ -105,8 +105,10 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
             >>> entries = fetch_constraints(  # doctest: +SKIP
             ...     "reanalysis-era5-single-levels",
             ... )
-            >>> isinstance(entries, list)  # doctest: +SKIP
-            True
+            >>> entries[0].keys()  # doctest: +SKIP
+            dict_keys(['variable', 'year', 'month', 'day', 'time', ...])
+            >>> sorted(entries[0]["product_type"])  # doctest: +SKIP
+            ['ensemble_mean', 'ensemble_members', 'reanalysis']
 
             ```
     """

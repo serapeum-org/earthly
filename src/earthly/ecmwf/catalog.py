@@ -230,6 +230,7 @@ class Variable(BaseModel):
                 ...     "cds_variable": "2m_temperature",
                 ...     "nc_variable": "t2m",
                 ...     "units": "K",
+                ...     "product_type": ["reanalysis"],
                 ...     "types": "state",
                 ... })
                 >>> spec.cds_variable, spec.nc_variable, spec.units
@@ -247,6 +248,7 @@ class Variable(BaseModel):
                 ...         "cds_variable": "2m_temperature",
                 ...         "nc_variable": "t2m",
                 ...         "units": "K",
+                ...         "product_type": ["reanalysis"],
                 ...     })
                 ... except ValueError as exc:
                 ...     str(exc).splitlines()[0]
