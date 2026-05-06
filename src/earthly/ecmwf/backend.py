@@ -377,8 +377,6 @@ class ECMWF(AbstractDataSource):
         self,
         progress_bar: bool = True,
         aggregate: AggregationConfig | None = None,
-        *args,
-        **kwargs,
     ):
         """Download every `(dataset, variable)` pair in `self.vars` from CDS.
 
@@ -440,11 +438,6 @@ class ECMWF(AbstractDataSource):
                 summing four of them would multiply by 4. See
                 `docs/reference/aggregation.md` for the full
                 walkthrough.
-            *args: Reserved; ignored. Kept for forward-compatibility
-                with backend-specific extras callers might pass via
-                :meth:`Earthly.download`.
-            **kwargs: Reserved; ignored. Same rationale as `*args`.
-
         Returns:
             None. Per-variable NetCDFs land at
             `<self.root_dir>/<cds_variable>_<cds_dataset>.nc`. When

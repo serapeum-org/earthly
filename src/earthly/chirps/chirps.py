@@ -165,7 +165,7 @@ class CHIRPS(AbstractDataSource):
             )
         )
 
-    def download(self, progress_bar: bool = True, cores=None, *args, **kwargs):
+    def download(self, progress_bar: bool = True, cores=None):
         """Download.
 
             downloads CHIRPS data
