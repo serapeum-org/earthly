@@ -85,7 +85,7 @@ source = "chirps"
 path = "examples/data/chirps"
 variables = ["precipitation"]
 
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -95,7 +95,7 @@ e2o = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-e2o.download()
+earthly.download()
 ```
 
 ### Parallel Download
@@ -103,7 +103,7 @@ e2o.download()
 ```python
 path = "examples/data/chirps-cores"
 
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -113,7 +113,7 @@ e2o = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-e2o.download(cores=4)
+earthly.download(cores=4)
 ```
 
 ## Amazon S3
@@ -123,7 +123,7 @@ path = "examples/data/s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
 
-e2o = Earthly(
+earthly = Earthly(
     data_source=source,
     start=start,
     end=end,
@@ -131,5 +131,5 @@ e2o = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-e2o.download()
+earthly.download()
 ```

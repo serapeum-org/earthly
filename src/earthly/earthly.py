@@ -299,7 +299,7 @@ class Earthly:
 
                 ```python
                 >>> from earthly.earthly import Earthly
-                >>> e2o = Earthly(  # doctest: +SKIP
+                >>> earthly = Earthly(  # doctest: +SKIP
                 ...     data_source="chirps",
                 ...     start="2009-01-01",
                 ...     end="2009-01-02",
@@ -308,7 +308,7 @@ class Earthly:
                 ...     lon_lim=[-75.65, -74.73],
                 ...     path="examples/data/chirps",
                 ... )
-                >>> e2o.download()  # doctest: +SKIP
+                >>> earthly.download()  # doctest: +SKIP
 
                 ```
             - ECMWF download via the facade. Marked

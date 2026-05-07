@@ -36,7 +36,7 @@ class TestChirpsBackend:
         lon_bounds: list,
         chirps_data_source_output_dir: str,
     ):
-        e2o = Earthly(
+        earthly = Earthly(
             data_source=chirps_data_source,
             start=dates[0],
             end=dates[1],
@@ -46,11 +46,11 @@ class TestChirpsBackend:
             temporal_resolution=daily_temporal_resolution,
             path=chirps_data_source_output_dir,
         )
-        assert isinstance(e2o.DataSources, Mapping)
-        assert isinstance(e2o.datasource, CHIRPS)
-        assert e2o.datasource.vars == chirps_variables
-        assert isinstance(e2o.datasource.lat_lim, list)
-        return e2o
+        assert isinstance(earthly.DataSources, Mapping)
+        assert isinstance(earthly.datasource, CHIRPS)
+        assert earthly.datasource.vars == chirps_variables
+        assert isinstance(earthly.datasource.lat_lim, list)
+        return earthly
 
     @pytest.mark.e2e
     def test_download_chirps_backend(
@@ -86,7 +86,7 @@ class TestS3Backend:
         lon_bounds: list,
         s3_era5_data_source_output_dir: str,
     ):
-        e2o = Earthly(
+        earthly = Earthly(
             data_source=s3_data_source,
             start=monthly_dates[0],
             end=monthly_dates[1],
@@ -96,10 +96,10 @@ class TestS3Backend:
             temporal_resolution=monthly_temporal_resolution,
             path=s3_era5_data_source_output_dir,
         )
-        assert isinstance(e2o.DataSources, Mapping)
-        assert isinstance(e2o.datasource, S3)
-        assert e2o.datasource.vars == s3_era5_variables
-        return e2o
+        assert isinstance(earthly.DataSources, Mapping)
+        assert isinstance(earthly.datasource, S3)
+        assert earthly.datasource.vars == s3_era5_variables
+        return earthly
 
     @pytest.mark.e2e
     def test_download_s3_backend(
@@ -142,7 +142,7 @@ class TestECMWFBackend:
         """`Earthly(data_source="ecmwf", ...)` no longer raises."""
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
-        e2o = Earthly(
+        earthly = Earthly(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -155,9 +155,9 @@ class TestECMWFBackend:
             path=str(tmp_path),
         )
 
-        assert isinstance(e2o.datasource, ECMWF), (
+        assert isinstance(earthly.datasource, ECMWF), (
             f"datasource should be an ECMWF instance; got "
-            f"{type(e2o.datasource).__name__}"
+            f"{type(earthly.datasource).__name__}"
         )
 
     def test_unknown_data_source_still_raises(self, tmp_path):
@@ -177,7 +177,7 @@ class TestECMWFBackend:
         """The facade threads its constructor args into ECMWF unchanged."""
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
-        e2o = Earthly(
+        earthly = Earthly(
             data_source="ecmwf",
             temporal_resolution="monthly",
             start="2022-01-01",
@@ -193,7 +193,7 @@ class TestECMWFBackend:
             path=str(tmp_path),
         )
 
-        ecmwf = e2o.datasource
+        ecmwf = earthly.datasource
         assert ecmwf.vars == {
             "reanalysis-era5-single-levels": [
                 "2m-temperature",
@@ -227,7 +227,7 @@ class TestECMWFBackend:
 
         monkeypatch.setattr(cdsapi, "Client", FakeClient)
 
-        e2o = Earthly(
+        earthly = Earthly(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -242,7 +242,7 @@ class TestECMWFBackend:
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
         )
-        e2o.download(progress_bar=False)
+        earthly.download(progress_bar=False)
 
         assert len(retrieved) == 2, (
             f"Expected 2 retrieve calls (one per variable); " f"got {len(retrieved)}"
@@ -280,7 +280,7 @@ class TestEarthlyDownloadAggregate:
         """
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
-        e2o = Earthly(
+        earthly = Earthly(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -290,8 +290,8 @@ class TestEarthlyDownloadAggregate:
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
         )
-        e2o.datasource = MagicMock(name="stub_backend")
-        return e2o
+        earthly.datasource = MagicMock(name="stub_backend")
+        return earthly
 
     def test_aggregate_none_does_not_reach_backend(self, stub_facade):
         """`aggregate=None` (default) leaves the backend kwargs untouched."""
