@@ -1,6 +1,6 @@
 [project]
 name = "earthly"
-version = "0.2.2"
+version = "0.3.0"
 description = "remote sensing package"
 readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
