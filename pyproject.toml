@@ -76,6 +76,8 @@ docs = [
     "mkdocs-table-reader-plugin  >=3.1.0",
     "mkdocs-mermaid2-plugin  >=1.2.1",
     "mkdocs-panzoom-plugin",
+    "jupyter-contrib-nbextensions  >=0.7.0",
+    "notebook<7.0",
 ]
 
 
