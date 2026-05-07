@@ -17,6 +17,14 @@
          <lastmod>2026-05-07</lastmod>
     </url>
     <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/agriculture_crop_water/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/atmosphere_pressure_levels/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
          <loc>https://serapeum-org.github.io/earthly/develop/examples/authentication/</loc>
          <lastmod>2026-05-07</lastmod>
     </url>
@@ -25,7 +33,43 @@
          <lastmod>2026-05-07</lastmod>
     </url>
     <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/cds_quickstart/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/climate_change_anomalies/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
          <loc>https://serapeum-org.github.io/earthly/develop/examples/data-sources/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/drought_precipitation_deficit/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/heat_waves_public_health/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/hydrology_water_balance/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/oceanography_sst_sea_ice/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/snow_cryosphere_winter/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/solar_resource_assessment/</loc>
+         <lastmod>2026-05-07</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthly/develop/examples/wind_energy_resource/</loc>
          <lastmod>2026-05-07</lastmod>
     </url>
     <url>
