@@ -64,7 +64,7 @@
     
     
   <meta name="panzoom-theme" content="material">
-<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+<meta name="panzoom-data" content='{"selectors": [".d2", ".mermaid"], "initial_zoom_level": 1.0}'> </head>
   
   
     
@@ -1726,12 +1726,12 @@ Hold "Ctrl" to enable pan &amp; zoom
     </nav>
     <pre class="mermaid"><code>flowchart LR
     user([User])
-    e2o[Earthly]
-    user --&gt; e2o
-    e2o --&gt; CHIRPS
-    e2o --&gt; S3
-    e2o --&gt; ECMWF
-    e2o --&gt; GEE
+    earthly[Earthly]
+    user --&gt; earthly
+    earthly --&gt; CHIRPS
+    earthly --&gt; S3
+    earthly --&gt; ECMWF
+    earthly --&gt; GEE
     CHIRPS --&gt; FTP[(UCSB FTP&lt;br/&gt;data.chc.ucsb.edu)]
     S3 --&gt; AWS[(AWS S3&lt;br/&gt;era5-pds bucket)]
     ECMWF --&gt; CDS[(ECMWF&lt;br/&gt;Climate Data Store)]
@@ -1922,16 +1922,16 @@ Hold "Ctrl" to enable pan &amp; zoom
     <pre class="mermaid"><code>sequenceDiagram
     autonumber
     actor User
-    participant E2O as Earthly
+    participant Facade as Earthly
     participant DS as AbstractDataSource
     participant Server as Remote server&lt;br/&gt;(FTP / S3 / CDS)
     participant Pyramids as pyramids-gis
 
-    User-&gt;&gt;E2O: Earthly(data_source, start, end, ...)
-    E2O-&gt;&gt;DS: instantiate backend
+    User-&gt;&gt;Facade: Earthly(data_source, start, end, ...)
+    Facade-&gt;&gt;DS: instantiate backend
     DS-&gt;&gt;DS: initialize() / check_input_dates() / create_grid()
-    User-&gt;&gt;E2O: download()
-    E2O-&gt;&gt;DS: download()
+    User-&gt;&gt;Facade: download()
+    Facade-&gt;&gt;DS: download()
     loop for each date × variable
         DS-&gt;&gt;Server: api() / callAPI()
         Server--&gt;&gt;DS: NetCDF / raw file

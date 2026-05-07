@@ -64,7 +64,7 @@
     
     
   <meta name="panzoom-theme" content="material">
-<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+<meta name="panzoom-data" content='{"selectors": [".d2", ".mermaid"], "initial_zoom_level": 1.0}'> </head>
   
   
     
@@ -2269,7 +2269,7 @@ holds the concrete backend that :meth:<code>download</code> routes to.</p>
 <a id="__codelineno-0-299" name="__codelineno-0-299"></a>
 <a id="__codelineno-0-300" name="__codelineno-0-300"></a><span class="sd">                ```python</span>
 <a id="__codelineno-0-301" name="__codelineno-0-301"></a><span class="sd">                &gt;&gt;&gt; from earthly.earthly import Earthly</span>
-<a id="__codelineno-0-302" name="__codelineno-0-302"></a><span class="sd">                &gt;&gt;&gt; e2o = Earthly(  # doctest: +SKIP</span>
+<a id="__codelineno-0-302" name="__codelineno-0-302"></a><span class="sd">                &gt;&gt;&gt; earthly = Earthly(  # doctest: +SKIP</span>
 <a id="__codelineno-0-303" name="__codelineno-0-303"></a><span class="sd">                ...     data_source=&quot;chirps&quot;,</span>
 <a id="__codelineno-0-304" name="__codelineno-0-304"></a><span class="sd">                ...     start=&quot;2009-01-01&quot;,</span>
 <a id="__codelineno-0-305" name="__codelineno-0-305"></a><span class="sd">                ...     end=&quot;2009-01-02&quot;,</span>
@@ -2278,7 +2278,7 @@ holds the concrete backend that :meth:<code>download</code> routes to.</p>
 <a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">                ...     lon_lim=[-75.65, -74.73],</span>
 <a id="__codelineno-0-309" name="__codelineno-0-309"></a><span class="sd">                ...     path=&quot;examples/data/chirps&quot;,</span>
 <a id="__codelineno-0-310" name="__codelineno-0-310"></a><span class="sd">                ... )</span>
-<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">                &gt;&gt;&gt; e2o.download()  # doctest: +SKIP</span>
+<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">                &gt;&gt;&gt; earthly.download()  # doctest: +SKIP</span>
 <a id="__codelineno-0-312" name="__codelineno-0-312"></a>
 <a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">                ```</span>
 <a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">            - ECMWF download via the facade. Marked</span>
@@ -3048,7 +3048,7 @@ code that the catalog cannot resolve.</p>
 <p>End-to-end CHIRPS download. Marked <code># doctest: +SKIP</code>
   because it makes a live FTP connection:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">earthly.earthly</span><span class="w"> </span><span class="kn">import</span> <span class="n">Earthly</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">e2o</span> <span class="o">=</span> <span class="n">Earthly</span><span class="p">(</span>  <span class="c1"># doctest: +SKIP</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">earthly</span> <span class="o">=</span> <span class="n">Earthly</span><span class="p">(</span>  <span class="c1"># doctest: +SKIP</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="o">...</span>     <span class="n">data_source</span><span class="o">=</span><span class="s2">&quot;chirps&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">...</span>     <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2009-01-01&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="o">...</span>     <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2009-01-02&quot;</span><span class="p">,</span>
@@ -3057,7 +3057,7 @@ code that the catalog cannot resolve.</p>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="o">...</span>     <span class="n">lon_lim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">75.65</span><span class="p">,</span> <span class="o">-</span><span class="mf">74.73</span><span class="p">],</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="o">...</span>     <span class="n">path</span><span class="o">=</span><span class="s2">&quot;examples/data/chirps&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="o">...</span> <span class="p">)</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">e2o</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>  <span class="c1"># doctest: +SKIP</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">earthly</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>  <span class="c1"># doctest: +SKIP</span>
 </code></pre></div>
 - ECMWF download via the facade. Marked
   <code># doctest: +SKIP</code> because CDS requires
@@ -3227,7 +3227,7 @@ code that the catalog cannot resolve.</p>
 <a id="__codelineno-0-299" name="__codelineno-0-299"></a>
 <a id="__codelineno-0-300" name="__codelineno-0-300"></a><span class="sd">            ```python</span>
 <a id="__codelineno-0-301" name="__codelineno-0-301"></a><span class="sd">            &gt;&gt;&gt; from earthly.earthly import Earthly</span>
-<a id="__codelineno-0-302" name="__codelineno-0-302"></a><span class="sd">            &gt;&gt;&gt; e2o = Earthly(  # doctest: +SKIP</span>
+<a id="__codelineno-0-302" name="__codelineno-0-302"></a><span class="sd">            &gt;&gt;&gt; earthly = Earthly(  # doctest: +SKIP</span>
 <a id="__codelineno-0-303" name="__codelineno-0-303"></a><span class="sd">            ...     data_source=&quot;chirps&quot;,</span>
 <a id="__codelineno-0-304" name="__codelineno-0-304"></a><span class="sd">            ...     start=&quot;2009-01-01&quot;,</span>
 <a id="__codelineno-0-305" name="__codelineno-0-305"></a><span class="sd">            ...     end=&quot;2009-01-02&quot;,</span>
@@ -3236,7 +3236,7 @@ code that the catalog cannot resolve.</p>
 <a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">            ...     lon_lim=[-75.65, -74.73],</span>
 <a id="__codelineno-0-309" name="__codelineno-0-309"></a><span class="sd">            ...     path=&quot;examples/data/chirps&quot;,</span>
 <a id="__codelineno-0-310" name="__codelineno-0-310"></a><span class="sd">            ... )</span>
-<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">            &gt;&gt;&gt; e2o.download()  # doctest: +SKIP</span>
+<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">            &gt;&gt;&gt; earthly.download()  # doctest: +SKIP</span>
 <a id="__codelineno-0-312" name="__codelineno-0-312"></a>
 <a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">            ```</span>
 <a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">        - ECMWF download via the facade. Marked</span>
