@@ -87,4 +87,7 @@ jobs:
 
       - name: Run tests against installed wheel
         shell: bash -el {0}
-        run: pytest -vvv -sv tests/
+        # Skip e2e tests — they hit live CDS / FTP / S3 services and
+        # require credentials that aren't provisioned in this workflow.
+        # The dedicated tests-e2e.yml workflow runs them with secrets.
+        run: pytest -vvv -sv -m "not e2e" tests/
