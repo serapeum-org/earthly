@@ -1,4 +1,4 @@
-* earth2observe version:
+* earthly version:
 * Python version:
 * Operating System:
 

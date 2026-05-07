@@ -1,25 +1,70 @@
 # Data Source Authentication
 
-## ECMWF
+## ECMWF (Copernicus Climate Data Store)
 
-1. Register and set up your account on the [ECMWF website](https://apps.ecmwf.int/registration/).
+The ECMWF backend talks to the [Copernicus Climate Data Store
+(CDS)](https://cds.climate.copernicus.eu/) via the official `cdsapi`
+client. The legacy ECMWF Web API (`ecmwf-api-client`,
+`~/.ecmwfapirc`, `https://api.ecmwf.int/v1`) was decommissioned in
+**June 2023** and is no longer supported — including for ERA-Interim,
+which was retired in 2019. ERA5 on CDS is the production successor.
 
-2. Install your ECMWF API key. Instructions are available at:
-    - [Access ECMWF Public Datasets](https://confluence.ecmwf.int/display/WEBAPI/Access+ECMWF+Public+Datasets)
-    - [Install ECMWF API Key](https://confluence.ecmwf.int/display/WEBAPI/Install+ECMWF+API+Key)
-    - [Get your API key](https://api.ecmwf.int/v1/key/)
+### 1. Create a CDS account
 
-![ECMWF Key](_images/ecmwf_key.png){ width="400" }
+Register at <https://cds.climate.copernicus.eu/>. The account uses the
+Copernicus single-sign-on and is the same account that grants access
+to the Atmosphere Data Store (ADS) if you ever need it.
 
-Copy/paste the key into a text file and save it to your `$HOME` directory as `.ecmwfapirc`. On Windows, save it to `C:\Users\<USERNAME>\.ecmwfapirc`.
+### 2. Copy your Personal Access Token
 
-3. Add environment variables:
+Visit your profile page at
+<https://cds.climate.copernicus.eu/profile> and copy the **Personal
+Access Token (PAT)** — it looks like a UUID. Treat it as a password.
 
-```shell
-export ECMWF_API_URL="https://api.ecmwf.int/v1"
-export ECMWF_API_KEY="************"
-export ECMWF_API_EMAIL="<your-email>"
+### 3. Create `~/.cdsapirc`
+
+cdsapi reads its credentials from `~/.cdsapirc`. On Windows, save the
+file as `C:\Users\<USERNAME>\.cdsapirc`. The contents are two lines:
+
 ```
+url: https://cds.climate.copernicus.eu/api
+key: <YOUR-PERSONAL-ACCESS-TOKEN>
+```
+
+There is **no** `email:` line and **no** `<UID>:<KEY>`
+colon-separated format — those are conventions of the retired legacy
+API. Do not commit this file to source control.
+
+As an alternative for CI runners, cdsapi will fall back to the
+`CDSAPI_URL` and `CDSAPI_KEY` environment variables when the dotfile
+is absent.
+
+### 4. Accept dataset licences
+
+Each CDS dataset has its own terms of use that must be accepted
+**once, per dataset, per account**, on the website. For the variables
+ships with `cds_data_catalog.yaml`, accept the licences for at least:
+
+- ERA5 hourly on single levels — <https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels>
+- ERA5 monthly on single levels — `…-monthly-means`
+- ERA5 hourly on pressure levels — `…-pressure-levels`
+- ERA5 monthly on pressure levels — `…-pressure-levels-monthly-means`
+
+Open each dataset page, scroll to the **"Download"** tab, tick the
+licence. Otherwise `client.retrieve()` will return *"Required licences
+not accepted"*.
+
+### 5. CDS request behaviour to expect
+
+CDS queues each request server-side. `client.retrieve()` blocks until
+your request reaches the front of the queue and the file is generated
+— typically seconds to several minutes, occasionally longer for large
+requests. In CI the test suite mocks the client (see
+`tests/ecmwf/`); locally, expect to wait. The end-to-end test suite
+is selected with `pytest -m e2e`.
+
+For the full setup walkthrough see
+<https://cds.climate.copernicus.eu/how-to-api>.
 
 ## CHIRPS
 

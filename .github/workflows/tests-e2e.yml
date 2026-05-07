@@ -1,0 +1,46 @@
+name: Tests - E2E (live CDS)
+
+# Live end-to-end suite against the Copernicus Climate Data Store.
+# Each test queues server-side and takes minutes; running on every
+# push/PR would burn CDS quota and slow CI. So:
+#
+#   * schedule: weekly on Sunday at 04:00 UTC
+#   * workflow_dispatch: manual trigger from the Actions tab
+#
+# Forks cannot read repo secrets, so a fork-PR run would fail at
+# auth. The job below skips when secrets are not available.
+
+permissions:
+  contents: read
+
+on:
+  schedule:
+    - cron: '0 4 * * 0'
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    # Only run when CDS credentials are available (push / scheduled
+    # runs on the main repo, or manual dispatch). Forks have no
+    # secrets and would 401 immediately.
+    if: github.repository == 'serapeum-org/earthly'
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: serapeum-org/github-actions/actions/python-setup/pixi@pixi/v1
+        with:
+          environments: py312
+          activate-environment: py312
+          cache: true
+
+      - name: Run live CDS e2e tests
+        env:
+          CDSAPI_URL: ${{ secrets.CDSAPI_URL }}
+          CDSAPI_KEY: ${{ secrets.CDSAPI_KEY }}
+        run: |
+          pixi run -e py312 test-e2e

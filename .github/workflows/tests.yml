@@ -30,9 +30,11 @@ jobs:
           activate-environment: ${{ matrix.environment }}
           cache: true
 
-      - name: Run Tests
-        run: |
-          pixi run -e ${{ matrix.environment }} test-all
+      - name: Run ECMWF tests
+        run: pixi run -e ${{ matrix.environment }} test-ecmwf
+
+      - name: Run GEE tests
+        run: pixi run -e ${{ matrix.environment }} test-gee
 
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v5

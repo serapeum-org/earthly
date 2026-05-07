@@ -72,11 +72,14 @@ jobs:
 
       - name: Install wheel
         shell: bash -el {0}
-        run: pip install dist/*.whl
+        # `[all]` pulls every backend's optional SDK
+        # (boto3 / cdsapi / earthengine-api) so the test suite —
+        # which exercises every backend — can import them.
+        run: pip install "$(echo dist/*.whl)[all]"
 
       - name: Verify package import
         shell: bash -el {0}
-        run: python -c "import earth2observe; print(earth2observe.__version__)"
+        run: python -c "import earthly; print(earthly.__version__)"
 
       - name: Install test dependencies
         shell: bash -el {0}

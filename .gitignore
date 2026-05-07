@@ -150,3 +150,7 @@ conda/
 examples/data/chirps/*
 *.xml
 tests/mo/*
+
+# Local-only files (kept in worktree, not in git)
+CLAUDE.md
+planning/

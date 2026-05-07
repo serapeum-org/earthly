@@ -1,8 +1,8 @@
 import os
 
-from earth2observe.s3 import S3, Catalog
+from earthly.s3 import S3, Catalog
 
-#%%
+# %%
 s3_catalog = Catalog()
 print(s3_catalog.catalog)
 s3_catalog.get_variable("precipitation")
@@ -10,7 +10,7 @@ years = s3_catalog.get_available_years()
 date = "2022-05-01"
 # available_date_abs_path = s3_catalog.get_available_data(date, bucket='era5-pds', absolute_path=True)
 # available_date = s3_catalog.get_available_data(date, bucket='era5-pds', absolute_path=False)
-#%%
+# %%
 start = "2022-05-01"
 end = "2022-05-01"
 time = "monthly"
@@ -29,6 +29,6 @@ s3_era5 = S3(
     # lat_lim=lat,
     # lon_lim=lon,
 )
-#%%
+# %%
 s3_era5.download()
-#%%
+# %%

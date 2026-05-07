@@ -1,6 +1,6 @@
-from earth2observe.chirps import CHIRPS, Catalog
+from earthly.chirps import CHIRPS, Catalog
 
-#%%
+# %%
 chirps_catalog = Catalog()
 print(chirps_catalog.catalog)
 # %% precipitation
@@ -19,7 +19,7 @@ Coello = CHIRPS(
     temporal_resolution=time,
     path=path,
 )
-#%%
+# %%
 Coello.download()  # cores=4
-#%%
+# %%
 # Coello.download(cores=4)

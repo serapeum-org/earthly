@@ -2,7 +2,7 @@ from typing import List
 
 from pandas import DataFrame
 
-from earth2observe.gee.data import getCatalog
+from earthly.gee.data import getCatalog
 
 
 def test_get_catalog(catalog_columns: List[str]):

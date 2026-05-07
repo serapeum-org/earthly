@@ -1,8 +1,8 @@
-site_name: earth2observe
+site_name: earthly
 site_description: Remote sensing package
-site_url: https://serapeum-org.github.io/earth2observe/
-repo_url: https://github.com/serapeum-org/earth2observe
-repo_name: serapeum-org/earth2observe
+site_url: https://serapeum-org.github.io/earthly/
+repo_url: https://github.com/serapeum-org/earthly
+repo_name: serapeum-org/earthly
 
 theme:
   name: material
@@ -103,26 +103,32 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Installation: installation.md
-  - Architecture: architecture.md
-  - Authentication: authentication.md
-  - Data Sources: data-sources.md
-  - Data Catalog: catalog.md
-  - Post Processing: post-processing.md
-  - Reference:
-    - Earth2Observe: reference/earth2observe.md
-    - AbstractDataSource: reference/abstractdatasource.md
+  - Guide:
+    - Installation: installation.md
+    - Architecture: overview/architecture.md
+  - Data Sources:
     - CHIRPS: reference/chirps.md
     - Amazon S3: reference/s3.md
-    - ECMWF: reference/ecmwf.md
+    - ECMWF:
+      - Reference: reference/ecmwf.md
+      - Catalog & Probes: reference/ecmwf/catalog.md
+      - Aggregation: reference/aggregation.md
     - GEE: reference/gee.md
+  - Examples:
+    - Authentication: examples/authentication.md
+    - Data Sources: examples/data-sources.md
+    - Data Catalog: examples/catalog.md
+    - CDS Quickstart (notebook): examples/cds_quickstart.ipynb
+  - API Reference:
+    - Earthly Facade: reference/earthly.md
+    - AbstractDataSource: reference/abstract-datasource.md
   - About:
     - Change Log: change-log.md
 
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/serapeum-org/earth2observe
+      link: https://github.com/serapeum-org/earthly
   version:
       provider: mike
   version_selector: true

@@ -2,10 +2,10 @@
 
 Google Earth Engine data source subpackage.
 
-::: earth2observe.gee.gee
+::: earthly.gee.gee
 
-::: earth2observe.gee.dataset
+::: earthly.gee.dataset
 
-::: earth2observe.gee.catalog
+::: earthly.gee.data
 
-::: earth2observe.gee.features
+::: earthly.gee.features
