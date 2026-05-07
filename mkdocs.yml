@@ -103,21 +103,26 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Installation: installation.md
-  - Architecture: overview/architecture.md
-  - Authentication: examples/authentication.md
-  - Data Sources: examples/data-sources.md
-  - Data Catalog: examples/catalog.md
-  - Post Processing: examples/post-processing.md
-  - Reference:
-    - Earthly: reference/earthly.md
-    - AbstractDataSource: reference/abstractdatasource.md
-    - CHIRPS: reference/chirps.md
-    - Amazon S3: reference/s3.md
-    - ECMWF: reference/ecmwf.md
-    - ECMWF · Catalog & probes: reference/ecmwf/catalog.md
+  - Getting Started:
+    - Installation: installation.md
+    - Architecture: overview/architecture.md
+    - Authentication: examples/authentication.md
+    - Data Sources: examples/data-sources.md
+    - Data Catalog: examples/catalog.md
+    - Post Processing: examples/post-processing.md
+  - CHIRPS:
+    - Reference: reference/chirps.md
+  - Amazon S3:
+    - Reference: reference/s3.md
+  - ECMWF:
+    - Reference: reference/ecmwf.md
+    - Catalog & Probes: reference/ecmwf/catalog.md
     - Aggregation: reference/aggregation.md
-    - GEE: reference/gee.md
+  - GEE:
+    - Reference: reference/gee.md
+  - API:
+    - Earthly Facade: reference/earthly.md
+    - AbstractDataSource: reference/abstractdatasource.md
   - About:
     - Change Log: change-log.md
 
