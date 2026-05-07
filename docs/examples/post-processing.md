@@ -69,7 +69,7 @@ project/
     s3-backend/      # Downloaded NetCDF files
 ```
 
-![Project directory](_images/project-directory.png){ width="300" }
+![Project directory](../_images/project-directory.png){ width="300" }
 
 ## Earthly Download
 
@@ -94,7 +94,7 @@ e2o = Earthly(
 e2o.download()
 ```
 
-![Download progress](_images/download-progress-bar.png){ width="700" }
+![Download progress](../_images/download-progress-bar.png){ width="700" }
 
 ## Post Processing
 

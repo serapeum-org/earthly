@@ -131,7 +131,7 @@ class Earthly:
 
     def __init__(
         self,
-        variables,
+        variables: dict[str, list[str]] | list[str],
         data_source: str = "chirps",
         temporal_resolution: str = "daily",
         start: str | None = None,
@@ -259,9 +259,9 @@ class Earthly:
         self,
         progress_bar: bool = True,
         aggregate: AggregationConfig | None = None,
-        *args,
-        **kwargs,
-    ):
+        *args: object,
+        **kwargs: object,
+    ) -> None:
         """Delegate the download to the bound backend.
 
         Forwards every argument verbatim to `self.datasource.download`.
@@ -282,15 +282,16 @@ class Earthly:
             **kwargs: Forwarded as keywords to `backend.download`.
 
         Returns:
-            Whatever the bound backend's `download` method returns.
-            All backends currently return `None` and write files to
+            None: Backends return `None` today and write files to
             `path` as a side effect.
 
         Raises:
-            Any exception the bound backend raises. ECMWF wraps
-            authentication failures in
-            :class:`earthly.ecmwf.AuthenticationError`; all
-            backends propagate `KeyError` for unknown variable codes.
+            AuthenticationError: When the ECMWF backend cannot
+                authenticate against CDS (typically a missing
+                `~/.cdsapirc`). See
+                :class:`earthly.ecmwf.AuthenticationError`.
+            KeyError: When any backend receives an unknown variable
+                code that the catalog cannot resolve.
 
         Examples:
             - End-to-end CHIRPS download. Marked `# doctest: +SKIP`

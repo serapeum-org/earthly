@@ -104,11 +104,11 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Installation: installation.md
-  - Architecture: architecture.md
-  - Authentication: authentication.md
-  - Data Sources: data-sources.md
-  - Data Catalog: catalog.md
-  - Post Processing: post-processing.md
+  - Architecture: overview/architecture.md
+  - Authentication: examples/authentication.md
+  - Data Sources: examples/data-sources.md
+  - Data Catalog: examples/catalog.md
+  - Post Processing: examples/post-processing.md
   - Reference:
     - Earthly: reference/earthly.md
     - AbstractDataSource: reference/abstractdatasource.md
