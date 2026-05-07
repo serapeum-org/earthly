@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.3.0 (2026-05-07)
+
+### Feat
+
+- **ecmwf**: migrate from legacy MARS API to cdsapi and rebuild backend, catalog, and tooling (#30)
+
+### Fix
+
+- **pyproject**: update pyramids-gis dependency and add commitizen configuration
+
 ## 0.2.2 (2023-01-29)
 
 - Add documentation

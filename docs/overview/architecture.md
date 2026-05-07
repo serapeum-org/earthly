@@ -9,12 +9,12 @@ The `Earthly` facade exposes a uniform API on top of several concrete data-sourc
 ```mermaid
 flowchart LR
     user([User])
-    e2o[Earthly]
-    user --> e2o
-    e2o --> CHIRPS
-    e2o --> S3
-    e2o --> ECMWF
-    e2o --> GEE
+    earthly[Earthly]
+    user --> earthly
+    earthly --> CHIRPS
+    earthly --> S3
+    earthly --> ECMWF
+    earthly --> GEE
     CHIRPS --> FTP[(UCSB FTP<br/>data.chc.ucsb.edu)]
     S3 --> AWS[(AWS S3<br/>era5-pds bucket)]
     ECMWF --> CDS[(ECMWF<br/>Climate Data Store)]
@@ -145,16 +145,16 @@ The user calls `Earthly.download()`, which delegates to the selected backend. Ea
 sequenceDiagram
     autonumber
     actor User
-    participant E2O as Earthly
+    participant Facade as Earthly
     participant DS as AbstractDataSource
     participant Server as Remote server<br/>(FTP / S3 / CDS)
     participant Pyramids as pyramids-gis
 
-    User->>E2O: Earthly(data_source, start, end, ...)
-    E2O->>DS: instantiate backend
+    User->>Facade: Earthly(data_source, start, end, ...)
+    Facade->>DS: instantiate backend
     DS->>DS: initialize() / check_input_dates() / create_grid()
-    User->>E2O: download()
-    E2O->>DS: download()
+    User->>Facade: download()
+    Facade->>DS: download()
     loop for each date × variable
         DS->>Server: api() / callAPI()
         Server-->>DS: NetCDF / raw file

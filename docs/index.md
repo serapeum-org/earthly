@@ -30,7 +30,7 @@ graph LR
 ```python
 from earthly.earthly import Earthly
 
-e2o = Earthly(
+earthly = Earthly(
     data_source="chirps",
     temporal_resolution="daily",
     start="2009-01-01",
@@ -40,7 +40,7 @@ e2o = Earthly(
     lon_lim=[-75.65, -74.73],
     path="examples/data/chirps",
 )
-e2o.download()
+earthly.download()
 ```
 
 ## Installation
