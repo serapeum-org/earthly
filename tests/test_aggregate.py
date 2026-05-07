@@ -896,6 +896,8 @@ class TestAggregateNetcdfRoundTrip:
         self, monkeypatch, tmp_path, state_var
     ):
         """A window with fewer non-NaN samples than `min_count` emits NaN."""
+        import warnings
+
         cube = np.full((4, 2, 2), np.nan)
         cube[0, 0, 0] = 1.0
         cube[1, 0, 0] = 2.0
@@ -907,13 +909,18 @@ class TestAggregateNetcdfRoundTrip:
         _patch_netcdf_read(monkeypatch, nc)
         _patch_geotiff_write(monkeypatch)
 
-        results = aggregate_netcdf(
-            tmp_path / "fake.nc",
-            state_var,
-            AggregationConfig(
-                freq="1D", op="mean", out_dir=None, min_count=4,
-            ),
-        )
+        # numpy emits "Mean of empty slice" for the three pixels that are
+        # all-NaN before `min_count` masks them. Behaviour is correct;
+        # silence the incidental warning so test output stays clean.
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            results = aggregate_netcdf(
+                tmp_path / "fake.nc",
+                state_var,
+                AggregationConfig(
+                    freq="1D", op="mean", out_dir=None, min_count=4,
+                ),
+            )
         _, arr, _ = results[0]
         assert np.isnan(arr[0, 0]), (
             f"Pixel with only 2 non-NaN samples and min_count=4 should be NaN, "
