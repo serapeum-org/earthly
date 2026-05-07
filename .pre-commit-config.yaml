@@ -146,6 +146,12 @@ repos:
     hooks:
       - id: checkov
 
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+        name: "[ipynb - format] strip notebook outputs"
+
   - repo: local
     hooks:
       - id: safety

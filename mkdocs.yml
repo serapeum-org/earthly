@@ -118,7 +118,17 @@ nav:
     - Authentication: examples/authentication.md
     - Data Sources: examples/data-sources.md
     - Data Catalog: examples/catalog.md
-    - CDS Quickstart (notebook): examples/cds_quickstart.ipynb
+    - CDS Quickstart: examples/cds_quickstart.ipynb
+    - Hydrology — water balance: examples/hydrology_water_balance.ipynb
+    - Oceanography — SST & sea ice: examples/oceanography_sst_sea_ice.ipynb
+    - Atmosphere — pressure levels: examples/atmosphere_pressure_levels.ipynb
+    - Agriculture — crop water demand: examples/agriculture_crop_water.ipynb
+    - Solar — PV resource assessment: examples/solar_resource_assessment.ipynb
+    - Wind — hub-height resource: examples/wind_energy_resource.ipynb
+    - Snow & cryosphere — winter snowpack: examples/snow_cryosphere_winter.ipynb
+    - Heat waves — public health: examples/heat_waves_public_health.ipynb
+    - Climate change — temperature anomalies: examples/climate_change_anomalies.ipynb
+    - Drought — SPI from precipitation: examples/drought_precipitation_deficit.ipynb
   - API Reference:
     - Earthly Facade: reference/earthly.md
     - AbstractDataSource: reference/abstract-datasource.md
