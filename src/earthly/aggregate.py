@@ -147,19 +147,23 @@ _LEVEL_DIM_CANDIDATES: tuple[str, ...] = ("pressure_level", "level")
 def _find_level_dim(nc: NetCDF) -> str | None:
     """Return the pressure-level dimension name, or `None` for 3-D files.
 
-    Walks `nc.dimension_names` looking for any of
+    Walks `nc.dimension_names` (root-container view) or
+    `nc._md_array_dims` (variable-cube view, set by
+    :meth:`NetCDF.get_variable`) looking for any of
     :data:`_LEVEL_DIM_CANDIDATES`. CDS pressure-level NetCDFs use
     `pressure_level`; some derived datasets use plain `level`. The
     first match wins.
 
     Args:
-        nc: An open :class:`pyramids.netcdf.NetCDF` instance.
+        nc: An open :class:`pyramids.netcdf.NetCDF` instance — either
+            the root MDIM container or a variable subset returned by
+            :meth:`NetCDF.get_variable`.
 
     Returns:
         str | None: The matched dimension name when the NetCDF has a
         pressure-level axis; `None` for 3-D `(time, lat, lon)` files.
     """
-    dim_names = nc.dimension_names or ()
+    dim_names = nc.dimension_names or getattr(nc, "_md_array_dims", None) or ()
     for candidate in _LEVEL_DIM_CANDIDATES:
         if candidate in dim_names:
             return candidate
@@ -598,10 +602,18 @@ def aggregate_netcdf(
     op = _resolve_op(config.op, var_info)
 
     nc = NetCDF.read_file(str(nc_path))
-    nc = _resolve_pressure_level(nc, config.level)
-    arr = nc.read_array(variable=var_info.nc_variable)
+    # Read time axis + geotransform from the root container — only the
+    # container exposes `get_time_variable` against the underlying CF
+    # metadata. The variable-subset cube returned by `get_variable`
+    # tracks coords on `_band_dim_values_map` instead, but does not
+    # round-trip them through `get_time_variable`. The cube is what
+    # `sel()` and the band-dim-aware multi-D logic need, so use it
+    # for level pinning + array read.
     time_axis = _read_time_axis(nc)
     geo = nc.geotransform
+    var = nc.get_variable(var_info.nc_variable)
+    var = _resolve_pressure_level(var, config.level)
+    arr = var.read_array()
 
     results: list[tuple[pd.Timestamp, np.ndarray, Path | None]] = []
     for window_label, mask in _window_groups(time_axis, config.freq):
