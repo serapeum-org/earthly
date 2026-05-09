@@ -80,6 +80,13 @@ docs = [
     "notebook<7.0",
 ]
 
+notebook = [
+    "pip",
+    "jupyterlab",
+    "notebook",
+    "jupyter",
+    "ipykernel"
+]
 
 [project.urls]
 homepage = "https://github.com/serapeum-org/earthly"
@@ -197,6 +204,7 @@ py311 = { features = ["py311", "dev"], solve-group = "py311" }
 py312 = { features = ["py312", "dev"], solve-group = "py312" }
 py313 = { features = ["py313", "dev"], solve-group = "py313" }
 py314 = { features = ["py314", "dev"], solve-group = "py314" }
+notebook = { features = ["dev", "notebook"], solve-group = "default" }
 
 [tool.pixi.feature.py311.dependencies]
 python = "3.11.*"
