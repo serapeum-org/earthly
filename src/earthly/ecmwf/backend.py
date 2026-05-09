@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime as dt
 import os
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -123,6 +124,37 @@ def _looks_like_licence_not_accepted(exc: BaseException) -> bool:
         or "403" in message
         and ("accept" in message or "term" in message)
     )
+
+
+def _unwrap_zipped_netcdf(target: Path) -> None:
+    """Replace `target` with its inner NetCDF when CDS returned a zip.
+
+    CDS occasionally hands back a zip-wrapped NetCDF even when
+    `data_format='netcdf'` was requested (observed on
+    `reanalysis-era5-land-monthly-means` and similar partitioned
+    datasets). The `cdsapi.Client.retrieve` call writes the raw bytes
+    to `target` regardless of format, so the file ends up with a
+    `.nc` name but a `PK\\x03\\x04` zip header. Detect that and
+    extract the single inner NetCDF in place so downstream callers
+    (the aggregator, user code reading the file) see a real NetCDF.
+
+    No-op when `target` is already a plain NetCDF, or when the zip
+    does not contain exactly one `.nc` member (other shapes are
+    surfaced via a `RuntimeError` so they do not silently pass).
+    """
+    if not zipfile.is_zipfile(target):
+        return
+    with zipfile.ZipFile(target) as zf:
+        members = [m for m in zf.namelist() if m.endswith(".nc")]
+        if len(members) != 1:
+            raise RuntimeError(
+                f"CDS returned a zip with {len(members)} .nc members at "
+                f"{target}; expected exactly one. Members: {zf.namelist()}"
+            )
+        inner = members[0]
+        with zf.open(inner) as src:
+            data = src.read()
+    target.write_bytes(data)
 
 
 class ECMWF(AbstractDataSource):
@@ -703,6 +735,7 @@ class ECMWF(AbstractDataSource):
                     "tied to your CDS account."
                 ) from exc
             raise
+        _unwrap_zipped_netcdf(target)
         return target
 
     def _build_request(self, var_info: Variable) -> dict[str, Any]:
