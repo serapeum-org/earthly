@@ -128,14 +128,14 @@ def _looks_like_licence_not_accepted(exc: BaseException) -> bool:
 
 
 def _unwrap_zipped_netcdf(target: Path) -> None:
-    """Replace `target` with its inner NetCDF when CDS returned a zip.
+    r"""Replace `target` with its inner NetCDF when CDS returned a zip.
 
     CDS occasionally hands back a zip-wrapped NetCDF even when
     `data_format='netcdf'` was requested (observed on
     `reanalysis-era5-land-monthly-means` and similar partitioned
     datasets). The `cdsapi.Client.retrieve` call writes the raw bytes
     to `target` regardless of format, so the file ends up with a
-    `.nc` name but a `PK\\x03\\x04` zip header. Detect that and
+    `.nc` name but a `PK\x03\x04` zip header. Detect that and
     extract the single inner NetCDF in place so downstream callers
     (the aggregator, user code reading the file) see a real NetCDF.
 
