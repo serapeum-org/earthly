@@ -147,9 +147,7 @@ _LEVEL_DIM_CANDIDATES: tuple[str, ...] = ("pressure_level", "level")
 def _find_level_dim(nc: NetCDF) -> str | None:
     """Return the pressure-level dimension name, or `None` for 3-D files.
 
-    Walks `nc.dimension_names` (root-container view) or
-    `nc._md_array_dims` (variable-cube view, set by
-    :meth:`NetCDF.get_variable`) looking for any of
+    Walks `nc.dimension_names` looking for any of
     :data:`_LEVEL_DIM_CANDIDATES`. CDS pressure-level NetCDFs use
     `pressure_level`; some derived datasets use plain `level`. The
     first match wins.
@@ -157,13 +155,14 @@ def _find_level_dim(nc: NetCDF) -> str | None:
     Args:
         nc: An open :class:`pyramids.netcdf.NetCDF` instance — either
             the root MDIM container or a variable subset returned by
-            :meth:`NetCDF.get_variable`.
+            :meth:`NetCDF.get_variable`. Both surfaces expose the
+            full dim list under `dimension_names`.
 
     Returns:
         str | None: The matched dimension name when the NetCDF has a
         pressure-level axis; `None` for 3-D `(time, lat, lon)` files.
     """
-    dim_names = nc.dimension_names or getattr(nc, "_md_array_dims", None) or ()
+    dim_names = nc.dimension_names or ()
     for candidate in _LEVEL_DIM_CANDIDATES:
         if candidate in dim_names:
             return candidate
