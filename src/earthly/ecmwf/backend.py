@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime as dt
 import os
+import shutil
 import zipfile
 from pathlib import Path
 from typing import Any
@@ -138,23 +139,43 @@ def _unwrap_zipped_netcdf(target: Path) -> None:
     extract the single inner NetCDF in place so downstream callers
     (the aggregator, user code reading the file) see a real NetCDF.
 
+    Streams the inner member to a sibling temp file via
+    `shutil.copyfileobj` (default 64 KiB buffer) and then atomically
+    swaps it onto `target` via `os.replace`. The inner NetCDF is
+    never fully materialised in Python memory regardless of size.
+    The temp file is cleaned up on every error path.
+
     No-op when `target` is already a plain NetCDF, or when the zip
     does not contain exactly one `.nc` member (other shapes are
     surfaced via a `RuntimeError` so they do not silently pass).
     """
     if not zipfile.is_zipfile(target):
         return
-    with zipfile.ZipFile(target) as zf:
-        members = [m for m in zf.namelist() if m.endswith(".nc")]
-        if len(members) != 1:
-            raise RuntimeError(
-                f"CDS returned a zip with {len(members)} .nc members at "
-                f"{target}; expected exactly one. Members: {zf.namelist()}"
-            )
-        inner = members[0]
-        with zf.open(inner) as src:
-            data = src.read()
-    target.write_bytes(data)
+    tmp = target.parent / (target.name + ".unwrap.tmp")
+    try:
+        with zipfile.ZipFile(target) as zf:
+            members = [m for m in zf.namelist() if m.endswith(".nc")]
+            if len(members) != 1:
+                raise RuntimeError(
+                    f"CDS returned a zip with {len(members)} .nc members at "
+                    f"{target}; expected exactly one. Members: {zf.namelist()}"
+                )
+            inner = members[0]
+            with zf.open(inner) as src, tmp.open("wb") as dst:
+                shutil.copyfileobj(src, dst)
+        bytes_written = tmp.stat().st_size
+        os.replace(tmp, target)
+        logger.debug(
+            f"Unwrapped CDS zip response at {target}: extracted inner "
+            f"{inner!r} ({bytes_written} bytes)"
+        )
+    finally:
+        # On the success path os.replace consumed `tmp`, so this is a
+        # no-op. On any failure path (RuntimeError before extraction,
+        # I/O error during copy, os.replace failure) the partially
+        # written temp file is removed so we never leave litter.
+        if tmp.exists():
+            tmp.unlink(missing_ok=True)
 
 
 class ECMWF(AbstractDataSource):
