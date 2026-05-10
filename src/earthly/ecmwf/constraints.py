@@ -75,13 +75,6 @@ CONSTRAINTS_URL_TEMPLATE = (
 # format / output controls). Skipped during validation.
 _UNIVERSAL_KEYS: frozenset[str] = frozenset({"area", "data_format", "format", "grid"})
 
-# Keys CDS uses to partition a dataset's storage internally. A request
-# whose values for these keys span multiple constraint entries is
-# still accepted by CDS (it splits the retrieval), so the combinatorial
-# check unions across consistent entries instead of demanding a single
-# entry cover the whole request. See `_check_combinatorial`.
-_TIME_PARTITION_KEYS: frozenset[str] = frozenset({"year", "month", "day"})
-
 # Module-level cache so each dataset is only fetched once per
 # Python process. `None` is reserved for "fetch attempted, no
 # constraints available" so we don't refetch on every retry.
@@ -399,19 +392,31 @@ class RequestValidator:
             )
 
     def _check_combinatorial(self) -> None:
-        """Phase 5: walk constraints for entries covering all enumerated keys.
+        """Phase 5: every cross-product tuple in the request must be served.
 
-        For each non-time key the constraints document enumerates
-        (variable, product_type, level_type, ...) the request's
-        value(s) must be a subset of *some single entry's* allowed
-        values. For the time-partition keys (`year`, `month`, `day`),
-        the request's values must be a subset of the *union* of the
-        allowed values across the entries that satisfy the non-time
-        keys — this matches CDS's actual behaviour, which silently
-        splits cross-partition requests across its internal storage
-        chunks (e.g. `reanalysis-era5-land-monthly-means` partitions
-        by `month` Jan-Apr / May-Dec but accepts requests spanning
-        both halves).
+        A request is valid iff for every `(k1=v1, k2=v2, ...)` tuple
+        in the cross product of its enumerated values, at least one
+        constraint entry enumerates that exact tuple. This matches
+        CDS's actual server-side check exactly — no hardcoded
+        "partition key" list, so the validator handles partitioning
+        on any dimension (year / month / day / level_type / time /
+        variable / ...) automatically.
+
+        Concretely, datasets like `reanalysis-era5-land-monthly-means`
+        publish two structurally identical entries differing only on
+        `month` (Jan-Apr / May-Dec). A cross-month request is
+        accepted because every `(variable, product_type, year,
+        month)` tuple in the request lands in *one* of the two
+        entries. A request that mixes `year=2026` (only in the
+        Jan-Apr entry, since the May-Dec entry stops at 2025) with
+        `month=06` is correctly rejected because no entry serves
+        `(2026, 06)`.
+
+        Performance: walks `N_tuples × N_entries` with short-circuit
+        on first served entry per tuple. For typical CDS requests
+        (a few variables × a year or two × twelve months × thirty
+        days, maybe one or two product_types) `N_tuples` is well
+        under 10 K and the check completes in milliseconds.
         """
         constraint_keys: set[str] = set().union(
             *(set(entry) for entry in self.constraints)
@@ -419,32 +424,33 @@ class RequestValidator:
         req_norm = self._normalise_request(constraint_keys)
         if not req_norm:
             return
-        non_time = {k: v for k, v in req_norm.items() if k not in _TIME_PARTITION_KEYS}
-        time_part = {k: v for k, v in req_norm.items() if k in _TIME_PARTITION_KEYS}
 
-        # Only consider entries that fully cover the non-time keys.
-        candidates = [
-            entry
+        keys = sorted(req_norm)
+        entry_sets: list[dict[str, set[Any]]] = [
+            {k: set(entry[k]) for k in keys if k in entry}
             for entry in self.constraints
-            if all(k in entry and non_time[k] <= set(entry[k]) for k in non_time)
         ]
-        time_ok = True
-        if candidates and time_part:
-            for k, values in time_part.items():
-                union_k: set[Any] = set()
-                for entry in candidates:
-                    if k in entry:
-                        union_k.update(entry[k])
-                if not values <= union_k:
-                    time_ok = False
-                    break
 
-        if not candidates or not time_ok:
+        for combo in itertools.product(*[sorted(req_norm[k]) for k in keys]):
+            tuple_dict = dict(zip(keys, combo))
+            served = any(
+                all(k in es and tuple_dict[k] in es[k] for k in keys)
+                for es in entry_sets
+            )
+            if served:
+                continue
             bad_keys = self._find_offending_values(req_norm)
+            offending_combo = ", ".join(
+                f"{k}={v!r}" for k, v in tuple_dict.items()
+            )
+            hint = (
+                f"Offending values: {', '.join(bad_keys)}"
+                if bad_keys
+                else f"No entry serves the combination ({offending_combo})"
+            )
             raise ValueError(
                 f"Request for {self.dataset!r} does not match any "
-                f"constraint entry. Offending values: "
-                f"{', '.join(bad_keys) or '(unclear)'}\n"
+                f"constraint entry. {hint}\n"
                 f"Submitted request: {self.request}\n"
                 f"Live constraints: "
                 + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)

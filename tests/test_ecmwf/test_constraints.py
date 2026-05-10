@@ -402,6 +402,69 @@ class TestCombinatorialPartitionUnion:
             },
         ).check()
 
+    def test_cross_partition_combination_only_partially_served_rejected(
+        self, monkeypatch
+    ):
+        """A request whose individual values exist in the per-key union
+        but whose specific tuple is not in any entry must be rejected.
+
+        Models the partition where year 2026 is only on the Jan-Apr
+        side: a request asking for both `month=06` (Jan-Apr partition
+        does not have it) and `year=2026` (May-Dec partition does
+        not have it) cannot be served by any single entry, even
+        though `2026` and `06` each appear in *some* entry's values.
+
+        The earlier per-key union check (with hardcoded
+        `_TIME_PARTITION_KEYS`) over-accepted this because it
+        unioned `month` and `year` independently. The cross-product
+        check catches it because the tuple `(year=2026, month=06)`
+        lands in no entry.
+        """
+        _stub_urlopen(monkeypatch, self._partitioned_constraints())
+        with pytest.raises(ValueError, match=r"(?i)does not match"):
+            RequestValidator(
+                "reanalysis-era5-land-monthly-means",
+                {
+                    "variable": ["2m_temperature"],
+                    "product_type": ["monthly_averaged_reanalysis"],
+                    "year": ["2026"],
+                    "month": ["02", "06"],
+                },
+            ).check()
+
+    def test_cross_key_partition_on_non_time_dimension(self, monkeypatch):
+        """The cross-product check accepts non-time partitioning too.
+
+        A hypothetical dataset partitioning on `level_type` (one
+        entry per surface / pressure / model levels with otherwise
+        identical structural keys) is handled the same way as the
+        time-partition case — no special-casing required. Each
+        tuple in the request lands in exactly one entry.
+        """
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {
+                    "variable": ["temperature"],
+                    "level_type": ["surface_levels"],
+                    "year": ["2022"],
+                },
+                {
+                    "variable": ["temperature"],
+                    "level_type": ["pressure_levels"],
+                    "year": ["2022"],
+                },
+            ],
+        )
+        RequestValidator(
+            "reanalysis-cerra-fictional",
+            {
+                "variable": ["temperature"],
+                "level_type": ["surface_levels", "pressure_levels"],
+                "year": ["2022"],
+            },
+        ).check()
+
 
 class TestDateValidity:
     """Tests for the M17 date sanity check."""
