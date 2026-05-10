@@ -75,6 +75,13 @@ CONSTRAINTS_URL_TEMPLATE = (
 # format / output controls). Skipped during validation.
 _UNIVERSAL_KEYS: frozenset[str] = frozenset({"area", "data_format", "format", "grid"})
 
+# Keys CDS uses to partition a dataset's storage internally. A request
+# whose values for these keys span multiple constraint entries is
+# still accepted by CDS (it splits the retrieval), so the combinatorial
+# check unions across consistent entries instead of demanding a single
+# entry cover the whole request. See `_check_combinatorial`.
+_TIME_PARTITION_KEYS: frozenset[str] = frozenset({"year", "month", "day"})
+
 # Module-level cache so each dataset is only fetched once per
 # Python process. `None` is reserved for "fetch attempted, no
 # constraints available" so we don't refetch on every retry.
@@ -179,17 +186,12 @@ class Dates(BaseModel):
                 if label == "year":
                     raise ValueError(f"year={n} outside the plausible 1850-2100 range")
                 raise ValueError(f"{label}={n} must be {lo:02d}-{hi:02d}")
-        if self.year and self.month and self.day:
-            for yi, mi, di in itertools.product(self.year, self.month, self.day):
-                if yi is None or mi is None or di is None:
-                    continue
-                try:
-                    datetime.date(yi, mi, di)
-                except ValueError as exc:
-                    raise ValueError(
-                        f"year/month/day combination "
-                        f"{yi:04d}-{mi:02d}-{di:02d} is not a real date: {exc}"
-                    ) from None
+        # No cross-product check on (year, month, day): CDS accepts
+        # exhaustive enumerations like `day=[01..31]` for a request
+        # spanning months with fewer days, silently dropping the
+        # non-existent combinations. Enforcing real-date semantics
+        # here would falsely reject the request builder's standard
+        # daily-resolution payload.
         return self
 
     @classmethod
@@ -397,36 +399,56 @@ class RequestValidator:
             )
 
     def _check_combinatorial(self) -> None:
-        """Phase 5: walk constraints for an entry covering all enumerated keys.
+        """Phase 5: walk constraints for entries covering all enumerated keys.
 
-        For each key the constraints document enumerates (excluding
-        universal keys), the request's value(s) must be a subset of
-        *some single entry's* allowed values, simultaneously across
-        all such keys. If no entry covers them all, raise with the
-        offending values surfaced so the user can fix the right extras.
+        For each non-time key the constraints document enumerates
+        (variable, product_type, level_type, ...) the request's
+        value(s) must be a subset of *some single entry's* allowed
+        values. For the time-partition keys (`year`, `month`, `day`),
+        the request's values must be a subset of the *union* of the
+        allowed values across the entries that satisfy the non-time
+        keys — this matches CDS's actual behaviour, which silently
+        splits cross-partition requests across its internal storage
+        chunks (e.g. `reanalysis-era5-land-monthly-means` partitions
+        by `month` Jan-Apr / May-Dec but accepts requests spanning
+        both halves).
         """
         constraint_keys: set[str] = set().union(
             *(set(entry) for entry in self.constraints)
         )
         req_norm = self._normalise_request(constraint_keys)
-        if req_norm:
-            has_match = any(
-                all(
-                    key in entry and req_norm[key] <= set(entry[key])
-                    for key in req_norm
-                )
-                for entry in self.constraints
+        if not req_norm:
+            return
+        non_time = {k: v for k, v in req_norm.items() if k not in _TIME_PARTITION_KEYS}
+        time_part = {k: v for k, v in req_norm.items() if k in _TIME_PARTITION_KEYS}
+
+        # Only consider entries that fully cover the non-time keys.
+        candidates = [
+            entry
+            for entry in self.constraints
+            if all(k in entry and non_time[k] <= set(entry[k]) for k in non_time)
+        ]
+        time_ok = True
+        if candidates and time_part:
+            for k, values in time_part.items():
+                union_k: set[Any] = set()
+                for entry in candidates:
+                    if k in entry:
+                        union_k.update(entry[k])
+                if not values <= union_k:
+                    time_ok = False
+                    break
+
+        if not candidates or not time_ok:
+            bad_keys = self._find_offending_values(req_norm)
+            raise ValueError(
+                f"Request for {self.dataset!r} does not match any "
+                f"constraint entry. Offending values: "
+                f"{', '.join(bad_keys) or '(unclear)'}\n"
+                f"Submitted request: {self.request}\n"
+                f"Live constraints: "
+                + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
             )
-            if not has_match:
-                bad_keys = self._find_offending_values(req_norm)
-                raise ValueError(
-                    f"Request for {self.dataset!r} does not match any "
-                    f"constraint entry. Offending values: "
-                    f"{', '.join(bad_keys) or '(unclear)'}\n"
-                    f"Submitted request: {self.request}\n"
-                    f"Live constraints: "
-                    + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
-                )
 
     def _normalise_request(self, constraint_keys: set[str]) -> dict[str, set[Any]]:
         """Return per-key value sets for keys the constraints enumerate.

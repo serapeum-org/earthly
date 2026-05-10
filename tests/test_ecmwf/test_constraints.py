@@ -240,9 +240,9 @@ class TestDateValidity:
         with pytest.raises(ValueError, match="year=.*plausible"):
             Dates.check({"year": ["1492"]})
 
-    def test_feb_30_raises(self):
-        with pytest.raises(ValueError, match="not a real date"):
-            Dates.check({"year": ["2022"], "month": ["02"], "day": ["30"]})
+    def test_cross_month_day_combo_passes(self):
+        """Day=30 with month=02 passes: CDS accepts exhaustive day enumerations."""
+        Dates.check({"year": ["2022"], "month": ["02"], "day": ["30"]})
 
     def test_valid_date_passes(self):
         Dates.check({"year": ["2022"], "month": ["02"], "day": ["28"]})
