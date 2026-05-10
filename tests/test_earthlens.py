@@ -12,11 +12,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from earthly.aggregate import AggregationConfig
-from earthly.chirps import CHIRPS
-from earthly.earthly import Earthly
-from earthly.ecmwf import ECMWF
-from earthly.s3 import S3
+from earthlens.aggregate import AggregationConfig
+from earthlens.chirps import CHIRPS
+from earthlens.earthlens import EarthLens
+from earthlens.ecmwf import ECMWF
+from earthlens.s3 import S3
 
 
 class _SentinelClient:
@@ -36,7 +36,7 @@ class TestChirpsBackend:
         lon_bounds: list,
         chirps_data_source_output_dir: str,
     ):
-        earthly = Earthly(
+        earthlens = EarthLens(
             data_source=chirps_data_source,
             start=dates[0],
             end=dates[1],
@@ -46,11 +46,11 @@ class TestChirpsBackend:
             temporal_resolution=daily_temporal_resolution,
             path=chirps_data_source_output_dir,
         )
-        assert isinstance(earthly.DataSources, Mapping)
-        assert isinstance(earthly.datasource, CHIRPS)
-        assert earthly.datasource.vars == chirps_variables
-        assert isinstance(earthly.datasource.lat_lim, list)
-        return earthly
+        assert isinstance(earthlens.DataSources, Mapping)
+        assert isinstance(earthlens.datasource, CHIRPS)
+        assert earthlens.datasource.vars == chirps_variables
+        assert isinstance(earthlens.datasource.lat_lim, list)
+        return earthlens
 
     @pytest.mark.e2e
     def test_download_chirps_backend(
@@ -86,7 +86,7 @@ class TestS3Backend:
         lon_bounds: list,
         s3_era5_data_source_output_dir: str,
     ):
-        earthly = Earthly(
+        earthlens = EarthLens(
             data_source=s3_data_source,
             start=monthly_dates[0],
             end=monthly_dates[1],
@@ -96,10 +96,10 @@ class TestS3Backend:
             temporal_resolution=monthly_temporal_resolution,
             path=s3_era5_data_source_output_dir,
         )
-        assert isinstance(earthly.DataSources, Mapping)
-        assert isinstance(earthly.datasource, S3)
-        assert earthly.datasource.vars == s3_era5_variables
-        return earthly
+        assert isinstance(earthlens.DataSources, Mapping)
+        assert isinstance(earthlens.datasource, S3)
+        assert earthlens.datasource.vars == s3_era5_variables
+        return earthlens
 
     @pytest.mark.e2e
     def test_download_s3_backend(
@@ -122,27 +122,27 @@ class TestS3Backend:
 class TestECMWFBackend:
     """Tests for the C1+L3 fix that registers ECMWF in the facade.
 
-    Pre-C1, `Earthly(data_source="ecmwf", ...)` raised
+    Pre-C1, `EarthLens(data_source="ecmwf", ...)` raised
     `ValueError: ecmwf not supported` because the `DataSources`
     mapping omitted ECMWF. These tests pin the registration so
     regressions show up immediately.
     """
 
     def test_ecmwf_is_registered_in_data_sources(self):
-        """`Earthly.DataSources` maps `"ecmwf"` to :class:`ECMWF`."""
-        assert "ecmwf" in Earthly.DataSources, (
-            f"'ecmwf' missing from DataSources keys: " f"{sorted(Earthly.DataSources)}"
+        """`EarthLens.DataSources` maps `"ecmwf"` to :class:`ECMWF`."""
+        assert "ecmwf" in EarthLens.DataSources, (
+            f"'ecmwf' missing from DataSources keys: " f"{sorted(EarthLens.DataSources)}"
         )
-        assert Earthly.DataSources["ecmwf"] is ECMWF, (
+        assert EarthLens.DataSources["ecmwf"] is ECMWF, (
             f"DataSources['ecmwf'] should be the ECMWF class; got "
-            f"{Earthly.DataSources['ecmwf']!r}"
+            f"{EarthLens.DataSources['ecmwf']!r}"
         )
 
     def test_facade_accepts_ecmwf_data_source(self, tmp_path, monkeypatch):
-        """`Earthly(data_source="ecmwf", ...)` no longer raises."""
+        """`EarthLens(data_source="ecmwf", ...)` no longer raises."""
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
-        earthly = Earthly(
+        earthlens = EarthLens(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -155,15 +155,15 @@ class TestECMWFBackend:
             path=str(tmp_path),
         )
 
-        assert isinstance(earthly.datasource, ECMWF), (
+        assert isinstance(earthlens.datasource, ECMWF), (
             f"datasource should be an ECMWF instance; got "
-            f"{type(earthly.datasource).__name__}"
+            f"{type(earthlens.datasource).__name__}"
         )
 
     def test_unknown_data_source_still_raises(self, tmp_path):
         """Unknown `data_source` values still raise `ValueError`."""
         with pytest.raises(ValueError, match="not supported"):
-            Earthly(
+            EarthLens(
                 data_source="not-a-real-source",
                 start="2022-01-01",
                 end="2022-01-01",
@@ -177,7 +177,7 @@ class TestECMWFBackend:
         """The facade threads its constructor args into ECMWF unchanged."""
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
-        earthly = Earthly(
+        earthlens = EarthLens(
             data_source="ecmwf",
             temporal_resolution="monthly",
             start="2022-01-01",
@@ -193,7 +193,7 @@ class TestECMWFBackend:
             path=str(tmp_path),
         )
 
-        ecmwf = earthly.datasource
+        ecmwf = earthlens.datasource
         assert ecmwf.vars == {
             "reanalysis-era5-single-levels": [
                 "2m-temperature",
@@ -209,7 +209,7 @@ class TestECMWFBackend:
         ), f"root_dir should be the tmp path; got {ecmwf.root_dir}"
 
     def test_full_download_through_facade_routes_to_cdsapi(self, tmp_path, monkeypatch):
-        """End-to-end: `Earthly(...).download()` reaches CDS.
+        """End-to-end: `EarthLens(...).download()` reaches CDS.
 
             * Two cdsapi.Client.retrieve calls — one per variable
             * Each retrieve receives the right dataset name and
@@ -227,7 +227,7 @@ class TestECMWFBackend:
 
         monkeypatch.setattr(cdsapi, "Client", FakeClient)
 
-        earthly = Earthly(
+        earthlens = EarthLens(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -242,7 +242,7 @@ class TestECMWFBackend:
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
         )
-        earthly.download(progress_bar=False)
+        earthlens.download(progress_bar=False)
 
         assert len(retrieved) == 2, (
             f"Expected 2 retrieve calls (one per variable); " f"got {len(retrieved)}"
@@ -260,12 +260,12 @@ class TestECMWFBackend:
 
 
 @pytest.mark.unit
-class TestEarthlyDownloadAggregate:
-    """Tests for the M3 `aggregate` pass-through on `Earthly.download`."""
+class TestEarthLensDownloadAggregate:
+    """Tests for the M3 `aggregate` pass-through on `EarthLens.download`."""
 
     @pytest.fixture
     def stub_facade(self, tmp_path, monkeypatch):
-        """Build an `Earthly` whose `.datasource` is a MagicMock.
+        """Build an `EarthLens` whose `.datasource` is a MagicMock.
 
         The facade is instantiated normally (with cdsapi.Client
         mocked) so its constructor logic runs unchanged; then
@@ -274,13 +274,13 @@ class TestEarthlyDownloadAggregate:
         exercising the real `ECMWF.download` body.
 
         Returns:
-            Earthly: Facade ready for `download(...)` calls; its
+            EarthLens: Facade ready for `download(...)` calls; its
             `datasource.download` is a `MagicMock` exposing
             `call_args`.
         """
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
 
-        earthly = Earthly(
+        earthlens = EarthLens(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -290,8 +290,8 @@ class TestEarthlyDownloadAggregate:
             lon_lim=[-75.0, -74.0],
             path=str(tmp_path),
         )
-        earthly.datasource = MagicMock(name="stub_backend")
-        return earthly
+        earthlens.datasource = MagicMock(name="stub_backend")
+        return earthlens
 
     def test_aggregate_none_does_not_reach_backend(self, stub_facade):
         """`aggregate=None` (default) leaves the backend kwargs untouched."""
@@ -336,35 +336,35 @@ class TestEarthlyDownloadAggregate:
 
 @pytest.mark.unit
 class TestTopLevelReExports:
-    """Pin the top-level `earthly` package surface (L2)."""
+    """Pin the top-level `earthlens` package surface (L2)."""
 
-    def test_earthly_facade_importable_from_package_root(self):
-        """`from earthly import Earthly` resolves to the facade class."""
-        import earthly
+    def test_earthlens_facade_importable_from_package_root(self):
+        """`from earthlens import EarthLens` resolves to the facade class."""
+        import earthlens
 
-        assert earthly.Earthly is Earthly, (
+        assert earthlens.EarthLens is EarthLens, (
             f"Top-level re-export should be the facade class; got "
-            f"{earthly.Earthly!r}"
+            f"{earthlens.EarthLens!r}"
         )
 
     def test_aggregate_symbols_importable_from_package_root(self):
         """`AggregationConfig` and `aggregate_netcdf` resolve at top level."""
-        import earthly
+        import earthlens
 
-        assert earthly.AggregationConfig is AggregationConfig, (
-            f"Top-level AggregationConfig drift: {earthly.AggregationConfig!r}"
+        assert earthlens.AggregationConfig is AggregationConfig, (
+            f"Top-level AggregationConfig drift: {earthlens.AggregationConfig!r}"
         )
-        assert callable(earthly.aggregate_netcdf), (
+        assert callable(earthlens.aggregate_netcdf), (
             f"Top-level aggregate_netcdf must be callable; got "
-            f"{earthly.aggregate_netcdf!r}"
+            f"{earthlens.aggregate_netcdf!r}"
         )
 
     def test_all_lists_only_sdk_free_symbols(self):
         """`__all__` excludes the per-backend classes (each needs an extra)."""
-        import earthly
+        import earthlens
 
-        assert sorted(earthly.__all__) == [
+        assert sorted(earthlens.__all__) == [
             "AggregationConfig",
-            "Earthly",
+            "EarthLens",
             "aggregate_netcdf",
-        ], f"Unexpected top-level __all__: {earthly.__all__!r}"
+        ], f"Unexpected top-level __all__: {earthlens.__all__!r}"

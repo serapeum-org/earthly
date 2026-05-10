@@ -1,4 +1,4 @@
-"""Tests for :mod:`earthly.ecmwf.constraints`.
+"""Tests for :mod:`earthlens.ecmwf.constraints`.
 
 Validates the pre-flight check that catches mismatched
 request / constraints.json combinations before they hit CDS.
@@ -12,8 +12,8 @@ from urllib.error import HTTPError
 
 import pytest
 
-from earthly.ecmwf import constraints as constraints_module
-from earthly.ecmwf.constraints import (
+from earthlens.ecmwf import constraints as constraints_module
+from earthlens.ecmwf.constraints import (
     Area,
     Dates,
     RequestValidator,
@@ -225,6 +225,247 @@ class TestValidateRequest:
             ).check()
 
 
+class TestCombinatorialPartitionUnion:
+    """Tests for the time-partition-union branch of `_check_combinatorial`.
+
+    Real datasets (notably ``reanalysis-era5-land-monthly-means``) publish
+    constraints as multiple structurally identical entries that differ only
+    in the time partition (e.g. ``month=['01'..'04']`` vs ``['05'..'12']``).
+    CDS itself accepts requests spanning the partition boundary by silently
+    splitting the retrieval, so the validator must too. These tests pin
+    the union semantics: non-time keys still require single-entry cover,
+    time-partition keys (`year`, `month`, `day`) get unioned across the
+    entries that satisfy the non-time keys.
+    """
+
+    @staticmethod
+    def _partitioned_constraints():
+        """Return a two-entry stub modelled on ERA5-Land monthly-means.
+
+        Both entries share `variable` and `product_type` but partition
+        on `month` (Jan-Apr vs May-Dec) and `year` (entry A includes
+        2026 but entry B stops at 2025 — mirrors the real `constraints.json`).
+        """
+        return [
+            {
+                "variable": ["2m_temperature", "total_precipitation"],
+                "product_type": ["monthly_averaged_reanalysis"],
+                "month": ["01", "02", "03", "04"],
+                "year": ["2022", "2023", "2024", "2025", "2026"],
+            },
+            {
+                "variable": ["2m_temperature", "total_precipitation"],
+                "product_type": ["monthly_averaged_reanalysis"],
+                "month": ["05", "06", "07", "08", "09", "10", "11", "12"],
+                "year": ["2022", "2023", "2024", "2025"],
+            },
+        ]
+
+    def test_cross_month_partition_request_passes(self, monkeypatch):
+        """A request whose months span the partition boundary now passes.
+
+        The pre-fix validator rejected this with "Request does not match
+        any constraint entry" because no single entry covered months 04
+        and 05 simultaneously. CDS accepts it server-side.
+        """
+        _stub_urlopen(monkeypatch, self._partitioned_constraints())
+        RequestValidator(
+            "reanalysis-era5-land-monthly-means",
+            {
+                "variable": ["2m_temperature"],
+                "product_type": ["monthly_averaged_reanalysis"],
+                "year": ["2022"],
+                "month": ["04", "05", "06"],
+            },
+        ).check()
+
+    def test_cross_partition_request_with_unknown_variable_rejected(
+        self, monkeypatch
+    ):
+        """Variable typo still raises before the time-partition union runs.
+
+        Phase 3 (variable-typo check) rejects the request before
+        `_check_combinatorial` is reached. The error message names the
+        offending variable name — not a `month` mismatch — so the user
+        sees the real cause.
+        """
+        _stub_urlopen(monkeypatch, self._partitioned_constraints())
+        with pytest.raises(ValueError, match="unknown variable"):
+            RequestValidator(
+                "reanalysis-era5-land-monthly-means",
+                {
+                    "variable": ["bogus_typo_var"],
+                    "product_type": ["monthly_averaged_reanalysis"],
+                    "year": ["2022"],
+                    "month": ["04", "05"],
+                },
+            ).check()
+
+    def test_cross_partition_request_with_year_outside_union_rejected(
+        self, monkeypatch
+    ):
+        """Year outside the union of every partition still rejected.
+
+        Both entries cover years 2022–2025/26; requesting year 1850
+        means the time-partition union check fails after the non-time
+        keys are satisfied.
+        """
+        _stub_urlopen(monkeypatch, self._partitioned_constraints())
+        with pytest.raises(ValueError, match="year"):
+            RequestValidator(
+                "reanalysis-era5-land-monthly-means",
+                {
+                    "variable": ["2m_temperature"],
+                    "product_type": ["monthly_averaged_reanalysis"],
+                    "year": ["1850"],
+                    "month": ["04", "05"],
+                },
+            ).check()
+
+    def test_cross_partition_year_only_in_one_partition_passes(
+        self, monkeypatch
+    ):
+        """Year present in only one partition is still OK if some entry
+        covers it.
+
+        Year 2026 is in the Jan-Apr entry but not the May-Dec entry. If
+        the user requests month=['02', '03'] with year=['2026'], the
+        Jan-Apr entry alone covers it — request must pass even though
+        the other entry would reject the year.
+        """
+        _stub_urlopen(monkeypatch, self._partitioned_constraints())
+        RequestValidator(
+            "reanalysis-era5-land-monthly-means",
+            {
+                "variable": ["2m_temperature"],
+                "product_type": ["monthly_averaged_reanalysis"],
+                "year": ["2026"],
+                "month": ["02", "03"],
+            },
+        ).check()
+
+    def test_pure_non_time_cross_entry_request_rejected(self, monkeypatch):
+        """Crossing a NON-time key across two entries still rejected.
+
+        Variable A is only in entry A; variable B is only in entry B.
+        A request asking for both can never be satisfied by a single
+        entry's non-time-key cover, so the union path does not apply
+        and the validator raises.
+        """
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {
+                    "variable": ["var_a"],
+                    "product_type": ["pt_a"],
+                    "year": ["2022"],
+                },
+                {
+                    "variable": ["var_b"],
+                    "product_type": ["pt_b"],
+                    "year": ["2022"],
+                },
+            ],
+        )
+        with pytest.raises(ValueError):
+            RequestValidator(
+                "fake-dataset-with-non-time-split",
+                {
+                    "variable": ["var_a", "var_b"],
+                    "product_type": ["pt_a"],
+                    "year": ["2022"],
+                },
+            ).check()
+
+    def test_single_entry_request_still_passes(self, monkeypatch):
+        """Regression: a non-partition dataset with a single entry still
+        validates the same way as before the partition-union rewrite.
+        """
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {
+                    "variable": ["2m_temperature"],
+                    "product_type": ["reanalysis"],
+                    "year": ["2022"],
+                    "month": ["01", "02", "03"],
+                }
+            ],
+        )
+        RequestValidator(
+            "reanalysis-era5-single-levels",
+            {
+                "variable": ["2m_temperature"],
+                "product_type": ["reanalysis"],
+                "year": ["2022"],
+                "month": ["01", "02"],
+            },
+        ).check()
+
+    def test_cross_partition_combination_only_partially_served_rejected(
+        self, monkeypatch
+    ):
+        """A request whose individual values exist in the per-key union
+        but whose specific tuple is not in any entry must be rejected.
+
+        Models the partition where year 2026 is only on the Jan-Apr
+        side: a request asking for both `month=06` (Jan-Apr partition
+        does not have it) and `year=2026` (May-Dec partition does
+        not have it) cannot be served by any single entry, even
+        though `2026` and `06` each appear in *some* entry's values.
+
+        The earlier per-key union check (with hardcoded
+        `_TIME_PARTITION_KEYS`) over-accepted this because it
+        unioned `month` and `year` independently. The cross-product
+        check catches it because the tuple `(year=2026, month=06)`
+        lands in no entry.
+        """
+        _stub_urlopen(monkeypatch, self._partitioned_constraints())
+        with pytest.raises(ValueError, match=r"(?i)does not match"):
+            RequestValidator(
+                "reanalysis-era5-land-monthly-means",
+                {
+                    "variable": ["2m_temperature"],
+                    "product_type": ["monthly_averaged_reanalysis"],
+                    "year": ["2026"],
+                    "month": ["02", "06"],
+                },
+            ).check()
+
+    def test_cross_key_partition_on_non_time_dimension(self, monkeypatch):
+        """The cross-product check accepts non-time partitioning too.
+
+        A hypothetical dataset partitioning on `level_type` (one
+        entry per surface / pressure / model levels with otherwise
+        identical structural keys) is handled the same way as the
+        time-partition case — no special-casing required. Each
+        tuple in the request lands in exactly one entry.
+        """
+        _stub_urlopen(
+            monkeypatch,
+            [
+                {
+                    "variable": ["temperature"],
+                    "level_type": ["surface_levels"],
+                    "year": ["2022"],
+                },
+                {
+                    "variable": ["temperature"],
+                    "level_type": ["pressure_levels"],
+                    "year": ["2022"],
+                },
+            ],
+        )
+        RequestValidator(
+            "reanalysis-cerra-fictional",
+            {
+                "variable": ["temperature"],
+                "level_type": ["surface_levels", "pressure_levels"],
+                "year": ["2022"],
+            },
+        ).check()
+
+
 class TestDateValidity:
     """Tests for the M17 date sanity check."""
 
@@ -240,9 +481,9 @@ class TestDateValidity:
         with pytest.raises(ValueError, match="year=.*plausible"):
             Dates.check({"year": ["1492"]})
 
-    def test_feb_30_raises(self):
-        with pytest.raises(ValueError, match="not a real date"):
-            Dates.check({"year": ["2022"], "month": ["02"], "day": ["30"]})
+    def test_cross_month_day_combo_passes(self):
+        """Day=30 with month=02 passes: CDS accepts exhaustive day enumerations."""
+        Dates.check({"year": ["2022"], "month": ["02"], "day": ["30"]})
 
     def test_valid_date_passes(self):
         Dates.check({"year": ["2022"], "month": ["02"], "day": ["28"]})

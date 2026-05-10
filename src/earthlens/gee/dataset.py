@@ -5,8 +5,8 @@ import datetime as dt
 # import ee
 from geopandas.geodataframe import GeoDataFrame
 
-from earthly.gee.data import getCatalog
-from earthly.gee.gee import GEE
+from earthlens.gee.data import getCatalog
+from earthlens.gee.gee import GEE
 
 catalog = getCatalog()
 default_date_format = "%Y-%m-%d"

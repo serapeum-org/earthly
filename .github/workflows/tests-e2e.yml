@@ -24,7 +24,7 @@ jobs:
     # Only run when CDS credentials are available (push / scheduled
     # runs on the main repo, or manual dispatch). Forks have no
     # secrets and would 401 immediately.
-    if: github.repository == 'serapeum-org/earthly'
+    if: github.repository == 'serapeum-org/earthlens'
 
     steps:
       - uses: actions/checkout@v5

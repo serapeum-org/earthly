@@ -5,7 +5,7 @@ import os
 import pandas as pd
 from pandas import DataFrame
 
-from earthly.gee import __path__
+from earthlens.gee import __path__
 
 
 def getCatalog() -> DataFrame:

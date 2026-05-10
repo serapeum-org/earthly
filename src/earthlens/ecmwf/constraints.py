@@ -14,7 +14,7 @@ the user sees a clear error before :meth:`cdsapi.Client.retrieve`
 is invoked.
 
 Pass `skip=True` to :class:`RequestValidator` — or, equivalently,
-construct :class:`earthly.ecmwf.ECMWF` with `skip_constraints=True` —
+construct :class:`earthlens.ecmwf.ECMWF` with `skip_constraints=True` —
 to bypass validation entirely. Useful when the constraints endpoint
 is missing or known to be inaccurate for a particular dataset.
 
@@ -22,7 +22,7 @@ Examples:
     - Validate a request against ERA5 single-levels constraints:
 
         ```python
-        >>> from earthly.ecmwf.constraints import RequestValidator
+        >>> from earthlens.ecmwf.constraints import RequestValidator
         >>> request = {
         ...     "variable": ["2m_temperature"],
         ...     "year": ["2022"],
@@ -101,7 +101,7 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
           network access):
 
             ```python
-            >>> from earthly.ecmwf.constraints import fetch_constraints
+            >>> from earthlens.ecmwf.constraints import fetch_constraints
             >>> entries = fetch_constraints(  # doctest: +SKIP
             ...     "reanalysis-era5-single-levels",
             ... )
@@ -179,17 +179,12 @@ class Dates(BaseModel):
                 if label == "year":
                     raise ValueError(f"year={n} outside the plausible 1850-2100 range")
                 raise ValueError(f"{label}={n} must be {lo:02d}-{hi:02d}")
-        if self.year and self.month and self.day:
-            for yi, mi, di in itertools.product(self.year, self.month, self.day):
-                if yi is None or mi is None or di is None:
-                    continue
-                try:
-                    datetime.date(yi, mi, di)
-                except ValueError as exc:
-                    raise ValueError(
-                        f"year/month/day combination "
-                        f"{yi:04d}-{mi:02d}-{di:02d} is not a real date: {exc}"
-                    ) from None
+        # No cross-product check on (year, month, day): CDS accepts
+        # exhaustive enumerations like `day=[01..31]` for a request
+        # spanning months with fewer days, silently dropping the
+        # non-existent combinations. Enforcing real-date semantics
+        # here would falsely reject the request builder's standard
+        # daily-resolution payload.
         return self
 
     @classmethod
@@ -294,7 +289,7 @@ class RequestValidator:
 
     Example:
         ```python
-        >>> from earthly.ecmwf.constraints import RequestValidator
+        >>> from earthlens.ecmwf.constraints import RequestValidator
         >>> RequestValidator(
         ...     "any-dataset", {"variable": ["x"]}, skip=True
         ... ).check()
@@ -397,36 +392,69 @@ class RequestValidator:
             )
 
     def _check_combinatorial(self) -> None:
-        """Phase 5: walk constraints for an entry covering all enumerated keys.
+        """Phase 5: every cross-product tuple in the request must be served.
 
-        For each key the constraints document enumerates (excluding
-        universal keys), the request's value(s) must be a subset of
-        *some single entry's* allowed values, simultaneously across
-        all such keys. If no entry covers them all, raise with the
-        offending values surfaced so the user can fix the right extras.
+        A request is valid iff for every `(k1=v1, k2=v2, ...)` tuple
+        in the cross product of its enumerated values, at least one
+        constraint entry enumerates that exact tuple. This matches
+        CDS's actual server-side check exactly — no hardcoded
+        "partition key" list, so the validator handles partitioning
+        on any dimension (year / month / day / level_type / time /
+        variable / ...) automatically.
+
+        Concretely, datasets like `reanalysis-era5-land-monthly-means`
+        publish two structurally identical entries differing only on
+        `month` (Jan-Apr / May-Dec). A cross-month request is
+        accepted because every `(variable, product_type, year,
+        month)` tuple in the request lands in *one* of the two
+        entries. A request that mixes `year=2026` (only in the
+        Jan-Apr entry, since the May-Dec entry stops at 2025) with
+        `month=06` is correctly rejected because no entry serves
+        `(2026, 06)`.
+
+        Performance: walks `N_tuples × N_entries` with short-circuit
+        on first served entry per tuple. For typical CDS requests
+        (a few variables × a year or two × twelve months × thirty
+        days, maybe one or two product_types) `N_tuples` is well
+        under 10 K and the check completes in milliseconds.
         """
         constraint_keys: set[str] = set().union(
             *(set(entry) for entry in self.constraints)
         )
         req_norm = self._normalise_request(constraint_keys)
-        if req_norm:
-            has_match = any(
-                all(
-                    key in entry and req_norm[key] <= set(entry[key])
-                    for key in req_norm
-                )
-                for entry in self.constraints
+        if not req_norm:
+            return
+
+        keys = sorted(req_norm)
+        entry_sets: list[dict[str, set[Any]]] = [
+            {k: set(entry[k]) for k in keys if k in entry}
+            for entry in self.constraints
+        ]
+
+        for combo in itertools.product(*[sorted(req_norm[k]) for k in keys]):
+            tuple_dict = dict(zip(keys, combo))
+            served = any(
+                all(k in es and tuple_dict[k] in es[k] for k in keys)
+                for es in entry_sets
             )
-            if not has_match:
-                bad_keys = self._find_offending_values(req_norm)
-                raise ValueError(
-                    f"Request for {self.dataset!r} does not match any "
-                    f"constraint entry. Offending values: "
-                    f"{', '.join(bad_keys) or '(unclear)'}\n"
-                    f"Submitted request: {self.request}\n"
-                    f"Live constraints: "
-                    + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
-                )
+            if served:
+                continue
+            bad_keys = self._find_offending_values(req_norm)
+            offending_combo = ", ".join(
+                f"{k}={v!r}" for k, v in tuple_dict.items()
+            )
+            hint = (
+                f"Offending values: {', '.join(bad_keys)}"
+                if bad_keys
+                else f"No entry serves the combination ({offending_combo})"
+            )
+            raise ValueError(
+                f"Request for {self.dataset!r} does not match any "
+                f"constraint entry. {hint}\n"
+                f"Submitted request: {self.request}\n"
+                f"Live constraints: "
+                + CONSTRAINTS_URL_TEMPLATE.format(dataset=self.dataset)
+            )
 
     def _normalise_request(self, constraint_keys: set[str]) -> dict[str, set[Any]]:
         """Return per-key value sets for keys the constraints enumerate.

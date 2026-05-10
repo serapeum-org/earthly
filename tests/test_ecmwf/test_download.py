@@ -13,7 +13,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from earthly.ecmwf import Catalog
+from earthlens.ecmwf import Catalog
 
 pytestmark = [pytest.mark.unit]
 
@@ -119,7 +119,7 @@ class TestDownloadIteration:
         }
         ecmwf_stub._download_dataset = MagicMock()
         monkeypatch.setattr(
-            "earthly.ecmwf.backend.os.remove",
+            "earthlens.ecmwf.backend.os.remove",
             lambda path: removed.append(path),
         )
 

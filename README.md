@@ -1,14 +1,14 @@
-[![Documentation Status](https://readthedocs.org/projects/earthly/badge/?version=latest)](https://earthly.readthedocs.io/en/latest/?badge=latest)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/earthly)
+[![Documentation Status](https://readthedocs.org/projects/earthlens/badge/?version=latest)](https://earthlens.readthedocs.io/en/latest/?badge=latest)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/earthlens)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 
-[![codecov](https://codecov.io/gh/Serapieum-of-alex/earthly/branch/main/graph/badge.svg?token=2nBcI5ijvB)](https://codecov.io/gh/Serapieum-of-alex/earthly)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4c95cf4c0dd044e4b451e08355fe6ee7)](https://www.codacy.com/gh/Serapieum-of-alex/earthly/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Serapieum-of-alex/earthly&amp;utm_campaign=Badge_Grade)
-![GitHub last commit](https://img.shields.io/github/last-commit/Serapieum-of-alex/earthly)
-![GitHub forks](https://img.shields.io/github/forks/Serapieum-of-alex/earthly?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/Serapieum-of-alex/earthly?style=social)
+[![codecov](https://codecov.io/gh/Serapieum-of-alex/earthlens/branch/main/graph/badge.svg?token=2nBcI5ijvB)](https://codecov.io/gh/Serapieum-of-alex/earthlens)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4c95cf4c0dd044e4b451e08355fe6ee7)](https://www.codacy.com/gh/Serapieum-of-alex/earthlens/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Serapieum-of-alex/earthlens&amp;utm_campaign=Badge_Grade)
+![GitHub last commit](https://img.shields.io/github/last-commit/Serapieum-of-alex/earthlens)
+![GitHub forks](https://img.shields.io/github/forks/Serapieum-of-alex/earthlens?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/Serapieum-of-alex/earthlens?style=social)
 
 
 Current release info
@@ -16,12 +16,12 @@ Current release info
 
 | Name                                                                                                               | Downloads                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Version                                                                                                                                                                                                                                                                                                                                           | Platforms                                                                                                               |
 |--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| [![Conda Recipe](https://img.shields.io/badge/recipe-earthly-green.svg)](https://anaconda.org/conda-forge/earthly) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/earthly.svg)](https://anaconda.org/conda-forge/earthly) [![Downloads](https://pepy.tech/badge/earthly)](https://pepy.tech/project/earthly) [![Downloads](https://pepy.tech/badge/earthly/month)](https://pepy.tech/project/earthly) [![Downloads](https://pepy.tech/badge/earthly/week)](https://pepy.tech/project/earthly) ![PyPI - Downloads](https://img.shields.io/pypi/dd/earthly?color=blue&style=flat-square) ![GitHub all releases](https://img.shields.io/github/downloads/Serapieum-of-alex/earthly/total) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/earthly.svg)](https://anaconda.org/conda-forge/earthly) [![PyPI version](https://badge.fury.io/py/earthly.svg)](https://badge.fury.io/py/earthly) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/earthly/badges/version.svg)](https://anaconda.org/conda-forge/earthly) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/earthly.svg)](https://anaconda.org/conda-forge/earthly) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-earthlens-green.svg)](https://anaconda.org/conda-forge/earthlens) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) [![Downloads](https://pepy.tech/badge/earthlens)](https://pepy.tech/project/earthlens) [![Downloads](https://pepy.tech/badge/earthlens/month)](https://pepy.tech/project/earthlens) [![Downloads](https://pepy.tech/badge/earthlens/week)](https://pepy.tech/project/earthlens) ![PyPI - Downloads](https://img.shields.io/pypi/dd/earthlens?color=blue&style=flat-square) ![GitHub all releases](https://img.shields.io/github/downloads/Serapieum-of-alex/earthlens/total) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) [![PyPI version](https://badge.fury.io/py/earthlens.svg)](https://badge.fury.io/py/earthlens) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/earthlens/badges/version.svg)](https://anaconda.org/conda-forge/earthlens) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) |
 
-earthly — a unified Python client for satellite & climate data
+earthlens — a unified Python client for satellite & climate data
 =====================================================================
 
-**earthly** gives you one consistent Python API for downloading satellite and
+**earthlens** gives you one consistent Python API for downloading satellite and
 climate data from four very different providers — UCSB CHIRPS, ERA5 on AWS,
 the ECMWF Climate Data Store, and Google Earth Engine — and turning the
 results into analysis-ready GeoTIFFs.
@@ -31,19 +31,19 @@ open-source ecosystem and is built on top of
 [`pyramids-gis`](https://github.com/Serapieum-of-alex/pyramids) for raster I/O.
 
 
-Why earthly?
+Why earthlens?
 ------------
 
 Each provider speaks its own dialect: CHIRPS is anonymous FTP with date-coded
 filenames, ERA5-on-S3 is unsigned object storage with a per-month layout, the
 ECMWF CDS expects a JSON request body validated against a constraints graph,
-and Google Earth Engine is a server-side image-collection model. **earthly**
+and Google Earth Engine is a server-side image-collection model. **earthlens**
 flattens that into one call:
 
 ```python
-from earthly import Earthly
+from earthlens import EarthLens
 
-earthly = Earthly(
+earthlens = EarthLens(
     data_source="ecmwf",          # or "chirps", "amazon-s3", "gee"
     temporal_resolution="monthly",
     start="2022-01-01",
@@ -58,7 +58,7 @@ earthly = Earthly(
     lon_lim=[23.0, 24.0],
     path="data/era5",
 )
-earthly.download()
+earthlens.download()
 ```
 
 You get back per-date, per-variable GeoTIFFs in `data/era5/` — clipped to your
@@ -69,7 +69,7 @@ study, or anything else downstream.
 Features
 --------
 
-- **Four backends, one facade.** `Earthly(data_source=...)` routes to CHIRPS,
+- **Four backends, one facade.** `EarthLens(data_source=...)` routes to CHIRPS,
   ERA5-on-S3, ECMWF/CDS, or Google Earth Engine without changing the rest of
   your code.
 - **YAML variable catalogs** for ECMWF and GEE — every variable carries
@@ -79,7 +79,7 @@ Features
   graph. Bad date / area / variable combinations are rejected before bytes
   go over the wire, with actionable error messages.
 - **Temporal aggregation built in.** Pass an `AggregationConfig` to
-  `download()` and earthly emits aggregated GeoTIFFs alongside the raw
+  `download()` and earthlens emits aggregated GeoTIFFs alongside the raw
   NetCDFs. `op="auto"` reduces **state** variables (temperature, SST, soil
   moisture) by mean and **flux** variables (precipitation, radiation,
   evaporation) by sum — the physically correct choice driven by catalog
@@ -89,7 +89,7 @@ Features
 - **Bbox cropping & NetCDF→GeoTIFF conversion** are handled by `pyramids-gis`
   under the hood.
 - **Modular install extras** — only install the SDK for the backend you need
-  (`pip install earthly[ecmwf]`, `[s3]`, `[gee]`).
+  (`pip install earthlens[ecmwf]`, `[s3]`, `[gee]`).
 - **Strictly typed.** Pydantic v2 models for catalog rows and request specs;
   modern PEP 585/604 type hints; Python 3.11 / 3.12 tested in CI.
 
@@ -108,23 +108,23 @@ Supported data sources
 Installation
 ------------
 
-`earthly` is published on conda-forge and PyPI.
+`earthlens` is published on conda-forge and PyPI.
 
 ```bash
 # conda (recommended — pulls GDAL automatically)
-conda install -c conda-forge earthly
+conda install -c conda-forge earthlens
 
 # pip — latest release
-pip install earthly==0.3.0
+pip install earthlens==0.3.0
 
 # pip — bleeding edge
-pip install git+https://github.com/Serapieum-of-alex/earthly
+pip install git+https://github.com/Serapieum-of-alex/earthlens
 ```
 
 To list all available versions on your platform:
 
 ```bash
-conda search earthly --channel conda-forge
+conda search earthlens --channel conda-forge
 ```
 
 GDAL is required and is **not** on PyPI. If you install via pip, get GDAL from
@@ -137,10 +137,10 @@ pip install --find-links=https://girder.github.io/large_image_wheels --no-cache 
 Backend SDKs are optional and pulled in by extras:
 
 ```bash
-pip install earthly[ecmwf]   # cdsapi
-pip install earthly[s3]      # boto3 + unicloud
-pip install earthly[gee]     # earthengine-api
-pip install earthly[dev,test]  # full dev environment
+pip install earthlens[ecmwf]   # cdsapi
+pip install earthlens[s3]      # boto3 + unicloud
+pip install earthlens[gee]     # earthengine-api
+pip install earthlens[dev,test]  # full dev environment
 ```
 
 
@@ -150,9 +150,9 @@ Quick examples per backend
 **CHIRPS daily rainfall** — anonymous FTP, no credentials.
 
 ```python
-from earthly import Earthly
+from earthlens import EarthLens
 
-Earthly(
+EarthLens(
     data_source="chirps",
     temporal_resolution="daily",
     start="2009-01-01",
@@ -167,7 +167,7 @@ Earthly(
 **ERA5 monthly via AWS public S3** — unsigned, fast, no API key.
 
 ```python
-Earthly(
+EarthLens(
     data_source="amazon-s3",
     temporal_resolution="monthly",
     start="2020-01-01",
@@ -184,9 +184,9 @@ monthly GeoTIFFs aggregated with the right reduction per variable (mean for
 temperature, sum for precipitation):
 
 ```python
-from earthly import Earthly, AggregationConfig
+from earthlens import EarthLens, AggregationConfig
 
-Earthly(
+EarthLens(
     data_source="ecmwf",
     temporal_resolution="daily",
     start="2022-06-01",
@@ -206,7 +206,7 @@ Earthly(
 **Google Earth Engine** — server-side collection, downloaded as GeoTIFFs.
 
 ```python
-Earthly(
+EarthLens(
     data_source="gee",
     temporal_resolution="daily",
     start="2023-01-01",
@@ -231,12 +231,12 @@ ERA5 mixes two physically distinct kinds of variables:
   **summing**.
 
 Mixing those up produces silently wrong results (a "monthly mean" of
-precipitation under-reports rainfall by ~30×). earthly's catalog tags every
+precipitation under-reports rainfall by ~30×). earthlens's catalog tags every
 variable with `is_flux`, and `op="auto"` reads that flag to pick the right
 reduction:
 
 ```python
-from earthly.ecmwf import Catalog
+from earthlens.ecmwf import Catalog
 spec = Catalog().get_variable(
     "reanalysis-era5-single-levels", "total-precipitation"
 )
@@ -265,14 +265,14 @@ Full docs, API reference, architecture diagrams, and a gallery of domain-specifi
 example notebooks (hydrology, oceanography, agriculture, solar/wind energy,
 heat waves, drought, snow & cryosphere, climate-change anomalies) live at:
 
-> **<https://earthly.readthedocs.io/>**
+> **<https://earthlens.readthedocs.io/>**
 
 
 Contributing
 ------------
 
 Issues, PRs, and discussions are welcome on
-[GitHub](https://github.com/Serapieum-of-alex/earthly). The repo uses
+[GitHub](https://github.com/Serapieum-of-alex/earthlens). The repo uses
 pre-commit (black, isort, flake8, bandit, pydocstyle) — install hooks once
 with `pre-commit install`.
 

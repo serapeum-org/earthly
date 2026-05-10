@@ -7,7 +7,7 @@ per window. The whole pipeline runs against pyramids primitives —
 `pyramids.netcdf.NetCDF` for read + CF metadata, `pyramids.dataset.Dataset`
 for write — plus numpy and pandas. No xarray.
 
-The module sits at the top level of `earthly` because the algorithm is
+The module sits at the top level of `earthlens` because the algorithm is
 not specific to any backend: any CDS-shaped NetCDF works (ECMWF S3
 exports, CDS retrieves, CDS-Beta retrieves, ...). The ECMWF backend
 chains it via `ECMWF.download(aggregate=...)` for the
@@ -16,8 +16,8 @@ chains it via `ECMWF.download(aggregate=...)` for the
 
 The two public symbols are :class:`AggregationConfig` (the frozen
 request shape) and :func:`aggregate_netcdf` (the function). They are
-also re-exported from `earthly` so callers can write
-`from earthly import AggregationConfig, aggregate_netcdf`.
+also re-exported from `earthlens` so callers can write
+`from earthlens import AggregationConfig, aggregate_netcdf`.
 
 Examples:
     - Standalone aggregation: read a CDS NetCDF, write per-month
@@ -27,8 +27,8 @@ Examples:
       built:
 
         ```python
-        >>> from earthly import AggregationConfig, aggregate_netcdf  # doctest: +SKIP
-        >>> from earthly.ecmwf import Catalog  # doctest: +SKIP
+        >>> from earthlens import AggregationConfig, aggregate_netcdf  # doctest: +SKIP
+        >>> from earthlens.ecmwf import Catalog  # doctest: +SKIP
         >>> spec = Catalog().get_variable(  # doctest: +SKIP
         ...     "reanalysis-era5-single-levels", "2m-temperature"
         ... )
@@ -45,8 +45,8 @@ Examples:
       and inspect the per-window arrays directly:
 
         ```python
-        >>> from earthly import AggregationConfig, aggregate_netcdf  # doctest: +SKIP
-        >>> from earthly.ecmwf import Catalog  # doctest: +SKIP
+        >>> from earthlens import AggregationConfig, aggregate_netcdf  # doctest: +SKIP
+        >>> from earthlens.ecmwf import Catalog  # doctest: +SKIP
         >>> spec = Catalog().get_variable(  # doctest: +SKIP
         ...     "reanalysis-era5-single-levels", "2m-temperature"
         ... )
@@ -64,9 +64,9 @@ Examples:
       retrieves and aggregates each variable):
 
         ```python
-        >>> from earthly import AggregationConfig  # doctest: +SKIP
-        >>> from earthly.earthly import Earthly  # doctest: +SKIP
-        >>> earthly = Earthly(  # doctest: +SKIP
+        >>> from earthlens import AggregationConfig  # doctest: +SKIP
+        >>> from earthlens.earthlens import EarthLens  # doctest: +SKIP
+        >>> earthlens = EarthLens(  # doctest: +SKIP
         ...     data_source="ecmwf",
         ...     temporal_resolution="daily",
         ...     start="2022-01-01",
@@ -76,7 +76,7 @@ Examples:
         ...     lon_lim=[-75.0, -74.0],
         ...     path="out/era5",
         ... )
-        >>> earthly.download(  # doctest: +SKIP
+        >>> earthlens.download(  # doctest: +SKIP
         ...     aggregate=AggregationConfig(freq="1MS", op="mean"),
         ... )
 
@@ -93,7 +93,7 @@ import pandas as pd
 from pydantic import BaseModel, ConfigDict
 
 if TYPE_CHECKING:
-    from earthly.ecmwf import Variable
+    from earthlens.ecmwf import Variable
     from pyramids.netcdf import NetCDF
 
 __all__ = ["AggregationConfig", "OperationLiteral", "aggregate_netcdf"]
@@ -153,7 +153,10 @@ def _find_level_dim(nc: NetCDF) -> str | None:
     first match wins.
 
     Args:
-        nc: An open :class:`pyramids.netcdf.NetCDF` instance.
+        nc: An open :class:`pyramids.netcdf.NetCDF` instance — either
+            the root MDIM container or a variable subset returned by
+            :meth:`NetCDF.get_variable`. Both surfaces expose the
+            full dim list under `dimension_names`.
 
     Returns:
         str | None: The matched dimension name when the NetCDF has a
@@ -248,7 +251,7 @@ def _window_groups(
 
             ```python
             >>> import pandas as pd
-            >>> from earthly.aggregate import _window_groups
+            >>> from earthlens.aggregate import _window_groups
             >>> idx = pd.date_range("2022-01-01", periods=4, freq="6h")
             >>> windows = list(_window_groups(idx, "1D"))
             >>> len(windows)
@@ -264,7 +267,7 @@ def _window_groups(
 
             ```python
             >>> import pandas as pd
-            >>> from earthly.aggregate import _window_groups
+            >>> from earthlens.aggregate import _window_groups
             >>> idx = pd.date_range("2022-01-01", periods=8, freq="6h")
             >>> [label.strftime("%Y-%m-%d") for label, _ in _window_groups(idx, "1D")]
             ['2022-01-01', '2022-01-02']
@@ -342,7 +345,7 @@ def _reduce(
 
             ```python
             >>> import numpy as np
-            >>> from earthly.aggregate import _reduce
+            >>> from earthlens.aggregate import _reduce
             >>> arr = np.array([[[1.0, 2.0]], [[3.0, np.nan]], [[5.0, 6.0]]])
             >>> _reduce(arr, op="mean", skipna=True, min_count=None).tolist()
             [[3.0, 4.0]]
@@ -352,7 +355,7 @@ def _reduce(
 
             ```python
             >>> import numpy as np
-            >>> from earthly.aggregate import _reduce
+            >>> from earthlens.aggregate import _reduce
             >>> arr = np.array([[[1.0, np.nan]], [[3.0, 4.0]]])
             >>> result = _reduce(arr, op="mean", skipna=False, min_count=None)
             >>> bool(np.isnan(result[0, 1])), float(result[0, 0])
@@ -363,7 +366,7 @@ def _reduce(
 
             ```python
             >>> import numpy as np
-            >>> from earthly.aggregate import _reduce
+            >>> from earthlens.aggregate import _reduce
             >>> arr = np.array([[[1.0, np.nan]], [[2.0, np.nan]]])
             >>> result = _reduce(arr, op="mean", skipna=True, min_count=2)
             >>> float(result[0, 0]), bool(np.isnan(result[0, 1]))
@@ -388,7 +391,7 @@ def _reduce(
 def _resolve_op(op: OperationLiteral, var_info: Variable) -> str:
     """Turn `op="auto"` into a concrete reduction based on the catalog row.
 
-    `Variable.is_flux` (in `earthly.ecmwf.catalog`) is `True` for CDS
+    `Variable.is_flux` (in `earthlens.ecmwf.catalog`) is `True` for CDS
     flux variables — precipitation, evaporation, runoff, radiation
     accumulations — and `False` for state variables (temperature,
     pressure, humidity, ...).
@@ -420,7 +423,7 @@ def _resolve_op(op: OperationLiteral, var_info: Variable) -> str:
 
             ```python
             >>> from types import SimpleNamespace
-            >>> from earthly.aggregate import _resolve_op
+            >>> from earthlens.aggregate import _resolve_op
             >>> _resolve_op("auto", SimpleNamespace(is_flux=False))
             'mean'
 
@@ -429,7 +432,7 @@ def _resolve_op(op: OperationLiteral, var_info: Variable) -> str:
 
             ```python
             >>> from types import SimpleNamespace
-            >>> from earthly.aggregate import _resolve_op
+            >>> from earthlens.aggregate import _resolve_op
             >>> _resolve_op("auto", SimpleNamespace(is_flux=True))
             'sum'
 
@@ -438,7 +441,7 @@ def _resolve_op(op: OperationLiteral, var_info: Variable) -> str:
 
             ```python
             >>> from types import SimpleNamespace
-            >>> from earthly.aggregate import _resolve_op
+            >>> from earthlens.aggregate import _resolve_op
             >>> _resolve_op("max", SimpleNamespace(is_flux=True))
             'max'
 
@@ -489,7 +492,7 @@ class AggregationConfig(BaseModel):
           stays at sensible CDS-shaped defaults:
 
             ```python
-            >>> from earthly.aggregate import AggregationConfig
+            >>> from earthlens.aggregate import AggregationConfig
             >>> cfg = AggregationConfig(freq="1D")
             >>> cfg.op
             'auto'
@@ -505,7 +508,7 @@ class AggregationConfig(BaseModel):
 
             ```python
             >>> from pathlib import Path
-            >>> from earthly.aggregate import AggregationConfig
+            >>> from earthlens.aggregate import AggregationConfig
             >>> cfg = AggregationConfig(
             ...     freq="1MS",
             ...     op="sum",
@@ -521,7 +524,7 @@ class AggregationConfig(BaseModel):
           sample count per window:
 
             ```python
-            >>> from earthly.aggregate import AggregationConfig
+            >>> from earthlens.aggregate import AggregationConfig
             >>> cfg = AggregationConfig(
             ...     freq="7D", op="mean", level=1000, min_count=20,
             ... )
@@ -581,8 +584,8 @@ def aggregate_netcdf(
 
     See Also:
         - :class:`AggregationConfig`: the frozen request payload.
-        - :class:`earthly.ecmwf.Catalog`: resolves `(dataset, code)`
-          pairs to the :class:`earthly.ecmwf.Variable` rows that
+        - :class:`earthlens.ecmwf.Catalog`: resolves `(dataset, code)`
+          pairs to the :class:`earthlens.ecmwf.Variable` rows that
           drive `var_info.is_flux` and the output filename.
         - `examples/post_process_ecmwf_netcdf.py`: thin CLI demo of
           this function (after task L1).
@@ -598,10 +601,18 @@ def aggregate_netcdf(
     op = _resolve_op(config.op, var_info)
 
     nc = NetCDF.read_file(str(nc_path))
-    nc = _resolve_pressure_level(nc, config.level)
-    arr = nc.read_array(variable=var_info.nc_variable)
+    # Read time axis + geotransform from the root container — only the
+    # container exposes `get_time_variable` against the underlying CF
+    # metadata. The variable-subset cube returned by `get_variable`
+    # tracks coords on `_band_dim_values_map` instead, but does not
+    # round-trip them through `get_time_variable`. The cube is what
+    # `sel()` and the band-dim-aware multi-D logic need, so use it
+    # for level pinning + array read.
     time_axis = _read_time_axis(nc)
     geo = nc.geotransform
+    var = nc.get_variable(var_info.nc_variable)
+    var = _resolve_pressure_level(var, config.level)
+    arr = var.read_array()
 
     results: list[tuple[pd.Timestamp, np.ndarray, Path | None]] = []
     for window_label, mask in _window_groups(time_axis, config.freq):

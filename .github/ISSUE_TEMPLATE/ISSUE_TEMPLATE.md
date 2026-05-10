@@ -1,4 +1,4 @@
-* earthly version:
+* earthlens version:
 * Python version:
 * Operating System:
 

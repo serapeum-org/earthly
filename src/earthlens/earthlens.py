@@ -1,12 +1,12 @@
 """Front-end facade that routes downloads to a concrete data-source backend.
 
-The :class:`Earthly` class is the user-facing entry point of the
+The :class:`EarthLens` class is the user-facing entry point of the
 package. It keeps the choice of backend (CHIRPS, ERA5 on AWS S3, ECMWF
 on the Copernicus Climate Data Store) behind a single string key so
 callers do not have to import each backend module directly.
 
 Each backend's runtime SDK is an optional dependency
-(`pip install earthly[ecmwf]`, `[s3]`, `[gee]`); the registry below
+(`pip install earthlens[ecmwf]`, `[s3]`, `[gee]`); the registry below
 imports the backend module on first dispatch and rewrites a missing
 SDK into a friendly `ImportError` naming the extra to install.
 """
@@ -19,8 +19,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from earthly.aggregate import AggregationConfig
-    from earthly.base import AbstractDataSource
+    from earthlens.aggregate import AggregationConfig
+    from earthlens.base import AbstractDataSource
 
 
 #: Default longitude bounds used when `lon_lim` is not supplied
@@ -64,7 +64,7 @@ class _LazyRegistry(Mapping):
         try:
             module = importlib.import_module(module_name)
         except ImportError as exc:
-            hint = f" Install with `pip install earthly[{extras}]`." if extras else ""
+            hint = f" Install with `pip install earthlens[{extras}]`." if extras else ""
             raise ImportError(
                 f"Backend {key!r} is unavailable — its runtime "
                 f"dependency is not installed.{hint}"
@@ -72,7 +72,7 @@ class _LazyRegistry(Mapping):
         return getattr(module, class_name)
 
 
-class Earthly:
+class EarthLens:
     """Facade that routes a download to the requested backend.
 
     The class-level :attr:`DataSources` mapping resolves a string key
@@ -83,14 +83,14 @@ class Earthly:
     is a :class:`_LazyRegistry`: indexing it imports the backend on
     demand and rewrites a missing SDK into a friendly
     `ImportError` naming the extra to install
-    (e.g. `pip install earthly[ecmwf]`).
+    (e.g. `pip install earthlens[ecmwf]`).
 
     Attributes:
         DataSources: Class-level lazy registry of registered backends.
             Keys are the user-facing names accepted by `data_source`;
             values resolve at access time to the corresponding
             subclasses of
-            :class:`earthly.base.AbstractDataSource`.
+            :class:`earthlens.base.AbstractDataSource`.
         datasource: Instance attribute set by :meth:`__init__` —
             holds the concrete backend that :meth:`download` routes to.
 
@@ -98,16 +98,16 @@ class Earthly:
         - Inspect the registered backends:
 
             ```python
-            >>> from earthly.earthly import Earthly
-            >>> sorted(Earthly.DataSources)
+            >>> from earthlens.earthlens import EarthLens
+            >>> sorted(EarthLens.DataSources)
             ['amazon-s3', 'chirps', 'ecmwf']
 
             ```
         - Asking for an unknown backend raises `ValueError`:
 
             ```python
-            >>> from earthly.earthly import Earthly
-            >>> Earthly(data_source="not-a-real-source")
+            >>> from earthlens.earthlens import EarthLens
+            >>> EarthLens(data_source="not-a-real-source")
             Traceback (most recent call last):
                 ...
             ValueError: not-a-real-source not supported
@@ -115,17 +115,17 @@ class Earthly:
             ```
 
     See Also:
-        :class:`earthly.chirps.CHIRPS`: CHIRPS rainfall over FTP.
-        :class:`earthly.s3.S3`: ERA5 on AWS public S3 bucket.
-        :class:`earthly.ecmwf.ECMWF`: ERA5 via the Copernicus
+        :class:`earthlens.chirps.CHIRPS`: CHIRPS rainfall over FTP.
+        :class:`earthlens.s3.S3`: ERA5 on AWS public S3 bucket.
+        :class:`earthlens.ecmwf.ECMWF`: ERA5 via the Copernicus
             Climate Data Store (cdsapi).
     """
 
     DataSources = _LazyRegistry(
         {
-            "chirps": ("earthly.chirps", "CHIRPS", ""),
-            "amazon-s3": ("earthly.s3", "S3", "s3"),
-            "ecmwf": ("earthly.ecmwf", "ECMWF", "ecmwf"),
+            "chirps": ("earthlens.chirps", "CHIRPS", ""),
+            "amazon-s3": ("earthlens.s3", "S3", "s3"),
+            "ecmwf": ("earthlens.ecmwf", "ECMWF", "ecmwf"),
         }
     )
 
@@ -186,17 +186,17 @@ class Earthly:
             AuthenticationError: If `data_source="ecmwf"` and cdsapi
                 cannot authenticate (typically a missing
                 `~/.cdsapirc`). See
-                :class:`earthly.ecmwf.AuthenticationError`.
+                :class:`earthlens.ecmwf.AuthenticationError`.
 
         Examples:
             - The DataSources registry resolves the backend class
               before construction. Inspect what each key points to:
 
                 ```python
-                >>> from earthly.earthly import Earthly
-                >>> Earthly.DataSources["chirps"].__name__
+                >>> from earthlens.earthlens import EarthLens
+                >>> EarthLens.DataSources["chirps"].__name__
                 'CHIRPS'
-                >>> Earthly.DataSources["ecmwf"].__name__
+                >>> EarthLens.DataSources["ecmwf"].__name__
                 'ECMWF'
 
                 ```
@@ -204,8 +204,8 @@ class Earthly:
               code runs:
 
                 ```python
-                >>> from earthly.earthly import Earthly
-                >>> Earthly(data_source="bogus")
+                >>> from earthlens.earthlens import EarthLens
+                >>> EarthLens(data_source="bogus")
                 Traceback (most recent call last):
                     ...
                 ValueError: bogus not supported
@@ -217,8 +217,8 @@ class Earthly:
               `~/.cdsapirc`:
 
                 ```python
-                >>> from earthly.earthly import Earthly
-                >>> earthly = Earthly(  # doctest: +SKIP
+                >>> from earthlens.earthlens import EarthLens
+                >>> earthlens = EarthLens(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -273,7 +273,7 @@ class Earthly:
         Args:
             progress_bar: Whether the backend should print a per-date
                 progress bar during the loop. Defaults to `True`.
-            aggregate: Optional :class:`earthly.aggregate.AggregationConfig`.
+            aggregate: Optional :class:`earthlens.aggregate.AggregationConfig`.
                 Forwarded to backends that support it (currently
                 ECMWF). Other backends accept `**kwargs` and ignore
                 an unused `aggregate` payload, so passing it against
@@ -289,7 +289,7 @@ class Earthly:
             AuthenticationError: When the ECMWF backend cannot
                 authenticate against CDS (typically a missing
                 `~/.cdsapirc`). See
-                :class:`earthly.ecmwf.AuthenticationError`.
+                :class:`earthlens.ecmwf.AuthenticationError`.
             KeyError: When any backend receives an unknown variable
                 code that the catalog cannot resolve.
 
@@ -298,8 +298,8 @@ class Earthly:
               because it makes a live FTP connection:
 
                 ```python
-                >>> from earthly.earthly import Earthly
-                >>> earthly = Earthly(  # doctest: +SKIP
+                >>> from earthlens.earthlens import EarthLens
+                >>> earthlens = EarthLens(  # doctest: +SKIP
                 ...     data_source="chirps",
                 ...     start="2009-01-01",
                 ...     end="2009-01-02",
@@ -308,7 +308,7 @@ class Earthly:
                 ...     lon_lim=[-75.65, -74.73],
                 ...     path="examples/data/chirps",
                 ... )
-                >>> earthly.download()  # doctest: +SKIP
+                >>> earthlens.download()  # doctest: +SKIP
 
                 ```
             - ECMWF download via the facade. Marked
@@ -317,8 +317,8 @@ class Earthly:
               while the queue serves it:
 
                 ```python
-                >>> from earthly.earthly import Earthly
-                >>> earthly = Earthly(  # doctest: +SKIP
+                >>> from earthlens.earthlens import EarthLens
+                >>> earthlens = EarthLens(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     start="2022-01-01",
                 ...     end="2022-01-01",
@@ -329,17 +329,17 @@ class Earthly:
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
                 ... )
-                >>> earthly.download()  # doctest: +SKIP
+                >>> earthlens.download()  # doctest: +SKIP
 
                 ```
 
         See Also:
-            :meth:`earthly.chirps.CHIRPS.download`: CHIRPS
+            :meth:`earthlens.chirps.CHIRPS.download`: CHIRPS
                 backend implementation, including the `cores=`
                 keyword for parallel retrieval.
-            :meth:`earthly.s3.S3.download`: S3/ERA5 backend
+            :meth:`earthlens.s3.S3.download`: S3/ERA5 backend
                 implementation.
-            :meth:`earthly.ecmwf.ECMWF.download`: ECMWF/CDS
+            :meth:`earthlens.ecmwf.ECMWF.download`: ECMWF/CDS
                 backend implementation.
         """
         if aggregate is not None:

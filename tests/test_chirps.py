@@ -7,7 +7,7 @@ from typing import List
 
 import pytest
 
-from earthly.chirps import CHIRPS
+from earthlens.chirps import CHIRPS
 
 pytestmark = [pytest.mark.chirps]
 

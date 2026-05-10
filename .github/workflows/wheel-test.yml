@@ -79,7 +79,7 @@ jobs:
 
       - name: Verify package import
         shell: bash -el {0}
-        run: python -c "import earthly; print(earthly.__version__)"
+        run: python -c "import earthlens; print(earthlens.__version__)"
 
       - name: Install test dependencies
         shell: bash -el {0}

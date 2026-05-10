@@ -22,9 +22,9 @@ from typing import Any
 
 import yaml
 
-from earthly.ecmwf.constraints import fetch_constraints
+from earthlens.ecmwf.constraints import fetch_constraints
 
-CATALOG_PATH = Path("src/earthly/ecmwf/cds_data_catalog.yaml")
+CATALOG_PATH = Path("src/earthlens/ecmwf/cds_data_catalog.yaml")
 
 # Hand-curated extension to the existing catalog mapping. Values are
 # (nc_variable, units, types). Pulled from ECMWF parameter database

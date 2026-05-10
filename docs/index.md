@@ -1,14 +1,14 @@
-# earthly
+# earthlens
 
-[![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://serapeum-org.github.io/earthly/)
-[![PyPI version](https://badge.fury.io/py/earthly.svg)](https://badge.fury.io/py/earthly)
-[![Conda Version](https://img.shields.io/conda/vn/conda-forge/earthly.svg)](https://anaconda.org/conda-forge/earthly)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/earthly)
+[![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://serapeum-org.github.io/earthlens/)
+[![PyPI version](https://badge.fury.io/py/earthlens.svg)](https://badge.fury.io/py/earthlens)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/earthlens)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![codecov](https://codecov.io/gh/serapeum-org/earthly/branch/main/graph/badge.svg)](https://codecov.io/gh/serapeum-org/earthly)
+[![codecov](https://codecov.io/gh/serapeum-org/earthlens/branch/main/graph/badge.svg)](https://codecov.io/gh/serapeum-org/earthlens)
 
-**earthly** is a Python package providing a unified API for several remote sensing data sources.
+**earthlens** is a Python package providing a unified API for several remote sensing data sources.
 
 ## Main Features
 
@@ -19,18 +19,18 @@
 
 ```mermaid
 graph LR
-    earthly --> ECMWF
-    earthly --> CHIRPS
-    earthly --> Amazon-S3
-    earthly --> Google-Earth-Engine
+    earthlens --> ECMWF
+    earthlens --> CHIRPS
+    earthlens --> Amazon-S3
+    earthlens --> Google-Earth-Engine
 ```
 
 ## Quick Start
 
 ```python
-from earthly.earthly import Earthly
+from earthlens.earthlens import EarthLens
 
-earthly = Earthly(
+earthlens = EarthLens(
     data_source="chirps",
     temporal_resolution="daily",
     start="2009-01-01",
@@ -40,7 +40,7 @@ earthly = Earthly(
     lon_lim=[-75.65, -74.73],
     path="examples/data/chirps",
 )
-earthly.download()
+earthlens.download()
 ```
 
 ## Installation
@@ -48,17 +48,17 @@ earthly.download()
 === "conda"
 
     ```bash
-    conda install -c conda-forge earthly
+    conda install -c conda-forge earthlens
     ```
 
 === "pip"
 
     ```bash
-    pip install earthly
+    pip install earthlens
     ```
 
 === "GitHub"
 
     ```bash
-    pip install git+https://github.com/serapeum-org/earthly.git
+    pip install git+https://github.com/serapeum-org/earthlens.git
     ```

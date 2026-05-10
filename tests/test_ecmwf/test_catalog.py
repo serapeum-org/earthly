@@ -1,4 +1,4 @@
-"""Unit tests for :class:`earthly.ecmwf.Catalog`.
+"""Unit tests for :class:`earthlens.ecmwf.Catalog`.
 
 Covers the H2 / H5 rewiring (the catalog reads
 `cds_data_catalog.yaml` and exposes per-variable
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from earthly.ecmwf import Catalog, Variable
+from earthlens.ecmwf import Catalog, Variable
 
 pytestmark = [pytest.mark.unit]
 
@@ -130,7 +130,7 @@ class TestCatalog:
     @pytest.mark.parametrize("mars_key", ["number_para", "download type", "var_name"])
     def test_no_mars_schema_keys_in_extras(self, monkeypatch, tmp_path, mars_key):
         """Legacy MARS keys are rejected inside `extras`."""
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -155,7 +155,7 @@ class TestCatalog:
         self, monkeypatch, tmp_path
     ):
         """An unknown key on a Variable row fails the catalog loader with the row name."""
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -181,7 +181,7 @@ class TestCatalog:
         raise so a copy-paste typo in the YAML cannot let the second
         entry shadow the first.
         """
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -203,7 +203,7 @@ class TestCatalog:
 
     def test_duplicate_dataset_name_rejected(self, monkeypatch, tmp_path):
         """Two top-level dataset entries with the same name fail loud."""
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -228,7 +228,7 @@ class TestCatalog:
 
     def test_monthly_without_monthly_product_type_raises(self, monkeypatch, tmp_path):
         """`monthly:` without `monthly_product_type:` fails auto-synthesis."""
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -248,7 +248,7 @@ class TestCatalog:
 
     def test_extras_propagate_from_parent_dataset(self, monkeypatch, tmp_path):
         """Parent `Dataset.extras` propagates into each child Variable."""
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -275,7 +275,7 @@ class TestCatalog:
 
     def test_row_extras_override_parent_extras(self, monkeypatch, tmp_path):
         """A per-row `extras:` key wins over the parent default."""
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -367,7 +367,7 @@ class TestCatalog:
 
     def test_minimal_valid_request_picks_entry_with_variable(self, monkeypatch):
         """`minimal_valid_request` returns a known-valid request dict."""
-        from earthly.ecmwf import constraints as constraints_module
+        from earthlens.ecmwf import constraints as constraints_module
 
         constraints_module._CACHE.clear()
 
@@ -411,7 +411,7 @@ class TestCatalog:
         self, monkeypatch
     ):
         """For datasets without a `variable` field, return the first entry."""
-        from earthly.ecmwf import constraints as constraints_module
+        from earthlens.ecmwf import constraints as constraints_module
 
         constraints_module._CACHE.clear()
 
@@ -444,7 +444,7 @@ class TestCatalog:
 
     def test_minimal_valid_request_empty_constraints(self, monkeypatch):
         """Empty constraints return a near-empty request (just data_format)."""
-        from earthly.ecmwf import constraints as constraints_module
+        from earthlens.ecmwf import constraints as constraints_module
 
         constraints_module._CACHE.clear()
 
@@ -502,7 +502,7 @@ class TestCatalog:
             def json(self):
                 return payload
 
-        import earthly.ecmwf.catalog as cat_mod
+        import earthlens.ecmwf.catalog as cat_mod
 
         captured = {}
 
@@ -791,7 +791,7 @@ class TestCatalog:
 
     def test_extras_roundtrip_through_yaml(self, monkeypatch, tmp_path):
         """Arbitrary extras survive a YAML load-and-read round trip."""
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         catalog_yaml = tmp_path / "cds_data_catalog.yaml"
         catalog_yaml.write_text(
@@ -822,7 +822,7 @@ class TestCatalog:
         """A YAML with no datasets raises ValueError."""
         empty_yaml = tmp_path / "cds_data_catalog.yaml"
         empty_yaml.write_text("version: 3\navailable_datasets: []\n", encoding="utf-8")
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", empty_yaml)
         with pytest.raises(ValueError, match="datasets"):
@@ -832,7 +832,7 @@ class TestCatalog:
         """A YAML with datasets: null also raises ValueError."""
         null_yaml = tmp_path / "cds_data_catalog.yaml"
         null_yaml.write_text("datasets:\n", encoding="utf-8")
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", null_yaml)
         with pytest.raises(ValueError, match="datasets"):
@@ -850,7 +850,7 @@ class TestCatalog:
             "    variables:\n",
             encoding="utf-8",
         )
-        from earthly.ecmwf import catalog as catalog_module
+        from earthlens.ecmwf import catalog as catalog_module
 
         monkeypatch.setattr(catalog_module, "CATALOG_PATH", no_vars)
         with pytest.raises(ValueError, match="no variables"):

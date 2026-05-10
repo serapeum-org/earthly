@@ -1,4 +1,4 @@
-from earthly.earthly import Earthly
+from earthlens.earthlens import EarthLens
 
 # unified parameters for all data sources.
 start = "2009-01-01"
@@ -10,7 +10,7 @@ lonlim = [-75.65, -74.73]
 source = "chirps"
 path = r"examples\data\chirps"
 variables = ["precipitation"]
-earthly = Earthly(
+earthlens = EarthLens(
     data_source=source,
     start=start,
     end=end,
@@ -20,11 +20,11 @@ earthly = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-# earthly.download()
+# earthlens.download()
 # %%
 path = r"examples\data\chirps-cores"
 
-earthly = Earthly(
+earthlens = EarthLens(
     data_source=source,
     start=start,
     end=end,
@@ -34,13 +34,13 @@ earthly = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-# earthly.download(cores=4)
+# earthlens.download(cores=4)
 # %%
 
 path = r"examples\data\ecmwf"
 source = "ecmwf"
 variables = ["precipitation"]
-earthly = Earthly(
+earthlens = EarthLens(
     data_source=source,
     start=start,
     end=end,
@@ -50,13 +50,13 @@ earthly = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-# earthly.download()
+# earthlens.download()
 
 # %%
 path = r"examples\data\s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
-earthly = Earthly(
+earthlens = EarthLens(
     data_source=source,
     start=start,
     end=end,
@@ -66,4 +66,4 @@ earthly = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-earthly.download()
+earthlens.download()

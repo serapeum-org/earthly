@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import datetime as dt
 import os
+import shutil
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -10,14 +12,14 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-from earthly.aggregate import AggregationConfig, aggregate_netcdf
-from earthly.base import (
+from earthlens.aggregate import AggregationConfig, aggregate_netcdf
+from earthlens.base import (
     AbstractDataSource,
     SpatialExtent,
     TemporalExtent,
 )
-from earthly.ecmwf.catalog import Catalog, Variable
-from earthly.ecmwf.constraints import RequestValidator
+from earthlens.ecmwf.catalog import Catalog, Variable
+from earthlens.ecmwf.constraints import RequestValidator
 
 __all__ = ["AuthenticationError", "ECMWF", "ERA5_GRID_DEGREES"]
 
@@ -123,6 +125,57 @@ def _looks_like_licence_not_accepted(exc: BaseException) -> bool:
         or "403" in message
         and ("accept" in message or "term" in message)
     )
+
+
+def _unwrap_zipped_netcdf(target: Path) -> None:
+    r"""Replace `target` with its inner NetCDF when CDS returned a zip.
+
+    CDS occasionally hands back a zip-wrapped NetCDF even when
+    `data_format='netcdf'` was requested (observed on
+    `reanalysis-era5-land-monthly-means` and similar partitioned
+    datasets). The `cdsapi.Client.retrieve` call writes the raw bytes
+    to `target` regardless of format, so the file ends up with a
+    `.nc` name but a `PK\x03\x04` zip header. Detect that and
+    extract the single inner NetCDF in place so downstream callers
+    (the aggregator, user code reading the file) see a real NetCDF.
+
+    Streams the inner member to a sibling temp file via
+    `shutil.copyfileobj` (default 64 KiB buffer) and then atomically
+    swaps it onto `target` via `os.replace`. The inner NetCDF is
+    never fully materialised in Python memory regardless of size.
+    The temp file is cleaned up on every error path.
+
+    No-op when `target` is already a plain NetCDF, or when the zip
+    does not contain exactly one `.nc` member (other shapes are
+    surfaced via a `RuntimeError` so they do not silently pass).
+    """
+    if not zipfile.is_zipfile(target):
+        return
+    tmp = target.parent / (target.name + ".unwrap.tmp")
+    try:
+        with zipfile.ZipFile(target) as zf:
+            members = [m for m in zf.namelist() if m.endswith(".nc")]
+            if len(members) != 1:
+                raise RuntimeError(
+                    f"CDS returned a zip with {len(members)} .nc members at "
+                    f"{target}; expected exactly one. Members: {zf.namelist()}"
+                )
+            inner = members[0]
+            with zf.open(inner) as src, tmp.open("wb") as dst:
+                shutil.copyfileobj(src, dst)
+        bytes_written = tmp.stat().st_size
+        os.replace(tmp, target)
+        logger.debug(
+            f"Unwrapped CDS zip response at {target}: extracted inner "
+            f"{inner!r} ({bytes_written} bytes)"
+        )
+    finally:
+        # On the success path os.replace consumed `tmp`, so this is a
+        # no-op. On any failure path (RuntimeError before extraction,
+        # I/O error during copy, os.replace failure) the partially
+        # written temp file is removed so we never leave litter.
+        if tmp.exists():
+            tmp.unlink(missing_ok=True)
 
 
 class ECMWF(AbstractDataSource):
@@ -390,9 +443,9 @@ class ECMWF(AbstractDataSource):
                 slicing pipeline that previously consumed it has
                 been moved out of the package. Defaults to `True`
                 so existing callers keep working.
-            aggregate: Optional :class:`earthly.aggregate.AggregationConfig`.
+            aggregate: Optional :class:`earthlens.aggregate.AggregationConfig`.
                 When provided, every retrieved NetCDF is fed through
-                :func:`earthly.aggregate.aggregate_netcdf` immediately
+                :func:`earthlens.aggregate.aggregate_netcdf` immediately
                 after `_api()` returns. When the config's `out_dir`
                 is `None`, it is defaulted to
                 `<self.root_dir>/aggregated/`. Aggregation failures
@@ -453,13 +506,13 @@ class ECMWF(AbstractDataSource):
 
         Examples:
             - End-to-end download via the user-facing
-              :class:`Earthly` facade. Marked
+              :class:`EarthLens` facade. Marked
               `# doctest: +SKIP` because it requires a configured
               `~/.cdsapirc` and several minutes of CDS queue time:
 
                 ```python
-                >>> from earthly.earthly import Earthly
-                >>> earthly = Earthly(  # doctest: +SKIP
+                >>> from earthlens.earthlens import EarthLens
+                >>> earthlens = EarthLens(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -473,7 +526,7 @@ class ECMWF(AbstractDataSource):
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
                 ... )
-                >>> earthly.download()  # doctest: +SKIP
+                >>> earthlens.download()  # doctest: +SKIP
 
                 ```
 
@@ -588,7 +641,7 @@ class ECMWF(AbstractDataSource):
         1. Derive the dataset name from `var_info.cds_dataset`.
         2. Delegate request-dict assembly to :meth:`_build_request`.
         3. Pre-flight the request via
-           :class:`earthly.ecmwf.constraints.RequestValidator`
+           :class:`earthlens.ecmwf.constraints.RequestValidator`
            (skipped when the constructor was given
            `skip_constraints=True`).
         4. Submit via :meth:`cdsapi.Client.retrieve`. The call blocks
@@ -618,7 +671,7 @@ class ECMWF(AbstractDataSource):
                 user's CDS account. Message links to the dataset's
                 licence page.
             ValueError: Propagated from
-                :class:`earthly.ecmwf.constraints.RequestValidator`
+                :class:`earthlens.ecmwf.constraints.RequestValidator`
                 when the assembled request fails the pre-flight
                 check (variable typo, unknown extras, malformed
                 date / area, ...). Skipped entirely when
@@ -633,7 +686,7 @@ class ECMWF(AbstractDataSource):
               produces (no network access — pure catalog read):
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> spec = Catalog().get_variable(
                 ...     "reanalysis-era5-single-levels", "2m-temperature"
                 ... )
@@ -644,13 +697,13 @@ class ECMWF(AbstractDataSource):
 
                 ```
             - Submit the request through the user-facing
-              :class:`Earthly` facade. Marked
+              :class:`EarthLens` facade. Marked
               `# doctest: +SKIP` because it requires a configured
               `~/.cdsapirc` and several minutes of CDS queue time:
 
                 ```python
-                >>> from earthly.earthly import Earthly  # doctest: +SKIP
-                >>> earthly = Earthly(  # doctest: +SKIP
+                >>> from earthlens.earthlens import EarthLens  # doctest: +SKIP
+                >>> earthlens = EarthLens(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -662,20 +715,20 @@ class ECMWF(AbstractDataSource):
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
                 ... )
-                >>> earthly.download()  # doctest: +SKIP
+                >>> earthlens.download()  # doctest: +SKIP
 
                 ```
 
         See Also:
             :meth:`_build_request`: Assembles the CDS request dict
                 this method submits — the pure-builder collaborator.
-            :class:`earthly.ecmwf.constraints.RequestValidator`: The
+            :class:`earthlens.ecmwf.constraints.RequestValidator`: The
                 pre-flight check applied to the assembled request.
             :meth:`_download_dataset`: Thin pass-through wrapper —
                 calls this method and returns the same path.
             :class:`Catalog`: Resolves `(dataset, variable)` pairs
                 to :class:`Variable` rows.
-            :class:`earthly.earthly.Earthly`: User-facing facade
+            :class:`earthlens.earthlens.EarthLens`: User-facing facade
                 that wires this method into the `download()` flow.
         """
         dataset = var_info.cds_dataset
@@ -703,6 +756,7 @@ class ECMWF(AbstractDataSource):
                     "tied to your CDS account."
                 ) from exc
             raise
+        _unwrap_zipped_netcdf(target)
         return target
 
     def _build_request(self, var_info: Variable) -> dict[str, Any]:

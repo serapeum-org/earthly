@@ -1,4 +1,4 @@
-"""Unit tests for `earthly.aggregate`.
+"""Unit tests for `earthlens.aggregate`.
 
 Covers `AggregationConfig` validation, `_read_time_axis` (the
 candidate-loop and KeyError fallback), `_find_level_dim`, the
@@ -19,7 +19,7 @@ import pandas as pd
 import pytest
 from pydantic import ValidationError
 
-from earthly.aggregate import (
+from earthlens.aggregate import (
     _LEVEL_DIM_CANDIDATES,
     _REDUCERS_SKIPNA,
     _REDUCERS_STRICT,
@@ -691,11 +691,11 @@ class TestAggregateNetcdf:
 class _FakeNetCDF:
     """Minimal `pyramids.netcdf.NetCDF` stand-in for round-trip tests.
 
-    Implements the four surfaces `aggregate_netcdf` consumes —
-    `read_array`, `get_time_variable`, `dimension_names`,
-    `geotransform`, and (optionally) `sel`. Lets tests exercise the
-    body of `aggregate_netcdf` without writing a real on-disk
-    NetCDF (the test environment has no NetCDF writer).
+    Implements the surfaces `aggregate_netcdf` consumes —
+    `get_variable`, `read_array`, `get_time_variable`,
+    `dimension_names`, `geotransform`, and (optionally) `sel`. Lets
+    tests exercise the body of `aggregate_netcdf` without writing a
+    real on-disk NetCDF (the test environment has no NetCDF writer).
     """
 
     def __init__(
@@ -713,7 +713,11 @@ class _FakeNetCDF:
         self.geotransform = geotransform
         self._on_sel = on_sel
 
-    def read_array(self, variable: str) -> np.ndarray:
+    def get_variable(self, name: str) -> "_FakeNetCDF":
+        """Return self — fake's variable cube has the same surface."""
+        return self
+
+    def read_array(self, variable: str | None = None) -> np.ndarray:
         """Return the stored array regardless of variable name (test stub)."""
         return self._array
 
@@ -727,7 +731,7 @@ class _FakeNetCDF:
 
 
 class _RealVariable(SimpleNamespace):
-    """Lightweight stand-in for `earthly.ecmwf.Variable` in tests.
+    """Lightweight stand-in for `earthlens.ecmwf.Variable` in tests.
 
     Exposes only the four attributes `aggregate_netcdf` reads
     (`is_flux`, `cds_variable`, `nc_variable`, `units`) so the

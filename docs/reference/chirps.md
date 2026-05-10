@@ -2,6 +2,6 @@
 
 CHIRPS rainfall data source via FTP.
 
-::: earthly.chirps.CHIRPS
+::: earthlens.chirps.CHIRPS
 
-::: earthly.chirps.Catalog
+::: earthlens.chirps.Catalog
