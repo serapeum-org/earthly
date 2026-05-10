@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.0 (2026-05-10)
+
+### Refactor
+
+- rename earthly -> earthlens and fix CDS notebooks (#47)
+
 ## 0.3.0 (2026-05-07)
 
 ### Feat
