@@ -2,11 +2,11 @@
 
 ## Design Concept
 
-earthly is designed following the Template/Factory design pattern to create an abstract class as a template for different data sources.
+earthlens is designed following the Template/Factory design pattern to create an abstract class as a template for different data sources.
 
 The main objective is to provide a unified API for all remote sensing data sources, where you only have to worry about the domain of your data (date range and spatial extent) and the package does everything in the backend.
 
-`earthly` provides a unified API for the following data sources:
+`earthlens` provides a unified API for the following data sources:
 
 - ECMWF
 - CHIRPS
@@ -20,10 +20,10 @@ The API takes a few parameters to determine the domain of your data:
 
 - **Date range**: `start`, `end`, and `temporal_resolution`
 - **Spatial extent**: `lat_lim` (latitude limits) and `lon_lim` (longitude limits)
-- If `lat_lim` and `lon_lim` are not provided, the `Earthly` class defaults to longitude `[-180, 180]` and latitude `[-90, 90]`.
+- If `lat_lim` and `lon_lim` are not provided, the `EarthLens` class defaults to longitude `[-180, 180]` and latitude `[-90, 90]`.
 
 ```python
-from earthly.earthly import Earthly
+from earthlens.earthlens import EarthLens
 
 start = "2009-01-01"
 end = "2009-01-10"
@@ -58,7 +58,7 @@ variables = {
     "reanalysis-era5-single-levels": ["2m-temperature"],
 }
 
-earthly = Earthly(
+earthlens = EarthLens(
     data_source=source,
     start=start,
     end=end,
@@ -68,7 +68,7 @@ earthly = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-earthly.download()
+earthlens.download()
 ```
 
 !!! note "Expect to wait"
@@ -85,7 +85,7 @@ source = "chirps"
 path = "examples/data/chirps"
 variables = ["precipitation"]
 
-earthly = Earthly(
+earthlens = EarthLens(
     data_source=source,
     start=start,
     end=end,
@@ -95,7 +95,7 @@ earthly = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-earthly.download()
+earthlens.download()
 ```
 
 ### Parallel Download
@@ -103,7 +103,7 @@ earthly.download()
 ```python
 path = "examples/data/chirps-cores"
 
-earthly = Earthly(
+earthlens = EarthLens(
     data_source=source,
     start=start,
     end=end,
@@ -113,7 +113,7 @@ earthly = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-earthly.download(cores=4)
+earthlens.download(cores=4)
 ```
 
 ## Amazon S3
@@ -123,7 +123,7 @@ path = "examples/data/s3-backend"
 source = "amazon-s3"
 variables = ["precipitation"]
 
-earthly = Earthly(
+earthlens = EarthLens(
     data_source=source,
     start=start,
     end=end,
@@ -131,5 +131,5 @@ earthly = Earthly(
     temporal_resolution=temporal_resolution,
     path=path,
 )
-earthly.download()
+earthlens.download()
 ```

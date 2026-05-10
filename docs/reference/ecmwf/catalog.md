@@ -1,7 +1,7 @@
 # Catalog & probe tooling
 
 The ECMWF backend uses a curated YAML catalog
-(`src/earthly/ecmwf/cds_data_catalog.yaml`) to map user-friendly
+(`src/earthlens/ecmwf/cds_data_catalog.yaml`) to map user-friendly
 variable codes to the request fields CDS actually accepts. This page
 documents the catalog's structure, how it is maintained, and the tools
 that support catalog work.
@@ -10,8 +10,8 @@ that support catalog work.
 
 | File / tool | Role |
 |---|---|
-| `src/earthly/ecmwf/cds_data_catalog.yaml` | The catalog itself — schema described below |
-| `src/earthly/ecmwf/catalog.py` | The loader (`Catalog`, `Dataset`, `Variable`, …) |
+| `src/earthlens/ecmwf/cds_data_catalog.yaml` | The catalog itself — schema described below |
+| `src/earthlens/ecmwf/catalog.py` | The loader (`Catalog`, `Dataset`, `Variable`, …) |
 | `tools/refresh_available_datasets.py` | Auto-rewrites the `available_datasets:` index from the live CDS STAC catalogue |
 | `tools/audit_cds_datasets.py` | Walks `available_datasets:` and reports each dataset's `constraints.json` shape — coverage planning |
 | `tools/probe_open_datasets.py` | Submits one fire-and-forget retrieve per dataset to verify it actually serves data |
@@ -157,7 +157,7 @@ enforce that; it's the YAML author's responsibility.
 
 *Optional.* String tag, one of `"form"` (default), `"oceanic_monthly"`,
 or `"carra_means"`. Drives the `_REQUEST_KIND_STRIPS` table in
-`src/earthly/ecmwf/backend.py` — at request-build time, the named
+`src/earthlens/ecmwf/backend.py` — at request-build time, the named
 template-default fields are stripped from the request because the
 dataset rejects them.
 
@@ -291,7 +291,7 @@ Common cases:
 *Optional.* `"flux"` or `"state"`. Marks whether this variable's
 values are accumulations over a time window (flux) or instantaneous
 samples (state). Drives the `op="auto"` resolver in
-`earthly.aggregate` — see the `aggregate` reference for the full
+`earthlens.aggregate` — see the `aggregate` reference for the full
 walkthrough.
 
 ###### State variables
@@ -358,7 +358,7 @@ When `types` is omitted, the variable is treated as **state**
 variables must set `types: flux` explicitly so `op="auto"` can route
 them correctly.
 
-Consumed by `earthly.aggregate.aggregate_netcdf` (and indirectly by
+Consumed by `earthlens.aggregate.aggregate_netcdf` (and indirectly by
 `ECMWF.download(aggregate=...)` and the
 `examples/post_process_ecmwf_netcdf.py` CLI). Not used by the
 request builder — `_api()` ignores `types`.
@@ -780,5 +780,5 @@ The runtime contract that the catalog YAML feeds:
 ## See also
 
 - [ECMWF backend reference](../ecmwf.md) — class-level API reference.
-- `src/earthly/ecmwf/catalog.py` — loader source; `Catalog.model_post_init` is the authoritative description of how YAML rows become `Variable` instances.
+- `src/earthlens/ecmwf/catalog.py` — loader source; `Catalog.model_post_init` is the authoritative description of how YAML rows become `Variable` instances.
 - `planning/cdsapi/all-catalog.md` — historical record of the catalog's evolution and per-dataset coverage decisions.

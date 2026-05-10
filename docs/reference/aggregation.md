@@ -1,15 +1,15 @@
-# `earthly.aggregate` — temporal aggregation reference
+# `earthlens.aggregate` — temporal aggregation reference
 
 ## Overview
 
-`earthly.aggregate` turns a CDS-shaped NetCDF (one with a time
+`earthlens.aggregate` turns a CDS-shaped NetCDF (one with a time
 dimension) into per-window GeoTIFFs (daily mean, monthly sum, weekly
 mean, seasonal climatology, ...). It runs against `pyramids` +
 `numpy` + `pandas`; **`xarray` is not a runtime dependency**.
 
 The feature is reachable two ways:
 
-1. **Standalone.** `from earthly import aggregate_netcdf,
+1. **Standalone.** `from earthlens import aggregate_netcdf,
    AggregationConfig` and call against any pyramids-readable NetCDF.
    No `ECMWF` instance needed.
 2. **Bundled with download.** `ECMWF.download(aggregate=...)` —
@@ -18,7 +18,7 @@ The feature is reachable two ways:
    after `_api()` returns.
 
 The same module is also exposed via the user-facing facade:
-`Earthly(...).download(aggregate=...)`.
+`EarthLens(...).download(aggregate=...)`.
 
 ## Public API
 
@@ -49,7 +49,7 @@ per non-empty window. `geotiff_path` is `None` when
 Arguments:
 
 - `nc_path` — path to the NetCDF on disk.
-- `var_info` — :class:`earthly.ecmwf.Variable` row (resolves
+- `var_info` — :class:`earthlens.ecmwf.Variable` row (resolves
   `op="auto"` via `is_flux`, drives the output filename via
   `cds_variable`, picks the variable from the NetCDF via
   `nc_variable`).
@@ -97,7 +97,7 @@ for the full grammar (e.g. `"3H"`, `"30min"`, `"6MS"`, `"AS-OCT"`,
 ## `op="auto"` semantics — flux vs state
 
 `op="auto"` is a sentinel that defers the choice of reducer to the
-catalog. The resolver is `_resolve_op` in `earthly.aggregate`:
+catalog. The resolver is `_resolve_op` in `earthlens.aggregate`:
 
 ```python
 def _resolve_op(op, var_info):
@@ -214,10 +214,10 @@ Single-call pipeline that downloads daily ERA5 2-metre temperature
 for January 2022 over a 1° box and writes one monthly-mean GeoTIFF:
 
 ```python
-from earthly import AggregationConfig
-from earthly.earthly import Earthly
+from earthlens import AggregationConfig
+from earthlens.earthlens import EarthLens
 
-earthly = Earthly(
+earthlens = EarthLens(
     data_source="ecmwf",
     temporal_resolution="daily",
     start="2022-01-01",
@@ -227,7 +227,7 @@ earthly = Earthly(
     lon_lim=[-75.0, -74.0],
     path="out/era5",
 )
-earthly.download(
+earthlens.download(
     aggregate=AggregationConfig(freq="1MS", op="mean"),
 )
 ```
@@ -243,8 +243,8 @@ aggregated GeoTIFF lands at
 If you already have the NetCDF on disk:
 
 ```python
-from earthly import AggregationConfig, aggregate_netcdf
-from earthly.ecmwf import Catalog
+from earthlens import AggregationConfig, aggregate_netcdf
+from earthlens.ecmwf import Catalog
 
 spec = Catalog().get_variable(
     "reanalysis-era5-single-levels", "2m-temperature"
@@ -263,8 +263,8 @@ for window_label, arr, target in results:
 Skip GeoTIFF writes entirely and inspect the per-window arrays:
 
 ```python
-from earthly import AggregationConfig, aggregate_netcdf
-from earthly.ecmwf import Catalog
+from earthlens import AggregationConfig, aggregate_netcdf
+from earthlens.ecmwf import Catalog
 
 spec = Catalog().get_variable(
     "reanalysis-era5-single-levels", "2m-temperature"
@@ -310,11 +310,11 @@ Examples:
 
 ## Related
 
-- :class:`earthly.aggregate.AggregationConfig` — frozen request
+- :class:`earthlens.aggregate.AggregationConfig` — frozen request
   payload.
-- :func:`earthly.aggregate.aggregate_netcdf` — the core function.
-- :class:`earthly.ecmwf.Catalog` — resolves `(dataset, code)` pairs
+- :func:`earthlens.aggregate.aggregate_netcdf` — the core function.
+- :class:`earthlens.ecmwf.Catalog` — resolves `(dataset, code)` pairs
   to the `Variable` rows that drive `op="auto"` and the output
   filename.
-- :meth:`earthly.ecmwf.ECMWF.download` — accepts the `aggregate`
+- :meth:`earthlens.ecmwf.ECMWF.download` — accepts the `aggregate`
   parameter for one-call download-and-aggregate.

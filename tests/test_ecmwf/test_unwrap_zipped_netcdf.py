@@ -1,4 +1,4 @@
-"""Unit tests for :func:`earthly.ecmwf.backend._unwrap_zipped_netcdf`.
+"""Unit tests for :func:`earthlens.ecmwf.backend._unwrap_zipped_netcdf`.
 
 CDS occasionally returns a zip-wrapped NetCDF even when
 `data_format='netcdf'` was requested (observed consistently on
@@ -15,7 +15,7 @@ from pathlib import Path
 
 import pytest
 
-from earthly.ecmwf.backend import _unwrap_zipped_netcdf
+from earthlens.ecmwf.backend import _unwrap_zipped_netcdf
 
 pytestmark = [pytest.mark.unit]
 

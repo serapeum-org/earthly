@@ -31,7 +31,7 @@ Examples:
     - List datasets and look up a variable by `(dataset, code)`:
 
         ```python
-        >>> from earthly.ecmwf import Catalog
+        >>> from earthlens.ecmwf import Catalog
         >>> cat = Catalog()
         >>> "reanalysis-era5-single-levels" in cat.datasets
         True
@@ -45,12 +45,12 @@ Examples:
 
 from __future__ import annotations
 
-from earthly.ecmwf.backend import (
+from earthlens.ecmwf.backend import (
     ECMWF,
     ERA5_GRID_DEGREES,
     AuthenticationError,
 )
-from earthly.ecmwf.catalog import CATALOG_PATH, Catalog, Dataset, Variable
+from earthlens.ecmwf.catalog import CATALOG_PATH, Catalog, Dataset, Variable
 
 __all__ = [
     "ECMWF",

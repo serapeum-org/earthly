@@ -8831,9 +8831,9 @@ packages:
   - numpy ; extra == 'tests'
   requires_python: '>=3.10'
 - pypi: ./
-  name: earthly
+  name: earthlens
   version: 0.3.0
-  sha256: c91994f0fc73771d14f683f050bb5c05b9ae7edb403649e5506b3e51e77d429f
+  sha256: 780a2c6810c33b79cfb9b4ae7869cd4430b44cc9e6e111f4b0bf1aadd645f9cf
   requires_dist:
   - pyramids-gis>=0.16.0
   - joblib>=1.2.0

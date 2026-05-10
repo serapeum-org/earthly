@@ -1,4 +1,4 @@
-"""Unit tests for `earthly.aggregate`.
+"""Unit tests for `earthlens.aggregate`.
 
 Covers `AggregationConfig` validation, `_read_time_axis` (the
 candidate-loop and KeyError fallback), `_find_level_dim`, the
@@ -19,7 +19,7 @@ import pandas as pd
 import pytest
 from pydantic import ValidationError
 
-from earthly.aggregate import (
+from earthlens.aggregate import (
     _LEVEL_DIM_CANDIDATES,
     _REDUCERS_SKIPNA,
     _REDUCERS_STRICT,
@@ -731,7 +731,7 @@ class _FakeNetCDF:
 
 
 class _RealVariable(SimpleNamespace):
-    """Lightweight stand-in for `earthly.ecmwf.Variable` in tests.
+    """Lightweight stand-in for `earthlens.ecmwf.Variable` in tests.
 
     Exposes only the four attributes `aggregate_netcdf` reads
     (`is_flux`, `cds_variable`, `nc_variable`, `units`) so the

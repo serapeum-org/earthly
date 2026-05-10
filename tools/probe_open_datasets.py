@@ -17,9 +17,9 @@ from typing import Any
 
 import requests as _requests
 
-from earthly.ecmwf import Catalog
-from earthly.ecmwf.catalog import _read_cdsapirc
-from earthly.ecmwf.constraints import RequestValidator
+from earthlens.ecmwf import Catalog
+from earthlens.ecmwf.catalog import _read_cdsapirc
+from earthlens.ecmwf.constraints import RequestValidator
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
 

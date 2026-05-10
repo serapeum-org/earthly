@@ -1,5 +1,5 @@
-# Earthly
+# EarthLens
 
 The unified entry point (facade) for all data sources.
 
-::: earthly.earthly.Earthly
+::: earthlens.earthlens.EarthLens

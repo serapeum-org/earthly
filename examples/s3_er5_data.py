@@ -1,6 +1,6 @@
 import os
 
-from earthly.s3 import S3, Catalog
+from earthlens.s3 import S3, Catalog
 
 # %%
 s3_catalog = Catalog()

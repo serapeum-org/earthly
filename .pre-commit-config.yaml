@@ -165,7 +165,7 @@ repos:
     hooks:
       - id: mypy
         name: "[py   -  type] mypy"
-        entry: pixi run -e dev mypy src/earthly
+        entry: pixi run -e dev mypy src/earthlens
         language: system
         pass_filenames: false
         always_run: true
@@ -175,7 +175,7 @@ repos:
     hooks:
       - id: pytest-check
         name: "[py   -  test] pytest"
-        entry: pixi run -e dev pytest -v --cov=src/earthly --cov-report=term-missing -m "not slow and not e2e"
+        entry: pixi run -e dev pytest -v --cov=src/earthlens --cov-report=term-missing -m "not slow and not e2e"
         language: system
         pass_filenames: false
         always_run: true

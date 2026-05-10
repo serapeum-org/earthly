@@ -18,8 +18,8 @@ import pandas as pd
 import pytest
 from pydantic import ValidationError
 
-from earthly.ecmwf import Variable
-from earthly.ecmwf import constraints as constraints_module
+from earthlens.ecmwf import Variable
+from earthlens.ecmwf import constraints as constraints_module
 from tests.test_ecmwf._fakes import captured_request
 
 pytestmark = [pytest.mark.unit]

@@ -7,7 +7,7 @@
 
 import os
 
-from earthly.ecmwf import ECMWF, Catalog
+from earthlens.ecmwf import ECMWF, Catalog
 
 rpath = os.getcwd()
 path = rf"{rpath}\delete\data\ecmwf"

@@ -25,7 +25,7 @@ from typing import Any
 
 from probe_cds_netcdf import collect_metadata, maybe_unzip
 
-from earthly.ecmwf import Catalog
+from earthlens.ecmwf import Catalog
 
 CACHE_DIR = Path("C:/tmp/cds_probe")
 

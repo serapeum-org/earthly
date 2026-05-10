@@ -10,8 +10,8 @@ from __future__ import annotations
 
 import pytest
 
-from earthly.earthly import Earthly
-from earthly.ecmwf import ECMWF, Catalog
+from earthlens.earthlens import EarthLens
+from earthlens.ecmwf import ECMWF, Catalog
 
 pytestmark = [pytest.mark.e2e]
 
@@ -113,10 +113,10 @@ class TestApiE2E:
 
 
 class TestFacadeE2E:
-    """End-to-end tests for the `Earthly` facade."""
+    """End-to-end tests for the `EarthLens` facade."""
 
     def test_live_multi_variable_download_through_facade(self, tmp_path):
-        """`Earthly(...).download()` chains every stage end-to-end.
+        """`EarthLens(...).download()` chains every stage end-to-end.
 
         Test scenario:
             Exercise C1+C3+H1+H2+H3+M3 together: facade dispatch,
@@ -126,7 +126,7 @@ class TestFacadeE2E:
             both single-level so the request shape is uniform but
             distinct dataset+variable pairs go to CDS.
         """
-        earthly = Earthly(
+        earthlens = EarthLens(
             data_source="ecmwf",
             temporal_resolution="daily",
             start="2022-01-01",
@@ -142,7 +142,7 @@ class TestFacadeE2E:
             path=tmp_path,
         )
 
-        earthly.download(progress_bar=False)
+        earthlens.download(progress_bar=False)
 
         # Each variable gets its own
         # <cds_variable>_<cds_dataset>.nc under tmp_path.

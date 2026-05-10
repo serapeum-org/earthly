@@ -12,7 +12,7 @@ import pandas as pd
 from botocore import exceptions
 from tqdm import tqdm
 
-from earthly.base import AbstractCatalog, AbstractDataSource
+from earthlens.base import AbstractCatalog, AbstractDataSource
 
 
 class S3(AbstractDataSource):

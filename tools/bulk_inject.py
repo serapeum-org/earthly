@@ -14,9 +14,9 @@ from pathlib import Path
 import yaml
 from bulk_add_remaining import EXTRA_MAPPING, build_known
 
-from earthly.ecmwf.constraints import fetch_constraints
+from earthlens.ecmwf.constraints import fetch_constraints
 
-CATALOG_PATH = Path("src/earthly/ecmwf/cds_data_catalog.yaml")
+CATALOG_PATH = Path("src/earthlens/ecmwf/cds_data_catalog.yaml")
 
 LEVEL_DEFAULTS = {
     "height_levels": {"height_level": ["100_m"]},

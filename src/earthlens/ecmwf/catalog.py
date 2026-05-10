@@ -1,7 +1,7 @@
 """Variable-catalog loader for the CDS-backed ECMWF data source.
 
 Hosts :class:`Catalog`, the pydantic-backed reader for
-`cds_data_catalog.yaml`. Split out of :mod:`earthly.ecmwf.backend`
+`cds_data_catalog.yaml`. Split out of :mod:`earthlens.ecmwf.backend`
 so the request / download machinery and the catalog file-IO live in
 separate modules.
 
@@ -30,7 +30,7 @@ Examples:
     - Construct the catalog and reach the structural map:
 
         ```python
-        >>> from earthly.ecmwf import Catalog
+        >>> from earthlens.ecmwf import Catalog
         >>> cat = Catalog()
         >>> cat.get_variable(
         ...     "reanalysis-era5-single-levels", "2m-temperature"
@@ -50,7 +50,7 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
-from earthly.base import AbstractCatalog
+from earthlens.base import AbstractCatalog
 
 _LEGACY_MARS_KEYS: frozenset[str] = frozenset(
     {"number_para", "download type", "var_name"}
@@ -245,7 +245,7 @@ class Dataset(BaseModel):
         - Inspect a single-level dataset entry:
 
             ```python
-            >>> from earthly.ecmwf import Catalog
+            >>> from earthlens.ecmwf import Catalog
             >>> cat = Catalog()
             >>> single = cat.datasets["reanalysis-era5-single-levels"]
             >>> single.monthly
@@ -259,7 +259,7 @@ class Dataset(BaseModel):
         - Pressure-level datasets carry the default level list:
 
             ```python
-            >>> from earthly.ecmwf import Catalog
+            >>> from earthlens.ecmwf import Catalog
             >>> cat = Catalog()
             >>> press = cat.datasets["reanalysis-era5-pressure-levels"]
             >>> press.pressure_level
@@ -309,7 +309,7 @@ class Catalog(AbstractCatalog):
         - Look up a variable by `(dataset_name, variable_name)`:
 
             ```python
-            >>> from earthly.ecmwf import Catalog
+            >>> from earthlens.ecmwf import Catalog
             >>> spec = Catalog().get_variable(
             ...     "reanalysis-era5-single-levels", "2m-temperature"
             ... )
@@ -323,7 +323,7 @@ class Catalog(AbstractCatalog):
           different :class:`Variable`:
 
             ```python
-            >>> from earthly.ecmwf import Catalog
+            >>> from earthlens.ecmwf import Catalog
             >>> Catalog().get_variable(
             ...     "reanalysis-era5-land", "2m-temperature"
             ... ).cds_dataset
@@ -333,7 +333,7 @@ class Catalog(AbstractCatalog):
         - Iterate variables grouped by dataset (structural):
 
             ```python
-            >>> from earthly.ecmwf import Catalog
+            >>> from earthlens.ecmwf import Catalog
             >>> cat = Catalog()
             >>> cat.get_dataset("reanalysis-era5-pressure-levels").monthly
             'reanalysis-era5-pressure-levels-monthly-means'
@@ -344,7 +344,7 @@ class Catalog(AbstractCatalog):
         - Inspect what CDS hosts overall:
 
             ```python
-            >>> from earthly.ecmwf import Catalog
+            >>> from earthlens.ecmwf import Catalog
             >>> len(Catalog().available_datasets)
             134
 
@@ -501,7 +501,7 @@ class Catalog(AbstractCatalog):
             - Inspect the dataset count and a sample:
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> mapping = Catalog().get_catalog()
                 >>> "reanalysis-era5-single-levels" in mapping
                 True
@@ -536,7 +536,7 @@ class Catalog(AbstractCatalog):
               dataset and NetCDF short name:
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> spec = Catalog().get_variable(
                 ...     "reanalysis-era5-single-levels", "2m-temperature"
                 ... )
@@ -549,7 +549,7 @@ class Catalog(AbstractCatalog):
             - Pressure-level variables expose `cds_pressure_level`:
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> spec = Catalog().get_variable(
                 ...     "reanalysis-era5-pressure-levels", "temperature"
                 ... )
@@ -561,7 +561,7 @@ class Catalog(AbstractCatalog):
               different Variable:
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> Catalog().get_variable(
                 ...     "reanalysis-era5-land", "2m-temperature"
                 ... ).cds_dataset
@@ -571,7 +571,7 @@ class Catalog(AbstractCatalog):
             - Unknown dataset or variable raises `KeyError`:
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> Catalog().get_variable(
                 ...     "reanalysis-era5-single-levels", "not-a-variable"
                 ... )
@@ -602,7 +602,7 @@ class Catalog(AbstractCatalog):
             - Read a dataset's monthly variant and variable count:
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> ds = Catalog().get_dataset("reanalysis-era5-pressure-levels")
                 >>> ds.monthly
                 'reanalysis-era5-pressure-levels-monthly-means'
@@ -641,7 +641,7 @@ class Catalog(AbstractCatalog):
             - Describe ERA5-Land at a glance:
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> info = Catalog().describe("reanalysis-era5-land")
                 >>> info["dataset"]
                 'reanalysis-era5-land'
@@ -697,7 +697,7 @@ class Catalog(AbstractCatalog):
               because it requires network access:
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> req = Catalog().minimal_valid_request(  # doctest: +SKIP
                 ...     "reanalysis-cerra-land",
                 ... )
@@ -706,7 +706,7 @@ class Catalog(AbstractCatalog):
 
                 ```
         """
-        from earthly.ecmwf.constraints import fetch_constraints
+        from earthlens.ecmwf.constraints import fetch_constraints
 
         constraints = fetch_constraints(dataset_name)
         request: dict[str, Any] = {"data_format": "netcdf"}
@@ -770,7 +770,7 @@ class Catalog(AbstractCatalog):
               `~/.cdsapirc`):
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> cat = Catalog()
                 >>> jobs = cat.list_recent_jobs(  # doctest: +SKIP
                 ...     status="successful", max_age_min=60,

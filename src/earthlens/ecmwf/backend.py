@@ -12,14 +12,14 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-from earthly.aggregate import AggregationConfig, aggregate_netcdf
-from earthly.base import (
+from earthlens.aggregate import AggregationConfig, aggregate_netcdf
+from earthlens.base import (
     AbstractDataSource,
     SpatialExtent,
     TemporalExtent,
 )
-from earthly.ecmwf.catalog import Catalog, Variable
-from earthly.ecmwf.constraints import RequestValidator
+from earthlens.ecmwf.catalog import Catalog, Variable
+from earthlens.ecmwf.constraints import RequestValidator
 
 __all__ = ["AuthenticationError", "ECMWF", "ERA5_GRID_DEGREES"]
 
@@ -443,9 +443,9 @@ class ECMWF(AbstractDataSource):
                 slicing pipeline that previously consumed it has
                 been moved out of the package. Defaults to `True`
                 so existing callers keep working.
-            aggregate: Optional :class:`earthly.aggregate.AggregationConfig`.
+            aggregate: Optional :class:`earthlens.aggregate.AggregationConfig`.
                 When provided, every retrieved NetCDF is fed through
-                :func:`earthly.aggregate.aggregate_netcdf` immediately
+                :func:`earthlens.aggregate.aggregate_netcdf` immediately
                 after `_api()` returns. When the config's `out_dir`
                 is `None`, it is defaulted to
                 `<self.root_dir>/aggregated/`. Aggregation failures
@@ -506,13 +506,13 @@ class ECMWF(AbstractDataSource):
 
         Examples:
             - End-to-end download via the user-facing
-              :class:`Earthly` facade. Marked
+              :class:`EarthLens` facade. Marked
               `# doctest: +SKIP` because it requires a configured
               `~/.cdsapirc` and several minutes of CDS queue time:
 
                 ```python
-                >>> from earthly.earthly import Earthly
-                >>> earthly = Earthly(  # doctest: +SKIP
+                >>> from earthlens.earthlens import EarthLens
+                >>> earthlens = EarthLens(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -526,7 +526,7 @@ class ECMWF(AbstractDataSource):
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
                 ... )
-                >>> earthly.download()  # doctest: +SKIP
+                >>> earthlens.download()  # doctest: +SKIP
 
                 ```
 
@@ -641,7 +641,7 @@ class ECMWF(AbstractDataSource):
         1. Derive the dataset name from `var_info.cds_dataset`.
         2. Delegate request-dict assembly to :meth:`_build_request`.
         3. Pre-flight the request via
-           :class:`earthly.ecmwf.constraints.RequestValidator`
+           :class:`earthlens.ecmwf.constraints.RequestValidator`
            (skipped when the constructor was given
            `skip_constraints=True`).
         4. Submit via :meth:`cdsapi.Client.retrieve`. The call blocks
@@ -671,7 +671,7 @@ class ECMWF(AbstractDataSource):
                 user's CDS account. Message links to the dataset's
                 licence page.
             ValueError: Propagated from
-                :class:`earthly.ecmwf.constraints.RequestValidator`
+                :class:`earthlens.ecmwf.constraints.RequestValidator`
                 when the assembled request fails the pre-flight
                 check (variable typo, unknown extras, malformed
                 date / area, ...). Skipped entirely when
@@ -686,7 +686,7 @@ class ECMWF(AbstractDataSource):
               produces (no network access — pure catalog read):
 
                 ```python
-                >>> from earthly.ecmwf import Catalog
+                >>> from earthlens.ecmwf import Catalog
                 >>> spec = Catalog().get_variable(
                 ...     "reanalysis-era5-single-levels", "2m-temperature"
                 ... )
@@ -697,13 +697,13 @@ class ECMWF(AbstractDataSource):
 
                 ```
             - Submit the request through the user-facing
-              :class:`Earthly` facade. Marked
+              :class:`EarthLens` facade. Marked
               `# doctest: +SKIP` because it requires a configured
               `~/.cdsapirc` and several minutes of CDS queue time:
 
                 ```python
-                >>> from earthly.earthly import Earthly  # doctest: +SKIP
-                >>> earthly = Earthly(  # doctest: +SKIP
+                >>> from earthlens.earthlens import EarthLens  # doctest: +SKIP
+                >>> earthlens = EarthLens(  # doctest: +SKIP
                 ...     data_source="ecmwf",
                 ...     temporal_resolution="daily",
                 ...     start="2022-01-01",
@@ -715,20 +715,20 @@ class ECMWF(AbstractDataSource):
                 ...     lon_lim=[-75.0, -74.0],
                 ...     path="examples/data/era5",
                 ... )
-                >>> earthly.download()  # doctest: +SKIP
+                >>> earthlens.download()  # doctest: +SKIP
 
                 ```
 
         See Also:
             :meth:`_build_request`: Assembles the CDS request dict
                 this method submits — the pure-builder collaborator.
-            :class:`earthly.ecmwf.constraints.RequestValidator`: The
+            :class:`earthlens.ecmwf.constraints.RequestValidator`: The
                 pre-flight check applied to the assembled request.
             :meth:`_download_dataset`: Thin pass-through wrapper —
                 calls this method and returns the same path.
             :class:`Catalog`: Resolves `(dataset, variable)` pairs
                 to :class:`Variable` rows.
-            :class:`earthly.earthly.Earthly`: User-facing facade
+            :class:`earthlens.earthlens.EarthLens`: User-facing facade
                 that wires this method into the `download()` flow.
         """
         dataset = var_info.cds_dataset

@@ -48,7 +48,7 @@ class TestSourceCompiles:
         import ast
         import inspect
 
-        from earthly import ecmwf as ecmwf_module
+        from earthlens import ecmwf as ecmwf_module
 
         source = inspect.getsource(ecmwf_module)
         ast.parse(source, feature_version=(3, 11))

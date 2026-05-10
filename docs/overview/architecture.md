@@ -1,20 +1,20 @@
 # Architecture
 
-This page documents the internal architecture of `earthly` using [Mermaid](https://mermaid.js.org/) diagrams. It replaces the original draw.io class diagram.
+This page documents the internal architecture of `earthlens` using [Mermaid](https://mermaid.js.org/) diagrams. It replaces the original draw.io class diagram.
 
 ## System Overview
 
-The `Earthly` facade exposes a uniform API on top of several concrete data-source backends. Each backend implements the `AbstractDataSource` interface, and each has a companion `Catalog` class that describes available variables.
+The `EarthLens` facade exposes a uniform API on top of several concrete data-source backends. Each backend implements the `AbstractDataSource` interface, and each has a companion `Catalog` class that describes available variables.
 
 ```mermaid
 flowchart LR
     user([User])
-    earthly[Earthly]
-    user --> earthly
-    earthly --> CHIRPS
-    earthly --> S3
-    earthly --> ECMWF
-    earthly --> GEE
+    earthlens[EarthLens]
+    user --> earthlens
+    earthlens --> CHIRPS
+    earthlens --> S3
+    earthlens --> ECMWF
+    earthlens --> GEE
     CHIRPS --> FTP[(UCSB FTP<br/>data.chc.ucsb.edu)]
     S3 --> AWS[(AWS S3<br/>era5-pds bucket)]
     ECMWF --> CDS[(ECMWF<br/>Climate Data Store)]
@@ -85,7 +85,7 @@ classDiagram
         +post_download(...)
     }
 
-    class Earthly {
+    class EarthLens {
         +DataSources: Dict
         +datasource: AbstractDataSource
         +download(progress_bar, *args, **kwargs)
@@ -94,7 +94,7 @@ classDiagram
     AbstractDataSource <|-- CHIRPS
     AbstractDataSource <|-- S3
     AbstractDataSource <|-- ECMWF
-    Earthly o--> AbstractDataSource : delegates to
+    EarthLens o--> AbstractDataSource : delegates to
     AbstractCatalog <|-- CHIRPS_Catalog
     AbstractCatalog <|-- S3_Catalog
     AbstractCatalog <|-- ECMWF_Catalog
@@ -139,18 +139,18 @@ classDiagram
 
 ## Download Sequence
 
-The user calls `Earthly.download()`, which delegates to the selected backend. Each backend follows the same high-level sequence: authenticate / open a session, iterate over dates × variables, fetch, and post-process.
+The user calls `EarthLens.download()`, which delegates to the selected backend. Each backend follows the same high-level sequence: authenticate / open a session, iterate over dates × variables, fetch, and post-process.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor User
-    participant Facade as Earthly
+    participant Facade as EarthLens
     participant DS as AbstractDataSource
     participant Server as Remote server<br/>(FTP / S3 / CDS)
     participant Pyramids as pyramids-gis
 
-    User->>Facade: Earthly(data_source, start, end, ...)
+    User->>Facade: EarthLens(data_source, start, end, ...)
     Facade->>DS: instantiate backend
     DS->>DS: initialize() / check_input_dates() / create_grid()
     User->>Facade: download()

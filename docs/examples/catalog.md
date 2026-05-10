@@ -7,7 +7,7 @@ The data catalog is a dictionary with the available datasets as keys and the att
 ## CHIRPS
 
 ```python
-from earthly.chirps import Catalog
+from earthlens.chirps import Catalog
 
 chirps_catalog = Catalog()
 print(chirps_catalog.catalog)
@@ -34,7 +34,7 @@ extras, and a per-variable map. There is no flat per-code lookup —
 variables are addressed by the `(dataset_name, variable_name)` pair.
 
 ```python
-from earthly.ecmwf import Catalog
+from earthlens.ecmwf import Catalog
 
 catalog = Catalog()
 list(catalog.datasets)[:3]
@@ -153,7 +153,7 @@ across three core datasets:
 Browse the full list of CDS dataset short names at
 <https://cds.climate.copernicus.eu/datasets?q=era5>. To add a new
 variable, append an entry to
-`src/earthly/ecmwf/cds_data_catalog.yaml` following the schema
+`src/earthlens/ecmwf/cds_data_catalog.yaml` following the schema
 in the file's header comment.
 
 `get_variable(dataset_name, variable_name)` is the canonical lookup;
@@ -401,7 +401,7 @@ returns a request dict drawn from the dataset's published
 new dataset's extras schema, and seeding tests:
 
 ```python
->>> from earthly.ecmwf import Catalog
+>>> from earthlens.ecmwf import Catalog
 >>> request = Catalog().minimal_valid_request("reanalysis-cerra-land")
 >>> sorted(request)
 ['data_format', 'day', 'leadtime_hour', 'level_type', 'month',
@@ -434,7 +434,7 @@ validator runs on the final request.
 ### Pre-flight constraints validation
 
 Every CDS request passes through
-`earthly.ecmwf.constraints.validate_request()` before
+`earthlens.ecmwf.constraints.validate_request()` before
 :meth:`cdsapi.Client.retrieve` is called. The validator runs five
 phases (cheap → expensive); the first failure is reported, so the
 user gets the most specific error possible:
@@ -526,7 +526,7 @@ millimetres = 1000 * raw_metres + 0                   # total-precipitation
 For Amazon S3, the data depends on the AWS bucket, so the catalog object initializes a connection to the bucket and checks the data inside:
 
 ```python
-from earthly.s3 import Catalog
+from earthlens.s3 import Catalog
 
 s3_catalog = Catalog()
 print(s3_catalog.catalog)

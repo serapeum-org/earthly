@@ -1,8 +1,8 @@
-site_name: earthly
+site_name: earthlens
 site_description: Remote sensing package
-site_url: https://serapeum-org.github.io/earthly/
-repo_url: https://github.com/serapeum-org/earthly
-repo_name: serapeum-org/earthly
+site_url: https://serapeum-org.github.io/earthlens/
+repo_url: https://github.com/serapeum-org/earthlens
+repo_name: serapeum-org/earthlens
 
 theme:
   name: material
@@ -130,7 +130,7 @@ nav:
     - Climate change — temperature anomalies: examples/climate_change_anomalies.ipynb
     - Drought — SPI from precipitation: examples/drought_precipitation_deficit.ipynb
   - API Reference:
-    - Earthly Facade: reference/earthly.md
+    - EarthLens Facade: reference/earthlens.md
     - AbstractDataSource: reference/abstract-datasource.md
   - About:
     - Change Log: change-log.md
@@ -138,7 +138,7 @@ nav:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/serapeum-org/earthly
+      link: https://github.com/serapeum-org/earthlens
   version:
       provider: mike
   version_selector: true

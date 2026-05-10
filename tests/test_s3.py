@@ -7,7 +7,7 @@ from typing import List
 
 import pytest
 
-from earthly.s3 import S3
+from earthlens.s3 import S3
 
 pytestmark = [pytest.mark.s3]
 

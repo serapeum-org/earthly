@@ -14,7 +14,7 @@ the user sees a clear error before :meth:`cdsapi.Client.retrieve`
 is invoked.
 
 Pass `skip=True` to :class:`RequestValidator` — or, equivalently,
-construct :class:`earthly.ecmwf.ECMWF` with `skip_constraints=True` —
+construct :class:`earthlens.ecmwf.ECMWF` with `skip_constraints=True` —
 to bypass validation entirely. Useful when the constraints endpoint
 is missing or known to be inaccurate for a particular dataset.
 
@@ -22,7 +22,7 @@ Examples:
     - Validate a request against ERA5 single-levels constraints:
 
         ```python
-        >>> from earthly.ecmwf.constraints import RequestValidator
+        >>> from earthlens.ecmwf.constraints import RequestValidator
         >>> request = {
         ...     "variable": ["2m_temperature"],
         ...     "year": ["2022"],
@@ -101,7 +101,7 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
           network access):
 
             ```python
-            >>> from earthly.ecmwf.constraints import fetch_constraints
+            >>> from earthlens.ecmwf.constraints import fetch_constraints
             >>> entries = fetch_constraints(  # doctest: +SKIP
             ...     "reanalysis-era5-single-levels",
             ... )
@@ -289,7 +289,7 @@ class RequestValidator:
 
     Example:
         ```python
-        >>> from earthly.ecmwf.constraints import RequestValidator
+        >>> from earthlens.ecmwf.constraints import RequestValidator
         >>> RequestValidator(
         ...     "any-dataset", {"variable": ["x"]}, skip=True
         ... ).check()

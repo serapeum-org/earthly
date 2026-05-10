@@ -1,4 +1,4 @@
-from earthly.chirps import CHIRPS, Catalog
+from earthlens.chirps import CHIRPS, Catalog
 
 # %%
 chirps_catalog = Catalog()

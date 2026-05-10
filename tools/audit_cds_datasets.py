@@ -1,7 +1,7 @@
 """Audit every CDS dataset in cds_data_catalog.yaml's available_datasets list.
 
 For each dataset short name in `available_datasets` (the informational
-index inside `src/earthly/ecmwf/cds_data_catalog.yaml`), this
+index inside `src/earthlens/ecmwf/cds_data_catalog.yaml`), this
 script hits the public constraints endpoint via the package's
 `fetch_constraints` helper and prints:
 
@@ -26,7 +26,7 @@ from pathlib import Path
 
 import yaml
 
-from earthly.ecmwf.constraints import fetch_constraints
+from earthlens.ecmwf.constraints import fetch_constraints
 
 ERA5_KNOWN = {
     "variable",
@@ -42,7 +42,7 @@ ERA5_KNOWN = {
 
 
 def main() -> int:
-    cat_path = Path("src/earthly/ecmwf/cds_data_catalog.yaml")
+    cat_path = Path("src/earthlens/ecmwf/cds_data_catalog.yaml")
     cat = yaml.safe_load(cat_path.read_text(encoding="utf-8"))
     have = set(cat["datasets"])
     rows = []

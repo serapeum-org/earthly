@@ -11,7 +11,7 @@ from pyramids._io import extract_from_gz
 from pyramids.dataset import Dataset
 from tqdm import tqdm
 
-from earthly.base import AbstractCatalog, AbstractDataSource
+from earthlens.base import AbstractCatalog, AbstractDataSource
 
 
 class CHIRPS(AbstractDataSource):

@@ -16,8 +16,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from earthly.aggregate import AggregationConfig
-from earthly.ecmwf import ECMWF
+from earthlens.aggregate import AggregationConfig
+from earthlens.ecmwf import ECMWF
 
 pytestmark = [pytest.mark.unit]
 
@@ -42,7 +42,7 @@ def aggregate_recorder(monkeypatch):
         return []
 
     monkeypatch.setattr(
-        "earthly.ecmwf.backend.aggregate_netcdf",
+        "earthlens.ecmwf.backend.aggregate_netcdf",
         _recorder,
     )
     return calls
@@ -159,7 +159,7 @@ class TestDownloadAggregateIntegration:
             return []
 
         monkeypatch.setattr(
-            "earthly.ecmwf.backend.aggregate_netcdf",
+            "earthlens.ecmwf.backend.aggregate_netcdf",
             _flaky,
         )
         ecmwf_stub.download(
@@ -199,7 +199,7 @@ class TestDownloadAggregateIntegration:
             return []
 
         monkeypatch.setattr(
-            "earthly.ecmwf.backend.aggregate_netcdf",
+            "earthlens.ecmwf.backend.aggregate_netcdf",
             _record,
         )
         ecmwf_stub.download(
@@ -240,7 +240,7 @@ class TestDownloadAggregateIntegration:
             return []
 
         monkeypatch.setattr(
-            "earthly.ecmwf.backend.aggregate_netcdf",
+            "earthlens.ecmwf.backend.aggregate_netcdf",
             _record,
         )
         ecmwf_stub.download(
