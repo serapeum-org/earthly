@@ -1,14 +1,15 @@
-[![Documentation Status](https://readthedocs.org/projects/earthlens/badge/?version=latest)](https://earthlens.readthedocs.io/en/latest/?badge=latest)
+[![Tests](https://github.com/serapeum-org/earthlens/actions/workflows/tests.yml/badge.svg)](https://github.com/serapeum-org/earthlens/actions/workflows/tests.yml)
+[![Wheel](https://github.com/serapeum-org/earthlens/actions/workflows/wheel-test.yml/badge.svg)](https://github.com/serapeum-org/earthlens/actions/workflows/wheel-test.yml)
+[![Docs](https://github.com/serapeum-org/earthlens/actions/workflows/github-pages-mkdocs.yml/badge.svg)](https://serapeum-org.github.io/earthlens/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/earthlens)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 
-[![codecov](https://codecov.io/gh/Serapieum-of-alex/earthlens/branch/main/graph/badge.svg?token=2nBcI5ijvB)](https://codecov.io/gh/Serapieum-of-alex/earthlens)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4c95cf4c0dd044e4b451e08355fe6ee7)](https://www.codacy.com/gh/Serapieum-of-alex/earthlens/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Serapieum-of-alex/earthlens&amp;utm_campaign=Badge_Grade)
-![GitHub last commit](https://img.shields.io/github/last-commit/Serapieum-of-alex/earthlens)
-![GitHub forks](https://img.shields.io/github/forks/Serapieum-of-alex/earthlens?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/Serapieum-of-alex/earthlens?style=social)
+[![codecov](https://codecov.io/gh/serapeum-org/earthlens/branch/main/graph/badge.svg)](https://codecov.io/gh/serapeum-org/earthlens)
+![GitHub last commit](https://img.shields.io/github/last-commit/serapeum-org/earthlens)
+![GitHub forks](https://img.shields.io/github/forks/serapeum-org/earthlens?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/serapeum-org/earthlens?style=social)
 
 
 Current release info
@@ -16,7 +17,7 @@ Current release info
 
 | Name                                                                                                               | Downloads                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Version                                                                                                                                                                                                                                                                                                                                           | Platforms                                                                                                               |
 |--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| [![Conda Recipe](https://img.shields.io/badge/recipe-earthlens-green.svg)](https://anaconda.org/conda-forge/earthlens) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) [![Downloads](https://pepy.tech/badge/earthlens)](https://pepy.tech/project/earthlens) [![Downloads](https://pepy.tech/badge/earthlens/month)](https://pepy.tech/project/earthlens) [![Downloads](https://pepy.tech/badge/earthlens/week)](https://pepy.tech/project/earthlens) ![PyPI - Downloads](https://img.shields.io/pypi/dd/earthlens?color=blue&style=flat-square) ![GitHub all releases](https://img.shields.io/github/downloads/Serapieum-of-alex/earthlens/total) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) [![PyPI version](https://badge.fury.io/py/earthlens.svg)](https://badge.fury.io/py/earthlens) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/earthlens/badges/version.svg)](https://anaconda.org/conda-forge/earthlens) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-earthlens-green.svg)](https://anaconda.org/conda-forge/earthlens) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) [![Downloads](https://pepy.tech/badge/earthlens)](https://pepy.tech/project/earthlens) [![Downloads](https://pepy.tech/badge/earthlens/month)](https://pepy.tech/project/earthlens) [![Downloads](https://pepy.tech/badge/earthlens/week)](https://pepy.tech/project/earthlens) ![PyPI - Downloads](https://img.shields.io/pypi/dd/earthlens?color=blue&style=flat-square) ![GitHub all releases](https://img.shields.io/github/downloads/serapeum-org/earthlens/total) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) [![PyPI version](https://badge.fury.io/py/earthlens.svg)](https://badge.fury.io/py/earthlens) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/earthlens/badges/version.svg)](https://anaconda.org/conda-forge/earthlens) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/earthlens.svg)](https://anaconda.org/conda-forge/earthlens) |
 
 earthlens — a unified Python client for satellite & climate data
 =====================================================================
@@ -26,9 +27,9 @@ climate data from four very different providers — UCSB CHIRPS, ERA5 on AWS,
 the ECMWF Climate Data Store, and Google Earth Engine — and turning the
 results into analysis-ready GeoTIFFs.
 
-It is part of the [Serapieum-of-alex](https://github.com/Serapieum-of-alex)
+It is part of the [serapeum-org](https://github.com/serapeum-org)
 open-source ecosystem and is built on top of
-[`pyramids-gis`](https://github.com/Serapieum-of-alex/pyramids) for raster I/O.
+[`pyramids-gis`](https://github.com/serapeum-org/pyramids) for raster I/O.
 
 
 Why earthlens?
@@ -118,7 +119,7 @@ conda install -c conda-forge earthlens
 pip install earthlens==0.3.0
 
 # pip — bleeding edge
-pip install git+https://github.com/Serapieum-of-alex/earthlens
+pip install git+https://github.com/serapeum-org/earthlens
 ```
 
 To list all available versions on your platform:
@@ -265,14 +266,14 @@ Full docs, API reference, architecture diagrams, and a gallery of domain-specifi
 example notebooks (hydrology, oceanography, agriculture, solar/wind energy,
 heat waves, drought, snow & cryosphere, climate-change anomalies) live at:
 
-> **<https://earthlens.readthedocs.io/>**
+> **<https://serapeum-org.github.io/earthlens/>**
 
 
 Contributing
 ------------
 
 Issues, PRs, and discussions are welcome on
-[GitHub](https://github.com/Serapieum-of-alex/earthlens). The repo uses
+[GitHub](https://github.com/serapeum-org/earthlens). The repo uses
 pre-commit (black, isort, flake8, bandit, pydocstyle) — install hooks once
 with `pre-commit install`.
 
