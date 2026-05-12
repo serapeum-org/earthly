@@ -47,62 +47,16 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 from earthlens.base import AbstractCatalog
+from earthlens.base.yaml_loader import load_yaml_strict
 
 _LEGACY_MARS_KEYS: frozenset[str] = frozenset(
     {"number_para", "download type", "var_name"}
 )
 
 CATALOG_PATH: Path = Path(__file__).parent / "cds_data_catalog.yaml"
-
-
-class _StrictSafeLoader(yaml.SafeLoader):
-    """:class:`yaml.SafeLoader` that rejects duplicate keys in any mapping.
-
-    PyYAML's default behaviour silently merges duplicate mapping keys
-    (last wins), which would let a copy-paste typo in
-    `cds_data_catalog.yaml` like two `"2m-temperature":` blocks under
-    the same dataset go undetected — the second silently shadows the
-    first. This loader fails loud at parse time with a `ValueError`
-    naming the offending line, so the YAML author sees the mistake
-    on the first `Catalog()` instantiation.
-    """
-
-
-def _construct_mapping_no_duplicates(
-    loader: _StrictSafeLoader, node: yaml.MappingNode, deep: bool = False
-) -> dict[Any, Any]:
-    """Build a dict from a YAML mapping node, rejecting duplicate keys.
-
-    Replaces :meth:`yaml.SafeLoader.construct_mapping` for
-    :class:`_StrictSafeLoader` so every YAML mapping in
-    `cds_data_catalog.yaml` (the dataset map, each dataset's
-    `variables:` block, every `extras:` map, etc.) is required to
-    have unique keys.
-    """
-    mapping: dict[Any, Any] = {}
-    for key_node, value_node in node.value:
-        key = loader.construct_object(key_node, deep=deep)
-        if key in mapping:
-            mark = key_node.start_mark
-            raise ValueError(
-                f"duplicate YAML key {key!r} at line {mark.line + 1}, "
-                f"column {mark.column + 1} of {mark.name}: every key in "
-                "a YAML mapping must be unique (in particular, every "
-                "variable code must be unique within its dataset's "
-                "`variables:` block)"
-            )
-        mapping[key] = loader.construct_object(value_node, deep=deep)
-    return mapping
-
-
-_StrictSafeLoader.add_constructor(
-    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
-    _construct_mapping_no_duplicates,
-)
 
 
 def _read_cdsapirc() -> dict[str, str]:
@@ -369,11 +323,7 @@ class Catalog(AbstractCatalog):
                 same key twice.
         """
         catalog_path = CATALOG_PATH
-        with open(catalog_path, encoding="utf-8") as stream:
-            # `_StrictSafeLoader` subclasses `yaml.SafeLoader`; it is
-            # safe (no arbitrary object instantiation). bandit's B506
-            # pattern flags any `yaml.load` regardless of the loader.
-            data = yaml.load(stream, Loader=_StrictSafeLoader) or {}  # nosec B506
+        data = load_yaml_strict(catalog_path) or {}
         datasets_yaml = data.get("datasets")
         if not datasets_yaml:
             raise ValueError(
