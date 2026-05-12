@@ -287,7 +287,7 @@ class EarthLens:
         aggregate: AggregationConfig | None = None,
         *args: object,
         **kwargs: object,
-    ) -> None:
+    ) -> object:
         """Delegate the download to the bound backend.
 
         Forwards every argument verbatim to `self.datasource.download`.
@@ -310,8 +310,10 @@ class EarthLens:
             **kwargs: Forwarded as keywords to `backend.download`.
 
         Returns:
-            None: Backends return `None` today and write files to
-            `path` as a side effect.
+            Whatever the bound backend's `download` returns: `None` for
+            CHIRPS / S3 / ECMWF (they write files to `path` as a side
+            effect), or the list of written GeoTIFF paths / export
+            destination strings for the GEE backend.
 
         Raises:
             AuthenticationError: When the ECMWF backend cannot
@@ -375,4 +377,4 @@ class EarthLens:
         """
         if aggregate is not None:
             kwargs["aggregate"] = aggregate
-        self.datasource.download(progress_bar=progress_bar, *args, **kwargs)
+        return self.datasource.download(progress_bar=progress_bar, *args, **kwargs)

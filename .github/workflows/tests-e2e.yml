@@ -1,14 +1,16 @@
-name: Tests - E2E (live CDS)
+name: Tests - E2E (live CDS + GEE)
 
-# Live end-to-end suite against the Copernicus Climate Data Store.
-# Each test queues server-side and takes minutes; running on every
-# push/PR would burn CDS quota and slow CI. So:
+# Live end-to-end suites against external services (Copernicus Climate
+# Data Store; Google Earth Engine). These hit real servers / queue
+# server-side, so running on every push/PR would burn quota and slow
+# CI. So:
 #
 #   * schedule: weekly on Sunday at 04:00 UTC
 #   * workflow_dispatch: manual trigger from the Actions tab
 #
-# Forks cannot read repo secrets, so a fork-PR run would fail at
-# auth. The job below skips when secrets are not available.
+# Forks cannot read repo secrets, so a fork-PR run would fail at auth.
+# The jobs below only run on the main repo, and each suite skips its
+# tests when its credentials are absent.
 
 permissions:
   contents: read
@@ -19,11 +21,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  e2e:
+  e2e-cds:
     runs-on: ubuntu-latest
-    # Only run when CDS credentials are available (push / scheduled
-    # runs on the main repo, or manual dispatch). Forks have no
-    # secrets and would 401 immediately.
+    # Only run when credentials are available (the main repo). Forks
+    # have no secrets and would 401 immediately.
     if: github.repository == 'serapeum-org/earthlens'
 
     steps:
@@ -43,4 +44,29 @@ jobs:
           CDSAPI_URL: ${{ secrets.CDSAPI_URL }}
           CDSAPI_KEY: ${{ secrets.CDSAPI_KEY }}
         run: |
-          pixi run -e py312 test-e2e
+          pixi run -e py312 pytest -m "e2e and not gee" -v
+
+  e2e-gee:
+    runs-on: ubuntu-latest
+    if: github.repository == 'serapeum-org/earthlens'
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: serapeum-org/github-actions/actions/python-setup/pixi@pixi/v1
+        with:
+          environments: py312
+          activate-environment: py312
+          cache: true
+
+      - name: Run live Google Earth Engine e2e tests
+        # The GEE e2e test skips itself when these are unset, so this
+        # job is harmless if the secrets are not configured yet.
+        env:
+          GEE_SERVICE_ACCOUNT: ${{ secrets.GEE_SERVICE_ACCOUNT }}
+          GEE_SERVICE_KEY: ${{ secrets.GEE_SERVICE_KEY }}
+        run: |
+          pixi run -e py312 pytest -m "e2e and gee" -v
