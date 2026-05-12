@@ -325,6 +325,44 @@ class GEE(AbstractDataSource):
                 `export_via` is `"drive"` / `"gcs"`.
             ValueError: On an unknown asset id, an unknown band, or an
                 oversized request (see :meth:`_api`).
+
+        Examples:
+            - Download one band, one image (needs network + credentials):
+                ```python
+                >>> gee = GEE(  # doctest: +SKIP
+                ...     start="2020-06-01", end="2020-06-30",
+                ...     temporal_resolution="monthly",
+                ...     variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+                ...     lat_lim=[29.0, 30.0], lon_lim=[31.0, 32.0],
+                ...     path="data/gee", scale=5566,
+                ...     service_account="sa@p.iam.gserviceaccount.com",
+                ...     service_key="/path/to/key.json",
+                ... )
+                >>> paths = gee.download()  # doctest: +SKIP
+                >>> [p.name for p in paths]  # doctest: +SKIP
+                ['UCSB-CHG_CHIRPS_DAILY_precipitation_20200601.tif']
+
+                ```
+            - `aggregate=` is not yet supported and is rejected up front:
+                ```python
+                >>> gee = GEE(  # doctest: +SKIP
+                ...     start="2020-06-01", end="2020-06-01",
+                ...     variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+                ...     lat_lim=[29.0, 30.0], lon_lim=[31.0, 32.0],
+                ...     scale=5566, project="my-project",
+                ... )
+                >>> gee.download(aggregate=object())  # doctest: +SKIP
+                Traceback (most recent call last):
+                    ...
+                NotImplementedError: aggregate= is not yet supported ...
+
+                ```
+
+        See Also:
+            earthlens.gee.Catalog: Resolves the `{asset_id: [band, ...]}`
+                request against `gee_data_catalog.yaml`.
+            earthlens.gee.auth.EarthEngineAuth: Performs the one-time
+                `ee.Initialize` used by :meth:`_initialize`.
         """
         if aggregate is not None:
             raise NotImplementedError(
