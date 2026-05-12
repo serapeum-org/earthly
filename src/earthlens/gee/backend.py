@@ -19,14 +19,16 @@ Per `(asset, band-set, time-bucket)` the pipeline is:
   for continuous fields / rates, `median` for cloud-screened optical
   scenes, `mosaic` for tiled / annual static maps. Yields one
   `ee.Image` per bucket.
-* :meth:`_api` — for `export_via="url"` (the only path in this
-  version): compute the request's pixel dimensions and refuse if either
-  axis exceeds Earth Engine's 32768-px synchronous limit (a clear,
-  actionable `ValueError`); otherwise `image.getDownloadURL({...,
-  "format": "GEO_TIFF"})` → `requests.get(...)` → write a GeoTIFF under
-  the output directory. (`export_via="drive"` / `"gcs"` — the
-  asynchronous `ee.batch.Export` paths — are planned but not yet
-  implemented; see plan task `H6`.)
+* :meth:`_api` — export the bucket image via the configured
+  `export_via`: `"url"` (the default) computes the request's pixel
+  dimensions and refuses if either axis exceeds Earth Engine's 32768-px
+  synchronous limit (a clear, actionable `ValueError`), else
+  `image.getDownloadURL({..., "format": "GEO_TIFF"})` → `requests.get`
+  → a GeoTIFF under the output directory; `"drive"` / `"gcs"` queue an
+  asynchronous `ee.batch.Export.image.to{Drive,CloudStorage}` task
+  (`maxPixels` only, no 32768-px cap), poll it to completion, and
+  return a `"drive://…"` / `"gs://…"` destination string (the file is
+  left in the Drive folder / GCS bucket for the caller to pull).
 
 Authentication is a one-time `ee.Initialize` against a *registered*
 Cloud project, performed by :meth:`_initialize` via
@@ -55,6 +57,7 @@ from earthlens.gee._helpers import (
     estimate_pixel_dims,
     reduce_collection,
     slug_asset_id,
+    wait_for_task,
 )
 from earthlens.gee.auth import AuthenticationError, EarthEngineAuth
 from earthlens.gee.catalog import Catalog, Dataset
@@ -103,25 +106,31 @@ class GEE(AbstractDataSource):
             temporal composite (`mean` / `median` / `min` / `max` /
             `mode` / `mosaic` / `sum`). `None` (the default) uses each
             dataset's own `default_reducer`.
-        export_via: `"url"` (synchronous `getDownloadURL`, size-capped —
-            the only path implemented here). `"drive"` / `"gcs"` are
-            reserved for the async batch-export paths (plan task `H6`).
-        drive_folder: Reserved for `export_via="drive"`.
-        gcs_bucket: Reserved for `export_via="gcs"`.
+        export_via: How to get pixels out — `"url"` (synchronous
+            `getDownloadURL`, capped at 32768 px per axis; the default),
+            `"drive"` (asynchronous `ee.batch.Export.image.toDrive`;
+            requires `drive_folder`), or `"gcs"` (asynchronous
+            `ee.batch.Export.image.toCloudStorage`; requires `gcs_bucket`).
+        drive_folder: Google Drive folder name for `export_via="drive"`.
+        gcs_bucket: Cloud Storage bucket name for `export_via="gcs"` (the
+            service account needs `roles/storage.objectAdmin` on it).
         region: Optional `GeoDataFrame` to clip to precisely; when given
             it supersedes the lat/lon bbox for the actual clip (the bbox
-            is still used for the size estimate).
+            is still used for the `"url"` size estimate).
 
     Raises:
         AuthenticationError: If Earth Engine cannot be initialised
             (missing/invalid key, unregistered project, missing IAM role).
-        ValueError: From the parent on a bad date range; from
-            :meth:`_check_input_dates` on an unknown `temporal_resolution`;
-            from :meth:`download` / :meth:`_api` on an oversized request,
-            an unknown asset id, or an unknown band.
+        ValueError: At construction for a bad `export_via` (or `"drive"`
+            without `drive_folder` / `"gcs"` without `gcs_bucket`); from
+            the parent on a bad date range; from :meth:`_check_input_dates`
+            on an unknown `temporal_resolution`; from :meth:`_api` on a
+            missing scale or an oversized `"url"` request; from
+            :meth:`_download_dataset` on an unknown asset id or band.
         NotImplementedError: From :meth:`download` when `aggregate=` is
-            passed (not yet supported), or when `export_via` is
-            `"drive"` / `"gcs"`.
+            passed (not yet supported).
+        RuntimeError: From :meth:`_api` if a `"drive"` / `"gcs"` export
+            task does not complete, or if a `"url"` response is a zip.
 
     Examples:
         - Construct against a service account and download SRTM over a small bbox:
@@ -176,6 +185,10 @@ class GEE(AbstractDataSource):
             raise ValueError(
                 f"export_via must be 'url', 'drive', or 'gcs', got {export_via!r}"
             )
+        if export_via == "drive" and not drive_folder:
+            raise ValueError("export_via='drive' requires drive_folder=")
+        if export_via == "gcs" and not gcs_bucket:
+            raise ValueError("export_via='gcs' requires gcs_bucket=")
         self.export_via = export_via
         self.drive_folder = drive_folder
         self.gcs_bucket = gcs_bucket
@@ -307,7 +320,9 @@ class GEE(AbstractDataSource):
 
     # ------------------------------------------------------------------ download
 
-    def download(self, progress_bar: bool = True, aggregate: Any = None) -> list[Path]:
+    def download(
+        self, progress_bar: bool = True, aggregate: Any = None
+    ) -> list[Path | str]:
         """Download every requested band-set of every requested dataset.
 
         Args:
@@ -317,14 +332,17 @@ class GEE(AbstractDataSource):
                 raises `NotImplementedError` (see plan task `M3`).
 
         Returns:
-            The list of GeoTIFF paths written, across all datasets and
-            time buckets.
+            One entry per `(dataset, band-set, time-bucket)`: a
+            :class:`pathlib.Path` to the written GeoTIFF for
+            `export_via="url"`, or a destination string
+            (`"drive://<folder>/<prefix>"` / `"gs://<bucket>/<prefix>"`)
+            for the asynchronous `"drive"` / `"gcs"` exports.
 
         Raises:
-            NotImplementedError: If `aggregate` is not `None`, or if
-                `export_via` is `"drive"` / `"gcs"`.
+            NotImplementedError: If `aggregate` is not `None`.
             ValueError: On an unknown asset id, an unknown band, or an
-                oversized request (see :meth:`_api`).
+                oversized `"url"` request (see :meth:`_api`).
+            RuntimeError: If a `"drive"` / `"gcs"` export task fails.
 
         Examples:
             - Download one band, one image (needs network + credentials):
@@ -369,20 +387,14 @@ class GEE(AbstractDataSource):
                 "aggregate= is not yet supported by the GEE backend "
                 "(planned — see the GEE plan task M3)."
             )
-        if self.export_via != "url":
-            raise NotImplementedError(
-                f"export_via={self.export_via!r} is not yet implemented; only "
-                "'url' (getDownloadURL) is available in this version "
-                "(planned — see the GEE plan task H6)."
-            )
-        outputs: list[Path] = []
+        outputs: list[Path | str] = []
         for asset_id, bands in self.vars.items():
             outputs.extend(self._download_dataset(asset_id, list(bands), progress_bar))
         return outputs
 
     def _download_dataset(
         self, asset_id: str, bands: list[str], progress_bar: bool = True
-    ) -> list[Path]:
+    ) -> list[Path | str]:
         """Download one dataset's requested bands across the time buckets.
 
         Validates `asset_id` and every band against the catalog, clamps
@@ -492,31 +504,40 @@ class GEE(AbstractDataSource):
             )
             yield bucket_start.to_pydatetime(), reduce_collection(window, reducer)
 
-    def _api(self, image, var_info: Dataset, bands: list[str], when: dt.datetime) -> Path:
-        """Download one composited `ee.Image` to a GeoTIFF.
+    def _api(
+        self, image, var_info: Dataset, bands: list[str], when: dt.datetime
+    ) -> Path | str:
+        """Export one composited `ee.Image` via the configured `export_via`.
 
         For `export_via="url"`: estimate the request's pixel dimensions
         from the bbox and `scale`; if either axis exceeds Earth Engine's
         32768-px synchronous limit, raise a `ValueError` pointing the
-        user at a coarser `scale` (or, when implemented, `export_via=
-        "drive"`). Otherwise request a GeoTIFF via `getDownloadURL` and
-        stream it to disk as `<asset-slug>_<band>-<band>_<YYYYMMDD>.tif`.
+        user at a coarser `scale` or `export_via="drive"`. Otherwise
+        request a GeoTIFF via `getDownloadURL` and stream it to disk as
+        `<asset-slug>_<bands>_<YYYYMMDD>.tif`. For `export_via="drive"` /
+        `"gcs"`: queue an `ee.batch.Export.image.to{Drive,CloudStorage}`
+        task, poll it to completion (no synchronous size cap, just
+        `maxPixels`), and return a destination string — the file is left
+        in the Drive folder / GCS bucket for the caller to pull.
 
         Args:
             image: The `ee.Image` to export.
             var_info: The catalog entry (for the asset slug and the
                 fallback `spatial_resolution`).
-            bands: The band ids in `image` (used in the filename).
-            when: The bucket timestamp (used in the filename).
+            bands: The band ids in `image` (used in the filename / prefix).
+            when: The bucket timestamp (used in the filename / prefix).
 
         Returns:
-            The path of the written GeoTIFF.
+            For `"url"`: the :class:`pathlib.Path` of the written GeoTIFF.
+            For `"drive"` / `"gcs"`: a destination string
+            (`"drive://<folder>/<prefix>"` / `"gs://<bucket>/<prefix>"`).
 
         Raises:
-            ValueError: If the estimated request exceeds the 32768-px
-                per-axis limit.
+            ValueError: If no output scale can be resolved, or (for
+                `"url"`) the estimated request exceeds the 32768-px limit.
             RuntimeError: If Earth Engine returns a zip instead of a
-                GeoTIFF (not handled in this version).
+                GeoTIFF (`"url"`), or a `"drive"` / `"gcs"` export task
+                does not complete.
         """
         scale = self.scale or var_info.spatial_resolution
         if scale is None:
@@ -524,21 +545,26 @@ class GEE(AbstractDataSource):
                 f"no output scale for {var_info.id}: pass scale= (metres) to "
                 "GEE(...) — the catalog has no nominal spatial_resolution for it."
             )
-        width_px, height_px = estimate_pixel_dims(self.space, float(scale))
+        prefix = f"{slug_asset_id(var_info.id)}_{'-'.join(bands)}_{when:%Y%m%d}"
+        region = self._ee_region()
+        if self.export_via == "url":
+            return self._export_via_url(image, var_info, float(scale), region, prefix)
+        return self._export_via_batch(image, float(scale), region, prefix)
+
+    def _export_via_url(self, image, var_info: Dataset, scale: float, region, prefix: str) -> Path:
+        """Stream a GeoTIFF from `image.getDownloadURL`; enforce the 32768-px cap."""
+        width_px, height_px = estimate_pixel_dims(self.space, scale)
         if max(width_px, height_px) > EE_MAX_DIMENSION:
             raise ValueError(
                 f"{var_info.id}: the requested AOI at scale={scale} m is about "
                 f"{width_px}x{height_px} px, over Earth Engine's "
                 f"{EE_MAX_DIMENSION}-px per-axis limit for synchronous downloads. "
-                "Use a coarser scale, a smaller bbox, or (when available) "
-                "export_via='drive'."
+                "Use a coarser scale, a smaller bbox, or export_via='drive'."
             )
-        region = self._ee_region()
         url = image.getDownloadURL(
-            {"scale": float(scale), "crs": self.crs, "region": region, "format": "GEO_TIFF"}
+            {"scale": scale, "crs": self.crs, "region": region, "format": "GEO_TIFF"}
         )
-        name = f"{slug_asset_id(var_info.id)}_{'-'.join(bands)}_{when:%Y%m%d}.tif"
-        target = self.root_dir / name
+        target = self.root_dir / f"{prefix}.tif"
         with requests.get(url, stream=True, timeout=300) as response:
             response.raise_for_status()
             with target.open("wb") as handle:
@@ -546,12 +572,33 @@ class GEE(AbstractDataSource):
                     handle.write(chunk)
         if zipfile.is_zipfile(target):
             raise RuntimeError(
-                f"Earth Engine returned a zip archive for {var_info.id} at "
-                f"{target}; this version requests format='GEO_TIFF' and does not "
-                "unpack zip-of-tifs responses."
+                f"Earth Engine returned a zip archive at {target}; this path "
+                "requests format='GEO_TIFF' and does not unpack zip-of-tifs "
+                "responses (see plan task PY-2)."
             )
         logger.info(f"Wrote {target} ({target.stat().st_size} bytes)")
         return target
+
+    def _export_via_batch(self, image, scale: float, region, prefix: str) -> str:
+        """Queue an `ee.batch.Export.image.to{Drive,CloudStorage}` task and wait for it."""
+        common = {
+            "image": image,
+            "description": prefix[:100],
+            "fileNamePrefix": prefix,
+            "region": region,
+            "scale": scale,
+            "crs": self.crs,
+            "maxPixels": 1e13,
+        }
+        if self.export_via == "drive":
+            task = ee.batch.Export.image.toDrive(folder=self.drive_folder, **common)
+            destination = f"drive://{self.drive_folder}/{prefix}"
+        else:
+            task = ee.batch.Export.image.toCloudStorage(bucket=self.gcs_bucket, **common)
+            destination = f"gs://{self.gcs_bucket}/{prefix}"
+        wait_for_task(task, progress_bar=True)
+        logger.info(f"Exported {destination} (pull it from the {self.export_via} destination)")
+        return destination
 
     # ------------------------------------------------------------------ helpers
 

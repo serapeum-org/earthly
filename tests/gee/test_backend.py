@@ -108,6 +108,50 @@ class _FakeGeometry:
         self.coords = coords
 
 
+class _FakeTask:
+    """Stands in for an `ee.batch.Task` returned by `ee.batch.Export.image.to*`."""
+
+    def __init__(self, kwargs: dict, states: list[str] | None = None, error: str | None = None):
+        self.kwargs = kwargs
+        self._states = list(states or ["COMPLETED"])
+        self._error = error
+        self.started = False
+        self.poll_count = 0
+
+    def start(self):
+        self.started = True
+
+    def status(self) -> dict:
+        self.poll_count += 1
+        state = self._states[min(self.poll_count - 1, len(self._states) - 1)]
+        out = {"state": state}
+        if state == "FAILED" and self._error:
+            out["error_message"] = self._error
+        return out
+
+
+class _FakeExportImage:
+    """Stands in for `ee.batch.Export.image` (`toDrive` / `toCloudStorage`)."""
+
+    def __init__(self):
+        self.calls: list[tuple[str, dict]] = []
+        self.tasks: list[_FakeTask] = []
+        self.next_task_states: list[str] | None = None
+        self.next_task_error: str | None = None
+
+    def _make(self, method: str, **kwargs) -> _FakeTask:
+        self.calls.append((method, dict(kwargs)))
+        task = _FakeTask(kwargs, self.next_task_states, self.next_task_error)
+        self.tasks.append(task)
+        return task
+
+    def toDrive(self, **kwargs):  # noqa: N802
+        return self._make("toDrive", **kwargs)
+
+    def toCloudStorage(self, **kwargs):  # noqa: N802
+        return self._make("toCloudStorage", **kwargs)
+
+
 class _FakeEE:
     """A minimal stand-in for the `ee` module."""
 
@@ -116,6 +160,8 @@ class _FakeEE:
     def __init__(self):
         self.ic_log: list = []
         self.image_log: list = []
+        self.export_image = _FakeExportImage()
+        self.batch = SimpleNamespace(Export=SimpleNamespace(image=self.export_image))
 
     def ImageCollection(self, source):  # noqa: N802
         if isinstance(source, list):
@@ -384,7 +430,7 @@ class TestClampWindowToExtent:
 
 
 class TestDownloadRejections:
-    """Tests for the not-yet-supported paths rejected by `GEE.download`."""
+    """Tests for invalid / not-yet-supported configurations."""
 
     def test_aggregate_rejected(self, make_gee):
         """Passing `aggregate=` raises `NotImplementedError`.
@@ -396,15 +442,83 @@ class TestDownloadRejections:
         with pytest.raises(NotImplementedError, match="aggregate="):
             make_gee().download(aggregate=object(), progress_bar=False)
 
-    def test_non_url_export_via_rejected(self, make_gee):
-        """`export_via="drive"` / `"gcs"` raise `NotImplementedError` on download.
+    def test_drive_without_folder_rejected_at_construction(self, make_gee):
+        """`export_via="drive"` requires `drive_folder` at construction.
 
         Test scenario:
-            Construction succeeds (the value is valid) but `download`
-            refuses until H6 lands.
+            `GEE(export_via="drive")` without `drive_folder=` → `ValueError`.
         """
-        with pytest.raises(NotImplementedError, match="export_via='drive'"):
-            make_gee(export_via="drive").download(progress_bar=False)
+        with pytest.raises(ValueError, match="export_via='drive' requires drive_folder"):
+            make_gee(export_via="drive")
+
+    def test_gcs_without_bucket_rejected_at_construction(self, make_gee):
+        """`export_via="gcs"` requires `gcs_bucket` at construction.
+
+        Test scenario:
+            `GEE(export_via="gcs")` without `gcs_bucket=` → `ValueError`.
+        """
+        with pytest.raises(ValueError, match="export_via='gcs' requires gcs_bucket"):
+            make_gee(export_via="gcs")
+
+
+class TestExportViaBatch:
+    """Tests for the asynchronous `export_via="drive"` / `"gcs"` paths."""
+
+    def test_drive_export_queues_polls_and_returns_destination(self, make_gee):
+        """A Drive export queues a `toDrive` task, polls it, and returns `drive://...`.
+
+        Test scenario:
+            `download()` with `export_via="drive", drive_folder="ee_out"` on
+            SRTM calls `ee.batch.Export.image.toDrive` once (with the folder,
+            scale, crs, maxPixels), starts the task, and returns
+            `["drive://ee_out/USGS_SRTMGL1_003_elevation_20000211"]`.
+        """
+        gee = make_gee(export_via="drive", drive_folder="ee_out")
+        results = gee.download(progress_bar=False)
+        assert results == ["drive://ee_out/USGS_SRTMGL1_003_elevation_20000211"]
+        (method, kwargs), = gee.client.export_image.calls
+        assert method == "toDrive"
+        assert kwargs["folder"] == "ee_out" and kwargs["scale"] == 90.0
+        assert kwargs["crs"] == "EPSG:4326" and kwargs["maxPixels"] == 1e13
+        assert kwargs["fileNamePrefix"] == "USGS_SRTMGL1_003_elevation_20000211"
+
+    def test_gcs_export_uses_to_cloud_storage(self, make_gee):
+        """A GCS export queues a `toCloudStorage` task and returns `gs://...`.
+
+        Test scenario:
+            `export_via="gcs", gcs_bucket="my-bucket"` → one `toCloudStorage`
+            call with `bucket="my-bucket"`, result `["gs://my-bucket/..."]`.
+        """
+        gee = make_gee(export_via="gcs", gcs_bucket="my-bucket")
+        results = gee.download(progress_bar=False)
+        assert results == ["gs://my-bucket/USGS_SRTMGL1_003_elevation_20000211"]
+        (method, kwargs), = gee.client.export_image.calls
+        assert method == "toCloudStorage" and kwargs["bucket"] == "my-bucket"
+
+    def test_failed_export_task_raises(self, make_gee):
+        """A `FAILED` export task surfaces as a `RuntimeError` with the message.
+
+        Test scenario:
+            The fake `toDrive` task reports `FAILED` with an error message →
+            `download()` raises `RuntimeError` including that message.
+        """
+        gee = make_gee(export_via="drive", drive_folder="ee_out")
+        gee.client.export_image.next_task_states = ["FAILED"]
+        gee.client.export_image.next_task_error = "out of quota"
+        with pytest.raises(RuntimeError, match="ended FAILED: out of quota"):
+            gee.download(progress_bar=False)
+
+    def test_task_is_started_and_polled(self, make_gee):
+        """`wait_for_task` calls `task.start()` and then polls `task.status()`.
+
+        Test scenario:
+            After a Drive download the (immediately-`COMPLETED`) task has
+            `started is True` and `poll_count >= 1`.
+        """
+        gee = make_gee(export_via="drive", drive_folder="ee_out")
+        gee.download(progress_bar=False)
+        task = gee.client.export_image.tasks[0]
+        assert task.started is True and task.poll_count >= 1
 
 
 class TestBuildCollection:

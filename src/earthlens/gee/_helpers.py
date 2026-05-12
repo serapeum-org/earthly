@@ -8,7 +8,10 @@ definitions and so they are independently testable.
 from __future__ import annotations
 
 import math
-from typing import TYPE_CHECKING
+import time
+from typing import TYPE_CHECKING, Callable
+
+from tqdm import tqdm
 
 if TYPE_CHECKING:  # pragma: no cover - typing only
     from earthlens.base import SpatialExtent
@@ -29,6 +32,13 @@ _METRES_PER_DEGREE: float = 111_320.0
 # `ImageCollection.reduce(ee.Reducer.X())`, which appends `_X`).
 _COLLECTION_REDUCERS: frozenset[str] = frozenset(
     {"mean", "median", "min", "max", "mode", "mosaic", "sum"}
+)
+
+# Terminal `ee.batch.Task` states (the bare, upper-cased name — `task.status()`
+# may report e.g. ``"COMPLETED"`` or ``"State.COMPLETED"`` depending on SDK
+# version, so callers normalise via :func:`task_state_name` before comparing).
+TERMINAL_TASK_STATES: frozenset[str] = frozenset(
+    {"COMPLETED", "FAILED", "CANCELLED", "CANCEL_REQUESTED"}
 )
 
 
@@ -127,3 +137,86 @@ def reduce_collection(collection, reducer: str):
             f"{sorted(_COLLECTION_REDUCERS)}"
         )
     return getattr(collection, reducer)()
+
+
+def task_state_name(status: dict) -> str:
+    """Return the bare, upper-cased state name from an `ee.batch.Task` status dict.
+
+    `task.status()` reports the state as a plain string (`"RUNNING"`) on
+    most SDK versions, but some report the enum repr (`"State.RUNNING"`);
+    this normalises both to `"RUNNING"`.
+
+    Args:
+        status: The dict returned by `ee.batch.Task.status()`.
+
+    Returns:
+        The state name, e.g. `"RUNNING"`, `"COMPLETED"`, `"FAILED"`,
+        or `""` if absent.
+
+    Examples:
+        - A plain-string state:
+            ```python
+            >>> task_state_name({"state": "RUNNING"})
+            'RUNNING'
+
+            ```
+        - An enum-repr state:
+            ```python
+            >>> task_state_name({"state": "State.COMPLETED"})
+            'COMPLETED'
+
+            ```
+    """
+    return str(status.get("state", "")).rsplit(".", 1)[-1].upper()
+
+
+def wait_for_task(
+    task,
+    *,
+    poll_seconds: float = 15.0,
+    progress_bar: bool = True,
+    sleep: Callable[[float], None] = time.sleep,
+) -> dict:
+    """Start an Earth Engine batch-export task and block until it finishes.
+
+    Calls `task.start()`, then polls `task.status()` every `poll_seconds`
+    (showing a `tqdm` spinner with the current state) until the task
+    reaches a terminal state. A `COMPLETED` task returns its final
+    status dict; any other terminal state raises.
+
+    Args:
+        task: An `ee.batch.Task` (e.g. from `ee.batch.Export.image.toDrive`).
+        poll_seconds: Seconds between `task.status()` polls. Defaults to 15.
+        progress_bar: Show a `tqdm` spinner. Defaults to `True`.
+        sleep: Sleep function (injectable so tests run instantly).
+
+    Returns:
+        The final `task.status()` dict (state `"COMPLETED"`).
+
+    Raises:
+        RuntimeError: If the task ends `FAILED` / `CANCELLED` /
+            `CANCEL_REQUESTED`; the message includes
+            `status["error_message"]` when present.
+    """
+    task.start()
+    spinner = tqdm(desc="EE export", unit="poll", disable=not progress_bar)
+    status: dict = {}
+    state = ""
+    try:
+        while True:
+            status = task.status()
+            state = task_state_name(status)
+            spinner.set_postfix_str(state or "?")
+            spinner.update(1)
+            if state in TERMINAL_TASK_STATES:
+                break
+            sleep(poll_seconds)
+    finally:
+        spinner.close()
+    if state != "COMPLETED":
+        detail = status.get("error_message") or status.get("error", "")
+        raise RuntimeError(
+            f"Earth Engine export task ended {state or '<unknown>'}"
+            + (f": {detail}" if detail else "")
+        )
+    return status
