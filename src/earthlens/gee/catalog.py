@@ -59,6 +59,25 @@ class Cadence(BaseModel):
         interval: Number of `unit` periods between successive images
             (e.g. `16` for a 16-day composite).
         unit: The period unit.
+
+    Examples:
+        - Build a 16-day cadence and read its parts:
+            ```python
+            >>> c = Cadence(interval=16, unit="day")
+            >>> c.interval
+            16
+            >>> c.unit
+            'day'
+
+            ```
+        - A non-positive interval is rejected:
+            ```python
+            >>> Cadence(interval=0, unit="day")  # doctest: +IGNORE_EXCEPTION_DETAIL
+            Traceback (most recent call last):
+                ...
+            pydantic_core._pydantic_core.ValidationError: 1 validation error for Cadence
+
+            ```
     """
 
     model_config = ConfigDict(frozen=True, extra="forbid")
@@ -87,6 +106,27 @@ class Band(BaseModel):
         max: Typical / valid maximum DN, or `None`.
         estimated_range: `True` if `min`/`max` are sample-based
             estimates rather than hard bounds.
+
+    Examples:
+        - Build a reflectance band and read its scaling:
+            ```python
+            >>> b = Band(id="SR_B4", description="Red surface reflectance", scale=2.75e-05, offset=-0.2)
+            >>> b.id
+            'SR_B4'
+            >>> b.scale
+            2.75e-05
+            >>> b.units is None
+            True
+
+            ```
+        - An unknown field is rejected:
+            ```python
+            >>> Band(id="x", description="d", colour="red")  # doctest: +IGNORE_EXCEPTION_DETAIL
+            Traceback (most recent call last):
+                ...
+            pydantic_core._pydantic_core.ValidationError: 1 validation error for Band
+
+            ```
     """
 
     model_config = ConfigDict(frozen=True, extra="forbid")
@@ -111,6 +151,28 @@ class Extent(BaseModel):
             continuously updated collection.
         bbox: Spatial bounding box as `[west, south, east, north]` in
             EPSG:4326, or `None` for global coverage.
+
+    Examples:
+        - A bounded, completed dataset (e.g. SRTM):
+            ```python
+            >>> e = Extent(start_date="2000-02-11", end_date="2000-02-22")
+            >>> e.start_date
+            '2000-02-11'
+            >>> e.end_date
+            '2000-02-22'
+            >>> e.bbox is None
+            True
+
+            ```
+        - A continuously updated, regionally bounded dataset (e.g. CHIRPS):
+            ```python
+            >>> e = Extent(start_date="1981-01-01", bbox=(-180.0, -50.0, 180.0, 50.0))
+            >>> e.end_date is None
+            True
+            >>> e.bbox
+            (-180.0, -50.0, 180.0, 50.0)
+
+            ```
     """
 
     model_config = ConfigDict(frozen=True, extra="forbid")
@@ -163,7 +225,23 @@ class Dataset(BaseModel):
 
     @property
     def is_image_collection(self) -> bool:
-        """Whether the asset is an `ImageCollection` (vs. a single `Image`)."""
+        """Whether the asset is an `ImageCollection` (vs. a single `Image`).
+
+        Returns:
+            `True` if :attr:`ee_type` is `"image_collection"`, else `False`.
+
+        Examples:
+            - SRTM is a single static image; Landsat 9 is a collection:
+                ```python
+                >>> from earthlens.gee.catalog import Catalog
+                >>> cat = Catalog()
+                >>> cat.get_dataset("USGS/SRTMGL1_003").is_image_collection
+                False
+                >>> cat.get_dataset("LANDSAT/LC09/C02/T1_L2").is_image_collection
+                True
+
+                ```
+        """
         return self.ee_type == "image_collection"
 
     def get_band(self, band_id: str) -> Band:
@@ -178,6 +256,27 @@ class Dataset(BaseModel):
         Raises:
             ValueError: If `band_id` is not a band of this dataset; the
                 message suggests the closest known band id.
+
+        Examples:
+            - Look up a Landsat band and read its centre wavelength:
+                ```python
+                >>> from earthlens.gee.catalog import Catalog
+                >>> ds = Catalog().get_dataset("LANDSAT/LC09/C02/T1_L2")
+                >>> ds.get_band("SR_B4").description
+                'Band 4 (red) surface reflectance'
+                >>> ds.get_band("SR_B4").wavelength
+                0.655
+
+                ```
+            - A misspelt band raises with a suggestion:
+                ```python
+                >>> from earthlens.gee.catalog import Catalog
+                >>> Catalog().get_dataset("USGS/SRTMGL1_003").get_band("elevashun")  # doctest: +ELLIPSIS
+                Traceback (most recent call last):
+                    ...
+                ValueError: 'elevashun' is not a band of 'USGS/SRTMGL1_003'. ... Did you mean 'elevation'?
+
+                ```
         """
         try:
             return self.bands[band_id]
@@ -203,6 +302,25 @@ class Catalog(AbstractCatalog):
         available_datasets: Informational list of every Earth Engine
             asset id the package knows about.
         datasets: Curated asset id → :class:`Dataset`.
+
+    Examples:
+        - Construct the catalog and look at what it holds:
+            ```python
+            >>> cat = Catalog()
+            >>> "USGS/SRTMGL1_003" in cat.datasets
+            True
+            >>> "USGS/SRTMGL1_003" in cat.available_datasets
+            True
+            >>> cat.get_dataset("UCSB-CHG/CHIRPS/DAILY").default_reducer
+            'mean'
+
+            ```
+        - Reach a band's metadata in one call:
+            ```python
+            >>> Catalog().get_band("MODIS/061/MOD11A1", "LST_Day_1km").scale
+            0.02
+
+            ```
     """
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
@@ -262,7 +380,22 @@ class Catalog(AbstractCatalog):
         super().model_post_init(__context)
 
     def get_catalog(self) -> dict[str, Dataset]:
-        """Return the curated dataset map (asset id → :class:`Dataset`)."""
+        """Return the curated dataset map (asset id → :class:`Dataset`).
+
+        Returns:
+            The :attr:`datasets` mapping.
+
+        Examples:
+            - The map is keyed by Earth Engine asset id:
+                ```python
+                >>> cat = Catalog()
+                >>> "ESA/WorldCover/v200" in cat.get_catalog()
+                True
+                >>> cat.get_catalog()["ESA/WorldCover/v200"].title
+                'ESA WorldCover 10m v200 (2021)'
+
+                ```
+        """
         return self.datasets
 
     def get_dataset(self, dataset_id: str) -> Dataset:
@@ -277,6 +410,27 @@ class Catalog(AbstractCatalog):
         Raises:
             ValueError: If `dataset_id` is not in the curated catalog;
                 the message suggests the closest known asset id.
+
+        Examples:
+            - Fetch a dataset and read its metadata:
+                ```python
+                >>> ds = Catalog().get_dataset("USGS/SRTMGL1_003")
+                >>> ds.title
+                'NASA SRTM Digital Elevation 30m'
+                >>> ds.ee_type
+                'image'
+                >>> ds.spatial_resolution
+                30.0
+
+                ```
+            - An unknown id raises with a suggestion:
+                ```python
+                >>> Catalog().get_dataset("USGS/SRTMGL1_004")  # doctest: +ELLIPSIS
+                Traceback (most recent call last):
+                    ...
+                ValueError: 'USGS/SRTMGL1_004' is not in the GEE catalog. ...
+
+                ```
         """
         try:
             return self.datasets[dataset_id]
@@ -300,9 +454,43 @@ class Catalog(AbstractCatalog):
 
         Raises:
             ValueError: If the dataset or the band is unknown.
+
+        Examples:
+            - Read a precipitation band's unit:
+                ```python
+                >>> Catalog().get_band("UCSB-CHG/CHIRPS/DAILY", "precipitation").units
+                'mm/d'
+
+                ```
+            - Read a Sentinel-2 band's centre wavelength:
+                ```python
+                >>> Catalog().get_band("COPERNICUS/S2_SR_HARMONIZED", "B4").wavelength
+                0.6645
+
+                ```
+
+        See Also:
+            get_variable: Identical; provided for naming parity with
+                `earthlens.ecmwf.Catalog.get_variable`.
         """
         return self.get_dataset(dataset_id).get_band(band_id)
 
     def get_variable(self, dataset_id: str, band_id: str) -> Band:
-        """Alias of :meth:`get_band` (name parity with the ECMWF catalog)."""
+        """Alias of :meth:`get_band` (name parity with the ECMWF catalog).
+
+        Args:
+            dataset_id: The Earth Engine asset id.
+            band_id: The band id within that dataset.
+
+        Returns:
+            The matching :class:`Band`.
+
+        Examples:
+            - Same result as :meth:`get_band`:
+                ```python
+                >>> Catalog().get_variable("USGS/SRTMGL1_003", "elevation").units
+                'm'
+
+                ```
+        """
         return self.get_band(dataset_id, band_id)

@@ -111,6 +111,18 @@ class EarthEngineAuth:
         service_key: str,
         project: str | None = None,
     ):
+        """Authenticate and call `ee.Initialize`; see the class docstring.
+
+        Args:
+            service_account: The service-account email.
+            service_key: Path to the service-account JSON key file, or
+                the JSON content as a string.
+            project: Cloud project id; if omitted, read from the key
+                file's `project_id`.
+
+        Raises:
+            AuthenticationError: As described on :class:`EarthEngineAuth`.
+        """
         self.service_account = service_account
         self.project = self.initialize(service_account, service_key, project)
 
@@ -136,6 +148,27 @@ class EarthEngineAuth:
             AuthenticationError: If the key cannot be loaded, no project
                 can be resolved, the project is not registered for Earth
                 Engine, or the service account lacks permission on it.
+
+        Examples:
+            - Initialise from a key file (requires network + a registered project):
+                ```python
+                >>> EarthEngineAuth.initialize(  # doctest: +SKIP
+                ...     "my-sa@my-project.iam.gserviceaccount.com",
+                ...     "/path/to/key.json",
+                ... )
+                'my-project'
+
+                ```
+            - A key with no `project_id` and no explicit `project` fails fast:
+                ```python
+                >>> import json
+                >>> bad_key = json.dumps({"type": "service_account"})
+                >>> EarthEngineAuth.initialize("sa@x.iam", bad_key)  # doctest: +IGNORE_EXCEPTION_DETAIL
+                Traceback (most recent call last):
+                    ...
+                earthlens.gee.auth.AuthenticationError: no Earth Engine Cloud project
+
+                ```
         """
         key_dict = _load_key_dict(service_key)
         resolved_project = project or (key_dict or {}).get("project_id")
@@ -205,6 +238,21 @@ class EarthEngineAuth:
 
         Returns:
             The base64-encoded JSON content as a byte string.
+
+        Examples:
+            - Encode a tiny key file and inspect the result:
+                ```python
+                >>> import json, os, tempfile
+                >>> p = os.path.join(tempfile.mkdtemp(), "key.json")
+                >>> _ = open(p, "w").write(json.dumps({"type": "service_account", "project_id": "demo"}))
+                >>> blob = EarthEngineAuth.encode_service_account(p)
+                >>> EarthEngineAuth.decode_service_account(blob)
+                {'type': 'service_account', 'project_id': 'demo'}
+
+                ```
+
+        See Also:
+            decode_service_account: The inverse operation.
         """
         content = json.loads(Path(service_key_path).read_text())
         return base64.b64encode(json.dumps(content).encode())
@@ -220,5 +268,21 @@ class EarthEngineAuth:
 
         Returns:
             The decoded service-account key as a dictionary.
+
+        Examples:
+            - Round-trip a key dict through encode then decode:
+                ```python
+                >>> import base64, json
+                >>> blob = base64.b64encode(json.dumps({"client_email": "sa@p.iam", "project_id": "p"}).encode())
+                >>> decoded = EarthEngineAuth.decode_service_account(blob)
+                >>> decoded["client_email"]
+                'sa@p.iam'
+                >>> decoded["project_id"]
+                'p'
+
+                ```
+
+        See Also:
+            encode_service_account: The inverse operation.
         """
         return json.loads(base64.b64decode(service_key_bytes).decode())

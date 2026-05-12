@@ -89,6 +89,44 @@ def load_yaml_strict(path: str | Path) -> Any:
 
     Raises:
         ValueError: If any mapping in the file declares a key twice.
+
+    Examples:
+        - Parse a small YAML file and read a value:
+            ```python
+            >>> import os, tempfile, textwrap
+            >>> p = os.path.join(tempfile.mkdtemp(), "ok.yaml")
+            >>> _ = open(p, "w").write(textwrap.dedent('''
+            ...     name: demo
+            ...     items:
+            ...       - a
+            ...       - b
+            ... '''))
+            >>> data = load_yaml_strict(p)
+            >>> data["name"]
+            'demo'
+            >>> data["items"]
+            ['a', 'b']
+
+            ```
+        - A duplicate mapping key is rejected at parse time:
+            ```python
+            >>> import os, tempfile, textwrap
+            >>> p = os.path.join(tempfile.mkdtemp(), "dup.yaml")
+            >>> _ = open(p, "w").write(textwrap.dedent('''
+            ...     a: 1
+            ...     a: 2
+            ... '''))
+            >>> load_yaml_strict(p)  # doctest: +ELLIPSIS
+            Traceback (most recent call last):
+                ...
+            ValueError: duplicate YAML key 'a' at line 3, ...
+
+            ```
+
+    See Also:
+        earthlens.ecmwf.catalog.Catalog: Uses this to load the CDS catalog.
+        earthlens.gee.catalog.Catalog: Uses this to load the GEE catalog.
+
     """
     with open(path, encoding="utf-8") as stream:
         # `_StrictSafeLoader` subclasses `yaml.SafeLoader` (no arbitrary
