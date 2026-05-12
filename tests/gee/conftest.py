@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from pathlib import Path
-from typing import List
 
 import pytest
 
@@ -21,21 +22,3 @@ def pytest_collection_modifyitems(items):
                 item.add_marker(pytest.mark.gee)
         except (OSError, ValueError):
             continue
-
-
-@pytest.fixture(scope="module")
-def catalog_columns() -> List[str]:
-    return [
-        "dataset",
-        "name",
-        "provider",
-        "url",
-        "bands",
-        "band_describtion",
-        "spatial_resolution",
-        "temporal_resolution",
-        "start_date",
-        "end_date",
-        "min",
-        "max",
-    ]
