@@ -216,9 +216,9 @@ class CHIRPS(AbstractDataSource):
 
         # Define FTP path to directory
         if temp_resolution.lower() == "daily":
-            pathFTP = f"pub/org/chg/products/CHIRPS-2.0/global_daily/tifs/p05/{date.strftime('%Y')}/"
+            pathFTP = f"pub/org/chc/products/CHIRPS-2.0/global_daily/tifs/p05/{date.strftime('%Y')}/"
         elif temp_resolution == "monthly":
-            pathFTP = "pub/org/chg/products/CHIRPS-2.0/global_monthly/tifs/"
+            pathFTP = "pub/org/chc/products/CHIRPS-2.0/global_monthly/tifs/"
         else:
             raise KeyError("The input temporal_resolution interval is not supported")
 
