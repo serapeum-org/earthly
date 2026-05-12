@@ -154,3 +154,6 @@ tests/mo/*
 # Local-only files (kept in worktree, not in git)
 CLAUDE.md
 planning/
+
+# GEE STAC catalog tool cache (tools/audit_gee_datasets.py)
+tools/_gee_stac_cache/
