@@ -113,7 +113,12 @@ nav:
       - Reference: reference/ecmwf.md
       - Catalog & Probes: reference/ecmwf/catalog.md
       - Aggregation: reference/aggregation.md
-    - GEE: reference/gee.md
+    - GEE:
+      - Introduction: reference/google-earth-engine/introduction.md
+      - Registering a project: reference/google-earth-engine/registering-a-project.md
+      - Service account setup: reference/google-earth-engine/service-account-setup.md
+      - Usage: reference/google-earth-engine/usage.md
+      - Reference: reference/gee.md
   - Examples:
     - Authentication: examples/authentication.md
     - Data Sources: examples/data-sources.md
