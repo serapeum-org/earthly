@@ -2,7 +2,7 @@
 
 Google Earth Engine data source subpackage.
 
-::: earthlens.gee.gee
+::: earthlens.gee.auth
 
 ::: earthlens.gee.data
 
