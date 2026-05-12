@@ -1,5 +1,28 @@
 # Change Log
 
+## 0.5.0 (2026-05-13)
+
+### Feat
+
+- **gee**: add the Google Earth Engine backend — `GEE(AbstractDataSource)` with
+  service-account auth, `ee.ImageCollection` build/composite, and `getDownloadURL` /
+  `ee.batch.Export.image.toDrive` / `toCloudStorage` exports (`export_via`,
+  32768-px synchronous cap); a pydantic YAML catalog (`gee_data_catalog.yaml` —
+  `Catalog` / `Dataset` / `Band` / `Cadence` / `Extent`, the full ~1100-entry
+  `available_datasets:` index from the Earth Engine STAC plus a curated `datasets:`
+  map); `EarthEngineAuth`; Shapely/GeoDataFrame → `ee` geometry helpers; the
+  `tools/refresh_gee_catalog.py` / `tools/audit_gee_datasets.py` STAC tooling; the
+  `"gee"` / `"google-earth-engine"` keys in the `EarthLens` facade (with a
+  `**backend_kwargs` passthrough; `download()` now returns the backend's result); and
+  the `docs/reference/google-earth-engine/` documentation.
+- **base**: factor the duplicate-key-rejecting YAML loader into
+  `earthlens/base/yaml_loader.py`, shared by the ECMWF and GEE catalogs.
+
+### Refactor
+
+- **gee**: remove the legacy stub modules (`gee.py` → `auth.py`, `dataset.py`,
+  `data.py`, `dataset_catalog.json`, `imagecollection.py`, `images.py`).
+
 ## 0.4.0 (2026-05-10)
 
 ### Refactor
