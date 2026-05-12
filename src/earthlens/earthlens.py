@@ -301,9 +301,11 @@ class EarthLens:
                 progress bar during the loop. Defaults to `True`.
             aggregate: Optional :class:`earthlens.aggregate.AggregationConfig`.
                 Forwarded to backends that support it (currently
-                ECMWF). Other backends accept `**kwargs` and ignore
-                an unused `aggregate` payload, so passing it against
-                a non-ECMWF backend is a no-op rather than an error.
+                ECMWF). CHIRPS / S3 accept `**kwargs` and ignore an
+                unused `aggregate` payload, so passing it there is a
+                no-op; the GEE backend explicitly rejects a non-`None`
+                `aggregate` with `NotImplementedError` (planned — see
+                the GEE plan task M3).
             *args: Forwarded positionally to `backend.download`.
             **kwargs: Forwarded as keywords to `backend.download`.
 
@@ -367,6 +369,9 @@ class EarthLens:
                 implementation.
             :meth:`earthlens.ecmwf.ECMWF.download`: ECMWF/CDS
                 backend implementation.
+            :meth:`earthlens.gee.GEE.download`: Google Earth Engine
+                backend implementation (`export_via`, the 32768-px
+                synchronous cap).
         """
         if aggregate is not None:
             kwargs["aggregate"] = aggregate
