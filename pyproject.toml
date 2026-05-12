@@ -106,7 +106,7 @@ include = ["earthlens", "earthlens.*"]
 
 [tool.setuptools.package-data]
 "earthlens.ecmwf" = ["*.yaml"]
-"earthlens.gee" = ["*.yaml", "*.json"]
+"earthlens.gee" = ["*.yaml"]
 
 [tool.flake8]
 ignore = ["E203", "E266", "E501", "W503", "E722", "C901", "E741", "E731"]
