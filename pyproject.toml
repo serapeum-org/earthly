@@ -105,6 +105,7 @@ where = ["src"]
 include = ["earthlens", "earthlens.*"]
 
 [tool.setuptools.package-data]
+"earthlens.chirps" = ["*.yaml"]
 "earthlens.ecmwf" = ["*.yaml"]
 "earthlens.gee" = ["*.yaml"]
 
