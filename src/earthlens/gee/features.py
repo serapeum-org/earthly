@@ -1,3 +1,14 @@
+"""Shapely / GeoDataFrame → Earth Engine geometry converters.
+
+The GEE backend lets a caller pass a `GeoDataFrame` as the clip
+`region`; this module turns Shapely geometries and `GeoDataFrame`s into
+the `ee.Geometry` / `ee.FeatureCollection` objects Earth Engine expects.
+Only `Polygon` and `Point` geometries are supported (`LineString` is not
+yet implemented); a `GeoDataFrame` of `MultiPolygon`s is exploded to one
+feature per polygon part, and the non-geometry columns become each
+feature's property dictionary.
+"""
+
 from __future__ import annotations
 
 import ee
@@ -9,25 +20,61 @@ from loguru import logger
 from shapely.geometry import LineString, Point, Polygon
 
 
-def createGeometry(
+def createGeometry(  # noqa: N802 - established public name
     shapely_geometry: Polygon | Point | LineString,
     epsg: int = 4326,
-) -> Geometry:
-    """createGeometry.
+) -> Geometry | None:
+    """Convert a Shapely `Polygon` or `Point` to an `ee.Geometry`.
 
-        create earth engine geometry.
+    The geometry's GeoJSON coordinates are passed straight to
+    `ee.Geometry.Polygon` / `ee.Geometry.Point` along with an
+    `"epsg:<epsg>"` projection string.
 
-    Parameters
-    ----------
-    shapely_geometry: [shapely.geometry]
-        shapely geometry object [point, polyline, Linestring]
-    epsg: [int]
-        projection epsg number.
+    Args:
+        shapely_geometry: A Shapely `Polygon` or `Point` (a `LineString`
+            is accepted by the type but raises — see below).
+        epsg: EPSG code of the geometry's coordinates. Defaults to
+            `4326` (WGS84 lon/lat).
 
-    Returns
-    -------
-    ee Geometry :
-        ee geometry object [Polygon, Point, LineString]
+    Returns:
+        The corresponding `ee.Geometry` (`Polygon` or `Point`), or
+        `None` if `shapely_geometry` is some other geometry type (e.g.
+        `MultiPolygon`) — in which case a debug message is logged.
+
+    Raises:
+        ValueError: If `shapely_geometry` is a `LineString` (not yet
+            implemented).
+
+    Examples:
+        - Convert a unit-square polygon (needs the `ee` SDK initialised):
+            ```python
+            >>> from shapely.geometry import Polygon
+            >>> from earthlens.gee.features import createGeometry
+            >>> square = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
+            >>> geom = createGeometry(square)  # doctest: +SKIP
+
+            ```
+        - The GeoJSON coordinates that get handed to Earth Engine:
+            ```python
+            >>> from shapely.geometry import Polygon
+            >>> Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]).__geo_interface__["coordinates"]
+            (((0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)),)
+
+            ```
+        - A `LineString` is rejected:
+            ```python
+            >>> from shapely.geometry import LineString
+            >>> from earthlens.gee.features import createGeometry
+            >>> createGeometry(LineString([(0, 0), (1, 1)]))
+            Traceback (most recent call last):
+                ...
+            ValueError: LineStrings not yet implemented.
+
+            ```
+
+    See Also:
+        createFeature: Builds an `ee.FeatureCollection` from a
+            `GeoDataFrame`, calling this for each row's geometry.
     """
     coords = shapely_geometry.__geo_interface__["coordinates"]
     if shapely_geometry.geom_type == "Polygon":
@@ -44,37 +91,77 @@ def createGeometry(
             f"The given geometry is neiter of type LineString, Point nor Polygon, "
             f"but {shapely_geometry.geom_type}."
         )
+        return None
 
 
-def createFeature(
+def createFeature(  # noqa: N802 - established public name
     gdf: GeoDataFrame, columns: list[str] | None = None
 ) -> FeatureCollection:
-    """createFeature.
+    """Build an `ee.FeatureCollection` from a `GeoDataFrame`.
 
-        createFeature creates a feature collection from a geodataframe
+    Each row becomes an `ee.Feature` whose geometry is the converted
+    Shapely geometry (via :func:`createGeometry`) and whose properties
+    are that row's non-geometry columns (optionally narrowed to
+    `columns`). A row holding a `MultiPolygon` is exploded into one
+    feature per constituent polygon.
 
-        collection with the data in a certain column in the geodataframe as a properties dictionary
+    Args:
+        gdf: A `GeoDataFrame` whose `geometry` column holds `Polygon` /
+            `Point` / `MultiPolygon` geometries.
+        columns: If given, only these (non-geometry) columns become
+            feature properties; otherwise all non-geometry columns are
+            used. If the frame has no non-geometry columns (or `columns`
+            is empty/`None` with a geometry-only frame), features are
+            created without properties.
 
-    Parameters
-    ----------
-    gdf : [GeoDataFrame]
+    Returns:
+        An `ee.FeatureCollection` with one feature per (exploded) row.
 
-    columns: [list]
-        list of strings for the columns' names
+    Raises:
+        ValueError: If any row's geometry cannot be converted (e.g. a
+            `LineString`), or for any other error while building the
+            collection — the underlying error is wrapped.
 
-    Returns
-    -------
-    FeatureCollection : [ee.featurecollection.FeatureCollection]
-        feature collection containing the geometry of each row in the given geodataframe
-        with the information of one of the given columns as a property.
+    Examples:
+        - Build a collection from two polygons with a `name` property
+          (needs the `ee` SDK initialised):
+            ```python
+            >>> import geopandas as gpd
+            >>> from shapely.geometry import Polygon
+            >>> from earthlens.gee.features import createFeature
+            >>> gdf = gpd.GeoDataFrame(
+            ...     {"name": ["a", "b"],
+            ...      "geometry": [Polygon([(0, 0), (1, 0), (1, 1)]),
+            ...                   Polygon([(2, 2), (3, 2), (3, 3)])]},
+            ...     crs="EPSG:4326",
+            ... )
+            >>> fc = createFeature(gdf)  # doctest: +SKIP
+
+            ```
+        - Restricting which columns become properties:
+            ```python
+            >>> import geopandas as gpd
+            >>> from shapely.geometry import Polygon
+            >>> from earthlens.gee.features import createFeature
+            >>> gdf = gpd.GeoDataFrame(
+            ...     {"name": ["a"], "value": [1],
+            ...      "geometry": [Polygon([(0, 0), (1, 0), (1, 1)])]},
+            ...     crs="EPSG:4326",
+            ... )
+            >>> fc = createFeature(gdf, columns=["name"])  # doctest: +SKIP
+
+            ```
+
+    See Also:
+        createGeometry: Converts a single Shapely geometry; called per row.
     """
     try:
         # get the geometry type for all rows
         geotype = [i.geom_type for i in gdf["geometry"]]
         # if any is "MultiPolygon" explode the dataframe to single polygons
         if "MultiPolygon" in geotype:
-            # index_parts=True makes the resulted index multi-index if multi-polygon resulted in
-            # many different polygons
+            # index_parts=True makes the resulted index multi-index if a
+            # multi-polygon resulted in many different polygons
             gdf = gdf.explode(index_parts=True)
 
         ee_geom_list = gdf.geometry.apply(lambda geom: createGeometry(geom)).to_list()
@@ -86,7 +173,8 @@ def createFeature(
             ee_feature_list = [ee.Feature(geom) for geom in ee_geom_list]
         else:
             ee_feature_list = [
-                ee.Feature(geom, record) for geom, record in zip(ee_geom_list, records)
+                ee.Feature(geom, record)
+                for geom, record in zip(ee_geom_list, records)
             ]
         return ee.FeatureCollection(ee_feature_list)
 
