@@ -2,8 +2,9 @@
 
 The :class:`EarthLens` class is the user-facing entry point of the
 package. It keeps the choice of backend (CHIRPS, ERA5 on AWS S3, ECMWF
-on the Copernicus Climate Data Store) behind a single string key so
-callers do not have to import each backend module directly.
+on the Copernicus Climate Data Store, Google Earth Engine) behind a
+single string key so callers do not have to import each backend module
+directly.
 
 Each backend's runtime SDK is an optional dependency
 (`pip install earthlens[ecmwf]`, `[s3]`, `[gee]`); the registry below
@@ -76,7 +77,8 @@ class EarthLens:
     """Facade that routes a download to the requested backend.
 
     The class-level :attr:`DataSources` mapping resolves a string key
-    (`"chirps"`, `"amazon-s3"`, or `"ecmwf"`) to the concrete
+    (`"chirps"`, `"amazon-s3"`, `"ecmwf"`, or `"gee"` / its alias
+    `"google-earth-engine"`) to the concrete
     :class:`AbstractDataSource` subclass that owns the request shape,
     authentication, and post-processing for that provider. Each
     backend's SDK is an optional dependency, so :attr:`DataSources`
@@ -100,14 +102,14 @@ class EarthLens:
             ```python
             >>> from earthlens.earthlens import EarthLens
             >>> sorted(EarthLens.DataSources)
-            ['amazon-s3', 'chirps', 'ecmwf']
+            ['amazon-s3', 'chirps', 'ecmwf', 'gee', 'google-earth-engine']
 
             ```
         - Asking for an unknown backend raises `ValueError`:
 
             ```python
             >>> from earthlens.earthlens import EarthLens
-            >>> EarthLens(data_source="not-a-real-source")
+            >>> EarthLens(variables=[], data_source="not-a-real-source")
             Traceback (most recent call last):
                 ...
             ValueError: not-a-real-source not supported
@@ -119,6 +121,8 @@ class EarthLens:
         :class:`earthlens.s3.S3`: ERA5 on AWS public S3 bucket.
         :class:`earthlens.ecmwf.ECMWF`: ERA5 via the Copernicus
             Climate Data Store (cdsapi).
+        :class:`earthlens.gee.GEE`: imagery from Google Earth Engine
+            (`earthengine-api`); keys `"gee"` / `"google-earth-engine"`.
     """
 
     DataSources = _LazyRegistry(
@@ -126,6 +130,8 @@ class EarthLens:
             "chirps": ("earthlens.chirps", "CHIRPS", ""),
             "amazon-s3": ("earthlens.s3", "S3", "s3"),
             "ecmwf": ("earthlens.ecmwf", "ECMWF", "ecmwf"),
+            "gee": ("earthlens.gee", "GEE", "gee"),
+            "google-earth-engine": ("earthlens.gee", "GEE", "gee"),
         }
     )
 
@@ -140,6 +146,7 @@ class EarthLens:
         lat_lim: list[float] | None = None,
         lon_lim: list[float] | None = None,
         fmt: str = "%Y-%m-%d",
+        **backend_kwargs: object,
     ):
         """Resolve the backend and construct it with the user's parameters.
 
@@ -149,12 +156,13 @@ class EarthLens:
 
         Args:
             data_source: Backend key — one of `"chirps"`,
-                `"amazon-s3"`, or `"ecmwf"`. Defaults to
-                `"chirps"`.
-            temporal_resolution: `"daily"` or `"monthly"`. The
-                concrete backend may accept a narrower set; check its
-                `temporal_resolution` class attribute. Defaults to
-                `"daily"`.
+                `"amazon-s3"`, `"ecmwf"`, or `"gee"` (alias
+                `"google-earth-engine"`). Defaults to `"chirps"`.
+            temporal_resolution: `"daily"` or `"monthly"` for most
+                backends; the GEE backend also accepts `"raw"` and
+                `"yearly"`. The concrete backend may accept a narrower
+                set; check its `temporal_resolution` handling.
+                Defaults to `"daily"`.
             start: Inclusive start date as a string (parsed with
                 `fmt`). Defaults to `None`.
             end: Inclusive end date as a string. Defaults to `None`.
@@ -167,6 +175,9 @@ class EarthLens:
                   short name to a list of variable codes drawn from
                   that dataset, e.g.
                   `{"reanalysis-era5-single-levels": ["2m-temperature"]}`.
+                * GEE: `dict[str, list[str]]` mapping an Earth Engine
+                  asset id to a list of band ids, e.g.
+                  `{"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]}`.
                 * CHIRPS: `list[str]` of variable codes
                   (e.g. `["precipitation"]`).
                 * S3 / ERA5: `list[str]` of variable codes from the
@@ -179,14 +190,26 @@ class EarthLens:
                 :data:`DEFAULT_LONGITUDE_LIMIT` (whole Earth).
             fmt: `strptime` format for `start` and `end`.
                 Defaults to `"%Y-%m-%d"`.
+            **backend_kwargs: Extra keyword arguments forwarded
+                verbatim to the chosen backend's constructor — for
+                backend-specific options the facade does not name
+                explicitly (e.g. ECMWF's `skip_constraints`, or GEE's
+                `service_account` / `service_key` / `project` / `scale` /
+                `crs` / `reducer` / `export_via` / `drive_folder` /
+                `gcs_bucket` / `region`). A kwarg the backend does not
+                accept is its `TypeError`, not the facade's.
 
         Raises:
             ValueError: If `data_source` is not a key of
                 :attr:`DataSources`.
-            AuthenticationError: If `data_source="ecmwf"` and cdsapi
-                cannot authenticate (typically a missing
-                `~/.cdsapirc`). See
-                :class:`earthlens.ecmwf.AuthenticationError`.
+            AuthenticationError: If the backend cannot authenticate —
+                ECMWF (missing `~/.cdsapirc`; see
+                :class:`earthlens.ecmwf.AuthenticationError`) or GEE
+                (missing/invalid service key, unregistered project; see
+                :class:`earthlens.gee.AuthenticationError`).
+            ImportError: If the chosen backend's optional SDK is not
+                installed (e.g. `data_source="gee"` without
+                `pip install earthlens[gee]`).
 
         Examples:
             - The DataSources registry resolves the backend class
@@ -198,6 +221,8 @@ class EarthLens:
                 'CHIRPS'
                 >>> EarthLens.DataSources["ecmwf"].__name__
                 'ECMWF'
+                >>> EarthLens.DataSources["gee"].__name__
+                'GEE'
 
                 ```
             - An unknown `data_source` is rejected before any backend
@@ -205,7 +230,7 @@ class EarthLens:
 
                 ```python
                 >>> from earthlens.earthlens import EarthLens
-                >>> EarthLens(data_source="bogus")
+                >>> EarthLens(variables=[], data_source="bogus")
                 Traceback (most recent call last):
                     ...
                 ValueError: bogus not supported
@@ -253,6 +278,7 @@ class EarthLens:
             temporal_resolution=temporal_resolution,
             path=path,
             fmt=fmt,
+            **backend_kwargs,
         )
 
     def download(
