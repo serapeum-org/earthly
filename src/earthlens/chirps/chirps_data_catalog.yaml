@@ -1,0 +1,2042 @@
+# CHIRPS data catalog for the CHIRPS FTP backend.
+#
+# Schema:
+#
+#   available_datasets:               Informational. List of every
+#                                     CHIRPS dataset directory available
+#                                     on the FTP server. Read by humans,
+#                                     ignored by the runtime.
+#
+#   datasets.<dataset_key>:           One entry per CHIRPS dataset
+#                                     that earthlens can download.
+#     ftp_base:                       FTP directory path relative to
+#                                     the server root. May contain
+#                                     `{year}` for year-partitioned
+#                                     directories.
+#     region:                         Geographic coverage of the
+#                                     dataset ("global", "africa",
+#                                     "central-america-caribbean",
+#                                     "east-africa", "indonesia",
+#                                     "western-hemisphere").
+#     temporal_resolution:            Human-readable temporal
+#                                     resolution label.
+#     pandas_freq:                    Pandas offset alias used to
+#                                     generate the date range (e.g.
+#                                     "D", "MS", "5D", "10D", "AS").
+#     spatial_resolution:             Pixel size in degrees (list
+#                                     when multiple resolutions are
+#                                     available under the same
+#                                     dataset).
+#     formats:                        List of file formats available
+#                                     (tif, cog, netcdf, bil, png).
+#     lat_boundaries:                 [south, north] latitude limits.
+#     lon_boundaries:                 [west, east] longitude limits.
+#     start_date:                     Earliest available date
+#                                     (YYYY-MM-DD).
+#     file_pattern:                   Python format-string for the
+#                                     remote filename. Placeholders:
+#                                     {year}, {month}, {day}, {dekad},
+#                                     {pentad}, {res}.
+#     variables.<short_code>:         One entry per variable. CHIRPS
+#                                     only provides precipitation but
+#                                     the structure mirrors the CDS
+#                                     catalog for consistency.
+#       description:                  Human-readable description.
+#       units:                        Unit string.
+#       types:                        "flux" — precipitation is an
+#                                     accumulated quantity.
+#
+# Server:  ftp://data.chc.ucsb.edu  (anonymous FTP, no credentials)
+# Base:    pub/org/chc/products/CHIRPS-2.0/
+#
+# Catalog refreshed from the live FTP listing on 2026-05-12.
+#
+# See: https://www.chc.ucsb.edu/data/chirps
+
+version: 2
+
+# Geographic-coverage profiles.  Each dataset's ``region:`` field is one
+# of these keys; the catalog loader expands it into ``lat_boundaries`` and
+# ``lon_boundaries`` at runtime, so those fields need not be repeated in
+# every dataset entry.
+#
+#   global           — standard CHIRPS / CHIRP global coverage (±50° lat)
+#   global-land      — CHIRTSdaily / CHIRTSmonthly (60°S – 70°N)
+#   global-extended  — CHPclim v2 / WBGT (full globe ±90° lat)
+#   africa, central-america-caribbean, east-africa,
+#   indonesia, western-hemisphere — regional sub-extents
+
+regions:
+  global:
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+
+  global-land:
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]
+
+  global-extended:
+    lat_boundaries: [-90, 90]
+    lon_boundaries: [-180, 180]
+
+  africa:
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+
+  central-america-caribbean:
+    lat_boundaries: [5, 35]
+    lon_boundaries: [-120, -55]
+
+  east-africa:
+    lat_boundaries: [-12, 6]
+    lon_boundaries: [28, 42]
+
+  indonesia:
+    lat_boundaries: [-11, 6]
+    lon_boundaries: [95, 141]
+
+  western-hemisphere:
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 0]
+
+# Canonical variable-metadata definitions.  Each entry carries a YAML
+# anchor so dataset ``variables:`` blocks can reference the metadata via
+# a YAML alias instead of repeating it inline.  The description field
+# omits the geographic region because ``region:`` and the dataset key
+# already capture that; ``preliminary:`` covers near-real-time status.
+#
+# Usage in a dataset block:
+#
+#     variables:
+#       precipitation: *precip_daily
+
+variable_templates:
+
+  _precip_daily: &precip_daily
+    description: "Daily rainfall estimate"
+    units: "mm/day"
+    types: flux
+
+  _precip_monthly: &precip_monthly
+    description: "Monthly accumulated rainfall estimate"
+    units: "mm/month"
+    types: flux
+
+  _precip_annual: &precip_annual
+    description: "Annual accumulated rainfall estimate"
+    units: "mm/year"
+    types: flux
+
+  _precip_dekadal: &precip_dekadal
+    description: "Dekadal (10-day) accumulated rainfall estimate"
+    units: "mm/dekad"
+    types: flux
+
+  _precip_pentadal: &precip_pentadal
+    description: "Pentadal (5-day) accumulated rainfall estimate"
+    units: "mm/pentad"
+    types: flux
+
+  _precip_2monthly: &precip_2monthly
+    description: "2-month accumulated rainfall estimate"
+    units: "mm/2-months"
+    types: flux
+
+  _precip_3monthly: &precip_3monthly
+    description: "3-month (seasonal) accumulated rainfall estimate"
+    units: "mm/3-months"
+    types: flux
+
+  _precip_6hourly: &precip_6hourly
+    description: "6-hourly rainfall estimate"
+    units: "mm/6h"
+    types: flux
+
+  _spi: &spi
+    description: "Standardized Precipitation Index (SPI) based on CHIRPS3"
+    units: "dimensionless"
+    types: index
+
+  _spei: &spei
+    description: "Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET"
+    units: "dimensionless"
+    types: index
+
+  _wbgt: &wbgt
+    description: "Wet Bulb Globe Temperature (WBGT)"
+    units: "degC"
+    types: state
+
+  _tmax: &tmax
+    description: "Daily maximum 2-metre air temperature"
+    units: "degC"
+    types: state
+
+  _tmin: &tmin
+    description: "Daily minimum 2-metre air temperature"
+    units: "degC"
+    types: state
+
+  _heat_index: &heat_index
+    description: "Daily heat index (apparent temperature)"
+    units: "degC"
+    types: state
+
+  _relative_humidity: &relative_humidity
+    description: "Daily relative humidity"
+    units: "%"
+    types: state
+
+  _svp: &svp
+    description: "Daily saturation vapour pressure"
+    units: "kPa"
+    types: state
+
+  _vpd: &vpd
+    description: "Daily vapour pressure deficit"
+    units: "kPa"
+    types: state
+
+# Available-format profiles.  The FTP server organises each dataset's
+# files in per-format subdirectories; ``formats:`` lists every format
+# published there.  Profiles are defined once here with YAML anchors so
+# dataset entries reference them with a single alias instead of repeating
+# the list inline.
+#
+# Usage in a dataset entry:
+#
+#     formats: *fmt_tif_cog_nc
+
+format_profiles:
+  # GeoTIFF only (primary format for most datasets)
+  _fmt_tif: &fmt_tif [tif]
+  # GeoTIFF + NetCDF
+  _fmt_tif_nc: &fmt_tif_nc [tif, netcdf]
+  # GeoTIFF + ESRI BIL
+  _fmt_tif_bil: &fmt_tif_bil [tif, bil]
+  # GeoTIFF + ESRI BIL + PNG thumbnail
+  _fmt_tif_bil_png: &fmt_tif_bil_png [tif, bil, png]
+  # GeoTIFF + Cloud-Optimised GeoTIFF + NetCDF
+  _fmt_tif_cog_nc: &fmt_tif_cog_nc [tif, cog, netcdf]
+  # GeoTIFF + COG + NetCDF + ESRI BIL
+  _fmt_tif_cog_nc_bil: &fmt_tif_cog_nc_bil [tif, cog, netcdf, bil]
+  # GeoTIFF + NetCDF + ESRI BIL
+  _fmt_tif_nc_bil: &fmt_tif_nc_bil [tif, netcdf, bil]
+  # GeoTIFF + NetCDF + ESRI BIL + COG
+  _fmt_tif_nc_bil_cog: &fmt_tif_nc_bil_cog [tif, netcdf, bil, cog]
+  # NetCDF only (SPEI datasets)
+  _fmt_nc: &fmt_nc [netcdf]
+  # ESRI BIL only (Indonesia datasets)
+  _fmt_bil: &fmt_bil [bil]
+  # Raw binary only (Africa 6-hourly)
+  _fmt_bin: &fmt_bin [bin]
+
+  # FTP subdirectory name used by each format on the CHC server.
+  # Backends substitute this when constructing alternative-format paths.
+  _fmt_ftp_dirs: &fmt_ftp_dirs
+    tif:    tifs
+    cog:    cogs
+    netcdf: netcdf
+    bil:    bils
+    bin:    p1_bin    # Africa 6-hourly specific
+
+  # Compressed-file extensions per format (for local filename construction).
+  _fmt_extensions: &fmt_extensions
+    tif:    ".tif.gz"   # CHIRPS-2.0; CHIRPS v3 uses bare .tif (no gz)
+    cog:    ".cog"
+    netcdf: ".nc"
+    bil:    ".bil.gz"
+    bin:    ".bin"
+available_datasets:
+  # ----- CHIRPS-2.0 Global -----
+  - global-daily
+  - global-monthly
+  - global-annual
+  - global-dekad
+  - global-pentad
+  - global-2-monthly
+  - global-3-monthly
+
+  # ----- CHIRPS-2.0 Africa -----
+  - africa-daily
+  - africa-monthly
+  - africa-dekad
+  - africa-pentad
+  - africa-6-hourly
+  - africa-2-monthly
+  - africa-3-monthly
+
+  # ----- CHIRPS-2.0 Central America & Caribbean -----
+  - central-america-caribbean-dekad
+  - central-america-caribbean-monthly
+  - central-america-caribbean-pentad
+
+  # ----- CHIRPS-2.0 East Africa -----
+  - east-africa-monthly
+
+  # ----- CHIRPS-2.0 Indonesia -----
+  - indonesia-dekad
+  - indonesia-monthly
+
+  # ----- CHIRPS-2.0 Western Hemisphere -----
+  - western-hemisphere-daily
+
+  # ----- CHIRPS-2.0 Preliminary (near-real-time) -----
+  - prelim-global-daily
+  - prelim-global-monthly
+  - prelim-global-dekad
+  - prelim-global-pentad
+  - prelim-global-2-monthly
+  - prelim-global-3-monthly
+
+  # ----- CHIRPS v3.0 (updated algorithm, gauge+satellite blend) -----
+  - chirps-v3-global-daily-rnl
+  - chirps-v3-global-daily-sat
+  - chirps-v3-global-daily-prelim
+  - chirps-v3-global-monthly
+  - chirps-v3-global-dekad
+  - chirps-v3-global-pentad
+  - chirps-v3-global-annual
+  - chirps-v3-global-2-monthly
+  - chirps-v3-prelim-monthly
+  - chirps-v3-prelim-dekad
+  - chirps-v3-prelim-pentad
+
+  # ----- CHIRP (satellite-only, no gauge correction) -----
+  - chirp-daily
+  - chirp-monthly
+  - chirp-dekad
+  - chirp-pentad
+
+  # ----- CHIRP v3.0 (satellite-only, updated algorithm) -----
+  - chirp-v3-global-daily
+  - chirp-v3-global-monthly
+  - chirp-v3-global-dekad
+
+  # ----- CHIRTSdaily v1.0 (temperature / humidity, 1983-2016) -----
+  - chirtsdaily-tmax
+  - chirtsdaily-tmin
+  - chirtsdaily-heat-index
+  - chirtsdaily-relative-humidity
+  - chirtsdaily-svp
+  - chirtsdaily-vpd
+
+  # ----- CHIRTSmonthly (monthly temperature CDR, 1983-2016) -----
+  - chirtsmonthly-tmax
+
+  # ----- CHIRPS-GEFS v3 (ensemble forecast precipitation) -----
+  - chirps-gefs-v3-daily
+  - chirps-gefs-v3-dekad-lead0
+  - chirps-gefs-v3-pentad-lead0
+
+  # ----- CHIRPS-GEFS precip v12 (forecast anomalies/accumulations) -----
+  - chirps-gefs-v12-daily-16day
+  - chirps-gefs-v12-05day
+  - chirps-gefs-v12-10day
+  - chirps-gefs-v12-15day
+  - chirps-gefs-v12-pentad-first
+  - chirps-gefs-v12-pentad-second
+  - chirps-gefs-v12-pentad-last
+  - chirps-gefs-v12-dekad-first
+  - chirps-gefs-v12-dekad-last
+
+  # ----- CHPclim v2 (climatological precipitation, 12 monthly normals) -----
+  - chpclim-v2-monthly
+
+  # ----- WBGT (Wet Bulb Globe Temperature, 1980-present) -----
+  - wbgt-monthly
+  - wbgt-dekad
+
+  # ----- SPI based on CHIRPS3 (Standardized Precipitation Index) -----
+  - spi-chirps3-01-pentad
+  - spi-chirps3-02-pentad
+  - spi-chirps3-05-pentad
+  - spi-chirps3-06-pentad
+  - spi-chirps3-09-pentad
+  - spi-chirps3-12-pentad
+  - spi-chirps3-15-pentad
+  - spi-chirps3-18-pentad
+  - spi-chirps3-21-pentad
+
+  # ----- SPEI v1 (Standardized Precipitation-Evapotranspiration Index) -----
+  - spei-v1-01-month
+  - spei-v1-02-month
+  - spei-v1-03-month
+  - spei-v1-06-month
+  - spei-v1-09-month
+  - spei-v1-12-month
+
+  # ----- CHC_CMIP6 daily climatological deltas (scenario projections) -----
+  - chc-cmip6-precip-daily-delta-2030-ssp245
+  - chc-cmip6-precip-daily-delta-2030-ssp585
+  - chc-cmip6-precip-daily-delta-2050-ssp245
+  - chc-cmip6-precip-daily-delta-2050-ssp585
+  - chc-cmip6-rh-daily-delta-2030-ssp245
+  - chc-cmip6-rh-daily-delta-2030-ssp585
+  - chc-cmip6-rh-daily-delta-2050-ssp245
+  - chc-cmip6-rh-daily-delta-2050-ssp585
+  - chc-cmip6-tmax-daily-delta-2030-ssp245
+  - chc-cmip6-tmax-daily-delta-2030-ssp585
+  - chc-cmip6-tmax-daily-delta-2050-ssp245
+  - chc-cmip6-tmax-daily-delta-2050-ssp585
+  - chc-cmip6-tmin-daily-delta-2030-ssp245
+  - chc-cmip6-tmin-daily-delta-2030-ssp585
+  - chc-cmip6-tmin-daily-delta-2050-ssp245
+  - chc-cmip6-tmin-daily-delta-2050-ssp585
+
+  # ----- CentennialTrends v1 (informational; NetCDF multi-year files) -----
+  - centennial-trends-v1-monthly
+  - centennial-trends-v1-seasonal
+
+datasets:
+
+  # ===================================================================
+  #  GLOBAL DATASETS
+  # ===================================================================
+
+  global-daily:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/global_daily/tifs/p05/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05, 0.25]
+    formats: *fmt_tif_cog_nc
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation: *precip_daily
+
+  global-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/global_monthly/tifs/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_cog_nc_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_monthly
+
+  global-annual:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/global_annual/tifs/"
+    region: global
+    temporal_resolution: annual
+    pandas_freq: "AS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.tif"
+    variables:
+      precipitation: *precip_annual
+
+  global-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/global_dekad/tifs/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc_bil
+    start_date: "1981-01-01"
+    # Dekads are numbered 1, 2, 3 within each month (days 1-10,
+    # 11-20, 21-end).
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.{dekad}.tif.gz"
+    variables:
+      precipitation: *precip_dekadal
+
+  global-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/global_pentad/tifs/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_cog_nc_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.{pentad}.tif.gz"
+    variables:
+      precipitation: *precip_pentadal
+
+  global-2-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/global_2-monthly/tifs/"
+    region: global
+    temporal_resolution: 2-monthly
+    pandas_freq: "2MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_2monthly
+
+  global-3-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/global_3-monthly/tifs/"
+    region: global
+    temporal_resolution: 3-monthly
+    pandas_freq: "QS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_3monthly
+
+  # ===================================================================
+  #  AFRICA DATASETS
+  # ===================================================================
+
+  africa-daily:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/africa_daily/tifs/p05/"
+    region: africa
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation: *precip_daily
+
+  africa-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/africa_monthly/tifs/"
+    region: africa
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil_png
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_monthly
+
+  africa-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/africa_dekad/tifs/"
+    region: africa
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil_png
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.{dekad}.tif.gz"
+    variables:
+      precipitation: *precip_dekadal
+
+  africa-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/africa_pentad/tifs/"
+    region: africa
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil_png
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.{pentad}.tif.gz"
+    variables:
+      precipitation: *precip_pentadal
+
+  africa-6-hourly:
+    ftp_bases:
+      bin: "pub/org/chc/products/CHIRPS-2.0/africa_6-hourly/p1_bin/"
+    region: africa
+    temporal_resolution: 6-hourly
+    pandas_freq: "6h"
+    spatial_resolution: [0.10]
+    formats: *fmt_bin
+    start_date: "1981-01-01"
+    file_patterns:
+      bin: "chirps-v2.0.{year}.{month}.{day}.{hour}.bin"
+    variables:
+      precipitation: *precip_6hourly
+
+  africa-2-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/africa_2-monthly/tifs/"
+    region: africa
+    temporal_resolution: 2-monthly
+    pandas_freq: "2MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_2monthly
+
+  africa-3-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/africa_3-monthly/tifs/"
+    region: africa
+    temporal_resolution: 3-monthly
+    pandas_freq: "QS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_3monthly
+
+  # ===================================================================
+  #  CENTRAL AMERICA & CARIBBEAN DATASETS
+  # ===================================================================
+
+  central-america-caribbean-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/camer-carib_dekad/tifs/"
+    region: central-america-caribbean
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.{dekad}.tif.gz"
+    variables:
+      precipitation: *precip_dekadal
+
+  central-america-caribbean-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/camer-carib_monthly/tifs/"
+    region: central-america-caribbean
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_monthly
+
+  central-america-caribbean-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/camer-carib_pentad/tifs/"
+    region: central-america-caribbean
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.{pentad}.tif.gz"
+    variables:
+      precipitation: *precip_pentadal
+
+  # ===================================================================
+  #  EAST AFRICA
+  # ===================================================================
+
+  east-africa-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/EAC_monthly/tifs/"
+    region: east-africa
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_monthly
+
+  # ===================================================================
+  #  INDONESIA
+  # ===================================================================
+
+  indonesia-dekad:
+    ftp_bases:
+      bil: "pub/org/chc/products/CHIRPS-2.0/indonesia_dekad/bils/"
+    region: indonesia
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      bil: "chirps-v2.0.{year}.{month}.{dekad}.bil.gz"
+    variables:
+      precipitation: *precip_dekadal
+
+  indonesia-monthly:
+    ftp_bases:
+      bil: "pub/org/chc/products/CHIRPS-2.0/indonesia_monthly/bils/"
+    region: indonesia
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      bil: "chirps-v2.0.{year}.{month}.bil.gz"
+    variables:
+      precipitation: *precip_monthly
+
+  # ===================================================================
+  #  WESTERN HEMISPHERE
+  # ===================================================================
+
+  western-hemisphere-daily:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/whem_daily/tifs/p05/"
+    region: western-hemisphere
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation: *precip_daily
+
+  # ===================================================================
+  #  PRELIMINARY (NEAR-REAL-TIME) DATASETS
+  #
+  #  Preliminary datasets are updated faster than the final products
+  #  but may be revised later.  They share the same variable
+  #  definition (precipitation) with a different FTP base path.
+  # ===================================================================
+
+  prelim-global-daily:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/prelim/global_daily/tifs/p05/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_cog_nc
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation: *precip_daily
+
+  prelim-global-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/prelim/global_monthly/tifs/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc_bil_cog
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_monthly
+
+  prelim-global-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/prelim/global_dekad/tifs/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc_bil
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.{dekad}.tif.gz"
+    variables:
+      precipitation: *precip_dekadal
+
+  prelim-global-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/prelim/global_pentad/tifs/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc_bil_cog
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.{pentad}.tif.gz"
+    variables:
+      precipitation: *precip_pentadal
+
+  prelim-global-2-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/prelim/global_2-monthly/tifs/"
+    region: global
+    temporal_resolution: 2-monthly
+    pandas_freq: "2MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_2monthly
+
+  prelim-global-3-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-2.0/prelim/global_3-monthly/tifs/"
+    region: global
+    temporal_resolution: 3-monthly
+    pandas_freq: "QS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "chirps-v2.0.{year}.{month}.tif.gz"
+    variables:
+      precipitation: *precip_3monthly
+
+
+  # ===================================================================
+  #  CHIRPS v3.0  (updated blended gauge + satellite algorithm)
+  #
+  #  Server path: pub/org/chc/products/CHIRPS/v3.0/
+  #  Two sub-flavours under daily/final/:
+  #    rnl  – rain + land (blended gauge/satellite, starts 1981)
+  #    sat  – satellite-only component of the blend (starts 1998)
+  #  Preliminary near-real-time updates live under daily/prelim/.
+  # ===================================================================
+
+  chirps-v3-global-daily-rnl:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/daily/final/rnl/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    # rnl = rain + land (gauge-merged satellite blend)
+    file_patterns:
+      tif: "{year}/chirps-v3.0.rnl.{year}.{month}.{day}.tif"
+    variables:
+      precipitation: *precip_daily
+
+  chirps-v3-global-daily-sat:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/daily/final/sat/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1998-01-01"
+    # sat = satellite-only component before gauge merging
+    file_patterns:
+      tif: "{year}/chirps-v3.0.sat.{year}.{month}.{day}.tif"
+    variables:
+      precipitation: *precip_daily
+
+  chirps-v3-global-daily-prelim:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/daily/prelim/sat/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2025-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "{year}/chirps-v3.0.prelim.{year}.{month}.{day}.tif"
+    variables:
+      precipitation: *precip_daily
+
+  chirps-v3-global-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/monthly/global/tifs/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_cog_nc_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v3.0.{year}.{month}.tif"
+    variables:
+      precipitation: *precip_monthly
+
+  chirps-v3-global-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/dekads/global/tifs/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v3.0.{year}.{month}.{dekad}.tif"
+    variables:
+      precipitation: *precip_dekadal
+
+  chirps-v3-global-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/pentads/global/tifs/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_cog_nc_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v3.0.{year}.{month}.{pentad}.tif"
+    variables:
+      precipitation: *precip_pentadal
+
+  chirps-v3-global-annual:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/annual/global/tifs/"
+    region: global
+    temporal_resolution: annual
+    pandas_freq: "AS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirps-v3.0.{year}.tif"
+    variables:
+      precipitation: *precip_annual
+
+  chirps-v3-global-2-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/2-monthly/global/tifs/"
+    region: global
+    temporal_resolution: 2-monthly
+    pandas_freq: "2MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    # {month_pair} is the 4-digit MMNN pair, e.g. "0102" for Jan-Feb.
+    file_patterns:
+      tif: "chirps-v3.0.{year}.{month_pair}.tif"
+    variables:
+      precipitation: *precip_2monthly
+
+  chirps-v3-prelim-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/prelim/monthly/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "chirps-v3.0.prelim.{year}.{month}.tif"
+    variables:
+      precipitation: *precip_monthly
+
+  chirps-v3-prelim-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/prelim/dekads/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "chirps-v3.0.prelim.{year}.{month}.{dekad}.tif"
+    variables:
+      precipitation: *precip_dekadal
+
+  chirps-v3-prelim-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS/v3.0/prelim/pentads/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    preliminary: true
+    file_patterns:
+      tif: "chirps-v3.0.prelim.{year}.{month}.{pentad}.tif"
+    variables:
+      precipitation: *precip_pentadal
+
+
+  # ===================================================================
+  #  CHIRP  (satellite-only, no gauge correction)
+  #
+  #  Server path: pub/org/chc/products/CHIRP/
+  #  CHIRP is the gauge-free satellite component before blending with
+  #  station data. Useful where gauge networks are sparse.
+  # ===================================================================
+
+  chirp-daily:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRP/daily/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    # Files are gzip-compressed on the FTP.
+    file_patterns:
+      tif: "{year}/chirp.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation: *precip_daily
+
+  chirp-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRP/monthly/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "CHIRP.{year}.{month}.tif"
+    variables:
+      precipitation: *precip_monthly
+
+  chirp-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRP/dekads/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "CHIRP.{year}.{month}.{dekad}.tif"
+    variables:
+      precipitation: *precip_dekadal
+
+  chirp-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRP/pentads/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "CHIRP.{year}.{month}.{pentad}.tif"
+    variables:
+      precipitation: *precip_pentadal
+
+
+  # ===================================================================
+  #  CHIRP v3.0  (satellite-only, updated algorithm)
+  #
+  #  Server path: pub/org/chc/products/CHIRP-v3.0/
+  #  Same no-gauge philosophy as CHIRP but based on the v3 retrieval.
+  #  Daily starts 1998 (TRMM-era onwards); monthly/dekad start 1981.
+  # ===================================================================
+
+  chirp-v3-global-daily:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRP-v3.0/daily/global/tifs/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1998-01-01"
+    file_patterns:
+      tif: "{year}/chirp-v3.0.{year}.{month}.{day}.tif"
+    variables:
+      precipitation: *precip_daily
+
+  chirp-v3-global-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRP-v3.0/monthly/global/tifs/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirp-v3.0.{year}.{month}.tif"
+    variables:
+      precipitation: *precip_monthly
+
+  chirp-v3-global-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRP-v3.0/dekads/global/tifs/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_bil
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "chirp-v3.0.{year}.{month}.{dekad}.tif"
+    variables:
+      precipitation: *precip_dekadal
+
+
+  # ===================================================================
+  #  CHIRTSdaily v1.0  (daily temperature & humidity, 1983-2016)
+  #
+  #  Server path: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/
+  #  Six variables, each in a separate subdirectory, each further split
+  #  by year.  Resolution: 0.05°.  Coverage: global land, 1983-2016.
+  # ===================================================================
+
+  chirtsdaily-tmax:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/Tmax/"
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc
+    start_date: "1983-01-01"
+    end_date: "2016-12-31"
+    file_patterns:
+      tif: "{year}/Tmax.{year}.{month}.{day}.tif"
+    variables:
+      tmax: *tmax
+
+  chirtsdaily-tmin:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/Tmin/"
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc
+    start_date: "1983-01-01"
+    end_date: "2016-12-31"
+    file_patterns:
+      tif: "{year}/Tmin.{year}.{month}.{day}.tif"
+    variables:
+      tmin: *tmin
+
+  chirtsdaily-heat-index:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/HeatIndex/"
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1983-01-01"
+    end_date: "2016-12-31"
+    file_patterns:
+      tif: "{year}/HeatIndex.{year}.{month}.{day}.tif"
+    variables:
+      heat_index: *heat_index
+
+  chirtsdaily-relative-humidity:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/RHum/"
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1983-01-01"
+    end_date: "2016-12-31"
+    file_patterns:
+      tif: "{year}/RH.{year}.{month}.{day}.tif"
+    variables:
+      relative_humidity: *relative_humidity
+
+  chirtsdaily-svp:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/svp/"
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1983-01-01"
+    end_date: "2016-12-31"
+    file_patterns:
+      tif: "{year}/svp.{year}.{month}.{day}.tif"
+    variables:
+      svp: *svp
+
+  chirtsdaily-vpd:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/vpd/"
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1983-01-01"
+    end_date: "2016-12-31"
+    file_patterns:
+      tif: "{year}/vpd.{year}.{month}.{day}.tif"
+    variables:
+      vpd: *vpd
+
+
+  # ===================================================================
+  #  CHIRTSmonthly  (monthly max-temperature CDR, 1983-2016)
+  #
+  #  Server path: pub/org/chc/products/CHIRTSmonthly/CHIRTSmax.CDR/
+  #  Files are flat in one directory (no year subdirectories).
+  # ===================================================================
+
+  chirtsmonthly-tmax:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRTSmonthly/CHIRTSmax.CDR/"
+    region: global-land
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif_nc
+    start_date: "1983-01-01"
+    end_date: "2016-12-31"
+    file_patterns:
+      tif: "CHIRTSmax.{year}.{month}.tif"
+    variables:
+      tmax: *tmax
+
+
+  # ===================================================================
+  #  CHIRPS-GEFS v3  (ensemble precipitation forecast, 2001-present)
+  #
+  #  Server path: pub/org/chc/products/CHIRPS-GEFS/v3/
+  #  Blends CHIRPS climatology with GEFS ensemble forecasts.  Provides
+  #  daily, dekadal (lead-0), and pentadal (lead-0) accumulations.
+  #  Note: file patterns are provisional; directory listing was empty
+  #  at catalog refresh time.
+  # ===================================================================
+
+  chirps-gefs-v3-daily:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS/v3/daily/global/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2001-01-01"
+    # Provisional pattern; verify against FTP listing before use.
+    file_patterns:
+      tif: "{year}/chirps-gefs.{year}.{month}.{day}.tif"
+    variables:
+      precipitation: *precip_daily
+
+  chirps-gefs-v3-dekad-lead0:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS/v3/dekad_lead_0/global/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2001-01-01"
+    # Provisional pattern; verify against FTP listing before use.
+    file_patterns:
+      tif: "chirps-gefs.{year}.{month}.{dekad}.tif"
+    variables:
+      precipitation: *precip_dekadal
+
+  chirps-gefs-v3-pentad-lead0:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS/v3/pentad_lead_0/global/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2001-01-01"
+    # Provisional pattern; verify against FTP listing before use.
+    file_patterns:
+      tif: "chirps-gefs.{year}.{month}.{pentad}.tif"
+    variables:
+      precipitation: *precip_pentadal
+
+
+  # ===================================================================
+  #  CHIRPS-GEFS precip v12  (forecast anomalies/accumulations)
+  #
+  #  Server path: pub/org/chc/products/CHIRPS-GEFS_precip_v12/
+  #  {doy} = 3-digit Julian day-of-year, zero-padded (e.g. "095").
+  #  Windows: pentad_first/second/last = pentad position within year;
+  #           dekad_first/last         = first/last dekad anomaly.
+  # ===================================================================
+
+  chirps-gefs-v12-daily-16day:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/daily_16day/"
+    region: global
+    temporal_resolution: daily
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    file_patterns:
+      tif: "data.{year}.{doy}.tif"
+    variables:
+      precipitation:
+        description: "16-day daily CHIRPS-GEFS accumulated precipitation (v12)"
+        units: "mm"
+        types: flux
+
+  chirps-gefs-v12-05day:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/05day/"
+    region: global
+    temporal_resolution: 5-day
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    file_patterns:
+      tif: "data.{year}.{doy}.tif"
+    variables:
+      precipitation:
+        description: "5-day accumulated CHIRPS-GEFS precipitation forecast (v12)"
+        units: "mm/5-days"
+        types: flux
+
+  chirps-gefs-v12-10day:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/10day/"
+    region: global
+    temporal_resolution: 10-day
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    file_patterns:
+      tif: "data.{year}.{doy}.tif"
+    variables:
+      precipitation:
+        description: "10-day accumulated CHIRPS-GEFS precipitation forecast (v12)"
+        units: "mm/10-days"
+        types: flux
+
+  chirps-gefs-v12-15day:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/15day/"
+    region: global
+    temporal_resolution: 15-day
+    pandas_freq: "15D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    file_patterns:
+      tif: "data.{year}.{doy}.tif"
+    variables:
+      precipitation:
+        description: "15-day accumulated CHIRPS-GEFS precipitation forecast (v12)"
+        units: "mm/15-days"
+        types: flux
+
+  chirps-gefs-v12-pentad-first:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_first/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    # {doy} = 3-digit Julian day-of-year
+    file_patterns:
+      tif: "data.{year}.{doy}.tif"
+    variables:
+      precipitation:
+        description: "First-pentad CHIRPS-GEFS accumulated precipitation (v12)"
+        units: "mm/pentad"
+        types: flux
+
+  chirps-gefs-v12-pentad-second:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_second/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    file_patterns:
+      tif: "data.{year}.{doy}.tif"
+    variables:
+      precipitation:
+        description: "Second-pentad CHIRPS-GEFS accumulated precipitation (v12)"
+        units: "mm/pentad"
+        types: flux
+
+  chirps-gefs-v12-pentad-last:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_last/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    file_patterns:
+      tif: "data.{year}.{doy}.tif"
+    variables:
+      precipitation:
+        description: "Last-pentad CHIRPS-GEFS accumulated precipitation (v12)"
+        units: "mm/pentad"
+        types: flux
+
+  chirps-gefs-v12-dekad-first:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/dekad_first/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    # Files contain anomaly values; prefix "anom."
+    file_patterns:
+      tif: "anom.{year}.{doy}.tif"
+    variables:
+      precipitation_anomaly:
+        description: "First-dekad CHIRPS-GEFS precipitation anomaly (v12)"
+        units: "mm/dekad"
+        types: flux
+
+  chirps-gefs-v12-dekad-last:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHIRPS-GEFS_precip_v12/dekad_last/"
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2000-01-01"
+    file_patterns:
+      tif: "anom.{year}.{doy}.tif"
+    variables:
+      precipitation_anomaly:
+        description: "Last-dekad CHIRPS-GEFS precipitation anomaly (v12)"
+        units: "mm/dekad"
+        types: flux
+
+
+  # ===================================================================
+  #  CHPclim v2  (climatological precipitation, global)
+  #
+  #  Server path: pub/org/chc/products/CHPclim/v2/monthly_9090/
+  #  Static 12-file dataset — one file per calendar month.
+  #  {month} = 2-digit month (01-12); no year in filename.
+  # ===================================================================
+
+  chpclim-v2-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHPclim/v2/monthly_9090/"
+    region: global-extended
+    temporal_resolution: monthly-climatology
+    # 12 static climatological months, not a repeating time series.
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    end_date: "2010-12-31"
+    # Only 12 files total (one per calendar month, no year).
+    file_patterns:
+      tif: "CHPclim2.90-90.{month}.tif"
+    variables:
+      precipitation:
+        description: "Monthly mean climatological precipitation (CHPclim v2, 1981-2010 baseline)"
+        units: "mm/month"
+        types: flux
+
+
+  # ===================================================================
+  #  WBGT  (Wet Bulb Globe Temperature, global, 1980-present)
+  #
+  #  Server path: pub/org/chc/products/WBGT/
+  #  Filenames encode the date range of the composite period.
+  #  {start_yyyymmdd} / {end_yyyymmdd} = YYYYMMDD of period start/end.
+  # ===================================================================
+
+  wbgt-monthly:
+    ftp_bases:
+      tif: "pub/org/chc/products/WBGT/wbgt_global_1_monthly_data/"
+    region: global-extended
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [1.0]
+    formats: *fmt_tif
+    start_date: "1980-01-01"
+    # Date-range filename: period start and end in YYYYMMDD.
+    file_patterns:
+      tif: "data_{start_yyyymmdd}_{end_yyyymmdd}.tif"
+    variables:
+      wbgt: *wbgt
+
+  wbgt-dekad:
+    ftp_bases:
+      tif: "pub/org/chc/products/WBGT/wbgt_global_dekad_data/"
+    region: global-extended
+    temporal_resolution: dekadal
+    pandas_freq: "10D"
+    spatial_resolution: [1.0]
+    formats: *fmt_tif
+    start_date: "1980-01-01"
+    # Date-range filename: period start and end in YYYYMMDD.
+    file_patterns:
+      tif: "data_{start_yyyymmdd}_{end_yyyymmdd}.tif"
+    variables:
+      wbgt: *wbgt
+
+
+  # ===================================================================
+  #  SPI / CHIRPS3  (Standardized Precipitation Index)
+  #
+  #  Server path: pub/org/chc/products/SPI/CHIRPS3/
+  #  Each accumulation scale lives in its own subdirectory.
+  #  {scale}  = 2-digit accumulation length in pentads (01, 02, …, 21).
+  #  {pentad} = 2-digit pentad-of-year, zero-padded (01-73).
+  # ===================================================================
+
+  spi-chirps3-01-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/01_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_01PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+  spi-chirps3-02-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/02_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_02PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+  spi-chirps3-05-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/05_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_05PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+  spi-chirps3-06-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/06_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_06PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+  spi-chirps3-09-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/09_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_09PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+  spi-chirps3-12-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/12_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_12PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+  spi-chirps3-15-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/15_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_15PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+  spi-chirps3-18-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/18_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_18PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+  spi-chirps3-21-pentad:
+    ftp_bases:
+      tif: "pub/org/chc/products/SPI/CHIRPS3/21_pentad/"
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: "5D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "1981-01-01"
+    file_patterns:
+      tif: "SPI_21PentAccum_{year}_p{pentad}.tif"
+    variables:
+      spi: *spi
+
+
+  # ===================================================================
+  #  SPEI v1  (Standardized Precipitation-Evapotranspiration Index)
+  #
+  #  Server path: pub/org/chc/products/SPEI/v1/
+  #  Based on CHIRPS3 and MERRA2 potential evapotranspiration.
+  #  Files are monthly NetCDFs; {month} = 2-digit calendar month (01-12).
+  #  {scale} = 2-digit accumulation length in months (01, 02, 03, 06,
+  #             09, 12).
+  # ===================================================================
+
+  spei-v1-01-month:
+    ftp_bases:
+      netcdf: "pub/org/chc/products/SPEI/v1/01_month/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_nc
+    start_date: "1981-01-01"
+    # {month} = 2-digit calendar month; one NetCDF file per month.
+    file_patterns:
+      netcdf: "SPEI_C3_Merra_Global_01month_{month}.nc"
+    variables:
+      spei: *spei
+
+  spei-v1-02-month:
+    ftp_bases:
+      netcdf: "pub/org/chc/products/SPEI/v1/02_month/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_nc
+    start_date: "1981-01-01"
+    file_patterns:
+      netcdf: "SPEI_C3_Merra_Global_02month_{month}.nc"
+    variables:
+      spei: *spei
+
+  spei-v1-03-month:
+    ftp_bases:
+      netcdf: "pub/org/chc/products/SPEI/v1/03_month/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_nc
+    start_date: "1981-01-01"
+    file_patterns:
+      netcdf: "SPEI_C3_Merra_Global_03month_{month}.nc"
+    variables:
+      spei: *spei
+
+  spei-v1-06-month:
+    ftp_bases:
+      netcdf: "pub/org/chc/products/SPEI/v1/06_month/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_nc
+    start_date: "1981-01-01"
+    file_patterns:
+      netcdf: "SPEI_C3_Merra_Global_06month_{month}.nc"
+    variables:
+      spei: *spei
+
+  spei-v1-09-month:
+    ftp_bases:
+      netcdf: "pub/org/chc/products/SPEI/v1/09_month/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_nc
+    start_date: "1981-01-01"
+    file_patterns:
+      netcdf: "SPEI_C3_Merra_Global_09month_{month}.nc"
+    variables:
+      spei: *spei
+
+  spei-v1-12-month:
+    ftp_bases:
+      netcdf: "pub/org/chc/products/SPEI/v1/12_month/"
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.05]
+    formats: *fmt_nc
+    start_date: "1981-01-01"
+    file_patterns:
+      netcdf: "SPEI_C3_Merra_Global_12month_{month}.nc"
+    variables:
+      spei: *spei
+
+
+  # ===================================================================
+  #  CHC_CMIP6  (daily climatological deltas for scenario projections)
+  #
+  #  Server path: pub/org/chc/products/CHC_CMIP6/daily_deltas/{var}/{scenario}/
+  #  Variables: precip, rh, tmax, tmin.
+  #  Scenarios: 2030_SSP245, 2030_SSP585, 2050_SSP245, 2050_SSP585.
+  #  Files represent day-of-year deltas (365 tiles), not a time series.
+  #  {month} / {day} = 2-digit calendar month and day (01.01 … 12.31).
+  # ===================================================================
+
+  chc-cmip6-precip-daily-delta-2030-ssp245:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2030_SSP245/"
+    region: global
+    temporal_resolution: daily-delta
+    # 365 day-of-year climatological tiles, not a repeating time series.
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2030-01-01"
+    end_date: "2030-12-31"
+    file_patterns:
+      tif: "2030_SSP245_delta_precip.{month}.{day}.tif"
+    variables:
+      precipitation_delta:
+        description: "Daily precipitation delta relative to historical baseline (SSP2-4.5, target 2030)"
+        units: "mm/day"
+        types: flux
+
+  chc-cmip6-precip-daily-delta-2030-ssp585:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2030_SSP585/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2030-01-01"
+    end_date: "2030-12-31"
+    file_patterns:
+      tif: "2030_SSP585_delta_precip.{month}.{day}.tif"
+    variables:
+      precipitation_delta:
+        description: "Daily precipitation delta relative to historical baseline (SSP5-8.5, target 2030)"
+        units: "mm/day"
+        types: flux
+
+  chc-cmip6-precip-daily-delta-2050-ssp245:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2050_SSP245/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2050-01-01"
+    end_date: "2050-12-31"
+    file_patterns:
+      tif: "2050_SSP245_delta_precip.{month}.{day}.tif"
+    variables:
+      precipitation_delta:
+        description: "Daily precipitation delta relative to historical baseline (SSP2-4.5, target 2050)"
+        units: "mm/day"
+        types: flux
+
+  chc-cmip6-precip-daily-delta-2050-ssp585:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2050_SSP585/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2050-01-01"
+    end_date: "2050-12-31"
+    file_patterns:
+      tif: "2050_SSP585_delta_precip.{month}.{day}.tif"
+    variables:
+      precipitation_delta:
+        description: "Daily precipitation delta relative to historical baseline (SSP5-8.5, target 2050)"
+        units: "mm/day"
+        types: flux
+
+  chc-cmip6-rh-daily-delta-2030-ssp245:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2030_SSP245/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2030-01-01"
+    end_date: "2030-12-31"
+    file_patterns:
+      tif: "2030_SSP245_delta_rh.{month}.{day}.tif"
+    variables:
+      rh_delta:
+        description: "Daily relative-humidity delta relative to historical baseline (SSP2-4.5, target 2030)"
+        units: "%"
+        types: state
+
+  chc-cmip6-rh-daily-delta-2030-ssp585:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2030_SSP585/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2030-01-01"
+    end_date: "2030-12-31"
+    file_patterns:
+      tif: "2030_SSP585_delta_rh.{month}.{day}.tif"
+    variables:
+      rh_delta:
+        description: "Daily relative-humidity delta relative to historical baseline (SSP5-8.5, target 2030)"
+        units: "%"
+        types: state
+
+  chc-cmip6-rh-daily-delta-2050-ssp245:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2050_SSP245/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2050-01-01"
+    end_date: "2050-12-31"
+    file_patterns:
+      tif: "2050_SSP245_delta_rh.{month}.{day}.tif"
+    variables:
+      rh_delta:
+        description: "Daily relative-humidity delta relative to historical baseline (SSP2-4.5, target 2050)"
+        units: "%"
+        types: state
+
+  chc-cmip6-rh-daily-delta-2050-ssp585:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2050_SSP585/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2050-01-01"
+    end_date: "2050-12-31"
+    file_patterns:
+      tif: "2050_SSP585_delta_rh.{month}.{day}.tif"
+    variables:
+      rh_delta:
+        description: "Daily relative-humidity delta relative to historical baseline (SSP5-8.5, target 2050)"
+        units: "%"
+        types: state
+
+  chc-cmip6-tmax-daily-delta-2030-ssp245:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2030_SSP245/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2030-01-01"
+    end_date: "2030-12-31"
+    file_patterns:
+      tif: "2030_SSP245_delta_tmax.{month}.{day}.tif"
+    variables:
+      tmax_delta:
+        description: "Daily maximum temperature delta relative to historical baseline (SSP2-4.5, target 2030)"
+        units: "degC"
+        types: state
+
+  chc-cmip6-tmax-daily-delta-2030-ssp585:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2030_SSP585/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2030-01-01"
+    end_date: "2030-12-31"
+    file_patterns:
+      tif: "2030_SSP585_delta_tmax.{month}.{day}.tif"
+    variables:
+      tmax_delta:
+        description: "Daily maximum temperature delta relative to historical baseline (SSP5-8.5, target 2030)"
+        units: "degC"
+        types: state
+
+  chc-cmip6-tmax-daily-delta-2050-ssp245:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2050_SSP245/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2050-01-01"
+    end_date: "2050-12-31"
+    file_patterns:
+      tif: "2050_SSP245_delta_tmax.{month}.{day}.tif"
+    variables:
+      tmax_delta:
+        description: "Daily maximum temperature delta relative to historical baseline (SSP2-4.5, target 2050)"
+        units: "degC"
+        types: state
+
+  chc-cmip6-tmax-daily-delta-2050-ssp585:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2050_SSP585/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2050-01-01"
+    end_date: "2050-12-31"
+    file_patterns:
+      tif: "2050_SSP585_delta_tmax.{month}.{day}.tif"
+    variables:
+      tmax_delta:
+        description: "Daily maximum temperature delta relative to historical baseline (SSP5-8.5, target 2050)"
+        units: "degC"
+        types: state
+
+  chc-cmip6-tmin-daily-delta-2030-ssp245:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2030_SSP245/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2030-01-01"
+    end_date: "2030-12-31"
+    file_patterns:
+      tif: "2030_SSP245_delta_tmin.{month}.{day}.tif"
+    variables:
+      tmin_delta:
+        description: "Daily minimum temperature delta relative to historical baseline (SSP2-4.5, target 2030)"
+        units: "degC"
+        types: state
+
+  chc-cmip6-tmin-daily-delta-2030-ssp585:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2030_SSP585/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2030-01-01"
+    end_date: "2030-12-31"
+    file_patterns:
+      tif: "2030_SSP585_delta_tmin.{month}.{day}.tif"
+    variables:
+      tmin_delta:
+        description: "Daily minimum temperature delta relative to historical baseline (SSP5-8.5, target 2030)"
+        units: "degC"
+        types: state
+
+  chc-cmip6-tmin-daily-delta-2050-ssp245:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2050_SSP245/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2050-01-01"
+    end_date: "2050-12-31"
+    file_patterns:
+      tif: "2050_SSP245_delta_tmin.{month}.{day}.tif"
+    variables:
+      tmin_delta:
+        description: "Daily minimum temperature delta relative to historical baseline (SSP2-4.5, target 2050)"
+        units: "degC"
+        types: state
+
+  chc-cmip6-tmin-daily-delta-2050-ssp585:
+    ftp_bases:
+      tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2050_SSP585/"
+    region: global
+    temporal_resolution: daily-delta
+    pandas_freq: "D"
+    spatial_resolution: [0.05]
+    formats: *fmt_tif
+    start_date: "2050-01-01"
+    end_date: "2050-12-31"
+    file_patterns:
+      tif: "2050_SSP585_delta_tmin.{month}.{day}.tif"
+    variables:
+      tmin_delta:
+        description: "Daily minimum temperature delta relative to historical baseline (SSP5-8.5, target 2050)"
+        units: "degC"
+        types: state
+

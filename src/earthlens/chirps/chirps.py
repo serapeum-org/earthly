@@ -11,7 +11,7 @@ from pyramids._io import extract_from_gz
 from pyramids.dataset import Dataset
 from tqdm import tqdm
 
-from earthlens.base import AbstractCatalog, AbstractDataSource
+from earthlens.base import AbstractDataSource
 
 
 class CHIRPS(AbstractDataSource):
@@ -350,23 +350,3 @@ class CHIRPS(AbstractDataSource):
                 "The file covering the whole world could not be deleted please delete it after the download ends"
             )
         return True
-
-
-class Catalog(AbstractCatalog):
-    """CHIRPS data catalog."""
-
-    def get_catalog(self):
-        """return the catalog."""
-        return {
-            "Precipitation": {
-                "descriptions": "rainfall [mm/temporal_resolution]",
-                "units": "mm/temporal_resolution",
-                "temporal resolution": ["daily", "monthly"],
-                "file name": "rainfall",
-                "var_name": "R",
-            }
-        }
-
-    def get_variable(self, var_name):
-        """get the details of a specific variable."""
-        return super().get_variable(var_name)
