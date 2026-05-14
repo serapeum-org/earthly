@@ -2387,3 +2387,578 @@ datasets:
         description: VI quality summary
       DayOfYear:
         description: Day of year of the composite pixel
+
+  MODIS/061/MOD10A1:
+    title: MOD10A1.061 Terra Snow Cover Daily Global 500m
+    provider: NASA NSIDC DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: NASA NSIDC DAAC — public, no restrictions.
+    bands:
+      NDSI_Snow_Cover:
+        description: NDSI snow cover (0-100)
+        units: "%"
+        min: 0
+        max: 100
+      NDSI:
+        description: Raw NDSI (pre-screening)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Snow_Albedo_Daily_Tile:
+        description: Snow albedo percentage
+        units: "%"
+        min: 1
+        max: 100
+      NDSI_Snow_Cover_Basic_QA:
+        description: Basic quality flag for the NDSI snow cover
+
+  MODIS/061/MYD09GA:
+    title: MYD09GA.061 Aqua Surface Reflectance Daily Global 1km/500m
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      sur_refl_b01:
+        description: Band 1 (red) surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: Band 2 (NIR) surface reflectance
+        scale: 0.0001
+        wavelength: 0.8585
+      sur_refl_b03:
+        description: Band 3 (blue) surface reflectance
+        scale: 0.0001
+        wavelength: 0.469
+      sur_refl_b04:
+        description: Band 4 (green) surface reflectance
+        scale: 0.0001
+        wavelength: 0.555
+      sur_refl_b06:
+        description: Band 6 (SWIR-1) surface reflectance
+        scale: 0.0001
+        wavelength: 1.64
+      sur_refl_b07:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 0.0001
+        wavelength: 2.13
+      state_1km:
+        description: Reflectance data state QA
+      QC_500m:
+        description: Surface reflectance quality assurance
+
+  MODIS/061/MYD11A1:
+    title: MYD11A1.061 Aqua Land Surface Temperature and Emissivity Daily 1km
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      LST_Day_1km:
+        description: Daytime land surface temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Night_1km:
+        description: Nighttime land surface temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      QC_Day:
+        description: Daytime LST quality indicators
+      QC_Night:
+        description: Nighttime LST quality indicators
+      Emis_31:
+        description: Band 31 emissivity
+        scale: 0.002
+        offset: 0.49
+      Emis_32:
+        description: Band 32 emissivity
+        scale: 0.002
+        offset: 0.49
+
+  MODIS/061/MCD43A4:
+    title: MCD43A4.061 MODIS Nadir BRDF-Adjusted Reflectance Daily 500m
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Nadir_Reflectance_Band1:
+        description: NBAR at local solar noon, MODIS band 1 (red)
+        scale: 0.0001
+        wavelength: 0.645
+        min: 0
+        max: 32766
+      Nadir_Reflectance_Band2:
+        description: NBAR at local solar noon, MODIS band 2 (NIR)
+        scale: 0.0001
+        wavelength: 0.8585
+        min: 0
+        max: 32766
+      Nadir_Reflectance_Band3:
+        description: NBAR at local solar noon, MODIS band 3 (blue)
+        scale: 0.0001
+        wavelength: 0.469
+        min: 0
+        max: 32766
+      Nadir_Reflectance_Band4:
+        description: NBAR at local solar noon, MODIS band 4 (green)
+        scale: 0.0001
+        wavelength: 0.555
+        min: 0
+        max: 32766
+      Nadir_Reflectance_Band6:
+        description: NBAR at local solar noon, MODIS band 6 (SWIR-1)
+        scale: 0.0001
+        wavelength: 1.64
+        min: 0
+        max: 32766
+      Nadir_Reflectance_Band7:
+        description: NBAR at local solar noon, MODIS band 7 (SWIR-2)
+        scale: 0.0001
+        wavelength: 2.13
+        min: 0
+        max: 32766
+
+  MODIS/061/MCD19A2_GRANULES:
+    title: "MCD19A2.061: MAIAC Land Aerosol Optical Depth Daily 1km (Terra+Aqua)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Optical_Depth_047:
+        description: Aerosol optical depth, MODIS blue band
+        scale: 0.001
+        wavelength: 0.47
+      Optical_Depth_055:
+        description: Aerosol optical depth, MODIS green band
+        scale: 0.001
+        wavelength: 0.55
+      AOD_Uncertainty:
+        description: AOD uncertainty (blue-band surface brightness)
+        scale: 0.0001
+      FineModeFraction:
+        description: Fine-mode fraction (ocean and large inland lakes)
+        scale: 0.0001
+
+  NOAA/VIIRS/DNB/MONTHLY_V1/VCMSLCFG:
+    title: "VIIRS Stray-Light Corrected DNB Monthly Composites v1 (VCMSLCFG)"
+    provider: Earth Observation Group, Colorado School of Mines
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2014-01-01"
+      end_date: null
+      bbox: [-180, -65, 180, 75]
+    default_reducer: mean
+    terms: Free for use with attribution (Colorado School of Mines).
+    bands:
+      avg_rad:
+        description: Monthly average DNB radiance (nighttime lights)
+        units: nanoWatts/sr/cm^2
+      cf_cvg:
+        description: Cloud-free observation count contributing to the composite
+
+  UMD/hansen/global_forest_change_2024_v1_12:
+    title: "Hansen Global Forest Change v1.12 (2000-2024)"
+    provider: Hansen / UMD / Google / USGS / NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2024-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      treecover2000:
+        description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
+        units: "%"
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss in 2000-2024 (binary stand-replacement disturbance)
+      gain:
+        description: Forest gain in 2000-2012 (binary inverse of loss)
+      lossyear:
+        description: Year of forest cover loss (1-24, ordinal year since 2000)
+        min: 0
+        max: 24
+      datamask:
+        description: Data quality mask (no-data / land / permanent water)
+
+  ESA/CCI/FireCCI/5_1:
+    title: "FireCCI v5.1: ESA CCI Burned Area Pixel Product (250m, MODIS-based)"
+    provider: ESA Climate Change Initiative — Fire ECV
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 250
+    extent:
+      start_date: "2001-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: Free for any use with attribution.
+    user_uploaded: true
+    bands:
+      BurnDate:
+        description: Day of year of first burn detection
+        min: 1
+        max: 366
+      ConfidenceLevel:
+        description: Probability of burn detection
+        units: "%"
+        min: 1
+        max: 100
+      LandCover:
+        description: Land-cover class of the burned pixel (CCI LandCover)
+      ObservedFlag:
+        description: Why the pixel was/was-not processed
+
+  LANDSAT/LT05/C02/T1_L2:
+    title: USGS Landsat 5 Level 2, Collection 2, Tier 1 (Surface Reflectance + Surface Temperature)
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: "2012-05-05"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  NASA/SMAP/SPL3SMP_E/006:
+    title: "SMAP L3 Enhanced Daily 9km Soil Moisture (SPL3SMP_E.006)"
+    provider: NASA NSIDC DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 9000
+    extent:
+      start_date: "2015-04-02"
+      end_date: null
+      bbox: [-180, -84, 180, 84]
+    default_reducer: mean
+    terms: Public domain (NASA / NSIDC).
+    bands:
+      soil_moisture_am:
+        description: Retrieved volumetric soil moisture (AM overpass)
+        units: m^3/m^3
+      soil_moisture_pm:
+        description: Retrieved volumetric soil moisture (PM overpass)
+        units: m^3/m^3
+      vegetation_water_content_am:
+        description: Vegetation water content at 9km (AM overpass)
+        units: kg/m^2
+      tb_h_corrected_am:
+        description: Horizontally polarised brightness temperature (AM overpass)
+        units: K
+      tb_v_corrected_am:
+        description: Vertically polarised brightness temperature (AM overpass)
+        units: K
+      retrieval_qual_flag_am:
+        description: Soil moisture retrieval quality flag (AM)
+
+  NASA/GLDAS/V021/NOAH/G025/T3H:
+    title: "GLDAS-2.1 Noah Land Surface Model 3-hourly 0.25° (V021)"
+    provider: NASA GES DISC at Goddard Space Flight Center
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA GES DISC).
+    bands:
+      AvgSurfT_inst:
+        description: Average surface skin temperature
+        units: K
+      Albedo_inst:
+        description: Albedo
+        units: "%"
+      Evap_tavg:
+        description: Total evapotranspiration
+        units: kg/m^2/s
+      LWdown_f_tavg:
+        description: Downward long-wave radiation flux
+        units: W/m^2
+      SWdown_f_tavg:
+        description: Downward short-wave radiation flux
+        units: W/m^2
+      Psurf_f_inst:
+        description: Surface air pressure
+        units: Pa
+      Qair_f_inst:
+        description: Specific humidity
+        units: kg/kg
+      Rainf_f_tavg:
+        description: Total precipitation rate
+        units: kg/m^2/s
+      Snowf_tavg:
+        description: Snow precipitation rate
+        units: kg/m^2/s
+      SoilMoi0_10cm_inst:
+        description: Soil moisture, 0-10 cm
+        units: kg/m^2
+      Tair_f_inst:
+        description: Near-surface air temperature
+        units: K
+      Wind_f_inst:
+        description: Near-surface wind speed
+        units: m/s
+
+  WORLDCLIM/V1/MONTHLY:
+    title: "WorldClim v1: Global Climate Normals (1960-1990, monthly 1km)"
+    provider: WorldClim — University of California, Berkeley
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1960-01-01"
+      end_date: "1990-12-31"
+    default_reducer: mean
+    terms: CC-BY-SA-4.0.
+    bands:
+      tavg:
+        description: Mean monthly temperature climatology
+        units: deg_C
+        scale: 0.1
+      tmin:
+        description: Minimum monthly temperature climatology
+        units: deg_C
+        scale: 0.1
+      tmax:
+        description: Maximum monthly temperature climatology
+        units: deg_C
+        scale: 0.1
+      prec:
+        description: Mean monthly precipitation climatology
+        units: mm
+
+  COPERNICUS/S5P/OFFL/L3_O3:
+    title: "Sentinel-5P OFFL O3: Total Column Ozone"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-09-08"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      O3_column_number_density:
+        description: Total atmospheric column of O3 (surface to top of atmosphere)
+        units: mol/m^2
+      O3_effective_temperature:
+        description: Ozone cross-section effective temperature
+        units: K
+      cloud_fraction:
+        description: Effective cloud fraction
+        min: 0
+        max: 1
+
+  COPERNICUS/S5P/OFFL/L3_CH4:
+    title: "Sentinel-5P OFFL CH4: Column-Averaged Methane Mixing Ratio"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2019-02-08"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      CH4_column_volume_mixing_ratio_dry_air:
+        description: Column-averaged dry-air mixing ratio of methane (ppb)
+        units: mol/mol
+      aerosol_height:
+        description: Aerosol height parameter in the CH4 retrieval
+        units: m
+      aerosol_optical_depth:
+        description: Aerosol optical thickness in the SWIR band
+
+  COPERNICUS/S5P/OFFL/L3_AER_AI:
+    title: "Sentinel-5P OFFL AER_AI: UV Aerosol Index (354/388 nm)"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      absorbing_aerosol_index:
+        description: UV absorbing-aerosol index (354/388 nm)
+
+  COPERNICUS/S5P/OFFL/L3_SO2:
+    title: "Sentinel-5P OFFL SO2: Total Column Sulfur Dioxide"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-12-05"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      SO2_column_number_density:
+        description: SO2 vertical column density (ground level)
+        units: mol/m^2
+      SO2_column_number_density_amf:
+        description: Air mass factor (cloudy/clear weighted)
+      SO2_slant_column_number_density:
+        description: SO2 ring-corrected slant column number density
+        units: mol/m^2
+      cloud_fraction:
+        description: Effective cloud fraction
+        min: 0
+        max: 1
+
+  COPERNICUS/S5P/OFFL/L3_HCHO:
+    title: "Sentinel-5P OFFL HCHO: Tropospheric Formaldehyde Column"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-12-05"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      tropospheric_HCHO_column_number_density:
+        description: Tropospheric HCHO column number density
+        units: mol/m^2
+      tropospheric_HCHO_column_number_density_amf:
+        description: Tropospheric air mass factor
+      HCHO_slant_column_number_density:
+        description: HCHO slant column number density
+        units: mol/m^2
+      cloud_fraction:
+        description: Effective cloud fraction
+        min: 0
+        max: 1
+
+  MERIT/DEM/v1_0_3:
+    title: "MERIT DEM v1.0.3: Multi-Error-Removed Improved-Terrain DEM (90m)"
+    provider: Dai Yamazaki — University of Tokyo
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1987-01-01"
+      end_date: "2017-12-31"
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mosaic
+    terms: Free with citation (Yamazaki et al., 2017).
+    user_uploaded: true
+    bands:
+      dem:
+        description: Elevation referenced to the EGM96 geoid
+        units: m
+
+  JRC/GHSL/P2023A/GHS_SMOD:
+    title: "GHSL P2023A: Degree of Urbanisation (SMOD) 1975-2030 (1km)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2030-01-01"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      smod_code:
+        description: Degree-of-urbanisation class (rural/town/city granularity)
+
+  WorldPop/GP/100m/pop:
+    title: "WorldPop GP 100m Population (annual estimated residents per grid cell)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      population:
+        description: Estimated number of residents per ~100m grid cell
