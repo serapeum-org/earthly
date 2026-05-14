@@ -4760,3 +4760,545 @@ datasets:
         description: Data quality flag, band 01
       DQF_C13:
         description: Data quality flag, band 13
+
+  COPERNICUS/S2_CLOUD_PROBABILITY:
+    title: "Sentinel-2 Cloud Probability (s2cloudless companion to L1C / L2A)"
+    provider: ESA / Copernicus / Sentinel Hub
+    ee_type: image_collection
+    cadence: { interval: 5, unit: day }
+    spatial_resolution: 10
+    extent:
+      start_date: "2015-06-27"
+      end_date: null
+      bbox: [-180, -56, 180, 83]
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      probability:
+        description: Per-pixel cloud probability (0-100, s2cloudless model)
+        units: "%"
+        min: 0
+        max: 100
+
+  COPERNICUS/S2_SR:
+    title: "Sentinel-2 MSI Level-2A Surface Reflectance (legacy, superseded by S2_SR_HARMONIZED)"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 5, unit: day }
+    spatial_resolution: 10
+    extent:
+      start_date: "2017-03-28"
+      end_date: null
+      bbox: [-180, -56, 180, 83]
+    default_reducer: median
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      B2:
+        description: Blue
+        scale: 0.0001
+        wavelength: 0.4966
+      B3:
+        description: Green
+        scale: 0.0001
+        wavelength: 0.56
+      B4:
+        description: Red
+        scale: 0.0001
+        wavelength: 0.6645
+      B5:
+        description: Red Edge 1
+        scale: 0.0001
+        wavelength: 0.7039
+      B6:
+        description: Red Edge 2
+        scale: 0.0001
+        wavelength: 0.7402
+      B7:
+        description: Red Edge 3
+        scale: 0.0001
+        wavelength: 0.7825
+      B8:
+        description: NIR
+        scale: 0.0001
+        wavelength: 0.8351
+      B8A:
+        description: Red Edge 4 / Narrow NIR
+        scale: 0.0001
+        wavelength: 0.8648
+      B11:
+        description: SWIR-1
+        scale: 0.0001
+        wavelength: 1.6137
+      B12:
+        description: SWIR-2
+        scale: 0.0001
+        wavelength: 2.2024
+      SCL:
+        description: Scene classification map (0-11; cloud / shadow / snow / water classes)
+      QA60:
+        description: Cloud mask (cirrus / opaque)
+
+  NASA/SMAP/SPL4SMGP/008:
+    title: "SMAP L4 Global 3-hourly 9km Surface and Root-Zone Soil Moisture (SPL4SMGP.008)"
+    provider: NASA NSIDC DAAC
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 11000
+    extent:
+      start_date: "2015-03-31"
+      end_date: null
+      bbox: [-180, -85.044, 180, 85.044]
+    default_reducer: mean
+    terms: Public domain (NASA / NSIDC).
+    bands:
+      sm_surface:
+        description: Top-layer soil moisture (0-5 cm)
+        units: m^3/m^3
+        min: 0
+        max: 0.9
+      sm_rootzone:
+        description: Root-zone soil moisture (0-100 cm)
+        units: m^3/m^3
+        min: 0
+        max: 0.9
+      sm_profile:
+        description: Total profile soil moisture (0 cm to model bedrock)
+        units: m^3/m^3
+      soil_temp_layer1:
+        description: Soil temperature, layer 1 (0-10 cm)
+        units: K
+      surface_temp:
+        description: Mean land-surface temperature (radiative)
+        units: K
+      snow_mass:
+        description: Snow mass per unit area (water equivalent)
+        units: kg/m^2
+
+  NASA/GLDAS/V022/CLSM/G025/DA1D:
+    title: "GLDAS-2.2 CLSM Daily 0.25° (Catchment Land Surface Model with DA, 2003-present)"
+    provider: NASA GES DISC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA GES DISC).
+    bands:
+      AvgSurfT_tavg:
+        description: Average surface skin temperature
+        units: K
+      Tair_f_tavg:
+        description: Near-surface air temperature
+        units: K
+      Rainf_tavg:
+        description: Total precipitation rate
+        units: kg/m^2/s
+      Evap_tavg:
+        description: Total evapotranspiration
+        units: kg/m^2/s
+      RootMoist_tavg:
+        description: Root-zone soil moisture
+        units: kg/m^2
+      SWE_tavg:
+        description: Snow water equivalent
+        units: kg/m^2
+      SnowDepth_tavg:
+        description: Snow depth
+        units: m
+      Qs_tavg:
+        description: Surface runoff
+        units: kg/m^2/s
+      Qsb_tavg:
+        description: Baseflow / groundwater runoff
+        units: kg/m^2/s
+      Wind_f_tavg:
+        description: Near-surface wind speed
+        units: m/s
+
+  NASA/GSFC/MERRA/aer/2:
+    title: "MERRA-2 M2T1NXAER: Hourly Aerosol Diagnostics V5.12.4"
+    provider: NASA GSFC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 55000
+    extent:
+      start_date: "1980-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA GSFC).
+    bands:
+      TOTEXTTAU:
+        description: Total aerosol extinction AOT (550 nm, all species)
+      TOTSCATAU:
+        description: Total aerosol scattering AOT (550 nm)
+      TOTANGSTR:
+        description: Total aerosol Angstrom parameter (470/870 nm)
+      DUEXTTAU:
+        description: Dust extinction AOT (550 nm)
+      SSEXTTAU:
+        description: Sea-salt extinction AOT (550 nm)
+      BCEXTTAU:
+        description: Black-carbon extinction AOT (550 nm)
+      OCEXTTAU:
+        description: Organic-carbon extinction AOT (550 nm)
+      SUEXTTAU:
+        description: Sulphate extinction AOT (550 nm)
+      AODANA:
+        description: Aerosol optical depth analysis (assimilated)
+
+  UCSB-CHC/CHIRPS/V3/DAILY_RNL:
+    title: "CHIRPS v3 Daily Reanalysis-Blended Precipitation (UCSB CHC, 1981-present)"
+    provider: UCSB / CHC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    terms: Public domain.
+    bands:
+      precipitation:
+        description: Daily precipitation (reanalysis-blended)
+        units: mm/d
+
+  NASA/GRACE/MASS_GRIDS/LAND:
+    title: "GRACE Tellus Monthly Mass Grids — Land Water Storage Anomalies"
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 111320
+    extent:
+      start_date: "2002-04-01"
+      end_date: "2017-06-30"
+    default_reducer: mean
+    terms: Free for any use (NASA GRACE).
+    bands:
+      lwe_thickness_csr:
+        description: Liquid-water-equivalent thickness anomaly (CSR processing centre)
+        units: cm
+      lwe_thickness_gfz:
+        description: Liquid-water-equivalent thickness anomaly (GFZ processing centre)
+        units: cm
+      lwe_thickness_jpl:
+        description: Liquid-water-equivalent thickness anomaly (JPL processing centre)
+        units: cm
+
+  NASA/MEASURES/GFCC/TC/v3:
+    title: "Global Forest Cover Change (GFCC) Tree Cover v3 (multi-year 30m)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      tree_canopy_cover:
+        description: Per-pixel tree-canopy cover
+        units: "%"
+        min: 0
+        max: 100
+      uncertainty:
+        description: RMSE for tree-canopy cover
+      source_index:
+        description: Source-image index for the pixel
+
+  CIESIN/GPWv411/GPW_Population_Density:
+    title: "GPWv4.11 Population Density (Gridded Population of the World, 5-yearly 1km)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      population_density:
+        description: Estimated population per square kilometre
+        units: persons/km^2
+
+  ESA/WorldCover/v100:
+    title: "ESA WorldCover v100 (10m global land cover, 2020 epoch)"
+    provider: ESA WorldCover Consortium
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      Map:
+        description: Land-cover class (ESA WorldCover legend, 10-100)
+        min: 10
+        max: 100
+
+  NOAA/CDR/AVHRR/SR/V5:
+    title: "NOAA CDR AVHRR Surface Reflectance v5 (Daily 5km, 1981-present)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (NOAA CDR).
+    bands:
+      SREFL_CH1:
+        description: Channel 1 (red, 0.64 µm) bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 0.64
+      SREFL_CH2:
+        description: Channel 2 (NIR, 0.86 µm) bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 0.86
+      SREFL_CH3:
+        description: Channel 3 (3.75 µm) bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 3.75
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CDR/AVHRR/LAI_FAPAR/V5:
+    title: "NOAA CDR AVHRR LAI/FAPAR v5 (Daily 5km, 1981-present)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA CDR).
+    bands:
+      LAI:
+        description: Leaf area index
+        scale: 0.001
+      FAPAR:
+        description: Fraction of absorbed photosynthetically active radiation
+        scale: 0.001
+      QA:
+        description: Quality control bit flags
+
+  MODIS/006/MCD15A3H:
+    title: "MCD15A3H.006: Combined Terra+Aqua LAI/FPAR 4-Day Global 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 4, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Lai:
+        description: Leaf area index
+        units: m^2/m^2
+        scale: 0.1
+        min: 0
+        max: 100
+      Fpar:
+        description: Fraction of absorbed PAR
+        units: "%"
+        scale: 0.01
+        min: 0
+        max: 100
+      LaiStdDev:
+        description: Standard deviation of LAI
+        scale: 0.1
+      FparStdDev:
+        description: Standard deviation of FPAR
+        scale: 0.01
+      FparLai_QC:
+        description: LAI/FPAR quality flags
+
+  MODIS/061/MCD43A1:
+    title: "MCD43A1.061: MODIS BRDF/Albedo Model Parameters Daily 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      BRDF_Albedo_Parameters_Band1_iso:
+        description: Isotropic BRDF parameter, MODIS band 1 (red)
+        scale: 0.001
+        wavelength: 0.645
+      BRDF_Albedo_Parameters_Band1_vol:
+        description: Volumetric BRDF parameter, MODIS band 1 (red)
+        scale: 0.001
+        wavelength: 0.645
+      BRDF_Albedo_Parameters_Band1_geo:
+        description: Geometric BRDF parameter, MODIS band 1 (red)
+        scale: 0.001
+        wavelength: 0.645
+      BRDF_Albedo_Parameters_Band2_iso:
+        description: Isotropic BRDF parameter, MODIS band 2 (NIR)
+        scale: 0.001
+        wavelength: 0.8585
+      BRDF_Albedo_Parameters_Band2_vol:
+        description: Volumetric BRDF parameter, MODIS band 2 (NIR)
+        scale: 0.001
+        wavelength: 0.8585
+      BRDF_Albedo_Parameters_Band2_geo:
+        description: Geometric BRDF parameter, MODIS band 2 (NIR)
+        scale: 0.001
+        wavelength: 0.8585
+      BRDF_Albedo_Band_Mandatory_Quality_Band1:
+        description: Mandatory quality flag, band 1
+      BRDF_Albedo_Band_Mandatory_Quality_Band2:
+        description: Mandatory quality flag, band 2
+
+  MODIS/061/MOD09GQ:
+    title: "MOD09GQ.061: Terra Surface Reflectance Daily Global 250m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 250
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      sur_refl_b01:
+        description: Band 1 (red) surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: Band 2 (NIR) surface reflectance
+        scale: 0.0001
+        wavelength: 0.8585
+      QC_250m:
+        description: Surface reflectance quality assurance
+      num_observations:
+        description: Number of observations contributing to the pixel
+
+  NCEP_RE/surface_wv:
+    title: "NCEP/NCAR Reanalysis 1: Total-Column Water Vapour (6-hourly 2.5°)"
+    provider: NOAA / NCEP / NCAR
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 278300
+    extent:
+      start_date: "1948-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for any use (NCEP / NCAR).
+    bands:
+      pr_wtr:
+        description: Total-column precipitable water vapour
+        units: kg/m^2
+
+  JRC/D5/EUCROPMAP/V1:
+    title: "EUCROPMAP v1: JRC EU Annual Crop Map (10m, Sentinel-1/2 derived)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-16.171875, 34.313433, 36.386719, 72.182526]
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      classification:
+        description: Crop-specific land-cover classification
+
+  COPERNICUS/CORINE/V20/100m:
+    title: "Copernicus CORINE Land Cover (100m, multi-epoch since 1986)"
+    provider: EEA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 6, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "1986-01-01"
+      end_date: "2018-12-31"
+      bbox: [-81.77, -29.2, 94.13, 73.81]
+    default_reducer: mosaic
+    terms: Free with attribution (Copernicus).
+    bands:
+      landcover:
+        description: CORINE land-cover class
+
+  USGS/3DEP/10m:
+    title: "USGS 3DEP Seamless 10m DEM (1/3 arc-second, US coverage)"
+    provider: USGS
+    ee_type: image
+    spatial_resolution: 10.2
+    extent:
+      start_date: "1998-08-16"
+      end_date: null
+      bbox: [-171, -16.6, 164, 76.9]
+    default_reducer: mosaic
+    terms: Public domain (USGS).
+    user_uploaded: true
+    bands:
+      elevation:
+        description: Bare-earth elevation
+        units: m
+
+  NASA/GLDAS/V20/NOAH/G025/T3H:
+    title: "GLDAS-2.0 NOAH 3-hourly 0.25° (reprocessed 1948-2014 historical)"
+    provider: NASA GES DISC
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1948-01-01"
+      end_date: "2014-12-31"
+    default_reducer: mean
+    terms: Public domain (NASA GES DISC).
+    bands:
+      AvgSurfT_inst:
+        description: Average surface skin temperature
+        units: K
+      Tair_f_inst:
+        description: Near-surface air temperature
+        units: K
+      Albedo_inst:
+        description: Albedo
+        units: "%"
+      Rainf_f_tavg:
+        description: Total precipitation rate (forcing)
+        units: kg/m^2/s
+      Evap_tavg:
+        description: Total evapotranspiration
+        units: kg/m^2/s
+      LWdown_f_tavg:
+        description: Downward long-wave radiation flux
+        units: W/m^2
+      SWdown_f_tavg:
+        description: Downward short-wave radiation flux
+        units: W/m^2
+      Qs_tavg:
+        description: Surface runoff
+        units: kg/m^2/s
+      SoilMoi0_10cm_inst:
+        description: Soil moisture, 0-10 cm
+        units: kg/m^2
+      Tair_f_tavg:
+        description: Time-averaged near-surface air temperature
+        units: K
+      Wind_f_inst:
+        description: Near-surface wind speed
+        units: m/s
