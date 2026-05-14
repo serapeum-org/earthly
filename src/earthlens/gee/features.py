@@ -88,7 +88,7 @@ def createGeometry(  # noqa: N802 - established public name
 
     else:
         logger.debug(
-            f"The given geometry is neiter of type LineString, Point nor Polygon, "
+            f"The given geometry is neither of type LineString, Point nor Polygon, "
             f"but {shapely_geometry.geom_type}."
         )
         return None
