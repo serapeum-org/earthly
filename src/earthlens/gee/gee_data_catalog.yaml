@@ -2962,3 +2962,560 @@ datasets:
     bands:
       population:
         description: Estimated number of residents per ~100m grid cell
+
+  USDA/NASS/CDL:
+    title: USDA NASS Cropland Data Layer (annual US 30m crop classification)
+    provider: USDA National Agricultural Statistics Service
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1997-01-01"
+      end_date: null
+      bbox: [-127, 24, -65, 51]
+    default_reducer: mosaic
+    terms: Public domain (USDA NASS).
+    bands:
+      cropland:
+        description: Crop-specific land-cover classification
+        min: 1
+        max: 254
+      cultivated:
+        description: Cultivated vs non-cultivated land cover
+        min: 1
+        max: 2
+      confidence:
+        description: Per-pixel classification confidence
+        units: "%"
+        min: 0
+        max: 100
+
+  MODIS/061/MOD17A2H:
+    title: "MOD17A2H.061: Terra Gross Primary Productivity 8-Day Global 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Gpp:
+        description: Gross primary production over 8 days
+        units: kg*C/m^2
+        scale: 0.0001
+        min: 0
+        max: 3000
+      PsnNet:
+        description: Net photosynthesis (GPP minus maintenance respiration)
+        units: kg*C/m^2
+        scale: 0.0001
+        min: -3000
+        max: 3000
+      Psn_QC:
+        description: GPP / Psn quality control flags
+
+  MODIS/061/MOD17A3HGF:
+    title: "MOD17A3HGF.061: Terra Net Primary Production Gap-Filled Yearly Global 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 500
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Gpp:
+        description: Annual gross primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+      Npp:
+        description: Annual net primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+      Npp_QC:
+        description: Quality-control percentage of valid 8-day inputs
+        units: "%"
+        min: 0
+        max: 100
+
+  HYCOM/sea_temp_salinity:
+    title: "HYCOM Hybrid Coordinate Ocean Model — Daily Water Temperature and Salinity"
+    provider: HYCOM Consortium / NOPP
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 8905.6
+    extent:
+      start_date: "1992-10-02"
+      end_date: null
+      bbox: [-180, -80.48, 180, 80.48]
+    default_reducer: mean
+    terms: Free for any use (HYCOM Consortium).
+    bands:
+      water_temp_0:
+        description: Sea-water temperature at 0 m depth
+        units: deg_C
+        scale: 0.001
+        offset: 20
+      water_temp_2:
+        description: Sea-water temperature at 2 m depth
+        units: deg_C
+        scale: 0.001
+        offset: 20
+      water_temp_10:
+        description: Sea-water temperature at 10 m depth
+        units: deg_C
+        scale: 0.001
+        offset: 20
+      salinity_0:
+        description: Sea-water salinity at 0 m depth
+        units: psu
+        scale: 0.001
+        offset: 20
+      salinity_2:
+        description: Sea-water salinity at 2 m depth
+        units: psu
+        scale: 0.001
+        offset: 20
+      salinity_10:
+        description: Sea-water salinity at 10 m depth
+        units: psu
+        scale: 0.001
+        offset: 20
+
+  NOAA/CDR/OISST/V2_1:
+    title: "NOAA CDR OISST v02r01: Optimum Interpolation SST (Daily 0.25°)"
+    provider: NOAA CDR Program
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1981-09-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA CDR).
+    bands:
+      sst:
+        description: Daily sea-surface temperature
+        units: deg_C
+        scale: 0.01
+      anom:
+        description: SST anomaly versus 30-year climatological mean
+        units: deg_C
+        scale: 0.01
+      ice:
+        description: Seven-day median sea-ice concentration
+        units: "%"
+        scale: 0.01
+        min: 1
+        max: 100
+      err:
+        description: SST analysis error standard deviation
+        units: deg_C
+        scale: 0.01
+
+  COPERNICUS/S3/OLCI:
+    title: "Sentinel-3 OLCI EFR: Ocean and Land Colour Instrument (Earth Observation Full Resolution, 300m)"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 300
+    extent:
+      start_date: "2016-10-18"
+      end_date: null
+    default_reducer: median
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      Oa03_radiance:
+        description: Chlorophyll absorption maximum (biogeochemistry, vegetation)
+        units: W/m^2/sr/um
+        scale: 0.01214812
+        wavelength: 0.4425
+      Oa06_radiance:
+        description: Chlorophyll reference (Chl minimum)
+        units: W/m^2/sr/um
+        scale: 0.0123538
+        wavelength: 0.56
+      Oa08_radiance:
+        description: Second chlorophyll absorption max, sediment, yellow substance
+        units: W/m^2/sr/um
+        scale: 0.00876539
+        wavelength: 0.665
+      Oa10_radiance:
+        description: Chlorophyll fluorescence peak / red-edge
+        units: W/m^2/sr/um
+        wavelength: 0.6815
+      Oa17_radiance:
+        description: Atmospheric / aerosol correction (NIR)
+        units: W/m^2/sr/um
+        wavelength: 0.865
+      Oa21_radiance:
+        description: Water vapour absorption / atmospheric correction
+        units: W/m^2/sr/um
+        wavelength: 1.02
+
+  WWF/HydroSHEDS/03DIR:
+    title: "WWF HydroSHEDS Drainage Direction (3 arc-seconds)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    terms: Free for non-commercial and commercial use.
+    bands:
+      b1:
+        description: "Drainage direction (1=E, 2=SE, 4=S, 8=SW, 16=W, 32=NW, 64=N, 128=NE)"
+        min: 0
+        max: 255
+
+  MERIT/Hydro/v1_0_1:
+    title: "MERIT Hydro v1.0.1: Global Hydrography (90m, derived from MERIT DEM)"
+    provider: Dai Yamazaki — University of Tokyo
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1987-01-01"
+      end_date: "2017-12-31"
+    default_reducer: mosaic
+    terms: Free with citation (Yamazaki et al., 2019).
+    user_uploaded: true
+    bands:
+      elv:
+        description: Elevation (referenced to EGM96 geoid)
+        units: m
+      dir:
+        description: Local drainage direction
+      wth:
+        description: River channel width at the centerline
+        units: m
+      wat:
+        description: Land vs permanent-water mask
+      upa:
+        description: Upstream drainage area (flow accumulation)
+        units: km^2
+      upg:
+        description: Upstream drainage pixel count (flow accumulation grid)
+      hnd:
+        description: Height-Above-Nearest-Drainage (HAND)
+        units: m
+
+  NOAA/GFS0P25:
+    title: "NOAA GFS 0.25°: Global Forecast System (384-hour atmospheric forecast)"
+    provider: NOAA / NCEP / EMC
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "2015-07-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA).
+    bands:
+      temperature_2m_above_ground:
+        description: 2 m air temperature
+        units: deg_C
+      relative_humidity_2m_above_ground:
+        description: 2 m relative humidity
+        units: "%"
+      specific_humidity_2m_above_ground:
+        description: 2 m specific humidity (mass fraction)
+      u_component_of_wind_10m_above_ground:
+        description: 10 m wind, U-component
+        units: m/s
+      v_component_of_wind_10m_above_ground:
+        description: 10 m wind, V-component
+        units: m/s
+      total_precipitation_surface:
+        description: Surface total precipitation forecast
+        units: kg/m^2
+      total_cloud_cover_entire_atmosphere:
+        description: Total cloud cover (column)
+        units: "%"
+      precipitable_water_entire_atmosphere:
+        description: Precipitable water (column)
+        units: kg/m^2
+
+  CSP/HM/GlobalHumanModification:
+    title: "CSP gHM: Global Human Modification (1km, 2016 epoch)"
+    provider: Conservation Science Partners
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2016-01-01"
+      end_date: "2016-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands:
+      gHM:
+        description: Cumulative Human Modification index (0 = none, 1 = full)
+        min: 0
+        max: 1
+
+  OREGONSTATE/PRISM/AN81m:
+    title: "PRISM AN81m: US Monthly Climate Dataset (4km, 1895-present)"
+    provider: PRISM Climate Group, Oregon State University
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1895-01-01"
+      end_date: null
+      bbox: [-125, 24, -66, 50]
+    default_reducer: mean
+    terms: Free for any use (PRISM Climate Group).
+    bands:
+      ppt:
+        description: Monthly total precipitation (rain + melted snow)
+        units: mm
+      tmean:
+        description: Monthly mean of daily mean temperature
+        units: deg_C
+      tmin:
+        description: Monthly mean of daily minimum temperature
+        units: deg_C
+      tmax:
+        description: Monthly mean of daily maximum temperature
+        units: deg_C
+      tdmean:
+        description: Monthly mean of daily mean dew-point temperature
+        units: deg_C
+      vpdmin:
+        description: Monthly mean of daily minimum vapor-pressure deficit
+        units: hPa
+      vpdmax:
+        description: Monthly mean of daily maximum vapor-pressure deficit
+        units: hPa
+
+  NASA/ORNL/DAYMET_V4:
+    title: "Daymet v4: Daily Surface Weather (1km, North America)"
+    provider: NASA ORNL DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1980-01-01"
+      end_date: null
+      bbox: [-150.8, 1.6, -1.1, 84]
+    default_reducer: mean
+    terms: Public domain (NASA ORNL DAAC).
+    bands:
+      dayl:
+        description: Duration of the daylight period
+        units: s
+      prcp:
+        description: Daily total precipitation (water equivalent)
+        units: mm
+      srad:
+        description: Incident shortwave radiation flux density (daylight average)
+        units: W/m^2
+      swe:
+        description: Snow water equivalent
+        units: kg/m^2
+      tmax:
+        description: Daily maximum 2 m air temperature
+        units: deg_C
+      tmin:
+        description: Daily minimum 2 m air temperature
+        units: deg_C
+      vp:
+        description: Daily average partial pressure of water vapour
+        units: Pa
+
+  NASA/FLDAS/NOAH01/C/GL/M/V001:
+    title: "FLDAS NOAH01 v001: FEWS NET Land Data Assimilation System (Global Monthly 0.1°)"
+    provider: NASA GES DISC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1982-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mean
+    terms: Public domain (NASA GES DISC).
+    bands:
+      Evap_tavg:
+        description: Total evapotranspiration
+        units: kg/m^2/s
+      Rainf_f_tavg:
+        description: Total precipitation rate (forcing)
+        units: kg/m^2/s
+      Tair_f_tavg:
+        description: Near-surface air temperature
+        units: K
+      Qair_f_tavg:
+        description: Specific humidity (mass fraction)
+      Psurf_f_tavg:
+        description: Surface pressure
+        units: Pa
+      SoilMoi00_10cm_tavg:
+        description: Soil moisture, 0-10 cm
+        units: m^3/m^3
+      SoilMoi10_40cm_tavg:
+        description: Soil moisture, 10-40 cm
+        units: m^3/m^3
+      SoilTemp00_10cm_tavg:
+        description: Soil temperature, 0-10 cm
+        units: K
+      Qs_tavg:
+        description: Surface runoff
+        units: kg/m^2/s
+      Qsb_tavg:
+        description: Baseflow / groundwater runoff
+        units: kg/m^2/s
+      RadT_tavg:
+        description: Surface radiative temperature
+        units: K
+
+  ESA/CCI/Above_Ground_Biomass/V6_0:
+    title: "ESA CCI Above-Ground Biomass v6.0 (100m, 2007/2010/2015-2022)"
+    provider: ESA Biomass CCI
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under ESA CCI data terms.
+    bands:
+      agb:
+        description: Above-ground biomass density
+        units: Mg/ha
+      agb_sd:
+        description: Per-pixel uncertainty (standard deviation) of AGB
+        units: Mg/ha
+
+  LARSE/GEDI/GEDI04_A_002_MONTHLY:
+    title: "GEDI L4A v2.1: Monthly Aboveground Biomass Density (25m, ±51.6° lat)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 25
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mean
+    terms: Public domain (NASA / USFS).
+    bands:
+      agbd:
+        description: Predicted above-ground biomass density
+        units: Mg/ha
+      agbd_se:
+        description: Above-ground biomass density prediction standard error
+        units: Mg/ha
+      agbd_pi_lower:
+        description: Lower prediction interval bound
+        units: Mg/ha
+      agbd_pi_upper:
+        description: Upper prediction interval bound
+        units: Mg/ha
+      beam:
+        description: GEDI beam identifier
+
+  NCEP_RE/sea_level_pressure:
+    title: "NCEP/NCAR Reanalysis 1: Sea-Level Pressure (6-hourly 2.5°)"
+    provider: NOAA / NCEP / NCAR
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 278300
+    extent:
+      start_date: "1948-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for any use (NCEP / NCAR).
+    bands:
+      slp:
+        description: Sea-level pressure
+        units: Pa
+        scale: 0.01
+
+  ESA/WorldCereal/2021/MODELS/v100:
+    title: "ESA WorldCereal 2021 v100: Global Cropland and Crop-Type Maps (10m)"
+    provider: ESA WorldCereal Consortium
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-01-01"
+      end_date: "2021-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      classification:
+        description: Cropland / crop-type classification (0 = absent, 100 = present)
+        min: 0
+        max: 100
+      confidence:
+        description: Per-pixel classifier confidence
+        min: 0
+        max: 100
+
+  JRC/GFC2020/V2:
+    title: "JRC Global Forest Cover 2020 v2 (10m)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-12-31"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: Free for any use (JRC).
+    user_uploaded: true
+    bands:
+      Map:
+        description: Global forest cover for 2020 (binary)
+
+  JRC/GHSL/P2023A/GHS_BUILT_H:
+    title: "GHSL P2023A: Global Building Height 2018 (100m)"
+    provider: EC JRC
+    ee_type: image_collection
+    spatial_resolution: 100
+    extent:
+      start_date: "2018-01-01"
+      end_date: "2018-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      built_height:
+        description: Average building height per 100m grid cell
+        units: m
+
+  NASA/GPM_L3/IMERG_MONTHLY_V07:
+    title: "GPM IMERG Monthly v07 (Final Run, 0.1°)"
+    provider: NASA GES DISC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA GES DISC).
+    bands:
+      precipitation:
+        description: Merged satellite-gauge precipitation estimate
+        units: mm/hr
+      precipitationQualityIndex:
+        description: Quality index for the precipitation field
+      gaugeRelativeWeighting:
+        description: Weighting of gauge precipitation vs satellite estimate
+        units: "%"
+      probabilityLiquidPrecipitation:
+        description: Accumulation-weighted probability of liquid phase
+        units: "%"
+      randomError:
+        description: Random error of the merged precipitation estimate
+        units: mm/hr
