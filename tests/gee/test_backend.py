@@ -179,23 +179,54 @@ class _FakeEE:
 
 
 class _FakeHTTPResponse:
-    """Context-manager stand-in for `requests.get(..., stream=True)`."""
+    """Stand-in for `requests.get(...)` exposing `.content` + `raise_for_status`."""
 
     def __init__(self, body: bytes):
-        self._body = body
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *exc):
-        return False
+        self.content = body
 
     def raise_for_status(self):
         return None
 
-    def iter_content(self, chunk_size: int = 1):
-        for i in range(0, len(self._body), max(chunk_size, 1)):
-            yield self._body[i: i + max(chunk_size, 1)]
+
+class _FakePyramidsHandle:
+    """Stand-in for a `pyramids.dataset.Dataset` returned by `from_bytes`."""
+
+    def __init__(self, body: bytes):
+        self._body = body
+
+    def to_file(self, path: str) -> None:
+        from pathlib import Path as _Path
+
+        _Path(path).write_bytes(self._body)
+
+
+class _FakePyramidsDataset:
+    """Stand-in for `pyramids.dataset.Dataset` — captures `from_*` calls."""
+
+    from_bytes_calls: list[dict] = []
+    from_archive_calls: list[dict] = []
+
+    @classmethod
+    def reset(cls) -> None:
+        cls.from_bytes_calls = []
+        cls.from_archive_calls = []
+
+    @classmethod
+    def from_bytes(cls, data, *, suffix: str = ".tif", name=None, read_only: bool = True):
+        cls.from_bytes_calls.append({"data": data, "suffix": suffix})
+        return _FakePyramidsHandle(data)
+
+    @classmethod
+    def from_archive(cls, url_or_path, *, kind: str = "auto", member_glob: str = "*",
+                     band_names=None, align: bool = False, no_data_value=None, path=None):
+        cls.from_archive_calls.append({
+            "url_or_path": str(url_or_path), "kind": kind,
+            "member_glob": member_glob, "path": path,
+        })
+        from pathlib import Path as _Path
+
+        if path is not None:
+            _Path(path).write_bytes(b"unpacked-from-archive")
 
 
 # A 4-byte big-endian TIFF magic + filler — emphatically not a zip.
@@ -217,8 +248,10 @@ def fake_ee(monkeypatch) -> _FakeEE:
     monkeypatch.setattr(backend_module, "ee", fake)
     monkeypatch.setattr(
         backend_module, "requests",
-        SimpleNamespace(get=lambda url, stream=True, timeout=None: _FakeHTTPResponse(_FAKE_TIFF_BYTES)),
+        SimpleNamespace(get=lambda url, timeout=None: _FakeHTTPResponse(_FAKE_TIFF_BYTES)),
     )
+    _FakePyramidsDataset.reset()
+    monkeypatch.setattr(backend_module, "PyramidsDataset", _FakePyramidsDataset)
     monkeypatch.setattr(backend_module, "createFeature", lambda gdf: SimpleNamespace(geometry=lambda: _FakeGeometry("from-gdf")))
     monkeypatch.setattr(
         backend_module.EarthEngineAuth, "initialize",
@@ -660,12 +693,12 @@ class TestApi:
         assert target.read_bytes() == _FAKE_TIFF_BYTES
         assert not zipfile.is_zipfile(target)
 
-    def test_zip_response_raises(self, make_gee, monkeypatch):
-        """If Earth Engine returns a zip, `_api` raises `RuntimeError`.
+    def test_zip_response_unpacked_via_pyramids(self, make_gee, monkeypatch, tmp_path):
+        """A multi-band zip response is routed through `Dataset.from_archive`.
 
-        Test scenario:
-            The faked HTTP body is replaced with real zip bytes; the
-            post-write `zipfile.is_zipfile` check trips.
+        Earth Engine returns a zip-of-tifs when the request asks for several
+        bands; the backend writes the body to `<prefix>.zip` and unpacks it
+        into the target via pyramids, then deletes the zip.
         """
         import io
 
@@ -674,10 +707,30 @@ class TestApi:
             zf.writestr("inner.tif", b"data")
         monkeypatch.setattr(
             backend_module, "requests",
-            SimpleNamespace(get=lambda url, stream=True, timeout=None: _FakeHTTPResponse(buf.getvalue())),
+            SimpleNamespace(get=lambda url, timeout=None: _FakeHTTPResponse(buf.getvalue())),
         )
-        with pytest.raises(RuntimeError, match="returned a zip archive"):
-            make_gee().download(progress_bar=False)
+        paths = make_gee().download(progress_bar=False)
+        target = paths[0]
+        assert target.exists()
+        assert target.read_bytes() == b"unpacked-from-archive"
+        assert not (tmp_path / f"{target.stem}.zip").exists()  # cleaned up
+        assert len(_FakePyramidsDataset.from_archive_calls) == 1
+        call = _FakePyramidsDataset.from_archive_calls[0]
+        assert call["kind"] == "zip"
+        assert call["member_glob"] == "*.tif"
+        assert call["path"] == str(target)
+
+    def test_http_timeout_passthrough(self, make_gee, monkeypatch):
+        """`http_timeout=` is forwarded verbatim to `requests.get`."""
+        captured: dict = {}
+
+        def _capture_get(url, timeout=None):
+            captured["timeout"] = timeout
+            return _FakeHTTPResponse(_FAKE_TIFF_BYTES)
+
+        monkeypatch.setattr(backend_module, "requests", SimpleNamespace(get=_capture_get))
+        make_gee(http_timeout=42.5).download(progress_bar=False)
+        assert captured["timeout"] == 42.5
 
     def test_download_passes_geotiff_format_and_scale(self, make_gee):
         """The `getDownloadURL` request uses `format="GEO_TIFF"`, the scale, and the CRS.

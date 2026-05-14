@@ -24,11 +24,14 @@ Per `(asset, band-set, time-bucket)` the pipeline is:
   dimensions and refuses if either axis exceeds Earth Engine's 32768-px
   synchronous limit (a clear, actionable `ValueError`), else
   `image.getDownloadURL({..., "format": "GEO_TIFF"})` → `requests.get`
-  → a GeoTIFF under the output directory; `"drive"` / `"gcs"` queue an
-  asynchronous `ee.batch.Export.image.to{Drive,CloudStorage}` task
-  (`maxPixels` only, no 32768-px cap), poll it to completion, and
-  return a `"drive://…"` / `"gs://…"` destination string (the file is
-  left in the Drive folder / GCS bucket for the caller to pull).
+  → a GeoTIFF under the output directory; multi-band responses (which
+  Earth Engine returns as a zip of per-band tifs) are unpacked through
+  `pyramids.dataset.Dataset.from_archive` into a single multi-band tif.
+  `"drive"` / `"gcs"` queue an asynchronous
+  `ee.batch.Export.image.to{Drive,CloudStorage}` task (`maxPixels` only,
+  no 32768-px cap), poll it to completion, and return a `"drive://…"` /
+  `"gs://…"` destination string (the file is left in the Drive folder /
+  GCS bucket for the caller to pull).
 
 Authentication is a one-time `ee.Initialize` against a *registered*
 Cloud project, performed by :meth:`_initialize` via
@@ -41,7 +44,6 @@ no key is given, an interactive `ee.Authenticate()` against an explicit
 from __future__ import annotations
 
 import datetime as dt
-import zipfile
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Iterable
 
@@ -49,6 +51,7 @@ import ee
 import pandas as pd
 import requests
 from loguru import logger
+from pyramids.dataset import Dataset as PyramidsDataset
 from tqdm import tqdm
 
 from earthlens.base import AbstractDataSource, SpatialExtent, TemporalExtent
@@ -73,7 +76,8 @@ __all__ = ["GEE", "AuthenticationError"]
 # request window).
 _RESOLUTION_FREQ: dict[str, str] = {"daily": "D", "monthly": "MS", "yearly": "YS"}
 
-_DOWNLOAD_CHUNK_BYTES: int = 1 << 20  # 1 MiB streaming chunk for the HTTP download
+_DEFAULT_HTTP_TIMEOUT_S: float = 300.0
+_ZIP_MAGIC: bytes = b"PK\x03\x04"
 
 
 class GEE(AbstractDataSource):
@@ -117,6 +121,9 @@ class GEE(AbstractDataSource):
         region: Optional `GeoDataFrame` to clip to precisely; when given
             it supersedes the lat/lon bbox for the actual clip (the bbox
             is still used for the `"url"` size estimate).
+        http_timeout: Timeout in seconds for the synchronous
+            `getDownloadURL` HTTP request (`export_via="url"`). Defaults
+            to 300 s.
 
     Raises:
         AuthenticationError: If Earth Engine cannot be initialised
@@ -130,7 +137,7 @@ class GEE(AbstractDataSource):
         NotImplementedError: From :meth:`download` when `aggregate=` is
             passed (not yet supported).
         RuntimeError: From :meth:`_api` if a `"drive"` / `"gcs"` export
-            task does not complete, or if a `"url"` response is a zip.
+            task does not complete.
 
     Examples:
         - Construct against a service account and download SRTM over a small bbox:
@@ -169,6 +176,7 @@ class GEE(AbstractDataSource):
         drive_folder: str | None = None,
         gcs_bucket: str | None = None,
         region: GeoDataFrame | None = None,
+        http_timeout: float | None = None,
     ):
         # These must be set before `super().__init__` runs, because the
         # parent constructor immediately calls `self._initialize()` (and
@@ -193,6 +201,9 @@ class GEE(AbstractDataSource):
         self.drive_folder = drive_folder
         self.gcs_bucket = gcs_bucket
         self.region = region
+        self.http_timeout = (
+            float(http_timeout) if http_timeout is not None else _DEFAULT_HTTP_TIMEOUT_S
+        )
         self._ee_geometry = None  # lazily built in `_ee_region`
 
         super().__init__(
@@ -552,7 +563,15 @@ class GEE(AbstractDataSource):
         return self._export_via_batch(image, float(scale), region, prefix)
 
     def _export_via_url(self, image, var_info: Dataset, scale: float, region, prefix: str) -> Path:
-        """Stream a GeoTIFF from `image.getDownloadURL`; enforce the 32768-px cap."""
+        """Fetch a GeoTIFF from `image.getDownloadURL`; enforce the 32768-px cap.
+
+        Earth Engine returns a single GeoTIFF when one band is exported and
+        a zip archive of per-band GeoTIFFs when several are. Both shapes
+        are routed through pyramids: single tifs via :meth:`Dataset.from_bytes`
+        (writes the in-memory body to a `/vsimem/` path then materialises it
+        on disk), zips via :meth:`Dataset.from_archive` (chained `/vsizip/`,
+        merging members into one multi-band tif).
+        """
         width_px, height_px = estimate_pixel_dims(self.space, scale)
         if max(width_px, height_px) > EE_MAX_DIMENSION:
             raise ValueError(
@@ -565,17 +584,24 @@ class GEE(AbstractDataSource):
             {"scale": scale, "crs": self.crs, "region": region, "format": "GEO_TIFF"}
         )
         target = self.root_dir / f"{prefix}.tif"
-        with requests.get(url, stream=True, timeout=300) as response:
-            response.raise_for_status()
-            with target.open("wb") as handle:
-                for chunk in response.iter_content(chunk_size=_DOWNLOAD_CHUNK_BYTES):
-                    handle.write(chunk)
-        if zipfile.is_zipfile(target):
-            raise RuntimeError(
-                f"Earth Engine returned a zip archive at {target}; this path "
-                "requests format='GEO_TIFF' and does not unpack zip-of-tifs "
-                "responses (see plan task PY-2)."
-            )
+        response = requests.get(url, timeout=self.http_timeout)
+        response.raise_for_status()
+        body = response.content
+        if body[:4] == _ZIP_MAGIC:
+            zip_path = self.root_dir / f"{prefix}.zip"
+            zip_path.write_bytes(body)
+            try:
+                PyramidsDataset.from_archive(
+                    zip_path,
+                    kind="zip",
+                    member_glob="*.tif",
+                    path=str(target),
+                )
+            finally:
+                zip_path.unlink(missing_ok=True)
+        else:
+            ds = PyramidsDataset.from_bytes(body, suffix=".tif")
+            ds.to_file(str(target))
         logger.info(f"Wrote {target} ({target.stat().st_size} bytes)")
         return target
 
