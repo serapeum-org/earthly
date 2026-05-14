@@ -17,7 +17,7 @@ from __future__ import annotations
 import importlib
 from collections.abc import Mapping
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from earthlens.aggregate import AggregationConfig
@@ -287,7 +287,7 @@ class EarthLens:
         aggregate: AggregationConfig | None = None,
         *args: object,
         **kwargs: object,
-    ) -> object:
+    ) -> Any:
         """Delegate the download to the bound backend.
 
         Forwards every argument verbatim to `self.datasource.download`.
