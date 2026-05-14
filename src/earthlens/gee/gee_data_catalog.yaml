@@ -4151,3 +4151,612 @@ datasets:
       val_100_200cm_mean:
         description: Mean volumetric water content (100-200 cm)
         units: m^3/m^3
+
+  ECMWF/ERA5_LAND/HOURLY:
+    title: "ERA5-Land Hourly — ECMWF Climate Reanalysis (~9km, 1950-present)"
+    provider: ECMWF / Copernicus C3S
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Copernicus C3S/CAMS licence — free with attribution.
+    bands:
+      temperature_2m:
+        description: 2 m air temperature
+        units: K
+      dewpoint_temperature_2m:
+        description: 2 m dewpoint temperature
+        units: K
+      skin_temperature:
+        description: Land/sea surface skin temperature
+        units: K
+      surface_pressure:
+        description: Surface pressure
+        units: Pa
+      total_precipitation_hourly:
+        description: Hourly total precipitation
+        units: m
+      total_evaporation_hourly:
+        description: Hourly total evaporation
+        units: m
+      u_component_of_wind_10m:
+        description: 10 m wind, U-component
+        units: m/s
+      v_component_of_wind_10m:
+        description: 10 m wind, V-component
+        units: m/s
+      soil_temperature_level_1:
+        description: Soil temperature, layer 1 (0-7 cm)
+        units: K
+      soil_temperature_level_2:
+        description: Soil temperature, layer 2 (7-28 cm)
+        units: K
+      volumetric_soil_water_layer_1:
+        description: Volumetric soil water, layer 1 (0-7 cm)
+        units: m^3/m^3
+      volumetric_soil_water_layer_2:
+        description: Volumetric soil water, layer 2 (7-28 cm)
+        units: m^3/m^3
+      snow_depth_water_equivalent:
+        description: Snow depth water equivalent
+        units: m
+
+  NASA/GSFC/MERRA/slv/2:
+    title: "MERRA-2 M2T1NXSLV: Hourly Single-Level Diagnostics V5.12.4"
+    provider: NASA GSFC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 55000
+    extent:
+      start_date: "1980-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA GSFC).
+    bands:
+      T2M:
+        description: 2 m air temperature
+        units: K
+      T2MMAX:
+        description: Hourly maximum 2 m air temperature
+        units: K
+      T2MMIN:
+        description: Hourly minimum 2 m air temperature
+        units: K
+      TS:
+        description: Surface skin temperature
+        units: K
+      U10M:
+        description: 10 m eastward wind
+        units: m/s
+      V10M:
+        description: 10 m northward wind
+        units: m/s
+      PS:
+        description: Surface pressure
+        units: Pa
+      QV2M:
+        description: 2 m specific humidity
+        units: kg/kg
+      SLP:
+        description: Sea-level pressure
+        units: Pa
+
+  NOAA/PERSIANN-CDR:
+    title: "PERSIANN-CDR: Daily Precipitation Climate Data Record (0.25°, 1983-present)"
+    provider: NOAA NCDC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1983-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    terms: Public domain (NOAA CDR).
+    bands:
+      precipitation:
+        description: Daily precipitation total
+        units: mm
+
+  NOAA/CDR/AVHRR/NDVI/V5:
+    title: "NOAA CDR AVHRR NDVI v5: Daily Global NDVI (5km, 1981-present)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (NOAA CDR).
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        scale: 0.0001
+        min: -9998
+        max: 9998
+      TIMEOFDAY:
+        description: Hours since the start of the day at the observation time
+        units: h
+        scale: 0.01
+      QA:
+        description: Quality control bit flags
+
+  MODIS/061/MOD14A1:
+    title: "MOD14A1.061: Terra Thermal Anomalies & Active Fire Daily 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      FireMask:
+        description: Per-pixel fire/no-fire confidence class
+      MaxFRP:
+        description: Maximum fire radiative power for the day
+        units: MW
+        scale: 0.1
+      sample:
+        description: Position of the fire pixel within scan
+      QA:
+        description: Pixel quality indicators
+
+  MODIS/061/MOD09A1:
+    title: "MOD09A1.061: Terra Surface Reflectance 8-Day Global 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      sur_refl_b01:
+        description: Band 1 (red) surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: Band 2 (NIR) surface reflectance
+        scale: 0.0001
+        wavelength: 0.8585
+      sur_refl_b03:
+        description: Band 3 (blue) surface reflectance
+        scale: 0.0001
+        wavelength: 0.469
+      sur_refl_b04:
+        description: Band 4 (green) surface reflectance
+        scale: 0.0001
+        wavelength: 0.555
+      sur_refl_b06:
+        description: Band 6 (SWIR-1) surface reflectance
+        scale: 0.0001
+        wavelength: 1.64
+      sur_refl_b07:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 0.0001
+        wavelength: 2.13
+      QA:
+        description: 500 m surface reflectance band quality
+
+  UMD/GLAD/PRIMARY_HUMID_TROPICAL_FORESTS/v1:
+    title: "UMD GLAD: Primary Humid Tropical Forests (30m, 2001 baseline)"
+    provider: UMD GLAD
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: "2001-12-31"
+    default_reducer: mosaic
+    terms: Free for any use (UMD/GLAD).
+    user_uploaded: true
+    bands:
+      Primary_HT_forests:
+        description: Binary mask of primary humid tropical forest extent
+
+  MODIS/061/MOD44B:
+    title: "MOD44B.061: MODIS Vegetation Continuous Fields Yearly Global 250m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 250
+    extent:
+      start_date: "2000-03-05"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Percent_Tree_Cover:
+        description: Per-pixel tree-canopy cover
+        units: "%"
+        min: 0
+        max: 100
+      Percent_NonTree_Vegetation:
+        description: Per-pixel non-tree vegetation cover
+        units: "%"
+        min: 0
+        max: 100
+      Percent_NonVegetated:
+        description: Per-pixel non-vegetated fraction (bare / water / urban)
+        units: "%"
+        min: 0
+        max: 100
+      Quality:
+        description: Per-pixel quality (cloud / shadow / snow flags on inputs)
+
+  JAXA/ALOS/PALSAR/YEARLY/SAR:
+    title: "ALOS PALSAR-2 / PALSAR Global Yearly SAR Mosaic v1 (25m HH/HV)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 25
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for any use with attribution (JAXA EORC).
+    bands:
+      HH:
+        description: HH-polarisation backscatter (16-bit DN; sigma0 = 10*log10(DN^2) - 83)
+      HV:
+        description: HV-polarisation backscatter (16-bit DN; sigma0 = 10*log10(DN^2) - 83)
+      angle:
+        description: Local incidence angle
+        units: deg
+      date:
+        description: Observation date (days since 1970-01-01)
+      qa:
+        description: Processing quality flags
+
+  NASA/GDDP-CMIP6:
+    title: "NEX-GDDP-CMIP6: NASA Global Daily Downscaled CMIP6 Climate Projections"
+    provider: NASA / Climate Analytics Group
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use; cite the underlying CMIP6 GCM.
+    bands:
+      tas:
+        description: Daily mean near-surface air temperature
+        units: K
+      tasmin:
+        description: Daily minimum near-surface air temperature
+        units: K
+      tasmax:
+        description: Daily maximum near-surface air temperature
+        units: K
+      pr:
+        description: Daily mean precipitation rate
+        units: kg/m^2/s
+      hurs:
+        description: Near-surface relative humidity
+        units: "%"
+      huss:
+        description: Near-surface specific humidity (mass fraction)
+      rlds:
+        description: Surface downwelling longwave radiation
+        units: W/m^2
+      rsds:
+        description: Surface downwelling shortwave radiation
+        units: W/m^2
+      sfcWind:
+        description: Near-surface wind speed
+        units: m/s
+
+  JRC/GSW1_4/YearlyHistory:
+    title: "JRC Global Surface Water — Yearly Water Classification History v1.4 (1984-2021)"
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: "2021-12-31"
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mode
+    terms: Free for use under the Copernicus Programme licence.
+    bands:
+      waterClass:
+        description: "Water seasonality class (0=no_data, 1=not_water, 2=seasonal, 3=permanent)"
+        min: 0
+        max: 3
+
+  LANDSAT/LC08/C02/T1_TOA:
+    title: "USGS Landsat 8 Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2013-03-18"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1 (resampled from 100m to 30m)
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2 (resampled from 100m to 30m)
+        wavelength: 12.005
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LE07/C02/T1_TOA:
+    title: "USGS Landsat 7 Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-05-28"
+      end_date: "2024-04-06"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6_VCID_1:
+        description: Low-gain thermal infrared (extended dynamic range)
+        wavelength: 11.45
+      B6_VCID_2:
+        description: High-gain thermal infrared (greater sensitivity)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  NASA/NLDAS/FORA0125_H002:
+    title: "NLDAS-2 FORA: North American Land Data Assimilation System Hourly Forcing (0.125°)"
+    provider: NASA GES DISC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 13915
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+      bbox: [-125.15, 24.85, -66.85, 53.28]
+    default_reducer: mean
+    terms: Public domain (NASA GES DISC).
+    bands:
+      temperature:
+        description: Air temperature at 2 m above the surface
+        units: deg_C
+      specific_humidity:
+        description: Specific humidity at 2 m (mass fraction)
+      pressure:
+        description: Surface pressure
+        units: Pa
+      wind_u:
+        description: 10 m wind, U-component
+        units: m/s
+      wind_v:
+        description: 10 m wind, V-component
+        units: m/s
+      shortwave_radiation:
+        description: Surface downwelling shortwave radiation
+        units: W/m^2
+      longwave_radiation:
+        description: Surface downwelling longwave radiation
+        units: W/m^2
+      total_precipitation:
+        description: Hourly total precipitation
+        units: kg/m^2
+
+  ECMWF/CAMS/NRT:
+    title: "Copernicus CAMS Global Near-Real-Time Atmospheric Composition Forecast"
+    provider: ECMWF / Copernicus C3S
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 44528
+    extent:
+      start_date: "2016-06-22"
+      end_date: null
+    default_reducer: mean
+    terms: Free with attribution (CAMS).
+    bands:
+      total_aerosol_optical_depth_at_550nm_surface:
+        description: Total Aerosol Optical Depth at 550 nm
+      particulate_matter_d_less_than_25_um_surface:
+        description: PM2.5 concentration at the surface
+        units: kg/m^3
+      total_column_nitrogen_dioxide_surface:
+        description: Total column NO2
+        units: kg/m^2
+      total_column_sulphur_dioxide_surface:
+        description: Total column SO2
+        units: kg/m^2
+      total_column_carbon_monoxide_surface:
+        description: Total column CO
+        units: kg/m^2
+      total_column_formaldehyde_surface:
+        description: Total column HCHO
+        units: kg/m^2
+      gems_total_column_ozone_surface:
+        description: GEMS total column ozone
+      dust_aerosol_optical_depth_at_550nm_surface:
+        description: Dust AOD at 550 nm
+      sea_salt_aerosol_optical_depth_at_550nm_surface:
+        description: Sea-salt AOD at 550 nm
+
+  NOAA/CDR/SST_PATHFINDER/V53:
+    title: "NOAA AVHRR Pathfinder v5.3: Global 4km Sea-Surface Temperature (12-hourly)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 12, unit: hour }
+    spatial_resolution: 4000
+    extent:
+      start_date: "1981-08-24"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA).
+    bands:
+      sea_surface_temperature:
+        description: Skin sea-surface temperature
+        units: K
+        scale: 0.01
+        offset: 273.15
+      dt_analysis:
+        description: Difference vs previous-day analysis
+        units: K
+        scale: 0.1
+      wind_speed:
+        description: Surface wind speed (NCEP-DOE)
+        units: m/s
+      sea_ice_fraction:
+        description: Sea-ice concentration (EUMETSAT OSI SAF)
+        scale: 0.01
+
+  HYCOM/sea_surface_elevation:
+    title: "HYCOM Hybrid Coordinate Ocean Model — Daily Sea-Surface Elevation"
+    provider: HYCOM Consortium / NOPP
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 8905.6
+    extent:
+      start_date: "1992-10-02"
+      end_date: null
+      bbox: [-180, -80.48, 180, 80.48]
+    default_reducer: mean
+    terms: Free for any use (HYCOM Consortium).
+    bands:
+      surface_elevation:
+        description: Sea-surface elevation anomaly relative to the modelled mean
+        units: m
+        scale: 0.001
+
+  JRC/GHSL/P2023A/GHS_BUILT_S_10m:
+    title: "GHSL P2023A: Global Built-Up Surface 2018 (10m)"
+    provider: EC JRC
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2018-01-01"
+      end_date: "2018-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      built_surface:
+        description: Built-up surface area per 10 m grid cell
+        units: m^2
+      built_surface_nres:
+        description: Non-residential built-up surface per 10 m grid cell
+        units: m^2
+
+  WCMC/biomass_carbon_density/v1_0:
+    title: "WCMC Above- and Below-Ground Biomass Carbon Density v1.0 (300m, 2010 epoch)"
+    provider: UNEP-WCMC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 300
+    extent:
+      start_date: "2010-01-01"
+      end_date: "2010-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-SA-4.0.
+    user_uploaded: true
+    bands:
+      carbon_tonnes_per_ha:
+        description: Above- + below-ground biomass carbon density
+        units: Mg/ha
+        min: 0
+        max: 445.5
+
+  NOAA/GOES/16/MCMIPC:
+    title: "NOAA GOES-16 ABI L2 Cloud and Moisture Imagery — CONUS (10-min, 2km)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2017-07-10"
+      end_date: null
+      bbox: [-152.11, 14, -49.18, 56.77]
+    default_reducer: median
+    terms: Public domain (NOAA).
+    bands:
+      CMI_C01:
+        description: ABI band 01 (visible blue) reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      CMI_C02:
+        description: ABI band 02 (visible red) reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      CMI_C03:
+        description: ABI band 03 (veggie NIR) reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      CMI_C07:
+        description: ABI band 07 (shortwave IR) brightness temperature
+        units: K
+        wavelength: 3.9
+      CMI_C13:
+        description: ABI band 13 (clean longwave IR window) brightness temperature
+        units: K
+        wavelength: 10.35
+      DQF_C01:
+        description: Data quality flag, band 01
+      DQF_C13:
+        description: Data quality flag, band 13
