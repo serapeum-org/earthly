@@ -494,3 +494,81 @@ class Catalog(AbstractCatalog):
                 ```
         """
         return self.get_band(dataset_id, band_id)
+
+    # -- dict-like access over the curated `datasets:` map ---------------------
+
+    def __getitem__(self, dataset_id: str) -> Dataset:
+        """Dict-style lookup of a curated dataset (raises `KeyError` on miss).
+
+        Equivalent to :meth:`get_dataset` but follows Python's mapping
+        protocol — an unknown id yields `KeyError` (with the close-match
+        hint from `get_dataset` preserved as the cause).
+
+        Examples:
+            - Look up a dataset by id:
+                ```python
+                >>> Catalog()["USGS/SRTMGL1_003"].title
+                'NASA SRTM Digital Elevation 30m'
+
+                ```
+        """
+        try:
+            return self.get_dataset(dataset_id)
+        except ValueError as exc:
+            raise KeyError(dataset_id) from exc
+
+    def __contains__(self, dataset_id: object) -> bool:
+        """`asset_id in cat` — True when `asset_id` is a curated dataset."""
+        return dataset_id in self.datasets
+
+    def __iter__(self):
+        """Iterate over the curated dataset asset ids."""
+        return iter(self.datasets)
+
+    def __len__(self) -> int:
+        """Number of curated datasets in the catalog."""
+        return len(self.datasets)
+
+    def __repr__(self) -> str:
+        """Compact developer repr — counts, not contents.
+
+        Use `str(cat)` for the human-readable YAML dump of the curated
+        datasets.
+
+        Examples:
+            - The repr summarises the catalog's size:
+                ```python
+                >>> repr(Catalog()).startswith("Catalog(datasets=12, available_datasets=")
+                True
+
+                ```
+        """
+        return (
+            f"Catalog(datasets={len(self.datasets)}, "
+            f"available_datasets={len(self.available_datasets)})"
+        )
+
+    def __str__(self) -> str:
+        """Pretty-print the curated `datasets:` map as YAML.
+
+        `None`-valued fields are omitted so the output stays readable;
+        the ordering of `datasets:` keys follows insertion (which mirrors
+        the YAML file).
+
+        Examples:
+            - The YAML dump starts with the first curated dataset's id:
+                ```python
+                >>> str(Catalog()).splitlines()[0]
+                'USGS/SRTMGL1_003:'
+
+                ```
+        """
+        import yaml
+
+        body = {
+            asset_id: dataset.model_dump(exclude_none=True)
+            for asset_id, dataset in self.datasets.items()
+        }
+        return yaml.safe_dump(
+            body, default_flow_style=False, sort_keys=False, allow_unicode=True
+        )

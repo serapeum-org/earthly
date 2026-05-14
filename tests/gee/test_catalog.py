@@ -586,3 +586,55 @@ class TestCatalog:
         cat = Catalog()
         assert cat.get_band("DEMO/COLLECTION", "value").id == "value"
         assert cat.get_dataset("DEMO/IMAGE").id == "DEMO/IMAGE"
+
+    def test_dict_protocol(self, shipped_catalog: Catalog):
+        """`Catalog` supports dict-style ``in``, ``[]``, ``len``, ``iter``.
+
+        Test scenario:
+            ``"USGS/SRTMGL1_003" in cat`` is True; ``cat["USGS/SRTMGL1_003"]``
+            returns the same `Dataset` as ``get_dataset(...)``; ``len(cat)``
+            == ``len(cat.datasets)``; iterating yields the asset ids.
+        """
+        cat = shipped_catalog
+        assert "USGS/SRTMGL1_003" in cat
+        assert "NOT/A/REAL/ID" not in cat
+        assert cat["USGS/SRTMGL1_003"] is cat.get_dataset("USGS/SRTMGL1_003")
+        assert len(cat) == len(cat.datasets)
+        assert set(iter(cat)) == set(cat.datasets)
+
+    def test_getitem_unknown_raises_keyerror(self, shipped_catalog: Catalog):
+        """``cat[<bad-id>]`` raises `KeyError` (not `ValueError`) per the dict protocol.
+
+        Test scenario:
+            The original `ValueError` from `get_dataset` is preserved on
+            `KeyError.__cause__` so the close-match hint isn't lost.
+        """
+        with pytest.raises(KeyError, match="USGS/SRTMGL1_004") as excinfo:
+            shipped_catalog["USGS/SRTMGL1_004"]
+        assert isinstance(excinfo.value.__cause__, ValueError)
+        assert "not in the GEE catalog" in str(excinfo.value.__cause__)
+
+    def test_repr_summarises_counts(self, shipped_catalog: Catalog):
+        """``repr(cat)`` is a compact summary, not the full content.
+
+        Test scenario:
+            The repr names the class and reports both counts.
+        """
+        text = repr(shipped_catalog)
+        assert text.startswith("Catalog(datasets=")
+        assert f"datasets={len(shipped_catalog.datasets)}" in text
+        assert f"available_datasets={len(shipped_catalog.available_datasets)}" in text
+
+    def test_str_dumps_curated_yaml(self, shipped_catalog: Catalog):
+        """``str(cat)`` is a YAML dump of the curated `datasets:` map.
+
+        Test scenario:
+            The dump round-trips through ``yaml.safe_load`` and recovers
+            the curated dataset ids and per-dataset titles.
+        """
+        import yaml
+
+        parsed = yaml.safe_load(str(shipped_catalog))
+        assert set(parsed) == set(shipped_catalog.datasets)
+        for asset_id, body in parsed.items():
+            assert body["title"] == shipped_catalog.get_dataset(asset_id).title
