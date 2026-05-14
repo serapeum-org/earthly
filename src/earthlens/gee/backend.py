@@ -647,7 +647,12 @@ class GEE(AbstractDataSource):
         req_end_excl = self.time.end_date + dt.timedelta(days=1)
         ds_start = dt.datetime.strptime(var_info.extent.start_date, "%Y-%m-%d")
         if var_info.extent.end_date is None:
-            ds_end_excl = dt.datetime.now() + dt.timedelta(days=1)
+            # `now()` would be local-naive; everything else here is naive UTC
+            # (STAC dates and `strptime`d user dates), so use a naive UTC value.
+            ds_end_excl = (
+                dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+                + dt.timedelta(days=1)
+            )
         else:
             ds_end_excl = dt.datetime.strptime(var_info.extent.end_date, "%Y-%m-%d") + dt.timedelta(days=1)
         start = max(req_start, ds_start)
