@@ -118,9 +118,13 @@ def createFeature(  # noqa: N802 - established public name
         An `ee.FeatureCollection` with one feature per (exploded) row.
 
     Raises:
-        ValueError: If any row's geometry cannot be converted (e.g. a
-            `LineString`), or for any other error while building the
-            collection — the underlying error is wrapped.
+        ValueError: If any row's geometry cannot be converted via
+            :func:`createGeometry` (e.g. a `LineString`).
+        KeyError: If `gdf` has no `geometry` column, or if any of the
+            requested `columns` is missing from `gdf`.
+        Other exceptions raised by `pandas` / `geopandas` /
+        `earthengine-api` propagate verbatim (with their original type
+        and traceback).
 
     Examples:
         - Build a collection from two polygons with a `name` property
@@ -155,29 +159,23 @@ def createFeature(  # noqa: N802 - established public name
     See Also:
         createGeometry: Converts a single Shapely geometry; called per row.
     """
-    try:
-        # get the geometry type for all rows
-        geotype = [i.geom_type for i in gdf["geometry"]]
-        # if any is "MultiPolygon" explode the dataframe to single polygons
-        if "MultiPolygon" in geotype:
-            # index_parts=True makes the resulted index multi-index if a
-            # multi-polygon resulted in many different polygons
-            gdf = gdf.explode(index_parts=True)
+    geotype = [i.geom_type for i in gdf["geometry"]]
+    # if any is "MultiPolygon" explode the dataframe to single polygons
+    # (`index_parts=True` makes the resulted index multi-index if a multi-polygon
+    #  resulted in many different polygons)
+    if "MultiPolygon" in geotype:
+        gdf = gdf.explode(index_parts=True)
 
-        ee_geom_list = gdf.geometry.apply(lambda geom: createGeometry(geom)).to_list()
-        records_df = pd.DataFrame(gdf.drop("geometry", axis=1))
-        if columns:
-            records_df = records_df[columns]
-        records = records_df.to_dict("records")
-        if not records:
-            ee_feature_list = [ee.Feature(geom) for geom in ee_geom_list]
-        else:
-            ee_feature_list = [
-                ee.Feature(geom, record)
-                for geom, record in zip(ee_geom_list, records)
-            ]
-        return ee.FeatureCollection(ee_feature_list)
-
-    except Exception as error:
-        logger.error(error)
-        raise ValueError(error)
+    ee_geom_list = gdf.geometry.apply(lambda geom: createGeometry(geom)).to_list()
+    records_df = pd.DataFrame(gdf.drop("geometry", axis=1))
+    if columns:
+        records_df = records_df[columns]
+    records = records_df.to_dict("records")
+    if not records:
+        ee_feature_list = [ee.Feature(geom) for geom in ee_geom_list]
+    else:
+        ee_feature_list = [
+            ee.Feature(geom, record)
+            for geom, record in zip(ee_geom_list, records)
+        ]
+    return ee.FeatureCollection(ee_feature_list)
