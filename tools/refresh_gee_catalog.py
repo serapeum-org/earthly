@@ -32,6 +32,8 @@ import re
 import sys
 from pathlib import Path
 
+import yaml
+
 sys.path.insert(0, str(Path(__file__).parent))
 from _gee_stac import collect_collection_ids, fetch_collection_stac  # noqa: E402
 
@@ -196,12 +198,16 @@ def stanza_for(asset_id: str) -> str:
     return "\n".join(lines) + "\n"
 
 
-def _yaml_str(value: str) -> str:
-    """Quote a string for YAML if it needs quoting; else return it bare."""
+def _yaml_str(value) -> str:
+    """Render `value` as a single-line YAML scalar (safely quoted when needed).
+
+    Delegates to `yaml.safe_dump` so non-ASCII text, embedded quotes, and YAML
+    metacharacters are escaped correctly — and only the scalar's first line is
+    returned, dropping the document-end marker (`\\n...\\n`) PyYAML adds when
+    dumping a top-level scalar.
+    """
     text = str(value).strip()
-    if not text or re.search(r'[:#\[\]{}",&*!|>%@`]', text) or text[0] in "?-" or ": " in text:
-        return '"' + text.replace('\\', '\\\\').replace('"', '\\"') + '"'
-    return text
+    return yaml.safe_dump(text, default_flow_style=False, allow_unicode=True).split("\n", 1)[0]
 
 
 def _num(value) -> str:
