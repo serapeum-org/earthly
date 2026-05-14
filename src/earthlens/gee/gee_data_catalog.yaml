@@ -5948,3 +5948,637 @@ datasets:
         description: GEDI beam identifier
         min: 0
         max: 12
+
+  USGS/NLCD_RELEASES/2016_REL:
+    title: "NLCD 2016: USGS National Land Cover Database, 2016 release (legacy)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1992-01-01"
+      end_date: "2016-12-31"
+      bbox: [-130.24, 21.75, -63.66, 57.68]
+    default_reducer: mosaic
+    terms: Public domain (USGS).
+    bands:
+      landcover:
+        description: NLCD land-cover class (Anderson Level II)
+        min: 0
+        max: 95
+      impervious:
+        description: Percent of pixel covered by impervious surface
+        units: "%"
+        min: 0
+        max: 100
+      impervious_descriptor:
+        description: Impervious sub-class (roads vs structures)
+      percent_tree_cover:
+        description: Per-pixel tree canopy cover
+        units: "%"
+        min: 0
+        max: 100
+
+  MODIS/061/MOD14A2:
+    title: "MOD14A2.061: Terra Thermal Anomalies & Active Fire 8-Day Global 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: mosaic
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      FireMask:
+        description: Per-pixel 8-day fire confidence class
+      QA:
+        description: Pixel quality indicators
+
+  MODIS/061/MYD14A1:
+    title: "MYD14A1.061: Aqua Thermal Anomalies & Active Fire Daily 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      FireMask:
+        description: Per-pixel daily fire confidence class
+      MaxFRP:
+        description: Maximum fire radiative power for the day
+        units: MW
+        scale: 0.1
+      sample:
+        description: Position of the fire pixel within scan
+      QA:
+        description: Pixel quality indicators
+
+  MODIS/061/MYD14A2:
+    title: "MYD14A2.061: Aqua Thermal Anomalies & Active Fire 8-Day Global 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      FireMask:
+        description: Per-pixel 8-day fire confidence class
+      QA:
+        description: Pixel quality indicators
+
+  UMD/hansen/global_forest_change_2023_v1_11:
+    title: "Hansen Global Forest Change v1.11 (2000-2023)"
+    provider: Hansen / UMD / Google / USGS / NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2023-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      treecover2000:
+        description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
+        units: "%"
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss in 2000-2023 (binary stand-replacement disturbance)
+      gain:
+        description: Forest gain in 2000-2012 (binary inverse of loss)
+      lossyear:
+        description: Year of forest cover loss (1=2001 ... 23=2023)
+        min: 0
+        max: 23
+      datamask:
+        description: Data quality mask (no-data / land / permanent water)
+
+  NOAA/CDR/AVHRR/AOT/V4:
+    title: "NOAA CDR AVHRR AOT v4: Daily Global Ocean Aerosol Optical Thickness (~10km)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA CDR).
+    bands:
+      aot:
+        description: Aerosol optical thickness over the ocean
+        min: -0.19
+        max: 4.95
+        estimated_range: true
+
+  LANDSAT/LC09/C02/T1_TOA:
+    title: "USGS Landsat 9 Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2021-10-31"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1 (resampled from 100m to 30m)
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2 (resampled from 100m to 30m)
+        wavelength: 12.005
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LC09/C02/T2_L2:
+    title: "USGS Landsat 9 Collection 2 Tier 2 Surface Reflectance + Surface Temperature"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2021-10-31"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      SR_B1:
+        description: Band 1 (coastal aerosol) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.443
+      SR_B2:
+        description: Band 2 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.482
+      SR_B3:
+        description: Band 3 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.562
+      SR_B4:
+        description: Band 4 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.655
+      SR_B5:
+        description: Band 5 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.865
+      SR_B6:
+        description: Band 6 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.609
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.201
+      ST_B10:
+        description: Band 10 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 10.895
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LE07/C02/T2_L2:
+    title: "USGS Landsat 7 Collection 2 Tier 2 Surface Reflectance + Surface Temperature"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-05-28"
+      end_date: "2024-04-06"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LT04/C02/T1_L2:
+    title: "USGS Landsat 4 Collection 2 Tier 1 Surface Reflectance + Surface Temperature"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-22"
+      end_date: "1993-12-14"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  JRC/GHSL/P2023A/GHS_SMOD_V2-0:
+    title: "GHSL P2023A: Degree of Urbanisation v2-0 (1km, 1975-2030)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2030-01-01"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      smod_code:
+        description: Degree-of-urbanisation class (rural/town/city granularity, v2-0)
+
+  JRC/GHSL/P2023A/GHS_BUILT_V:
+    title: "GHSL P2023A: Global Building Volume 1975-2030 (100m)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2030-01-01"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      built_volume_total:
+        description: Total building volume per 100m grid cell
+        units: m^3
+      built_volume_nres:
+        description: Non-residential building volume per 100m grid cell
+        units: m^3
+
+  NASA/GIMMS/3GV0:
+    title: "GIMMS NDVI 3g v0: AVHRR-Derived NDVI Bimonthly (~9km, 1981-2015)"
+    provider: NASA / NOAA
+    ee_type: image_collection
+    cadence: { interval: 15, unit: day }
+    spatial_resolution: 9277
+    extent:
+      start_date: "1981-07-01"
+      end_date: "2015-12-31"
+    default_reducer: mean
+    terms: Public domain (NASA GIMMS).
+    bands:
+      ndvi:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+      qa:
+        description: Per-pixel quality flag
+
+  MODIS/061/MYD08_M3:
+    title: "MYD08_M3.061: Aqua Atmosphere Monthly Global 1° (Aerosols, Cloud, Water Vapor)"
+    provider: NASA LAADS DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 111320
+    extent:
+      start_date: "2002-07-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA LAADS DAAC).
+    bands:
+      Aerosol_Optical_Depth_Land_Ocean_Mean_Mean:
+        description: AOD at 0.55 µm (land + ocean), monthly mean of daily mean
+        scale: 0.001
+        wavelength: 0.55
+      Aerosol_Optical_Depth_Land_QA_Mean_Mean_470:
+        description: AOD at 0.47 µm (land, corrected), monthly mean
+        scale: 0.001
+        wavelength: 0.47
+      Cirrus_Fraction_SWIR_FMean:
+        description: Cirrus area fraction (SWIR-derived), monthly mean
+        scale: 0.0001
+      Cloud_Optical_Thickness_Liquid_Log_Mean_Mean:
+        description: Liquid cloud optical thickness, monthly mean of daily log-mean
+        scale: 0.001
+      Cloud_Top_Pressure_Mean_Mean:
+        description: Cloud top pressure, monthly mean of daily mean
+        units: hPa
+        scale: 0.1
+      Cloud_Top_Temperature_Mean_Mean:
+        description: Cloud top temperature, monthly mean
+        units: K
+        scale: 0.01
+
+  NOAA/CDR/HEAT_FLUXES/V2:
+    title: "NOAA CDR Ocean Surface Bundle: Heat Fluxes v2 (3-hourly 0.25°)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1988-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA CDR).
+    bands:
+      surface_upward_latent_heat_flux:
+        description: Latent heat flux from the ocean surface (positive upward)
+        units: W/m^2
+      surface_upward_sensible_heat_flux:
+        description: Sensible heat flux from the ocean surface (positive upward)
+        units: W/m^2
+      fill_missing_qc:
+        description: Fill / missing-data quality control flag
+
+  COPERNICUS/Landcover/100m/Proba-V/Global:
+    title: "Copernicus CGLS-LC100 Collection 2 (Proba-V, 100m, legacy 2015 epoch)"
+    provider: Copernicus / VITO
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mosaic
+    terms: Free with attribution (Copernicus).
+    user_uploaded: true
+    bands:
+      discrete_classification:
+        description: Land-cover class (discrete)
+        min: 0
+        max: 200
+      discrete_classification-proba:
+        description: Classification probability
+        units: "%"
+        min: 0
+        max: 100
+      forest_type:
+        description: Forest-type class (for tree-cover pixels)
+        min: 0
+        max: 5
+      tree-coverfraction:
+        description: Per-pixel tree-cover fraction
+        units: "%"
+        min: 0
+        max: 100
+      crops-coverfraction:
+        description: Per-pixel crop-cover fraction
+        units: "%"
+        min: 0
+        max: 100
+      urban-coverfraction:
+        description: Per-pixel built-up fraction
+        units: "%"
+        min: 0
+        max: 100
+      water-permanent-coverfraction:
+        description: Per-pixel permanent-water fraction
+        units: "%"
+        min: 0
+        max: 100
+
+  CIESIN/GPWv411/GPW_Population_Count:
+    title: "GPWv4.11 Population Count (Gridded Population of the World, 5-yearly 1km)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      population_count:
+        description: Estimated population per 30 arc-second grid cell
+        units: persons
+        min: 0
+
+  USGS/GFSAD1000_V1:
+    title: "GFSAD1000 v1: Global Cropland Extent at 1km (NASA MEaSUREs)"
+    provider: USGS / NASA MEaSUREs
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2010-01-01"
+      end_date: "2010-12-31"
+    default_reducer: mosaic
+    terms: Public domain (USGS).
+    bands:
+      landcover:
+        description: Cropland-extent class (0=non-cropland ... 9=other crop)
+        min: 0
+        max: 9
+
+  WORLDCLIM/V1/BIO:
+    title: "WorldClim BIO v1: 19 Bioclimatic Variables (1km, 1960-1990 climatology)"
+    provider: WorldClim — University of California, Berkeley
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1960-01-01"
+      end_date: "1990-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-SA-4.0.
+    bands:
+      bio01:
+        description: Annual mean temperature
+        units: deg_C
+        scale: 0.1
+      bio02:
+        description: Mean diurnal range (mean of monthly Tmax-Tmin)
+        units: deg_C
+        scale: 0.1
+      bio03:
+        description: Isothermality (BIO2 / BIO7) * 100
+        scale: 0.01
+      bio04:
+        description: Temperature seasonality (standard deviation * 100)
+        units: deg_C
+        scale: 0.01
+      bio05:
+        description: Maximum temperature of warmest month
+        units: deg_C
+        scale: 0.1
+      bio06:
+        description: Minimum temperature of coldest month
+        units: deg_C
+        scale: 0.1
+      bio07:
+        description: Temperature annual range (BIO5-BIO6)
+        units: deg_C
+        scale: 0.1
+      bio08:
+        description: Mean temperature of wettest quarter
+        units: deg_C
+        scale: 0.1
+      bio09:
+        description: Mean temperature of driest quarter
+        units: deg_C
+        scale: 0.1
+      bio10:
+        description: Mean temperature of warmest quarter
+        units: deg_C
+        scale: 0.1
+      bio11:
+        description: Mean temperature of coldest quarter
+        units: deg_C
+        scale: 0.1
+      bio12:
+        description: Annual precipitation
+        units: mm
+      bio13:
+        description: Precipitation of wettest month
+        units: mm
+      bio14:
+        description: Precipitation of driest month
+        units: mm
+      bio15:
+        description: Precipitation seasonality (CV)
+      bio16:
+        description: Precipitation of wettest quarter
+        units: mm
+      bio17:
+        description: Precipitation of driest quarter
+        units: mm
+      bio18:
+        description: Precipitation of warmest quarter
+        units: mm
+      bio19:
+        description: Precipitation of coldest quarter
+        units: mm
+
+  NASA/GPM_L3/IMERG_MONTHLY_V06:
+    title: "GPM IMERG Monthly v06 (Final Run, 0.1°, 2000-2021)"
+    provider: NASA GES DISC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2000-06-01"
+      end_date: "2021-09-30"
+    default_reducer: mean
+    terms: Public domain (NASA GES DISC).
+    bands:
+      precipitation:
+        description: Merged satellite-gauge precipitation estimate
+        units: mm/hr
+      precipitationQualityIndex:
+        description: Quality index for the precipitation field
+      gaugeRelativeWeighting:
+        description: Weighting of gauge precipitation vs satellite estimate
+        units: "%"
+      probabilityLiquidPrecipitation:
+        description: Accumulation-weighted probability of liquid phase
+        units: "%"
+      randomError:
+        description: Random error of the merged precipitation estimate
+        units: mm/hr
