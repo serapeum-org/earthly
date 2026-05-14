@@ -12,12 +12,12 @@ that support catalog work.
 |---|---|
 | `src/earthlens/ecmwf/cds_data_catalog.yaml` | The catalog itself — schema described below |
 | `src/earthlens/ecmwf/catalog.py` | The loader (`Catalog`, `Dataset`, `Variable`, …) |
-| `tools/refresh_available_datasets.py` | Auto-rewrites the `available_datasets:` index from the live CDS STAC catalogue |
-| `tools/audit_cds_datasets.py` | Walks `available_datasets:` and reports each dataset's `constraints.json` shape — coverage planning |
-| `tools/probe_open_datasets.py` | Submits one fire-and-forget retrieve per dataset to verify it actually serves data |
-| `tools/probe_cds_netcdf.py` | Submits a real retrieve for specific variables and extracts their NetCDF short names and units |
-| `tools/download_probe_results.py` | Waits for queued probes to finish, downloads the NetCDFs locally |
-| `tools/bulk_add_remaining.py` / `bulk_apply.py` / `bulk_inject.py` | Bulk-emit and inject YAML rows for the gated-dataset families (CARRA-means, ORAS5, etc.) |
+| `tools/ecmwf/refresh_available_datasets.py` | Auto-rewrites the `available_datasets:` index from the live CDS STAC catalogue |
+| `tools/ecmwf/audit_cds_datasets.py` | Walks `available_datasets:` and reports each dataset's `constraints.json` shape — coverage planning |
+| `tools/ecmwf/probe_open_datasets.py` | Submits one fire-and-forget retrieve per dataset to verify it actually serves data |
+| `tools/ecmwf/probe_cds_netcdf.py` | Submits a real retrieve for specific variables and extracts their NetCDF short names and units |
+| `tools/ecmwf/download_probe_results.py` | Waits for queued probes to finish, downloads the NetCDFs locally |
+| `tools/ecmwf/bulk_add_remaining.py` / `bulk_apply.py` / `bulk_inject.py` | Bulk-emit and inject YAML rows for the gated-dataset families (CARRA-means, ORAS5, etc.) |
 
 ## Catalog structure
 
@@ -35,7 +35,7 @@ version: 3                                       # catalog schema version (infor
 
 available_datasets:                              # inventory of CDS-hosted datasets (~134)
   - <dataset_name_1>                             #   one entry per dataset CDS publishes
-  - <dataset_name_2>                             #   refreshed by tools/refresh_available_datasets.py
+  - <dataset_name_2>                             #   refreshed by tools/ecmwf/refresh_available_datasets.py
   - ...
 
 datasets:                                        # curated, user-addressable datasets (~37)
@@ -90,7 +90,7 @@ Bump it when the schema gains an incompatible new field.
 *Optional, but conventionally always present.* A flat list of every
 CDS dataset short name the Climate Data Store currently publishes —
 roughly 134 entries today. The list is maintained by
-`tools/refresh_available_datasets.py`, which hits CDS's live STAC API
+`tools/ecmwf/refresh_available_datasets.py`, which hits CDS's live STAC API
 (`https://cds.climate.copernicus.eu/api/catalogue/v1/collections`),
 filters for the ECMWF / Copernicus entries the package targets, and
 rewrites just this block in place.
@@ -99,7 +99,7 @@ The runtime download path does **not** read `available_datasets` —
 nothing under `Catalog.download` or `_api()` consults it. The block is
 purely a discovery / inventory hint, surfaced as the
 `Catalog.available_datasets` attribute so external tools (notably
-`tools/audit_cds_datasets.py`) can iterate the full CDS inventory
+`tools/ecmwf/audit_cds_datasets.py`) can iterate the full CDS inventory
 without hitting the network themselves. Users who want to know "what
 does CDS host that I might be able to ask for?" can read this list
 offline; users who want to actually request data can only use
@@ -137,7 +137,7 @@ This becomes the default for every variable under this dataset and is
 written into each `Variable.product_type` field at load time. A
 per-variable row may override it (see the variable-level
 `product_type` field below). Check the dataset's live `constraints.json`
-if you're unsure which values are valid — `tools/audit_cds_datasets.py`
+if you're unsure which values are valid — `tools/ecmwf/audit_cds_datasets.py`
 will show you.
 
 ##### `pressure_level`
@@ -252,7 +252,7 @@ the NetCDF variable name following ECMWF's GRIB short-name convention,
 which is sometimes the request name with underscores collapsed (e.g.
 `2m_temperature` → `t2m`) but often something different (e.g.
 `total_precipitation` → `tp`). Discover the right value by submitting
-a probe via `tools/probe_cds_netcdf.py`, which downloads a real
+a probe via `tools/ecmwf/probe_cds_netcdf.py`, which downloads a real
 NetCDF and prints the variable's short name and units.
 
 ##### `units`
@@ -558,7 +558,7 @@ The two top-level blocks have **different ownership**:
 
 | Block | Authored by | Refreshed via |
 |---|---|---|
-| `available_datasets:` | The CDS server | `pixi run -e dev python tools/refresh_available_datasets.py` |
+| `available_datasets:` | The CDS server | `pixi run -e dev python tools/ecmwf/refresh_available_datasets.py` |
 | `datasets:` | Hand or catalog automation | No script regenerates it from CDS — see below |
 
 When CDS publishes a new dataset, run `refresh_available_datasets.py`
@@ -569,7 +569,7 @@ below.
 
 ## Discovery & probe tools
 
-### `tools/refresh_available_datasets.py`
+### `tools/ecmwf/refresh_available_datasets.py`
 
 Pulls the current STAC catalogue from
 `https://cds.climate.copernicus.eu/api/catalogue/v1/collections`,
@@ -580,14 +580,14 @@ package targets, and rewrites the `available_datasets:` block in
 verbatim.
 
 ```bash
-pixi run -e dev python tools/refresh_available_datasets.py
+pixi run -e dev python tools/ecmwf/refresh_available_datasets.py
 ```
 
 Run before each release so the catalogue file reflects whatever
 datasets CDS hosts on release day. Exits 0 on success, 1 on any
 HTTP / parse error.
 
-### `tools/audit_cds_datasets.py`
+### `tools/ecmwf/audit_cds_datasets.py`
 
 For each short name in `available_datasets:`, hits CDS's public
 `constraints.json` endpoint via `fetch_constraints` and prints:
@@ -597,7 +597,7 @@ For each short name in `available_datasets:`, hits CDS's public
 - which extra request fields beyond the ERA5 standard set are required.
 
 ```bash
-pixi run -e dev python tools/audit_cds_datasets.py
+pixi run -e dev python tools/ecmwf/audit_cds_datasets.py
 ```
 
 Output is grouped by category (`DONE` / `addressable` /
@@ -606,7 +606,7 @@ glance which datasets are ready to add and which need bespoke
 modelling (typically extras keys like `domain`, `experiment`,
 `leadtime_hour`, …).
 
-### `tools/probe_open_datasets.py`
+### `tools/ecmwf/probe_open_datasets.py`
 
 Fire-and-forget retrieve probe per dataset. For each entry, asks
 `Catalog.minimal_valid_request` for a known-valid request derived
@@ -615,14 +615,14 @@ from `constraints.json`, runs the local pre-flight
 passes.
 
 ```bash
-pixi run -e dev python tools/probe_open_datasets.py
+pixi run -e dev python tools/ecmwf/probe_open_datasets.py
 ```
 
 Submits probes and returns immediately. Pair with
 `download_probe_results.py` to wait for queue completion and harvest
 the resulting NetCDFs.
 
-### `tools/download_probe_results.py`
+### `tools/ecmwf/download_probe_results.py`
 
 Waits for queued probes to finish and downloads the result NetCDFs
 into `C:/tmp/cds_probe/`. Thin wrapper around
@@ -630,14 +630,14 @@ into `C:/tmp/cds_probe/`. Thin wrapper around
 HTTP plumbing.
 
 ```bash
-pixi run -e dev python tools/download_probe_results.py
-pixi run -e dev python tools/download_probe_results.py --max-age-min 60
+pixi run -e dev python tools/ecmwf/download_probe_results.py
+pixi run -e dev python tools/ecmwf/download_probe_results.py --max-age-min 60
 ```
 
 After this finishes, the cached NetCDFs are ready for nc-variable
 extraction by `probe_cds_netcdf.py` or hand inspection.
 
-### `tools/probe_cds_netcdf.py`
+### `tools/ecmwf/probe_cds_netcdf.py`
 
 Submits a real retrieve for a *specific* set of CDS variables on a
 *specific* dataset, then walks the returned NetCDF to extract each
@@ -646,7 +646,7 @@ sidecar mapping `cds_variable` → metadata that you copy into the
 `datasets:` block.
 
 ```bash
-pixi run -e dev python tools/probe_cds_netcdf.py \
+pixi run -e dev python tools/ecmwf/probe_cds_netcdf.py \
     --dataset reanalysis-era5-land \
     --variables evaporation_from_bare_soil,total_evaporation \
     --out C:/tmp/cds_probe/era5land_missing.json
@@ -662,7 +662,7 @@ by `level_type` / `product_type` / `time_aggregation`, manual row
 authoring is tedious — each variable needs the right gating extras.
 The bulk-add scripts automate this.
 
-### `tools/bulk_add_remaining.py`
+### `tools/ecmwf/bulk_add_remaining.py`
 
 Walks `constraints.json` for each gated dataset, enumerates missing
 `cds_variable` names, and emits YAML rows using:
@@ -676,13 +676,13 @@ For each gated dataset, per-row `extras` override the parent's
 `level_type` / `product_type` / `time_aggregation` so the same
 dataset key can host multiple `level_type`-scoped vars.
 
-### `tools/bulk_apply.py`
+### `tools/ecmwf/bulk_apply.py`
 
 Applies the bulk-add output: for each gated dataset, appends the
 generated YAML rows into `cds_data_catalog.yaml`. Skips vars already
 present (by `cds_variable`). Idempotent — safe to re-run.
 
-### `tools/bulk_inject.py`
+### `tools/ecmwf/bulk_inject.py`
 
 Same job as `bulk_apply.py` with a different injection strategy: finds
 the closing line of each dataset's `variables:` section and injects
@@ -696,8 +696,8 @@ the package doesn't yet support:
 1. **Surface the gap.**
 
     ```bash
-    pixi run -e dev python tools/refresh_available_datasets.py
-    pixi run -e dev python tools/audit_cds_datasets.py
+    pixi run -e dev python tools/ecmwf/refresh_available_datasets.py
+    pixi run -e dev python tools/ecmwf/audit_cds_datasets.py
     ```
 
    The audit prints which datasets in `available_datasets:` have no
@@ -709,9 +709,9 @@ the package doesn't yet support:
    short name and units:
 
     ```bash
-    pixi run -e dev python tools/probe_open_datasets.py
-    pixi run -e dev python tools/download_probe_results.py
-    pixi run -e dev python tools/probe_cds_netcdf.py \
+    pixi run -e dev python tools/ecmwf/probe_open_datasets.py
+    pixi run -e dev python tools/ecmwf/download_probe_results.py
+    pixi run -e dev python tools/ecmwf/probe_cds_netcdf.py \
         --dataset <dataset-short-name> \
         --variables <cds_variable_1>,<cds_variable_2> \
         --out C:/tmp/cds_probe/<dataset>.json
@@ -750,7 +750,7 @@ add one more variable:
 1. Probe it for `nc_variable` / `units`:
 
     ```bash
-    pixi run -e dev python tools/probe_cds_netcdf.py \
+    pixi run -e dev python tools/ecmwf/probe_cds_netcdf.py \
         --dataset reanalysis-era5-single-levels \
         --variables surface_pressure \
         --out C:/tmp/cds_probe/era5_sp.json

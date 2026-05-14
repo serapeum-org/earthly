@@ -6,7 +6,7 @@ NetCDF, and writes a JSON sidecar mapping ``cds_variable`` → metadata.
 
 Usage::
 
-    pixi run -e dev python tools/probe_cds_netcdf.py \
+    pixi run -e dev python tools/ecmwf/probe_cds_netcdf.py \
         --dataset reanalysis-era5-land \
         --variables evaporation_from_bare_soil,total_evaporation,... \
         --out C:/tmp/cds_probe/era5land_missing.json

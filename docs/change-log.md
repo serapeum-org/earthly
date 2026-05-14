@@ -11,7 +11,7 @@
   `Catalog` / `Dataset` / `Band` / `Cadence` / `Extent`, the full ~1100-entry
   `available_datasets:` index from the Earth Engine STAC plus a curated `datasets:`
   map); `EarthEngineAuth`; Shapely/GeoDataFrame → `ee` geometry helpers; the
-  `tools/refresh_gee_catalog.py` / `tools/audit_gee_datasets.py` STAC tooling; the
+  `tools/gee/refresh_gee_catalog.py` / `tools/gee/audit_gee_datasets.py` STAC tooling; the
   `"gee"` / `"google-earth-engine"` keys in the `EarthLens` facade (with a
   `**backend_kwargs` passthrough; `download()` now returns the backend's result); and
   the `docs/reference/google-earth-engine/` documentation.

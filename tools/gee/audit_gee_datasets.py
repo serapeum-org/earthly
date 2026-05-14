@@ -7,7 +7,7 @@ classify it:
 * **DONE** — already a key in the curated ``datasets:`` map.
 * **addressable** — an ``image`` / ``image_collection`` with at least
   one band carrying usable metadata (a ``gee:units`` or ``gee:scale``);
-  can be auto-stanza'd via ``tools/refresh_gee_catalog.py --with-bands``.
+  can be auto-stanza'd via ``tools/gee/refresh_gee_catalog.py --with-bands``.
 * **thin** — an ``image`` / ``image_collection`` whose STAC has no
   ``eo:bands`` or only bare bands (needs hand-modelling).
 * **table** — a ``FeatureCollection`` (``gee:type == "table"``); out of
@@ -16,11 +16,11 @@ classify it:
 
 Prints per-bucket counts plus a TODO list of the highest-impact
 ``addressable`` datasets not yet DONE. Fetched STAC documents are cached
-under ``tools/_gee_stac_cache/`` so a re-run is offline.
+under ``tools/gee/_gee_stac_cache/`` so a re-run is offline.
 
-This is the GEE analogue of ``tools/audit_cds_datasets.py``. Run:
+This is the GEE analogue of ``tools/ecmwf/audit_cds_datasets.py``. Run:
 
-    pixi run -e dev python tools/audit_gee_datasets.py
+    pixi run -e dev python tools/gee/audit_gee_datasets.py
 
 Not part of the installed package.
 """
@@ -38,7 +38,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from _gee_stac import fetch_collection_stac, stac_url  # noqa: E402
 
 CATALOG_PATH = Path("src/earthlens/gee/gee_data_catalog.yaml")
-CACHE_DIR = Path("tools/_gee_stac_cache")
+CACHE_DIR = Path("tools/gee/_gee_stac_cache")
 
 
 def _cached_stac(asset_id: str) -> dict | None:
@@ -79,7 +79,7 @@ def main() -> int:
     available = list(catalog.get("available_datasets") or [])
     curated = set((catalog.get("datasets") or {}).keys())
     if not available:
-        print("available_datasets: is empty — run tools/refresh_gee_catalog.py first", file=sys.stderr)
+        print("available_datasets: is empty — run tools/gee/refresh_gee_catalog.py first", file=sys.stderr)
         return 1
 
     buckets: dict[str, list[str]] = {}

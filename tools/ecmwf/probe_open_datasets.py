@@ -7,7 +7,7 @@ POST only if the validator passes.
 
 Usage::
 
-    pixi run -e dev python tools/probe_open_datasets.py
+    pixi run -e dev python tools/ecmwf/probe_open_datasets.py
 """
 
 from __future__ import annotations

@@ -11,7 +11,7 @@ comments) are preserved verbatim.
 Run before each release so the catalogue file reflects whatever
 datasets CDS hosts on the day the release ships:
 
-    pixi run -e dev python tools/refresh_available_datasets.py
+    pixi run -e dev python tools/ecmwf/refresh_available_datasets.py
 
 The script exits 0 on a successful refresh, 1 on any HTTP / parse
 error. It does **not** mutate the curated `datasets:` block — that

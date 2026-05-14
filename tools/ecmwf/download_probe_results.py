@@ -12,8 +12,8 @@ plumbing here.
 
 Usage::
 
-    pixi run -e dev python tools/download_probe_results.py
-    pixi run -e dev python tools/download_probe_results.py --max-age-min 60
+    pixi run -e dev python tools/ecmwf/download_probe_results.py
+    pixi run -e dev python tools/ecmwf/download_probe_results.py --max-age-min 60
 """
 
 from __future__ import annotations

@@ -155,5 +155,5 @@ tests/mo/*
 CLAUDE.md
 planning/
 
-# GEE STAC catalog tool cache (tools/audit_gee_datasets.py)
-tools/_gee_stac_cache/
+# GEE STAC catalog tool cache (tools/gee/audit_gee_datasets.py)
+tools/gee/_gee_stac_cache/

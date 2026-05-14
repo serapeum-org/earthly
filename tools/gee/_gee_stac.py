@@ -7,7 +7,7 @@ sub-catalogs, each of whose ``rel: child`` links point at either a
 nested sub-catalog (href ending ``/catalog.json``) or a single dataset
 STAC JSON. This module walks that tree to enumerate the dataset STAC
 documents and to fetch them; it is imported by
-``tools/refresh_gee_catalog.py`` and ``tools/audit_gee_datasets.py``.
+``tools/gee/refresh_gee_catalog.py`` and ``tools/gee/audit_gee_datasets.py``.
 
 Not part of the installed package — a ``tools/`` script helper only.
 """

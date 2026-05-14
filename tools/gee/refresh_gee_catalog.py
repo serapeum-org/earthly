@@ -14,12 +14,12 @@ per-band ``units`` / ``scale`` / ``offset`` / ``wavelength`` /
 ``min`` / ``max``). The ``default_reducer`` cannot be derived from
 STAC, so it is emitted as ``median`` with a ``# TODO: verify`` comment.
 
-This is the GEE analogue of ``tools/refresh_available_datasets.py``.
+This is the GEE analogue of ``tools/ecmwf/refresh_available_datasets.py``.
 Run before a release:
 
-    pixi run -e dev python tools/refresh_gee_catalog.py
-    pixi run -e dev python tools/refresh_gee_catalog.py --dry-run
-    pixi run -e dev python tools/refresh_gee_catalog.py --with-bands USGS/SRTMGL1_003
+    pixi run -e dev python tools/gee/refresh_gee_catalog.py
+    pixi run -e dev python tools/gee/refresh_gee_catalog.py --dry-run
+    pixi run -e dev python tools/gee/refresh_gee_catalog.py --with-bands USGS/SRTMGL1_003
 
 Exits 0 on success, 1 on any HTTP / parse error. Not part of the
 installed package.

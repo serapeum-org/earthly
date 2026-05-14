@@ -16,7 +16,7 @@ can be added under the existing schema and which need bespoke modelling.
 
 Usage::
 
-    pixi run -e dev python tools/audit_cds_datasets.py
+    pixi run -e dev python tools/ecmwf/audit_cds_datasets.py
 """
 
 from __future__ import annotations

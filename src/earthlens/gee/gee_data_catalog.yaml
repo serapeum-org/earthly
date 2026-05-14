@@ -6,9 +6,9 @@
 #                                      Engine asset ids the package
 #                                      knows about, grouped by provider
 #                                      with comments. Read by humans
-#                                      and tools/audit_gee_datasets.py;
+#                                      and tools/gee/audit_gee_datasets.py;
 #                                      ignored at runtime. Regenerated
-#                                      by tools/refresh_gee_catalog.py.
+#                                      by tools/gee/refresh_gee_catalog.py.
 #
 #   datasets.<asset_id>:               One entry per Earth Engine
 #                                      collection/image with curated

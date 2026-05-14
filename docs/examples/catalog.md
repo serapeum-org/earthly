@@ -475,7 +475,7 @@ CDS adds and retires datasets a few times a year; the
 the package's pinned snapshot. Refresh it before each release with:
 
 ```bash
-pixi run -e dev python tools/refresh_available_datasets.py
+pixi run -e dev python tools/ecmwf/refresh_available_datasets.py
 ```
 
 The script pulls the live STAC catalogue from
