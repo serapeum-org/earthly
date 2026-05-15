@@ -25805,3 +25805,256 @@ datasets:
     bands:
       EVH:
         description: Existing Vegetation Height
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      blue:
+        description: Blue (surface reflectance)
+      green:
+        description: Green (surface reflectance)
+      red:
+        description: Red (surface reflectance)
+      nir:
+        description: Near infrared (surface reflectance)
+      swir1:
+        description: Shortwave infrared 1 (surface reflectance)
+      swir2:
+        description: Shortwave infrared 2 (surface reflectance)
+      thermal:
+        description: Surface temperature
+        units: K
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_BAI:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day BAI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_EVI:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day EVI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_NBR:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day NBR Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      NBR:
+        description: Normalized Burn Ratio Thermal
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_NDVI:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day NDVI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_NDWI:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day NDWI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      blue:
+        description: Blue (surface reflectance)
+      green:
+        description: Green (surface reflectance)
+      red:
+        description: Red (surface reflectance)
+      nir:
+        description: Near infrared (surface reflectance)
+      swir1:
+        description: Shortwave infrared 1 (surface reflectance)
+      swir2:
+        description: Shortwave infrared 2 (surface reflectance)
+      thermal:
+        description: Surface temperature
+        units: K
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_BAI:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day BAI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_EVI:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day EVI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_NBR:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day NBR Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      NBR:
+        description: Normalized Burn Ratio Thermal
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_NDVI:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day NDVI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_NDWI:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day NDWI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL:
+    title: Landsat Collection 2 Tier 1 Level 2 Annual Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      blue:
+        description: Blue (surface reflectance)
+      green:
+        description: Green (surface reflectance)
+      red:
+        description: Red (surface reflectance)
+      nir:
+        description: Near infrared (surface reflectance)
+      swir1:
+        description: Shortwave infrared 1 (surface reflectance)
+      swir2:
+        description: Shortwave infrared 2 (surface reflectance)
+      thermal:
+        description: Surface temperature
+        units: K
+
+  LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL_BAI:
+    title: Landsat Collection 2 Tier 1 Level 2 Annual BAI Composite
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    terms: Landsat datasets are federally created data
+    bands:
+      BAI:
+        description: Burn Area Index
