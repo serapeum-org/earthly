@@ -1754,11 +1754,11 @@ datasets:
   chc-cmip6-precip-daily-delta-2030-ssp245:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2030_SSP245/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     # 365 day-of-year climatological tiles, not a repeating time series.
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2030-01-01"
     end_date: "2030-12-31"
@@ -1773,10 +1773,10 @@ datasets:
   chc-cmip6-precip-daily-delta-2030-ssp585:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2030_SSP585/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2030-01-01"
     end_date: "2030-12-31"
@@ -1791,10 +1791,10 @@ datasets:
   chc-cmip6-precip-daily-delta-2050-ssp245:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2050_SSP245/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2050-01-01"
     end_date: "2050-12-31"
@@ -1809,10 +1809,10 @@ datasets:
   chc-cmip6-precip-daily-delta-2050-ssp585:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2050_SSP585/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2050-01-01"
     end_date: "2050-12-31"
@@ -1827,10 +1827,10 @@ datasets:
   chc-cmip6-rh-daily-delta-2030-ssp245:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2030_SSP245/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2030-01-01"
     end_date: "2030-12-31"
@@ -1845,10 +1845,10 @@ datasets:
   chc-cmip6-rh-daily-delta-2030-ssp585:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2030_SSP585/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2030-01-01"
     end_date: "2030-12-31"
@@ -1863,10 +1863,10 @@ datasets:
   chc-cmip6-rh-daily-delta-2050-ssp245:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2050_SSP245/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2050-01-01"
     end_date: "2050-12-31"
@@ -1881,10 +1881,10 @@ datasets:
   chc-cmip6-rh-daily-delta-2050-ssp585:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2050_SSP585/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2050-01-01"
     end_date: "2050-12-31"
@@ -1899,10 +1899,10 @@ datasets:
   chc-cmip6-tmax-daily-delta-2030-ssp245:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2030_SSP245/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2030-01-01"
     end_date: "2030-12-31"
@@ -1917,10 +1917,10 @@ datasets:
   chc-cmip6-tmax-daily-delta-2030-ssp585:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2030_SSP585/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2030-01-01"
     end_date: "2030-12-31"
@@ -1935,10 +1935,10 @@ datasets:
   chc-cmip6-tmax-daily-delta-2050-ssp245:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2050_SSP245/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2050-01-01"
     end_date: "2050-12-31"
@@ -1953,10 +1953,10 @@ datasets:
   chc-cmip6-tmax-daily-delta-2050-ssp585:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2050_SSP585/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2050-01-01"
     end_date: "2050-12-31"
@@ -1971,10 +1971,10 @@ datasets:
   chc-cmip6-tmin-daily-delta-2030-ssp245:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2030_SSP245/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2030-01-01"
     end_date: "2030-12-31"
@@ -1989,10 +1989,10 @@ datasets:
   chc-cmip6-tmin-daily-delta-2030-ssp585:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2030_SSP585/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2030-01-01"
     end_date: "2030-12-31"
@@ -2007,10 +2007,10 @@ datasets:
   chc-cmip6-tmin-daily-delta-2050-ssp245:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2050_SSP245/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2050-01-01"
     end_date: "2050-12-31"
@@ -2025,10 +2025,10 @@ datasets:
   chc-cmip6-tmin-daily-delta-2050-ssp585:
     ftp_bases:
       tif: "pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2050_SSP585/"
-    region: global
+    region: global-extended
     temporal_resolution: daily-delta
     pandas_freq: "D"
-    spatial_resolution: [0.05]
+    spatial_resolution: [0.10]
     formats: *fmt_tif
     start_date: "2050-01-01"
     end_date: "2050-12-31"
