@@ -30734,3 +30734,135 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+
+  MODIS/MOD44W/MOD44W_005_2000_02_24:
+    title: MOD44W.005 Land Water Mask Derived From MODIS and SRTM
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      water_mask:
+        description: Land-water mask
+      water_mask_qa:
+        description: Shows which data source provided the water pixel.
+
+  MODIS/MYD09A1:
+    title: MYD09A1.005 Surface Reflectance 8-Day L3 Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MYD09GA:
+    title: MYD09GA.005 Aqua Surface Reflectance Daily L2G Global 1km and 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MYD09GA_006_BAI:
+    title: MODIS Aqua Daily BAI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  MODIS/MYD09GA_006_EVI:
+    title: MODIS Aqua Daily EVI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  MODIS/MYD09GA_006_NDSI:
+    title: MODIS Aqua Daily NDSI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDSI:
+        description: Normalized Difference Snow Index
+
+  MODIS/MYD09GA_006_NDVI:
+    title: MODIS Aqua Daily NDVI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  MODIS/MYD09GA_006_NDWI:
+    title: MODIS Aqua Daily NDWI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  MODIS/MYD09GA_BAI:
+    title: MODIS Aqua Daily BAI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      BAI:
+        description: Burn Area Index
