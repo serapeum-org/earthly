@@ -44211,3 +44211,770 @@ datasets:
         scale: 0.02
         min: -40.5137
         max: 1336.09
+
+  OpenLandMap/CLM/CLM_LST_MOD11A2-DAY_M/v01:
+    title: OpenLandMap Long-term Land Surface Temperature Daytime Monthly Median
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    user_uploaded: true
+    bands:
+      jan:
+        description: Long-term Land Surface Temperature daytime monthly mean, January
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      feb:
+        description: Long-term Land Surface Temperature daytime monthly mean, February
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      mar:
+        description: Long-term Land Surface Temperature daytime monthly mean, March
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      apr:
+        description: Long-term Land Surface Temperature daytime monthly mean, April
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      may:
+        description: Long-term Land Surface Temperature daytime monthly mean, May
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      jun:
+        description: Long-term Land Surface Temperature daytime monthly mean, June
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      jul:
+        description: Long-term Land Surface Temperature daytime monthly mean, July
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      aug:
+        description: Long-term Land Surface Temperature daytime monthly mean, August
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      sep:
+        description: Long-term Land Surface Temperature daytime monthly mean, September
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      oct:
+        description: Long-term Land Surface Temperature daytime monthly mean, October
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      nov:
+        description: Long-term Land Surface Temperature daytime monthly mean, November
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+      dec:
+        description: Long-term Land Surface Temperature daytime monthly mean, December
+        units: K
+        scale: 0.02
+        min: 11989
+        max: 16700
+
+  OpenLandMap/CLM/CLM_LST_MOD11A2-DAY_SD/v01:
+    title: OpenLandMap Long-term Land Surface Temperature Daytime Monthly Standard Deviation
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    user_uploaded: true
+    bands:
+      jan:
+        description: Long-term Land Surface Temperature daytime monthly stddev, January
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      feb:
+        description: Long-term Land Surface Temperature daytime monthly stddev, February
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      mar:
+        description: Long-term Land Surface Temperature daytime monthly stddev, March
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      apr:
+        description: Long-term Land Surface Temperature daytime monthly stddev, April
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      may:
+        description: Long-term Land Surface Temperature daytime monthly stddev, May
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      jun:
+        description: Long-term Land Surface Temperature daytime monthly stddev, June
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      jul:
+        description: Long-term Land Surface Temperature daytime monthly stddev, July
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      aug:
+        description: Long-term Land Surface Temperature daytime monthly stddev, August
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      sep:
+        description: Long-term Land Surface Temperature daytime monthly stddev, September
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      oct:
+        description: Long-term Land Surface Temperature daytime monthly stddev, October
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      nov:
+        description: Long-term Land Surface Temperature daytime monthly stddev, November
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+      dec:
+        description: Long-term Land Surface Temperature daytime monthly stddev, December
+        units: K
+        scale: 0.02
+        min: 25
+        max: 390
+
+  OpenLandMap/CLM/CLM_PRECIPITATION_SM2RAIN_M/v01:
+    title: OpenLandMap Precipitation Monthly
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-sa/4.0/).
+    user_uploaded: true
+    bands:
+      jan:
+        description: Jan Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      feb:
+        description: Feb Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      mar:
+        description: Mar Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      apr:
+        description: Apr Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      may:
+        description: May Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      jun:
+        description: Jun Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      jul:
+        description: Jul Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      aug:
+        description: Aug Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      sep:
+        description: Sep Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      oct:
+        description: Oct Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      nov:
+        description: Nov Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      dec:
+        description: Dec Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+
+  OpenLandMap/PNV/PNV_BIOME-TYPE_BIOME00K_C/v01:
+    title: OpenLandMap Potential Distribution of Biomes
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-sa/4.0/).
+    user_uploaded: true
+    bands:
+      biome_type:
+        description: Potential distribution of biomes
+
+  OpenLandMap/PNV/PNV_FAPAR_PROBA-V_D/v01:
+    title: OpenLandMap Potential FAPAR Monthly
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-sa/4.0/).
+    user_uploaded: true
+    bands:
+      jan:
+        description: Jan Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      feb:
+        description: Feb Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      mar:
+        description: Mar Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      apr:
+        description: Apr Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      may:
+        description: May Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      jun:
+        description: Jun Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      jul:
+        description: Jul Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      aug:
+        description: Aug Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      sep:
+        description: Sep Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      oct:
+        description: Oct Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      nov:
+        description: Nov Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      dec:
+        description: Dec Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      annual:
+        description: Anuual Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+      annualdiff:
+        description: Annual Difference Potential FAPAR monthly
+        units: Fraction
+        min: 0
+        max: 220
+
+  OpenLandMap/SOL/SOL_CLAY-WFRACTION_USDA-3A1A1A_M/v02:
+    title: OpenLandMap Clay Content
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    user_uploaded: true
+    bands:
+      b0:
+        description: Clay content at 0 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b10:
+        description: Clay content at 10 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b30:
+        description: Clay content at 30 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b60:
+        description: Clay content at 60 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b100:
+        description: Clay content at 100 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b200:
+        description: Clay content at 200 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+
+  OpenLandMap/SOL/SOL_GRTGROUP_USDA-SOILTAX-HAPLUDALFS_P/v01:
+    title: OpenLandMap Predicted Hapludalfs Probability
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    user_uploaded: true
+    bands:
+      grtgroup:
+        description: Predicted Hapludalfs probability
+        units: '%'
+        min: 0
+        max: 35
+
+  OpenLandMap/SOL/SOL_GRTGROUP_USDA-SOILTAX_C/v01:
+    title: OpenLandMap USDA Soil Taxonomy Great Groups
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    user_uploaded: true
+    bands:
+      grtgroup:
+        description: USDA soil taxonomy great groups
+
+  OpenLandMap/SOL/SOL_PH-H2O_USDA-4C1A2A_M/v02:
+    title: OpenLandMap Soil pH in H2O
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    user_uploaded: true
+    bands:
+      b0:
+        description: Soil pH in H2O at 0 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b10:
+        description: Soil pH in H2O at 10 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b30:
+        description: Soil pH in H2O at 30 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b60:
+        description: Soil pH in H2O at 60 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b100:
+        description: Soil pH in H2O at 100 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b200:
+        description: Soil pH in H2O at 200 cm depth
+        scale: 10
+        min: 42
+        max: 110
+
+  OpenLandMap/SOL/SOL_SAND-WFRACTION_USDA-3A1A1A_M/v02:
+    title: OpenLandMap Sand Content
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    user_uploaded: true
+    bands:
+      b0:
+        description: Sand content at 0 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b10:
+        description: Sand content at 10 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b30:
+        description: Sand content at 30 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b60:
+        description: Sand content at 60 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b100:
+        description: Sand content at 100 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b200:
+        description: Sand content at 200 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+
+  OpenLandMap/SOL/SOL_WATERCONTENT-33KPA_USDA-4B1C_M/v01:
+    title: OpenLandMap Soil Water Content at 33kPa (Field Capacity)
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    user_uploaded: true
+    bands:
+      b0:
+        description: Soil water content at 33kPa (field capacity) at 0 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b10:
+        description: Soil water content at 33kPa (field capacity) at 10 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b30:
+        description: Soil water content at 33kPa (field capacity) at 30 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b60:
+        description: Soil water content at 33kPa (field capacity) at 60 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b100:
+        description: Soil water content at 33kPa (field capacity) at 100 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b200:
+        description: Soil water content at 33kPa (field capacity) at 200 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+
+  RESOLVE/ECOREGIONS/2017:
+    title: RESOLVE Ecoregions 2017
+    provider: RESOLVE Biodiversity and Wildlife Solutions
+    ee_type: table
+    extent:
+      start_date: "2017-04-05"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+
+  RUB/RUBCLIM/LCZ/global_lcz_map/latest:
+    title: Global map of Local Climate Zones, latest version
+    provider: Bochum Urban Climate Lab
+    ee_type: image_collection
+    spatial_resolution: 100
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      LCZ:
+        description: The raw, pixel-based global LCZ map with LCZ classes
+      LCZ_Filter:
+        description: The recommended global LCZ map with LCZ classes.  LCZ labels are
+      LCZ_Probability:
+        description: A probability layer that identifies how often the modal LCZ was
+        units: '%'
+
+  RUB/RUBCLIM/LCZ/global_lcz_map/v1:
+    title: Global map of Local Climate Zones, v1 [deprecated]
+    provider: Bochum Urban Climate Lab
+    ee_type: image_collection
+    spatial_resolution: 100
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      LCZ:
+        description: The raw, pixel-based global LCZ map with LCZ classes
+      LCZ_Filter:
+        description: The recommended global LCZ map with LCZ classes.  LCZ labels are
+      LCZ_Probability:
+        description: A probability layer that identifies how often the modal LCZ was
+        units: '%'
+
+  SKYSAT/GEN-A/PUBLIC/ORTHO/MULTISPECTRAL:
+    title: Planet SkySat Public Ortho Imagery, Multispectral
+    provider: Planet Labs Inc.
+    ee_type: image_collection
+    spatial_resolution: 0.8
+    extent:
+      start_date: "2014-07-03"
+      end_date: null
+      bbox: [-180, -70, 180, 53]
+    default_reducer: mean
+    terms: This dataset is made available publicly under the Creative Commons by
+    bands:
+      B:
+        description: Blue
+        wavelength: 0.4825
+        min: 878
+        max: 62089
+      G:
+        description: Green
+        wavelength: 0.555
+        min: 341
+        max: 62007
+      R:
+        description: Red
+        wavelength: 0.65
+        min: 107
+        max: 63393
+      "N":
+        description: Near-IR
+        wavelength: 0.82
+        min: 16
+        max: 62874
+      P:
+        description: Panchromatic
+        wavelength: 0.675
+        min: 16
+        max: 65520
+
+  SKYSAT/GEN-A/PUBLIC/ORTHO/RGB:
+    title: Planet SkySat Public Ortho Imagery, RGB
+    provider: Planet Labs Inc.
+    ee_type: image_collection
+    spatial_resolution: 0.8
+    extent:
+      start_date: "2014-07-03"
+      end_date: null
+      bbox: [-180, -70, 180, 53]
+    default_reducer: mean
+    terms: This dataset is made available publicly under the Creative Commons by
+    bands:
+      R:
+        description: Red
+        min: 1
+        max: 255
+      G:
+        description: Green
+        min: 1
+        max: 255
+      B:
+        description: Blue
+        min: 1
+        max: 255
+
+  SNU/ESL/BESS/Rad/v1:
+    title: Breathing Earth System Simulator (BESS) Radiation v1
+    provider: Seoul National University (SNU)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5500
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      PAR_Daily:
+        description: Surface downwelling photosynthetic radiative flux in air
+        units: W/m^2
+      PARdiff_Daily:
+        description: Surface diffuse downwelling photosynthetic radiative flux in air
+        units: W/m^2
+      RSDN_Daily:
+        description: Surface downwelling shortwave flux in air
+        units: W/m^2
+
+  Slovakia/orthos/25cm:
+    title: Slovakia orthophotos
+    provider: Slovakia orthophotomosaic
+    ee_type: image_collection
+    spatial_resolution: 0.25
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+      bbox: [16.5, 47.44, 22.33, 49.36]
+    default_reducer: mean
+    terms: The User is entitled to combine the Source Data with other data, use it in
+    bands:
+      R:
+        description: Red
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        units: dn
+        min: 0
+        max: 255
+
+  Spain/PNOA/PNOA10:
+    title: Spain RGB orthophotos 10 cm
+    provider: Spain orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.1
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-9.32, 36.11, 4.7, 43.48]
+    default_reducer: mean
+    terms: The data is free and free use for any legitimate purpose,
+    bands:
+      R:
+        description: Red
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        units: dn
+        min: 0
+        max: 255
+
+  Switzerland/SWISSIMAGE/orthos/10cm:
+    title: SWISSIMAGE 10 cm RGB imagery
+    provider: Topography swisstopo
+    ee_type: image_collection
+    spatial_resolution: 0.1
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+      bbox: [5.9, 45.8, 10.6, 47.8]
+    default_reducer: mean
+    terms: The free geodata and geoservices of swisstopo may be used, distributed and
+    bands:
+      R:
+        description: Red
+        wavelength: 0.63
+        min: 0
+        max: 255
+      G:
+        description: Green
+        wavelength: 0.56
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        wavelength: 0.47
+        min: 0
+        max: 255
