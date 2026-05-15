@@ -10738,3 +10738,557 @@ datasets:
         description: NBAR at local solar noon, MODIS band 7 (SWIR-2)
         scale: 0.0001
         wavelength: 2.13
+
+  NASA/ORNL/DAYMET_V3:
+    title: "Daymet v3: Daily Surface Weather (1km, North America, 1980-2020 legacy)"
+    provider: NASA ORNL DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1980-01-01"
+      end_date: "2020-12-31"
+      bbox: [-150.8, 1.6, -1.1, 84]
+    default_reducer: mean
+    terms: Public domain (NASA ORNL DAAC).
+    bands:
+      dayl:
+        description: Duration of the daylight period
+        units: s
+      prcp:
+        description: Daily total precipitation (water equivalent)
+        units: mm
+      srad:
+        description: Incident shortwave radiation flux density (daylight average)
+        units: W/m^2
+      swe:
+        description: Snow water equivalent
+        units: kg/m^2
+      tmax:
+        description: Daily maximum 2 m air temperature
+        units: deg_C
+      tmin:
+        description: Daily minimum 2 m air temperature
+        units: deg_C
+      vp:
+        description: Daily average partial pressure of water vapour
+        units: Pa
+
+  UMD/hansen/global_forest_change_2017_v1_5:
+    title: "Hansen Global Forest Change v1.5 (2000-2017)"
+    provider: Hansen / UMD / Google / USGS / NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2017-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      treecover2000:
+        description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
+        units: "%"
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss in 2000-2017 (binary stand-replacement disturbance)
+      gain:
+        description: Forest gain in 2000-2012 (binary inverse of loss)
+      lossyear:
+        description: Year of forest cover loss (1=2001 ... 17=2017)
+        min: 0
+        max: 17
+      datamask:
+        description: Data quality mask (no-data / land / permanent water)
+
+  UMD/hansen/global_forest_change_2016_v1_4:
+    title: "Hansen Global Forest Change v1.4 (2000-2016)"
+    provider: Hansen / UMD / Google / USGS / NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2016-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      treecover2000:
+        description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
+        units: "%"
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss in 2000-2016 (binary stand-replacement disturbance)
+      gain:
+        description: Forest gain in 2000-2012 (binary inverse of loss)
+      lossyear:
+        description: Year of forest cover loss (1=2001 ... 16=2016)
+        min: 0
+        max: 16
+      datamask:
+        description: Data quality mask (no-data / land / permanent water)
+
+  UMD/hansen/global_forest_change_2015:
+    title: "Hansen Global Forest Change v1.2 (2000-2014, asset id `global_forest_change_2015`)"
+    provider: Hansen / UMD / Google / USGS / NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2014-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      treecover2000:
+        description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
+        units: "%"
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss in 2000-2014 (binary stand-replacement disturbance)
+      gain:
+        description: Forest gain in 2000-2012 (binary inverse of loss)
+      lossyear:
+        description: Year of forest cover loss (1=2001 ... 14=2014)
+        min: 0
+        max: 14
+      datamask:
+        description: Data quality mask (no-data / land / permanent water)
+
+  MODIS/006/MOD09GA:
+    title: "MOD09GA.006: Terra Surface Reflectance Daily Global 1km/500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: "2022-12-31"
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      sur_refl_b01:
+        description: Band 1 (red) surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: Band 2 (NIR) surface reflectance
+        scale: 0.0001
+        wavelength: 0.8585
+      sur_refl_b03:
+        description: Band 3 (blue) surface reflectance
+        scale: 0.0001
+        wavelength: 0.469
+      sur_refl_b04:
+        description: Band 4 (green) surface reflectance
+        scale: 0.0001
+        wavelength: 0.555
+      sur_refl_b06:
+        description: Band 6 (SWIR-1) surface reflectance
+        scale: 0.0001
+        wavelength: 1.64
+      sur_refl_b07:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 0.0001
+        wavelength: 2.13
+      state_1km:
+        description: Reflectance data state QA
+      QC_500m:
+        description: Surface reflectance quality assurance
+
+  MODIS/006/MOD11A1:
+    title: "MOD11A1.006: Terra Land Surface Temperature and Emissivity Daily 1km (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: "2022-12-31"
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      LST_Day_1km:
+        description: Daytime land surface temperature
+        units: K
+        scale: 0.02
+      LST_Night_1km:
+        description: Nighttime land surface temperature
+        units: K
+        scale: 0.02
+      QC_Day:
+        description: Daytime LST quality indicators
+      QC_Night:
+        description: Nighttime LST quality indicators
+      Emis_31:
+        description: Band 31 emissivity
+        scale: 0.002
+        offset: 0.49
+      Emis_32:
+        description: Band 32 emissivity
+        scale: 0.002
+        offset: 0.49
+
+  MODIS/006/MOD11A2:
+    title: "MOD11A2.006: Terra LST 8-Day Global 1km (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-18"
+      end_date: "2022-12-31"
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      LST_Day_1km:
+        description: 8-day mean daytime LST
+        units: K
+        scale: 0.02
+      LST_Night_1km:
+        description: 8-day mean nighttime LST
+        units: K
+        scale: 0.02
+      QC_Day:
+        description: Daytime LST quality flags
+      QC_Night:
+        description: Nighttime LST quality flags
+      Emis_31:
+        description: Band 31 emissivity
+        scale: 0.002
+        offset: 0.49
+      Emis_32:
+        description: Band 32 emissivity
+        scale: 0.002
+        offset: 0.49
+
+  MODIS/006/MOD09Q1:
+    title: "MOD09Q1.006: Terra Surface Reflectance 8-Day Global 250m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 250
+    extent:
+      start_date: "2000-02-18"
+      end_date: "2022-12-31"
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      sur_refl_b01:
+        description: Band 1 (red) surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: Band 2 (NIR) surface reflectance
+        scale: 0.0001
+        wavelength: 0.8585
+      State:
+        description: 250m surface reflectance state flags
+      QA:
+        description: 250m band quality control flags
+
+  MODIS/006/MOD09A1:
+    title: "MOD09A1.006: Terra Surface Reflectance 8-Day Global 500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-18"
+      end_date: "2022-12-31"
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      sur_refl_b01:
+        description: Band 1 (red) surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: Band 2 (NIR) surface reflectance
+        scale: 0.0001
+        wavelength: 0.8585
+      sur_refl_b03:
+        description: Band 3 (blue) surface reflectance
+        scale: 0.0001
+        wavelength: 0.469
+      sur_refl_b04:
+        description: Band 4 (green) surface reflectance
+        scale: 0.0001
+        wavelength: 0.555
+      sur_refl_b06:
+        description: Band 6 (SWIR-1) surface reflectance
+        scale: 0.0001
+        wavelength: 1.64
+      sur_refl_b07:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 0.0001
+        wavelength: 2.13
+      QA:
+        description: 500m surface reflectance band quality
+
+  OSU/GIMP/2000_ICE_OCEAN_MASK:
+    title: "GIMP Greenland Ice + Ocean Mask 2000 (15m, OSU Greenland Mapping Project)"
+    provider: NASA NSIDC DAAC
+    ee_type: image
+    spatial_resolution: 15
+    extent:
+      start_date: "1999-06-30"
+      end_date: "2002-12-31"
+      bbox: [-89.32, 58.80, 7.56, 83.95]
+    default_reducer: mosaic
+    terms: Free with citation (OSU Greenland Mapping Project).
+    bands:
+      ocean_mask:
+        description: Ocean mask (binary)
+      ice_mask:
+        description: Ice mask (binary)
+
+  MODIS/006/MOD17A2H:
+    title: "MOD17A2H.006: Terra Gross Primary Productivity 8-Day Global 500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-18"
+      end_date: "2022-12-31"
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Gpp:
+        description: Gross primary production over 8 days
+        units: kg*C/m^2
+        scale: 0.0001
+      PsnNet:
+        description: Net photosynthesis (GPP minus maintenance respiration)
+        units: kg*C/m^2
+        scale: 0.0001
+      Psn_QC:
+        description: GPP / Psn quality control flags
+
+  MODIS/006/MOD17A3HGF:
+    title: "MOD17A3HGF.006: Terra Net Primary Production Gap-Filled Yearly Global 500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 500
+    extent:
+      start_date: "2001-01-01"
+      end_date: "2022-12-31"
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Gpp:
+        description: Annual gross primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+      Npp:
+        description: Annual net primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+      Npp_QC:
+        description: Quality control percentage of valid 8-day inputs
+        units: "%"
+        min: 0
+        max: 100
+
+  MODIS/006/MCD12Q1:
+    title: "MCD12Q1.006: MODIS Land Cover Type Yearly Global 500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 500
+    extent:
+      start_date: "2001-01-01"
+      end_date: "2022-12-31"
+    default_reducer: mosaic
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      LC_Type1:
+        description: Annual IGBP land cover classification
+        min: 1
+        max: 17
+      LC_Type2:
+        description: Annual UMD land cover classification
+        min: 0
+        max: 15
+      LC_Prop1:
+        description: FAO-LCCS1 land cover layer
+        min: 1
+        max: 43
+
+  MODIS/006/MCD12Q2:
+    title: "MCD12Q2.006: MODIS Land Cover Dynamics (Phenology) Yearly Global 500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 500
+    extent:
+      start_date: "2001-01-01"
+      end_date: "2022-12-31"
+    default_reducer: mosaic
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      NumCycles:
+        description: Number of valid vegetation cycles peaking in this year (0-7)
+        min: 0
+        max: 7
+      Greenup_1:
+        description: Date EVI2 first crossed 15% of segment amplitude (cycle 1, days since 1970-01-01)
+      MidGreenup_1:
+        description: Date EVI2 first crossed 50% of segment amplitude (cycle 1)
+      Maturity_1:
+        description: Date EVI2 first crossed 90% of segment amplitude (cycle 1)
+      Peak_1:
+        description: Date of EVI2 segment maximum (cycle 1)
+      Senescence_1:
+        description: Date EVI2 last crossed 15% of segment amplitude (cycle 1)
+      EVI_Amplitude_1:
+        description: Segment EVI amplitude (cycle 1)
+        scale: 0.0001
+
+  MODIS/006/MCD43A1:
+    title: "MCD43A1.006: MODIS BRDF/Albedo Model Parameters Daily 500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: "2022-12-31"
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      BRDF_Albedo_Parameters_Band1_iso:
+        description: Isotropic BRDF parameter, MODIS band 1 (red)
+        scale: 0.001
+        wavelength: 0.645
+      BRDF_Albedo_Parameters_Band1_vol:
+        description: Volumetric BRDF parameter, MODIS band 1 (red)
+        scale: 0.001
+        wavelength: 0.645
+      BRDF_Albedo_Parameters_Band1_geo:
+        description: Geometric BRDF parameter, MODIS band 1 (red)
+        scale: 0.001
+        wavelength: 0.645
+      BRDF_Albedo_Parameters_Band2_iso:
+        description: Isotropic BRDF parameter, MODIS band 2 (NIR)
+        scale: 0.001
+        wavelength: 0.8585
+      BRDF_Albedo_Parameters_Band2_vol:
+        description: Volumetric BRDF parameter, MODIS band 2 (NIR)
+        scale: 0.001
+        wavelength: 0.8585
+      BRDF_Albedo_Parameters_Band2_geo:
+        description: Geometric BRDF parameter, MODIS band 2 (NIR)
+        scale: 0.001
+        wavelength: 0.8585
+
+  MODIS/006/MCD64A1:
+    title: "MCD64A1.006: MODIS Burned Area Monthly Global 500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-11-01"
+      end_date: "2022-12-31"
+    default_reducer: mosaic
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      BurnDate:
+        description: "Burn day of year (0 = unburned, 1-366 = ordinal day)"
+        min: 0
+        max: 366
+      Uncertainty:
+        description: Estimated uncertainty in burn day
+        min: 0
+        max: 100
+      QA:
+        description: Burn-detection quality assurance flags
+
+  COPERNICUS/S5P/OFFL/L3_AER_LH:
+    title: "Sentinel-5P OFFL AER_LH: UV Aerosol Layer Height"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      aerosol_height:
+        description: Aerosol layer altitude derived from the layer pressure
+        units: m
+      aerosol_pressure:
+        description: Aerosol layer pressure (assumed thickness ~50 hPa)
+        units: Pa
+
+  OSU/GIMP/DEM:
+    title: "GIMP Greenland DEM (~30m, OSU Greenland Mapping Project)"
+    provider: NASA NSIDC DAAC
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-06-30"
+      end_date: "2002-12-31"
+      bbox: [-89.32, 58.79, 7.56, 83.95]
+    default_reducer: mosaic
+    terms: Free with citation (OSU Greenland Mapping Project).
+    bands:
+      elevation:
+        description: Bare-earth elevation
+        units: m
+
+  OSU/GIMP/2000_IMAGERY_MOSAIC:
+    title: "GIMP 2000 Greenland Imagery Mosaic (Landsat-7 ETM+, 15m)"
+    provider: NASA NSIDC DAAC
+    ee_type: image
+    spatial_resolution: 15
+    extent:
+      start_date: "1999-06-30"
+      end_date: "2002-12-31"
+      bbox: [-89.32, 58.80, 7.56, 83.95]
+    default_reducer: mosaic
+    terms: Free with citation (OSU Greenland Mapping Project).
+    bands:
+      B1:
+        description: Landsat-7 ETM+ blue
+      B2:
+        description: Landsat-7 ETM+ green
+      B3:
+        description: Landsat-7 ETM+ red
+      B4:
+        description: Landsat-7 ETM+ NIR
+      B5:
+        description: Landsat-7 ETM+ SWIR-1
+
+  OSU/GIMP/ICE_VELOCITY_OPT:
+    title: "MEaSUREs Greenland Ice Velocity from Optical Imagery (100m, 1985-)"
+    provider: NASA NSIDC DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "1985-03-01"
+      end_date: null
+      bbox: [-89.32, 58.80, 7.56, 83.95]
+    default_reducer: mean
+    terms: Free with citation (NASA NSIDC).
+    bands:
+      velocity_x:
+        description: Ice flow X-component velocity
+        units: m/yr
+      velocity_y:
+        description: Ice flow Y-component velocity
+        units: m/yr
+      error_x:
+        description: Ice flow X-velocity error
+        units: m/yr
+      error_y:
+        description: Ice flow Y-velocity error
+        units: m/yr
