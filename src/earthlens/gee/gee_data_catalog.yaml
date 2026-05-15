@@ -7294,7 +7294,7 @@ datasets:
         description: Green (digital number)
       B:
         description: Blue (digital number)
-      N:
+      "N":
         description: Near infrared (digital number)
 
   UMD/hansen/global_forest_change_2022_v1_10:
@@ -11747,7 +11747,7 @@ datasets:
         description: Green (analytic surface reflectance, scaled DN)
       B:
         description: Blue (analytic surface reflectance, scaled DN)
-      N:
+      "N":
         description: Near infrared (analytic surface reflectance, scaled DN)
       Q:
         description: Per-pixel quality assurance band
@@ -11772,7 +11772,7 @@ datasets:
         description: Green (analytic surface reflectance, scaled DN)
       B:
         description: Blue (analytic surface reflectance, scaled DN)
-      N:
+      "N":
         description: Near infrared (analytic surface reflectance, scaled DN)
       Q:
         description: Per-pixel quality assurance band
@@ -11797,7 +11797,7 @@ datasets:
         description: Green (analytic surface reflectance, scaled DN)
       B:
         description: Blue (analytic surface reflectance, scaled DN)
-      N:
+      "N":
         description: Near infrared (analytic surface reflectance, scaled DN)
       Q:
         description: Per-pixel quality assurance band
@@ -12659,7 +12659,7 @@ datasets:
         units: dn
         min: 0
         max: 255
-      N:
+      "N":
         description: Near-Infrared (NIR) (0.78-0.89 µm)
         units: dn
         min: 0
@@ -17803,7 +17803,7 @@ datasets:
     default_reducer: mean
     terms: Mention the name of the Licensor (the National Land Survey of Finland),
     bands:
-      N:
+      "N":
         description: Near-Infrared
         min: 0
         max: 255
@@ -17853,7 +17853,7 @@ datasets:
     default_reducer: mean
     terms: Mention the name of the Licensor (the National Land Survey of Finland),
     bands:
-      N:
+      "N":
         description: Near-Infrared
         min: 0
         max: 255
@@ -18036,7 +18036,7 @@ datasets:
         scale: 0.0001
         min: 0
         max: 10000
-      N:
+      "N":
         description: Near-infrared reflectance (top-of-atmosphere)
         scale: 0.0001
         min: 0
@@ -18696,7 +18696,7 @@ datasets:
     terms: The user must ensure that the source note contains the following
     user_uploaded: true
     bands:
-      N:
+      "N":
         description: Near infrared
         min: 0
         max: 255
@@ -27438,7 +27438,7 @@ datasets:
     default_reducer: mosaic
     terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
     bands:
-      N:
+      "N":
         description: Near-Infrared
         units: dn
         min: 0
@@ -34017,7 +34017,7 @@ datasets:
       NIT:
         description: Inorganic nitrates (MW = 62.00 g mol-1) volume mixing ratio dry air
         units: Mol fraction
-      NO:
+      "NO":
         description: Nitrogen oxide (NO, MW = 30.00 g mol-1) volume mixing ratio dry air
         units: Mol fraction
       NO2:

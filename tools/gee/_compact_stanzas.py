@@ -51,9 +51,23 @@ def _clean_value(text: str) -> str:
     return text
 
 
+_BOOL_BANDS = {
+    "y", "Y", "yes", "Yes", "YES",
+    "n", "N", "no", "No", "NO",
+    "true", "True", "TRUE",
+    "false", "False", "FALSE",
+    "on", "On", "ON",
+    "off", "Off", "OFF",
+}
+
+
 def _quote_int_band_name(text: str) -> str:
-    """Quote 6-space-indented integer band names so YAML parses them as strings."""
-    return re.sub(r"^(      )(\d+):\s*$", r'\1"\2":', text)
+    """Quote 6-space-indented numeric or YAML-bool-like band names as strings."""
+    text = re.sub(r"^(      )(\d+):\s*$", r'\1"\2":', text)
+    m = re.match(r"^(      )([A-Za-z]+):\s*$", text)
+    if m and m.group(2) in _BOOL_BANDS:
+        return f'{m.group(1)}"{m.group(2)}":'
+    return text
 
 
 def _close_truncated_quote(text: str) -> str:
