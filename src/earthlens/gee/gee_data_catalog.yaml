@@ -27387,3 +27387,1145 @@ datasets:
     bands:
       "1":
         description: Mangroves
+
+  KNTU/LiDARLab/IranLandCover/V1:
+    title: Iran Land Cover Map v1 13-class (2017)
+    provider: K. N. Toosi University of Technology LiDAR Lab
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+      bbox: [43.46, 24.62, 65.58, 39.95]
+    default_reducer: mosaic
+    terms: This work "Iran Land Cover Map
+    user_uploaded: true
+    bands:
+      classification:
+        description: Classification
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/12KM:
+    title: Gridded GEDI Vegetation Structure Metrics and Biomass Density with COUNTS metrics,
+    provider: 'Rasterization: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: image_collection
+    spatial_resolution: 12000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: The number of shots. For a shot to be counted in this layer the
+      orbits_uniq:
+        description: The number of unique orbits.
+      tracks_uniq:
+        description: The number of unique tracks. A track is the combination of orbit and
+      shots_nni:
+        description: The Nearest Neighbor Index (Evans et al. 2023).
+
+  Latvia/Maamet/orthos/cir:
+    title: Latvia Color InfraRed (CIR) orthophotos
+    provider: Latvia orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.2
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [20.5, 55.5, 28.6, 58.5]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      N:
+        description: Near-Infrared
+        units: dn
+        min: 0
+        max: 255
+      R:
+        description: Red
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green
+        units: dn
+        min: 0
+        max: 255
+
+  Latvia/Maamet/orthos/rgb:
+    title: Latvia RGB orthophotos
+    provider: Latvia orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.2
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [20.5, 55.5, 28.6, 58.5]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      R:
+        description: Red
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        units: dn
+        min: 0
+        max: 255
+
+  MERIT/Hydro_reduced/v1_0_1:
+    title: 'MERIT Hydro: Supplementary Visualization Layers'
+    provider: Dai Yamazaki (University of Tokyo)
+    ee_type: image
+    spatial_resolution: 556.6
+    extent:
+      start_date: "1987-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Citation to the paper is adequate if you simply use MERIT Hydro. If you
+    user_uploaded: true
+    bands:
+      wth:
+        description: River channel width at the channel centerlines. River channel width is
+      upa:
+        description: Upstream drainage area (flow accumulation area). This band was upscaled
+        units: km^2
+
+  MODIS/006/MCD19A2_GRANULES:
+    title: 'MCD19A2.006: Terra & Aqua MAIAC Land Aerosol Optical Depth Daily 1km [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-26"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Optical_Depth_047:
+        description: Blue band (0.47 um) aerosol optical depth over land
+        scale: 0.001
+        min: -100
+        max: 5000
+      Optical_Depth_055:
+        description: Green band (0.55 um) aerosol optical depth over land
+        scale: 0.001
+        min: -100
+        max: 5000
+      AOD_Uncertainty:
+        description: AOD uncertainty based on blue-band surface brightness (reflectance)
+        scale: 0.0001
+        min: -100
+        max: 30000
+      FineModeFraction:
+        description: Fine mode fraction for ocean
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Column_WV:
+        description: Column water vapor over land
+        units: cm
+        scale: 0.001
+        min: 0
+        max: 30000
+      AOD_QA:
+        description: AOD QA
+      AOD_MODEL:
+        description: AOD model used in retrieval
+        min: 0
+        max: 100
+      Injection_Height:
+        description: Smoke injection height
+        units: m
+        min: 0
+        max: 10000
+      cosSZA:
+        description: Cosine of solar zenith angle (5 km resolution)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      cosVZA:
+        description: Cosine view zenith angle (5 km resolution)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      RelAZ:
+        description: Relative azimuth angle (5 km resolution)
+        scale: 0.01
+        min: -18000
+        max: 18000
+      Scattering_Angle:
+        description: Scattering angle (5 km resolution)
+        scale: 0.01
+        min: -18000
+        max: 18000
+      Glint_Angle:
+        description: Glint angle (5 km resolution)
+        scale: 0.01
+        min: -18000
+        max: 18000
+
+  MODIS/006/MCD43A2:
+    title: MCD43A2.006 MODIS BRDF-Albedo Quality Daily 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Snow_BRDF_Albedo:
+        description: Snow-free or snow BRDF/albedo retrieved
+      BRDF_Albedo_Platform:
+        description: BRDF albedo platform information
+      BRDF_Albedo_LandWaterType:
+        description: Land/water type
+      BRDF_Albedo_LocalSolarNoon:
+        description: Solar zenith angle of local solar noon
+        units: deg
+        min: 0
+        max: 254
+      BRDF_Albedo_ValidObs_Band1:
+        description: Valid observation for band 1
+      BRDF_Albedo_ValidObs_Band2:
+        description: Valid observation for band 2 (same bit meaning as in band 1)
+      BRDF_Albedo_ValidObs_Band3:
+        description: Valid observation for band 3 (same bit meaning as in band 1)
+      BRDF_Albedo_ValidObs_Band4:
+        description: Valid observation for band 4 (same bit meaning as in band 1)
+      BRDF_Albedo_ValidObs_Band5:
+        description: Valid observation for band 5 (same bit meaning as in band 1)
+      BRDF_Albedo_ValidObs_Band6:
+        description: Valid observation for band 6 (same bit meaning as in band 1)
+      BRDF_Albedo_ValidObs_Band7:
+        description: Valid observation for band 7 (same bit meaning as in band 1)
+      BRDF_Albedo_Band_Quality_Band1:
+        description: BRDF inversion information for band 1
+      BRDF_Albedo_Band_Quality_Band2:
+        description: BRDF inversion information for band 2
+      BRDF_Albedo_Band_Quality_Band3:
+        description: BRDF inversion information for band 3
+      BRDF_Albedo_Band_Quality_Band4:
+        description: BRDF inversion information for band 4
+      BRDF_Albedo_Band_Quality_Band5:
+        description: BRDF inversion information for band 5
+      BRDF_Albedo_Band_Quality_Band6:
+        description: BRDF inversion information for band 6
+      BRDF_Albedo_Band_Quality_Band7:
+        description: BRDF inversion information for band 7
+      BRDF_Albedo_Uncertainty:
+        description: BRDF inversion information
+        scale: 0.001
+        min: 0
+        max: 32766
+
+  MODIS/006/MCD43A3:
+    title: MCD43A3.006 MODIS Albedo Daily 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Albedo_BSA_Band1:
+        description: Black-sky albedo for band 1
+        scale: 0.001
+        wavelength: 0.645
+        min: 0
+        max: 32766
+      Albedo_BSA_Band2:
+        description: Black-sky albedo for band 2
+        scale: 0.001
+        wavelength: 0.8585
+        min: 0
+        max: 32766
+      Albedo_BSA_Band3:
+        description: Black-sky albedo for band 3
+        scale: 0.001
+        wavelength: 0.469
+        min: 0
+        max: 32766
+      Albedo_BSA_Band4:
+        description: Black-sky albedo for band 4
+        scale: 0.001
+        wavelength: 0.555
+        min: 0
+        max: 32766
+      Albedo_BSA_Band5:
+        description: Black-sky albedo for band 5
+        scale: 0.001
+        wavelength: 1.24
+        min: 0
+        max: 32766
+      Albedo_BSA_Band6:
+        description: Black-sky albedo for band 6
+        scale: 0.001
+        wavelength: 1.64
+        min: 0
+        max: 32766
+      Albedo_BSA_Band7:
+        description: Black-sky albedo for band 7
+        scale: 0.001
+        wavelength: 2.13
+        min: 0
+        max: 32766
+      Albedo_BSA_vis:
+        description: Black-sky albedo for visible brodband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_BSA_nir:
+        description: Black-sky albedo for NIR broadband
+        scale: 0.001
+        wavelength: 0.858
+        min: 0
+        max: 32766
+      Albedo_BSA_shortwave:
+        description: Black-sky albedo for shortwave broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_WSA_Band1:
+        description: White-sky albedo for band 1
+        scale: 0.001
+        wavelength: 0.645
+        min: 0
+        max: 32766
+      Albedo_WSA_Band2:
+        description: White-sky albedo for band 2
+        scale: 0.001
+        wavelength: 0.8585
+        min: 0
+        max: 32766
+      Albedo_WSA_Band3:
+        description: White-sky albedo for band 3
+        scale: 0.001
+        wavelength: 0.469
+        min: 0
+        max: 32766
+      Albedo_WSA_Band4:
+        description: White-sky albedo for band 4
+        scale: 0.001
+        wavelength: 0.555
+        min: 0
+        max: 32766
+      Albedo_WSA_Band5:
+        description: White-sky albedo for band 5
+        scale: 0.001
+        wavelength: 1.24
+        min: 0
+        max: 32766
+      Albedo_WSA_Band6:
+        description: White-sky albedo for band 6
+        scale: 0.001
+        wavelength: 1.64
+        min: 0
+        max: 32766
+      Albedo_WSA_Band7:
+        description: White-sky albedo for band 7
+        scale: 0.001
+        wavelength: 2.13
+        min: 0
+        max: 32766
+      Albedo_WSA_vis:
+        description: White-sky albedo for visible broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_WSA_nir:
+        description: White-sky albedo for NIR broadband
+        scale: 0.001
+        wavelength: 0.858
+        min: 0
+        max: 32766
+      Albedo_WSA_shortwave:
+        description: White-sky albedo for shortwave broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      BRDF_Albedo_Band_Mandatory_Quality_Band1:
+        description: BRDF albedo mandatory quality for band 1
+      BRDF_Albedo_Band_Mandatory_Quality_Band2:
+        description: BRDF albedo mandatory quality for band 2
+      BRDF_Albedo_Band_Mandatory_Quality_Band3:
+        description: BRDF albedo mandatory quality for band 3
+      BRDF_Albedo_Band_Mandatory_Quality_Band4:
+        description: BRDF albedo mandatory quality for band 4
+      BRDF_Albedo_Band_Mandatory_Quality_Band5:
+        description: BRDF albedo mandatory quality for band 5
+      BRDF_Albedo_Band_Mandatory_Quality_Band6:
+        description: BRDF albedo mandatory quality for band 6
+      BRDF_Albedo_Band_Mandatory_Quality_Band7:
+        description: BRDF albedo mandatory quality for band 7
+      BRDF_Albedo_Band_Mandatory_Quality_vis:
+        description: BRDF albedo mandatory quality for visible broadband
+      BRDF_Albedo_Band_Mandatory_Quality_nir:
+        description: BRDF albedo mandatory quality for NIR broadband
+      BRDF_Albedo_Band_Mandatory_Quality_shortwave:
+        description: BRDF albedo mandatory quality for shortwave broadband
+
+  MODIS/006/MCD43C3:
+    title: MCD43C3.006 BRDF/Albedo Daily L3 0.05 Deg CMG [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5600
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Albedo_BSA_Band1:
+        description: Black-sky albedo for band 1
+        scale: 0.001
+        wavelength: 0.645
+        min: 0
+        max: 32766
+      Albedo_BSA_Band2:
+        description: Black-sky albedo for band 2
+        scale: 0.001
+        wavelength: 0.8585
+        min: 0
+        max: 32766
+      Albedo_BSA_Band3:
+        description: Black-sky albedo for band 3
+        scale: 0.001
+        wavelength: 0.469
+        min: 0
+        max: 32766
+      Albedo_BSA_Band4:
+        description: Black-sky albedo for band 4
+        scale: 0.001
+        wavelength: 0.555
+        min: 0
+        max: 32766
+      Albedo_BSA_Band5:
+        description: Black-sky albedo for band 5
+        scale: 0.001
+        wavelength: 1.24
+        min: 0
+        max: 32766
+      Albedo_BSA_Band6:
+        description: Black-sky albedo for band 6
+        scale: 0.001
+        wavelength: 1.64
+        min: 0
+        max: 32766
+      Albedo_BSA_Band7:
+        description: Black-sky albedo for band 7
+        scale: 0.001
+        wavelength: 2.13
+        min: 0
+        max: 32766
+      Albedo_BSA_vis:
+        description: Black-sky albedo for visible brodband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_BSA_nir:
+        description: Black-sky albedo for NIR broadband
+        scale: 0.001
+        wavelength: 0.858
+        min: 0
+        max: 32766
+      Albedo_BSA_shortwave:
+        description: Black-sky albedo for shortwave broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_WSA_Band1:
+        description: White-sky albedo for band 1
+        scale: 0.001
+        wavelength: 0.645
+        min: 0
+        max: 32766
+      Albedo_WSA_Band2:
+        description: White-sky albedo for band 2
+        scale: 0.001
+        wavelength: 0.8585
+        min: 0
+        max: 32766
+      Albedo_WSA_Band3:
+        description: White-sky albedo for band 3
+        scale: 0.001
+        wavelength: 0.469
+        min: 0
+        max: 32766
+      Albedo_WSA_Band4:
+        description: White-sky albedo for band 4
+        scale: 0.001
+        wavelength: 0.555
+        min: 0
+        max: 32766
+      Albedo_WSA_Band5:
+        description: White-sky albedo for band 5
+        scale: 0.001
+        wavelength: 1.24
+        min: 0
+        max: 32766
+      Albedo_WSA_Band6:
+        description: White-sky albedo for band 6
+        scale: 0.001
+        wavelength: 1.64
+        min: 0
+        max: 32766
+      Albedo_WSA_Band7:
+        description: White-sky albedo for band 7
+        scale: 0.001
+        wavelength: 2.13
+        min: 0
+        max: 32766
+      Albedo_WSA_vis:
+        description: White-sky albedo for visible broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_WSA_nir:
+        description: White-sky albedo for NIR broadband
+        scale: 0.001
+        wavelength: 0.858
+        min: 0
+        max: 32766
+      Albedo_WSA_shortwave:
+        description: White-sky albedo for shortwave broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      BRDF_Quality:
+        description: Global albedo quality
+      Local_Solar_Noon:
+        description: Local solar noon zenith angle
+        units: deg
+        min: 0
+        max: 90
+      Percent_Inputs:
+        description: Percent of the processed finer resolution data which contributed to this CMG pixel
+        units: '%'
+        min: 0
+        max: 100
+      Percent_Snow:
+        description: Percent of underlying data flagged as snow
+        units: '%'
+        min: 0
+        max: 100
+      BRDF_Albedo_Uncertainty:
+        description: BRDF inversion information. Weights of determination (WoD) of the white
+        scale: 0.001
+        min: 0
+        max: 32766
+
+  MODIS/006/MOD08_M3:
+    title: MOD08_M3.006 Terra Aerosol Cloud Water Vapor Ozone Monthly Global Product 1Deg CMG
+    provider: NASA LAADS DAAC at NASA Goddard Space Flight Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 111320
+    extent:
+      start_date: "2000-03-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    bands:
+      Aerosol_Optical_Depth_Land_Ocean_Mean_Mean:
+        description: Aerosol optical thickness at 0.55 microns for both
+        scale: 0.001
+        min: -100
+        max: 5000
+      Aerosol_Optical_Depth_Land_Ocean_Std_Deviation_Mean:
+        description: Aerosol optical thickness at 0.55 microns for both
+        scale: 0.001
+        min: -100
+        max: 5000
+      Aerosol_Optical_Depth_Land_QA_Mean_Mean_470:
+        description: 'Corrected aerosol optical depth (land) at 0.47 microns:'
+        scale: 0.001
+        min: -100
+        max: 5000
+      Aerosol_Optical_Depth_Land_QA_Std_Deviation_Mean_470:
+        description: 'Corrected aerosol optical depth (land) at 0.47 microns:'
+        scale: 0.001
+        min: -100
+        max: 5000
+      Cirrus_Fraction_SWIR_FMean:
+        description: 'Cirrus area fraction: mean of daily fraction'
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Cirrus_Fraction_SWIR_FStd:
+        description: 'Cirrus area fraction: standard deviation of daily fraction'
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Cloud_Optical_Thickness_Liquid_Log_Mean_Mean:
+        description: 'Liquid water cloud optical thickness: mean of daily log mean'
+        scale: 0.001
+        min: 0
+        max: 4176
+      Cloud_Optical_Thickness_Liquid_Log_Std_Deviation_Mean:
+        description: 'Liquid water cloud optical thickness: mean of daily'
+        scale: 0.001
+        min: 0
+        max: 4176
+      Cloud_Optical_Thickness_Liquid_Mean_Uncertainty:
+        description: 'Liquid water cloud optical thickness: multi-day absolute'
+        scale: 0.01
+        min: 0
+        max: 2000
+      Cloud_Optical_Thickness_Liquid_Log_Mean_Uncertainty:
+        description: 'Liquid water cloud optical thickness: multi-day absolute'
+        scale: 0.001
+        min: 0
+        max: 4477
+
+  MODIS/006/MOD09GQ:
+    title: MOD09GQ.006 Terra Surface Reflectance Daily Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 250
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      num_observations:
+        description: Number of observations per 250m pixel
+        min: 0
+        max: 127
+      sur_refl_b01:
+        description: Surface reflectance band 1
+        scale: 0.0001
+        wavelength: 0.645
+        min: -100
+        max: 16000
+      sur_refl_b02:
+        description: Surface reflectance for band 2
+        scale: 0.0001
+        wavelength: 0.8585
+        min: -100
+        max: 16000
+      QC_250m:
+        description: Surface reflectance quality assurance
+      obscov:
+        description: Observation coverage percent
+        scale: 0.01
+        min: 0
+        max: 100
+      iobs_res:
+        description: Observation number
+        min: 0
+        max: 254
+      orbit_pnt:
+        description: Orbit pointer
+        min: 0
+        max: 15
+      granule_pnt:
+        description: Granule pointer
+        min: 0
+        max: 254
+
+  MODIS/006/MOD10A1:
+    title: MOD10A1.006 Terra Snow Cover Daily Global 500m [deprecated]
+    provider: NASA NSIDC DAAC at CIRES
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: You may download and use photographs, imagery, or text
+    bands:
+      NDSI_Snow_Cover:
+        description: NDSI snow cover. This value is
+        min: 0
+        max: 100
+      NDSI_Snow_Cover_Basic_QA:
+        description: A basic estimate of the quality of the algorithm result.
+      NDSI_Snow_Cover_Algorithm_Flags_QA:
+        description: Bit flags indicating screen results and the presence
+      NDSI:
+        description: Raw NDSI (i.e. prior to screening). This value is
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Snow_Albedo_Daily_Tile:
+        description: Snow albedo percentage. Provider values above 100 are masked out in
+        min: 1
+        max: 100
+      orbit_pnt:
+        description: Pointer to the orbit number of the swath that was
+      granule_pnt:
+        description: Pointer to the granule (swath) that was mapped into
+      NDSI_Snow_Cover_Class:
+        description: Landcover classes from the "NDSI_Snow_Cover" subdataset
+      Snow_Albedo_Daily_Tile_Class:
+        description: Landcover classes from the "Snow_Albedo_Daily_Tile" subdataset
+
+  MODIS/006/MOD14A1:
+    title: 'MOD14A1.006: Terra Thermal Anomalies & Fire Daily Global 1km [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      FireMask:
+        description: Confidence of fire
+      MaxFRP:
+        description: Maximum fire radiative power
+        units: MW
+        scale: 0.1
+        min: 0
+        max: 180000
+      sample:
+        description: Position of fire pixel within scan
+        min: 0
+        max: 1353
+      QA:
+        description: Pixel quality indicators
+
+  MODIS/006/MOD14A2:
+    title: 'MOD14A2.006: Terra Thermal Anomalies & Fire 8-Day Global 1km [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      FireMask:
+        description: Confidence of fire
+      QA:
+        description: Pixel quality indicators
+
+  MODIS/006/MOD44B:
+    title: MOD44B.006 Terra Vegetation Continuous Fields Yearly Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 250
+    extent:
+      start_date: "2000-03-05"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Percent_Tree_Cover:
+        description: Percent of a pixel which is covered by tree canopy
+        units: '%'
+        min: 0
+        max: 100
+      Percent_NonTree_Vegetation:
+        description: Percent of a pixel which is covered by non-tree vegetation
+        units: '%'
+        min: 0
+        max: 100
+      Percent_NonVegetated:
+        description: Percent of a pixel which is not vegetated
+        units: '%'
+        min: 0
+        max: 100
+      Quality:
+        description: Describes those inputs that had poor quality (cloudy,
+      Percent_Tree_Cover_SD:
+        description: Standard deviation (SD) of the 30 models that were
+        units: '%'
+        scale: 0.01
+        min: 0
+        max: 32767
+      Percent_NonVegetated_SD:
+        description: Standard deviation (SD) of the 30 models that were
+        units: '%'
+        scale: 0.01
+        min: 0
+        max: 32767
+      Cloud:
+        description: Clarifies the 'Quality' layer to give the user an
+
+  MODIS/006/MOD44W:
+    title: MOD44W.006 Terra Land Water Mask Derived From MODIS and SRTM Yearly Global 250m
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 250
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      water_mask:
+        description: Land-water mask
+      water_mask_QA:
+        description: Quality assurance (QA)
+
+  MODIS/006/MODOCGA:
+    title: MODOCGA.006 Terra Ocean Reflectance Daily Global 1km
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      num_observations:
+        description: Number of observations per pixel
+        min: 0
+        max: 127
+      sur_refl_b08:
+        description: MODIS band 8 surface reflectance
+        scale: 0.0001
+        wavelength: 0.4125
+        min: -100
+        max: 16000
+      sur_refl_b09:
+        description: MODIS band 9 surface reflectance
+        scale: 0.0001
+        wavelength: 0.443
+        min: -100
+        max: 16000
+      sur_refl_b10:
+        description: MODIS band 10 surface reflectance
+        scale: 0.0001
+        wavelength: 0.488
+        min: -100
+        max: 16000
+      sur_refl_b11:
+        description: MODIS band 11 surface reflectance
+        scale: 0.0001
+        wavelength: 0.531
+        min: -100
+        max: 16000
+      sur_refl_b12:
+        description: MODIS band 12 surface reflectance
+        scale: 0.0001
+        wavelength: 0.551
+        min: -100
+        max: 16000
+      sur_refl_b13:
+        description: MODIS band 13 surface reflectance
+        scale: 0.0001
+        wavelength: 0.667
+        min: -100
+        max: 16000
+      sur_refl_b14:
+        description: MODIS band 14 surface reflectance
+        scale: 0.0001
+        wavelength: 0.677
+        min: -100
+        max: 16000
+      sur_refl_b15:
+        description: MODIS band 15 surface reflectance
+        scale: 0.0001
+        wavelength: 0.747
+        min: -100
+        max: 16000
+      sur_refl_b16:
+        description: MODIS band 16 surface reflectance
+        scale: 0.0001
+        wavelength: 0.8695
+        min: -100
+        max: 16000
+      QC_b8_15_1km:
+        description: Band quality for MODIS bands 8-15
+      QC_b16_15_1km:
+        description: Band quality for MODIS band 16
+      orbit_pnt:
+        description: Pointer to the orbit of each observation
+        min: 0
+        max: 15
+      granule_pnt:
+        description: Pointer to the granule of each observation
+        min: 0
+        max: 254
+
+  MODIS/006/MYD08_M3:
+    title: MYD08_M3.006 Aqua Aerosol Cloud Water Vapor Ozone Monthly Global Product 1Deg CMG
+    provider: NASA LAADS DAAC at NASA Goddard Space Flight Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 111320
+    extent:
+      start_date: "2002-07-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    bands:
+      Aerosol_Optical_Depth_Land_Ocean_Mean_Mean:
+        description: Aerosol optical thickness at 0.55 microns for both
+        scale: 0.001
+        min: -100
+        max: 5000
+      Aerosol_Optical_Depth_Land_Ocean_Std_Deviation_Mean:
+        description: Aerosol optical thickness at 0.55 microns for both
+        scale: 0.001
+        min: -100
+        max: 5000
+      Aerosol_Optical_Depth_Land_QA_Mean_Mean_470:
+        description: 'Corrected aerosol optical depth (land) at 0.47 microns:'
+        scale: 0.001
+        min: -100
+        max: 5000
+      Aerosol_Optical_Depth_Land_QA_Std_Deviation_Mean_470:
+        description: 'Corrected aerosol optical depth (land) at 0.47 microns:'
+        scale: 0.001
+        min: -100
+        max: 5000
+      Cirrus_Fraction_SWIR_FMean:
+        description: 'Cirrus area fraction: mean of daily fraction'
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Cirrus_Fraction_SWIR_FStd:
+        description: 'Cirrus area fraction: standard deviation of daily fraction'
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Cloud_Optical_Thickness_Liquid_Log_Mean_Mean:
+        description: 'Liquid water cloud optical thickness: mean of daily log mean'
+        scale: 0.001
+        min: 0
+        max: 4176
+      Cloud_Optical_Thickness_Liquid_Log_Std_Deviation_Mean:
+        description: 'Liquid water cloud optical thickness: mean of daily'
+        scale: 0.001
+        min: 0
+        max: 4176
+      Cloud_Optical_Thickness_Liquid_Mean_Uncertainty:
+        description: 'Liquid water cloud optical thickness: multi-day absolute'
+        scale: 0.01
+        min: 0
+        max: 2000
+      Cloud_Optical_Thickness_Liquid_Log_Mean_Uncertainty:
+        description: 'Liquid water cloud optical thickness: multi-day absolute'
+        scale: 0.001
+        min: 0
+        max: 4477
+
+  MODIS/006/MYD09A1:
+    title: MYD09A1.006 Aqua Surface Reflectance 8-Day Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      sur_refl_b01:
+        description: Surface reflectance for band 1
+        scale: 0.0001
+        wavelength: 0.645
+        min: -100
+        max: 16000
+      sur_refl_b02:
+        description: Surface reflectance for band 2
+        scale: 0.0001
+        wavelength: 0.8585
+        min: -100
+        max: 16000
+      sur_refl_b03:
+        description: Surface reflectance for band 3
+        scale: 0.0001
+        wavelength: 0.469
+        min: -100
+        max: 16000
+      sur_refl_b04:
+        description: Surface reflectance for band 4
+        scale: 0.0001
+        wavelength: 0.555
+        min: -100
+        max: 16000
+      sur_refl_b05:
+        description: Surface reflectance for band 5
+        scale: 0.0001
+        wavelength: 1.24
+        min: -100
+        max: 16000
+      sur_refl_b06:
+        description: Surface reflectance for band 6
+        scale: 0.0001
+        wavelength: 1.64
+        min: -100
+        max: 16000
+      sur_refl_b07:
+        description: Surface reflectance for band 7
+        scale: 0.0001
+        wavelength: 2.13
+        min: -100
+        max: 16000
+      QA:
+        description: Surface reflectance 500m band quality control flags
+      SolarZenith:
+        description: MODIS Solar zenith angle
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      ViewZenith:
+        description: MODIS view zenith angle
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      RelativeAzimuth:
+        description: MODIS relative azimuth angle
+        units: deg
+        scale: 0.01
+        min: -18000
+        max: 18000
+      StateQA:
+        description: Surface reflectance 500m state flags
+      DayOfYear:
+        description: Julian day of the year for the pixel
+        min: 1
+        max: 366
+
+  MODIS/006/MYD09GA:
+    title: MYD09GA.006 Aqua Surface Reflectance Daily Global 1km and 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      num_observations_1km:
+        description: Number of observations per 1K pixel
+        min: 2
+        max: 127
+      state_1km:
+        description: Reflectance data state QA
+      SensorZenith:
+        description: Sensor zenith angle
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      SensorAzimuth:
+        description: Sensor azimuth angle
+        units: deg
+        scale: 0.01
+        min: -18000
+        max: 18000
+      Range:
+        description: Distance to sensor
+        units: m
+        scale: 25
+        min: 27000
+        max: 65535
+      SolarZenith:
+        description: Solar zenith angle
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      SolarAzimuth:
+        description: Solar azimuth angle
+        units: deg
+        scale: 0.01
+        min: -18000
+        max: 18000
+      gflags:
+        description: Geolocation flags
+      orbit_pnt:
+        description: Orbit pointer
+        min: 0
+        max: 15
+      granule_pnt:
+        description: Granule pointer
+        min: 0
+        max: 254
+      num_observations_500m:
+        description: Number of observations
+        min: 0
+        max: 127
+      sur_refl_b01:
+        description: Surface reflectance for band 1
+        scale: 0.0001
+        wavelength: 0.645
+        min: -100
+        max: 16000
+      sur_refl_b02:
+        description: Surface reflectance for band 2
+        scale: 0.0001
+        wavelength: 0.8585
+        min: -100
+        max: 16000
+      sur_refl_b03:
+        description: Surface reflectance for band 3
+        scale: 0.0001
+        wavelength: 0.469
+        min: -100
+        max: 16000
+      sur_refl_b04:
+        description: Surface reflectance for band 4
+        scale: 0.0001
+        wavelength: 0.555
+        min: -100
+        max: 16000
+      sur_refl_b05:
+        description: Surface reflectance for band 5
+        scale: 0.0001
+        wavelength: 1.24
+        min: -100
+        max: 16000
+      sur_refl_b06:
+        description: Surface reflectance for band 6
+        scale: 0.0001
+        wavelength: 1.64
+        min: -100
+        max: 16000
+      sur_refl_b07:
+        description: Surface reflectance for band 7
+        scale: 0.0001
+        wavelength: 2.13
+        min: -100
+        max: 16000
+      QC_500m:
+        description: Surface reflectance quality assurance
+      obscov_500m:
+        description: Observation coverage percent
+        min: 0
+        max: 100
+      iobs_res:
+        description: Observation number in coarser grid
+        min: 0
+        max: 254
+      q_scan:
+        description: 250m scan value information
