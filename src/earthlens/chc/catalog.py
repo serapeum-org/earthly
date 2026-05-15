@@ -58,7 +58,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from pydantic import BaseModel, ConfigDict, Field, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
 from earthlens.base import AbstractCatalog
 
@@ -153,7 +153,15 @@ class Dataset(BaseModel):
             the same way as `ftp_bases`.  Each value is a Python
             format-string with placeholders such as `{year}`, `{month}`,
             `{day}`, `{dekad}`, `{pentad}`, `{res}`.  Use
-            :attr:`file_pattern` for the default pattern.
+            :attr:`file_pattern` for the default pattern. `None` for
+            datasets that publish a fixed enumerated set of files
+            (`discrete_files`) instead of per-date partitions.
+        discrete_files: Format-keyed map of fixed filenames for datasets
+            that publish a small set of multi-year archive files rather
+            than per-date partitions (CenTrends and similar). When set,
+            the backend iterates `discrete_files[fmt]` once instead of
+            doing date substitution on `file_patterns[fmt]`. Exactly one
+            of `file_patterns` / `discrete_files` must be set.
         region: Geographic coverage label (e.g. `"global"`,
             `"africa"`, `"central-america-caribbean"`).
         temporal_resolution: Human-readable temporal resolution
@@ -205,7 +213,8 @@ class Dataset(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
     ftp_bases: dict[str, str]
-    file_patterns: dict[str, str]
+    file_patterns: dict[str, str] | None = None
+    discrete_files: dict[str, list[str]] | None = None
     region: str
     temporal_resolution: str
     pandas_freq: str
@@ -217,6 +226,25 @@ class Dataset(BaseModel):
     end_date: str | None = None
     preliminary: bool = False
     variables: dict[str, Variable] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def _check_pattern_or_discrete(self) -> Dataset:
+        """Exactly one of `file_patterns` / `discrete_files` must be set."""
+        has_patterns = bool(self.file_patterns)
+        has_discrete = bool(self.discrete_files)
+        if not has_patterns and not has_discrete:
+            raise ValueError(
+                "Dataset must declare either `file_patterns` "
+                "(per-date templates) or `discrete_files` (fixed "
+                "enumerated multi-year archive files)."
+            )
+        if has_patterns and has_discrete:
+            raise ValueError(
+                "Dataset declares both `file_patterns` and "
+                "`discrete_files`; pick one. The backend chooses its "
+                "download path based on which one is set."
+            )
+        return self
 
     @property
     def default_format(self) -> str:
@@ -250,8 +278,22 @@ class Dataset(BaseModel):
 
         Returns:
             str: Filename template for the primary format.
+
+        Raises:
+            ValueError: If this dataset uses `discrete_files` rather
+                than per-date `file_patterns`.
         """
+        if self.file_patterns is None:
+            raise ValueError(
+                f"Dataset uses `discrete_files`; iterate "
+                f"`dataset.discrete_files[fmt]` instead."
+            )
         return self.file_patterns[self.default_format]
+
+    @property
+    def is_discrete(self) -> bool:
+        """True for datasets that publish enumerated multi-year files."""
+        return self.discrete_files is not None
 
 
 class Catalog(AbstractCatalog):
@@ -396,7 +438,8 @@ class Catalog(AbstractCatalog):
             try:
                 structural[ds_key] = Dataset(
                     ftp_bases=ds_body["ftp_bases"],
-                    file_patterns=ds_body["file_patterns"],
+                    file_patterns=ds_body.get("file_patterns") or None,
+                    discrete_files=ds_body.get("discrete_files") or None,
                     region=region_key,
                     temporal_resolution=ds_body["temporal_resolution"],
                     pandas_freq=ds_body["pandas_freq"],

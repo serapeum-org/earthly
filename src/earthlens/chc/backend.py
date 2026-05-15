@@ -350,7 +350,19 @@ class CHIRPS(AbstractDataSource):
         progress_bar: bool = True,
         cores: int | None = None,
     ) -> None:
-        """Iterate the per-dataset date range and dispatch :meth:`_api`."""
+        """Iterate the per-dataset date range and dispatch :meth:`_api`.
+
+        Branches on `dataset.is_discrete`: datasets that publish a fixed
+        set of multi-year archive files (`discrete_files`, e.g. CenTrends)
+        are routed through :meth:`_download_discrete`, which fetches each
+        listed filename once instead of doing date substitution.
+        """
+        if dataset.is_discrete:
+            self._download_discrete(
+                ds_key, dataset, var, progress_bar=progress_bar
+            )
+            return
+
         ds_start = pd.Timestamp(dataset.start_date)
         ds_end = pd.Timestamp(dataset.end_date) if dataset.end_date else None
 
@@ -381,6 +393,34 @@ class CHIRPS(AbstractDataSource):
                 delayed(self._api)(ds_key, dataset, var, date)
                 for date in dates
             )
+
+    def _download_discrete(
+        self,
+        ds_key: str,
+        dataset: ChcDataset,
+        var: Variable,
+        progress_bar: bool = True,
+    ) -> None:
+        """Fetch each entry in `dataset.discrete_files` once.
+
+        For datasets that publish a fixed set of multi-year archive
+        files (CenTrends and similar), date iteration is meaningless —
+        each file is the whole product, not a per-date partition. The
+        files are saved verbatim as `<ds_key>_<source_filename>` in
+        `self.root_dir`; the per-date GeoTIFF bbox clip is skipped
+        because these archives are typically `(time, lat, lon)`
+        NetCDFs that need xarray-style time-and-region subsetting,
+        which is out of scope for this backend.
+        """
+        fmt_key = dataset.default_format
+        ftp_base = dataset.ftp_bases[fmt_key]
+        filenames = dataset.discrete_files[fmt_key]
+        iterable = tqdm(
+            filenames, desc=f"CHC {ds_key}", disable=not progress_bar
+        )
+        for filename in iterable:
+            local_path = self.root_dir / f"{ds_key}_{filename}"
+            self._fetch_ftp(ftp_base, filename, local_path)
 
     def _api(
         self,

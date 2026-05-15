@@ -2040,3 +2040,62 @@ datasets:
         units: "degC"
         types: state
 
+
+  # ===================================================================
+  #  CentennialTrends v1  (East-African rainfall, 1900-2014)
+  #
+  #  Server path: pub/org/chc/products/CentennialTrends/
+  #  CenTrends is a fixed *archive* of multi-year NetCDFs — one file
+  #  holds the whole monthly time series; four seasonal files hold the
+  #  long-rains (Mar-Jun), Sahel rains (Jun-Sep), short rains (Oct-Feb),
+  #  and full annual cycle (Oct-Sep). Each file is a single
+  #  `(time, lat, lon)` NetCDF, not a per-date partition, so the
+  #  catalog uses `discrete_files:` instead of `file_patterns:` and
+  #  the backend fetches each file once regardless of the requested
+  #  date window. Per-date GeoTIFF clipping does not apply — read the
+  #  saved NetCDFs with xarray for time / region subsetting.
+  # ===================================================================
+
+  centennial-trends-v1-monthly:
+    ftp_bases:
+      netcdf: "pub/org/chc/products/CentennialTrends/"
+    region: east-africa
+    # CenTrends covers a wider East African extent than the standard
+    # `east-africa` region; override the regions-block bounds inline.
+    lat_boundaries: [-12.25, 22.25]
+    lon_boundaries: [21.25, 51.25]
+    temporal_resolution: monthly
+    pandas_freq: "MS"
+    spatial_resolution: [0.10]
+    formats: *fmt_nc
+    start_date: "1900-01-01"
+    end_date: "2014-12-31"
+    discrete_files:
+      netcdf:
+        - "CenTrends_v1_monthly.nc"
+    variables:
+      precipitation: *precip_monthly
+
+  centennial-trends-v1-seasonal:
+    ftp_bases:
+      netcdf: "pub/org/chc/products/CentennialTrends/"
+    region: east-africa
+    lat_boundaries: [-12.25, 22.25]
+    lon_boundaries: [21.25, 51.25]
+    temporal_resolution: seasonal
+    pandas_freq: "QS"
+    spatial_resolution: [0.10]
+    formats: *fmt_nc
+    start_date: "1900-01-01"
+    end_date: "2014-12-31"
+    discrete_files:
+      netcdf:
+        - "CenTrends_v1_MarJun.nc"
+        - "CenTrends_v1_JunSep.nc"
+        - "CenTrends_v1_OctFeb.nc"
+        - "CenTrends_v1_OctSep.nc"
+    variables:
+      precipitation:
+        description: "Seasonal accumulated rainfall over four climatological windows (Mar-Jun long rains, Jun-Sep Sahel rains, Oct-Feb short rains, Oct-Sep full annual cycle)"
+        units: "mm/season"
+        types: flux
