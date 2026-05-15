@@ -6582,3 +6582,603 @@ datasets:
       randomError:
         description: Random error of the merged precipitation estimate
         units: mm/hr
+
+  JAXA/ALOS/AW3D30/V4_1:
+    title: "ALOS AW3D30 v4.1: Global 30m Digital Surface Model (latest, 2006-)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for any use, attribution required (JAXA AW3D30 terms).
+    bands:
+      DSM:
+        description: Height above sea level
+        units: m
+        min: -433
+        max: 8768
+        estimated_range: true
+      MSK:
+        description: 8-bit mask for the band
+      STK:
+        description: Stacking number of scene-unit DSMs used
+
+  LANDSAT/LT05/C02/T2_L2:
+    title: "USGS Landsat 5 Collection 2 Tier 2 Surface Reflectance + Surface Temperature"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: "2012-05-05"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LE07/C02/T2_TOA:
+    title: "USGS Landsat 7 Collection 2 Tier 2 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-05-28"
+      end_date: "2024-04-06"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6_VCID_1:
+        description: Low-gain thermal infrared (extended dynamic range)
+        wavelength: 11.45
+      B6_VCID_2:
+        description: High-gain thermal infrared (greater sensitivity)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  NASA/GSFC/MERRA/rad/2:
+    title: "MERRA-2 M2T1NXRAD: Hourly Radiation Diagnostics V5.12.4"
+    provider: NASA GSFC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 55000
+    extent:
+      start_date: "1980-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA GSFC).
+    bands:
+      ALBEDO:
+        description: Surface albedo
+      SWGDN:
+        description: Surface downward shortwave flux
+        units: W/m^2
+      SWGNT:
+        description: Surface net downward shortwave flux
+        units: W/m^2
+      LWGAB:
+        description: Surface absorbed longwave radiation
+        units: W/m^2
+      LWGEM:
+        description: Surface longwave emission
+        units: W/m^2
+      LWGNT:
+        description: Surface net downward longwave flux
+        units: W/m^2
+      SWTDN:
+        description: Top-of-atmosphere incoming shortwave flux
+        units: W/m^2
+      SWTNT:
+        description: Top-of-atmosphere net downward shortwave flux
+        units: W/m^2
+
+  NASA/GSFC/MERRA/flx/2:
+    title: "MERRA-2 M2T1NXFLX: Hourly Surface Flux Diagnostics V5.12.4"
+    provider: NASA GSFC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 55000
+    extent:
+      start_date: "1980-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA GSFC).
+    bands:
+      EFLUX:
+        description: Total latent heat flux
+        units: W/m^2
+      HFLUX:
+        description: Sensible heat flux from turbulence
+        units: W/m^2
+      EVAP:
+        description: Surface evaporation flux
+        units: kg/m^2/s
+      PRECTOT:
+        description: Total precipitation
+        units: kg/m^2/s
+      PRECTOTCORR:
+        description: Total precipitation (gauge-corrected)
+        units: kg/m^2/s
+      USTAR:
+        description: Surface velocity scale (friction velocity)
+        units: m/s
+      Z0M:
+        description: Surface roughness length for momentum
+        units: m
+      TAUX:
+        description: Eastward surface stress
+        units: N/m^2
+      TAUY:
+        description: Northward surface stress
+        units: N/m^2
+
+  ECMWF/ERA5_LAND/MONTHLY_AGGR:
+    title: "ERA5-Land Monthly Aggregated — ECMWF Climate Reanalysis (~9km, 1950-present)"
+    provider: ECMWF / Copernicus C3S
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1950-02-01"
+      end_date: null
+    default_reducer: mean
+    terms: Copernicus C3S/CAMS licence — free with attribution.
+    bands:
+      temperature_2m:
+        description: 2 m air temperature (monthly mean)
+        units: K
+      dewpoint_temperature_2m:
+        description: 2 m dewpoint temperature (monthly mean)
+        units: K
+      skin_temperature:
+        description: Land/sea surface skin temperature (monthly mean)
+        units: K
+      surface_pressure:
+        description: Surface pressure (monthly mean)
+        units: Pa
+      total_precipitation_sum:
+        description: Monthly total precipitation
+        units: m
+      total_evaporation_sum:
+        description: Monthly total evaporation
+        units: m
+      u_component_of_wind_10m:
+        description: 10 m wind, U-component (monthly mean)
+        units: m/s
+      v_component_of_wind_10m:
+        description: 10 m wind, V-component (monthly mean)
+        units: m/s
+      soil_temperature_level_1:
+        description: Soil temperature, layer 1 (0-7 cm, monthly mean)
+        units: K
+      volumetric_soil_water_layer_1:
+        description: Volumetric soil water, layer 1 (0-7 cm, monthly mean)
+        units: m^3/m^3
+      snow_depth_water_equivalent:
+        description: Snow depth water equivalent (monthly mean)
+        units: m
+
+  USFS/GTAC/LCMS/v2024-10:
+    title: "USFS LCMS v2024.10: Landscape Change Monitoring System (US, 30m, 1985-)"
+    provider: USDA Forest Service GTAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1985-01-01"
+      end_date: null
+      bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
+    default_reducer: mosaic
+    terms: Public (USDA Forest Service).
+    user_uploaded: true
+    bands:
+      Change:
+        description: Final thematic LCMS change class (15-class)
+      Land_Cover:
+        description: Final thematic LCMS land-cover class (14-class)
+      Land_Use:
+        description: Final thematic LCMS land-use class (5-class)
+
+  USGS/NLCD_RELEASES/2023_REL/RCMAP/V6/COVER:
+    title: "RCMAP v6: Rangeland Component Fractional Cover (CONUS, 30m, 1985-2023)"
+    provider: USGS / Bureau of Land Management
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1985-01-01"
+      end_date: "2023-12-31"
+      bbox: [-128.0026, 26.5157, -99.6758, 51.5761]
+    default_reducer: mean
+    terms: Public domain (USGS).
+    user_uploaded: true
+    bands:
+      rangeland_annual_herbaceous:
+        description: Per-pixel cover of annual herbaceous vegetation
+        units: "%"
+        min: 0
+        max: 100
+      rangeland_bare_ground:
+        description: Per-pixel bare-ground cover
+        units: "%"
+        min: 0
+        max: 100
+      rangeland_non_sagebrush_shrub:
+        description: Per-pixel non-sagebrush-shrub cover
+        units: "%"
+        min: 0
+        max: 100
+      rangeland_sagebrush:
+        description: Per-pixel sagebrush cover
+        units: "%"
+        min: 0
+        max: 100
+      rangeland_perennial_herbaceous:
+        description: Per-pixel perennial-herbaceous cover
+        units: "%"
+        min: 0
+        max: 100
+      rangeland_litter:
+        description: Per-pixel litter cover
+        units: "%"
+        min: 0
+        max: 100
+      rangeland_tree:
+        description: Per-pixel tree cover
+        units: "%"
+        min: 0
+        max: 100
+      rangeland_shrub:
+        description: Per-pixel shrub cover (sagebrush + non-sagebrush)
+        units: "%"
+        min: 0
+        max: 100
+
+  USGS/NLCD_RELEASES/2023_REL/TCC/v2023-5:
+    title: "USFS Tree Canopy Cover v2023-5 (US, 30m, 1985-2023)"
+    provider: USDA Forest Service GTAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1985-06-01"
+      end_date: "2023-12-31"
+      bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
+    default_reducer: mean
+    terms: Public (USDA Forest Service).
+    user_uploaded: true
+    bands:
+      Science_Percent_Tree_Canopy_Cover:
+        description: Direct model output of mean predicted tree-canopy cover
+        units: "%"
+      Science_Percent_Tree_Canopy_Cover_Standard_Error:
+        description: Standard deviation across regression-tree predictions
+        units: "%"
+      NLCD_Percent_Tree_Canopy_Cover:
+        description: Post-processed NLCD-style tree-canopy cover
+        units: "%"
+      data_mask:
+        description: Data quality mask (no-data / mapped / non-processing)
+
+  USGS/NLCD_RELEASES/2020_REL/NALCMS:
+    title: "NALCMS 2020: North American Land Cover Monitoring (30m, CEC)"
+    provider: Commission for Environmental Cooperation (CEC)
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2019-01-01"
+      end_date: "2020-12-31"
+      bbox: [-175, 14, -50, 84]
+    default_reducer: mosaic
+    terms: CC0-1.0.
+    user_uploaded: true
+    bands:
+      landcover:
+        description: Land-cover classification (CEC 19-class scheme)
+        min: 1
+        max: 19
+
+  USGS/NLCD_RELEASES/2021_REL/TCC/v2021-4:
+    title: "USFS Tree Canopy Cover v2021-4 (US, 30m, 2008-2021)"
+    provider: USDA Forest Service GTAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2008-06-01"
+      end_date: "2021-12-31"
+      bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
+    default_reducer: mean
+    terms: Public (USDA Forest Service).
+    user_uploaded: true
+    bands:
+      Science_Percent_Tree_Canopy_Cover:
+        description: Direct model output of mean predicted tree-canopy cover
+        units: "%"
+      Science_Percent_Tree_Canopy_Cover_Standard_Error:
+        description: Standard deviation across regression-tree predictions
+        units: "%"
+      NLCD_Percent_Tree_Canopy_Cover:
+        description: Post-processed NLCD-style tree-canopy cover
+        units: "%"
+      data_mask:
+        description: Data quality mask (no-data / mapped / non-processing)
+
+  IDAHO_EPSCOR/PDSI:
+    title: "PDSI: Palmer Drought Severity Index (CONUS, 4km, 10-day)"
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1979-03-01"
+      end_date: null
+      bbox: [-124.9, 24.9, -66.8, 49.6]
+    default_reducer: mean
+    terms: Public domain (METDATA, John Abatzoglou).
+    bands:
+      pdsi:
+        description: Palmer Drought Severity Index (>4 extremely wet, <-4 extreme drought)
+
+  HYCOM/sea_water_velocity:
+    title: "HYCOM Hybrid Coordinate Ocean Model — Daily Sea-Water Velocity"
+    provider: HYCOM Consortium / NOPP
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 8905.6
+    extent:
+      start_date: "1992-10-02"
+      end_date: null
+      bbox: [-180, -80.48, 180, 80.48]
+    default_reducer: mean
+    terms: Free for any use (HYCOM Consortium).
+    bands:
+      velocity_u_0:
+        description: Eastward sea-water velocity, 0 m
+        units: m/s
+        scale: 0.001
+      velocity_v_0:
+        description: Northward sea-water velocity, 0 m
+        units: m/s
+        scale: 0.001
+      velocity_u_2:
+        description: Eastward sea-water velocity, 2 m
+        units: m/s
+        scale: 0.001
+      velocity_v_2:
+        description: Northward sea-water velocity, 2 m
+        units: m/s
+        scale: 0.001
+      velocity_u_10:
+        description: Eastward sea-water velocity, 10 m
+        units: m/s
+        scale: 0.001
+      velocity_v_10:
+        description: Northward sea-water velocity, 10 m
+        units: m/s
+        scale: 0.001
+
+  JAXA/GCOM-C/L3/OCEAN/CHLA/V3:
+    title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v3 (Daily ~5km)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2021-11-29"
+      end_date: null
+    default_reducer: mean
+    terms: Free for any use (JAXA GCOM-C terms).
+    bands:
+      CHLA_AVE:
+        description: Sea-surface chlorophyll-a concentration
+        units: mg/m^3
+      CHLA_QA_flag:
+        description: Chlorophyll quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/SST/V3:
+    title: "GCOM-C/SGLI L3 Sea-Surface Temperature v3 (Daily ~5km)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-22"
+      end_date: null
+    default_reducer: mean
+    terms: Free for any use (JAXA GCOM-C terms).
+    bands:
+      SST_AVE:
+        description: Sea-surface temperature
+        units: deg_C
+      SST_QA_flag:
+        description: SST quality assurance
+
+  COPERNICUS/S5P/NRTI/L3_NO2:
+    title: "Sentinel-5P NRTI NO2: Near-Real-Time Tropospheric Nitrogen Dioxide"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-07-10"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      NO2_column_number_density:
+        description: Total vertical column of NO2
+        units: mol/m^2
+      tropospheric_NO2_column_number_density:
+        description: Tropospheric vertical column of NO2
+        units: mol/m^2
+      stratospheric_NO2_column_number_density:
+        description: Stratospheric vertical column of NO2
+        units: mol/m^2
+      cloud_fraction:
+        description: Effective cloud fraction
+        min: 0
+        max: 1
+
+  COPERNICUS/S5P/NRTI/L3_CLOUD:
+    title: "Sentinel-5P NRTI CLOUD: Near-Real-Time Cloud Properties"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-07-05"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      cloud_fraction:
+        description: Effective radiometric cloud fraction
+        min: 0
+        max: 1
+      cloud_top_pressure:
+        description: Atmospheric pressure at cloud top
+        units: Pa
+      cloud_top_height:
+        description: Altitude of cloud top
+        units: m
+      cloud_base_pressure:
+        description: Atmospheric pressure at cloud base
+        units: Pa
+      cloud_base_height:
+        description: Altitude of cloud base
+        units: m
+      cloud_optical_depth:
+        description: Cloud optical depth
+      surface_albedo:
+        description: Surface albedo
+
+  LARSE/GEDI/GEDI04_B_002:
+    title: "GEDI L4B v2: Gridded Above-Ground Biomass Density (1km, 2019-present)"
+    provider: NASA / USFS LARSE
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-18"
+      end_date: "2023-03-16"
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mosaic
+    terms: Public domain (NASA / USFS).
+    bands:
+      MU:
+        description: Mean above-ground biomass density
+        units: Mg/ha
+      SE:
+        description: Standard error of the mean AGBD
+        units: Mg/ha
+      PE:
+        description: Standard error as a fraction of the mean AGBD
+        units: "%"
+      V1:
+        description: Variance component 1 (uncertainty in the estimate of mean)
+      V2:
+        description: Variance component 2
+      NC:
+        description: Number of unique GEDI ground tracks contributing
+      NS:
+        description: Number of high-quality waveforms across the cell
+      QF:
+        description: Cell quality flag
+
+  LANDFIRE/Vegetation/EVT/v1_4_0:
+    title: "LANDFIRE EVT v1.4.0: Existing Vegetation Type (US, 30m)"
+    provider: USDA Forest Service / DOI
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2014-09-01"
+      end_date: "2014-12-31"
+      bbox: [-175.1, 17.52, -63.66, 71.48]
+    default_reducer: mosaic
+    terms: Public domain (LANDFIRE).
+    user_uploaded: true
+    bands:
+      EVT:
+        description: Existing vegetation-type class
+
+  MODIS/006/MOD17A3H:
+    title: "MOD17A3H.006: Terra Net Primary Production Yearly Global 500m (legacy)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2014-12-31"
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Npp:
+        description: Annual net primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+      Npp_QC:
+        description: Quality control bits
