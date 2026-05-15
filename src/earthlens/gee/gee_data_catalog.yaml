@@ -50120,3 +50120,243 @@ datasets:
     default_reducer: mosaic
     terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
     bands:
+
+  WWF/HydroATLAS/v1/Basins/level11:
+    title: WWF HydroATLAS Basins Level 11
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level12:
+    title: WWF HydroATLAS Basins Level 12
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_1:
+    title: WWF HydroSHEDS Basins Level 1
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_10:
+    title: WWF HydroSHEDS Basins Level 10
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_11:
+    title: WWF HydroSHEDS Basins Level 11
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_12:
+    title: WWF HydroSHEDS Basins Level 12
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_2:
+    title: WWF HydroSHEDS Basins Level 2
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_3:
+    title: WWF HydroSHEDS Basins Level 3
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_4:
+    title: WWF HydroSHEDS Basins Level 4
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_5:
+    title: WWF HydroSHEDS Basins Level 5
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_6:
+    title: WWF HydroSHEDS Basins Level 6
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_7:
+    title: WWF HydroSHEDS Basins Level 7
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_8:
+    title: WWF HydroSHEDS Basins Level 8
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_9:
+    title: WWF HydroSHEDS Basins Level 9
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/FreeFlowingRivers:
+    title: WWF HydroSHEDS Free Flowing Rivers Network v1
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    user_uploaded: true
+    bands:
+
+  YALE/YCEO/UHI/UHI_yearly_pixel/v4:
+    title: 'YCEO Surface Urban Heat Islands: Pixel-Level Annual Daytime and Nighttime Intensity'
+    provider: Yale Center for Earth Observation (YCEO)
+    ee_type: image_collection
+    spatial_resolution: 300
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+      bbox: [-180, -49.98, 180, 69.7]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      Daytime:
+        description: Daytime UHI
+        units: 'deg_C'
+      Nighttime:
+        description: Nighttime UHI
+        units: 'deg_C'
+
+  YALE/YCEO/UHI/Winter_UHI_yearly_pixel/v4:
+    title: 'YCEO Surface Urban Heat Islands: Pixel-Level Yearly Composites of Wintertime Daytime'
+    provider: Yale Center for Earth Observation (YCEO)
+    ee_type: image_collection
+    spatial_resolution: 300
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+      bbox: [-180, -49.98, 180, 69.7]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      Daytime:
+        description: Daytime UHI
+        units: 'deg_C'
+      Nighttime:
+        description: Nighttime UHI
+        units: 'deg_C'
+
+  iNaturalist/MULTI_SPECIES/LATEST:
+    title: iNaturalist Multispecies Open Range Maps
+    provider: iNaturalist
+    ee_type: bigquery_table
+    extent:
+      start_date: "2025-02-25"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+
+  overture-maps/places_place:
+    title: 'Overture Maps - Places: Place'
+    provider: Overture Maps Foundation
+    ee_type: bigquery_table
+    extent:
+      start_date: "2023-07-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[ODbL-1.0](https://spdx.org/licenses/ODbL-1.0.html)'
+    bands:
