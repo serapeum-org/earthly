@@ -49108,3 +49108,311 @@ datasets:
     default_reducer: mean
     terms: The GAUL dataset is distributed to the United Nations and other authorized
     bands:
+
+  FAO/GAUL/2015/level2:
+    title: 'FAO GAUL: Global Administrative Unit Layers 2015, Second-Level Administrative Units'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mosaic
+    terms: The GAUL dataset is distributed to the United Nations and other authorized
+    bands:
+
+  FAO/GAUL_SIMPLIFIED_500m/2015/level0:
+    title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, Country Boundaries'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mosaic
+    terms: The GAUL dataset is distributed to the United Nations and other authorized
+    bands:
+
+  FAO/GAUL_SIMPLIFIED_500m/2015/level1:
+    title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, First-Level Administrative'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mosaic
+    terms: The GAUL dataset is distributed to the United Nations and other authorized
+    bands:
+
+  FAO/GAUL_SIMPLIFIED_500m/2015/level2:
+    title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, Second-Level Administrative'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mosaic
+    terms: The GAUL dataset is distributed to the United Nations and other authorized
+    bands:
+
+  GLIMS/2016:
+    title: 'GLIMS 2016: Global Land Ice Measurements From Space [deprecated]'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1870-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: For the creation of any reports, publications, new
+    bands:
+
+  GLIMS/20171027:
+    title: 'GLIMS 2017: Global Land Ice Measurements From Space [deprecated]'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1850-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: For the creation of any reports, publications, new
+    bands:
+
+  GLIMS/20210914:
+    title: 'GLIMS 2021: Global Land Ice Measurements From Space [deprecated]'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1750-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: For the creation of any reports, publications, new
+    bands:
+
+  GLIMS/20230607:
+    title: 'GLIMS 2023: Global Land Ice Measurements From Space'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1750-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: For the creation of any reports, publications, new
+    bands:
+
+  GLIMS/current:
+    title: 'GLIMS Current: Global Land Ice Measurements From Space'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1750-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: For the creation of any reports, publications, new
+    bands:
+
+  GOOGLE/Research/open-buildings-temporal/v1:
+    title: Open Buildings Temporal V1
+    provider: Google Research - Open Buildings
+    ee_type: image_collection
+    spatial_resolution: 4
+    extent:
+      start_date: "2016-06-30"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      building_fractional_count:
+        description: Source data for deriving building counts for a given AOI. Please see
+        min: 0
+        max: 0.0216
+      building_height:
+        description: Building height relative to the terrain in range [0m, 100m].
+        units: m
+        min: 0
+        max: 100
+      building_presence:
+        description: Model confidence values (i.e. how confident a model is that the pixel is
+        min: 0
+        max: 1
+
+  GOOGLE/Research/open-buildings/v1/polygons:
+    title: Open Buildings V1 Polygons [deprecated]
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2021-04-30"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  GOOGLE/Research/open-buildings/v2/polygons:
+    title: Open Buildings V2 Polygons [deprecated]
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2022-08-30"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  GOOGLE/Research/open-buildings/v3/polygons:
+    title: Open Buildings V3 Polygons
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2023-05-30"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  HU_BERLIN/EPFD/V2/points:
+    title: European Primary Forest Dataset - Points
+    provider: Geography Department, Humboldt University of Berlin, Berlin, Germany
+    ee_type: table
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: European primary forest datasets are provided under the CC BY 4.0
+    bands:
+
+  HU_BERLIN/EPFD/V2/polygons:
+    title: European Primary Forest Dataset - Polygons
+    provider: Geography Department, Humboldt University of Berlin, Berlin, Germany
+    ee_type: table
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: European primary forest datasets are provided under the CC BY 4.0
+    bands:
+
+  JRC/GSW1_0/Metadata:
+    title: JRC Global Surface Water Metadata, v1.0 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    terms: All data here is produced under the Copernicus Programme and is provided
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_1/Metadata:
+    title: JRC Global Surface Water Metadata, v1.1 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    terms: All data here is produced under the Copernicus Programme and is provided
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_2/Metadata:
+    title: JRC Global Surface Water Metadata, v1.2 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    terms: All data here is produced under the Copernicus Programme and is provided
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_3/Metadata:
+    title: JRC Global Surface Water Metadata, v1.3 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    terms: All data here is produced under the Copernicus Programme and is provided
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_4/Metadata:
+    title: JRC Global Surface Water Metadata, v1.4
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    terms: All data here is produced under the Copernicus Programme and is provided
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
