@@ -9687,3 +9687,506 @@ datasets:
         description: Stacking number of scene-unit DSMs used
       AVE_MSK:
         description: 8-bit mask for the AVE band
+
+  JAXA/GPM_L3/GSMaP/v6/operational:
+    title: "GSMaP Operational v6: Global Satellite Mapping of Precipitation (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2014-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    terms: Free with attribution (JAXA GSMaP terms).
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      hourlyPrecipRateGC:
+        description: Hourly precipitation rate, gauge-adjusted
+        units: mm/hr
+      satelliteInfoFlag:
+        description: Satellite/sensor used in the retrieval
+
+  JAXA/GPM_L3/GSMaP/v6/reanalysis:
+    title: "GSMaP Reanalysis v6: Global Satellite Mapping of Precipitation (2000-)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2000-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    terms: Free with attribution (JAXA GSMaP terms).
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      satelliteInfoFlag:
+        description: Satellite/sensor used in the retrieval
+
+  JAXA/GPM_L3/GSMaP/v7/operational:
+    title: "GSMaP Operational v7: Global Satellite Mapping of Precipitation (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2014-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    terms: Free with attribution (JAXA GSMaP terms).
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      hourlyPrecipRateGC:
+        description: Hourly precipitation rate, gauge-adjusted
+        units: mm/hr
+
+  MODIS/061/MYD15A2H:
+    title: "MYD15A2H.061: Aqua Leaf Area Index/FPAR 8-Day Global 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Lai_500m:
+        description: Leaf area index (one-sided green leaf area / unit ground area)
+        units: m^2/m^2
+        scale: 0.1
+      Fpar_500m:
+        description: Fraction of absorbed PAR
+        units: "%"
+        scale: 0.01
+      LaiStdDev_500m:
+        description: Standard deviation of LAI
+        scale: 0.1
+      FparStdDev_500m:
+        description: Standard deviation of FPAR
+        scale: 0.01
+      FparLai_QC:
+        description: LAI/FPAR quality flags
+
+  MODIS/061/MYD16A2:
+    title: "MYD16A2.061: Aqua Net Evapotranspiration 8-Day Global 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      ET:
+        description: Total evapotranspiration over 8 days
+        units: kg/m^2/8day
+        scale: 0.1
+      LE:
+        description: Average latent heat flux
+        units: J/m^2/day
+        scale: 10000
+      PET:
+        description: Potential evapotranspiration over 8 days
+        units: kg/m^2/8day
+        scale: 0.1
+      PLE:
+        description: Average potential latent heat flux
+        units: J/m^2/day
+        scale: 10000
+      ET_QC:
+        description: ET quality control flags
+
+  MODIS/061/MYD09A1:
+    title: "MYD09A1.061: Aqua Surface Reflectance 8-Day Global 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      sur_refl_b01:
+        description: Band 1 (red) surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: Band 2 (NIR) surface reflectance
+        scale: 0.0001
+        wavelength: 0.8585
+      sur_refl_b03:
+        description: Band 3 (blue) surface reflectance
+        scale: 0.0001
+        wavelength: 0.469
+      sur_refl_b04:
+        description: Band 4 (green) surface reflectance
+        scale: 0.0001
+        wavelength: 0.555
+      sur_refl_b06:
+        description: Band 6 (SWIR-1) surface reflectance
+        scale: 0.0001
+        wavelength: 1.64
+      sur_refl_b07:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 0.0001
+        wavelength: 2.13
+      QA:
+        description: 500m surface reflectance band quality
+
+  MODIS/061/MYD10A1:
+    title: "MYD10A1.061: Aqua Snow Cover Daily Global 500m"
+    provider: NASA NSIDC DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: NASA NSIDC DAAC — public, no restrictions.
+    bands:
+      NDSI_Snow_Cover:
+        description: NDSI snow cover (0-100)
+        units: "%"
+        min: 0
+        max: 100
+      NDSI:
+        description: Raw NDSI (pre-screening)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Snow_Albedo_Daily_Tile:
+        description: Snow albedo percentage
+        units: "%"
+      NDSI_Snow_Cover_Basic_QA:
+        description: Basic quality flag for the NDSI snow cover
+
+  MODIS/061/MOD10A2:
+    title: "MOD10A2.061: Terra Snow Cover 8-Day L3 Global 500m"
+    provider: NASA NSIDC DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: mosaic
+    terms: NASA NSIDC DAAC — public, no restrictions.
+    bands:
+      Maximum_Snow_Extent:
+        description: Maximum snow extent observed over the 8-day period
+      Eight_Day_Snow_Cover:
+        description: Snow chronology bit flags for each day in the 8-day period
+
+  MODIS/061/MYD09CMG:
+    title: "MYD09CMG.061: Aqua Surface Reflectance Daily L3 Global 0.05° CMG"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5600
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Coarse_Resolution_Surface_Reflectance_Band_1:
+        description: Surface reflectance, MODIS band 1 (red)
+        wavelength: 0.645
+      Coarse_Resolution_Surface_Reflectance_Band_2:
+        description: Surface reflectance, MODIS band 2 (NIR)
+        wavelength: 0.8585
+      Coarse_Resolution_Surface_Reflectance_Band_3:
+        description: Surface reflectance, MODIS band 3 (blue)
+        wavelength: 0.469
+      Coarse_Resolution_Surface_Reflectance_Band_4:
+        description: Surface reflectance, MODIS band 4 (green)
+        wavelength: 0.555
+
+  MODIS/061/MYD13A2:
+    title: "MYD13A2.061: Aqua Vegetation Indices 16-Day Global 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      NDVI:
+        description: 16-day NDVI average
+        scale: 0.0001
+        min: -2000
+        max: 10000
+      EVI:
+        description: 16-day EVI average
+        scale: 0.0001
+        min: -2000
+        max: 10000
+      sur_refl_b01:
+        description: Red surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: NIR surface reflectance
+        scale: 0.0001
+        wavelength: 0.858
+      DetailedQA:
+        description: VI quality indicators
+
+  MODIS/061/MYD13A3:
+    title: "MYD13A3.061: Aqua Vegetation Indices Monthly L3 Global 1km SIN Grid"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-01"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      NDVI:
+        description: Monthly NDVI average
+        scale: 0.0001
+      EVI:
+        description: Monthly EVI average
+        scale: 0.0001
+      sur_refl_b01:
+        description: Red surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+      sur_refl_b02:
+        description: NIR surface reflectance
+        scale: 0.0001
+        wavelength: 0.858
+      DetailedQA:
+        description: VI quality indicators
+
+  MODIS/061/MYD17A3HGF:
+    title: "MYD17A3HGF.061: Aqua Net Primary Production Gap-Filled Yearly Global 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 500
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Gpp:
+        description: Annual gross primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+      Npp:
+        description: Annual net primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+      Npp_QC:
+        description: Quality-control percentage of valid 8-day inputs
+        units: "%"
+        min: 0
+        max: 100
+
+  MODIS/061/MYD21A1D:
+    title: "MYD21A1D.061: Aqua Daytime LST + 3-Band Emissivity Daily 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      LST_1KM:
+        description: Daytime land surface temperature
+        units: K
+      QC:
+        description: LST quality control
+      Emis_29:
+        description: Band 29 emissivity
+      Emis_31:
+        description: Band 31 emissivity
+      Emis_32:
+        description: Band 32 emissivity
+      View_Angle:
+        description: View zenith angle of the LST observation
+        units: deg
+
+  MODIS/061/MYD21A1N:
+    title: "MYD21A1N.061: Aqua Nighttime LST + 3-Band Emissivity Daily 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      LST_1KM:
+        description: Nighttime land surface temperature
+        units: K
+      QC:
+        description: LST quality control
+      Emis_29:
+        description: Band 29 emissivity
+      Emis_31:
+        description: Band 31 emissivity
+      Emis_32:
+        description: Band 32 emissivity
+      View_Angle:
+        description: View zenith angle of the LST observation
+        units: deg
+
+  JRC/GHSL/P2016/BUILT_LDSMT_GLOBE_V1:
+    title: "GHSL P2016: Built-Up Multitemporal Grid 1975/1990/2000/2015 (~38m, legacy)"
+    provider: EC JRC
+    ee_type: image
+    spatial_resolution: 38
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mosaic
+    terms: Free for use (JRC).
+    user_uploaded: true
+    bands:
+      built:
+        description: Multitemporal built-up presence (epoch encoded)
+      cnfd:
+        description: Confidence grid on the built-up class
+      dm:
+        description: Mosaic of data availability across the four epochs
+
+  JRC/GHSL/P2016/POP_GPW_GLOBE_V1:
+    title: "GHSL P2016: Population Grid 1975/1990/2000/2015 (250m, legacy)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 250
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mosaic
+    terms: Free for use (JRC).
+    user_uploaded: true
+    bands:
+      population_count:
+        description: Number of people per 250m cell
+
+  JRC/GHSL/P2016/SMOD_POP_GLOBE_V1:
+    title: "GHSL P2016: Settlement Grid (degree of urbanisation) 1975/1990/2000/2014 (1km, legacy)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2014-12-31"
+    default_reducer: mosaic
+    terms: Free for use (JRC).
+    user_uploaded: true
+    bands:
+      smod_code:
+        description: Degree-of-urbanisation class
+
+  JAXA/ALOS/PALSAR/YEARLY/SAR_EPOCH:
+    title: "ALOS PALSAR-2 / PALSAR Global Yearly Mosaic v2.5.0 (with epoch timestamp)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 25
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free with attribution (JAXA EORC).
+    bands:
+      HH:
+        description: HH-polarisation backscatter (16-bit DN; sigma0 = 10*log10(DN^2) - 83)
+      HV:
+        description: HV-polarisation backscatter (16-bit DN; sigma0 = 10*log10(DN^2) - 83)
+      angle:
+        description: Local incidence angle
+        units: deg
+      epoch:
+        description: Observation date timestamp (milliseconds since 1970-01-01)
+      qa:
+        description: Processing quality flags
+
+  MODIS/061/MYD13C1:
+    title: "MYD13C1.061: Aqua Vegetation Indices 16-Day L3 Global 0.05° CMG"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 5600
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      NDVI:
+        description: 16-day NDVI average
+        min: -0.2
+        max: 1
+      EVI:
+        description: 16-day EVI average
+        min: -0.2
+        max: 1
+      sur_refl_b01:
+        description: Red surface reflectance
+        wavelength: 0.645
+      sur_refl_b02:
+        description: NIR surface reflectance
+        wavelength: 0.8585
+      DetailedQA:
+        description: VI quality indicators
+
+  MODIS/061/MYD21C3:
+    title: "MYD21C3.061: Aqua LST + 3-Band Emissivity Monthly L3 Global 0.05° CMG"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mean
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      LST_Day:
+        description: Average daytime land surface temperature
+        units: K
+      LST_Night:
+        description: Average nighttime land surface temperature
+        units: K
+      Count_Day:
+        description: Count of daytime input values
+      Count_Night:
+        description: Count of nighttime input values
+      QC_Day:
+        description: Daytime quality control
+      QC_Night:
+        description: Nighttime quality control
