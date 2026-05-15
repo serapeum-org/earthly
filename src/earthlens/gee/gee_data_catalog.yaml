@@ -17865,3 +17865,2024 @@ datasets:
         description: Green
         min: 0
         max: 255
+
+  GFW/GFF/V1/fishing_hours:
+    title: GFW (Global Fishing Watch) Daily Fishing Hours
+    provider: Global Fishing Watch
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+    user_uploaded: true
+    bands:
+      drifting_longlines:
+        description: Hours per sq. km of fishing with drifting longlines.
+        units: h/km^2
+      fixed_gear:
+        description: Hours per sq. km of fishing with fixed gear.
+        units: h/km^2
+      other_fishing:
+        description: Hours per sq. km of fishing with other gear types.
+        units: h/km^2
+      purse_seines:
+        description: Hours per sq. km of fishing with purse seines.
+        units: h/km^2
+      squid_jigger:
+        description: Hours per sq. km of fishing with squid jiggers.
+        units: h/km^2
+      trawlers:
+        description: Hours per sq. km of fishing with trawlers.
+        units: h/km^2
+
+  GFW/GFF/V1/vessel_hours:
+    title: GFW (Global Fishing Watch) Daily Vessel Hours
+    provider: Global Fishing Watch
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+    user_uploaded: true
+    bands:
+      drifting_longlines:
+        description: Hours per sq. km of fishing vessel presence with drifting longlines.
+        units: h/km^2
+      fixed_gear:
+        description: Hours per sq. km of fishing vessel presence with fixed gear.
+        units: h/km^2
+      other_fishing:
+        description: Hours per sq. km of fishing vessel presence with other gear types.
+        units: h/km^2
+      purse_seines:
+        description: Hours per sq. km of fishing vessel presence with purse seines.
+        units: h/km^2
+      squid_jigger:
+        description: Hours per sq. km of fishing vessel presence with squid jiggers.
+        units: h/km^2
+      trawlers:
+        description: Hours per sq. km of fishing vessel presence with trawlers.
+        units: h/km^2
+
+  GLCF/GLS_TCC:
+    title: 'GLCF: Landsat Tree Cover Continuous Fields [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Intellectual property rights to this dataset belong to
+    bands:
+      tree_canopy_cover:
+        description: The percentage of pixel area covered by trees.
+        units: '%'
+        min: 0
+        max: 100
+      uncertainty:
+        description: RMSE for tree-canopy_cover
+      source_index:
+        description: Identity of source image used for the particular pixel. This is an index
+
+  GLCF/GLS_WATER:
+    title: 'GLCF: Landsat Global Inland Water'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Intellectual property rights to this dataset belong to University of
+    bands:
+      water:
+        description: Water classification
+
+  GLOBAL_FLOOD_DB/MODIS_EVENTS/V1:
+    title: Global Flood Database v1 (2000-2018)
+    provider: Cloud to Street (C2S) / Dartmouth Flood Observatory (DFO)
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-02-17"
+      end_date: null
+    default_reducer: mosaic
+    terms: This work is licensed under the Creative Commons Attribution Non Commercial 4.0
+    user_uploaded: true
+    bands:
+      flooded:
+        description: Maximum extent of flood water during an event.
+        min: 0
+        max: 1
+      duration:
+        description: Duration of surface water during an event in days. Pixel values indicate
+        units: d
+        min: 0
+        max: 65535
+      clear_views:
+        description: Number of cloud-free observations in days between the start and end day
+        units: d
+        min: 0
+        max: 65535
+      clear_perc:
+        description: Percentage of clear view observations during a given flood event. This is
+        units: '%'
+        min: 0
+        max: 100
+      jrc_perm_water:
+        description: Permanent water determined by the JRC Global Surface Water dataset using the
+        min: 0
+        max: 1
+
+  GOOGLE/AirView/California_Unified_2015_2019:
+    title: 'Google Street View Air Quality: High Resolution Air Pollution Mapping in California'
+    provider: Google / Aclima
+    ee_type: table
+    extent:
+      start_date: "2015-05-28"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-NC-4.0](https://spdx.org/licenses/CC-BY-NC-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  GOOGLE/BRAZIL_FOREST_2008/V1/ANALYTIC:
+    title: 'Brazil Forest Imagery Dataset 2008: Analytic Basemap'
+    provider: Google
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    terms: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      G:
+        description: Green reflectance (top-of-atmosphere)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      R:
+        description: Red reflectance (top-of-atmosphere)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      N:
+        description: Near-infrared reflectance (top-of-atmosphere)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      date:
+        description: Observation date as epoch (seconds)
+        units: seconds
+      scale:
+        description: Pixel size of source image (see [Methodology](/earth-engine/guides/spot_brazil_forest_imagery_dataset_2008_v1))
+      satellite:
+        description: Source satellite (SPOT 2, 4, or 5)
+        min: 2
+        max: 5
+      coregistered:
+        description: 'Boolean: 1 if automated misregistration correction was applied (see [Methodology](/earth-engine/guides/spot_brazil_forest_imagery_dataset_2008_v1))'
+        min: 0
+        max: 1
+
+  GOOGLE/BRAZIL_FOREST_2008/V1/VISUAL:
+    title: 'Brazil Forest Imagery Dataset 2008: Visual Basemap'
+    provider: Google
+    ee_type: image
+    spatial_resolution: 5
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    terms: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      R:
+        description: Red reflectance
+        min: 0
+        max: 255
+      G:
+        description: Green reflectance
+        min: 0
+        max: 255
+      B:
+        description: Blue reflectance, representing the synthetic blue channel of the pseudo-natural color
+        min: 0
+        max: 255
+      date:
+        description: Observation date as epoch (seconds)
+        units: seconds
+      scale:
+        description: Pixel size of source image (see [Methodology](/earth-engine/guides/spot_brazil_forest_imagery_dataset_2008_v1))
+      satellite:
+        description: Source satellite (SPOT 2, 4, or 5)
+        min: 2
+        max: 5
+      coregistered:
+        description: 'Boolean: 1 if automated misregistration correction was applied (see [Methodology](/earth-engine/guides/spot_brazil_forest_imagery_dataset_2008_v1))'
+        min: 0
+        max: 1
+
+  GOOGLE/CLOUD_SCORE_PLUS/V1/S2_HARMONIZED:
+    title: Cloud Score+ S2_HARMONIZED V1
+    provider: Google Earth Engine
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2015-06-27"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      cs:
+        description: Pixel quality score based on spectral distance from a
+        units: Dimensionless
+        min: 0
+        max: 1
+      cs_cdf:
+        description: Value of the cumulative distribution function of possible
+        units: Dimensionless
+        min: 0
+        max: 1
+
+  GOOGLE/DYNAMICWORLD/V1:
+    title: Dynamic World V1
+    provider: World Resources Institute
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2015-06-27"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      water:
+        description: Estimated probability of complete coverage by water
+        min: 0
+        max: 1
+      trees:
+        description: Estimated probability of complete coverage by trees
+        min: 0
+        max: 1
+      grass:
+        description: Estimated probability of complete coverage by grass
+        min: 0
+        max: 1
+      flooded_vegetation:
+        description: Estimated probability of complete coverage by flooded vegetation
+        min: 0
+        max: 1
+      crops:
+        description: Estimated probability of complete coverage by crops
+        min: 0
+        max: 1
+      shrub_and_scrub:
+        description: Estimated probability of complete coverage by shrub and scrub
+        min: 0
+        max: 1
+      built:
+        description: Estimated probability of complete coverage by built
+        min: 0
+        max: 1
+      bare:
+        description: Estimated probability of complete coverage by bare
+        min: 0
+        max: 1
+      snow_and_ice:
+        description: Estimated probability of complete coverage by snow and ice
+        min: 0
+        max: 1
+      label:
+        description: Index of the band with the highest estimated probability
+        min: 0
+        max: 8
+
+  GOOGLE/GLOBAL_CCDC/V1:
+    title: Google Global Landsat-based CCDC Segments (1999-2019)
+    provider: Google
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 72]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      tStart:
+        description: 1-D Array containing the date of the start of each segment (fractional year).
+      tEnd:
+        description: 1-D Array containing the date of the end of each segment (fractional year).
+      tBreak:
+        description: 1-D Array containing the date of the detected breakpoint of each segment (fractional
+      numObs:
+        description: 1-D Array containing the number of observations found in each segment.
+      changeProb:
+        description: A pseudo-probability of the detected breakpoint being real.
+      BLUE_coefs:
+        description: 2-D array containing harmonic model coefficients for the blue band, for each segment.
+      GREEN_coefs:
+        description: 2-D array containing harmonic model coefficients for the green band, for each segment.
+      RED_coefs:
+        description: 2-D array containing harmonic model coefficients for the red band, for each segment.
+      NIR_coefs:
+        description: 2-D array containing harmonic model coefficients for the near-infrared band, for each
+      SWIR1_coefs:
+        description: 2-D array containing harmonic model coefficients for the shortwave-infrared (1.55um-1.75um)
+      SWIR2_coefs:
+        description: 2-D array containing harmonic model coefficients for the shortwave-infrared (2.09um-2.35um)
+      TEMP_coefs:
+        description: 2-D array containing harmonic model coefficients for the thermal band, for each segment.
+      BLUE_rmse:
+        description: 1-D array containing the RMSE of the model for the blue band, for each segment.
+      GREEN_rmse:
+        description: 1-D array containing the RMSE of the model for the green band, for each segment.
+      RED_rmse:
+        description: 1-D array containing the RMSE of the model for the red band, for each segment.
+      NIR_rmse:
+        description: 1-D array containing the RMSE of the model for the near-infrared band, for each segment.
+      SWIR1_rmse:
+        description: 1-D array containing the RMSE of the model for the the shortwave-infrared (1.55um-1.75um)
+      SWIR2_rmse:
+        description: 1-D array containing the RMSE of the model for the shortwave-infrared (2.09um-2.35um)
+      TEMP_rmse:
+        description: 1-D array containing the RMSE of the model for the thermal band, for each segment.
+      BLUE_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the blue band, for
+      GREEN_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the green band,
+      RED_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the red band, for
+      NIR_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the near-infrared
+      SWIR1_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the shortwave-infrared-1
+      SWIR2_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the shortwave-infrared-2
+      TEMP_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the thermal band,
+
+  GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL:
+    title: Satellite Embedding V1
+    provider: Google Earth Engine
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      A00:
+        description: The 0th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A01:
+        description: The 1st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A02:
+        description: The 2nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A03:
+        description: The 3rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A04:
+        description: The 4th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A05:
+        description: The 5th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A06:
+        description: The 6th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A07:
+        description: The 7th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A08:
+        description: The 8th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A09:
+        description: The 9th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A10:
+        description: The 10th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A11:
+        description: The 11th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A12:
+        description: The 12th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A13:
+        description: The 13th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A14:
+        description: The 14th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A15:
+        description: The 15th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A16:
+        description: The 16th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A17:
+        description: The 17th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A18:
+        description: The 18th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A19:
+        description: The 19th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A20:
+        description: The 20th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A21:
+        description: The 21st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A22:
+        description: The 22nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A23:
+        description: The 23rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A24:
+        description: The 24th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A25:
+        description: The 25th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A26:
+        description: The 26th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A27:
+        description: The 27th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A28:
+        description: The 28th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A29:
+        description: The 29th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A30:
+        description: The 30th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A31:
+        description: The 31st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A32:
+        description: The 32nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A33:
+        description: The 33rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A34:
+        description: The 34th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A35:
+        description: The 35th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A36:
+        description: The 36th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A37:
+        description: The 37th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A38:
+        description: The 38th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A39:
+        description: The 39th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A40:
+        description: The 40th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A41:
+        description: The 41st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A42:
+        description: The 42nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A43:
+        description: The 43rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A44:
+        description: The 44th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A45:
+        description: The 45th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A46:
+        description: The 46th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A47:
+        description: The 47th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A48:
+        description: The 48th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A49:
+        description: The 49th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A50:
+        description: The 50th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A51:
+        description: The 51st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A52:
+        description: The 52nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A53:
+        description: The 53rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A54:
+        description: The 54th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A55:
+        description: The 55th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A56:
+        description: The 56th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A57:
+        description: The 57th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A58:
+        description: The 58th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A59:
+        description: The 59th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A60:
+        description: The 60th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A61:
+        description: The 61st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A62:
+        description: The 62nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A63:
+        description: The 63rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+
+  GRIDMET/DROUGHT:
+    title: 'GRIDMET DROUGHT: CONUS Drought Indices'
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 5, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1980-01-05"
+      end_date: null
+      bbox: [-124.9, 24.9, -66.8, 49.6]
+    default_reducer: mosaic
+    terms: This work (METDATA, by John Abatzoglou) is in the public
+    bands:
+      spi14d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi30d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi90d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi180d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi270d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi1y:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi2y:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi5y:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      eddi14d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi30d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi90d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi180d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi270d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi1y:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi2y:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi5y:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      spei14d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei30d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei90d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei180d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei270d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei1y:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei2y:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei5y:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      pdsi:
+        description: Palmer Drought Severity Index
+        min: -15
+        max: 15
+      z:
+        description: Palmer Z Index
+        min: -15
+        max: 15
+
+  Germany/Brandenburg/orthos/20cm:
+    title: Brandenburg (Germany) RGBN orthophotos 20 cm
+    provider: Brandenburg orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.2
+    extent:
+      start_date: "2021-08-23"
+      end_date: null
+      bbox: [11, 51.28, 15, 53.7]
+    default_reducer: mosaic
+    terms: The user must ensure that the source note contains the following
+    user_uploaded: true
+    bands:
+      N:
+        description: Near infrared
+        min: 0
+        max: 255
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        min: 0
+        max: 255
+
+  HYCOM/GLBu0_08/sea_surface_elevation:
+    title: 'HYCOM: Hybrid Coordinate Ocean Model, Sea Surface Elevation [deprecated]'
+    provider: NOPP
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 8905.6
+    extent:
+      start_date: "1992-10-02"
+      end_date: null
+      bbox: [-180, -80.48, 180, 80.48]
+    default_reducer: mosaic
+    terms: This dataset is freely available with no restrictions.
+    bands:
+      surface_elevation:
+        description: Sea surface elevation anomaly relative to the modeled elevation mean
+        units: m
+        scale: 0.001
+        min: -5681
+        max: 5965
+
+  HYCOM/GLBu0_08/sea_temp_salinity:
+    title: 'HYCOM: Hybrid Coordinate Ocean Model, Water Temperature and Salinity [deprecated]'
+    provider: NOPP
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 8905.6
+    extent:
+      start_date: "1992-10-02"
+      end_date: null
+      bbox: [-180, -80.48, 180, 80.48]
+    default_reducer: mosaic
+    terms: This dataset is freely available with no restrictions.
+    bands:
+      water_temp_0:
+        description: Sea water temperature at a depth of 0m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32763
+      salinity_0:
+        description: Sea water salinity, in practical salinity units, at a depth of 0m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -20009
+        max: 32767
+      water_temp_2:
+        description: Sea water temperature at a depth of 2m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32755
+      salinity_2:
+        description: Sea water salinity, in practical salinity units, at a depth of 2m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -20002
+        max: 32767
+      water_temp_4:
+        description: Sea water temperature at a depth of 4m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32746
+      salinity_4:
+        description: Sea water salinity, in practical salinity units, at a depth of 4m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -20001
+        max: 32767
+      water_temp_6:
+        description: Sea water temperature at a depth of 6m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32742
+      salinity_6:
+        description: Sea water salinity, in practical salinity units, at a depth of 6m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -19991
+        max: 32767
+      water_temp_8:
+        description: Sea water temperature at a depth of 8m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32741
+      salinity_8:
+        description: Sea water salinity, in practical salinity units, at a depth of 8m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -19795
+        max: 32767
+      water_temp_10:
+        description: Sea water temperature at a depth of 10m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32738
+      salinity_10:
+        description: Sea water salinity, in practical salinity units, at a depth of 10m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -19624
+        max: 32767
+      water_temp_12:
+        description: Sea water temperature at a depth of 12m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32735
+      salinity_12:
+        description: Sea water salinity, in practical salinity units, at a depth of 12m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -19624
+        max: 32767
+      water_temp_15:
+        description: Sea water temperature at a depth of 15m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32763
+      salinity_15:
+        description: Sea water salinity, in practical salinity units, at a depth of 15m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -19624
+        max: 32767
+      water_temp_20:
+        description: Sea water temperature at a depth of 20m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32715
+      salinity_20:
+        description: Sea water salinity, in practical salinity units, at a depth of 20m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -18606
+        max: 32767
+      water_temp_25:
+        description: Sea water temperature at a depth of 25m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32737
+      salinity_25:
+        description: Sea water salinity, in practical salinity units, at a depth of 25m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -18131
+        max: 32767
+      water_temp_30:
+        description: Sea water temperature at a depth of 30m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32754
+      salinity_30:
+        description: Sea water salinity, in practical salinity units, at a depth of 30m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -17892
+        max: 32767
+      water_temp_35:
+        description: Sea water temperature at a depth of 35m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32754
+      salinity_35:
+        description: Sea water salinity, in practical salinity units, at a depth of 35m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -17874
+        max: 32767
+      water_temp_40:
+        description: Sea water temperature at a depth of 40m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32674
+      salinity_40:
+        description: Sea water salinity, in practical salinity units, at a depth of 40m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -17831
+        max: 32767
+      water_temp_45:
+        description: Sea water temperature at a depth of 45m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32701
+      salinity_45:
+        description: Sea water salinity, in practical salinity units, at a depth of 45m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -17831
+        max: 32767
+      water_temp_50:
+        description: Sea water temperature at a depth of 50m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32237
+      salinity_50:
+        description: Sea water salinity, in practical salinity units, at a depth of 50m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -17738
+        max: 32767
+      water_temp_60:
+        description: Sea water temperature at a depth of 60m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32630
+      salinity_60:
+        description: Sea water salinity, in practical salinity units, at a depth of 60m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -17733
+        max: 32767
+      water_temp_70:
+        description: Sea water temperature at a depth of 70m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 23172
+      salinity_70:
+        description: Sea water salinity, in practical salinity units, at a depth of 70m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -17423
+        max: 24303
+      water_temp_80:
+        description: Sea water temperature at a depth of 80m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 27875
+      salinity_80:
+        description: Sea water salinity, in practical salinity units, at a depth of 80m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -17326
+        max: 25320
+      water_temp_90:
+        description: Sea water temperature at a depth of 90m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 32393
+      salinity_90:
+        description: Sea water salinity, in practical salinity units, at a depth of 90m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -16787
+        max: 26604
+      water_temp_100:
+        description: Sea water temperature at a depth of 100m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 31847
+      salinity_100:
+        description: Sea water salinity, in practical salinity units, at a depth of 100m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -16717
+        max: 27143
+      water_temp_125:
+        description: Sea water temperature at a depth of 125m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 31469
+      salinity_125:
+        description: Sea water salinity, in practical salinity units, at a depth of 125m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -14896
+        max: 30131
+      water_temp_150:
+        description: Sea water temperature at a depth of 150m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 31335
+      salinity_150:
+        description: Sea water salinity, in practical salinity units, at a depth of 150m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -14712
+        max: 31215
+      water_temp_200:
+        description: Sea water temperature at a depth of 200m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 30029
+      salinity_200:
+        description: Sea water salinity, in practical salinity units, at a depth of 200m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -14567
+        max: 30979
+      water_temp_250:
+        description: Sea water temperature at a depth of 250m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 21629
+      salinity_250:
+        description: Sea water salinity, in practical salinity units, at a depth of 250m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -13198
+        max: 27945
+      water_temp_300:
+        description: Sea water temperature at a depth of 300m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 22796
+      salinity_300:
+        description: Sea water salinity, in practical salinity units, at a depth of 300m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -220
+        max: 27712
+      water_temp_350:
+        description: Sea water temperature at a depth of 350m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 18501
+      salinity_350:
+        description: Sea water salinity, in practical salinity units, at a depth of 350m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: -136
+        max: 21866
+      water_temp_400:
+        description: Sea water temperature at a depth of 400m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 23875
+      salinity_400:
+        description: Sea water salinity, in practical salinity units, at a depth of 400m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 24711
+      water_temp_500:
+        description: Sea water temperature at a depth of 500m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 18663
+      salinity_500:
+        description: Sea water salinity, in practical salinity units, at a depth of 500m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 24929
+      water_temp_600:
+        description: Sea water temperature at a depth of 600m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 14251
+      salinity_600:
+        description: Sea water salinity, in practical salinity units, at a depth of 600m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 24128
+      water_temp_700:
+        description: Sea water temperature at a depth of 700m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 11300
+      salinity_700:
+        description: Sea water salinity, in practical salinity units, at a depth of 700m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 22350
+      water_temp_800:
+        description: Sea water temperature at a depth of 800m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 8630
+      salinity_800:
+        description: Sea water salinity, in practical salinity units, at a depth of 800m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 21959
+      water_temp_900:
+        description: Sea water temperature at a depth of 900m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 9544
+      salinity_900:
+        description: Sea water salinity, in practical salinity units, at a depth of 900m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 21965
+      water_temp_1000:
+        description: Sea water temperature at a depth of 1000m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 7050
+      salinity_1000:
+        description: Sea water salinity, in practical salinity units, at a depth of 1000m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 21982
+      water_temp_1250:
+        description: Sea water temperature at a depth of 1250m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 8837
+      salinity_1250:
+        description: Sea water salinity, in practical salinity units, at a depth of 1250m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 22075
+      water_temp_1500:
+        description: Sea water temperature at a depth of 1500m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -23069
+        max: 12933
+      salinity_1500:
+        description: Sea water salinity, in practical salinity units, at a depth of 1500m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 20937
+      water_temp_2000:
+        description: Sea water temperature at a depth of 2000m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -25670
+        max: 4925
+      salinity_2000:
+        description: Sea water salinity, in practical salinity units, at a depth of 2000m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 20936
+      water_temp_2500:
+        description: Sea water temperature at a depth of 2500m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -32768
+        max: 0
+      salinity_2500:
+        description: Sea water salinity, in practical salinity units, at a depth of 2500m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 19073
+      water_temp_3000:
+        description: Sea water temperature at a depth of 3000m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -22062
+        max: 0
+      salinity_3000:
+        description: Sea water salinity, in practical salinity units, at a depth of 3000m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 19057
+      water_temp_4000:
+        description: Sea water temperature at a depth of 4000m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -21564
+        max: 0
+      salinity_4000:
+        description: Sea water salinity, in practical salinity units, at a depth of 4000m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 19012
+      water_temp_5000:
+        description: Sea water temperature at a depth of 5000m
+        units: 'deg_C'
+        scale: 0.001
+        offset: 20
+        min: -21469
+        max: 0
+      salinity_5000:
+        description: Sea water salinity, in practical salinity units, at a depth of 5000m
+        units: psu
+        scale: 0.001
+        offset: 20
+        min: 0
+        max: 15583
+
+  HYCOM/GLBu0_08/sea_water_velocity:
+    title: 'HYCOM: Hybrid Coordinate Ocean Model, Water Velocity [deprecated]'
+    provider: NOPP
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 8905.6
+    extent:
+      start_date: "1992-10-02"
+      end_date: null
+      bbox: [-180, -80.48, 180, 80.48]
+    default_reducer: mosaic
+    terms: This dataset is freely available with no restrictions.
+    bands:
+      velocity_u_0:
+        description: Eastward sea water velocity at a depth of 0m
+        units: m/s
+        scale: 0.001
+        min: -31557
+        max: 16899
+      velocity_v_0:
+        description: Northward sea water velocity at a depth of 0m
+        units: m/s
+        scale: 0.001
+        min: -20004
+        max: 32767
+      velocity_u_2:
+        description: Eastward sea water velocity at a depth of 2m
+        units: m/s
+        scale: 0.001
+        min: -31588
+        max: 16806
+      velocity_v_2:
+        description: Northward sea water velocity at a depth of 2m
+        units: m/s
+        scale: 0.001
+        min: -20000
+        max: 32767
+      velocity_u_4:
+        description: Eastward sea water velocity at a depth of 4m
+        units: m/s
+        scale: 0.001
+        min: -31589
+        max: 16831
+      velocity_v_4:
+        description: Northward sea water velocity at a depth of 4m
+        units: m/s
+        scale: 0.001
+        min: -20000
+        max: 32767
+      velocity_u_6:
+        description: Eastward sea water velocity at a depth of 6m
+        units: m/s
+        scale: 0.001
+        min: -31589
+        max: 16794
+      velocity_v_6:
+        description: Northward sea water velocity at a depth of 6m
+        units: m/s
+        scale: 0.001
+        min: -19991
+        max: 32767
+      velocity_u_8:
+        description: Eastward sea water velocity at a depth of 8m
+        units: m/s
+        scale: 0.001
+        min: -31575
+        max: 16828
+      velocity_v_8:
+        description: Northward sea water velocity at a depth of 8m
+        units: m/s
+        scale: 0.001
+        min: -19792
+        max: 32767
+      velocity_u_10:
+        description: Eastward sea water velocity at a depth of 10m
+        units: m/s
+        scale: 0.001
+        min: -31563
+        max: 16828
+      velocity_v_10:
+        description: Northward sea water velocity at a depth of 10m
+        units: m/s
+        scale: 0.001
+        min: -19582
+        max: 32767
+      velocity_u_12:
+        description: Eastward sea water velocity at a depth of 12m
+        units: m/s
+        scale: 0.001
+        min: -31547
+        max: 16828
+      velocity_v_12:
+        description: Northward sea water velocity at a depth of 12m
+        units: m/s
+        scale: 0.001
+        min: -19582
+        max: 32767
+      velocity_u_15:
+        description: Eastward sea water velocity at a depth of 15m
+        units: m/s
+        scale: 0.001
+        min: -31517
+        max: 16828
+      velocity_v_15:
+        description: Northward sea water velocity at a depth of 15m
+        units: m/s
+        scale: 0.001
+        min: -19582
+        max: 32767
+      velocity_u_20:
+        description: Eastward sea water velocity at a depth of 20m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 16743
+      velocity_v_20:
+        description: Northward sea water velocity at a depth of 20m
+        units: m/s
+        scale: 0.001
+        min: -18593
+        max: 32767
+      velocity_u_25:
+        description: Eastward sea water velocity at a depth of 25m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 16370
+      velocity_v_25:
+        description: Northward sea water velocity at a depth of 25m
+        units: m/s
+        scale: 0.001
+        min: -18131
+        max: 32767
+      velocity_u_30:
+        description: Eastward sea water velocity at a depth of 30m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 15996
+      velocity_v_30:
+        description: Northward sea water velocity at a depth of 30m
+        units: m/s
+        scale: 0.001
+        min: -17489
+        max: 32767
+      velocity_u_35:
+        description: Eastward sea water velocity at a depth of 35m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 15639
+      velocity_v_35:
+        description: Northward sea water velocity at a depth of 35m
+        units: m/s
+        scale: 0.001
+        min: -17409
+        max: 32767
+      velocity_u_40:
+        description: Eastward sea water velocity at a depth of 40m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 15120
+      velocity_v_40:
+        description: Northward sea water velocity at a depth of 40m
+        units: m/s
+        scale: 0.001
+        min: -17386
+        max: 32767
+      velocity_u_45:
+        description: Eastward sea water velocity at a depth of 45m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 15066
+      velocity_v_45:
+        description: Northward sea water velocity at a depth of 45m
+        units: m/s
+        scale: 0.001
+        min: -17302
+        max: 32767
+      velocity_u_50:
+        description: Eastward sea water velocity at a depth of 50m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 14808
+      velocity_v_50:
+        description: Northward sea water velocity at a depth of 50m
+        units: m/s
+        scale: 0.001
+        min: -17302
+        max: 32767
+      velocity_u_60:
+        description: Eastward sea water velocity at a depth of 60m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 15986
+      velocity_v_60:
+        description: Northward sea water velocity at a depth of 60m
+        units: m/s
+        scale: 0.001
+        min: -17070
+        max: 32767
+      velocity_u_70:
+        description: Eastward sea water velocity at a depth of 70m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 14406
+      velocity_v_70:
+        description: Northward sea water velocity at a depth of 70m
+        units: m/s
+        scale: 0.001
+        min: -16976
+        max: 22779
+      velocity_u_80:
+        description: Eastward sea water velocity at a depth of 80m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 27875
+      velocity_v_80:
+        description: Northward sea water velocity at a depth of 80m
+        units: m/s
+        scale: 0.001
+        min: -16936
+        max: 23957
+      velocity_u_90:
+        description: Eastward sea water velocity at a depth of 90m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 27666
+      velocity_v_90:
+        description: Northward sea water velocity at a depth of 90m
+        units: m/s
+        scale: 0.001
+        min: -16757
+        max: 23947
+      velocity_u_100:
+        description: Eastward sea water velocity at a depth of 100m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 24932
+      velocity_v_100:
+        description: Northward sea water velocity at a depth of 100m
+        units: m/s
+        scale: 0.001
+        min: -16717
+        max: 23631
+      velocity_u_125:
+        description: Eastward sea water velocity at a depth of 125m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 24627
+      velocity_v_125:
+        description: Northward sea water velocity at a depth of 125m
+        units: m/s
+        scale: 0.001
+        min: -14743
+        max: 23518
+      velocity_u_150:
+        description: Eastward sea water velocity at a depth of 150m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 24288
+      velocity_v_150:
+        description: Northward sea water velocity at a depth of 150m
+        units: m/s
+        scale: 0.001
+        min: -14700
+        max: 23444
+      velocity_u_200:
+        description: Eastward sea water velocity at a depth of 200m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 21844
+      velocity_v_200:
+        description: Northward sea water velocity at a depth of 200m
+        units: m/s
+        scale: 0.001
+        min: -13198
+        max: 23434
+      velocity_u_250:
+        description: Eastward sea water velocity at a depth of 250m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 21389
+      velocity_v_250:
+        description: Northward sea water velocity at a depth of 250m
+        units: m/s
+        scale: 0.001
+        min: -13176
+        max: 23418
+      velocity_u_300:
+        description: Eastward sea water velocity at a depth of 300m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 14403
+      velocity_v_300:
+        description: Northward sea water velocity at a depth of 300m
+        units: m/s
+        scale: 0.001
+        min: -3218
+        max: 21128
+      velocity_u_350:
+        description: Eastward sea water velocity at a depth of 350m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 11257
+      velocity_v_350:
+        description: Northward sea water velocity at a depth of 350m
+        units: m/s
+        scale: 0.001
+        min: -3183
+        max: 20974
+      velocity_u_400:
+        description: Eastward sea water velocity at a depth of 400m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 14624
+      velocity_v_400:
+        description: Northward sea water velocity at a depth of 400m
+        units: m/s
+        scale: 0.001
+        min: -3089
+        max: 21402
+      velocity_u_500:
+        description: Eastward sea water velocity at a depth of 500m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 11012
+      velocity_v_500:
+        description: Northward sea water velocity at a depth of 500m
+        units: m/s
+        scale: 0.001
+        min: -2848
+        max: 20965
+      velocity_u_600:
+        description: Eastward sea water velocity at a depth of 600m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 10572
+      velocity_v_600:
+        description: Northward sea water velocity at a depth of 600m
+        units: m/s
+        scale: 0.001
+        min: -2568
+        max: 20968
+      velocity_u_700:
+        description: Eastward sea water velocity at a depth of 700m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 10330
+      velocity_v_700:
+        description: Northward sea water velocity at a depth of 700m
+        units: m/s
+        scale: 0.001
+        min: -2321
+        max: 21448
+      velocity_u_800:
+        description: Eastward sea water velocity at a depth of 800m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 8503
+      velocity_v_800:
+        description: Northward sea water velocity at a depth of 800m
+        units: m/s
+        scale: 0.001
+        min: -2333
+        max: 20965
+      velocity_u_900:
+        description: Eastward sea water velocity at a depth of 900m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 6941
+      velocity_v_900:
+        description: Northward sea water velocity at a depth of 900m
+        units: m/s
+        scale: 0.001
+        min: -2577
+        max: 20958
+      velocity_u_1000:
+        description: Eastward sea water velocity at a depth of 1000m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 6951
+      velocity_v_1000:
+        description: Northward sea water velocity at a depth of 1000m
+        units: m/s
+        scale: 0.001
+        min: -2299
+        max: 20956
+      velocity_u_1250:
+        description: Eastward sea water velocity at a depth of 1250m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 8351
+      velocity_v_1250:
+        description: Northward sea water velocity at a depth of 1250m
+        units: m/s
+        scale: 0.001
+        min: -2244
+        max: 20950
+      velocity_u_1500:
+        description: Eastward sea water velocity at a depth of 1500m
+        units: m/s
+        scale: 0.001
+        min: -22775
+        max: 3659
+      velocity_v_1500:
+        description: Northward sea water velocity at a depth of 1500m
+        units: m/s
+        scale: 0.001
+        min: -2154
+        max: 20937
+      velocity_u_2000:
+        description: Eastward sea water velocity at a depth of 2000m
+        units: m/s
+        scale: 0.001
+        min: -22448
+        max: 2811
+      velocity_v_2000:
+        description: Northward sea water velocity at a depth of 2000m
+        units: m/s
+        scale: 0.001
+        min: -2010
+        max: 20936
+      velocity_u_2500:
+        description: Eastward sea water velocity at a depth of 2500m
+        units: m/s
+        scale: 0.001
+        min: -32768
+        max: 1865
+      velocity_v_2500:
+        description: Northward sea water velocity at a depth of 2500m
+        units: m/s
+        scale: 0.001
+        min: -1863
+        max: 18919
+      velocity_u_3000:
+        description: Eastward sea water velocity at a depth of 3000m
+        units: m/s
+        scale: 0.001
+        min: -21841
+        max: 1677
+      velocity_v_3000:
+        description: Northward sea water velocity at a depth of 3000m
+        units: m/s
+        scale: 0.001
+        min: -1819
+        max: 18923
+      velocity_u_4000:
+        description: Eastward sea water velocity at a depth of 4000m
+        units: m/s
+        scale: 0.001
+        min: -21345
+        max: 1980
+      velocity_v_4000:
+        description: Northward sea water velocity at a depth of 4000m
+        units: m/s
+        scale: 0.001
+        min: -1383
+        max: 18856
+      velocity_u_5000:
+        description: Eastward sea water velocity at a depth of 5000m
+        units: m/s
+        scale: 0.001
+        min: -21469
+        max: 2013
+      velocity_v_5000:
+        description: Northward sea water velocity at a depth of 5000m
+        units: m/s
+        scale: 0.001
+        min: -971
+        max: 15383
+
+  IAHS/GFPLAIN250/v0:
+    title: 'GFPLAIN250m: Global 250m Floodplain Dataset'
+    provider: IAHS
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "2018-11-11"
+      end_date: null
+      bbox: [-180, -56, 180, 60]
+    default_reducer: mosaic
+    terms: This dataset is licensed under a Creative Commons Attribution 4.0
+    bands:
+      flood:
+        description: Flood plain
+        min: 0
+        max: 1
+
+  IDAHO_EPSCOR/MACAv2_METDATA_MONTHLY:
+    title: 'MACAv2-METDATA Monthly Summaries: University of Idaho, Multivariate Adaptive Constructed'
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1900-01-01"
+      end_date: null
+      bbox: [-124.9, 24.9, -67, 49.6]
+    default_reducer: mosaic
+    terms: The MACA datasets were created with funding from the
+    bands:
+      tasmax:
+        description: Monthly average of maximum daily temperature near surface
+        units: K
+        min: 251.95
+        max: 330.64
+      tasmin:
+        description: Monthly average of minimum daily temperature near surface
+        units: K
+        min: 239.47
+        max: 316.2
+      huss:
+        description: Monthly average of mean daily specific humidity near surface
+        units: Mass fraction
+        min: 0
+        max: 0.03
+      pr:
+        description: Total monthly precipitation amount at surface
+        units: mm
+        min: 0
+        max: 3691.91
+      rsds:
+        description: Monthly average of mean daily downward shortwave radiation at surface
+        units: W/m^2
+        min: 15.84
+        max: 419
+      was:
+        description: Monthly average of mean daily near surface wind speed
+        units: m/s
+        min: 0.23
+        max: 14.16
+
+  IGN/RGE_ALTI/1M/2_0:
+    title: 'RGE ALTI: IGN RGE ALTI Digital Elevation 1m'
+    provider: IGN
+    ee_type: image_collection
+    spatial_resolution: 1
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-5.2, 41.35, 9.85, 51.14]
+    default_reducer: mosaic
+    terms: '[etalab-2.0](https://spdx.org/licenses/etalab-2.0.html)'
+    bands:
+      MNT:
+        description: Terrain elevation in meters.
+        units: m
+        min: -40
+        max: 4810
+      SRC:
+        description: The main source of the data used to calculate the altitude
+      DST:
+        description: The distance in meters between the node and the nearest point used to
+        units: m
+        min: 0
+        max: 255
