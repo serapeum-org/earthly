@@ -49896,3 +49896,227 @@ datasets:
     default_reducer: mosaic
     terms: Most U.S. Geological Survey (USGS) information resides
     bands:
+
+  USGS/WBD/2017/HUC06:
+    title: 'HUC06: USGS Watershed Boundary Dataset of Basins'
+    provider: United States Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2017-04-22"
+      end_date: null
+      bbox: [-180, -14.69, 180, 71.567]
+    default_reducer: mosaic
+    terms: Most U.S. Geological Survey (USGS) information resides
+    bands:
+
+  USGS/WBD/2017/HUC08:
+    title: 'HUC08: USGS Watershed Boundary Dataset of Subbasins'
+    provider: United States Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2017-04-22"
+      end_date: null
+      bbox: [-180, -14.69, 180, 71.567]
+    default_reducer: mosaic
+    terms: Most U.S. Geological Survey (USGS) information resides
+    bands:
+
+  USGS/WBD/2017/HUC10:
+    title: 'HUC10: USGS Watershed Boundary Dataset of Watersheds'
+    provider: United States Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2017-04-22"
+      end_date: null
+      bbox: [-180, -14.69, 180, 71.567]
+    default_reducer: mosaic
+    terms: Most U.S. Geological Survey (USGS) information resides
+    bands:
+
+  USGS/WBD/2017/HUC12:
+    title: 'HUC12: USGS Watershed Boundary Dataset of Subwatersheds'
+    provider: United States Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2017-04-22"
+      end_date: null
+      bbox: [-180, -14.69, 180, 71.567]
+    default_reducer: mosaic
+    terms: Most U.S. Geological Survey (USGS) information resides
+    bands:
+
+  WCMC/WDOECM/current/points:
+    title: 'WDOECM: Other Effective Area-based Conservation Measures (points)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2024-05-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)
+    bands:
+
+  WCMC/WDOECM/current/polygons:
+    title: 'WDOECM: Other Effective Area-based Conservation Measures (polygons)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2024-05-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)
+    bands:
+
+  WCMC/WDPA/current/points:
+    title: 'WDPA: World Database on Protected Areas (points)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2017-07-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)
+    bands:
+
+  WCMC/WDPA/current/polygons:
+    title: 'WDPA: World Database on Protected Areas (polygons)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2017-07-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)
+    bands:
+
+  WM/geoLab/geoBoundaries/600/ADM0:
+    title: 'geoBoundaries: Political administrative boundaries at Country level (ADM0), v6.0.0'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    terms: geoBoundaries datasets are provided under the CC BY 4.0 license, which
+    bands:
+
+  WM/geoLab/geoBoundaries/600/ADM1:
+    title: 'geoBoundaries: Political administrative boundaries at District level (ADM1), v6.0.0'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    terms: geoBoundaries datasets are provided under the CC BY 4.0 license, which
+    bands:
+
+  WM/geoLab/geoBoundaries/600/ADM2:
+    title: 'geoBoundaries: Political administrative boundaries at Municipality level (ADM2),'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    terms: geoBoundaries datasets are provided under the CC BY 4.0 license, which
+    bands:
+
+  WRI/GPPD/power_plants:
+    title: Global Power Plant Database
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2018-06-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level03:
+    title: WWF HydroATLAS Basins Level 03
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level04:
+    title: WWF HydroATLAS Basins Level 04
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level05:
+    title: WWF HydroATLAS Basins Level 05
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level06:
+    title: WWF HydroATLAS Basins Level 06
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level07:
+    title: WWF HydroATLAS Basins Level 07
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level08:
+    title: WWF HydroATLAS Basins Level 08
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level09:
+    title: WWF HydroATLAS Basins Level 09
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level10:
+    title: WWF HydroATLAS Basins Level 10
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    terms: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
