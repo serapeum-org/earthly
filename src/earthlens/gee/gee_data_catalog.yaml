@@ -50360,3 +50360,1119 @@ datasets:
     default_reducer: mosaic
     terms: '[ODbL-1.0](https://spdx.org/licenses/ODbL-1.0.html)'
     bands:
+
+  projects/edf-methanesat-ee/assets/mair/L3concentration:
+    title: 'projects/edf-methanesat-ee/assets/mair/L3concentration (community-published catalog reference)'
+    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under EDF MethaneSAT terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/edf-methanesat-ee/assets/mair/L4point:
+    title: 'projects/edf-methanesat-ee/assets/mair/L4point (community-published catalog reference)'
+    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under EDF MethaneSAT terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/edf-methanesat-ee/assets/public-preview/L3concentration:
+    title: 'projects/edf-methanesat-ee/assets/public-preview/L3concentration (community-published catalog reference)'
+    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under EDF MethaneSAT terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/edf-methanesat-ee/assets/public-preview/L4area:
+    title: 'projects/edf-methanesat-ee/assets/public-preview/L4area (community-published catalog reference)'
+    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under EDF MethaneSAT terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/edf-methanesat-ee/assets/public-preview/L4area_v2:
+    title: 'projects/edf-methanesat-ee/assets/public-preview/L4area_v2 (community-published catalog reference)'
+    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under EDF MethaneSAT terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/edf-methanesat-ee/assets/public-preview/L4point:
+    title: 'projects/edf-methanesat-ee/assets/public-preview/L4point (community-published catalog reference)'
+    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under EDF MethaneSAT terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/ee-kbas-in-gee/assets/current:
+    title: 'projects/ee-kbas-in-gee/assets/current (community-published catalog reference)'
+    provider: Key Biodiversity Areas (KBAs) republication
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under KBAs terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/ee-pkurelab/assets/LHScat:
+    title: 'projects/ee-pkurelab/assets/LHScat (community-published catalog reference)'
+    provider: Peking University Remote Sensing Lab (PKU REL)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use with citation (PKU REL).
+    user_uploaded: true
+    bands: {}
+
+  projects/ee-pkurelab/assets/LHScatQC:
+    title: 'projects/ee-pkurelab/assets/LHScatQC (community-published catalog reference)'
+    provider: Peking University Remote Sensing Lab (PKU REL)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use with citation (PKU REL).
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/cocoa/model_2024a:
+    title: 'projects/forestdatapartnership/assets/cocoa/model_2024a (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/cocoa/model_2025a:
+    title: 'projects/forestdatapartnership/assets/cocoa/model_2025a (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/cocoa/model_2025b:
+    title: 'projects/forestdatapartnership/assets/cocoa/model_2025b (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/coffee/model_2025a:
+    title: 'projects/forestdatapartnership/assets/coffee/model_2025a (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/coffee/model_2025b:
+    title: 'projects/forestdatapartnership/assets/coffee/model_2025b (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/community_forests/ForestPersistence_2020:
+    title: 'projects/forestdatapartnership/assets/community_forests/ForestPersistence_2020 (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/community_palm/20240312:
+    title: 'projects/forestdatapartnership/assets/community_palm/20240312 (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/palm/model_2024a:
+    title: 'projects/forestdatapartnership/assets/palm/model_2024a (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/palm/model_2025a:
+    title: 'projects/forestdatapartnership/assets/palm/model_2025a (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/palm/model_2025b:
+    title: 'projects/forestdatapartnership/assets/palm/model_2025b (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/rubber/model_2024a:
+    title: 'projects/forestdatapartnership/assets/rubber/model_2024a (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/rubber/model_2025a:
+    title: 'projects/forestdatapartnership/assets/rubber/model_2025a (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/forestdatapartnership/assets/rubber/model_2025b:
+    title: 'projects/forestdatapartnership/assets/rubber/model_2025b (community-published catalog reference)'
+    provider: Forest Data Partnership
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use under the Forest Data Partnership terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/gcp-public-data-weathernext/assets/126478713_1_0:
+    title: 'projects/gcp-public-data-weathernext/assets/126478713_1_0 (community-published catalog reference)'
+    provider: Google WeatherNext / GCP Public Data
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under Google Cloud public-data terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/gcp-public-data-weathernext/assets/59572747_4_0:
+    title: 'projects/gcp-public-data-weathernext/assets/59572747_4_0 (community-published catalog reference)'
+    provider: Google WeatherNext / GCP Public Data
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under Google Cloud public-data terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/gcp-public-data-weathernext/assets/weathernext_2_0_0:
+    title: 'projects/gcp-public-data-weathernext/assets/weathernext_2_0_0 (community-published catalog reference)'
+    provider: Google WeatherNext / GCP Public Data
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under Google Cloud public-data terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/gcp-public-data-weathernext/assets/weathernext_2_0_0_mean:
+    title: 'projects/gcp-public-data-weathernext/assets/weathernext_2_0_0_mean (community-published catalog reference)'
+    provider: Google WeatherNext / GCP Public Data
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under Google Cloud public-data terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/gcpm041u-lemur/assets/scanfi_v12/SCANFI_v1_2:
+    title: 'projects/gcpm041u-lemur/assets/scanfi_v12/SCANFI_v1_2 (community-published catalog reference)'
+    provider: Lemur Forest Inventory (gcpm041u)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use with citation.
+    user_uploaded: true
+    bands: {}
+
+  projects/global-pasture-watch/assets/ggc-30m/v1/cultiv-grassland_p:
+    title: 'projects/global-pasture-watch/assets/ggc-30m/v1/cultiv-grassland_p (community-published catalog reference)'
+    provider: Global Pasture Watch
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use (Global Pasture Watch).
+    user_uploaded: true
+    bands: {}
+
+  projects/global-pasture-watch/assets/ggc-30m/v1/grassland_c:
+    title: 'projects/global-pasture-watch/assets/ggc-30m/v1/grassland_c (community-published catalog reference)'
+    provider: Global Pasture Watch
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use (Global Pasture Watch).
+    user_uploaded: true
+    bands: {}
+
+  projects/global-pasture-watch/assets/ggc-30m/v1/nat-semi-grassland_p:
+    title: 'projects/global-pasture-watch/assets/ggc-30m/v1/nat-semi-grassland_p (community-published catalog reference)'
+    provider: Global Pasture Watch
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use (Global Pasture Watch).
+    user_uploaded: true
+    bands: {}
+
+  projects/global-pasture-watch/assets/ggpp-30m/v1/ugpp_m:
+    title: 'projects/global-pasture-watch/assets/ggpp-30m/v1/ugpp_m (community-published catalog reference)'
+    provider: Global Pasture Watch
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use (Global Pasture Watch).
+    user_uploaded: true
+    bands: {}
+
+  projects/global-pasture-watch/assets/gsvh-30m/v1/short-veg-height_m:
+    title: 'projects/global-pasture-watch/assets/gsvh-30m/v1/short-veg-height_m (community-published catalog reference)'
+    provider: Global Pasture Watch
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use (Global Pasture Watch).
+    user_uploaded: true
+    bands: {}
+
+  projects/global-precipitation-nowcast/assets/global_estimation:
+    title: 'projects/global-precipitation-nowcast/assets/global_estimation (community-published catalog reference)'
+    provider: Google Global Precipitation Nowcast
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under Google Cloud public-data terms.
+    user_uploaded: true
+    bands: {}
+
+  projects/gtac-data-publish/assets/LCMS/Product_Version/2025-11:
+    title: 'projects/gtac-data-publish/assets/LCMS/Product_Version/2025-11 (community-published catalog reference)'
+    provider: USDA Forest Service GTAC
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Public domain (USDA Forest Service).
+    user_uploaded: true
+    bands: {}
+
+  projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_1_2001_2023:
+    title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_1_2001_2023 (community-published catalog reference)'
+    provider: WRI Land and Carbon
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2001_2022:
+    title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2001_2022 (community-published catalog reference)'
+    provider: WRI Land and Carbon
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2_2001_2024:
+    title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2_2001_2024 (community-published catalog reference)'
+    provider: WRI Land and Carbon
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_3_2001_2025:
+    title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_3_2001_2025 (community-published catalog reference)'
+    provider: WRI Land and Carbon
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/EVI_v061/1km/8-Daily:
+    title: 'projects/malariaatlasproject/assets/EVI_v061/1km/8-Daily (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/EVI_v061/1km/Annual:
+    title: 'projects/malariaatlasproject/assets/EVI_v061/1km/Annual (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/EVI_v061/1km/Monthly:
+    title: 'projects/malariaatlasproject/assets/EVI_v061/1km/Monthly (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/LST_Day_v061/1km/8-Daily:
+    title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/8-Daily (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/LST_Day_v061/1km/Annual:
+    title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/Annual (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/LST_Day_v061/1km/Monthly:
+    title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/Monthly (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/LST_Night_v061/1km/8-Daily:
+    title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/8-Daily (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/LST_Night_v061/1km/Annual:
+    title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/Annual (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/LST_Night_v061/1km/Monthly:
+    title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/Monthly (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/TCB_v061/1km/8-Daily:
+    title: 'projects/malariaatlasproject/assets/TCB_v061/1km/8-Daily (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/TCB_v061/1km/Annual:
+    title: 'projects/malariaatlasproject/assets/TCB_v061/1km/Annual (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/TCB_v061/1km/Monthly:
+    title: 'projects/malariaatlasproject/assets/TCB_v061/1km/Monthly (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/TCW_v061/1km/8-Daily:
+    title: 'projects/malariaatlasproject/assets/TCW_v061/1km/8-Daily (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/TCW_v061/1km/Annual:
+    title: 'projects/malariaatlasproject/assets/TCW_v061/1km/Annual (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/TCW_v061/1km/Monthly:
+    title: 'projects/malariaatlasproject/assets/TCW_v061/1km/Monthly (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/accessibility/accessibility_to_cities/2015_v1_0:
+    title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_cities/2015_v1_0 (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019:
+    title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019 (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019_walking_only:
+    title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019_walking_only (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/accessibility/friction_surface/2015_v1_0:
+    title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2015_v1_0 (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1:
+    title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1 (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1_walking_only:
+    title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1_walking_only (community-published catalog reference)'
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/mapbiomas-public/assets/bolivia/lulc/v1:
+    title: 'projects/mapbiomas-public/assets/bolivia/lulc/v1 (community-published catalog reference)'
+    provider: MapBiomas
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/mapbiomas-public/assets/brazil/lulc/v1:
+    title: 'projects/mapbiomas-public/assets/brazil/lulc/v1 (community-published catalog reference)'
+    provider: MapBiomas
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/mapbiomas-public/assets/ecuador/lulc/v1:
+    title: 'projects/mapbiomas-public/assets/ecuador/lulc/v1 (community-published catalog reference)'
+    provider: MapBiomas
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-SA-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/nature-trace/assets/farmscapes/england_v1_0:
+    title: 'projects/nature-trace/assets/farmscapes/england_v1_0 (community-published catalog reference)'
+    provider: Nature Trace
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use (Nature Trace).
+    user_uploaded: true
+    bands: {}
+
+  projects/nature-trace/assets/forest_typology/natural_forest_2020_v1_0_collection:
+    title: 'projects/nature-trace/assets/forest_typology/natural_forest_2020_v1_0_collection (community-published catalog reference)'
+    provider: Nature Trace
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use (Nature Trace).
+    user_uploaded: true
+    bands: {}
+
+  projects/nature-trace/assets/species_distribution_models/australia_mammals/v0:
+    title: 'projects/nature-trace/assets/species_distribution_models/australia_mammals/v0 (community-published catalog reference)'
+    provider: Nature Trace
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free for use (Nature Trace).
+    user_uploaded: true
+    bands: {}
+
+  projects/neon-prod-earthengine/assets/CHM/001:
+    title: 'projects/neon-prod-earthengine/assets/CHM/001 (community-published catalog reference)'
+    provider: National Ecological Observatory Network (NEON)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Public domain (NEON Science).
+    user_uploaded: true
+    bands: {}
+
+  projects/neon-prod-earthengine/assets/CNC/002:
+    title: 'projects/neon-prod-earthengine/assets/CNC/002 (community-published catalog reference)'
+    provider: National Ecological Observatory Network (NEON)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Public domain (NEON Science).
+    user_uploaded: true
+    bands: {}
+
+  projects/neon-prod-earthengine/assets/DEM/001:
+    title: 'projects/neon-prod-earthengine/assets/DEM/001 (community-published catalog reference)'
+    provider: National Ecological Observatory Network (NEON)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Public domain (NEON Science).
+    user_uploaded: true
+    bands: {}
+
+  projects/neon-prod-earthengine/assets/HSI_REFL/001:
+    title: 'projects/neon-prod-earthengine/assets/HSI_REFL/001 (community-published catalog reference)'
+    provider: National Ecological Observatory Network (NEON)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Public domain (NEON Science).
+    user_uploaded: true
+    bands: {}
+
+  projects/neon-prod-earthengine/assets/HSI_REFL/002:
+    title: 'projects/neon-prod-earthengine/assets/HSI_REFL/002 (community-published catalog reference)'
+    provider: National Ecological Observatory Network (NEON)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Public domain (NEON Science).
+    user_uploaded: true
+    bands: {}
+
+  projects/neon-prod-earthengine/assets/RGB/001:
+    title: 'projects/neon-prod-earthengine/assets/RGB/001 (community-published catalog reference)'
+    provider: National Ecological Observatory Network (NEON)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Public domain (NEON Science).
+    user_uploaded: true
+    bands: {}
+
+  projects/ngis-cat/assets/DEA/NIDEM:
+    title: 'projects/ngis-cat/assets/DEA/NIDEM (community-published catalog reference)'
+    provider: Geoscience Australia / DEA (NGIS catalogue)
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/disalexi/conus/gridmet/monthly/v2_0:
+    title: 'projects/openet/assets/disalexi/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/disalexi/conus/gridmet/monthly/v2_1:
+    title: 'projects/openet/assets/disalexi/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0:
+    title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0_pre2000:
+    title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/eemetric/conus/gridmet/monthly/v2_1:
+    title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0:
+    title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0_pre2000:
+    title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ensemble/conus/gridmet/monthly/v2_1:
+    title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0:
+    title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0_pre2000:
+    title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/geesebal/conus/gridmet/monthly/v2_1:
+    title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0:
+    title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0_pre2000:
+    title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_1:
+    title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/sims/conus/gridmet/monthly/v2_0:
+    title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/sims/conus/gridmet/monthly/v2_0_pre2000:
+    title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/sims/conus/gridmet/monthly/v2_1:
+    title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0:
+    title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0_pre2000:
+    title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/openet/assets/ssebop/conus/gridmet/monthly/v2_1:
+    title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands: {}
+
+  projects/pml_evapotranspiration/PML/OUTPUT/PML_V22a:
+    title: 'projects/pml_evapotranspiration/PML/OUTPUT/PML_V22a (community-published catalog reference)'
+    provider: PML_V2 Evapotranspiration team
+    ee_type: image_collection
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use with citation (PML_V2).
+    user_uploaded: true
+    bands: {}
