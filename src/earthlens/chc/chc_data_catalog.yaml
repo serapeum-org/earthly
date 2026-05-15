@@ -22,7 +22,7 @@
 #                                     resolution label.
 #     pandas_freq:                    Pandas offset alias used to
 #                                     generate the date range (e.g.
-#                                     "D", "MS", "5D", "10D", "AS").
+#                                     "D", "MS", "5D", "10D", "YS").
 #     spatial_resolution:             Pixel size in degrees (list
 #                                     when multiple resolutions are
 #                                     available under the same
@@ -427,7 +427,7 @@ datasets:
       tif: "pub/org/chc/products/CHIRPS-2.0/global_annual/tifs/"
     region: global
     temporal_resolution: annual
-    pandas_freq: "AS"
+    pandas_freq: "YS"
     spatial_resolution: [0.05]
     formats: *fmt_tif
     start_date: "1981-01-01"
@@ -911,7 +911,7 @@ datasets:
       tif: "pub/org/chc/products/CHIRPS/v3.0/annual/global/tifs/"
     region: global
     temporal_resolution: annual
-    pandas_freq: "AS"
+    pandas_freq: "YS"
     spatial_resolution: [0.05]
     formats: *fmt_tif_nc
     start_date: "1981-01-01"
