@@ -44978,3 +44978,453 @@ datasets:
         wavelength: 0.47
         min: 0
         max: 255
+
+  TERN/AET/CMRSET_LANDSAT_V2_1:
+    title: Actual Evapotranspiration for Australia (CMRSET Landsat V2.1) [deprecated]
+    provider: TERN Landscapes / CSIRO Land and Water
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2012-02-01"
+      end_date: null
+      bbox: [110, -45, 155, -10]
+    default_reducer: median
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      ETa:
+        description: Average daily evapotranspiration (mm/day)
+        units: mm/d
+      pixel_qa:
+        description: Pixel QA attributes
+
+  TERN/AET/CMRSET_LANDSAT_V2_2:
+    title: Actual Evapotranspiration for Australia (CMRSET Landsat V2.2)
+    provider: TERN Landscapes / CSIRO Land and Water
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-02-01"
+      end_date: null
+      bbox: [110, -45, 155, -10]
+    default_reducer: median
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      ETa:
+        description: Average daily evapotranspiration
+        units: mm/d
+      pixel_qa:
+        description: Pixel QA attributes
+
+  TOMS/MERGED:
+    title: TOMS and OMI Merged Ozone Data v3 [deprecated]
+    provider: NASA / GES DISC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 111000
+    extent:
+      start_date: "1978-11-01"
+      end_date: null
+    default_reducer: median
+    terms: Distribution of data from the Goddard Earth Sciences Data and
+    bands:
+      ozone:
+        description: Total column ozone
+        units: Dobson
+        min: 73
+        max: 983
+
+  TRMM/3B42:
+    title: 'TRMM 3B42: 3-Hourly Precipitation Estimates'
+    provider: NASA GES DISC at NASA Goddard Space Flight Center
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+      bbox: [-180, -50, 180, 50]
+    default_reducer: median
+    terms: This dataset is in the public domain and is available
+    bands:
+      precipitation:
+        description: Merged microwave/IR precipitation estimate
+        units: mm/hr
+        min: 0
+        max: 100
+      relativeError:
+        description: Merged microwave/IR precipitation random error estimate
+        units: mm/hr
+        min: 0
+        max: 100
+      satPrecipitationSource:
+        description: Flag to show source of data
+      HQprecipitation:
+        description: Pre-gauge-adjusted microwave precipitation estimate
+        units: mm/hr
+        min: 0
+        max: 100
+      IRprecipitation:
+        description: Pre-gauge-adjusted infrared precipitation estimate
+        units: mm/hr
+        min: 0
+        max: 100
+      satObservationTime:
+        description: Satellite observation time minus the time of the granule.
+        units: min
+        min: -90
+        max: 90
+
+  TRMM/3B43V7:
+    title: 'TRMM 3B43: Monthly Precipitation Estimates'
+    provider: NASA GES DISC at NASA Goddard Space Flight Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+      bbox: [-180, -50, 180, 50]
+    default_reducer: median
+    terms: This dataset is in the public domain and is available
+    bands:
+      precipitation:
+        description: Merged microwave/IR precipitation estimate
+        units: mm/hr
+        min: 0
+        max: 6.73
+      relativeError:
+        description: Merged microwave/IR precipitation random error estimate
+        units: mm/hr
+        min: 0.001
+        max: 16.36
+      gaugeRelativeWeighting:
+        description: Relative weighting of the rain gauges used in calibration
+        units: '%'
+        min: 0
+        max: 100
+
+  Tsinghua/DESS/ChinaTerraceMap/v1:
+    title: DESS China Terrace Map v1
+    provider: Department of Earth System Science, Tsinghua University (DESS, THU)
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [70, 0, 140, 60]
+    default_reducer: median
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      terrace:
+        description: 1 when a terrace is present, 0 when it is not.
+
+  UCSB/CHC/CMIP6/v1:
+    title: The Climate Hazards Center (CHC) Coupled Model Intercomparison Project Phase 6 (CHC-CMIP6)
+    provider: UCSB
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1983-01-01"
+      end_date: null
+      bbox: [-180, -50, 180, 50]
+    default_reducer: median
+    terms: The dataset is under a Creative Commons Attribution 4.0 International
+    bands:
+      CHIRPS:
+        description: Daily total precipitation.
+        units: mm/d
+        min: 0
+        max: 751.05
+      himax:
+        description: Daily maximum Heat Index.
+        units: 'deg_C'
+        min: -49.76
+        max: 78.56
+      RH:
+        description: Relative Humidity.
+        units: '%'
+        min: -1.33
+        max: 100
+      RHx:
+        description: Relative humidity at the hour of maximum temperature
+        units: '%'
+        min: -3.11
+        max: 100
+      RHn:
+        description: Relative humidity at the hour of minimum temperature.
+        units: '%'
+        min: -2.603
+        max: 100
+      wbgtmax:
+        description: Daily maximum wet bulb globe temperature.
+        units: 'deg_C'
+        min: -100.54
+        max: 33.76
+      vpd:
+        description: Daily vapor pressure deficit.
+        units: kPa
+        min: 0
+        max: 67.98
+      svp:
+        description: Daily average saturation vapor pressure.
+        units: kPa
+        min: 0.011
+        max: 71.41
+      Tmax:
+        description: Daily maximum near-surface air temperature.
+        units: 'deg_C'
+        min: -43.04
+        max: 90.52
+      Tmin:
+        description: Daily minimum near-surface air temperature.
+        units: 'deg_C'
+        min: -46.72
+        max: 89.82
+
+  UK/EA/ENGLAND_1M_TERRAIN/2022:
+    title: England 1m Composite DTM/DSM (Environment Agency)
+    provider: UK Environment Agency
+    ee_type: image
+    spatial_resolution: 1
+    extent:
+      start_date: "2000-06-06"
+      end_date: null
+    default_reducer: median
+    terms: 'You are free to: copy, publish, distribute and transmit the Information;'
+    bands:
+      dtm:
+        description: Digital Terrain Model
+        units: m
+      dsm_first:
+        description: First Return Digital Surface Model
+        units: m
+      dsm_last:
+        description: Last Return Digital Surface Model
+        units: m
+
+  UMD/hansen/global_forest_change_2013:
+    title: Hansen Global Forest Change v1.0 (2000-2012) [deprecated]
+    provider: Hansen/UMD/Google/USGS/NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: median
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      treecover2000:
+        description: Tree canopy cover for year 2000, defined as canopy closure for all
+        units: '%'
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss during the study period, defined as a stand-replacement
+      gain:
+        description: Forest gain during the period 2000-2012, defined as the inverse of
+      first_b30:
+        description: Landsat 7 band 3 (red) cloud-free image composite. Reference
+        wavelength: 0.66
+      first_b40:
+        description: Landsat 7 band 4 (NIR) cloud-free image composite. Reference
+        wavelength: 0.835
+      first_b50:
+        description: Landsat 7 band 5 (SWIR) cloud-free image composite. Reference
+        wavelength: 1.65
+      first_b70:
+        description: Landsat 7 band 7 (SWIR) cloud-free image composite. Reference
+        wavelength: 2.22
+      last_b30:
+        description: Landsat 7 band 3 (red) cloud-free image composite. Reference
+        wavelength: 0.66
+      last_b40:
+        description: Landsat 7 band 4 (NIR) cloud-free image composite. Reference
+        wavelength: 0.835
+      last_b50:
+        description: Landsat 7 band 5 (SWIR) cloud-free image composite. Reference
+        wavelength: 1.65
+      last_b70:
+        description: Landsat 7 band 7 (SWIR) cloud-free image composite. Reference
+        wavelength: 2.22
+      datamask:
+        description: Three values representing areas of no data, mapped land surface, and permanent water
+      lossyear:
+        description: Year of gross forest cover loss event. A disaggregation of total forest
+        min: 0
+        max: 12
+
+  UMD/hansen/global_forest_change_2014:
+    title: Hansen Global Forest Change v1.1 (2000-2013) [deprecated]
+    provider: Hansen/UMD/Google/USGS/NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: median
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      treecover2000:
+        description: Tree canopy cover for year 2000, defined as canopy closure for all
+        units: '%'
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss during the study period, defined as a stand-replacement
+      gain:
+        description: Forest gain during the period 2000-2012, defined as the inverse of
+      first_b30:
+        description: Landsat 7 band 3 (red) cloud-free image composite. Reference
+        wavelength: 0.66
+      first_b40:
+        description: Landsat 7 band 4 (NIR) cloud-free image composite. Reference
+        wavelength: 0.835
+      first_b50:
+        description: Landsat 7 band 5 (SWIR) cloud-free image composite. Reference
+        wavelength: 1.65
+      first_b70:
+        description: Landsat 7 band 7 (SWIR) cloud-free image composite. Reference
+        wavelength: 2.22
+      last_b30:
+        description: Landsat 7 band 3 (red) cloud-free image composite. Reference
+        wavelength: 0.66
+      last_b40:
+        description: Landsat 7 band 4 (NIR) cloud-free image composite. Reference
+        wavelength: 0.835
+      last_b50:
+        description: Landsat 7 band 5 (SWIR) cloud-free image composite. Reference
+        wavelength: 1.65
+      last_b70:
+        description: Landsat 7 band 7 (SWIR) cloud-free image composite. Reference
+        wavelength: 2.22
+      datamask:
+        description: Three values representing areas of no data, mapped land surface, and permanent water
+      lossyear:
+        description: Year of gross forest cover loss event. A disaggregation of total forest
+        min: 0
+        max: 13
+
+  UMD/hansen/global_forest_change_2015_v1_3:
+    title: Hansen Global Forest Change v1.3 (2000-2015) [deprecated]
+    provider: Hansen/UMD/Google/USGS/NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: median
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      treecover2000:
+        description: Tree canopy cover for year 2000, defined as canopy closure for all
+        units: '%'
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss during the study period, defined as a stand-replacement
+      gain:
+        description: Forest gain during the period 2000-2012, defined as the inverse of
+      first_b30:
+        description: Landsat 7 band 3 (red) cloud-free image composite. Reference
+        wavelength: 0.66
+      first_b40:
+        description: Landsat 7 band 4 (NIR) cloud-free image composite. Reference
+        wavelength: 0.835
+      first_b50:
+        description: Landsat 7 band 5 (SWIR) cloud-free image composite. Reference
+        wavelength: 1.65
+      first_b70:
+        description: Landsat 7 band 7 (SWIR) cloud-free image composite. Reference
+        wavelength: 2.22
+      last_b30:
+        description: Landsat 7 band 3 (red) cloud-free image composite. Reference
+        wavelength: 0.66
+      last_b40:
+        description: Landsat 7 band 4 (NIR) cloud-free image composite. Reference
+        wavelength: 0.835
+      last_b50:
+        description: Landsat 7 band 5 (SWIR) cloud-free image composite. Reference
+        wavelength: 1.65
+      last_b70:
+        description: Landsat 7 band 7 (SWIR) cloud-free image composite. Reference
+        wavelength: 2.22
+      datamask:
+        description: Three values representing areas of no data, mapped land surface, and permanent water
+      lossyear:
+        description: Year of gross forest cover loss event. A disaggregation of total forest
+        min: 0
+        max: 15
+
+  UMD/hansen/global_forest_change_2025_v1_13:
+    title: Hansen Global Forest Change v1.13 (2000-2025)
+    provider: Hansen/UMD/Google/USGS/NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: median
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      treecover2000:
+        description: Tree canopy cover for year 2000, defined as canopy closure for all
+        units: '%'
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss during the study period, defined as a stand-replacement
+      gain:
+        description: Forest gain during the period 2000-2012, defined as the inverse of
+      lossyear:
+        description: Year of gross forest cover loss event. Forest loss during the study
+        min: 0
+        max: 25
+      first_b30:
+        description: Landsat Red cloud-free image composite (corresponding to Landsat 5/7
+        wavelength: 0.66
+      first_b40:
+        description: Landsat NIR cloud-free image composite (corresponding to Landsat 5/7
+        wavelength: 0.835
+      first_b50:
+        description: Landsat SWIR1 cloud-free image composite (corresponding to Landsat 5/7
+        wavelength: 1.65
+      first_b70:
+        description: Landsat SWIR2 cloud-free image composite (corresponding to Landsat 5/7
+        wavelength: 2.22
+      last_b30:
+        description: Landsat Red cloud-free image composite (corresponding to Landsat 5/7
+        wavelength: 0.66
+      last_b40:
+        description: Landsat NIR cloud-free image composite (corresponding to Landsat 5/7
+        wavelength: 0.835
+      last_b50:
+        description: Landsat SWIR1 cloud-free image composite (corresponding to Landsat 5/7
+        wavelength: 1.65
+      last_b70:
+        description: Landsat SWIR2 cloud-free image composite (corresponding to Landsat 5/7
+        wavelength: 2.22
+      datamask:
+        description: Three values representing areas of no data, mapped land surface, and permanent water
+
+  UMN/PGC/ArcticDEM/V2/2m:
+    title: ArcticDEM Strips [deprecated]
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image_collection
+    spatial_resolution: 2
+    extent:
+      start_date: "2009-08-16"
+      end_date: null
+      bbox: [-180, 50, 180, 90]
+    default_reducer: median
+    terms: National Science Foundation (PGC's primary funding source) policy requires
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+      matchtag:
+        description: Bitmask raster indicating DEM pixels processing
