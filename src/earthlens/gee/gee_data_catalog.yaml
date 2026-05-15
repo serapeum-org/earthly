@@ -12616,3 +12616,3511 @@ datasets:
       surface_pressure:
         description: Surface pressure (monthly mean by hour-of-day)
         units: Pa
+
+  ACA/reef_habitat/v1_0:
+    title: Allen Coral Atlas (ACA) - Geomorphic Zonation and Benthic Habitat - v1.0 [deprecated]
+    provider: Allen Coral Atlas Partnership (ACA)
+    ee_type: image
+    spatial_resolution: 5
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-180, -33, 180, 33]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      geomorphic:
+        description: Classification of geomorphic zonation.
+      benthic:
+        description: Classification of dominant benthic composition.
+      reef_mask:
+        description: Globally standardized reef mask using an amalgamation of a global reef
+
+  AIRBUS/SPOT_2_4_5/BRAZIL/2007_2009/MS/V1:
+    title: SPOT Multispectral Imagery 10-20m, Brazil
+    provider: Google/CNES
+    ee_type: image_collection
+    spatial_resolution: 20
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    terms: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      G:
+        description: Green (0.50-0.59 µm)
+        units: dn
+        min: 0
+        max: 255
+      R:
+        description: Red (0.61-0.68 µm)
+        units: dn
+        min: 0
+        max: 255
+      N:
+        description: Near-Infrared (NIR) (0.78-0.89 µm)
+        units: dn
+        min: 0
+        max: 255
+      S:
+        description: Shortwave near-Infrared SWIR (1.53-1.78 µm). Available for SPOT 4/5
+        units: dn
+        min: 0
+        max: 255
+
+  AIRBUS/SPOT_2_4_5/BRAZIL/2007_2009/MS_NC/V1:
+    title: SPOT Multispectral Pseudo Natural Color Imagery 10-20m, Brazil
+    provider: Google/CNES
+    ee_type: image_collection
+    spatial_resolution: 20
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    terms: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      R:
+        description: Red reflectance
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green reflectance
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Blue reflectance, representing the synthetic blue channel of the pseudo-natural color
+        units: dn
+        min: 0
+        max: 255
+      cloud_mask:
+        description: 'Cloud mask: 0 = cloud/shadow, 1 = clear'
+        min: 0
+        max: 1
+
+  AIRBUS/SPOT_2_4_5/BRAZIL/2007_2009/PAN/V1:
+    title: SPOT Panchromatic Imagery 5-10m, Brazil
+    provider: Google/CNES
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    terms: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      P:
+        description: Panchromatic
+        units: dn
+        min: 0
+        max: 255
+
+  AIRBUS/SPOT_2_4_5/BRAZIL/2007_2009/PMS_NC/V1:
+    title: SPOT Pansharpened Pseudo Natural Color Imagery 5-10m, Brazil
+    provider: Google/CNES
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    terms: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      R:
+        description: Red reflectance
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green reflectance
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Pansharpened blue reflectance, representing the synthetic blue channel of the pseudo-natural
+        units: dn
+        min: 0
+        max: 255
+      cloud_mask:
+        description: 'Cloud mask: 0 = cloud/shadow, 1 = clear'
+        min: 0
+        max: 1
+
+  CAS/IGSNRR/PML/V2_v017:
+    title: 'PML_V2.1.7: Coupled Evapotranspiration and Gross Primary Product (GPP) [deprecated]'
+    provider: PML_V2
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-26"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mosaic
+    terms: Acknowledgements
+    user_uploaded: true
+    bands:
+      GPP:
+        description: Gross primary production
+        units: gC m-2 d-1
+        min: 0
+        max: 39.01
+      Ec:
+        description: Vegetation transpiration
+        units: mm/d
+        min: 0
+        max: 15.33
+      Es:
+        description: Soil evaporation
+        units: mm/d
+        min: 0
+        max: 8.2
+      Ei:
+        description: Interception from vegetation canopy
+        units: mm/d
+        min: 0
+        max: 12.56
+      ET_water:
+        description: Evaporation from water bodies, snow, and ice. Calculated using the
+        units: mm/d
+        min: 0
+        max: 20.11
+
+  CAS/IGSNRR/PML/V2_v018:
+    title: 'PML_V2.1.8: Coupled Evapotranspiration and Gross Primary Product (GPP) [deprecated]'
+    provider: PML_V2
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-26"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mosaic
+    terms: Acknowledgements
+    user_uploaded: true
+    bands:
+      GPP:
+        description: Gross primary production
+        units: gC m-2 d-1
+        min: 0
+        max: 39.01
+      Ec:
+        description: Vegetation transpiration
+        units: mm/d
+        min: 0
+        max: 15.33
+      Es:
+        description: Soil evaporation
+        units: mm/d
+        min: 0
+        max: 8.2
+      Ei:
+        description: Interception from vegetation canopy
+        units: mm/d
+        min: 0
+        max: 12.56
+      ET_water:
+        description: Evaporation from water bodies, snow, and ice. Calculated using the
+        units: mm/d
+        min: 0
+        max: 20.11
+
+  CIESIN/GPWv4/ancillary-data-grids:
+    title: 'GPWv4: Gridded Population of the World Version 4, Ancillary Data Grids [deprecated]'
+    provider: CIESIN
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      water-mask:
+        description: Water mask
+      data-context:
+        description: Categorizes pixels with estimated zero population based on
+      mean-administrative-unit-area:
+        description: The mean area of the input unit(s) from which population count
+        units: km^2
+        min: 0
+        max: 816831
+      national-identifier:
+        description: An integer that represents the census data source used
+        min: 4
+        max: 999
+      land-area:
+        description: Estimate of the land area, excluding permanent ice and water, within each 30 arc-second
+        units: km^2
+        min: 0
+        max: 0.86
+      water-area:
+        description: Estimate of the water area (permanent ice and water) within each 30 arc-second pixel.
+        units: km^2
+        min: 0
+        max: 0.86
+
+  COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/BIO:
+    title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - BIO
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+      nppv_depth1:
+        description: Total Primary Production of Phyto (depth 1, 0.4940m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth2:
+        description: Total Primary Production of Phyto (depth 2, 1.5414m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth3:
+        description: Total Primary Production of Phyto (depth 3, 2.6457m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth4:
+        description: Total Primary Production of Phyto (depth 4, 3.8195m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth5:
+        description: Total Primary Production of Phyto (depth 5, 5.0782m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth6:
+        description: Total Primary Production of Phyto (depth 6, 6.4406m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth7:
+        description: Total Primary Production of Phyto (depth 7, 7.9296m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth8:
+        description: Total Primary Production of Phyto (depth 8, 9.5730m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth9:
+        description: Total Primary Production of Phyto (depth 9, 11.4050m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth10:
+        description: Total Primary Production of Phyto (depth 10, 13.4671m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth11:
+        description: Total Primary Production of Phyto (depth 11, 15.8101m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth12:
+        description: Total Primary Production of Phyto (depth 12, 18.4956m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth13:
+        description: Total Primary Production of Phyto (depth 13, 21.5988m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth14:
+        description: Total Primary Production of Phyto (depth 14, 25.2114m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth15:
+        description: Total Primary Production of Phyto (depth 15, 29.4447m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth16:
+        description: Total Primary Production of Phyto (depth 16, 34.4342m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth17:
+        description: Total Primary Production of Phyto (depth 17, 40.3441m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth18:
+        description: Total Primary Production of Phyto (depth 18, 47.3737m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth19:
+        description: Total Primary Production of Phyto (depth 19, 55.7643m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth20:
+        description: Total Primary Production of Phyto (depth 20, 65.8073m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth21:
+        description: Total Primary Production of Phyto (depth 21, 77.8539m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth22:
+        description: Total Primary Production of Phyto (depth 22, 92.3261m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth23:
+        description: Total Primary Production of Phyto (depth 23, 109.7293m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth24:
+        description: Total Primary Production of Phyto (depth 24, 130.6660m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth25:
+        description: Total Primary Production of Phyto (depth 25, 155.8507m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth26:
+        description: Total Primary Production of Phyto (depth 26, 186.1256m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth27:
+        description: Total Primary Production of Phyto (depth 27, 222.4752m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth28:
+        description: Total Primary Production of Phyto (depth 28, 266.0403m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth29:
+        description: Total Primary Production of Phyto (depth 29, 318.1274m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth30:
+        description: Total Primary Production of Phyto (depth 30, 380.2130m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth31:
+        description: Total Primary Production of Phyto (depth 31, 453.9377m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth32:
+        description: Total Primary Production of Phyto (depth 32, 541.0889m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth33:
+        description: Total Primary Production of Phyto (depth 33, 643.5668m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth34:
+        description: Total Primary Production of Phyto (depth 34, 763.3331m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth35:
+        description: Total Primary Production of Phyto (depth 35, 902.3393m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth36:
+        description: Total Primary Production of Phyto (depth 36, 1062.4397m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth37:
+        description: Total Primary Production of Phyto (depth 37, 1245.2911m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth38:
+        description: Total Primary Production of Phyto (depth 38, 1452.2510m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth39:
+        description: Total Primary Production of Phyto (depth 39, 1684.2844m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth40:
+        description: Total Primary Production of Phyto (depth 40, 1941.8934m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth41:
+        description: Total Primary Production of Phyto (depth 41, 2225.0779m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth42:
+        description: Total Primary Production of Phyto (depth 42, 2533.3362m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth43:
+        description: Total Primary Production of Phyto (depth 43, 2865.7026m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth44:
+        description: Total Primary Production of Phyto (depth 44, 3220.8203m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth45:
+        description: Total Primary Production of Phyto (depth 45, 3597.0320m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth46:
+        description: Total Primary Production of Phyto (depth 46, 3992.4839m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth47:
+        description: Total Primary Production of Phyto (depth 47, 4405.2241m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth48:
+        description: Total Primary Production of Phyto (depth 48, 4833.2905m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth49:
+        description: Total Primary Production of Phyto (depth 49, 5274.7842m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      nppv_depth50:
+        description: Total Primary Production of Phyto (depth 50, 5727.9165m)
+        units: mg/m^3/day
+        min: 0
+        max: 2729.2
+      o2_depth1:
+        description: Dissolved Oxygen (depth 1, 0.4940m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth2:
+        description: Dissolved Oxygen (depth 2, 1.5414m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth3:
+        description: Dissolved Oxygen (depth 3, 2.6457m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth4:
+        description: Dissolved Oxygen (depth 4, 3.8195m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth5:
+        description: Dissolved Oxygen (depth 5, 5.0782m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth6:
+        description: Dissolved Oxygen (depth 6, 6.4406m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth7:
+        description: Dissolved Oxygen (depth 7, 7.9296m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth8:
+        description: Dissolved Oxygen (depth 8, 9.5730m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth9:
+        description: Dissolved Oxygen (depth 9, 11.4050m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth10:
+        description: Dissolved Oxygen (depth 10, 13.4671m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth11:
+        description: Dissolved Oxygen (depth 11, 15.8101m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth12:
+        description: Dissolved Oxygen (depth 12, 18.4956m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth13:
+        description: Dissolved Oxygen (depth 13, 21.5988m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth14:
+        description: Dissolved Oxygen (depth 14, 25.2114m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth15:
+        description: Dissolved Oxygen (depth 15, 29.4447m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth16:
+        description: Dissolved Oxygen (depth 16, 34.4342m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth17:
+        description: Dissolved Oxygen (depth 17, 40.3441m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth18:
+        description: Dissolved Oxygen (depth 18, 47.3737m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth19:
+        description: Dissolved Oxygen (depth 19, 55.7643m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth20:
+        description: Dissolved Oxygen (depth 20, 65.8073m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth21:
+        description: Dissolved Oxygen (depth 21, 77.8539m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth22:
+        description: Dissolved Oxygen (depth 22, 92.3261m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth23:
+        description: Dissolved Oxygen (depth 23, 109.7293m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth24:
+        description: Dissolved Oxygen (depth 24, 130.6660m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth25:
+        description: Dissolved Oxygen (depth 25, 155.8507m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth26:
+        description: Dissolved Oxygen (depth 26, 186.1256m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth27:
+        description: Dissolved Oxygen (depth 27, 222.4752m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth28:
+        description: Dissolved Oxygen (depth 28, 266.0403m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth29:
+        description: Dissolved Oxygen (depth 29, 318.1274m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth30:
+        description: Dissolved Oxygen (depth 30, 380.2130m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth31:
+        description: Dissolved Oxygen (depth 31, 453.9377m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth32:
+        description: Dissolved Oxygen (depth 32, 541.0889m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth33:
+        description: Dissolved Oxygen (depth 33, 643.5668m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth34:
+        description: Dissolved Oxygen (depth 34, 763.3331m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth35:
+        description: Dissolved Oxygen (depth 35, 902.3393m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth36:
+        description: Dissolved Oxygen (depth 36, 1062.4397m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth37:
+        description: Dissolved Oxygen (depth 37, 1245.2911m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth38:
+        description: Dissolved Oxygen (depth 38, 1452.2510m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth39:
+        description: Dissolved Oxygen (depth 39, 1684.2844m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth40:
+        description: Dissolved Oxygen (depth 40, 1941.8934m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth41:
+        description: Dissolved Oxygen (depth 41, 2225.0779m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth42:
+        description: Dissolved Oxygen (depth 42, 2533.3362m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth43:
+        description: Dissolved Oxygen (depth 43, 2865.7026m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth44:
+        description: Dissolved Oxygen (depth 44, 3220.8203m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth45:
+        description: Dissolved Oxygen (depth 45, 3597.0320m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth46:
+        description: Dissolved Oxygen (depth 46, 3992.4839m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth47:
+        description: Dissolved Oxygen (depth 47, 4405.2241m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth48:
+        description: Dissolved Oxygen (depth 48, 4833.2905m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth49:
+        description: Dissolved Oxygen (depth 49, 5274.7842m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+      o2_depth50:
+        description: Dissolved Oxygen (depth 50, 5727.9165m)
+        units: mmol/m^3
+        min: 0.1
+        max: 516.16
+
+  COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/CAR:
+    title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - CAR
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+      ph_depth1:
+        description: Ocean pH (depth 1, 0.4940m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth2:
+        description: Ocean pH (depth 2, 1.5414m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth3:
+        description: Ocean pH (depth 3, 2.6457m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth4:
+        description: Ocean pH (depth 4, 3.8195m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth5:
+        description: Ocean pH (depth 5, 5.0782m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth6:
+        description: Ocean pH (depth 6, 6.4406m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth7:
+        description: Ocean pH (depth 7, 7.9296m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth8:
+        description: Ocean pH (depth 8, 9.5730m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth9:
+        description: Ocean pH (depth 9, 11.4050m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth10:
+        description: Ocean pH (depth 10, 13.4671m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth11:
+        description: Ocean pH (depth 11, 15.8101m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth12:
+        description: Ocean pH (depth 12, 18.4956m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth13:
+        description: Ocean pH (depth 13, 21.5988m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth14:
+        description: Ocean pH (depth 14, 25.2114m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth15:
+        description: Ocean pH (depth 15, 29.4447m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth16:
+        description: Ocean pH (depth 16, 34.4342m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth17:
+        description: Ocean pH (depth 17, 40.3441m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth18:
+        description: Ocean pH (depth 18, 47.3737m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth19:
+        description: Ocean pH (depth 19, 55.7643m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth20:
+        description: Ocean pH (depth 20, 65.8073m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth21:
+        description: Ocean pH (depth 21, 77.8539m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth22:
+        description: Ocean pH (depth 22, 92.3261m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth23:
+        description: Ocean pH (depth 23, 109.7293m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth24:
+        description: Ocean pH (depth 24, 130.6660m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth25:
+        description: Ocean pH (depth 25, 155.8507m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth26:
+        description: Ocean pH (depth 26, 186.1256m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth27:
+        description: Ocean pH (depth 27, 222.4752m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth28:
+        description: Ocean pH (depth 28, 266.0403m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth29:
+        description: Ocean pH (depth 29, 318.1274m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth30:
+        description: Ocean pH (depth 30, 380.2130m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth31:
+        description: Ocean pH (depth 31, 453.9377m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth32:
+        description: Ocean pH (depth 32, 541.0889m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth33:
+        description: Ocean pH (depth 33, 643.5668m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth34:
+        description: Ocean pH (depth 34, 763.3331m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth35:
+        description: Ocean pH (depth 35, 902.3393m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth36:
+        description: Ocean pH (depth 36, 1062.4397m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth37:
+        description: Ocean pH (depth 37, 1245.2911m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth38:
+        description: Ocean pH (depth 38, 1452.2510m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth39:
+        description: Ocean pH (depth 39, 1684.2844m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth40:
+        description: Ocean pH (depth 40, 1941.8934m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth41:
+        description: Ocean pH (depth 41, 2225.0779m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth42:
+        description: Ocean pH (depth 42, 2533.3362m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth43:
+        description: Ocean pH (depth 43, 2865.7026m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth44:
+        description: Ocean pH (depth 44, 3220.8203m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth45:
+        description: Ocean pH (depth 45, 3597.0320m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth46:
+        description: Ocean pH (depth 46, 3992.4839m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth47:
+        description: Ocean pH (depth 47, 4405.2241m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth48:
+        description: Ocean pH (depth 48, 4833.2905m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth49:
+        description: Ocean pH (depth 49, 5274.7842m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      ph_depth50:
+        description: Ocean pH (depth 50, 5727.9165m)
+        units: Dimensionless
+        min: 6.1
+        max: 8.6
+      dissic_depth1:
+        description: Dissolved Inorganic Carbon (depth 1, 0.4940m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth2:
+        description: Dissolved Inorganic Carbon (depth 2, 1.5414m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth3:
+        description: Dissolved Inorganic Carbon (depth 3, 2.6457m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth4:
+        description: Dissolved Inorganic Carbon (depth 4, 3.8195m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth5:
+        description: Dissolved Inorganic Carbon (depth 5, 5.0782m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth6:
+        description: Dissolved Inorganic Carbon (depth 6, 6.4406m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth7:
+        description: Dissolved Inorganic Carbon (depth 7, 7.9296m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth8:
+        description: Dissolved Inorganic Carbon (depth 8, 9.5730m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth9:
+        description: Dissolved Inorganic Carbon (depth 9, 11.4050m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth10:
+        description: Dissolved Inorganic Carbon (depth 10, 13.4671m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth11:
+        description: Dissolved Inorganic Carbon (depth 11, 15.8101m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth12:
+        description: Dissolved Inorganic Carbon (depth 12, 18.4956m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth13:
+        description: Dissolved Inorganic Carbon (depth 13, 21.5988m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth14:
+        description: Dissolved Inorganic Carbon (depth 14, 25.2114m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth15:
+        description: Dissolved Inorganic Carbon (depth 15, 29.4447m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth16:
+        description: Dissolved Inorganic Carbon (depth 16, 34.4342m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth17:
+        description: Dissolved Inorganic Carbon (depth 17, 40.3441m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth18:
+        description: Dissolved Inorganic Carbon (depth 18, 47.3737m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth19:
+        description: Dissolved Inorganic Carbon (depth 19, 55.7643m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth20:
+        description: Dissolved Inorganic Carbon (depth 20, 65.8073m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth21:
+        description: Dissolved Inorganic Carbon (depth 21, 77.8539m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth22:
+        description: Dissolved Inorganic Carbon (depth 22, 92.3261m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth23:
+        description: Dissolved Inorganic Carbon (depth 23, 109.7293m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth24:
+        description: Dissolved Inorganic Carbon (depth 24, 130.6660m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth25:
+        description: Dissolved Inorganic Carbon (depth 25, 155.8507m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth26:
+        description: Dissolved Inorganic Carbon (depth 26, 186.1256m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth27:
+        description: Dissolved Inorganic Carbon (depth 27, 222.4752m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth28:
+        description: Dissolved Inorganic Carbon (depth 28, 266.0403m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth29:
+        description: Dissolved Inorganic Carbon (depth 29, 318.1274m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth30:
+        description: Dissolved Inorganic Carbon (depth 30, 380.2130m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth31:
+        description: Dissolved Inorganic Carbon (depth 31, 453.9377m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth32:
+        description: Dissolved Inorganic Carbon (depth 32, 541.0889m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth33:
+        description: Dissolved Inorganic Carbon (depth 33, 643.5668m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth34:
+        description: Dissolved Inorganic Carbon (depth 34, 763.3331m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth35:
+        description: Dissolved Inorganic Carbon (depth 35, 902.3393m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth36:
+        description: Dissolved Inorganic Carbon (depth 36, 1062.4397m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth37:
+        description: Dissolved Inorganic Carbon (depth 37, 1245.2911m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth38:
+        description: Dissolved Inorganic Carbon (depth 38, 1452.2510m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth39:
+        description: Dissolved Inorganic Carbon (depth 39, 1684.2844m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth40:
+        description: Dissolved Inorganic Carbon (depth 40, 1941.8934m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth41:
+        description: Dissolved Inorganic Carbon (depth 41, 2225.0779m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth42:
+        description: Dissolved Inorganic Carbon (depth 42, 2533.3362m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth43:
+        description: Dissolved Inorganic Carbon (depth 43, 2865.7026m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth44:
+        description: Dissolved Inorganic Carbon (depth 44, 3220.8203m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth45:
+        description: Dissolved Inorganic Carbon (depth 45, 3597.0320m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth46:
+        description: Dissolved Inorganic Carbon (depth 46, 3992.4839m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth47:
+        description: Dissolved Inorganic Carbon (depth 47, 4405.2241m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth48:
+        description: Dissolved Inorganic Carbon (depth 48, 4833.2905m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth49:
+        description: Dissolved Inorganic Carbon (depth 49, 5274.7842m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+      dissic_depth50:
+        description: Dissolved Inorganic Carbon (depth 50, 5727.9165m)
+        units: mol/m^3
+        min: 0.1
+        max: 10.358
+
+  COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/CO2:
+    title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - CO2
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+      spco2_depth1:
+        description: Surface Partial Pressure of Carbon Dioxide
+        units: Pa
+        min: -14
+        max: 1460
+
+  COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/NUT:
+    title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - NUT
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+      no3_depth1:
+        description: Nitrate (depth 1, 0.4940m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth2:
+        description: Nitrate (depth 2, 1.5414m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth3:
+        description: Nitrate (depth 3, 2.6457m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth4:
+        description: Nitrate (depth 4, 3.8195m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth5:
+        description: Nitrate (depth 5, 5.0782m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth6:
+        description: Nitrate (depth 6, 6.4406m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth7:
+        description: Nitrate (depth 7, 7.9296m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth8:
+        description: Nitrate (depth 8, 9.5730m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth9:
+        description: Nitrate (depth 9, 11.4050m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth10:
+        description: Nitrate (depth 10, 13.4671m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth11:
+        description: Nitrate (depth 11, 15.8101m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth12:
+        description: Nitrate (depth 12, 18.4956m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth13:
+        description: Nitrate (depth 13, 21.5988m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth14:
+        description: Nitrate (depth 14, 25.2114m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth15:
+        description: Nitrate (depth 15, 29.4447m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth16:
+        description: Nitrate (depth 16, 34.4342m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth17:
+        description: Nitrate (depth 17, 40.3441m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth18:
+        description: Nitrate (depth 18, 47.3737m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth19:
+        description: Nitrate (depth 19, 55.7643m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth20:
+        description: Nitrate (depth 20, 65.8073m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth21:
+        description: Nitrate (depth 21, 77.8539m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth22:
+        description: Nitrate (depth 22, 92.3261m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth23:
+        description: Nitrate (depth 23, 109.7293m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth24:
+        description: Nitrate (depth 24, 130.6660m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth25:
+        description: Nitrate (depth 25, 155.8507m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth26:
+        description: Nitrate (depth 26, 186.1256m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth27:
+        description: Nitrate (depth 27, 222.4752m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth28:
+        description: Nitrate (depth 28, 266.0403m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth29:
+        description: Nitrate (depth 29, 318.1274m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth30:
+        description: Nitrate (depth 30, 380.2130m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth31:
+        description: Nitrate (depth 31, 453.9377m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth32:
+        description: Nitrate (depth 32, 541.0889m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth33:
+        description: Nitrate (depth 33, 643.5668m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth34:
+        description: Nitrate (depth 34, 763.3331m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth35:
+        description: Nitrate (depth 35, 902.3393m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth36:
+        description: Nitrate (depth 36, 1062.4397m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth37:
+        description: Nitrate (depth 37, 1245.2911m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth38:
+        description: Nitrate (depth 38, 1452.2510m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth39:
+        description: Nitrate (depth 39, 1684.2844m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth40:
+        description: Nitrate (depth 40, 1941.8934m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth41:
+        description: Nitrate (depth 41, 2225.0779m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth42:
+        description: Nitrate (depth 42, 2533.3362m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth43:
+        description: Nitrate (depth 43, 2865.7026m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth44:
+        description: Nitrate (depth 44, 3220.8203m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth45:
+        description: Nitrate (depth 45, 3597.0320m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth46:
+        description: Nitrate (depth 46, 3992.4839m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth47:
+        description: Nitrate (depth 47, 4405.2241m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth48:
+        description: Nitrate (depth 48, 4833.2905m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth49:
+        description: Nitrate (depth 49, 5274.7842m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      no3_depth50:
+        description: Nitrate (depth 50, 5727.9165m)
+        units: mmol/m^3
+        min: 0
+        max: 126.3
+      po4_depth1:
+        description: Phosphate (depth 1, 0.4940m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth2:
+        description: Phosphate (depth 2, 1.5414m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth3:
+        description: Phosphate (depth 3, 2.6457m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth4:
+        description: Phosphate (depth 4, 3.8195m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth5:
+        description: Phosphate (depth 5, 5.0782m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth6:
+        description: Phosphate (depth 6, 6.4406m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth7:
+        description: Phosphate (depth 7, 7.9296m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth8:
+        description: Phosphate (depth 8, 9.5730m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth9:
+        description: Phosphate (depth 9, 11.4050m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth10:
+        description: Phosphate (depth 10, 13.4671m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth11:
+        description: Phosphate (depth 11, 15.8101m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth12:
+        description: Phosphate (depth 12, 18.4956m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth13:
+        description: Phosphate (depth 13, 21.5988m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth14:
+        description: Phosphate (depth 14, 25.2114m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth15:
+        description: Phosphate (depth 15, 29.4447m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth16:
+        description: Phosphate (depth 16, 34.4342m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth17:
+        description: Phosphate (depth 17, 40.3441m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth18:
+        description: Phosphate (depth 18, 47.3737m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth19:
+        description: Phosphate (depth 19, 55.7643m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth20:
+        description: Phosphate (depth 20, 65.8073m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth21:
+        description: Phosphate (depth 21, 77.8539m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth22:
+        description: Phosphate (depth 22, 92.3261m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth23:
+        description: Phosphate (depth 23, 109.7293m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth24:
+        description: Phosphate (depth 24, 130.6660m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth25:
+        description: Phosphate (depth 25, 155.8507m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth26:
+        description: Phosphate (depth 26, 186.1256m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth27:
+        description: Phosphate (depth 27, 222.4752m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth28:
+        description: Phosphate (depth 28, 266.0403m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth29:
+        description: Phosphate (depth 29, 318.1274m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth30:
+        description: Phosphate (depth 30, 380.2130m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth31:
+        description: Phosphate (depth 31, 453.9377m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth32:
+        description: Phosphate (depth 32, 541.0889m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth33:
+        description: Phosphate (depth 33, 643.5668m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth34:
+        description: Phosphate (depth 34, 763.3331m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth35:
+        description: Phosphate (depth 35, 902.3393m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth36:
+        description: Phosphate (depth 36, 1062.4397m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth37:
+        description: Phosphate (depth 37, 1245.2911m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth38:
+        description: Phosphate (depth 38, 1452.2510m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth39:
+        description: Phosphate (depth 39, 1684.2844m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth40:
+        description: Phosphate (depth 40, 1941.8934m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth41:
+        description: Phosphate (depth 41, 2225.0779m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth42:
+        description: Phosphate (depth 42, 2533.3362m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth43:
+        description: Phosphate (depth 43, 2865.7026m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth44:
+        description: Phosphate (depth 44, 3220.8203m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth45:
+        description: Phosphate (depth 45, 3597.0320m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth46:
+        description: Phosphate (depth 46, 3992.4839m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth47:
+        description: Phosphate (depth 47, 4405.2241m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth48:
+        description: Phosphate (depth 48, 4833.2905m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth49:
+        description: Phosphate (depth 49, 5274.7842m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      po4_depth50:
+        description: Phosphate (depth 50, 5727.9165m)
+        units: mmol/m^3
+        min: 0
+        max: 9.8
+      si_depth1:
+        description: Dissolved Silicate (depth 1, 0.4940m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth2:
+        description: Dissolved Silicate (depth 2, 1.5414m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth3:
+        description: Dissolved Silicate (depth 3, 2.6457m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth4:
+        description: Dissolved Silicate (depth 4, 3.8195m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth5:
+        description: Dissolved Silicate (depth 5, 5.0782m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth6:
+        description: Dissolved Silicate (depth 6, 6.4406m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth7:
+        description: Dissolved Silicate (depth 7, 7.9296m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth8:
+        description: Dissolved Silicate (depth 8, 9.5730m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth9:
+        description: Dissolved Silicate (depth 9, 11.4050m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth10:
+        description: Dissolved Silicate (depth 10, 13.4671m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth11:
+        description: Dissolved Silicate (depth 11, 15.8101m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth12:
+        description: Dissolved Silicate (depth 12, 18.4956m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth13:
+        description: Dissolved Silicate (depth 13, 21.5988m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth14:
+        description: Dissolved Silicate (depth 14, 25.2114m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth15:
+        description: Dissolved Silicate (depth 15, 29.4447m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth16:
+        description: Dissolved Silicate (depth 16, 34.4342m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth17:
+        description: Dissolved Silicate (depth 17, 40.3441m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth18:
+        description: Dissolved Silicate (depth 18, 47.3737m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth19:
+        description: Dissolved Silicate (depth 19, 55.7643m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth20:
+        description: Dissolved Silicate (depth 20, 65.8073m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth21:
+        description: Dissolved Silicate (depth 21, 77.8539m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth22:
+        description: Dissolved Silicate (depth 22, 92.3261m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth23:
+        description: Dissolved Silicate (depth 23, 109.7293m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth24:
+        description: Dissolved Silicate (depth 24, 130.6660m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth25:
+        description: Dissolved Silicate (depth 25, 155.8507m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth26:
+        description: Dissolved Silicate (depth 26, 186.1256m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth27:
+        description: Dissolved Silicate (depth 27, 222.4752m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth28:
+        description: Dissolved Silicate (depth 28, 266.0403m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth29:
+        description: Dissolved Silicate (depth 29, 318.1274m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth30:
+        description: Dissolved Silicate (depth 30, 380.2130m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth31:
+        description: Dissolved Silicate (depth 31, 453.9377m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth32:
+        description: Dissolved Silicate (depth 32, 541.0889m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth33:
+        description: Dissolved Silicate (depth 33, 643.5668m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth34:
+        description: Dissolved Silicate (depth 34, 763.3331m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth35:
+        description: Dissolved Silicate (depth 35, 902.3393m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth36:
+        description: Dissolved Silicate (depth 36, 1062.4397m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth37:
+        description: Dissolved Silicate (depth 37, 1245.2911m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth38:
+        description: Dissolved Silicate (depth 38, 1452.2510m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth39:
+        description: Dissolved Silicate (depth 39, 1684.2844m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth40:
+        description: Dissolved Silicate (depth 40, 1941.8934m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth41:
+        description: Dissolved Silicate (depth 41, 2225.0779m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth42:
+        description: Dissolved Silicate (depth 42, 2533.3362m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth43:
+        description: Dissolved Silicate (depth 43, 2865.7026m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth44:
+        description: Dissolved Silicate (depth 44, 3220.8203m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth45:
+        description: Dissolved Silicate (depth 45, 3597.0320m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth46:
+        description: Dissolved Silicate (depth 46, 3992.4839m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth47:
+        description: Dissolved Silicate (depth 47, 4405.2241m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth48:
+        description: Dissolved Silicate (depth 48, 4833.2905m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth49:
+        description: Dissolved Silicate (depth 49, 5274.7842m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      si_depth50:
+        description: Dissolved Silicate (depth 50, 5727.9165m)
+        units: mmol/m^3
+        min: 0.26
+        max: 239.1
+      fe_depth1:
+        description: Dissolved Iron (depth 1, 0.4940m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth2:
+        description: Dissolved Iron (depth 2, 1.5414m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth3:
+        description: Dissolved Iron (depth 3, 2.6457m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth4:
+        description: Dissolved Iron (depth 4, 3.8195m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth5:
+        description: Dissolved Iron (depth 5, 5.0782m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth6:
+        description: Dissolved Iron (depth 6, 6.4406m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth7:
+        description: Dissolved Iron (depth 7, 7.9296m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth8:
+        description: Dissolved Iron (depth 8, 9.5730m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth9:
+        description: Dissolved Iron (depth 9, 11.4050m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth10:
+        description: Dissolved Iron (depth 10, 13.4671m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth11:
+        description: Dissolved Iron (depth 11, 15.8101m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth12:
+        description: Dissolved Iron (depth 12, 18.4956m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth13:
+        description: Dissolved Iron (depth 13, 21.5988m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth14:
+        description: Dissolved Iron (depth 14, 25.2114m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth15:
+        description: Dissolved Iron (depth 15, 29.4447m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth16:
+        description: Dissolved Iron (depth 16, 34.4342m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth17:
+        description: Dissolved Iron (depth 17, 40.3441m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth18:
+        description: Dissolved Iron (depth 18, 47.3737m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth19:
+        description: Dissolved Iron (depth 19, 55.7643m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth20:
+        description: Dissolved Iron (depth 20, 65.8073m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth21:
+        description: Dissolved Iron (depth 21, 77.8539m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth22:
+        description: Dissolved Iron (depth 22, 92.3261m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth23:
+        description: Dissolved Iron (depth 23, 109.7293m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth24:
+        description: Dissolved Iron (depth 24, 130.6660m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth25:
+        description: Dissolved Iron (depth 25, 155.8507m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth26:
+        description: Dissolved Iron (depth 26, 186.1256m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth27:
+        description: Dissolved Iron (depth 27, 222.4752m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth28:
+        description: Dissolved Iron (depth 28, 266.0403m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth29:
+        description: Dissolved Iron (depth 29, 318.1274m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth30:
+        description: Dissolved Iron (depth 30, 380.2130m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth31:
+        description: Dissolved Iron (depth 31, 453.9377m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth32:
+        description: Dissolved Iron (depth 32, 541.0889m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth33:
+        description: Dissolved Iron (depth 33, 643.5668m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth34:
+        description: Dissolved Iron (depth 34, 763.3331m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth35:
+        description: Dissolved Iron (depth 35, 902.3393m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth36:
+        description: Dissolved Iron (depth 36, 1062.4397m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth37:
+        description: Dissolved Iron (depth 37, 1245.2911m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth38:
+        description: Dissolved Iron (depth 38, 1452.2510m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth39:
+        description: Dissolved Iron (depth 39, 1684.2844m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth40:
+        description: Dissolved Iron (depth 40, 1941.8934m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth41:
+        description: Dissolved Iron (depth 41, 2225.0779m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth42:
+        description: Dissolved Iron (depth 42, 2533.3362m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth43:
+        description: Dissolved Iron (depth 43, 2865.7026m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth44:
+        description: Dissolved Iron (depth 44, 3220.8203m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth45:
+        description: Dissolved Iron (depth 45, 3597.0320m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth46:
+        description: Dissolved Iron (depth 46, 3992.4839m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth47:
+        description: Dissolved Iron (depth 47, 4405.2241m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth48:
+        description: Dissolved Iron (depth 48, 4833.2905m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth49:
+        description: Dissolved Iron (depth 49, 5274.7842m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+      fe_depth50:
+        description: Dissolved Iron (depth 50, 5727.9165m)
+        units: mmol/m^3
+        min: 0
+        max: 0.01
+
+  COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/OPTICS:
+    title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - OPTICS
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+      kd_depth1:
+        description: diffuse attenuation coeff of light in sea water (depth 1, 0.4940m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth2:
+        description: diffuse attenuation coeff of light in sea water (depth 2, 1.5414m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth3:
+        description: diffuse attenuation coeff of light in sea water (depth 3, 2.6457m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth4:
+        description: diffuse attenuation coeff of light in sea water (depth 4, 3.8195m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth5:
+        description: diffuse attenuation coeff of light in sea water (depth 5, 5.0782m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth6:
+        description: diffuse attenuation coeff of light in sea water (depth 6, 6.4406m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth7:
+        description: diffuse attenuation coeff of light in sea water (depth 7, 7.9296m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth8:
+        description: diffuse attenuation coeff of light in sea water (depth 8, 9.5730m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth9:
+        description: diffuse attenuation coeff of light in sea water (depth 9, 11.4050m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth10:
+        description: diffuse attenuation coeff of light in sea water (depth 10, 13.4671m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth11:
+        description: diffuse attenuation coeff of light in sea water (depth 11, 15.8101m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth12:
+        description: diffuse attenuation coeff of light in sea water (depth 12, 18.4956m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth13:
+        description: diffuse attenuation coeff of light in sea water (depth 13, 21.5988m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth14:
+        description: diffuse attenuation coeff of light in sea water (depth 14, 25.2114m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth15:
+        description: diffuse attenuation coeff of light in sea water (depth 15, 29.4447m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth16:
+        description: diffuse attenuation coeff of light in sea water (depth 16, 34.4342m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth17:
+        description: diffuse attenuation coeff of light in sea water (depth 17, 40.3441m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth18:
+        description: diffuse attenuation coeff of light in sea water (depth 18, 47.3737m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth19:
+        description: diffuse attenuation coeff of light in sea water (depth 19, 55.7643m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth20:
+        description: diffuse attenuation coeff of light in sea water (depth 20, 65.8073m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth21:
+        description: diffuse attenuation coeff of light in sea water (depth 21, 77.8539m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth22:
+        description: diffuse attenuation coeff of light in sea water (depth 22, 92.3261m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth23:
+        description: diffuse attenuation coeff of light in sea water (depth 23, 109.7293m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth24:
+        description: diffuse attenuation coeff of light in sea water (depth 24, 130.6660m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth25:
+        description: diffuse attenuation coeff of light in sea water (depth 25, 155.8507m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth26:
+        description: diffuse attenuation coeff of light in sea water (depth 26, 186.1256m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth27:
+        description: diffuse attenuation coeff of light in sea water (depth 27, 222.4752m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth28:
+        description: diffuse attenuation coeff of light in sea water (depth 28, 266.0403m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth29:
+        description: diffuse attenuation coeff of light in sea water (depth 29, 318.1274m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth30:
+        description: diffuse attenuation coeff of light in sea water (depth 30, 380.2130m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth31:
+        description: diffuse attenuation coeff of light in sea water (depth 31, 453.9377m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth32:
+        description: diffuse attenuation coeff of light in sea water (depth 32, 541.0889m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth33:
+        description: diffuse attenuation coeff of light in sea water (depth 33, 643.5668m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth34:
+        description: diffuse attenuation coeff of light in sea water (depth 34, 763.3331m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth35:
+        description: diffuse attenuation coeff of light in sea water (depth 35, 902.3393m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth36:
+        description: diffuse attenuation coeff of light in sea water (depth 36, 1062.4397m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth37:
+        description: diffuse attenuation coeff of light in sea water (depth 37, 1245.2911m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth38:
+        description: diffuse attenuation coeff of light in sea water (depth 38, 1452.2510m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth39:
+        description: diffuse attenuation coeff of light in sea water (depth 39, 1684.2844m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth40:
+        description: diffuse attenuation coeff of light in sea water (depth 40, 1941.8934m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth41:
+        description: diffuse attenuation coeff of light in sea water (depth 41, 2225.0779m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth42:
+        description: diffuse attenuation coeff of light in sea water (depth 42, 2533.3362m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth43:
+        description: diffuse attenuation coeff of light in sea water (depth 43, 2865.7026m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth44:
+        description: diffuse attenuation coeff of light in sea water (depth 44, 3220.8203m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth45:
+        description: diffuse attenuation coeff of light in sea water (depth 45, 3597.0320m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth46:
+        description: diffuse attenuation coeff of light in sea water (depth 46, 3992.4839m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth47:
+        description: diffuse attenuation coeff of light in sea water (depth 47, 4405.2241m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth48:
+        description: diffuse attenuation coeff of light in sea water (depth 48, 4833.2905m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth49:
+        description: diffuse attenuation coeff of light in sea water (depth 49, 5274.7842m)
+        units: m^-1
+        min: 0
+        max: 0.478
+      kd_depth50:
+        description: diffuse attenuation coeff of light in sea water (depth 50, 5727.9165m)
+        units: m^-1
+        min: 0
+        max: 0.478
+
+  COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/PFT:
+    title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - PFT
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+      chl_depth1:
+        description: Total Chlorophyll (depth 1, 0.4940m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth2:
+        description: Total Chlorophyll (depth 2, 1.5414m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth3:
+        description: Total Chlorophyll (depth 3, 2.6457m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth4:
+        description: Total Chlorophyll (depth 4, 3.8195m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth5:
+        description: Total Chlorophyll (depth 5, 5.0782m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth6:
+        description: Total Chlorophyll (depth 6, 6.4406m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth7:
+        description: Total Chlorophyll (depth 7, 7.9296m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth8:
+        description: Total Chlorophyll (depth 8, 9.5730m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth9:
+        description: Total Chlorophyll (depth 9, 11.4050m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth10:
+        description: Total Chlorophyll (depth 10, 13.4671m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth11:
+        description: Total Chlorophyll (depth 11, 15.8101m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth12:
+        description: Total Chlorophyll (depth 12, 18.4956m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth13:
+        description: Total Chlorophyll (depth 13, 21.5988m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth14:
+        description: Total Chlorophyll (depth 14, 25.2114m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth15:
+        description: Total Chlorophyll (depth 15, 29.4447m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth16:
+        description: Total Chlorophyll (depth 16, 34.4342m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth17:
+        description: Total Chlorophyll (depth 17, 40.3441m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth18:
+        description: Total Chlorophyll (depth 18, 47.3737m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth19:
+        description: Total Chlorophyll (depth 19, 55.7643m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth20:
+        description: Total Chlorophyll (depth 20, 65.8073m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth21:
+        description: Total Chlorophyll (depth 21, 77.8539m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth22:
+        description: Total Chlorophyll (depth 22, 92.3261m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth23:
+        description: Total Chlorophyll (depth 23, 109.7293m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth24:
+        description: Total Chlorophyll (depth 24, 130.6660m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth25:
+        description: Total Chlorophyll (depth 25, 155.8507m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth26:
+        description: Total Chlorophyll (depth 26, 186.1256m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth27:
+        description: Total Chlorophyll (depth 27, 222.4752m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth28:
+        description: Total Chlorophyll (depth 28, 266.0403m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth29:
+        description: Total Chlorophyll (depth 29, 318.1274m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth30:
+        description: Total Chlorophyll (depth 30, 380.2130m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth31:
+        description: Total Chlorophyll (depth 31, 453.9377m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth32:
+        description: Total Chlorophyll (depth 32, 541.0889m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth33:
+        description: Total Chlorophyll (depth 33, 643.5668m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth34:
+        description: Total Chlorophyll (depth 34, 763.3331m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth35:
+        description: Total Chlorophyll (depth 35, 902.3393m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth36:
+        description: Total Chlorophyll (depth 36, 1062.4397m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth37:
+        description: Total Chlorophyll (depth 37, 1245.2911m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth38:
+        description: Total Chlorophyll (depth 38, 1452.2510m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth39:
+        description: Total Chlorophyll (depth 39, 1684.2844m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth40:
+        description: Total Chlorophyll (depth 40, 1941.8934m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth41:
+        description: Total Chlorophyll (depth 41, 2225.0779m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth42:
+        description: Total Chlorophyll (depth 42, 2533.3362m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth43:
+        description: Total Chlorophyll (depth 43, 2865.7026m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth44:
+        description: Total Chlorophyll (depth 44, 3220.8203m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth45:
+        description: Total Chlorophyll (depth 45, 3597.0320m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth46:
+        description: Total Chlorophyll (depth 46, 3992.4839m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth47:
+        description: Total Chlorophyll (depth 47, 4405.2241m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth48:
+        description: Total Chlorophyll (depth 48, 4833.2905m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth49:
+        description: Total Chlorophyll (depth 49, 5274.7842m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      chl_depth50:
+        description: Total Chlorophyll (depth 50, 5727.9165m)
+        units: mg/m^3
+        min: 0
+        max: 27
+      phyc_depth1:
+        description: Total Phytoplankton (depth 1, 0.4940m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth2:
+        description: Total Phytoplankton (depth 2, 1.5414m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth3:
+        description: Total Phytoplankton (depth 3, 2.6457m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth4:
+        description: Total Phytoplankton (depth 4, 3.8195m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth5:
+        description: Total Phytoplankton (depth 5, 5.0782m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth6:
+        description: Total Phytoplankton (depth 6, 6.4406m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth7:
+        description: Total Phytoplankton (depth 7, 7.9296m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth8:
+        description: Total Phytoplankton (depth 8, 9.5730m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth9:
+        description: Total Phytoplankton (depth 9, 11.4050m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth10:
+        description: Total Phytoplankton (depth 10, 13.4671m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth11:
+        description: Total Phytoplankton (depth 11, 15.8101m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth12:
+        description: Total Phytoplankton (depth 12, 18.4956m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth13:
+        description: Total Phytoplankton (depth 13, 21.5988m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth14:
+        description: Total Phytoplankton (depth 14, 25.2114m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth15:
+        description: Total Phytoplankton (depth 15, 29.4447m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth16:
+        description: Total Phytoplankton (depth 16, 34.4342m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth17:
+        description: Total Phytoplankton (depth 17, 40.3441m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth18:
+        description: Total Phytoplankton (depth 18, 47.3737m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth19:
+        description: Total Phytoplankton (depth 19, 55.7643m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth20:
+        description: Total Phytoplankton (depth 20, 65.8073m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth21:
+        description: Total Phytoplankton (depth 21, 77.8539m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth22:
+        description: Total Phytoplankton (depth 22, 92.3261m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth23:
+        description: Total Phytoplankton (depth 23, 109.7293m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth24:
+        description: Total Phytoplankton (depth 24, 130.6660m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth25:
+        description: Total Phytoplankton (depth 25, 155.8507m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth26:
+        description: Total Phytoplankton (depth 26, 186.1256m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth27:
+        description: Total Phytoplankton (depth 27, 222.4752m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth28:
+        description: Total Phytoplankton (depth 28, 266.0403m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth29:
+        description: Total Phytoplankton (depth 29, 318.1274m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth30:
+        description: Total Phytoplankton (depth 30, 380.2130m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth31:
+        description: Total Phytoplankton (depth 31, 453.9377m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth32:
+        description: Total Phytoplankton (depth 32, 541.0889m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth33:
+        description: Total Phytoplankton (depth 33, 643.5668m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth34:
+        description: Total Phytoplankton (depth 34, 763.3331m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth35:
+        description: Total Phytoplankton (depth 35, 902.3393m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth36:
+        description: Total Phytoplankton (depth 36, 1062.4397m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth37:
+        description: Total Phytoplankton (depth 37, 1245.2911m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth38:
+        description: Total Phytoplankton (depth 38, 1452.2510m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth39:
+        description: Total Phytoplankton (depth 39, 1684.2844m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth40:
+        description: Total Phytoplankton (depth 40, 1941.8934m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth41:
+        description: Total Phytoplankton (depth 41, 2225.0779m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth42:
+        description: Total Phytoplankton (depth 42, 2533.3362m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth43:
+        description: Total Phytoplankton (depth 43, 2865.7026m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth44:
+        description: Total Phytoplankton (depth 44, 3220.8203m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth45:
+        description: Total Phytoplankton (depth 45, 3597.0320m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth46:
+        description: Total Phytoplankton (depth 46, 3992.4839m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth47:
+        description: Total Phytoplankton (depth 47, 4405.2241m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth48:
+        description: Total Phytoplankton (depth 48, 4833.2905m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth49:
+        description: Total Phytoplankton (depth 49, 5274.7842m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+      phyc_depth50:
+        description: Total Phytoplankton (depth 50, 5727.9165m)
+        units: mmol/m^3
+        min: 0
+        max: 117
+
+  COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/PLANKTON:
+    title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - PLANKTON
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+      zooc_depth1:
+        description: Total Zooplankton (depth 1, 0.4940m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth2:
+        description: Total Zooplankton (depth 2, 1.5414m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth3:
+        description: Total Zooplankton (depth 3, 2.6457m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth4:
+        description: Total Zooplankton (depth 4, 3.8195m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth5:
+        description: Total Zooplankton (depth 5, 5.0782m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth6:
+        description: Total Zooplankton (depth 6, 6.4406m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth7:
+        description: Total Zooplankton (depth 7, 7.9296m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth8:
+        description: Total Zooplankton (depth 8, 9.5730m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth9:
+        description: Total Zooplankton (depth 9, 11.4050m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth10:
+        description: Total Zooplankton (depth 10, 13.4671m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth11:
+        description: Total Zooplankton (depth 11, 15.8101m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth12:
+        description: Total Zooplankton (depth 12, 18.4956m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth13:
+        description: Total Zooplankton (depth 13, 21.5988m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth14:
+        description: Total Zooplankton (depth 14, 25.2114m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth15:
+        description: Total Zooplankton (depth 15, 29.4447m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth16:
+        description: Total Zooplankton (depth 16, 34.4342m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth17:
+        description: Total Zooplankton (depth 17, 40.3441m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth18:
+        description: Total Zooplankton (depth 18, 47.3737m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth19:
+        description: Total Zooplankton (depth 19, 55.7643m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth20:
+        description: Total Zooplankton (depth 20, 65.8073m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth21:
+        description: Total Zooplankton (depth 21, 77.8539m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth22:
+        description: Total Zooplankton (depth 22, 92.3261m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth23:
+        description: Total Zooplankton (depth 23, 109.7293m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth24:
+        description: Total Zooplankton (depth 24, 130.6660m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth25:
+        description: Total Zooplankton (depth 25, 155.8507m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth26:
+        description: Total Zooplankton (depth 26, 186.1256m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth27:
+        description: Total Zooplankton (depth 27, 222.4752m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth28:
+        description: Total Zooplankton (depth 28, 266.0403m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth29:
+        description: Total Zooplankton (depth 29, 318.1274m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth30:
+        description: Total Zooplankton (depth 30, 380.2130m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth31:
+        description: Total Zooplankton (depth 31, 453.9377m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth32:
+        description: Total Zooplankton (depth 32, 541.0889m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth33:
+        description: Total Zooplankton (depth 33, 643.5668m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth34:
+        description: Total Zooplankton (depth 34, 763.3331m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth35:
+        description: Total Zooplankton (depth 35, 902.3393m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth36:
+        description: Total Zooplankton (depth 36, 1062.4397m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth37:
+        description: Total Zooplankton (depth 37, 1245.2911m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth38:
+        description: Total Zooplankton (depth 38, 1452.2510m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth39:
+        description: Total Zooplankton (depth 39, 1684.2844m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth40:
+        description: Total Zooplankton (depth 40, 1941.8934m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth41:
+        description: Total Zooplankton (depth 41, 2225.0779m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth42:
+        description: Total Zooplankton (depth 42, 2533.3362m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth43:
+        description: Total Zooplankton (depth 43, 2865.7026m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth44:
+        description: Total Zooplankton (depth 44, 3220.8203m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth45:
+        description: Total Zooplankton (depth 45, 3597.0320m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth46:
+        description: Total Zooplankton (depth 46, 3992.4839m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth47:
+        description: Total Zooplankton (depth 47, 4405.2241m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth48:
+        description: Total Zooplankton (depth 48, 4833.2905m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth49:
+        description: Total Zooplankton (depth 49, 5274.7842m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+      zooc_depth50:
+        description: Total Zooplankton (depth 50, 5727.9165m)
+        units: mmol/m^3
+        min: 0
+        max: 5
+
+  COPERNICUS/MARINE/OC_GLO_BGC/PLANKTON_MULTI_4KM:
+    title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Plankton,'
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4000
+    extent:
+      start_date: "2025-02-10"
+      end_date: null
+    default_reducer: mosaic
+    terms: This dataset is released for use under Service Level Agreement (SLA),
+    bands:
+      CHL:
+        description: Chlorophyll-a concentration
+        units: mg/m^3
+      CHL_uncertainty:
+        description: Chlorophyll-a concentration - The uncertainty as measured in
+        units: '%'
+      flags:
+        description: Land water mask bit.
+
+  COPERNICUS/MARINE/OC_GLO_BGC/PRIMARY_PRODUCTION_MULTI_4KM:
+    title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Primary Production,'
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4000
+    extent:
+      start_date: "2025-03-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: This dataset is released for use under Service Level Agreement (SLA),
+    bands:
+      PP:
+        description: Primary Production
+        units: mg/day/m^2
+      PP_uncertainty:
+        description: Primary Production - The uncertainty as measured in hundredths of a
+        units: '%'
+      flags:
+        description: Land water mask bit.
+
+  COPERNICUS/MARINE/OC_GLO_BGC/REFLECTANCE_MULTI_4KM:
+    title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Reflectance,'
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4000
+    extent:
+      start_date: "2025-03-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: This dataset is released for use under Service Level Agreement (SLA),
+    bands:
+      RRS412:
+        description: Remote Sensing Reflectance at 412 nm
+        units: sr^-1
+      RRS412_uncertainty:
+        description: Remote Sensing Reflectance at 412 nm - The uncertainty as measured in
+        units: '%'
+      RRS443:
+        description: Remote Sensing Reflectance at 443 nm
+        units: sr^-1
+      RRS443_uncertainty:
+        description: Remote Sensing Reflectance at 443 nm - The uncertainty as measured in
+        units: '%'
+      RRS490:
+        description: Remote Sensing Reflectance at 490 nm
+        units: sr^-1
+      RRS490_uncertainty:
+        description: Remote Sensing Reflectance at 490 nm - The uncertainty as measured in
+        units: '%'
+      RRS555:
+        description: Remote Sensing Reflectance at 555 nm
+        units: sr^-1
+      RRS555_uncertainty:
+        description: Remote Sensing Reflectance at 555 nm - The uncertainty as measured in
+        units: '%'
+      RRS670:
+        description: Remote Sensing Reflectance at 670 nm
+        units: sr^-1
+      RRS670_uncertainty:
+        description: Remote Sensing Reflectance at 670 nm - The uncertainty as measured in
+        units: '%'
+      flags:
+        description: Land water mask bit.
+
+  COPERNICUS/MARINE/OC_GLO_BGC/TRANSPARENCY_MULTI_4KM:
+    title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Transparency,'
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4000
+    extent:
+      start_date: "2025-02-10"
+      end_date: null
+    default_reducer: mosaic
+    terms: This dataset is released for use under Service Level Agreement (SLA),
+    bands:
+      KD490:
+        description: Diffuse attenuation coefficient at 490 nm
+        units: 1/m
+      KD490_uncertainty:
+        description: Diffuse attenuation coefficient at 490 nm - The uncertainty as
+        units: '%'
+      ZSD:
+        description: Secchi disk depth Transparency
+        units: m
+      ZSD_uncertainty:
+        description: Secchi disk depth Transparency - The uncertainty as measured in
+        units: '%'
+      flags:
+        description: Land water mask bit.
+
+  COPERNICUS/S5P/NRTI/L3_AER_LH:
+    title: 'Sentinel-5P NRTI AER LH: Near Real-Time UV Aerosol Layer Height'
+    provider: European Union/ESA/Copernicus
+    ee_type: image_collection
+    cadence: { interval: 2, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-07-10"
+      end_date: null
+    default_reducer: mosaic
+    terms: The use of Sentinel data is governed by the [Copernicus
+    bands:
+      aerosol_height:
+        description: The aerosol layer pressure is converted into an aerosol layer altitude using an
+        units: m
+        min: -81.17
+        max: 67622.56
+      aerosol_pressure:
+        description: Pressure of an aerosol layer with an assumed pressure thickness of (currently) 50
+        units: Pa
+        min: 2.69
+        max: 102885.94
+      aerosol_optical_depth:
+        description: Aerosol optical thickness &tau; of the assumed aerosol layer. The optical thickness
+        units: Pa
+        min: -0.6
+        max: 37.42
+      sensor_azimuth_angle:
+        description: Azimuth angle of the satellite at the ground pixel location (WGS84); angle
+        units: deg
+        min: -180
+        max: 180
+      sensor_zenith_angle:
+        description: Zenith angle of the satellite at the ground pixel location (WGS84); angle
+        units: deg
+        min: 0.098
+        max: 66.87
+      solar_azimuth_angle:
+        description: Azimuth angle of the Sun at the ground pixel location (WGS84); angle
+        units: deg
+        min: -180
+        max: 180
+      solar_zenith_angle:
+        description: Zenith angle of the satellite at the ground pixel location (WGS84); angle
+        units: deg
+        min: 12.93
+        max: 74.7
