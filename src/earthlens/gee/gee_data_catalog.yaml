@@ -47922,3 +47922,1189 @@ datasets:
       Nighttime:
         description: Nighttime UHI
         units: 'deg_C'
+
+  BLM/AIM/v1/TerrADat/TerrestrialAIM:
+    title: BLM AIM TerrADat TerrestrialAIM Point v1
+    provider: US Department of Interior Bureau of Land Management (BLM)
+    ee_type: table
+    extent:
+      start_date: "2011-05-10"
+      end_date: null
+    default_reducer: mean
+    terms: These data are considered public domain.
+    bands:
+
+  CIESIN/GPWv411/GPW_Data_Context:
+    title: 'GPWv411: Data Context (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      data_context:
+        description: Categorizes pixels with estimated zero population based on
+        min: 0
+        max: 207
+
+  CIESIN/GPWv411/GPW_Mean_Administrative_Unit_Area:
+    title: 'GPWv411: Mean Administrative Unit Area (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_administrative_unit_area:
+        description: Displays a quantitative surface that indicates the size of the
+        min: 0
+        max: 767642
+
+  CIESIN/GPWv411/GPW_National_Identifier_Grid:
+    title: 'GPWv411: National Identifier Grid (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      national_identifier_grid:
+        description: An integer that represents the census data source used
+        min: 4
+        max: 999
+
+  COPERNICUS/MARINE/INSITU_MULTI_4KM/ARGO:
+    title: Copernicus Global In-situ Observations of Ocean Currents - Argo
+    provider: Copernicus
+    ee_type: bigquery_table
+    extent:
+      start_date: "2025-03-28"
+      end_date: null
+    default_reducer: mean
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+
+  COPERNICUS/MARINE/INSITU_MULTI_4KM/DRIFTER:
+    title: Copernicus Global In-situ Observations of Ocean Currents - Drifter
+    provider: Copernicus
+    ee_type: bigquery_table
+    extent:
+      start_date: "2025-03-28"
+      end_date: null
+    default_reducer: mean
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+
+  COPERNICUS/MARINE/INSITU_MULTI_4KM/RADAR_RADIAL:
+    title: Copernicus Global In-situ Observations of Ocean Currents - Radar Radial
+    provider: Copernicus
+    ee_type: bigquery_table
+    extent:
+      start_date: "2025-03-28"
+      end_date: null
+    default_reducer: mean
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+
+  COPERNICUS/MARINE/INSITU_MULTI_4KM/RADAR_TOTAL:
+    title: Copernicus Global In-situ Observations of Ocean Currents - Radar Total
+    provider: Copernicus
+    ee_type: bigquery_table
+    extent:
+      start_date: "2025-03-28"
+      end_date: null
+    default_reducer: mean
+    terms: The data is provided free of charge by the Copernicus Marine Service.
+    bands:
+
+  COPERNICUS/MARINE/OC_GLO_BGC/OPTICS_MULTI_4KM:
+    title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Optics, Multi-Sensor'
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4000
+    extent:
+      start_date: "2025-03-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is released for use under Service Level Agreement (SLA),
+    bands:
+      BBP:
+        description: Particulate Backscattering
+        units: 1/m
+      BBP_uncertainty:
+        description: Particulate Backscattering - The uncertainty as measured in hundredths
+        units: '%'
+      CDM:
+        description: Absorption coefficient
+        units: 1/m
+      CDM_uncertainty:
+        description: Absorption coefficient - The uncertainty as measured in hundredths of
+        units: '%'
+      flags:
+        description: Land water mask bit.
+
+  COPERNICUS/MARINE/OC_GLO_BGC/TRANSPARENCY_OLCI_4KM:
+    title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Transparency,'
+    provider: Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4000
+    extent:
+      start_date: "2025-03-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is released for use under Service Level Agreement (SLA),
+    bands:
+      KD490:
+        description: Diffuse attenuation coefficient at 490 nm
+        units: 1/m
+      KD490_uncertainty:
+        description: Diffuse attenuation coefficient at 490 nm - The uncertainty as
+        units: '%'
+      flags:
+        description: Land water mask bit.
+
+  COPERNICUS/MARINE/WAV/ANFC_0_083DEG_PT3H:
+    title: Global Ocean Waves Analysis and Forecast
+    provider: Copernicus Marine Service Global Ocean Waves and Forecasts
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 9276.62
+    extent:
+      start_date: "2022-06-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is released for use under Service Level Agreement (SLA),
+    bands:
+      VHM0:
+        description: Spectral significant wave height
+        units: m
+      VHM0_WW:
+        description: Significant wave height of wind sea
+        units: m
+      VTM01_SW1:
+        description: Spectral moments (0,1) wave period of primary swell
+        units: seconds
+      VTM01_SW2:
+        description: Spectral moments (0,1) wave period of secondary swell
+        units: seconds
+      VTM10:
+        description: Spectral moments (-1,0) wave period
+        units: seconds
+      VHM0_SW1:
+        description: Significant wave height of primary swell
+        units: m
+      VHM0_SW2:
+        description: Significant wave height of secondary swell
+        units: m
+      VTPK:
+        description: Wave period at spectral peak
+        units: seconds
+      VSDX:
+        description: Stokes drift U component
+        units: m/s
+      VSDY:
+        description: Stokes drift V component
+        units: m/s
+      VCMX:
+        description: Maximum crest trough wave height
+        units: m
+      VTM02:
+        description: Spectral moments (0,2) wave period
+        units: seconds
+      VTM01_WW:
+        description: Spectral moments (0,1) wave period of wind sea
+        units: seconds
+      VMDR_WW:
+        description: Mean wave direction of wind sea
+        units: deg
+      VMDR_SW1:
+        description: Mean wave direction of primary swell
+        units: deg
+      VMDR_SW2:
+        description: Mean wave direction of secondary swell
+        units: deg
+      VMDR:
+        description: Mean wave direction
+        units: deg
+      VPED:
+        description: Peak wave direction
+        units: deg
+      VMXL:
+        description: Height of the highest crest
+        units: m
+
+  COPERNICUS/MARINE/WAV/ANFC_0_083DEG_STATIC:
+    title: Global Ocean Waves Static Bathymetry
+    provider: Copernicus Marine Service Global Ocean Waves and Forecasts
+    ee_type: image_collection
+    spatial_resolution: 9276.62
+    extent:
+      start_date: "2022-06-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is released for use under Service Level Agreement (SLA),
+    bands:
+      deptho:
+        description: Sea floor depth
+        units: m
+
+  ECMWF/NRT_FORECAST/IFS/OPER:
+    title: ECMWF Near-Realtime IFS Atmospheric Forecasts
+    provider: ECMWF
+    ee_type: image_collection
+    cadence: { interval: 12, unit: hour }
+    spatial_resolution: 28000
+    extent:
+      start_date: "2024-11-12"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      u_component_of_wind_100m_sfc:
+        description: The horizontal speed of air moving towards the east, at a height of
+        units: m/s
+        min: -53.36
+        max: 53.26
+      v_component_of_wind_100m_sfc:
+        description: The horizontal speed of air moving towards the north, at a height of
+        units: m/s
+        min: -49.45
+        max: 63.75
+      u_component_of_wind_10m_sfc:
+        description: The horizontal speed of air moving towards the east, at a height of
+        units: m/s
+        min: -46.87
+        max: 46.25
+      v_component_of_wind_10m_sfc:
+        description: The horizontal speed of air moving towards the north, at a height of
+        units: m/s
+        min: -43.74
+        max: 57.4
+      dewpoint_temperature_2m_sfc:
+        description: The temperature to which the air, at 2 meters above the surface of
+        units: 'deg_C'
+        min: -79.58
+        max: 30.25
+      temperature_2m_sfc:
+        description: The temperature of air at 2m above the surface of land, sea or in-land
+        units: 'deg_C'
+        min: -79.58
+        max: 46.33
+      snow_albedo_sfc:
+        description: The fraction of solar (shortwave) radiation reflected by snow across
+        units: Dimensionless
+        min: 0.5
+        max: 0.85
+      eastward_turbulent_surface_stress_sfc:
+        description: The accumulated stress on the Earth's surface in the eastward
+        units: Pa s
+        min: -12311551
+        max: 14940493
+      divergence_pl100:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.0012
+        max: 0.002
+      divergence_pl1000:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.0018
+        max: 0.0001
+      divergence_pl150:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.001
+        max: 0.0016
+      divergence_pl200:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.001
+        max: 0.0012
+      divergence_pl250:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.001
+        max: 0.0011
+      divergence_pl300:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.0014
+        max: 0.0011
+      divergence_pl400:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.001
+        max: 0.001
+      divergence_pl50:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.0013
+        max: 0.001
+      divergence_pl500:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.001
+        max: 0.001
+      divergence_pl600:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.0011
+        max: 0.001
+      divergence_pl700:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.0012
+        max: 0.0009
+      divergence_pl850:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.0011
+        max: 0.001
+      divergence_pl925:
+        description: The rate at which air is spreading out horizontally from a point, per
+        units: Pa s
+        min: -0.0016
+        max: 0.0011
+      geopotential_height_pl100:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 14693.9
+        max: 16815.55
+      geopotential_height_pl1000:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: -647.25
+        max: 452.31
+      geopotential_height_pl150:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 12279.07
+        max: 14446.04
+      geopotential_height_pl200:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 10524.51
+        max: 12608.83
+      geopotential_height_pl250:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 9148.03
+        max: 11099.75
+      geopotential_height_pl300:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 7999.95
+        max: 9810.31
+      geopotential_height_pl400:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 6111.43
+        max: 7694.22
+      geopotential_height_pl50:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 18601.52
+        max: 20939.84
+      geopotential_height_pl500:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 4627.77
+        max: 5974.44
+      geopotential_height_pl600:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 3384.05
+        max: 4526.21
+      geopotential_height_pl700:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 2251.74
+        max: 3281.08
+      geopotential_height_pl850:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 742.93
+        max: 1711.14
+      geopotential_height_pl925:
+        description: A measure of the height of a point in the atmosphere in relation to
+        units: gpm
+        min: 32.27
+        max: 1057.44
+      land_sea_mask_sfc:
+        description: The proportion of land, as opposed to ocean or inland waters (lakes,
+        units: Dimensionless
+        min: 0
+        max: 1
+      mean_sea_level_pressure_sfc:
+        description: A measure of the weight that all the air in a column vertically above
+        units: Pa
+        min: 92686.5
+        max: 106341.13
+      most_unstable_convective_available_potential_energy_sfc:
+        description: The parcel with the most Convective Available Potential Energy (CAPE,
+        units: J/kg
+        min: 0
+        max: 9833.5
+      northward_turbulent_surface_stress_sfc:
+        description: The accumulated stress on the Earth's surface in the northward
+        units: Pa s
+        min: -6431634
+        max: 8478005
+      precipitation_type_sfc:
+        description: 'The type of precipitation at the surface:'
+        min: 0
+        max: 12
+      specific_humidity_pl100:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 2.5e-05
+      specific_humidity_pl1000:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.027
+      specific_humidity_pl150:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.00017
+      specific_humidity_pl200:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.00089
+      specific_humidity_pl250:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.0024
+      specific_humidity_pl300:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.0044
+      specific_humidity_pl400:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.0064
+      specific_humidity_pl50:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 7.3e-06
+      specific_humidity_pl500:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.0097
+      specific_humidity_pl600:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.012
+      specific_humidity_pl700:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.015
+      specific_humidity_pl850:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.019
+      specific_humidity_pl925:
+        description: The mass of water vapour per kilogram of moist air (the sum of the dry
+        units: Mass fraction
+        min: 0
+        max: 0.024
+      relative_humidity_pl100:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -6.15
+        max: 137.32
+      relative_humidity_pl1000:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -8.75
+        max: 131.46
+      relative_humidity_pl150:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -5.93
+        max: 160.47
+      relative_humidity_pl200:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -6.54
+        max: 145.93
+      relative_humidity_pl250:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -7.08
+        max: 143.48
+      relative_humidity_pl300:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -8.08
+        max: 136.92
+      relative_humidity_pl400:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -12.31
+        max: 136.92
+      relative_humidity_pl50:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: 0.021
+        max: 140.17
+      relative_humidity_pl500:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -10.16
+        max: 126.13
+      relative_humidity_pl600:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -8.73
+        max: 132.07
+      relative_humidity_pl700:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -8.6
+        max: 131.5
+      relative_humidity_pl850:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -7.04
+        max: 131.48
+      relative_humidity_pl925:
+        description: The water vapour pressure as a percentage of the value at which the
+        units: '%'
+        min: -9.61
+        max: 132.04
+      runoff_sfc:
+        description: A cumulative measurement (since forecast hour 0) of the amount of
+        units: m
+        min: 0
+        max: 1.85
+      sea_ice_thickness_sfc:
+        description: Sea ice thickness.
+        units: m
+        min: 0
+        max: 9999
+      skin_temperature_sfc:
+        description: The temperature of the surface of the Earth. It represents the
+        units: 'deg_C'
+        min: -82.08
+        max: 69.6
+      soil_temperature_sol1:
+        description: The temperature of the soil at the middle of layer 1, 0-7 cm below
+        units: K
+        min: 214.05
+        max: 330.78
+      soil_temperature_sol2:
+        description: The temperature of the soil at the middle of layer 2, 7-28 cm below
+        units: K
+        min: 214.06
+        max: 318.86
+      soil_temperature_sol3:
+        description: The temperature of the soil at the middle of layer 3, 28-100 cm below
+        units: K
+        min: 214.1
+        max: 314.26
+      soil_temperature_sol4:
+        description: The temperature of the soil at the middle of layer 4, 100-289 cm below
+        units: K
+        min: 214.17
+        max: 314.41
+      surface_pressure_sfc:
+        description: The pressure (force per unit area) of the atmosphere on the surface of
+        units: Pa
+        min: 47323.99
+        max: 107444.59
+      surface_net_solar_radiation_sfc:
+        description: A cumulative measurement (since forecast hour 0) of the amount of
+        units: J/m^2
+        min: 0
+        max: 492011520
+      surface_solar_radiation_downwards_sfc:
+        description: A cumulative measurement (since forecast hour 0) of the amount of
+        units: J/m^2
+        min: 0
+        max: 611336192
+      surface_net_thermal_radiation_sfc:
+        description: A cumulative measurement (since forecast hour 0) of the difference
+        units: J/m^2
+        min: -287437568
+        max: 14857416
+      surface_thermal_radiation_downwards_sfc:
+        description: A cumulative measurement (since forecast hour 0) of the amount of
+        units: J/m^2
+        min: 0
+        max: 589142976
+      eastward_surface_sea_water_velocity_sfc:
+        description: The velocity of sea water moving east.
+        units: m/s
+        min: -3.77
+        max: 2.03
+      northward_surface_sea_water_velocity_sfc:
+        description: The velocity of sea water moving north.
+        units: m/s
+        min: -2.74
+        max: 1.82
+      temperature_pl100:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -90.11
+        max: -31.75
+      temperature_pl1000:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -52.05
+        max: 46.79
+      temperature_pl150:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -85.44
+        max: -34.15
+      temperature_pl200:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -79.16
+        max: -32.29
+      temperature_pl250:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -74.3
+        max: -23.39
+      temperature_pl300:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -68.69
+        max: -13.95
+      temperature_pl400:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -60.07
+        max: -2.25
+      temperature_pl50:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -91.63
+        max: -18.46
+      temperature_pl500:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -53.27
+        max: 8.57
+      temperature_pl600:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -70.11
+        max: 18.69
+      temperature_pl700:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -69.81
+        max: 24.5
+      temperature_pl850:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -54.99
+        max: -35.58
+      temperature_pl925:
+        description: The temperature of the atmoshere at a pressure level of
+        units: 'deg_C'
+        min: -52.38
+        max: 42.02
+      total_column_water_sfc:
+        description: The sum of water vapour, liquid water, cloud ice, rain and snow in a
+        units: kg/m^2
+        min: 0.05
+        max: 127.04
+      total_column_water_vapour_sfc:
+        description: The total amount of water vapour in a column extending from the
+        units: kg/m^2
+        min: 0.05
+        max: 83.54
+      total_precipitation_sfc:
+        description: Cumulative measurement (since forecast hour 0) of the amount of liquid
+        units: m
+        min: 0
+        max: 1.86
+      total_precipitation_rate_sfc:
+        description: The mean rate of total precipitation as the water equivalent in
+        units: m/s
+        min: 0
+        max: 0.023
+      top_net_thermal_radiation_sfc:
+        description: Cumulative measurement (since forecast hour 0) of negative Outgoing
+        units: J/m^2
+        min: -425198592
+        max: 0
+      u_component_of_wind_pl100:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -47.11
+        max: 86.87
+      u_component_of_wind_pl1000:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -38.74
+        max: 39.05
+      u_component_of_wind_pl150:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -50.5
+        max: 102.75
+      u_component_of_wind_pl200:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -58.21
+        max: 120
+      u_component_of_wind_pl250:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -58.35
+        max: 120.48
+      u_component_of_wind_pl300:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -58.68
+        max: 119.08
+      u_component_of_wind_pl400:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -57.09
+        max: 96.34
+      u_component_of_wind_pl50:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -62.03
+        max: 77.22
+      u_component_of_wind_pl500:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -58.43
+        max: 83.02
+      u_component_of_wind_pl600:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -57.8
+        max: 65.01
+      u_component_of_wind_pl700:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -57.72
+        max: 56.19
+      u_component_of_wind_pl850:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -60.52
+        max: 57.48
+      u_component_of_wind_pl925:
+        description: The horizontal speed of air moving towards the east at a pressure
+        units: m/s
+        min: -56.88
+        max: 55.04
+      v_component_of_wind_pl100:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -57.62
+        max: 49.17
+      v_component_of_wind_pl1000:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -40.45
+        max: 43.98
+      v_component_of_wind_pl150:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -61.4
+        max: 64.33
+      v_component_of_wind_pl200:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -76.17
+        max: 82.86
+      v_component_of_wind_pl250:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -86.18
+        max: 94.55
+      v_component_of_wind_pl300:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -87.37
+        max: 91.05
+      v_component_of_wind_pl400:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -73.27
+        max: 83.39
+      v_component_of_wind_pl50:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -74.6
+        max: 71.44
+      v_component_of_wind_pl500:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -62.97
+        max: 71.87
+      v_component_of_wind_pl600:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -52.43
+        max: 63.38
+      v_component_of_wind_pl700:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -57.63
+        max: 57.62
+      v_component_of_wind_pl850:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -60.95
+        max: 62.67
+      v_component_of_wind_pl925:
+        description: The horizontal speed of air moving towards the north at a pressure
+        units: m/s
+        min: -59.31
+        max: 59.9
+      vorticity_pl100:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.001
+        max: 0.0012
+      vorticity_pl1000:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0033
+        max: 0.002
+      vorticity_pl150:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0012
+        max: 0.0012
+      vorticity_pl200:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0018
+        max: 0.0009
+      vorticity_pl250:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0021
+        max: 0.0012
+      vorticity_pl300:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0026
+        max: 0.0017
+      vorticity_pl400:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0031
+        max: 0.0019
+      vorticity_pl50:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.001
+        max: 0.0011
+      vorticity_pl500:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0033
+        max: 0.0022
+      vorticity_pl600:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0033
+        max: 0.0022
+      vorticity_pl700:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0038
+        max: 0.0022
+      vorticity_pl850:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0039
+        max: 0.0023
+      vorticity_pl925:
+        description: The rotation of air in the horizontal, around a vertical axis,
+        units: 1/s
+        min: -0.0045
+        max: 0.0025
+      volumetric_soil_moisture_sol1:
+        description: The volume of water in soil layer 1, 0-7 cm below the surface.
+        units: Volume fraction
+        min: 0
+        max: 0.77
+      volumetric_soil_moisture_sol2:
+        description: The volume of water in soil layer 2, 7-28 cm below the surface.
+        units: Volume fraction
+        min: 0
+        max: 0.77
+      volumetric_soil_moisture_sol3:
+        description: The volume of water in soil layer 3, 28-100 cm below the surface.
+        units: Volume fraction
+        min: 0
+        max: 0.77
+      volumetric_soil_moisture_sol4:
+        description: The volume of water in soil layer 4, 100-289 cm below the surface.
+        units: Volume fraction
+        min: 0
+        max: 0.77
+      vertical_velocity_pl100:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -5.59
+        max: 3.23
+      vertical_velocity_pl1000:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -5.17
+        max: 11.18
+      vertical_velocity_pl150:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -13.48
+        max: 4.36
+      vertical_velocity_pl200:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -17.38
+        max: 5.35
+      vertical_velocity_pl250:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -19.85
+        max: 5.28
+      vertical_velocity_pl300:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -21.45
+        max: 6.63
+      vertical_velocity_pl400:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -21.25
+        max: 14.18
+      vertical_velocity_pl50:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -2.38
+        max: 1.92
+      vertical_velocity_pl500:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -23.23
+        max: 15.84
+      vertical_velocity_pl600:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -27.57
+        max: 15.58
+      vertical_velocity_pl700:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -27.71
+        max: 14.34
+      vertical_velocity_pl850:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -20.67
+        max: 15.34
+      vertical_velocity_pl925:
+        description: The speed of air motion in the upward or downward direction, at a
+        units: Pa s
+        min: -12.33
+        max: 12.63
+      sea_surface_height_sfc:
+        description: Sea surface height.
+        units: m
+        min: -2.12
+        max: 9999
+      max_10m_wind_gust_since_last_post_processing_sfc:
+        description: Maximum 3 second wind at 10 m height as defined by World
+        units: m/s
+        min: 0
+        max: 72.95
+      max_10m_wind_gust_last_3h_sfc:
+        description: The maximum wind gust in the last 3 hours at a height of ten meters
+        units: m/s
+        min: 0
+        max: 76.4
+      min_2m_temperature_last_3h_sfc:
+        description: The lowest value of 2 meter temperature in the previous 3 hour period.
+        units: 'deg_C'
+        min: -273.15
+        max: 44.05
+      min_2m_temperature_last_6h_sfc:
+        description: The lowest value of 2 meter temperature in the previous 6 hour period.
+        units: 'deg_C'
+        min: -79.94
+        max: 44.01
+      max_2m_temperature_last_3h_sfc:
+        description: The highest value of 2 meter temperature in the previous 3 hour
+        units: 'deg_C'
+        min: -273.15
+        max: 47.31
+      max_2m_temperature_last_6h_sfc:
+        description: The highest value of 2 meter temperature in the previous 6 hour
+        units: 'deg_C'
+        min: -77.58
+        max: 50.39
+
+  ECMWF/NRT_FORECAST/IFS/SCWV:
+    title: ECMWF Near-Realtime IFS Wave (Short-Cutoff) Forecasts
+    provider: ECMWF
+    ee_type: image_collection
+    cadence: { interval: 12, unit: hour }
+    spatial_resolution: 28000
+    extent:
+      start_date: "2024-11-12"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      mean_zero_crossing_wave_period_sfc:
+        description: The mean length of time between occasions where the sea/ocean surface
+        units: seconds
+        min: 0.8896015882492065
+        max: 17.57300567626953
+      significant_height_of_combined_wind_waves_and_swell_sfc:
+        description: The average height of the highest third of surface ocean/sea waves
+        units: m
+        min: 0.017207905650138855
+        max: 15.585578918457031
+      mean_wave_direction_sfc:
+        description: The mean direction of ocean/sea surface waves relative to the
+        units: deg
+        min: 0
+        max: 360
+      peak_wave_period_sfc:
+        description: The period of the most energetic ocean waves generated by local winds
+        units: seconds
+        min: 1.0307435989379883
+        max: 23.788860321044922
+      mean_wave_period_sfc:
+        description: The average time it takes for two consecutive wave crests, on the
+        units: seconds
+        min: 1.0414800643920898
+        max: 18.36426544189453
+
+  ECMWF/NRT_FORECAST/IFS/WAVE:
+    title: ECMWF Near-Realtime IFS Wave Forecasts
+    provider: ECMWF
+    ee_type: image_collection
+    cadence: { interval: 12, unit: hour }
+    spatial_resolution: 28000
+    extent:
+      start_date: "2024-11-12"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      mean_zero_crossing_wave_period_sfc:
+        description: The mean length of time between occasions where the sea/ocean surface
+        units: seconds
+        min: 0.8893581628799438
+        max: 17.00739860534668
+      significant_height_of_combined_wind_waves_and_swell_sfc:
+        description: The average height of the highest third of surface ocean/sea waves
+        units: m
+        min: 0.017207905650138855
+        max: 15.7469482421875
+      mean_wave_direction_sfc:
+        description: The mean direction of ocean/sea surface waves relative to the
+        units: deg
+        min: 0
+        max: 360
+      peak_wave_period_sfc:
+        description: The period of the most energetic ocean waves generated by local winds
+        units: seconds
+        min: 1.0307435989379883
+        max: 23.935291290283203
+      mean_wave_period_sfc:
+        description: The average time it takes for two consecutive wave crests, on the
+        units: seconds
+        min: 1.0407114028930664
+        max: 19.523937225341797
+
+  EDF/OGIM/OGIM_v2-4_RF06_RF08:
+    title: 'OGIM: Oil and Gas Infrastructure Mapping Database v2.4_RF06_RF08 [deprecated]'
+    provider: Environmental Defense Fund - MethaneSAT
+    ee_type: table
+    extent:
+      start_date: "2023-11-14"
+      end_date: null
+      bbox: [-110.3, 31.4, -103.1, 40.6]
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  EDF/OGIM/current:
+    title: 'OGIM: Oil and Gas Infrastructure Mapping Database v2.5.1'
+    provider: Environmental Defense Fund - MethaneSAT
+    ee_type: table
+    extent:
+      start_date: "2024-05-15"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  ESA/WorldCereal/AEZ/v100:
+    title: ESA WorldCereal AEZ v100
+    provider: ESA WorldCereal Consortium
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  FAO/GAUL/2015/level0:
+    title: 'FAO GAUL: Global Administrative Unit Layers 2015, Country Boundaries'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mean
+    terms: The GAUL dataset is distributed to the United Nations and other authorized
+    bands:
+
+  FAO/GAUL/2015/level1:
+    title: 'FAO GAUL: Global Administrative Unit Layers 2015, First-Level Administrative Units'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mean
+    terms: The GAUL dataset is distributed to the United Nations and other authorized
+    bands:
