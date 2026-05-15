@@ -34855,3 +34855,5616 @@ datasets:
         description: Error estimation by GFZ.
       uncertainty_jpl:
         description: Error estimation by JPL.
+
+  NASA/GRACE/MASS_GRIDS_V04/MASCON:
+    title: GRACE Monthly Mass Grids Release 6.3 Version 4 - Global Mascons
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 55660
+    extent:
+      start_date: "2002-03-31"
+      end_date: null
+    default_reducer: mean
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness:
+        description: Equivalent liquid water thickness in centimeters.
+        units: cm
+      uncertainty:
+        description: 1-sigma uncertainty for each 3-degree mascon estimate.
+
+  NASA/GRACE/MASS_GRIDS_V04/MASCON_CRI:
+    title: GRACE Monthly Mass Grids Version 04 - Global Mascon (CRI Filtered)
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 55660
+    extent:
+      start_date: "2002-03-31"
+      end_date: null
+    default_reducer: mean
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness:
+        description: Equivalent liquid water thickness in centimeters.
+        units: cm
+      uncertainty:
+        description: 1-sigma uncertainty for each 3-degree mascon estimate.
+
+  NASA/GRACE/MASS_GRIDS_V04/OCEAN:
+    title: GRACE Monthly Mass Grids Release 06 Version 04 - Ocean
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 111320
+    extent:
+      start_date: "2002-04-04"
+      end_date: null
+    default_reducer: mean
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness_csr:
+        description: Equivalent liquid water thickness in centimeters calculated by CSR.
+        units: cm
+      lwe_thickness_gfz:
+        description: Equivalent liquid water thickness in centimeters calculated by GFZ.
+        units: cm
+      lwe_thickness_jpl:
+        description: Equivalent liquid water thickness in centimeters calculated by JPL.
+        units: cm
+
+  NASA/GSFC/MERRA/aer_nv/2:
+    title: 'MERRA-2 M2I3NVAER: Aerosol Mixing Ratio V5.12.4'
+    provider: NASA/MERRA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 55000
+    extent:
+      start_date: "1980-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: NASA promotes the full and open sharing of all data with research and
+    bands:
+      AIRDENS_1:
+        description: Air density
+        units: kg/m^3
+      SO2_1:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_1:
+        description: Pressure thickness
+        units: Pa
+      SS004_1:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_1:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_1:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_1:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_1:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_1:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_1:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_1:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_1:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_1:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_1:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_1:
+        description: Surface Pressure
+        units: Pa
+      SS003_1:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_1:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_1:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_1:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_1:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_1:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_2:
+        description: Air density
+        units: kg/m^3
+      SO2_2:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_2:
+        description: Pressure thickness
+        units: Pa
+      SS004_2:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_2:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_2:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_2:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_2:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_2:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_2:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_2:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_2:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_2:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_2:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_2:
+        description: Surface Pressure
+        units: Pa
+      SS003_2:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_2:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_2:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_2:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_2:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_2:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_3:
+        description: Air density
+        units: kg/m^3
+      SO2_3:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_3:
+        description: Pressure thickness
+        units: Pa
+      SS004_3:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_3:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_3:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_3:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_3:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_3:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_3:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_3:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_3:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_3:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_3:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_3:
+        description: Surface Pressure
+        units: Pa
+      SS003_3:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_3:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_3:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_3:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_3:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_3:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_4:
+        description: Air density
+        units: kg/m^3
+      SO2_4:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_4:
+        description: Pressure thickness
+        units: Pa
+      SS004_4:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_4:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_4:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_4:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_4:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_4:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_4:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_4:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_4:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_4:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_4:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_4:
+        description: Surface Pressure
+        units: Pa
+      SS003_4:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_4:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_4:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_4:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_4:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_4:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_5:
+        description: Air density
+        units: kg/m^3
+      SO2_5:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_5:
+        description: Pressure thickness
+        units: Pa
+      SS004_5:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_5:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_5:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_5:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_5:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_5:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_5:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_5:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_5:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_5:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_5:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_5:
+        description: Surface Pressure
+        units: Pa
+      SS003_5:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_5:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_5:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_5:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_5:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_5:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_6:
+        description: Air density
+        units: kg/m^3
+      SO2_6:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_6:
+        description: Pressure thickness
+        units: Pa
+      SS004_6:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_6:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_6:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_6:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_6:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_6:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_6:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_6:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_6:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_6:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_6:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_6:
+        description: Surface Pressure
+        units: Pa
+      SS003_6:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_6:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_6:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_6:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_6:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_6:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_7:
+        description: Air density
+        units: kg/m^3
+      SO2_7:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_7:
+        description: Pressure thickness
+        units: Pa
+      SS004_7:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_7:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_7:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_7:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_7:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_7:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_7:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_7:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_7:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_7:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_7:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_7:
+        description: Surface Pressure
+        units: Pa
+      SS003_7:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_7:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_7:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_7:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_7:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_7:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_8:
+        description: Air density
+        units: kg/m^3
+      SO2_8:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_8:
+        description: Pressure thickness
+        units: Pa
+      SS004_8:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_8:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_8:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_8:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_8:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_8:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_8:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_8:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_8:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_8:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_8:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_8:
+        description: Surface Pressure
+        units: Pa
+      SS003_8:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_8:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_8:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_8:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_8:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_8:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_9:
+        description: Air density
+        units: kg/m^3
+      SO2_9:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_9:
+        description: Pressure thickness
+        units: Pa
+      SS004_9:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_9:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_9:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_9:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_9:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_9:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_9:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_9:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_9:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_9:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_9:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_9:
+        description: Surface Pressure
+        units: Pa
+      SS003_9:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_9:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_9:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_9:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_9:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_9:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_10:
+        description: Air density
+        units: kg/m^3
+      SO2_10:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_10:
+        description: Pressure thickness
+        units: Pa
+      SS004_10:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_10:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_10:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_10:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_10:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_10:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_10:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_10:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_10:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_10:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_10:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_10:
+        description: Surface Pressure
+        units: Pa
+      SS003_10:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_10:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_10:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_10:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_10:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_10:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_11:
+        description: Air density
+        units: kg/m^3
+      SO2_11:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_11:
+        description: Pressure thickness
+        units: Pa
+      SS004_11:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_11:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_11:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_11:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_11:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_11:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_11:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_11:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_11:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_11:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_11:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_11:
+        description: Surface Pressure
+        units: Pa
+      SS003_11:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_11:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_11:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_11:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_11:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_11:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_12:
+        description: Air density
+        units: kg/m^3
+      SO2_12:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_12:
+        description: Pressure thickness
+        units: Pa
+      SS004_12:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_12:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_12:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_12:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_12:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_12:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_12:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_12:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_12:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_12:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_12:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_12:
+        description: Surface Pressure
+        units: Pa
+      SS003_12:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_12:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_12:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_12:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_12:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_12:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_13:
+        description: Air density
+        units: kg/m^3
+      SO2_13:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_13:
+        description: Pressure thickness
+        units: Pa
+      SS004_13:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_13:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_13:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_13:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_13:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_13:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_13:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_13:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_13:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_13:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_13:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_13:
+        description: Surface Pressure
+        units: Pa
+      SS003_13:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_13:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_13:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_13:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_13:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_13:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_14:
+        description: Air density
+        units: kg/m^3
+      SO2_14:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_14:
+        description: Pressure thickness
+        units: Pa
+      SS004_14:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_14:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_14:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_14:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_14:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_14:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_14:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_14:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_14:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_14:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_14:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_14:
+        description: Surface Pressure
+        units: Pa
+      SS003_14:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_14:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_14:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_14:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_14:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_14:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_15:
+        description: Air density
+        units: kg/m^3
+      SO2_15:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_15:
+        description: Pressure thickness
+        units: Pa
+      SS004_15:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_15:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_15:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_15:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_15:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_15:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_15:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_15:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_15:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_15:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_15:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_15:
+        description: Surface Pressure
+        units: Pa
+      SS003_15:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_15:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_15:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_15:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_15:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_15:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_16:
+        description: Air density
+        units: kg/m^3
+      SO2_16:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_16:
+        description: Pressure thickness
+        units: Pa
+      SS004_16:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_16:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_16:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_16:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_16:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_16:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_16:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_16:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_16:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_16:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_16:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_16:
+        description: Surface Pressure
+        units: Pa
+      SS003_16:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_16:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_16:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_16:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_16:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_16:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_17:
+        description: Air density
+        units: kg/m^3
+      SO2_17:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_17:
+        description: Pressure thickness
+        units: Pa
+      SS004_17:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_17:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_17:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_17:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_17:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_17:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_17:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_17:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_17:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_17:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_17:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_17:
+        description: Surface Pressure
+        units: Pa
+      SS003_17:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_17:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_17:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_17:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_17:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_17:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_18:
+        description: Air density
+        units: kg/m^3
+      SO2_18:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_18:
+        description: Pressure thickness
+        units: Pa
+      SS004_18:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_18:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_18:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_18:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_18:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_18:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_18:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_18:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_18:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_18:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_18:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_18:
+        description: Surface Pressure
+        units: Pa
+      SS003_18:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_18:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_18:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_18:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_18:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_18:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_19:
+        description: Air density
+        units: kg/m^3
+      SO2_19:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_19:
+        description: Pressure thickness
+        units: Pa
+      SS004_19:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_19:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_19:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_19:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_19:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_19:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_19:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_19:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_19:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_19:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_19:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_19:
+        description: Surface Pressure
+        units: Pa
+      SS003_19:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_19:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_19:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_19:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_19:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_19:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_20:
+        description: Air density
+        units: kg/m^3
+      SO2_20:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_20:
+        description: Pressure thickness
+        units: Pa
+      SS004_20:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_20:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_20:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_20:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_20:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_20:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_20:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_20:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_20:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_20:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_20:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_20:
+        description: Surface Pressure
+        units: Pa
+      SS003_20:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_20:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_20:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_20:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_20:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_20:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_21:
+        description: Air density
+        units: kg/m^3
+      SO2_21:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_21:
+        description: Pressure thickness
+        units: Pa
+      SS004_21:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_21:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_21:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_21:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_21:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_21:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_21:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_21:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_21:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_21:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_21:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_21:
+        description: Surface Pressure
+        units: Pa
+      SS003_21:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_21:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_21:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_21:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_21:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_21:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_22:
+        description: Air density
+        units: kg/m^3
+      SO2_22:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_22:
+        description: Pressure thickness
+        units: Pa
+      SS004_22:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_22:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_22:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_22:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_22:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_22:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_22:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_22:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_22:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_22:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_22:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_22:
+        description: Surface Pressure
+        units: Pa
+      SS003_22:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_22:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_22:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_22:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_22:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_22:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_23:
+        description: Air density
+        units: kg/m^3
+      SO2_23:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_23:
+        description: Pressure thickness
+        units: Pa
+      SS004_23:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_23:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_23:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_23:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_23:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_23:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_23:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_23:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_23:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_23:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_23:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_23:
+        description: Surface Pressure
+        units: Pa
+      SS003_23:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_23:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_23:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_23:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_23:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_23:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_24:
+        description: Air density
+        units: kg/m^3
+      SO2_24:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_24:
+        description: Pressure thickness
+        units: Pa
+      SS004_24:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_24:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_24:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_24:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_24:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_24:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_24:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_24:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_24:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_24:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_24:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_24:
+        description: Surface Pressure
+        units: Pa
+      SS003_24:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_24:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_24:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_24:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_24:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_24:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_25:
+        description: Air density
+        units: kg/m^3
+      SO2_25:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_25:
+        description: Pressure thickness
+        units: Pa
+      SS004_25:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_25:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_25:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_25:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_25:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_25:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_25:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_25:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_25:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_25:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_25:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_25:
+        description: Surface Pressure
+        units: Pa
+      SS003_25:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_25:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_25:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_25:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_25:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_25:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_26:
+        description: Air density
+        units: kg/m^3
+      SO2_26:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_26:
+        description: Pressure thickness
+        units: Pa
+      SS004_26:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_26:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_26:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_26:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_26:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_26:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_26:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_26:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_26:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_26:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_26:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_26:
+        description: Surface Pressure
+        units: Pa
+      SS003_26:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_26:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_26:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_26:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_26:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_26:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_27:
+        description: Air density
+        units: kg/m^3
+      SO2_27:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_27:
+        description: Pressure thickness
+        units: Pa
+      SS004_27:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_27:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_27:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_27:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_27:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_27:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_27:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_27:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_27:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_27:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_27:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_27:
+        description: Surface Pressure
+        units: Pa
+      SS003_27:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_27:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_27:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_27:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_27:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_27:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_28:
+        description: Air density
+        units: kg/m^3
+      SO2_28:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_28:
+        description: Pressure thickness
+        units: Pa
+      SS004_28:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_28:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_28:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_28:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_28:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_28:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_28:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_28:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_28:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_28:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_28:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_28:
+        description: Surface Pressure
+        units: Pa
+      SS003_28:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_28:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_28:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_28:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_28:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_28:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_29:
+        description: Air density
+        units: kg/m^3
+      SO2_29:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_29:
+        description: Pressure thickness
+        units: Pa
+      SS004_29:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_29:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_29:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_29:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_29:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_29:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_29:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_29:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_29:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_29:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_29:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_29:
+        description: Surface Pressure
+        units: Pa
+      SS003_29:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_29:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_29:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_29:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_29:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_29:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_30:
+        description: Air density
+        units: kg/m^3
+      SO2_30:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_30:
+        description: Pressure thickness
+        units: Pa
+      SS004_30:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_30:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_30:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_30:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_30:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_30:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_30:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_30:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_30:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_30:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_30:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_30:
+        description: Surface Pressure
+        units: Pa
+      SS003_30:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_30:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_30:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_30:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_30:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_30:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_31:
+        description: Air density
+        units: kg/m^3
+      SO2_31:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_31:
+        description: Pressure thickness
+        units: Pa
+      SS004_31:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_31:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_31:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_31:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_31:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_31:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_31:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_31:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_31:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_31:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_31:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_31:
+        description: Surface Pressure
+        units: Pa
+      SS003_31:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_31:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_31:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_31:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_31:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_31:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_32:
+        description: Air density
+        units: kg/m^3
+      SO2_32:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_32:
+        description: Pressure thickness
+        units: Pa
+      SS004_32:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_32:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_32:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_32:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_32:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_32:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_32:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_32:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_32:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_32:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_32:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_32:
+        description: Surface Pressure
+        units: Pa
+      SS003_32:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_32:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_32:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_32:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_32:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_32:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_33:
+        description: Air density
+        units: kg/m^3
+      SO2_33:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_33:
+        description: Pressure thickness
+        units: Pa
+      SS004_33:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_33:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_33:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_33:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_33:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_33:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_33:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_33:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_33:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_33:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_33:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_33:
+        description: Surface Pressure
+        units: Pa
+      SS003_33:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_33:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_33:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_33:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_33:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_33:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_34:
+        description: Air density
+        units: kg/m^3
+      SO2_34:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_34:
+        description: Pressure thickness
+        units: Pa
+      SS004_34:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_34:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_34:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_34:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_34:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_34:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_34:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_34:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_34:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_34:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_34:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_34:
+        description: Surface Pressure
+        units: Pa
+      SS003_34:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_34:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_34:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_34:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_34:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_34:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_35:
+        description: Air density
+        units: kg/m^3
+      SO2_35:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_35:
+        description: Pressure thickness
+        units: Pa
+      SS004_35:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_35:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_35:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_35:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_35:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_35:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_35:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_35:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_35:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_35:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_35:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_35:
+        description: Surface Pressure
+        units: Pa
+      SS003_35:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_35:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_35:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_35:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_35:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_35:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_36:
+        description: Air density
+        units: kg/m^3
+      SO2_36:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_36:
+        description: Pressure thickness
+        units: Pa
+      SS004_36:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_36:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_36:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_36:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_36:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_36:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_36:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_36:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_36:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_36:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_36:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_36:
+        description: Surface Pressure
+        units: Pa
+      SS003_36:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_36:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_36:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_36:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_36:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_36:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_37:
+        description: Air density
+        units: kg/m^3
+      SO2_37:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_37:
+        description: Pressure thickness
+        units: Pa
+      SS004_37:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_37:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_37:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_37:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_37:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_37:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_37:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_37:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_37:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_37:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_37:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_37:
+        description: Surface Pressure
+        units: Pa
+      SS003_37:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_37:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_37:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_37:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_37:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_37:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_38:
+        description: Air density
+        units: kg/m^3
+      SO2_38:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_38:
+        description: Pressure thickness
+        units: Pa
+      SS004_38:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_38:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_38:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_38:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_38:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_38:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_38:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_38:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_38:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_38:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_38:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_38:
+        description: Surface Pressure
+        units: Pa
+      SS003_38:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_38:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_38:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_38:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_38:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_38:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_39:
+        description: Air density
+        units: kg/m^3
+      SO2_39:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_39:
+        description: Pressure thickness
+        units: Pa
+      SS004_39:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_39:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_39:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_39:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_39:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_39:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_39:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_39:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_39:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_39:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_39:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_39:
+        description: Surface Pressure
+        units: Pa
+      SS003_39:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_39:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_39:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_39:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_39:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_39:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_40:
+        description: Air density
+        units: kg/m^3
+      SO2_40:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_40:
+        description: Pressure thickness
+        units: Pa
+      SS004_40:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_40:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_40:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_40:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_40:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_40:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_40:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_40:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_40:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_40:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_40:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_40:
+        description: Surface Pressure
+        units: Pa
+      SS003_40:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_40:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_40:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_40:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_40:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_40:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_41:
+        description: Air density
+        units: kg/m^3
+      SO2_41:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_41:
+        description: Pressure thickness
+        units: Pa
+      SS004_41:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_41:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_41:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_41:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_41:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_41:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_41:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_41:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_41:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_41:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_41:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_41:
+        description: Surface Pressure
+        units: Pa
+      SS003_41:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_41:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_41:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_41:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_41:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_41:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_42:
+        description: Air density
+        units: kg/m^3
+      SO2_42:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_42:
+        description: Pressure thickness
+        units: Pa
+      SS004_42:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_42:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_42:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_42:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_42:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_42:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_42:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_42:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_42:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_42:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_42:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_42:
+        description: Surface Pressure
+        units: Pa
+      SS003_42:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_42:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_42:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_42:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_42:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_42:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_43:
+        description: Air density
+        units: kg/m^3
+      SO2_43:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_43:
+        description: Pressure thickness
+        units: Pa
+      SS004_43:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_43:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_43:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_43:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_43:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_43:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_43:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_43:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_43:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_43:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_43:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_43:
+        description: Surface Pressure
+        units: Pa
+      SS003_43:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_43:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_43:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_43:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_43:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_43:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_44:
+        description: Air density
+        units: kg/m^3
+      SO2_44:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_44:
+        description: Pressure thickness
+        units: Pa
+      SS004_44:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_44:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_44:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_44:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_44:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_44:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_44:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_44:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_44:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_44:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_44:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_44:
+        description: Surface Pressure
+        units: Pa
+      SS003_44:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_44:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_44:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_44:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_44:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_44:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_45:
+        description: Air density
+        units: kg/m^3
+      SO2_45:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_45:
+        description: Pressure thickness
+        units: Pa
+      SS004_45:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_45:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_45:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_45:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_45:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_45:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_45:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_45:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_45:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_45:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_45:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_45:
+        description: Surface Pressure
+        units: Pa
+      SS003_45:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_45:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_45:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_45:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_45:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_45:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_46:
+        description: Air density
+        units: kg/m^3
+      SO2_46:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_46:
+        description: Pressure thickness
+        units: Pa
+      SS004_46:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_46:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_46:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_46:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_46:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_46:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_46:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_46:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_46:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_46:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_46:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_46:
+        description: Surface Pressure
+        units: Pa
+      SS003_46:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_46:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_46:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_46:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_46:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_46:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_47:
+        description: Air density
+        units: kg/m^3
+      SO2_47:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_47:
+        description: Pressure thickness
+        units: Pa
+      SS004_47:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_47:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_47:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_47:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_47:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_47:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_47:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_47:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_47:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_47:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_47:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_47:
+        description: Surface Pressure
+        units: Pa
+      SS003_47:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_47:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_47:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_47:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_47:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_47:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_48:
+        description: Air density
+        units: kg/m^3
+      SO2_48:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_48:
+        description: Pressure thickness
+        units: Pa
+      SS004_48:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_48:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_48:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_48:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_48:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_48:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_48:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_48:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_48:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_48:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_48:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_48:
+        description: Surface Pressure
+        units: Pa
+      SS003_48:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_48:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_48:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_48:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_48:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_48:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_49:
+        description: Air density
+        units: kg/m^3
+      SO2_49:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_49:
+        description: Pressure thickness
+        units: Pa
+      SS004_49:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_49:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_49:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_49:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_49:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_49:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_49:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_49:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_49:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_49:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_49:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_49:
+        description: Surface Pressure
+        units: Pa
+      SS003_49:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_49:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_49:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_49:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_49:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_49:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_50:
+        description: Air density
+        units: kg/m^3
+      SO2_50:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_50:
+        description: Pressure thickness
+        units: Pa
+      SS004_50:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_50:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_50:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_50:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_50:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_50:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_50:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_50:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_50:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_50:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_50:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_50:
+        description: Surface Pressure
+        units: Pa
+      SS003_50:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_50:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_50:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_50:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_50:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_50:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_51:
+        description: Air density
+        units: kg/m^3
+      SO2_51:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_51:
+        description: Pressure thickness
+        units: Pa
+      SS004_51:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_51:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_51:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_51:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_51:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_51:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_51:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_51:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_51:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_51:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_51:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_51:
+        description: Surface Pressure
+        units: Pa
+      SS003_51:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_51:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_51:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_51:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_51:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_51:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_52:
+        description: Air density
+        units: kg/m^3
+      SO2_52:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_52:
+        description: Pressure thickness
+        units: Pa
+      SS004_52:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_52:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_52:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_52:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_52:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_52:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_52:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_52:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_52:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_52:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_52:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_52:
+        description: Surface Pressure
+        units: Pa
+      SS003_52:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_52:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_52:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_52:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_52:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_52:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_53:
+        description: Air density
+        units: kg/m^3
+      SO2_53:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_53:
+        description: Pressure thickness
+        units: Pa
+      SS004_53:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_53:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_53:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_53:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_53:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_53:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_53:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_53:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_53:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_53:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_53:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_53:
+        description: Surface Pressure
+        units: Pa
+      SS003_53:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_53:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_53:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_53:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_53:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_53:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_54:
+        description: Air density
+        units: kg/m^3
+      SO2_54:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_54:
+        description: Pressure thickness
+        units: Pa
+      SS004_54:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_54:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_54:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_54:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_54:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_54:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_54:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_54:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_54:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_54:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_54:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_54:
+        description: Surface Pressure
+        units: Pa
+      SS003_54:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_54:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_54:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_54:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_54:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_54:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_55:
+        description: Air density
+        units: kg/m^3
+      SO2_55:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_55:
+        description: Pressure thickness
+        units: Pa
+      SS004_55:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_55:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_55:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_55:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_55:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_55:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_55:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_55:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_55:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_55:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_55:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_55:
+        description: Surface Pressure
+        units: Pa
+      SS003_55:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_55:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_55:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_55:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_55:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_55:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_56:
+        description: Air density
+        units: kg/m^3
+      SO2_56:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_56:
+        description: Pressure thickness
+        units: Pa
+      SS004_56:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_56:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_56:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_56:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_56:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_56:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_56:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_56:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_56:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_56:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_56:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_56:
+        description: Surface Pressure
+        units: Pa
+      SS003_56:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_56:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_56:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_56:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_56:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_56:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_57:
+        description: Air density
+        units: kg/m^3
+      SO2_57:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_57:
+        description: Pressure thickness
+        units: Pa
+      SS004_57:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_57:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_57:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_57:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_57:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_57:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_57:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_57:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_57:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_57:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_57:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_57:
+        description: Surface Pressure
+        units: Pa
+      SS003_57:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_57:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_57:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_57:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_57:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_57:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_58:
+        description: Air density
+        units: kg/m^3
+      SO2_58:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_58:
+        description: Pressure thickness
+        units: Pa
+      SS004_58:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_58:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_58:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_58:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_58:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_58:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_58:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_58:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_58:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_58:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_58:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_58:
+        description: Surface Pressure
+        units: Pa
+      SS003_58:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_58:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_58:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_58:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_58:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_58:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_59:
+        description: Air density
+        units: kg/m^3
+      SO2_59:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_59:
+        description: Pressure thickness
+        units: Pa
+      SS004_59:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_59:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_59:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_59:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_59:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_59:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_59:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_59:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_59:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_59:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_59:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_59:
+        description: Surface Pressure
+        units: Pa
+      SS003_59:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_59:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_59:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_59:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_59:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_59:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_60:
+        description: Air density
+        units: kg/m^3
+      SO2_60:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_60:
+        description: Pressure thickness
+        units: Pa
+      SS004_60:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_60:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_60:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_60:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_60:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_60:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_60:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_60:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_60:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_60:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_60:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_60:
+        description: Surface Pressure
+        units: Pa
+      SS003_60:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_60:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_60:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_60:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_60:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_60:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_61:
+        description: Air density
+        units: kg/m^3
+      SO2_61:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_61:
+        description: Pressure thickness
+        units: Pa
+      SS004_61:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_61:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_61:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_61:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_61:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_61:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_61:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_61:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_61:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_61:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_61:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_61:
+        description: Surface Pressure
+        units: Pa
+      SS003_61:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_61:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_61:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_61:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_61:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_61:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_62:
+        description: Air density
+        units: kg/m^3
+      SO2_62:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_62:
+        description: Pressure thickness
+        units: Pa
+      SS004_62:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_62:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_62:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_62:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_62:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_62:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_62:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_62:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_62:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_62:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_62:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_62:
+        description: Surface Pressure
+        units: Pa
+      SS003_62:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_62:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_62:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_62:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_62:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_62:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_63:
+        description: Air density
+        units: kg/m^3
+      SO2_63:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_63:
+        description: Pressure thickness
+        units: Pa
+      SS004_63:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_63:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_63:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_63:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_63:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_63:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_63:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_63:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_63:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_63:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_63:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_63:
+        description: Surface Pressure
+        units: Pa
+      SS003_63:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_63:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_63:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_63:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_63:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_63:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_64:
+        description: Air density
+        units: kg/m^3
+      SO2_64:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_64:
+        description: Pressure thickness
+        units: Pa
+      SS004_64:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_64:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_64:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_64:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_64:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_64:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_64:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_64:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_64:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_64:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_64:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_64:
+        description: Surface Pressure
+        units: Pa
+      SS003_64:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_64:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_64:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_64:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_64:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_64:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_65:
+        description: Air density
+        units: kg/m^3
+      SO2_65:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_65:
+        description: Pressure thickness
+        units: Pa
+      SS004_65:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_65:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_65:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_65:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_65:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_65:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_65:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_65:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_65:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_65:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_65:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_65:
+        description: Surface Pressure
+        units: Pa
+      SS003_65:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_65:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_65:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_65:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_65:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_65:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_66:
+        description: Air density
+        units: kg/m^3
+      SO2_66:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_66:
+        description: Pressure thickness
+        units: Pa
+      SS004_66:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_66:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_66:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_66:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_66:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_66:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_66:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_66:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_66:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_66:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_66:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_66:
+        description: Surface Pressure
+        units: Pa
+      SS003_66:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_66:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_66:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_66:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_66:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_66:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_67:
+        description: Air density
+        units: kg/m^3
+      SO2_67:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_67:
+        description: Pressure thickness
+        units: Pa
+      SS004_67:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_67:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_67:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_67:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_67:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_67:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_67:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_67:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_67:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_67:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_67:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_67:
+        description: Surface Pressure
+        units: Pa
+      SS003_67:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_67:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_67:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_67:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_67:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_67:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_68:
+        description: Air density
+        units: kg/m^3
+      SO2_68:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_68:
+        description: Pressure thickness
+        units: Pa
+      SS004_68:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_68:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_68:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_68:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_68:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_68:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_68:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_68:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_68:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_68:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_68:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_68:
+        description: Surface Pressure
+        units: Pa
+      SS003_68:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_68:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_68:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_68:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_68:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_68:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_69:
+        description: Air density
+        units: kg/m^3
+      SO2_69:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_69:
+        description: Pressure thickness
+        units: Pa
+      SS004_69:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_69:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_69:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_69:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_69:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_69:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_69:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_69:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_69:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_69:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_69:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_69:
+        description: Surface Pressure
+        units: Pa
+      SS003_69:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_69:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_69:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_69:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_69:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_69:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_70:
+        description: Air density
+        units: kg/m^3
+      SO2_70:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_70:
+        description: Pressure thickness
+        units: Pa
+      SS004_70:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_70:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_70:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_70:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_70:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_70:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_70:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_70:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_70:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_70:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_70:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_70:
+        description: Surface Pressure
+        units: Pa
+      SS003_70:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_70:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_70:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_70:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_70:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_70:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_71:
+        description: Air density
+        units: kg/m^3
+      SO2_71:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_71:
+        description: Pressure thickness
+        units: Pa
+      SS004_71:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_71:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_71:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_71:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_71:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_71:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_71:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_71:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_71:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_71:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_71:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_71:
+        description: Surface Pressure
+        units: Pa
+      SS003_71:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_71:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_71:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_71:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_71:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_71:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      AIRDENS_72:
+        description: Air density
+        units: kg/m^3
+      SO2_72:
+        description: Sulphur dioxide
+        units: Mass fraction
+      DELP_72:
+        description: Pressure thickness
+        units: Pa
+      SS004_72:
+        description: Sea Salt Mixing Ratio (bin 004)
+        units: Mass fraction
+      DU005_72:
+        description: Dust Mixing Ratio (bin 005)
+        units: Mass fraction
+      DU004_72:
+        description: Dust Mixing Ratio (bin 004)
+        units: Mass fraction
+      SS005_72:
+        description: Sea Salt Mixing Ratio (bin 005)
+        units: Mass fraction
+      OCPHILIC_72:
+        description: Hydrophilic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHOBIC_72:
+        description: Hydrophobic Black Carbon
+        units: Mass fraction
+      SS002_72:
+        description: Sea Salt Mixing Ratio (bin 002)
+        units: Mass fraction
+      DU003_72:
+        description: Dust Mixing Ratio (bin 003)
+        units: Mass fraction
+      DMS_72:
+        description: Dimethylsulphide
+        units: Mass fraction
+      SO4_72:
+        description: Sulphate aerosol
+        units: Mass fraction
+      DU002_72:
+        description: Dust Mixing Ratio (bin 002)
+        units: Mass fraction
+      PS_72:
+        description: Surface Pressure
+        units: Pa
+      SS003_72:
+        description: Sea Salt Mixing Ratio (bin 003)
+        units: Mass fraction
+      DU001_72:
+        description: Dust Mixing Ratio (bin 001)
+        units: Mass fraction
+      OCPHOBIC_72:
+        description: Hydrophobic Organic Carbon (Particulate Matter)
+        units: Mass fraction
+      BCPHILIC_72:
+        description: Hydrophilic Black Carbon
+        units: Mass fraction
+      MSA_72:
+        description: Methanesulphonic acid
+        units: Mass fraction
+      SS001_72:
+        description: Sea Salt Mixing Ratio (bin 001)
+        units: Mass fraction
+      LWI:
+        description: land(1)_water(0)_ice(2)_flag
+      RH:
+        description: relative_humidity_after_moist
+
+  NASA/JPL/global_forest_canopy_height_2005:
+    title: Global Forest Canopy Height, 2005
+    provider: NASA/JPL
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2005-05-20"
+      end_date: null
+    default_reducer: mean
+    terms: Most materials published on the Earth Observatory, including images, are
+    bands:
+      "1":
+        description: Tree heights
+        units: m
+        min: 0
+        max: 73
+
+  NASA/LANCE/NOAA20_VIIRS/C2:
+    title: 'VJ114IMGTDL_NRT Daily Raster: VIIRS (NOAA-20) Band 375m Active Fire'
+    provider: NASA / LANCE / NOAA20_VIIRS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 375
+    extent:
+      start_date: "2023-10-08"
+      end_date: null
+    default_reducer: mean
+    terms: NASA promotes the full and open sharing of all data with the research and
+    bands:
+      Bright_ti4:
+        description: VIIRS I-4 channel brightness temperature of the fire pixel.
+        units: K
+        min: 250
+        max: 400
+      Bright_ti5:
+        description: VIIRS I-5 Channel brightness temperature of the fire pixel.
+        units: K
+        min: 250
+        max: 400
+      confidence:
+        description: A detection confidence intended to help users gauge the
+        min: 0
+        max: 2
+      line_number:
+        description: Line number in the FIRMS CSV file that the pixel came from.
+        min: 1
+        max: 110000
+      frp:
+        description: FRP depicts the pixel-integrated fire radiative power in megawatts (MW).
+        units: MW
+      acq_epoch:
+        description: Acquisation timestamp in seconds
+        units: seconds
+      acq_time:
+        description: The time of day in seconds since midnight
+        units: seconds
+      DayNight:
+        description: 1= Daytime fire, 0= Nighttime fire
+
+  NASA/LANCE/SNPP_VIIRS/C2:
+    title: 'VNP14IMGTDL_NRT Daily Raster: VIIRS (S-NPP) Band 375m Active Fire'
+    provider: NASA / LANCE / SNPP_VIIRS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 375
+    extent:
+      start_date: "2023-09-03"
+      end_date: null
+    default_reducer: mean
+    terms: NASA promotes the full and open sharing of all data with the research and
+    bands:
+      Bright_ti4:
+        description: VIIRS I-4 channel brightness temperature of the fire pixel.
+        units: K
+        min: 250
+        max: 400
+      Bright_ti5:
+        description: VIIRS I-5 Channel brightness temperature of the fire pixel.
+        units: K
+        min: 250
+        max: 400
+      confidence:
+        description: A detection confidence intended to help users gauge the
+        min: 0
+        max: 2
+      line_number:
+        description: Line number in the FIRMS CSV file that the pixel came from.
+        min: 1
+        max: 110000
+      frp:
+        description: FRP depicts the pixel-integrated fire radiative power in megawatts (MW).
+        units: MW
+      acq_epoch:
+        description: Acquisation timestamp in seconds
+        units: seconds
+      acq_time:
+        description: The time of day in seconds since midnight
+        units: seconds
+      DayNight:
+        description: 1= Daytime fire, 0= Nighttime fire
+
+  NASA/NEX-DCP30:
+    title: 'NEX-DCP30: NASA Earth Exchange Downscaled Climate Projections'
+    provider: NASA / Climate Analytics Group
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+      bbox: [-125.03, 24.07, -66.47, 53.74]
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      pr:
+        description: Monthly mean of the daily precipitation rate at surface;
+        units: kg/m^2/s
+        min: 0
+        max: 0.0016
+      tasmin:
+        description: Monthly mean of the daily-minimum near-surface air temperature
+        units: K
+        min: 235.91
+        max: 308.97
+      tasmax:
+        description: Monthly mean of the daily-maximum near-surface air temperature
+        units: K
+        min: 246.4
+        max: 325.53
+
+  NASA/NEX-DCP30_ENSEMBLE_STATS:
+    title: 'NEX-DCP30: Ensemble Stats for NASA Earth Exchange Downscaled Climate Projections'
+    provider: NASA / Climate Analytics Group
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+      bbox: [-125.03, 24.07, -66.47, 49.93]
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      pr_mean:
+        description: Monthly mean of the daily precipitation rate at surface;
+        units: kg/m^2/s
+        min: 0
+        max: 0.0006
+      pr_quartile25:
+        description: 25th quartile of the precipitation at surface; includes both
+        units: kg/m^2/s
+        min: 0
+        max: 0.0004
+      pr_median:
+        description: Median of precipitation at surface; includes both liquid and
+        units: kg/m^2/s
+        min: 0
+        max: 0.0006
+      pr_quartile75:
+        description: 75th quartile of the precipitation at surface; includes both
+        units: kg/m^2/s
+        min: 0
+        max: 0.0008
+      tasmin_mean:
+        description: Monthly mean of the daily-minimum near-surface air temperature
+        units: K
+        min: 247.58
+        max: 311.09
+      tasmin_quartile25:
+        description: 25th quartile the daily-minimum near-surface air temperature
+        units: K
+        min: 243.28
+        max: 310.06
+      tasmin_median:
+        description: Median of the daily-minimum near-surface air temperature
+        units: K
+        min: 246.87
+        max: 311.12
+      tasmin_quartile75:
+        description: 75th quartile of the daily-minimum near-surface air temperature
+        units: K
+        min: 248.42
+        max: 312.59
+      tasmax_mean:
+        description: Monthly mean of the daily-maximum near-surface air temperature
+        units: K
+        min: 258.47
+        max: 326.48
+      tasmax_quartile25:
+        description: 25th quartile of the daily-maximum near-surface air temperature
+        units: K
+        min: 256.13
+        max: 325.52
+      tasmax_median:
+        description: Median of the daily-maximum near-surface air temperature
+        units: K
+        min: 257.89
+        max: 326.28
+      tasmax_quartile75:
+        description: 75th quartile of the daily-maximum near-surface air temperature
+        units: K
+        min: 260.2
+        max: 328.2
+
+  NASA/NEX-GDDP:
+    title: 'NEX-GDDP: NASA Earth Exchange Global Daily Downscaled Climate Projections'
+    provider: NASA /  Climate Analytics Group
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      pr:
+        description: Daily mean of precipitation at surface; includes both
+        units: kg/m^2/s
+        min: 0
+        max: 0.42
+      tasmin:
+        description: Daily mean of the daily-minimum near-surface air temperature
+        units: K
+        min: 165.31
+        max: 318.89
+      tasmax:
+        description: Daily mean of the daily-maximum near-surface air temperature
+        units: K
+        min: 188.38
+        max: 335.13
+
+  NASA/OCEANDATA/MODIS-Terra/L3SMI:
+    title: 'Ocean Color SMI: Standard Mapped Image MODIS Terra Data'
+    provider: NASA OB.DAAC at NASA Goddard Space Flight Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4616
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      chlor_a:
+        description: Chlorophyll a concentration
+        units: mg/m^3
+        min: 0
+        max: 99.99
+      nflh:
+        description: Normalized fluorescence line height
+        units: mW cm-2 um-1 sr-1
+        min: -0.5
+        max: 5.03
+      poc:
+        description: Particulate organic carbon
+        units: mg/m^3
+        min: 4
+        max: 12953.4
+      Rrs_412:
+        description: Remote sensing reflectance at band 412nm
+        units: sr-1
+        wavelength: 0.412
+        min: 0
+        max: 0.11
+      Rrs_443:
+        description: Remote sensing reflectance at band 443nm
+        units: sr-1
+        wavelength: 0.443
+        min: 0
+        max: 0.11
+      Rrs_469:
+        description: Remote sensing reflectance at band 469nm
+        units: sr-1
+        wavelength: 0.469
+        min: 0
+        max: 0.11
+      Rrs_488:
+        description: Remote sensing reflectance at band 488nm
+        units: sr-1
+        wavelength: 0.488
+        min: 0
+        max: 0.11
+      Rrs_531:
+        description: Remote sensing reflectance at band 531nm
+        units: sr-1
+        wavelength: 0.531
+        min: 0
+        max: 0.1
+      Rrs_547:
+        description: Remote sensing reflectance at band 547nm
+        units: sr-1
+        wavelength: 0.547
+        min: 0
+        max: 0.09
+      Rrs_555:
+        description: Remote sensing reflectance at band 555nm
+        units: sr-1
+        wavelength: 0.555
+        min: 0
+        max: 0.08
+      Rrs_645:
+        description: Remote sensing reflectance at band 645nm
+        units: sr-1
+        wavelength: 0.645
+        min: 0
+        max: 0.04
+      Rrs_667:
+        description: Remote sensing reflectance at band 667nm
+        units: sr-1
+        wavelength: 0.667
+        min: 0
+        max: 0.04
+      Rrs_678:
+        description: Remote sensing reflectance at band 678nm
+        units: sr-1
+        wavelength: 0.678
+        min: 0
+        max: 0.04
+      sst:
+        description: Sea surface temperature
+        units: 'deg_C'
+        min: -2
+        max: 45
+
+  NASA/OCEANDATA/SeaWiFS/L3SMI:
+    title: 'Ocean Color SMI: Standard Mapped Image SeaWiFS Data'
+    provider: NASA OB.DAAC at NASA Goddard Space Flight Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 9200
+    extent:
+      start_date: "1997-09-04"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      chlor_a:
+        description: Chlorophyll a concentration
+        units: mg/m^3
+        min: 0
+        max: 99.99
+      poc:
+        description: Particulate organic carbon
+        units: mg/m^3
+      Rrs_412:
+        description: Remote sensing reflectance at band 412nm
+        units: sr-1
+        wavelength: 0.412
+        min: 0
+        max: 0.11
+      Rrs_443:
+        description: Remote sensing reflectance at band 443nm
+        units: sr-1
+        wavelength: 0.443
+        min: 0
+        max: 0.11
+      Rrs_490:
+        description: Remote sensing reflectance at band 469nm
+        units: sr-1
+        wavelength: 0.49
+        min: 0
+        max: 0.11
+      Rrs_510:
+        description: Remote sensing reflectance at band 488nm
+        units: sr-1
+        wavelength: 0.51
+        min: 0
+        max: 0.11
+      Rrs_555:
+        description: Remote sensing reflectance at band 555nm
+        units: sr-1
+        wavelength: 0.555
+        min: 0
+        max: 0.11
+      Rrs_670:
+        description: Remote sensing reflectance at band 531nm
+        units: sr-1
+        wavelength: 0.67
+        min: 0
+        max: 0.11
+
+  NASA/ORNL/global_forest_classification_2020/V1:
+    title: Global 2020 Forest Classification for IPCC Aboveground Biomass Tier 1 Estimates, V1
+    provider: NASA ORNL DAAC at Oak Ridge National Laboratory
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      classification:
+        description: Forest Type
+
+  NASA/TEMPO/HCHO_L3:
+    title: TEMPO gridded HCHO vertical columns V03
+    provider: NASA ASDC
+    ee_type: image_collection
+    spatial_resolution: 2226
+    extent:
+      start_date: "2023-08-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      weight:
+        description: Sum of Level 2 pixel overlap areas. Represents the weighting
+        units: km^2
+      vertical_column:
+        description: HCHO vertical column
+        units: molecules/cm^2
+      vertical_column_uncertainty:
+        description: HCHO vertical column uncertainty
+        units: molecules/cm^2
+      main_data_quality_flag:
+        description: Main data quality flag. Provides an overall assessment of the
+        units: Dimensionless
+      num_vertical_column_samples:
+        description: Number of vertical column samples
+        units: Dimensionless
+      min_vertical_column_sample:
+        description: Smallest vertical column sample
+        units: molecules/cm^2
+      max_vertical_column_sample:
+        description: Largest vertical column sample
+        units: molecules/cm^2
+      solar_zenith_angle:
+        description: Solar zenith angle at pixel center
+        units: deg
+      viewing_zenith_angle:
+        description: Viewing zenith angle at pixel center
+        units: deg
+      relative_azimuth_angle:
+        description: Relative azimuth angle at pixel center
+        units: deg
+      surface_pressure:
+        description: Surface pressure
+        units: hPa
+      terrain_height:
+        description: Terrain height
+        units: m
+      snow_ice_fraction:
+        description: Fraction of pixel area covered by snow and/or ice
+        units: Dimensionless
+      fitted_slant_column:
+        description: HCHO fitted slant column
+        units: molecules/cm^2
+      fitted_slant_column_uncertainty:
+        description: HCHO fitted slant column uncertainty
+        units: molecules/cm^2
+      albedo:
+        description: Surface albedo
+        units: Dimensionless
+      amf:
+        description: HCHO air mass factor
+        units: Dimensionless
+      eff_cloud_fraction:
+        description: Effective cloud fraction
+        units: Dimensionless
+      amf_cloud_fraction:
+        description: Cloud radiance fraction for AMF calculation
+        units: Dimensionless
+      amf_cloud_pressure:
+        description: Cloud pressure for AMF calculation
+        units: hPa
+
+  NASA/TEMPO/HCHO_L3_QA:
+    title: TEMPO gridded HCHO (QA filtered) vertical columns V03
+    provider: 'QA Filtered: Google and NASA ASDC'
+    ee_type: image_collection
+    spatial_resolution: 2226
+    extent:
+      start_date: "2023-08-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      weight:
+        description: Sum of Level 2 pixel overlap areas. Represents the weighting
+        units: km^2
+      vertical_column:
+        description: HCHO vertical column
+        units: molecules/cm^2
+      vertical_column_uncertainty:
+        description: HCHO vertical column uncertainty
+        units: molecules/cm^2
+      main_data_quality_flag:
+        description: Main data quality flag which is always 0, indicating good quality data.
+        units: Dimensionless
+      num_vertical_column_samples:
+        description: Number of vertical column samples
+        units: Dimensionless
+      min_vertical_column_sample:
+        description: Smallest vertical column sample
+        units: molecules/cm^2
+      max_vertical_column_sample:
+        description: Largest vertical column sample
+        units: molecules/cm^2
+      solar_zenith_angle:
+        description: Data is filtered to include only observations with solar zenith angle
+        units: deg
+      viewing_zenith_angle:
+        description: Viewing zenith angle at pixel center
+        units: deg
+      relative_azimuth_angle:
+        description: Relative azimuth angle at pixel center
+        units: deg
+      surface_pressure:
+        description: Surface pressure
+        units: hPa
+      terrain_height:
+        description: Terrain height
+        units: m
+      snow_ice_fraction:
+        description: Fraction of pixel area covered by snow and/or ice
+        units: Dimensionless
+      fitted_slant_column:
+        description: HCHO fitted slant column
+        units: molecules/cm^2
+      fitted_slant_column_uncertainty:
+        description: HCHO fitted slant column uncertainty
+        units: molecules/cm^2
+      albedo:
+        description: Surface albedo
+        units: Dimensionless
+      amf:
+        description: HCHO air mass factor
+        units: Dimensionless
+      eff_cloud_fraction:
+        description: Data is filtered to include only observations with effective cloud fraction
+        units: Dimensionless
+      amf_cloud_fraction:
+        description: Cloud radiance fraction for AMF calculation
+        units: Dimensionless
+      amf_cloud_pressure:
+        description: Cloud pressure for AMF calculation
+        units: hPa
+
+  NASA/TEMPO/NO2_L3:
+    title: TEMPO gridded NO2 tropospheric and stratospheric columns V03
+    provider: NASA ASDC
+    ee_type: image_collection
+    spatial_resolution: 2226
+    extent:
+      start_date: "2023-08-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      weight:
+        description: Sum of Level 2 pixel overlap areas. Represents the weighting
+        units: km^2
+      vertical_column_troposphere:
+        description: NO2 troposphere vertical column
+        units: molecules/cm^2
+      vertical_column_troposphere_uncertainty:
+        description: NO2 troposphere vertical column uncertainty
+        units: molecules/cm^2
+      vertical_column_stratosphere:
+        description: NO2 stratosphere vertical column uncertainty
+        units: molecules/cm^2
+      main_data_quality_flag:
+        description: Main data quality flag. Provides an overall assessment of the
+        units: Dimensionless
+      num_vertical_column_troposphere_samples:
+        description: Number of Level 2 pixel values contributing to Level 3 grid for the
+        units: Dimensionless
+      min_vertical_column_troposphere_sample:
+        description: Smallest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      max_vertical_column_troposphere_sample:
+        description: Largest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      num_vertical_column_troposphere_uncertainty_samples:
+        description: Number of Level 2 pixel values contributing to Level 3 grid for the
+        units: Dimensionless
+      min_vertical_column_troposphere_uncertainty_sample:
+        description: Smallest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      max_vertical_column_troposphere_uncertainty_sample:
+        description: Largest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      num_vertical_column_stratosphere_samples:
+        description: Number of Level 2 pixel values contributing to Level 3 grid for the
+        units: Dimensionless
+      min_vertical_column_stratosphere_sample:
+        description: Smallest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      max_vertical_column_stratosphere_sample:
+        description: Largest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      num_vertical_column_total_samples:
+        description: Number of Level 2 pixel values contributing to Level 3 grid for the
+        units: Dimensionless
+      min_vertical_column_total_sample:
+        description: Smallest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      max_vertical_column_total_sample:
+        description: Largest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      solar_zenith_angle:
+        description: Solar zenith angle at pixel center
+        units: deg
+      viewing_zenith_angle:
+        description: Viewing zenith angle at pixel center
+        units: deg
+      relative_azimuth_angle:
+        description: Relative azimuth angle at pixel center
+        units: deg
+      vertical_column_total:
+        description: NO2 vertical column
+        units: molecules/cm^2
+      vertical_column_total_uncertainty:
+        description: NO2 vertical column uncertainty
+        units: molecules/cm^2
+      surface_pressure:
+        description: Surface pressure
+        units: hPa
+      terrain_height:
+        description: Terrain height
+        units: m
+      snow_ice_fraction:
+        description: Fraction of pixel area covered by snow and/or ice
+        units: Dimensionless
+      fitted_slant_column:
+        description: NO2 fitted slant column
+        units: molecules/cm^2
+      fitted_slant_column_uncertainty:
+        description: NO2 fitted slant column uncertainty
+        units: molecules/cm^2
+      albedo:
+        description: Surface albedo
+        units: Dimensionless
+      tropopause_pressure:
+        description: Tropopause pressure
+        units: hPa
+      amf_total:
+        description: NO2 air mass factor
+        units: Dimensionless
+      eff_cloud_fraction:
+        description: Effective cloud fraction
+        units: Dimensionless
+      amf_cloud_fraction:
+        description: Cloud radiance fraction for AMF calculation
+        units: Dimensionless
+      amf_cloud_pressure:
+        description: Cloud pressure for AMF calculation
+        units: hPa
+      amf_troposphere:
+        description: NO2 troposphere air mass factor
+        units: Dimensionless
+      amf_stratosphere:
+        description: NO2 stratosphere air mass factor
+        units: Dimensionless
+
+  NASA/TEMPO/NO2_L3_QA:
+    title: TEMPO gridded NO2 (QA filtered) tropospheric and stratospheric columns V03
+    provider: 'QA Filtered: Google and NASA ASDC'
+    ee_type: image_collection
+    spatial_resolution: 2226
+    extent:
+      start_date: "2023-08-01"
+      end_date: null
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      weight:
+        description: Sum of Level 2 pixel overlap areas. Represents the weighting
+        units: km^2
+      vertical_column_troposphere:
+        description: NO2 troposphere vertical column
+        units: molecules/cm^2
+      vertical_column_troposphere_uncertainty:
+        description: NO2 troposphere vertical column uncertainty
+        units: molecules/cm^2
+      vertical_column_stratosphere:
+        description: NO2 stratosphere vertical column uncertainty
+        units: molecules/cm^2
+      main_data_quality_flag:
+        description: Main data quality flag which is always 0, indicating good quality data.
+        units: Dimensionless
+      num_vertical_column_troposphere_samples:
+        description: Number of Level 2 pixel values contributing to Level 3 grid for the
+        units: Dimensionless
+      min_vertical_column_troposphere_sample:
+        description: Smallest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      max_vertical_column_troposphere_sample:
+        description: Largest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      num_vertical_column_troposphere_uncertainty_samples:
+        description: Number of Level 2 pixel values contributing to Level 3 grid for the
+        units: Dimensionless
+      min_vertical_column_troposphere_uncertainty_sample:
+        description: Smallest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      max_vertical_column_troposphere_uncertainty_sample:
+        description: Largest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      num_vertical_column_stratosphere_samples:
+        description: Number of Level 2 pixel values contributing to Level 3 grid for the
+        units: Dimensionless
+      min_vertical_column_stratosphere_sample:
+        description: Smallest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      max_vertical_column_stratosphere_sample:
+        description: Largest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      num_vertical_column_total_samples:
+        description: Number of Level 2 pixel values contributing to Level 3 grid for the
+        units: Dimensionless
+      min_vertical_column_total_sample:
+        description: Smallest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      max_vertical_column_total_sample:
+        description: Largest Level 2 pixel values contributing to Level 3 grid for the
+        units: molecules/cm^2
+      solar_zenith_angle:
+        description: Data is filtered to include only observations with solar zenith angle
+        units: deg
+      viewing_zenith_angle:
+        description: Viewing zenith angle at pixel center
+        units: deg
+      relative_azimuth_angle:
+        description: Relative azimuth angle at pixel center
+        units: deg
+      vertical_column_total:
+        description: NO2 vertical column
+        units: molecules/cm^2
+      vertical_column_total_uncertainty:
+        description: NO2 vertical column uncertainty
+        units: molecules/cm^2
+      surface_pressure:
+        description: Surface pressure
+        units: hPa
+      terrain_height:
+        description: Terrain height
+        units: m
+      snow_ice_fraction:
+        description: Fraction of pixel area covered by snow and/or ice
+        units: Dimensionless
+      fitted_slant_column:
+        description: NO2 fitted slant column
+        units: molecules/cm^2
+      fitted_slant_column_uncertainty:
+        description: NO2 fitted slant column uncertainty
+        units: molecules/cm^2
+      albedo:
+        description: Surface albedo
+        units: Dimensionless
+      tropopause_pressure:
+        description: Tropopause pressure
+        units: hPa
+      amf_total:
+        description: NO2 air mass factor
+        units: Dimensionless
+      eff_cloud_fraction:
+        description: Data is filtered to include only observations with effective cloud fraction
+        units: Dimensionless
+      amf_cloud_fraction:
+        description: Cloud radiance fraction for AMF calculation
+        units: Dimensionless
+      amf_cloud_pressure:
+        description: Cloud pressure for AMF calculation
+        units: hPa
+      amf_troposphere:
+        description: NO2 troposphere air mass factor
+        units: Dimensionless
+      amf_stratosphere:
+        description: NO2 stratosphere air mass factor
+        units: Dimensionless
+
+  NASA/TEMPO/O3_L3_QA:
+    title: TEMPO gridded ozone total column V03 (PROVISIONAL)
+    provider: NASA ASDC
+    ee_type: image_collection
+    spatial_resolution: 2226
+    extent:
+      start_date: "2023-08-02"
+      end_date: null
+      bbox: [-170, 10, -10, 80]
+    default_reducer: mean
+    terms: This dataset is in the public domain and is available
+    bands:
+      relative_azimuth_angle:
+        description: Relative azimuth angle
+        units: deg
+      solar_zenith_angle:
+        description: Solar zenith angle
+        units: deg
+      viewing_zenith_angle:
+        description: Viewing zenith angle
+        units: deg
+      column_amount_o3:
+        description: Total column ozone
+        units: Dobson
+      fc:
+        description: Effective cloud fraction (mixed LER model)
+        units: Dimensionless
+      o3_below_cloud:
+        description: Ozone concentration below cloud
+        units: Dobson
+      radiative_cloud_frac:
+        description: Radiative cloud fraction
+        units: Dimensionless
+      so2_index:
+        description: Sulfur dioxide index
+        units: Dimensionless
+      uv_aerosol_index:
+        description: UV aerosol index
+        units: Dimensionless
+      max_column_sample:
+        description: Maximum column sample
+        units: molecules/cm^2
+      min_column_sample:
+        description: Minimum column sample
+        units: molecules/cm^2
+      num_column_samples:
+        description: Number of column samples
+        units: Dimensionless
+      cloud_pressure:
+        description: Cloud pressure
+        units: hPa
+      terrain_height:
+        description: Terrain height
+        units: m
+      terrain_pressure:
+        description: Terrain pressure
+        units: hPa
+      weight:
+        description: Sum of Level 2 pixel overlap areas, representing the total spatial
+        units: km^2
+
+  NASA/VIIRS/002/VNP09GA:
+    title: 'VNP09GA: VIIRS Surface Reflectance Daily 500m and 1km'
+    provider: NASA Land SIPS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: mean
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      M1:
+        description: 1km surface reflectance band M1
+        wavelength: 0.412
+        min: -0.01
+        max: 1.6
+      M2:
+        description: 1km surface reflectance Band M2
+        wavelength: 0.445
+        min: -0.01
+        max: 1.6
+      M3:
+        description: 1km surface reflectance band M3
+        wavelength: 0.483
+        min: -0.01
+        max: 1.6
+      M4:
+        description: 1km surface reflectance band M4
+        wavelength: 0.555
+        min: -0.01
+        max: 1.6
+      M5:
+        description: 1km surface reflectance band M5
+        wavelength: 0.672
+        min: -0.01
+        max: 1.6
+      M7:
+        description: 1km surface reflectance band M7
+        wavelength: 0.866
+        min: -0.01
+        max: 1.6
+      M8:
+        description: 1km surface reflectance band M8
+        wavelength: 1.24
+        min: -0.01
+        max: 1.6
+      M10:
+        description: 1km surface reflectance band M10
+        wavelength: 1.61
+        min: -0.01
+        max: 1.6
+      M11:
+        description: 1km surface reflectance band M11
+        wavelength: 2.25
+        min: -0.01
+        max: 1.6
+      I1:
+        description: 500m surface reflectance band I1
+        wavelength: 0.64
+        min: -0.01
+        max: 1.6
+      I2:
+        description: 500m surface reflectance band I2
+        wavelength: 0.865
+        min: -0.01
+        max: 1.6
+      I3:
+        description: 500m surface reflectance band I3
+        wavelength: 1.61
+        min: -0.01
+        max: 1.6
+      SensorAzimuth:
+        description: Sensor azimuth angle
+        units: deg
+        min: -180
+        max: 180
+      SensorZenith:
+        description: Sensor zenith angle
+        units: deg
+        min: 0
+        max: 180
+      SolarAzimuth:
+        description: Solar azimuth angle
+        units: deg
+        min: -180
+        max: 180
+      SolarZenith:
+        description: Solar zenith angle
+        units: deg
+        min: 0
+        max: 180
+      iobs_res:
+        description: Observation number
+        min: 0
+        max: 254
+      num_observations_1km:
+        description: Number of observations 1km
+        min: 0
+        max: 127
+      num_observations_500m:
+        description: Number of observations 500m
+        min: 0
+        max: 127
+      obscov_1km:
+        description: Observations coverage 1km
+        units: '%'
+        min: 0
+        max: 100
+      obscov_500m:
+        description: Observations coverage 500km
+        units: '%'
+        min: 0
+        max: 100
+      orbit_pnt:
+        description: Orbit pointer
+        min: 0
+        max: 15
+      QF1:
+        description: Quality flags 1
+      QF2:
+        description: Quality flags 2
+      QF3:
+        description: Quality flags 3
+      QF4:
+        description: Quality flags 4
+      QF5:
+        description: Quality flags 5
+      QF6:
+        description: Quality flags 6
+      QF7:
+        description: Quality flags 7
+      land_water_mask:
+        description: Land/water mask.
+        min: 0
+        max: 7
+
+  NASA/VIIRS/002/VNP09H1:
+    title: 'VNP09H1: VIIRS Surface Reflectance 8-Day L3 Global 500m'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: mean
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      SurfReflect_I1:
+        description: 500 m Surface Reflectance Band I1
+        min: -100
+        max: 16000
+      SurfReflect_I2:
+        description: 500 m Surface Reflectance Band I2
+        min: -100
+        max: 16000
+      SurfReflect_I3:
+        description: 500 m Surface Reflectance Band I3
+        min: -100
+        max: 16000
+      SurfReflect_QC_500m:
+        description: Surface Reflectance Band Quality Control (QC)
+        min: 0
+        max: 13311
+      SurfReflect_State_500m:
+        description: Surface Reflectance State Quality Assurance (QA)
+        min: 0
+        max: 13311
