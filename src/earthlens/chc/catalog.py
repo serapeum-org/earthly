@@ -64,8 +64,6 @@ from earthlens.base import AbstractCatalog
 
 CATALOG_PATH: Path = Path(__file__).parent / "chc_data_catalog.yaml"
 
-_FTP_HOST: str = "data.chc.ucsb.edu"
-
 
 class _StrictSafeLoader(yaml.SafeLoader):
     """:class:`yaml.SafeLoader` that rejects duplicate keys in any mapping.
