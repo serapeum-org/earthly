@@ -7182,3 +7182,596 @@ datasets:
         scale: 0.0001
       Npp_QC:
         description: Quality control bits
+
+  ECMWF/ERA5/HOURLY:
+    title: "ERA5 Hourly — ECMWF Climate Reanalysis (~28km, 1940-present)"
+    provider: ECMWF / Copernicus C3S
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1940-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Copernicus C3S/CAMS licence — free with attribution.
+    bands:
+      temperature_2m:
+        description: 2 m air temperature
+        units: K
+      dewpoint_temperature_2m:
+        description: 2 m dewpoint temperature
+        units: K
+      mean_sea_level_pressure:
+        description: Mean sea-level pressure
+        units: Pa
+      surface_pressure:
+        description: Surface pressure
+        units: Pa
+      total_precipitation:
+        description: Hourly total precipitation
+        units: m
+      u_component_of_wind_10m:
+        description: 10 m wind, U-component
+        units: m/s
+      v_component_of_wind_10m:
+        description: 10 m wind, V-component
+        units: m/s
+      surface_solar_radiation_downwards:
+        description: Downward solar radiation at surface (accumulated)
+        units: J/m^2
+      surface_thermal_radiation_downwards:
+        description: Downward thermal radiation at surface (accumulated)
+        units: J/m^2
+
+  NOAA/CFSV2/FOR6H:
+    title: "NOAA NCEP CFSv2: Climate Forecast System Version 2, 6-Hourly Forecast Products"
+    provider: NOAA / NCEP
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 22264
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA).
+    bands:
+      Temperature_height_above_ground:
+        description: 2 m air temperature
+        units: K
+      Maximum_temperature_height_above_ground_6_Hour_Interval:
+        description: 6-hourly maximum 2 m air temperature
+        units: K
+      Minimum_temperature_height_above_ground_6_Hour_Interval:
+        description: 6-hourly minimum 2 m air temperature
+        units: K
+      Specific_humidity_height_above_ground:
+        description: 2 m specific humidity (mass fraction)
+      Pressure_surface:
+        description: Surface pressure
+        units: Pa
+      u-component_of_wind_height_above_ground:
+        description: 10 m wind, U-component
+        units: m/s
+      v-component_of_wind_height_above_ground:
+        description: 10 m wind, V-component
+        units: m/s
+      Precipitation_rate_surface_6_Hour_Average:
+        description: 6-hourly mean precipitation rate
+        units: kg/m^2/s
+      Downward_Short-Wave_Radiation_Flux_surface_6_Hour_Average:
+        description: 6-hourly mean downward shortwave radiation flux
+        units: W/m^2
+      Downward_Long-Wave_Radp_Flux_surface_6_Hour_Average:
+        description: 6-hourly mean downward longwave radiation flux
+        units: W/m^2
+      Latent_heat_net_flux_surface_6_Hour_Average:
+        description: 6-hourly mean latent heat net flux
+        units: W/m^2
+      Sensible_heat_net_flux_surface_6_Hour_Average:
+        description: 6-hourly mean sensible heat net flux
+        units: W/m^2
+      Volumetric_Soil_Moisture_Content_depth_below_surface_layer_5_cm:
+        description: Volumetric soil moisture, 5 cm depth
+      Volumetric_Soil_Moisture_Content_depth_below_surface_layer_25_cm:
+        description: Volumetric soil moisture, 25 cm depth
+
+  USDA/NAIP/DOQQ:
+    title: "USDA NAIP DOQQ: National Agriculture Imagery Program (US, 0.6-1m, 4-band)"
+    provider: USDA FSA
+    ee_type: image_collection
+    cadence: { interval: 2, unit: year }
+    spatial_resolution: 0.6
+    extent:
+      start_date: "2002-06-15"
+      end_date: null
+      bbox: [-124.84, 24.42, -64.82, 49.72]
+    default_reducer: median
+    terms: Public domain (USDA FSA).
+    bands:
+      R:
+        description: Red (digital number)
+      G:
+        description: Green (digital number)
+      B:
+        description: Blue (digital number)
+      N:
+        description: Near infrared (digital number)
+
+  UMD/hansen/global_forest_change_2022_v1_10:
+    title: "Hansen Global Forest Change v1.10 (2000-2022)"
+    provider: Hansen / UMD / Google / USGS / NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2022-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      treecover2000:
+        description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
+        units: "%"
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss in 2000-2022 (binary stand-replacement disturbance)
+      gain:
+        description: Forest gain in 2000-2012 (binary inverse of loss)
+      lossyear:
+        description: Year of forest cover loss (1=2001 ... 22=2022)
+        min: 0
+        max: 22
+      datamask:
+        description: Data quality mask (no-data / land / permanent water)
+
+  CIESIN/GPWv411/GPW_UNWPP-Adjusted_Population_Density:
+    title: "GPWv4.11 UN WPP-Adjusted Population Density (5-yearly 1km, 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      unwpp-adjusted_population_density:
+        description: Population density adjusted to UN WPP country totals
+        units: persons/km^2
+        min: 0
+
+  CIESIN/GPWv411/GPW_UNWPP-Adjusted_Population_Count:
+    title: "GPWv4.11 UN WPP-Adjusted Population Count (5-yearly 1km, 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      unwpp-adjusted_population_count:
+        description: Population count adjusted to UN WPP country totals (per 30 arc-second cell)
+        units: persons
+        min: 0
+
+  JAXA/ALOS/PALSAR/YEARLY/FNF4:
+    title: "ALOS PALSAR Yearly 4-Class Forest / Non-Forest Map (25m, 2017-)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 25
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free with attribution (JAXA EORC).
+    bands:
+      fnf:
+        description: Forest / non-forest classification (1=dense, 2=non-dense, 3=non-forest, 4=water)
+        min: 1
+        max: 4
+
+  LANDSAT/LC09/C02/T2_TOA:
+    title: "USGS Landsat 9 Collection 2 Tier 2 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2021-11-02"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1 (resampled from 100m to 30m)
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2 (resampled from 100m to 30m)
+        wavelength: 12.005
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LT05/C02/T1_TOA:
+    title: "USGS Landsat 5 TM Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-04-19"
+      end_date: "2012-05-05"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal infrared (resampled from 60m to 30m)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LT05/C02/T2_TOA:
+    title: "USGS Landsat 5 TM Collection 2 Tier 2 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-06"
+      end_date: "2012-05-05"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal infrared (resampled from 60m to 30m)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LT04/C02/T1_TOA:
+    title: "USGS Landsat 4 TM Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-22"
+      end_date: "1993-12-14"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal infrared (resampled from 60m to 30m)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  NASA/GPM_L3/IMERG_V06:
+    title: "GPM IMERG v06 Half-Hourly Precipitation (legacy 0.1°, 2000-)"
+    provider: NASA GES DISC
+    ee_type: image_collection
+    cadence: { interval: 30, unit: minute }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2000-06-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA GES DISC).
+    bands:
+      precipitationCal:
+        description: Final calibrated precipitation estimate
+        units: mm/hr
+      precipitationUncal:
+        description: Uncalibrated multi-satellite precipitation estimate
+        units: mm/hr
+      HQprecipitation:
+        description: Merged passive-microwave precipitation (high quality)
+        units: mm/hr
+      IRprecipitation:
+        description: IR-only precipitation (geostationary)
+        units: mm/hr
+      randomError:
+        description: Random error of the calibrated precipitation
+        units: mm/hr
+      probabilityLiquidPrecipitation:
+        description: Probability of liquid precipitation phase
+        units: "%"
+
+  NOAA/CDR/AVHRR/AOT/V3:
+    title: "NOAA CDR AVHRR AOT v3: Daily Global Ocean Aerosol Optical Thickness (legacy)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA CDR).
+    bands:
+      aot:
+        description: Aerosol optical thickness over the ocean (legacy v3)
+        min: -0.19
+        max: 4.95
+        estimated_range: true
+
+  MODIS/061/MCD43A2:
+    title: "MCD43A2.061: MODIS BRDF/Albedo Quality Daily 500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: NASA LP DAAC — no restrictions.
+    bands:
+      Snow_BRDF_Albedo:
+        description: Snow-free vs snow BRDF/albedo retrieval flag
+      BRDF_Albedo_Platform:
+        description: BRDF / albedo platform information (Terra/Aqua/combined)
+      BRDF_Albedo_LandWaterType:
+        description: Land / water classification
+      BRDF_Albedo_LocalSolarNoon:
+        description: Solar zenith angle of local solar noon
+        units: deg
+      BRDF_Albedo_ValidObs_Band1:
+        description: Valid-observation flags for MODIS band 1 (red)
+      BRDF_Albedo_ValidObs_Band2:
+        description: Valid-observation flags for MODIS band 2 (NIR)
+
+  COPERNICUS/S5P/OFFL/L3_O3_TCL:
+    title: "Sentinel-5P OFFL O3_TCL: Tropospheric Ozone Column (CCD algorithm)"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 55660
+    extent:
+      start_date: "2018-04-30"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      ozone_tropospheric_mixing_ratio:
+        description: Average tropospheric ozone mixing ratio (CCD)
+        units: mol/m^2
+      ozone_tropospheric_mixing_ratio_precision:
+        description: Standard deviation of the mixing ratio
+        units: mol/m^2
+      ozone_tropospheric_vertical_column:
+        description: Average tropospheric ozone column (CCD)
+        units: mol/m^2
+      ozone_tropospheric_vertical_column_precision:
+        description: Standard deviation of the column
+        units: mol/m^2
+      qa_value:
+        description: Per-pixel quality descriptor (0=no data, 100=high quality)
+
+  Oxford/MAP/IGBP_Fractional_Landcover_5km_Annual:
+    title: "Oxford MAP: IGBP Fractional Landcover (5km Annual, 2001-)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    bands:
+      Overall_Class:
+        description: Dominant IGBP land-cover class per pixel
+        min: 0
+        max: 17
+      Water:
+        description: Per-pixel water fraction
+        units: "%"
+        min: 0
+        max: 100
+      Evergreen_Needleleaf_Forest:
+        description: Per-pixel evergreen-needleleaf-forest fraction
+        units: "%"
+      Evergreen_Broadleaf_Forest:
+        description: Per-pixel evergreen-broadleaf-forest fraction
+        units: "%"
+      Deciduous_Needleleaf_Forest:
+        description: Per-pixel deciduous-needleleaf-forest fraction
+        units: "%"
+      Croplands:
+        description: Per-pixel cropland fraction
+        units: "%"
+      Urban_And_Built-Up:
+        description: Per-pixel built-up fraction
+        units: "%"
+
+  Oxford/MAP/accessibility_to_cities_2015_v1_0:
+    title: "Oxford MAP Accessibility to Cities 2015 v1.0 (1km global travel time)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
+      bbox: [-180, -60, 180, 85]
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      accessibility:
+        description: Travel time to the nearest densely-populated area
+        units: min
+        min: 0
+
+  JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR:
+    title: "JAXA ALOS PALSAR-2 ScanSAR Level 2.2 (HH/HV terrain-flattened, 25m)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    spatial_resolution: 25
+    extent:
+      start_date: "2014-08-04"
+      end_date: null
+    default_reducer: median
+    terms: Free with attribution (JAXA EORC).
+    bands:
+      HH:
+        description: HH-polarisation terrain-flattened gamma-nought backscatter
+      HV:
+        description: HV-polarisation terrain-flattened gamma-nought backscatter
+      LIN:
+        description: Local incidence angle
+        units: deg
+        scale: 0.01
+      MSK:
+        description: Data quality bitmask
+
+  NOAA/GOES/17/MCMIPC:
+    title: "NOAA GOES-17 ABI L2 Cloud and Moisture Imagery — CONUS (10-min, 2km)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2018-12-04"
+      end_date: null
+      bbox: [-180, 14.57, 180, 53.51]
+    default_reducer: median
+    terms: Public domain (NOAA).
+    bands:
+      CMI_C01:
+        description: ABI band 01 (visible blue) reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      CMI_C02:
+        description: ABI band 02 (visible red) reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      CMI_C03:
+        description: ABI band 03 (veggie NIR) reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      CMI_C07:
+        description: ABI band 07 (shortwave IR) brightness temperature
+        units: K
+        wavelength: 3.9
+      CMI_C13:
+        description: ABI band 13 (clean longwave IR window) brightness temperature
+        units: K
+        wavelength: 10.35
+      DQF_C01:
+        description: Data quality flag, band 01
+      DQF_C13:
+        description: Data quality flag, band 13
+
+  WorldPop/POP:
+    title: "WorldPop Global Project Population (legacy, 100m, 2000-)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -59.94, 180, 54.08]
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      population:
+        description: Estimated number of residents per ~100m grid cell
