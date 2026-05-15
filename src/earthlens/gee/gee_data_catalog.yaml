@@ -29035,3 +29035,1273 @@ datasets:
         max: 1353
       QA:
         description: Pixel quality indicators
+
+  MODIS/006/MYD14A2:
+    title: 'MYD14A2.006: Aqua Thermal Anomalies & Fire 8-Day Global 1km [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      FireMask:
+        description: Confidence of fire
+      QA:
+        description: Pixel quality indicators
+
+  MODIS/006/MYD15A2H:
+    title: 'MYD15A2H.006: Aqua Leaf Area Index/FPAR 8-Day Global 500m [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Fpar_500m:
+        description: Fraction of Photosynthetically Active Radiation
+        units: '%'
+        scale: 0.01
+        min: 0
+        max: 100
+      Lai_500m:
+        description: Leaf Area Index
+        units: Area fraction
+        scale: 0.1
+        min: 0
+        max: 100
+      FparLai_QC:
+        description: Quality for LAI and FPAR
+        min: 0
+        max: 254
+      FparExtra_QC:
+        description: Extra detail Quality for LAI and FPAR
+        min: 0
+        max: 254
+      FparStdDev_500m:
+        description: Standard deviation of FPAR
+        units: '%'
+        scale: 0.01
+        min: 0
+        max: 100
+      LaiStdDev_500m:
+        description: Standard deviation of LAI
+        units: Area fraction
+        scale: 0.1
+        min: 0
+        max: 100
+
+  MODIS/006/MYD17A2H:
+    title: 'MYD17A2H.006: Aqua Gross Primary Productivity 8-Day Global 500m [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Gpp:
+        description: Gross primary production
+        units: kg*C/m^2
+        scale: 0.0001
+        min: 0
+        max: 3000
+      PsnNet:
+        description: Net photosynthesis; GPP minus the maintenance respiration (MR)
+        units: kg*C/m^2
+        scale: 0.0001
+        min: -3000
+        max: 3000
+      Psn_QC:
+        description: Quality control bits
+
+  MODIS/006/MYD17A3H:
+    title: 'MYD17A3H.006: Aqua Net Primary Production Yearly Global 500m [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Npp:
+        description: Net primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+        min: -3000
+        max: 32700
+      Npp_QC:
+        description: Quality control bits
+
+  MODIS/006/MYD17A3HGF:
+    title: 'MYD17A3HGF.006: Aqua Net Primary Production  Gap-Filled Yearly Global 500m [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Npp:
+        description: Net primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+        min: -30000
+        max: 32700
+      Npp_QC:
+        description: Quality control percentage
+        units: '%'
+        min: 0
+        max: 100
+
+  MODIS/006/MYDOCGA:
+    title: MYDOCGA.006 Aqua Ocean Reflectance Daily Global 1km
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      num_observations:
+        description: Number of observations per pixel
+        min: 0
+        max: 127
+      sur_refl_b08:
+        description: MODIS band 8 surface reflectance
+        scale: 0.0001
+        wavelength: 0.4125
+        min: -100
+        max: 16000
+      sur_refl_b09:
+        description: MODIS band 9 surface reflectance
+        scale: 0.0001
+        wavelength: 0.443
+        min: -100
+        max: 16000
+      sur_refl_b10:
+        description: MODIS band 10 surface reflectance
+        scale: 0.0001
+        wavelength: 0.488
+        min: -100
+        max: 16000
+      sur_refl_b11:
+        description: MODIS band 11 surface reflectance
+        scale: 0.0001
+        wavelength: 0.531
+        min: -100
+        max: 16000
+      sur_refl_b12:
+        description: MODIS band 12 surface reflectance
+        scale: 0.0001
+        wavelength: 0.551
+        min: -100
+        max: 16000
+      sur_refl_b13:
+        description: MODIS band 13 surface reflectance
+        scale: 0.0001
+        wavelength: 0.667
+        min: -100
+        max: 16000
+      sur_refl_b14:
+        description: MODIS band 14 surface reflectance
+        scale: 0.0001
+        wavelength: 0.677
+        min: -100
+        max: 16000
+      sur_refl_b15:
+        description: MODIS band 15 surface reflectance
+        scale: 0.0001
+        wavelength: 0.747
+        min: -100
+        max: 16000
+      sur_refl_b16:
+        description: MODIS band 16 surface reflectance
+        scale: 0.0001
+        wavelength: 0.8695
+        min: -100
+        max: 16000
+      QC_b8_15_1km:
+        description: Band quality for MODIS bands 8-15
+      QC_b16_15_1km:
+        description: Band quality for MODIS band 16
+      orbit_pnt:
+        description: Pointer to the orbit of each observation
+        min: 0
+        max: 15
+      granule_pnt:
+        description: Pointer to the granule of each observation
+        min: 0
+        max: 254
+
+  MODIS/055/MOD17A3:
+    title: 'MOD17A3.055: Terra Net Primary Production Yearly Global 1km [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Gpp:
+        description: Annual gross primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+        min: 0
+        max: 65500
+      Npp:
+        description: Annual net primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+        min: 0
+        max: 65500
+      Gpp_Npp_QC:
+        description: Percentage of filled MOD15 LAI caused by cloud-contamination
+        units: '%'
+        min: 0
+        max: 100
+
+  MODIS/061/MCD15A3H:
+    title: MCD15A3H.061 MODIS Leaf Area Index/FPAR 4-Day Global 500m
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 4, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Fpar:
+        description: FPAR absorbed by the green elements of a vegetation canopy
+        scale: 0.01
+        wavelength: 0.55
+        min: 0
+        max: 100
+      Lai:
+        description: One-sided green leaf area per unit ground area in
+        scale: 0.1
+        min: 0
+        max: 100
+      FparLai_QC:
+        description: Quality for Lai and Fpar
+      FparExtra_QC:
+        description: Extra detail quality for LAI and FPAR
+      FparStdDev:
+        description: Standard deviation of Fpar
+        scale: 0.01
+        min: 0
+        max: 100
+      LaiStdDev:
+        description: Standard deviation for Lai
+        scale: 0.1
+        min: 0
+        max: 100
+
+  MODIS/061/MCD43C3:
+    title: MCD43C3.061 BRDF/Albedo Daily L3 0.05 Deg CMG
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5600
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Albedo_BSA_Band1:
+        description: Black-sky albedo for band 1
+        scale: 0.001
+        wavelength: 0.645
+        min: 0
+        max: 32766
+      Albedo_BSA_Band2:
+        description: Black-sky albedo for band 2
+        scale: 0.001
+        wavelength: 0.8585
+        min: 0
+        max: 32766
+      Albedo_BSA_Band3:
+        description: Black-sky albedo for band 3
+        scale: 0.001
+        wavelength: 0.469
+        min: 0
+        max: 32766
+      Albedo_BSA_Band4:
+        description: Black-sky albedo for band 4
+        scale: 0.001
+        wavelength: 0.555
+        min: 0
+        max: 32766
+      Albedo_BSA_Band5:
+        description: Black-sky albedo for band 5
+        scale: 0.001
+        wavelength: 1.24
+        min: 0
+        max: 32766
+      Albedo_BSA_Band6:
+        description: Black-sky albedo for band 6
+        scale: 0.001
+        wavelength: 1.64
+        min: 0
+        max: 32766
+      Albedo_BSA_Band7:
+        description: Black-sky albedo for band 7
+        scale: 0.001
+        wavelength: 2.13
+        min: 0
+        max: 32766
+      Albedo_BSA_vis:
+        description: Black-sky albedo for visible brodband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_BSA_nir:
+        description: Black-sky albedo for NIR broadband
+        scale: 0.001
+        wavelength: 0.858
+        min: 0
+        max: 32766
+      Albedo_BSA_shortwave:
+        description: Black-sky albedo for shortwave broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_WSA_Band1:
+        description: White-sky albedo for band 1
+        scale: 0.001
+        wavelength: 0.645
+        min: 0
+        max: 32766
+      Albedo_WSA_Band2:
+        description: White-sky albedo for band 2
+        scale: 0.001
+        wavelength: 0.8585
+        min: 0
+        max: 32766
+      Albedo_WSA_Band3:
+        description: White-sky albedo for band 3
+        scale: 0.001
+        wavelength: 0.469
+        min: 0
+        max: 32766
+      Albedo_WSA_Band4:
+        description: White-sky albedo for band 4
+        scale: 0.001
+        wavelength: 0.555
+        min: 0
+        max: 32766
+      Albedo_WSA_Band5:
+        description: White-sky albedo for band 5
+        scale: 0.001
+        wavelength: 1.24
+        min: 0
+        max: 32766
+      Albedo_WSA_Band6:
+        description: White-sky albedo for band 6
+        scale: 0.001
+        wavelength: 1.64
+        min: 0
+        max: 32766
+      Albedo_WSA_Band7:
+        description: White-sky albedo for band 7
+        scale: 0.001
+        wavelength: 2.13
+        min: 0
+        max: 32766
+      Albedo_WSA_vis:
+        description: White-sky albedo for visible broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      Albedo_WSA_nir:
+        description: White-sky albedo for NIR broadband
+        scale: 0.001
+        wavelength: 0.858
+        min: 0
+        max: 32766
+      Albedo_WSA_shortwave:
+        description: White-sky albedo for shortwave broadband
+        scale: 0.001
+        min: 0
+        max: 32766
+      BRDF_Quality:
+        description: Global albedo quality
+      Local_Solar_Noon:
+        description: Local solar noon zenith angle
+        units: deg
+        min: 0
+        max: 90
+      Percent_Inputs:
+        description: Percent of the processed finer resolution data which contributed to this CMG pixel
+        units: '%'
+        min: 0
+        max: 100
+      Percent_Snow:
+        description: Percent of underlying data flagged as snow
+        units: '%'
+        min: 0
+        max: 100
+      BRDF_Albedo_Uncertainty:
+        description: BRDF inversion information. Weights of determination (WoD) of the white
+        scale: 0.001
+        min: 0
+        max: 32766
+
+  MODIS/061/MOD17A2HGF:
+    title: 'MOD17A2HGF.061: Terra Gross Primary Productivity 8-Day Global 500m'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2021-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Gpp:
+        description: Gross primary production
+        units: kg*C/m^2
+        scale: 0.0001
+        min: 0
+        max: 3000
+      PsnNet:
+        description: Net photosynthesis; GPP minus the maintenance respiration (MR)
+        units: kg*C/m^2
+        scale: 0.0001
+        min: -3000
+        max: 3000
+      Psn_QC:
+        description: Quality control bits
+
+  MODIS/061/MOD21C1:
+    title: MOD21C1.061 Terra Land Surface Temperature and 3-Band Emissivity Daily L3 Global 0.05
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Count_Day:
+        description: Count of Daytime Input Values
+        min: 1
+        max: 65535
+      Count_Night:
+        description: Count of Nighttime Input Values
+        min: 1
+        max: 65535
+      QC_Day:
+        description: Quality Control for Daytime LST and Emissivity
+        min: 0
+        max: 255
+      QC_Night:
+        description: Quality Control for Nighttime LST and Emissivity
+        min: 0
+        max: 255
+      LST_Day:
+        description: Average Daytime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Night:
+        description: Average Nighttime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Day_err:
+        description: Root-mean-square-error Daytime Land Surface Temperature
+        units: K
+        scale: 0.04
+        min: 1
+        max: 255
+      LST_Night_err:
+        description: Average Nighttime Land Surface Temperature
+        units: K
+        scale: 0.04
+        min: 1
+        max: 255
+      Day_view_angle:
+        description: Average Daytime View Zenith Angle
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Night_view_angle:
+        description: Average Nighttime View Zenith Angle
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Day_view_time:
+        description: Average Daytime View Time (UTC)
+        units: h
+        scale: 0.2
+        min: 0
+        max: 120
+      Night_view_time:
+        description: Average Nighttime View Time (UTC)
+        units: h
+        scale: 0.2
+        min: 0
+        max: 120
+      Emis_29_Day:
+        description: Average Daytime Band 29 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_29_Night:
+        description: Average Nighttime Band 29 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_29_Day_err:
+        description: Root-mean-square-error Daytime Band 29 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_29_Night_err:
+        description: Root-mean-square-error Nighttime Band 29 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_31_Day:
+        description: Average Daytime Band 31 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_31_Night:
+        description: Average Nighttime Band 31 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_31_Day_err:
+        description: Root-mean-square-error Daytime Band 31 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_31_Night_err:
+        description: Root-mean-square-error Nighttime Band 31 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_32_Day:
+        description: Average Daytime Band 32 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32_Night:
+        description: Average Nighttime Band 32 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32_Day_err:
+        description: Root-mean-square-error Daytime Band 32 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_32_Night_err:
+        description: Root-mean-square-error Nighttime Band 32 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      View_Angle:
+        description: MODIS view zenith angle
+        units: deg
+        offset: -65
+      Percent_land_in_grid:
+        description: Percent of Land Detections in Grid Cell
+        units: '%'
+        min: 1
+        max: 100
+
+  MODIS/061/MOD21C2:
+    title: MOD21C2.061 Terra Land Surface Temperature and 3-Band Emissivity 8-Day L3 Global 0.05
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Count_Day:
+        description: Count of Daytime Input Values
+        min: 1
+        max: 65535
+      Count_Night:
+        description: Count of Nighttime Input Values
+        min: 1
+        max: 65535
+      QC_Day:
+        description: Quality Control for Daytime LST and Emissivity
+        min: 0
+        max: 255
+      QC_Night:
+        description: Quality Control for Nighttime LST and Emissivity
+        min: 0
+        max: 255
+      LST_Day:
+        description: Average Daytime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Night:
+        description: Average Nighttime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Day_err:
+        description: Root-mean-square-error Daytime Land Surface Temperature
+        units: K
+        scale: 0.04
+        min: 1
+        max: 255
+      LST_Night_err:
+        description: Average Nighttime Land Surface Temperature
+        units: K
+        scale: 0.04
+        min: 1
+        max: 255
+      Day_view_angle:
+        description: Average Daytime View Zenith Angle
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Night_view_angle:
+        description: Average Nighttime View Zenith Angle
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Day_view_time:
+        description: Average Daytime View Time (UTC)
+        units: h
+        scale: 0.2
+        min: 0
+        max: 120
+      Night_view_time:
+        description: Average Nighttime View Time (UTC)
+        units: h
+        scale: 0.2
+        min: 0
+        max: 120
+      Emis_29_Day:
+        description: Average Daytime Band 29 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_29_Night:
+        description: Average Nighttime Band 29 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_29_Day_err:
+        description: Root-mean-square-error Daytime Band 29 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_29_Night_err:
+        description: Root-mean-square-error Nighttime Band 29 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_31_Day:
+        description: Average Daytime Band 31 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_31_Night:
+        description: Average Nighttime Band 31 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_31_Day_err:
+        description: Root-mean-square-error Daytime Band 31 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_31_Night_err:
+        description: Root-mean-square-error Nighttime Band 31 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_32_Day:
+        description: Average Daytime Band 32 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32_Night:
+        description: Average Nighttime Band 32 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32_Day_err:
+        description: Root-mean-square-error Daytime Band 32 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_32_Night_err:
+        description: Root-mean-square-error Nighttime Band 32 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      View_Angle:
+        description: MODIS view zenith angle
+        units: deg
+        offset: -65
+      Percent_land_in_grid:
+        description: Percent of Land Detections in Grid Cell
+        units: '%'
+        min: 1
+        max: 100
+      Clear_sky_days:
+        description: Bitmap of Clear Sky Days (1 = clear, LSB = 1st day)
+        min: 0
+        max: 2147483647
+      Clear_sky_nights:
+        description: Bitmap of Clear Sky Nights (1 = clear, LSB = 1st day)
+        min: 0
+        max: 2147483647
+
+  MODIS/061/MYD09GQ:
+    title: MYD09GQ.061 Aqua Surface Reflectance Daily Global 250m
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 250
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      num_observations:
+        description: Number of observations per 250m pixel
+        min: 0
+        max: 127
+      sur_refl_b01:
+        description: Surface reflectance band 1
+        scale: 0.0001
+        wavelength: 0.645
+        min: -100
+        max: 16000
+      sur_refl_b02:
+        description: Surface reflectance for band 2
+        scale: 0.0001
+        wavelength: 0.8585
+        min: -100
+        max: 16000
+      QC_250m:
+        description: Surface reflectance quality assurance
+      obscov:
+        description: Observation coverage percent
+        scale: 0.01
+        min: 0
+        max: 100
+      iobs_res:
+        description: Observation number
+        min: 0
+        max: 254
+      orbit_pnt:
+        description: Orbit pointer
+        min: 0
+        max: 15
+      granule_pnt:
+        description: Granule pointer
+        min: 0
+        max: 254
+
+  MODIS/061/MYD21C1:
+    title: MYD21C1.061 Aqua Land Surface Temperature and 3-Band Emissivity Daily L3 Global 0.05
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Count_Day:
+        description: Count of Daytime Input Values
+        min: 1
+        max: 65535
+      Count_Night:
+        description: Count of Nighttime Input Values
+        min: 1
+        max: 65535
+      QC_Day:
+        description: Quality Control for Daytime LST and Emissivity
+        min: 0
+        max: 255
+      QC_Night:
+        description: Quality Control for Nighttime LST and Emissivity
+        min: 0
+        max: 255
+      LST_Day:
+        description: Average Daytime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Night:
+        description: Average Nighttime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Day_err:
+        description: Root-mean-square-error Daytime Land Surface Temperature
+        units: K
+        scale: 0.04
+        min: 1
+        max: 255
+      LST_Night_err:
+        description: Average Nighttime Land Surface Temperature
+        units: K
+        scale: 0.04
+        min: 1
+        max: 255
+      Day_view_angle:
+        description: Average Daytime View Zenith Angle
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Night_view_angle:
+        description: Average Nighttime View Zenith Angle
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Day_view_time:
+        description: Average Daytime View Time (UTC)
+        units: h
+        scale: 0.2
+        min: 0
+        max: 120
+      Night_view_time:
+        description: Average Nighttime View Time (UTC)
+        units: h
+        scale: 0.2
+        min: 0
+        max: 120
+      Emis_29_Day:
+        description: Average Daytime Band 29 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_29_Night:
+        description: Average Nighttime Band 29 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_29_Day_err:
+        description: Root-mean-square-error Daytime Band 29 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_29_Night_err:
+        description: Root-mean-square-error Nighttime Band 29 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_31_Day:
+        description: Average Daytime Band 31 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_31_Night:
+        description: Average Nighttime Band 31 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_31_Day_err:
+        description: Root-mean-square-error Daytime Band 31 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_31_Night_err:
+        description: Root-mean-square-error Nighttime Band 31 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_32_Day:
+        description: Average Daytime Band 32 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32_Night:
+        description: Average Nighttime Band 32 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32_Day_err:
+        description: Root-mean-square-error Daytime Band 32 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_32_Night_err:
+        description: Root-mean-square-error Nighttime Band 32 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      View_Angle:
+        description: MODIS view zenith angle
+        units: deg
+        offset: -65
+      Percent_land_in_grid:
+        description: Percent of Land Detections in Grid Cell
+        units: '%'
+        min: 1
+        max: 100
+
+  MODIS/061/MYD21C2:
+    title: MYD21C2.061 Aqua Land Surface Temperature and 3-Band Emissivity 8-Day L3 Global 0.05
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      Count_Day:
+        description: Count of Daytime Input Values
+        min: 1
+        max: 65535
+      Count_Night:
+        description: Count of Nighttime Input Values
+        min: 1
+        max: 65535
+      QC_Day:
+        description: Quality Control for Daytime LST and Emissivity
+        min: 0
+        max: 255
+      QC_Night:
+        description: Quality Control for Nighttime LST and Emissivity
+        min: 0
+        max: 255
+      LST_Day:
+        description: Average Daytime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Night:
+        description: Average Nighttime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      LST_Day_err:
+        description: Root-mean-square-error Daytime Land Surface Temperature
+        units: K
+        scale: 0.04
+        min: 1
+        max: 255
+      LST_Night_err:
+        description: Average Nighttime Land Surface Temperature
+        units: K
+        scale: 0.04
+        min: 1
+        max: 255
+      Day_view_angle:
+        description: Average Daytime View Zenith Angle
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Night_view_angle:
+        description: Average Nighttime View Zenith Angle
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Day_view_time:
+        description: Average Daytime View Time (UTC)
+        units: h
+        scale: 0.2
+        min: 0
+        max: 120
+      Night_view_time:
+        description: Average Nighttime View Time (UTC)
+        units: h
+        scale: 0.2
+        min: 0
+        max: 120
+      Emis_29_Day:
+        description: Average Daytime Band 29 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_29_Night:
+        description: Average Nighttime Band 29 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_29_Day_err:
+        description: Root-mean-square-error Daytime Band 29 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_29_Night_err:
+        description: Root-mean-square-error Nighttime Band 29 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_31_Day:
+        description: Average Daytime Band 31 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_31_Night:
+        description: Average Nighttime Band 31 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_31_Day_err:
+        description: Root-mean-square-error Daytime Band 31 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_31_Night_err:
+        description: Root-mean-square-error Nighttime Band 31 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_32_Day:
+        description: Average Daytime Band 32 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32_Night:
+        description: Average Nighttime Band 32 Emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32_Day_err:
+        description: Root-mean-square-error Daytime Band 32 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      Emis_32_Night_err:
+        description: Root-mean-square-error Nighttime Band 32 Emissivity
+        scale: 0.0001
+        min: 1
+        max: 65535
+      View_Angle:
+        description: MODIS view zenith angle
+        units: deg
+        offset: -65
+      Percent_land_in_grid:
+        description: Percent of Land Detections in Grid Cell
+        units: '%'
+        min: 1
+        max: 100
+      Clear_sky_days:
+        description: Bitmap of Clear Sky Days (1 = clear, LSB = 1st day)
+        min: 0
+        max: 2147483647
+      Clear_sky_nights:
+        description: Bitmap of Clear Sky Nights (1 = clear, LSB = 1st day)
+        min: 0
+        max: 2147483647
+
+  MODIS/062/MCD18A1:
+    title: MCD18A1.062 Surface Radiation Daily/3-Hour
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-03-03"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      DSR:
+        description: Instantaneous total DSR at MODIS overpass
+        units: W/m^2
+        min: 0
+        max: 1400
+      Direct:
+        description: Instantaneous direct DSR at MODIS overpass
+        units: W/m^2
+        min: 0
+        max: 1400
+      Diffuse:
+        description: Instantaneous diffuse DSR at MODIS overpass
+        units: W/m^2
+        min: 0
+        max: 1400
+      GMT_0000_DSR:
+        description: Total DSR at GMT 00:00
+        units: W/m^2
+        min: 0
+        max: 1400
+      GMT_0300_DSR:
+        description: Total DSR at GMT 03:00
+        units: W/m^2
+        min: 0
+        max: 1400
+      GMT_0600_DSR:
+        description: Total DSR at GMT 06:00
+        units: W/m^2
+        min: 0
+        max: 1400
+      GMT_0900_DSR:
+        description: Total DSR at GMT 09:00
+        units: W/m^2
+        min: 0
+        max: 1400
+      GMT_1200_DSR:
+        description: Total DSR at GMT 12:00
+        units: W/m^2
+        min: 0
+        max: 1400
+      GMT_1500_DSR:
+        description: Total DSR at GMT 15:00
+        units: W/m^2
+        min: 0
+        max: 1400
+      GMT_1800_DSR:
+        description: Total DSR at GMT 18:00
+        units: W/m^2
+        min: 0
+        max: 1400
+      GMT_2100_DSR:
+        description: Total DSR at GMT 21:00
+        units: W/m^2
+        min: 0
+        max: 1400
+      DSR_Quality:
+        description: Quality flag
+
+  MODIS/062/MCD18C2:
+    title: MCD18C2.062 Photosynthetically Active Radiation Daily 3-Hour
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      GMT_0000_PAR:
+        description: Total PAR at GMT 00:00
+      GMT_0300_PAR:
+        description: Total PAR at GMT 03:00
+      GMT_0600_PAR:
+        description: Total PAR at GMT 06:00
+      GMT_0900_PAR:
+        description: Total PAR at GMT 09:00
+      GMT_1200_PAR:
+        description: Total PAR at GMT 12:00
+      GMT_1500_PAR:
+        description: Total PAR at GMT 15:00
+      GMT_1800_PAR:
+        description: Total PAR at GMT 18:00
+      GMT_2100_PAR:
+        description: Total PAR at GMT 21:00
+
+  MODIS/MCD43A1:
+    title: MCD43A1.005 BRDF-Albedo Model Parameters 16-Day L3 Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MCD43A2:
+    title: MCD43A2.005 BRDF-Albedo Quality 16-Day Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MCD43A4:
+    title: MCD43A4.005 BRDF-Adjusted Reflectance 16-Day Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
