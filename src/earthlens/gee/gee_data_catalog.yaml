@@ -12235,3 +12235,384 @@ datasets:
     bands:
       constant:
         description: SRTM-derived topographic-diversity index
+
+  AHN/AHN2_05M_NON:
+    title: "AHN2 Netherlands DEM Non-Interpolated (0.5m)"
+    provider: AHN
+    ee_type: image
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2012-01-01"
+      end_date: "2012-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    terms: Open Data (AHN).
+    bands:
+      elevation:
+        description: Lidar elevation, non-interpolated cells only
+        units: m
+
+  AHN/AHN2_05M_RUW:
+    title: "AHN2 Netherlands DEM Raw Samples (0.5m)"
+    provider: AHN
+    ee_type: image
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2012-01-01"
+      end_date: "2012-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    terms: Open Data (AHN).
+    bands:
+      elevation:
+        description: Raw lidar elevation samples
+        units: m
+
+  CIESIN/GPWv4/population-count:
+    title: "GPWv4 Population Count (legacy, 1km, 5-yearly 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      population-count:
+        description: Estimated number of persons per 30 arc-second cell
+        units: persons
+
+  CIESIN/GPWv4/population-density:
+    title: "GPWv4 Population Density (legacy, 1km, 5-yearly 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      population-density:
+        description: Estimated number of persons per square kilometre
+        units: persons/km^2
+
+  CIESIN/GPWv4/unwpp-adjusted-population-count:
+    title: "GPWv4 UN WPP-Adjusted Population Count (legacy, 1km, 5-yearly)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      population-count:
+        description: UN WPP-adjusted population count per cell
+        units: persons
+
+  CIESIN/GPWv4/unwpp-adjusted-population-density:
+    title: "GPWv4 UN WPP-Adjusted Population Density (legacy, 1km, 5-yearly)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    bands:
+      population-density:
+        description: UN WPP-adjusted population density
+        units: persons/km^2
+
+  CSIC/SPEI/2_10:
+    title: "CSIC SPEIbase v2.10: Standardised Precipitation-Evapotranspiration Index (~50km monthly, 1901-)"
+    provider: CSIC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 55660
+    extent:
+      start_date: "1901-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      SPEI_01_month:
+        description: SPEI accumulated over 1 month
+        min: -2.33
+        max: 2.33
+      SPEI_03_month:
+        description: SPEI accumulated over 3 months
+        min: -2.33
+        max: 2.33
+      SPEI_06_month:
+        description: SPEI accumulated over 6 months
+        min: -2.33
+        max: 2.33
+      SPEI_12_month:
+        description: SPEI accumulated over 12 months
+        min: -2.33
+        max: 2.33
+      SPEI_24_month:
+        description: SPEI accumulated over 24 months
+        min: -2.33
+        max: 2.33
+
+  CSIC/SPEI/2_8:
+    title: "CSIC SPEIbase v2.8 (legacy SPEI ~50km monthly, 1901-)"
+    provider: CSIC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 55660
+    extent:
+      start_date: "1901-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      SPEI_01_month:
+        description: SPEI accumulated over 1 month
+      SPEI_06_month:
+        description: SPEI accumulated over 6 months
+      SPEI_12_month:
+        description: SPEI accumulated over 12 months
+
+  CSIC/SPEI/2_9:
+    title: "CSIC SPEIbase v2.9 (legacy SPEI ~50km monthly, 1901-)"
+    provider: CSIC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 55660
+    extent:
+      start_date: "1901-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      SPEI_01_month:
+        description: SPEI accumulated over 1 month
+      SPEI_06_month:
+        description: SPEI accumulated over 6 months
+      SPEI_12_month:
+        description: SPEI accumulated over 12 months
+
+  CSP/ERGo/1_0/Global/ALOS_CHILI:
+    title: "Global ALOS CHILI: Continuous Heat-Insolation Load Index (90m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands:
+      constant:
+        description: ALOS-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/Global/ALOS_landforms:
+    title: "Global ALOS Landforms (90m, CSP ERGo)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands:
+      constant:
+        description: ALOS-derived landform classes
+
+  CSP/ERGo/1_0/Global/ALOS_mTPI:
+    title: "Global ALOS mTPI: Multi-Scale Topographic Position Index (270m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands:
+      AVE:
+        description: ALOS-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CSP/ERGo/1_0/Global/SRTM_CHILI:
+    title: "Global SRTM CHILI: Continuous Heat-Insolation Load Index (90m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands:
+      constant:
+        description: SRTM-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/Global/SRTM_mTPI:
+    title: "Global SRTM mTPI: Multi-Scale Topographic Position Index (270m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands:
+      elevation:
+        description: SRTM-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CSP/ERGo/1_0/US/CHILI:
+    title: "US NED CHILI: Continuous Heat-Insolation Load Index (10m, CONUS)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands:
+      constant:
+        description: NED-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/US/mTPI:
+    title: "US NED mTPI: Multi-Scale Topographic Position Index (270m, CONUS)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    terms: CC-BY-NC-SA-4.0.
+    user_uploaded: true
+    bands:
+      elevation:
+        description: NED-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CPOM/CryoSat2/ANTARCTICA_DEM:
+    title: "CryoSat-2 Antarctica 1km DEM (CPOM, 2010-)"
+    provider: Centre for Polar Observation and Modelling (CPOM)
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2010-07-01"
+      end_date: "2016-12-31"
+      bbox: [-180, -88, 180, -60]
+    default_reducer: mosaic
+    terms: Free for use with citation (CPOM).
+    bands:
+      elevation:
+        description: Antarctic ice-sheet and ice-shelf elevation
+        units: m
+      data_composition:
+        description: Data composition flag
+
+  DLR/WSF/WSF2015/v1:
+    title: "DLR World Settlement Footprint 2015 v1 (10m, global)"
+    provider: German Aerospace Centre (DLR)
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      settlement:
+        description: Binary settlement / built-up classification (255 = settlement)
+
+  ECMWF/ERA5_LAND/MONTHLY:
+    title: "ERA5-Land Monthly Averaged — ECMWF Climate Reanalysis (legacy, ~9km)"
+    provider: ECMWF / Copernicus C3S
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1950-02-01"
+      end_date: null
+    default_reducer: mean
+    terms: Copernicus C3S/CAMS licence — free with attribution.
+    bands:
+      temperature_2m:
+        description: 2 m air temperature (monthly mean)
+        units: K
+      dewpoint_temperature_2m:
+        description: 2 m dewpoint temperature (monthly mean)
+        units: K
+      total_precipitation:
+        description: Hourly total precipitation, monthly mean
+        units: m
+      u_component_of_wind_10m:
+        description: 10 m wind, U-component (monthly mean)
+        units: m/s
+      v_component_of_wind_10m:
+        description: 10 m wind, V-component (monthly mean)
+        units: m/s
+      surface_pressure:
+        description: Surface pressure (monthly mean)
+        units: Pa
+
+  ECMWF/ERA5_LAND/MONTHLY_BY_HOUR:
+    title: "ERA5-Land Monthly Averaged by Hour of Day — ECMWF Climate Reanalysis (~9km)"
+    provider: ECMWF / Copernicus C3S
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Copernicus C3S/CAMS licence — free with attribution.
+    bands:
+      temperature_2m:
+        description: 2 m air temperature (monthly mean by hour-of-day)
+        units: K
+      dewpoint_temperature_2m:
+        description: 2 m dewpoint temperature (monthly mean by hour-of-day)
+        units: K
+      total_precipitation_hourly:
+        description: Hourly total precipitation (monthly mean by hour-of-day)
+        units: m
+      u_component_of_wind_10m:
+        description: 10 m wind, U-component (monthly mean by hour-of-day)
+        units: m/s
+      v_component_of_wind_10m:
+        description: 10 m wind, V-component (monthly mean by hour-of-day)
+        units: m/s
+      surface_pressure:
+        description: Surface pressure (monthly mean by hour-of-day)
+        units: Pa
