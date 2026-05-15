@@ -34247,3 +34247,611 @@ datasets:
       ZPBL:
         description: Planetary boundary layer height
         units: m
+
+  NASA/GEOS-CF/v1/rpl/htf:
+    title: 'GEOS-CF rpl htf v1: Goddard Earth Observing System Composition Forecast'
+    provider: NASA / GMAO
+    ee_type: image_collection
+    spatial_resolution: 27750
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Unless otherwise noted, all NASA-produced data may be used for any purpose
+    bands:
+      CO:
+        description: Carbon monoxide (CO, MW = 28.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      PM25_RH35_GCC:
+        description: Particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25_RH35_GOCART:
+        description: Total reconstructed PM2.5 RH 35
+        units: kg/m^3
+      Q:
+        description: Specific humidity
+        units: Mass fraction
+      RH:
+        description: Relative humidity after moist
+      SLP:
+        description: Sea level pressure
+        units: Pa
+      SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      T:
+        description: Air temperature
+        units: K
+      U:
+        description: Eastward wind
+        units: m/s
+      V:
+        description: Northward wind
+        units: m/s
+
+  NASA/GEOS-CF/v1/rpl/tavg1hr:
+    title: 'GEOS-CF rpl tavg1hr v1: Goddard Earth Observing System Composition Forecast'
+    provider: NASA / GMAO
+    ee_type: image_collection
+    spatial_resolution: 27750
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Unless otherwise noted, all NASA-produced data may be used for any purpose
+    bands:
+      ACET:
+        description: Acetone (CH3C(O)CH3, MW = 58.08 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      ALD2:
+        description: Acetaldehyde (CH3CHO, MW = 44.05 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      ALK4:
+        description: Lumped >= C4 Alkanes (MW = 58.12 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      AOD550_BC:
+        description: Black carbon optical depth at 550nm
+      AOD550_CLOUD:
+        description: Cloud optical depth
+      AOD550_DST1:
+        description: Dust bin1 optical depth at 550nm
+      AOD550_DST2:
+        description: Dust bin2 optical depth at 550nm
+      AOD550_DST3:
+        description: Dust bin3 optical depth at 550nm
+      AOD550_DST4:
+        description: Dust bin4 optical depth at 550nm
+      AOD550_DST5:
+        description: Dust bin5 optical depth at 550nm
+      AOD550_DST6:
+        description: Dust bin6 optical depth at 550nm
+      AOD550_DST7:
+        description: Dust bin7 optical depth at 550nm
+      AOD550_DUST:
+        description: Dust optical depth at 550nm
+      AOD550_OC:
+        description: Organic carbon optical depth at 550nm
+      AOD550_SALA:
+        description: Accumulation mode sea salt optical depth at 550nm
+      AOD550_SALC:
+        description: Coarse mode sea salt optical depth at 550nm
+      AOD550_SULFATE:
+        description: Sulfate optical depth at 550nm
+      BCPI:
+        description: Hydrophilic black carbon aerosol (MW = 12.01 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      BCPO:
+        description: Hydrophobic black carbon aerosol (MW = 12.01 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      BENZ:
+        description: Benzene (C6H6, MW = 78.11 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      C2H6:
+        description: Ethane (C2H6, MW = 30.07 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      C3H8:
+        description: Propane (C3H8, MW = 44.10 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      CH4:
+        description: Methane (CH4, MW = 16.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      CLDTT:
+        description: Total cloud area fraction
+      CO:
+        description: Carbon monoxide (CO, MW = 28.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      DRYDEPFLX_BCPI:
+        description: Hydrophilic black carbon aerosol (MW = 12.01 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_BCPO:
+        description: Hydrophobic black carbon aerosol (MW = 12.01 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_DST1:
+        description: Dust aerosol, Reff = 0.7 microns (MW = 29.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_DST2:
+        description: Dust aerosol, Reff = 1.4 microns (MW = 29.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_DST3:
+        description: Dust aerosol, Reff = 2.4 microns (MW = 29.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_DST4:
+        description: Dust aerosol, Reff = 4.5 microns (MW = 29.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_HNO3:
+        description: Nitric acid (HNO3, MW = 63.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_NH3:
+        description: Ammonia (NH3, MW = 17.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_NH4:
+        description: Ammonium (NH4, MW = 18.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_NIT:
+        description: Inorganic nitrates (MW = 62.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_OCPI:
+        description: Hydrophilic organic carbon aerosol (MW = 12.01 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_OCPO:
+        description: Hydrophobic organic carbon aerosol (MW = 12.01 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_SALA:
+        description: Fine (0.01-0.05 microns) sea salt aerosol (MW = 31.40 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_SALC:
+        description: Coarse (0.5-8 microns) sea salt aerosol (MW = 31.40 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DST1:
+        description: Dust aerosol, Reff = 0.7 microns (MW = 29.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      DST2:
+        description: Dust aerosol, Reff = 1.4 microns (MW = 29.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      DST3:
+        description: Dust aerosol, Reff = 2.4 microns (MW = 29.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      DST4:
+        description: Dust aerosol, Reff = 4.5 microns (MW = 29.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      EOH:
+        description: Ethanol (C2H5OH, MW = 46.07 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      H2O2:
+        description: Hydrogen peroxide (H2O2, MW = 34.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      HNO3:
+        description: Nitric acid (HNO3, MW = 63.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      HNO4:
+        description: Peroxynitric acid (HNO4, MW = 79.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      ISOP:
+        description: Isoprene (CH2=C(CH3)CH=CH2, MW = 68.12 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      MACR:
+        description: Methacrolein (CH2=C(CH3)CHO, MW = 70.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      MEK:
+        description: Methyl Ethyl Ketone (RC(O)R, MW = 72.11 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      MVK:
+        description: Methyl vinyl ketone (CH2=CHC(=O)CH3, MW = 70.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      N2O5:
+        description: Dinitrogen pentoxide (N2O5, MW = 108.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NH3:
+        description: Ammonia (NH3, MW = 17.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NH4:
+        description: Ammonium (NH4, MW = 18.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NIT:
+        description: Inorganic nitrates (MW = 62.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      "NO":
+        description: Nitrogen oxide (NO, MW = 30.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NOy:
+        description: Reactive nitrogen = NO NO2 HNO3 HNO4 HONO 2xN2O5 PAN OrganicNitrates AerosolNitrates
+        units: Mol fraction
+      O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      OCPI:
+        description: Hydrophilic organic carbon aerosol (MW = 12.01 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      OCPO:
+        description: Hydrophobic organic carbon aerosol (MW = 12.01 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      PAN:
+        description: Peroxyacetyl nitrate (CH3C(O)OONO2, MW = 121.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      PHIS:
+        description: Surface geopotential height
+        units: m^2 s-2
+      PM25_RH35_GCC:
+        description: Particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25_RH35_GOCART:
+        description: Total reconstructed PM2.5 RH 35
+        units: kg/m^3
+      PM25bc_RH35_GCC:
+        description: Black carbon particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25du_RH35_GCC:
+        description: Dust particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25ni_RH35_GCC:
+        description: Nitrate particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25oc_RH35_GCC:
+        description: Organic carbon particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25soa_RH35_GCC:
+        description: Secondary organic aerosol particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25ss_RH35_GCC:
+        description: Seasalt particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25su_RH35_GCC:
+        description: Sulfate particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PRPE:
+        description: Lumped >= C3 alkenes (C3H6, MW = 42.08 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      PS:
+        description: Surface pressure
+        units: Pa
+      Q:
+        description: Specific humidity
+        units: Mass fraction
+      Q10M:
+        description: 10-meter specific humidity
+        units: Mass fraction
+      Q2M:
+        description: 2-meter specific humidity
+        units: Mass fraction
+      RCHO:
+        description: Lumped aldehyde >= C3 (CH3CH2CHO, MW = 58.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      RH:
+        description: Relative humidity after moist
+      SALA:
+        description: Fine (0.01-0.05 microns) sea salt aerosol (MW = 31.40 g mol-1) volume mixing ratio
+        units: Mol fraction
+      SALC:
+        description: Coarse (0.5-8 microns) sea salt aerosol (MW = 31.40 g mol-1) volume mixing ratio dry
+        units: Mol fraction
+      SLP:
+        description: Sea level pressure
+        units: Pa
+      SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      SOAP:
+        description: SOA Precursor - lumped species for simplified SOA parameterization (MW = 150.00 g
+        units: Mol fraction
+      SOAS:
+        description: SOA Simple - simplified non-volatile SOA parameterization (MW = 150.00 g mol-1) volume
+        units: Mol fraction
+      T:
+        description: Air temperature
+        units: K
+      T10M:
+        description: 10-meter air temperature
+        units: K
+      T2M:
+        description: 2-meter air temperature
+        units: K
+      TOLU:
+        description: Toluene (C7H8, MW = 92.14 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      TOTCOL_BrO:
+        description: Bromine monoxide (BrO, MW = 96.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_CO:
+        description: Carbon monoxide (CO, MW = 28.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_IO:
+        description: Iodine monoxide (IO, MW = 143.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) total column density
+        units: Dobson
+      TOTCOL_SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TPREC:
+        description: Total precipitation
+        units: kg/m^2/s
+      TROPCOL_BrO:
+        description: Bromine monoxide (BrO, MW = 96.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_CO:
+        description: Carbon monoxide (CO, MW = 28.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_IO:
+        description: Iodine monoxide (IO, MW = 143.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) tropospheric column density
+        units: Dobson
+      TROPCOL_SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPPB:
+        description: Tropopause pressure based on blended estimate
+        units: Pa
+      TS:
+        description: Surface skin temperature
+        units: K
+      U:
+        description: Eastward wind
+        units: m/s
+      U10M:
+        description: 10-meter eastward wind
+        units: m/s
+      U2M:
+        description: 2-meter eastward wind
+        units: m/s
+      V:
+        description: Northward wind
+        units: m/s
+      V10M:
+        description: 10-meter northward wind
+        units: m/s
+      V2M:
+        description: 2-meter northward wind
+        units: m/s
+      WETDEPFLX_BCPI:
+        description: Hydrophilic black carbon aerosol (MW = 12.01 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_BCPO:
+        description: Hydrophobic black carbon aerosol (MW = 12.01 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_DST1:
+        description: Dust aerosol, Reff = 0.7 microns (MW = 29.00 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_DST2:
+        description: Dust aerosol, Reff = 1.4 microns (MW = 29.00 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_DST3:
+        description: Dust aerosol, Reff = 2.4 microns (MW = 29.00 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_DST4:
+        description: Dust aerosol, Reff = 4.5 microns (MW = 29.00 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_HNO3:
+        description: Nitric acid (HNO3, MW = 63.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_NH3:
+        description: Ammonia (NH3, MW = 17.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_NH4:
+        description: Ammonium (NH4, MW = 18.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_NIT:
+        description: Inorganic nitrates (MW = 62.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_OCPI:
+        description: Hydrophilic organic carbon aerosol (MW = 12.01 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_OCPO:
+        description: Hydrophobic organic carbon aerosol (MW = 12.01 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_SALA:
+        description: Fine (0.01-0.05 microns) sea salt aerosol (MW = 31.40 g mol-1) vertical integrated
+        units: kg/m^2/s
+      WETDEPFLX_SALC:
+        description: Coarse (0.5-8 microns) sea salt aerosol (MW = 31.40 g mol-1) vertical integrated loss
+        units: kg/m^2/s
+      WETDEPFLX_SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_SO4:
+        description: Sulfate (SO4, MW = 96.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      XYLE:
+        description: Xylene (C8H10, MW = 106.16 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      ZL:
+        description: Mid layer heights
+        units: m
+      ZPBL:
+        description: Planetary boundary layer height
+        units: m
+
+  NASA/GRACE/MASS_GRIDS/MASCON:
+    title: GRACE Monthly Mass Grids - Global Mascons [deprecated]
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 55660
+    extent:
+      start_date: "2002-03-31"
+      end_date: null
+    default_reducer: mosaic
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness:
+        description: Equivalent liquid water thickness in centimeters.
+        units: cm
+        min: -370.43
+        max: 139.04
+      uncertainty:
+        description: 1-sigma uncertainty for each 3-degree mascon estimate.
+        min: 0.29
+        max: 31.1
+
+  NASA/GRACE/MASS_GRIDS/MASCON_CRI:
+    title: GRACE Monthly Mass Grids - Global Mascon (CRI Filtered) [deprecated]
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 55660
+    extent:
+      start_date: "2002-03-31"
+      end_date: null
+    default_reducer: mosaic
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness:
+        description: Equivalent liquid water thickness in centimeters.
+        units: cm
+        min: -570.65
+        max: 495.53
+      uncertainty:
+        description: 1-sigma uncertainty for each 3-degree mascon estimate.
+        min: 0.29
+        max: 31.1
+
+  NASA/GRACE/MASS_GRIDS/OCEAN:
+    title: GRACE Monthly Mass Grids - Ocean [deprecated]
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 111320
+    extent:
+      start_date: "2002-07-31"
+      end_date: null
+    default_reducer: mosaic
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness_csr:
+        description: Equivalent liquid water thickness in centimeters calculated by CSR.
+        units: cm
+        min: -27
+        max: 36.81
+      lwe_thickness_gfz:
+        description: Equivalent liquid water thickness in centimeters calculated by GFZ.
+        units: cm
+        min: -28.87
+        max: 33.02
+      lwe_thickness_jpl:
+        description: Equivalent liquid water thickness in centimeters calculated by JPL.
+        units: cm
+        min: -26.03
+        max: 37.36
+
+  NASA/GRACE/MASS_GRIDS/OCEAN_EOFR:
+    title: GRACE Monthly Mass Grids - Ocean EOFR
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 111320
+    extent:
+      start_date: "2002-12-31"
+      end_date: null
+    default_reducer: mosaic
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness_csr:
+        description: Equivalent liquid water thickness in centimeters calculated by CSR.
+        units: cm
+        min: -18.46
+        max: 12.29
+      lwe_thickness_gfz:
+        description: Equivalent liquid water thickness in centimeters calculated by GFZ.
+        units: cm
+        min: -15.37
+        max: 14.56
+      lwe_thickness_jpl:
+        description: Equivalent liquid water thickness in centimeters calculated by JPL.
+        units: cm
+        min: -16.59
+        max: 11.7
+
+  NASA/GRACE/MASS_GRIDS_V03/MASCON:
+    title: GRACE Monthly Mass Grids Release 6.1 Version 3 - Global Mascons [deprecated]
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 55660
+    extent:
+      start_date: "2002-03-31"
+      end_date: null
+    default_reducer: mosaic
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness:
+        description: Equivalent liquid water thickness in centimeters.
+        units: cm
+      uncertainty:
+        description: 1-sigma uncertainty for each 3-degree mascon estimate.
+
+  NASA/GRACE/MASS_GRIDS_V03/MASCON_CRI:
+    title: GRACE Monthly Mass Grids Version 03 - Global Mascon (CRI Filtered) [deprecated]
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 55660
+    extent:
+      start_date: "2002-03-31"
+      end_date: null
+    default_reducer: mosaic
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness:
+        description: Equivalent liquid water thickness in centimeters.
+        units: cm
+      uncertainty:
+        description: 1-sigma uncertainty for each 3-degree mascon estimate.
+
+  NASA/GRACE/MASS_GRIDS_V04/LAND:
+    title: GRACE Monthly Mass Grids Release 06 Version 04 - Land
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    spatial_resolution: 111320
+    extent:
+      start_date: "2002-04-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: All NASA-produced data from the GRACE mission is made freely available
+    bands:
+      lwe_thickness_csr:
+        description: Equivalent liquid water thickness in centimeters calculated by CSR.
+        units: cm
+      lwe_thickness_gfz:
+        description: Equivalent liquid water thickness in centimeters calculated by GFZ.
+        units: cm
+      lwe_thickness_jpl:
+        description: Equivalent liquid water thickness in centimeters calculated by JPL.
+        units: cm
+      uncertainty_csr:
+        description: Error estimation by CSR.
+      uncertainty_gfz:
+        description: Error estimation by GFZ.
+      uncertainty_jpl:
+        description: Error estimation by JPL.
