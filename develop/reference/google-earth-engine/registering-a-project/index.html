@@ -10,25 +10,31 @@
       
       
       
+        <link rel="canonical" href="https://serapeum-org.github.io/earthlens/develop/reference/google-earth-engine/registering-a-project/">
       
+      
+        <link rel="prev" href="../introduction/">
+      
+      
+        <link rel="next" href="../service-account-setup/">
       
       
         
       
       
-      <link rel="icon" href="/earthlens/develop/assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>earthlens</title>
+        <title>Registering a project - earthlens</title>
       
     
     
-      <link rel="stylesheet" href="/earthlens/develop/assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="/earthlens/develop/assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -47,17 +53,18 @@
       
     
     
-      <link rel="stylesheet" href="/earthlens/develop/assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="/earthlens/develop/assets/stylesheets/panzoom.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/panzoom.css">
     
-    <script>__md_scope=new URL("/earthlens/develop",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-  </head>
+  <meta name="panzoom-theme" content="material">
+<meta name="panzoom-data" content='{"selectors": [".d2", ".mermaid"], "initial_zoom_level": 1.0}'> </head>
   
   
     
@@ -75,6 +82,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#registering-a-google-cloud-project-for-earth-engine" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -91,7 +103,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/earthlens/develop/." title="earthlens" class="md-header__button md-logo" aria-label="earthlens" data-md-component="logo">
+    <a href="../../.." title="earthlens" class="md-header__button md-logo" aria-label="earthlens" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -111,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Registering a project
             
           </span>
         </div>
@@ -228,7 +240,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/earthlens/develop/." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -249,7 +261,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/earthlens/develop/installation/" class="md-tabs__link">
+        <a href="../../../installation/" class="md-tabs__link">
           
   
   
@@ -265,11 +277,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/earthlens/develop/reference/chc/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../chc/" class="md-tabs__link">
           
   
   
@@ -289,7 +303,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/earthlens/develop/examples/authentication/" class="md-tabs__link">
+        <a href="../../../examples/authentication/" class="md-tabs__link">
           
   
   
@@ -309,7 +323,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/earthlens/develop/reference/earthlens/" class="md-tabs__link">
+        <a href="../../earthlens/" class="md-tabs__link">
           
   
   
@@ -329,7 +343,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/earthlens/develop/change-log/" class="md-tabs__link">
+        <a href="../../../change-log/" class="md-tabs__link">
           
   
   
@@ -369,7 +383,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/earthlens/develop/." title="earthlens" class="md-nav__button md-logo" aria-label="earthlens" data-md-component="logo">
+    <a href="../../.." title="earthlens" class="md-nav__button md-logo" aria-label="earthlens" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -399,7 +413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -476,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/installation/" class="md-nav__link">
+      <a href="../../../installation/" class="md-nav__link">
         
   
   
@@ -504,7 +518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/overview/architecture/" class="md-nav__link">
+      <a href="../../../overview/architecture/" class="md-nav__link">
         
   
   
@@ -536,24 +550,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -571,7 +590,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -589,7 +608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/chc/" class="md-nav__link">
+      <a href="../../chc/" class="md-nav__link">
         
   
   
@@ -617,7 +636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/s3/" class="md-nav__link">
+      <a href="../../s3/" class="md-nav__link">
         
   
   
@@ -695,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/ecmwf/" class="md-nav__link">
+      <a href="../../ecmwf/" class="md-nav__link">
         
   
   
@@ -723,7 +742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/ecmwf/catalog/" class="md-nav__link">
+      <a href="../../ecmwf/catalog/" class="md-nav__link">
         
   
   
@@ -751,7 +770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/aggregation/" class="md-nav__link">
+      <a href="../../aggregation/" class="md-nav__link">
         
   
   
@@ -784,6 +803,8 @@
                 
   
   
+    
+  
   
   
     
@@ -794,11 +815,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
@@ -819,7 +840,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -837,7 +858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/google-earth-engine/introduction/" class="md-nav__link">
+      <a href="../introduction/" class="md-nav__link">
         
   
   
@@ -862,10 +883,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/google-earth-engine/registering-a-project/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registering a project
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -881,6 +929,125 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-open-the-earth-engine-registration-wizard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Open the Earth Engine registration wizard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-choose-the-usage-track" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Choose the usage track
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-pick-the-eligibility-category-noncommercial-track" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Pick the eligibility category (noncommercial track)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-attach-a-cloud-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Attach a Cloud project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-submit-and-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Submit and wait
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — Verify
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -893,7 +1060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/google-earth-engine/service-account-setup/" class="md-nav__link">
+      <a href="../service-account-setup/" class="md-nav__link">
         
   
   
@@ -921,7 +1088,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/google-earth-engine/usage/" class="md-nav__link">
+      <a href="../usage/" class="md-nav__link">
         
   
   
@@ -949,7 +1116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/gee/" class="md-nav__link">
+      <a href="../../gee/" class="md-nav__link">
         
   
   
@@ -1042,7 +1209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/authentication/" class="md-nav__link">
+      <a href="../../../examples/authentication/" class="md-nav__link">
         
   
   
@@ -1070,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/data-sources/" class="md-nav__link">
+      <a href="../../../examples/data-sources/" class="md-nav__link">
         
   
   
@@ -1098,7 +1265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/catalog/" class="md-nav__link">
+      <a href="../../../examples/catalog/" class="md-nav__link">
         
   
   
@@ -1126,7 +1293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/cds_quickstart/" class="md-nav__link">
+      <a href="../../../examples/cds_quickstart/" class="md-nav__link">
         
   
   
@@ -1154,7 +1321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/hydrology_water_balance/" class="md-nav__link">
+      <a href="../../../examples/hydrology_water_balance/" class="md-nav__link">
         
   
   
@@ -1182,7 +1349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/oceanography_sst_sea_ice/" class="md-nav__link">
+      <a href="../../../examples/oceanography_sst_sea_ice/" class="md-nav__link">
         
   
   
@@ -1210,7 +1377,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/atmosphere_pressure_levels/" class="md-nav__link">
+      <a href="../../../examples/atmosphere_pressure_levels/" class="md-nav__link">
         
   
   
@@ -1238,7 +1405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/agriculture_crop_water/" class="md-nav__link">
+      <a href="../../../examples/agriculture_crop_water/" class="md-nav__link">
         
   
   
@@ -1266,7 +1433,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/solar_resource_assessment/" class="md-nav__link">
+      <a href="../../../examples/solar_resource_assessment/" class="md-nav__link">
         
   
   
@@ -1294,7 +1461,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/wind_energy_resource/" class="md-nav__link">
+      <a href="../../../examples/wind_energy_resource/" class="md-nav__link">
         
   
   
@@ -1322,7 +1489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/snow_cryosphere_winter/" class="md-nav__link">
+      <a href="../../../examples/snow_cryosphere_winter/" class="md-nav__link">
         
   
   
@@ -1350,7 +1517,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/heat_waves_public_health/" class="md-nav__link">
+      <a href="../../../examples/heat_waves_public_health/" class="md-nav__link">
         
   
   
@@ -1378,7 +1545,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/climate_change_anomalies/" class="md-nav__link">
+      <a href="../../../examples/climate_change_anomalies/" class="md-nav__link">
         
   
   
@@ -1406,7 +1573,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/examples/drought_precipitation_deficit/" class="md-nav__link">
+      <a href="../../../examples/drought_precipitation_deficit/" class="md-nav__link">
         
   
   
@@ -1491,7 +1658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/earthlens/" class="md-nav__link">
+      <a href="../../earthlens/" class="md-nav__link">
         
   
   
@@ -1519,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/reference/abstract-datasource/" class="md-nav__link">
+      <a href="../../abstract-datasource/" class="md-nav__link">
         
   
   
@@ -1604,7 +1771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/earthlens/develop/change-log/" class="md-nav__link">
+      <a href="../../../change-log/" class="md-nav__link">
         
   
   
@@ -1649,6 +1816,115 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-open-the-earth-engine-registration-wizard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Open the Earth Engine registration wizard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-choose-the-usage-track" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Choose the usage track
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-pick-the-eligibility-category-noncommercial-track" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Pick the eligibility category (noncommercial track)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-attach-a-cloud-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Attach a Cloud project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-submit-and-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5 — Submit and wait
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6 — Verify
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1661,8 +1937,227 @@
               
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  
+    <a href="https://github.com/serapeum-org/earthlens/edit/master/docs/reference/google-earth-engine/registering-a-project.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/serapeum-org/earthlens/raw/master/docs/reference/google-earth-engine/registering-a-project.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="registering-a-google-cloud-project-for-earth-engine"><a class="toclink" href="#registering-a-google-cloud-project-for-earth-engine">Registering a Google Cloud project for Earth Engine</a><a class="headerlink" href="#registering-a-google-cloud-project-for-earth-engine" title="Permanent link">#</a></h1>
+<p>A bare Google Cloud project <strong>cannot</strong> call Earth Engine. Until the
+project is <em>registered</em> for Earth Engine use, every API call — whether
+from the Code Editor, the Python <code>earthengine-api</code>, or the earthlens
+GEE backend — fails with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>EEException: Project &lt;PROJECT_ID&gt; is not registered to use Earth Engine.
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Visit https://console.cloud.google.com/earth-engine/configuration?project=&lt;PROJECT_ID&gt; to register your project.
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>See https://developers.google.com/earth-engine/guides/access for more details.
+</code></pre></div>
+<p>This page is the step-by-step for getting past that. It assumes you
+already have (or are about to create) a Cloud project; for the full
+service-account walkthrough that this is part of, see
+<a href="../service-account-setup/">Service account setup</a>, and for background
+see the <a href="../introduction/">Introduction</a>.</p>
+<blockquote>
+<p><strong>Where the "Noncommercial" choice actually is.</strong> It is <strong>not</strong> on the
+Cloud Console <code>console.cloud.google.com/earth-engine</code> page — that page
+only <em>displays</em> a project's registration status. The wizard that lets
+you pick the noncommercial vs. commercial track is the <strong>Earth Engine
+registration flow</strong> at <strong><a href="https://code.earthengine.google.com/register">https://code.earthengine.google.com/register</a></strong>.</p>
+</blockquote>
+<h2 id="prerequisites"><a class="toclink" href="#prerequisites">Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Why</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A Google account</td>
+<td>You register <em>as</em> someone</td>
+<td>—</td>
+</tr>
+<tr>
+<td>A Cloud project (or create one in the wizard)</td>
+<td>Registration attaches to a project ID</td>
+<td><a href="https://console.cloud.google.com/projectcreate">https://console.cloud.google.com/projectcreate</a></td>
+</tr>
+<tr>
+<td><strong>Owner</strong> or <strong>Editor</strong> role on that project</td>
+<td>The wizard won't let you register a project you can't administer</td>
+<td><a href="https://console.cloud.google.com/iam-admin/iam">https://console.cloud.google.com/iam-admin/iam</a></td>
+</tr>
+<tr>
+<td><strong>Earth Engine API enabled</strong> on the project</td>
+<td>The project won't appear / will error in the wizard otherwise</td>
+<td><a href="https://console.cloud.google.com/apis/library/earthengine.googleapis.com">https://console.cloud.google.com/apis/library/earthengine.googleapis.com</a></td>
+</tr>
+<tr>
+<td>(Commercial track only) a <strong>billing account</strong> attached</td>
+<td>Commercial use is billed</td>
+<td><a href="https://console.cloud.google.com/billing">https://console.cloud.google.com/billing</a></td>
+</tr>
+</tbody>
+</table>
+<p>Enabling the API from the CLI, if you prefer:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project<span class="w"> </span>&lt;PROJECT_ID&gt;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>gcloud<span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>earthengine.googleapis.com
+</code></pre></div>
+<h2 id="step-1-open-the-earth-engine-registration-wizard"><a class="toclink" href="#step-1-open-the-earth-engine-registration-wizard">Step 1 — Open the Earth Engine registration wizard</a><a class="headerlink" href="#step-1-open-the-earth-engine-registration-wizard" title="Permanent link">#</a></h2>
+<p>Go to <strong><a href="https://code.earthengine.google.com/register">https://code.earthengine.google.com/register</a></strong>.</p>
+<p>Make sure the top-right account switcher shows the Google account that
+owns/edits the project. If the page looks blank or read-only, you're
+not signed in (or signed in as the wrong account) — fix that first. An
+incognito window signed directly into the right account is the reliable
+way to rule out a stale session.</p>
+<h2 id="step-2-choose-the-usage-track"><a class="toclink" href="#step-2-choose-the-usage-track">Step 2 — Choose the usage track</a><a class="headerlink" href="#step-2-choose-the-usage-track" title="Permanent link">#</a></h2>
+<p>The wizard's first question is <strong>"Register a Noncommercial or
+Commercial Cloud project"</strong> with two options:</p>
+<ul>
+<li><strong>Unpaid usage → Noncommercial</strong> — <em>free</em>. For research, education,
+  journalism, non-profits/NGOs/IGOs, government public-interest work,
+  and individual/hobbyist projects. Requires picking an eligibility
+  sub-category (see step 3). No billing account required.</li>
+<li><strong>Paid usage → Commercial</strong> — for any for-profit or operational use.
+  Requires a billing account; billed per
+  <a href="https://earthengine.google.com/commercial/">Earth Engine commercial pricing</a>
+  (tiered subscription).</li>
+</ul>
+<p>If you only see a paid/commercial option and no unpaid choice at all,
+that almost always means you're not signed in, signed in as the wrong
+account, or the account/region has been flagged — retry in an incognito
+window signed directly into the account.</p>
+<h2 id="step-3-pick-the-eligibility-category-noncommercial-track"><a class="toclink" href="#step-3-pick-the-eligibility-category-noncommercial-track">Step 3 — Pick the eligibility category (noncommercial track)</a><a class="headerlink" href="#step-3-pick-the-eligibility-category-noncommercial-track" title="Permanent link">#</a></h2>
+<p>If you chose Noncommercial, the wizard asks what kind of use it is.
+Typical categories:</p>
+<ul>
+<li><strong>Academia &amp; research</strong> — university / research-institute work.</li>
+<li><strong>Educator or student</strong> — teaching or coursework.</li>
+<li><strong>Government</strong> — public-sector agencies.</li>
+<li><strong>Nonprofit</strong> — registered NGOs / IGOs / non-profits.</li>
+<li><strong>Individual / personal / hobbyist</strong> — not affiliated with an
+  institution; tighter quotas than the institutional categories.</li>
+</ul>
+<p>Pick the one that fits, and fill in the short form (institution name,
+a one-line description of what you'll use Earth Engine for). Be
+accurate — misrepresenting commercial use as noncommercial violates the
+terms.</p>
+<h2 id="step-4-attach-a-cloud-project"><a class="toclink" href="#step-4-attach-a-cloud-project">Step 4 — Attach a Cloud project</a><a class="headerlink" href="#step-4-attach-a-cloud-project" title="Permanent link">#</a></h2>
+<p>The wizard then asks which Cloud project to register:</p>
+<ul>
+<li>Pick your existing project from the dropdown (it must have the Earth
+  Engine API enabled — step shown in <em>Prerequisites</em> — and you must be
+  Owner/Editor), <strong>or</strong></li>
+<li>Create a new project right there in the wizard.</li>
+</ul>
+<p>Confirm. The project ID you attach here is the one you'll pass to
+<code>ee.Initialize(..., project="&lt;PROJECT_ID&gt;")</code> and to the earthlens GEE
+backend.</p>
+<h2 id="step-5-submit-and-wait"><a class="toclink" href="#step-5-submit-and-wait">Step 5 — Submit and wait</a><a class="headerlink" href="#step-5-submit-and-wait" title="Permanent link">#</a></h2>
+<p>Submit the form.</p>
+<ul>
+<li><strong>Most noncommercial institutional categories</strong> are approved
+  effectively instantly.</li>
+<li>Some categories (or borderline cases) go to a <strong>short manual review</strong>
+  — usually hours to a day or two. You'll get an email.</li>
+<li><strong>Commercial</strong> registration is tied to your billing setup and
+  agreement acceptance.</li>
+</ul>
+<p>When done, the project's status at
+<a href="https://console.cloud.google.com/earth-engine">https://console.cloud.google.com/earth-engine</a> shows as <strong>registered</strong>,
+and the registration link in the original error stops applying.</p>
+<h2 id="step-6-verify"><a class="toclink" href="#step-6-verify">Step 6 — Verify</a><a class="headerlink" href="#step-6-verify" title="Permanent link">#</a></h2>
+<p>A standalone check with <code>earthengine-api</code> (ships with the
+<code>earthlens[gee]</code> extra, or <code>pip install earthengine-api</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">ee</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">PROJECT</span> <span class="o">=</span> <span class="s2">&quot;&lt;PROJECT_ID&gt;&quot;</span>            <span class="c1"># the project you just registered</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">ee</span><span class="o">.</span><span class="n">Authenticate</span><span class="p">()</span>                   <span class="c1"># one-time browser login (laptop)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">ee</span><span class="o">.</span><span class="n">Initialize</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="n">PROJECT</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;USGS/SRTMGL1_003&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">bandNames</span><span class="p">()</span><span class="o">.</span><span class="n">getInfo</span><span class="p">())</span>  <span class="c1"># -&gt; [&#39;elevation&#39;]</span>
+</code></pre></div>
+<p><code>['elevation']</code> means the project is registered and reachable. If you
+still get <code>Project ... is not registered</code>, the registration hasn't
+propagated yet (wait, re-check the status page) or you registered a
+<em>different</em> project than the one in <code>project=</code>.</p>
+<p>For a non-interactive (service-account) verification — and the rest of
+the setup — continue with <a href="../service-account-setup/">Service account setup</a>.</p>
+<h2 id="common-problems"><a class="toclink" href="#common-problems">Common problems</a><a class="headerlink" href="#common-problems" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Register page is blank / read-only</td>
+<td>Not signed in, or wrong Google account</td>
+<td>Sign in as the project owner; try incognito</td>
+</tr>
+<tr>
+<td>Only a commercial/paid option appears</td>
+<td>Stale session, flagged account, or region restriction</td>
+<td>Incognito window signed directly into the account; if it persists, contact Earth Engine support</td>
+</tr>
+<tr>
+<td>Project not in the wizard's dropdown</td>
+<td>Earth Engine API not enabled, or you lack Owner/Editor</td>
+<td>Enable <code>earthengine.googleapis.com</code>; get the IAM role</td>
+</tr>
+<tr>
+<td><code>Project ... is not registered</code> after submitting</td>
+<td>Registration still propagating, or you initialized a different project ID</td>
+<td>Wait and re-check the status page; confirm the <code>project=</code> value matches</td>
+</tr>
+<tr>
+<td>Previously had noncommercial access, now denied</td>
+<td>Eligibility lapsed</td>
+<td>Re-verify at <a href="https://developers.google.com/earth-engine/guides/access#configuring_noncommercial_access">https://developers.google.com/earth-engine/guides/access#configuring_noncommercial_access</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="references"><a class="toclink" href="#references">References</a><a class="headerlink" href="#references" title="Permanent link">#</a></h2>
+<ul>
+<li>Earth Engine registration wizard: <a href="https://code.earthengine.google.com/register">https://code.earthengine.google.com/register</a></li>
+<li>Project registration status (Cloud Console): <a href="https://console.cloud.google.com/earth-engine">https://console.cloud.google.com/earth-engine</a></li>
+<li>Access &amp; registration guide (free vs. commercial): <a href="https://developers.google.com/earth-engine/guides/access">https://developers.google.com/earth-engine/guides/access</a></li>
+<li>Noncommercial use &amp; eligibility: <a href="https://earthengine.google.com/noncommercial/">https://earthengine.google.com/noncommercial/</a></li>
+<li>Commercial plans &amp; pricing: <a href="https://earthengine.google.com/commercial/">https://earthengine.google.com/commercial/</a></li>
+<li>Enable the Earth Engine API: <a href="https://console.cloud.google.com/apis/library/earthengine.googleapis.com">https://console.cloud.google.com/apis/library/earthengine.googleapis.com</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1680,6 +2175,44 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../introduction/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Introduction
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../service-account-setup/" class="md-footer__link md-footer__link--next" aria-label="Next: Service account setup">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Service account setup
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
@@ -1723,14 +2256,14 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/earthlens/develop", "features": ["navigation.instant", "navigation.tracking", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tooltips", "search.highlight", "search.suggest", "toc.follow", "announce.dismiss"], "search": "/earthlens/develop/assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tooltips", "search.highlight", "search.suggest", "toc.follow", "announce.dismiss"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="/earthlens/develop/assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="/earthlens/develop/assets/javascripts/panzoom.min.js"></script>
+        <script src="../../../assets/javascripts/panzoom.min.js"></script>
       
-        <script src="/earthlens/develop/assets/javascripts/zoompan.js"></script>
+        <script src="../../../assets/javascripts/zoompan.js"></script>
       
     
   </body>
