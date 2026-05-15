@@ -49658,3 +49658,241 @@ datasets:
     default_reducer: mosaic
     terms: The U.S. Census Bureau offers some of its public data
     bands:
+
+  TIGER/2016/States:
+    title: 'TIGER: US Census States 2016'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2018/Counties:
+    title: 'TIGER: US Census Counties 2018'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2018/States:
+    title: 'TIGER: US Census States 2018'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2020/BG:
+    title: 'TIGER: US Census Block Groups (BG) 2020'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2020/TABBLOCK20:
+    title: 'TIGER: 2020 Tabulation (Census) Block'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2020/TRACT:
+    title: 'TIGER: US Census Tracts'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2020/ZCTA5:
+    title: 'TIGER: US Census 5-digit ZIP Code Tabulation Areas 2020'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  UN/Geodata/BNDA_simplified/current:
+    title: 'United Nations Geospatial Data: BNDA_simplified'
+    provider: United Nations Geospatial
+    ee_type: table
+    extent:
+      start_date: "2023-02-11"
+      end_date: null
+    default_reducer: mosaic
+    terms: The UN Geodata is a global geospatial database available for use by the UN
+    bands:
+
+  USDOS/LSIB/2013:
+    title: 'LSIB 2013: Large Scale International Boundary Polygons, Detailed [deprecated]'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2013-03-08"
+      end_date: null
+    default_reducer: mosaic
+    terms: There are no restrictions on use of this US public domain data.
+    bands:
+
+  USDOS/LSIB/2017:
+    title: 'LSIB 2017: Large Scale International Boundary Polygons, Detailed'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2017-12-29"
+      end_date: null
+    default_reducer: mosaic
+    terms: There are no restrictions on use of this US public domain data.
+    bands:
+
+  USDOS/LSIB_SIMPLE/2017:
+    title: 'LSIB 2017: Large Scale International Boundary Polygons, Simplified'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2017-03-30"
+      end_date: null
+    default_reducer: mosaic
+    terms: There are no restrictions on use of this US public domain data.
+    bands:
+
+  USFS/GTAC/MTBS/burned_area_boundaries/v1:
+    title: MTBS Burned Area Boundaries
+    provider: Monitoring Trends in Burn Severity (MTBS)
+    ee_type: table
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+      bbox: [-180, 19, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The USDA Forest Service makes no warranty, expressed or implied, including
+    user_uploaded: true
+    bands:
+
+  USGS/3DEP/10m_metadata:
+    title: USGS 3DEP National Map Spatial Metadata 1/3 Arc-Second (10m)
+    provider: United States Geological Survey
+    ee_type: table
+    extent:
+      start_date: "1998-08-16"
+      end_date: null
+      bbox: [-171, -16.6, 164, 76.9]
+    default_reducer: mosaic
+    terms: Most U.S. Geological Survey (USGS) information resides
+    user_uploaded: true
+    bands:
+
+  USGS/GAP/PAD-US/v20/designation:
+    title: 'Designation: USGS GAP PAD-US v2.0'
+    provider: US Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2018-09-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The Digital Object Identifier [doi:10.5066/P955KPLE](https://doi.org/10.5066/P955KPLE)
+    user_uploaded: true
+    bands:
+
+  USGS/GAP/PAD-US/v20/easement:
+    title: 'Easement: USGS GAP PAD-US v2.0'
+    provider: US Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2018-09-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The Digital Object Identifier [doi:10.5066/P955KPLE](https://doi.org/10.5066/P955KPLE)
+    user_uploaded: true
+    bands:
+
+  USGS/GAP/PAD-US/v20/fee:
+    title: 'Fee: USGS GAP PAD-US v2.0'
+    provider: US Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2018-09-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The Digital Object Identifier [doi:10.5066/P955KPLE](https://doi.org/10.5066/P955KPLE)
+    user_uploaded: true
+    bands:
+
+  USGS/GAP/PAD-US/v20/proclamation:
+    title: 'Proclamation: USGS GAP PAD-US v2.0'
+    provider: US Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2018-09-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The Digital Object Identifier [doi:10.5066/P955KPLE](https://doi.org/10.5066/P955KPLE)
+    user_uploaded: true
+    bands:
+
+  USGS/LIMA/SR_METADATA:
+    title: Landsat Image Mosaic of Antarctica (LIMA) - Processed Landsat Scenes (16 bit) Metadata
+    provider: USGS
+    ee_type: table
+    extent:
+      start_date: "1999-06-30"
+      end_date: null
+      bbox: [-180, -90, 180, -55]
+    default_reducer: mosaic
+    terms: These images are in the public domain and can be used freely
+    bands:
+
+  USGS/WBD/2017/HUC02:
+    title: 'HUC02: USGS Watershed Boundary Dataset of Regions'
+    provider: United States Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2017-04-22"
+      end_date: null
+      bbox: [-180, -14.69, 180, 71.567]
+    default_reducer: mosaic
+    terms: Most U.S. Geological Survey (USGS) information resides
+    bands:
+
+  USGS/WBD/2017/HUC04:
+    title: 'HUC04: USGS Watershed Boundary Dataset of Subregions'
+    provider: United States Geological Survey
+    ee_type: table
+    extent:
+      start_date: "2017-04-22"
+      end_date: null
+      bbox: [-180, -14.69, 180, 71.567]
+    default_reducer: mosaic
+    terms: Most U.S. Geological Survey (USGS) information resides
+    bands:
