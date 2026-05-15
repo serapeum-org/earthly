@@ -30305,3 +30305,142 @@ datasets:
     default_reducer: mosaic
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+
+  MODIS/MCD43A4_006_BAI:
+    title: MODIS Combined 16-Day BAI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  MODIS/MCD43A4_006_EVI:
+    title: MODIS Combined 16-Day EVI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  MODIS/MCD43A4_006_NDSI:
+    title: MODIS Combined 16-Day NDSI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDSI:
+        description: Normalized Difference Snow Index
+
+  MODIS/MCD43A4_006_NDVI:
+    title: MODIS Combined 16-Day NDVI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  MODIS/MCD43A4_006_NDWI:
+    title: MODIS Combined 16-Day NDWI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  MODIS/MCD43A4_BAI:
+    title: MODIS Combined 16-Day BAI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  MODIS/MCD43A4_EVI:
+    title: MODIS Combined 16-Day EVI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  MODIS/MCD43A4_NDSI:
+    title: MODIS Combined 16-Day NDSI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDSI:
+        description: Normalized Difference Snow Index
+
+  MODIS/MCD43A4_NDVI:
+    title: MODIS Combined 16-Day NDVI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
