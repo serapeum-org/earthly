@@ -9173,3 +9173,517 @@ datasets:
         description: SWIR-2
         scale: 0.0001
         wavelength: 2.2024
+
+  NASA/SMAP/SPL4SMGP/007:
+    title: "SMAP L4 Global 3-hourly 9km Surface and Root-Zone Soil Moisture (SPL4SMGP.007, legacy)"
+    provider: NASA NSIDC DAAC
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 11000
+    extent:
+      start_date: "2015-03-31"
+      end_date: null
+      bbox: [-180, -84, 180, 84]
+    default_reducer: mean
+    terms: Public domain (NASA / NSIDC).
+    bands:
+      sm_surface:
+        description: Top-layer soil moisture (0-5 cm)
+        units: m^3/m^3
+        min: 0
+        max: 0.9
+      sm_rootzone:
+        description: Root-zone soil moisture (0-100 cm)
+        units: m^3/m^3
+        min: 0
+        max: 0.9
+      sm_profile:
+        description: Total profile soil moisture (0 cm to model bedrock)
+        units: m^3/m^3
+      surface_temp:
+        description: Mean land-surface temperature
+        units: K
+      snow_mass:
+        description: Snow mass per unit area (water equivalent)
+        units: kg/m^2
+
+  NOAA/CDR/GRIDSAT-B1/V2:
+    title: "NOAA CDR GRIDSAT-B1 v2: Geostationary IR Brightness Temperature (3-hourly ~8km)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 7792
+    extent:
+      start_date: "1980-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA CDR).
+    bands:
+      irwin_cdr:
+        description: Brightness temperature near 11 µm (nadir-most observation)
+        units: K
+        scale: 0.01
+        offset: 200
+      irwin_2:
+        description: Brightness temperature near 11 µm (second-best observation)
+        units: K
+        scale: 0.01
+        offset: 200
+      irwin_3:
+        description: Brightness temperature near 11 µm (third-best observation)
+        units: K
+        scale: 0.01
+        offset: 200
+      vschn:
+        description: Visible-channel reflectance (where available)
+
+  WorldPop/GP/100m/pop_age_sex:
+    title: "WorldPop GP 100m Population Age + Sex Structure (annual)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      population:
+        description: Total residents per ~100m grid cell
+      M_0:
+        description: Males 0-1 years per cell
+      M_15:
+        description: Males 15-19 years per cell
+      M_65:
+        description: Males 65-69 years per cell
+      M_75:
+        description: Males 75+ years per cell
+      F_0:
+        description: Females 0-1 years per cell
+      F_15:
+        description: Females 15-19 years per cell
+      F_65:
+        description: Females 65-69 years per cell
+      F_75:
+        description: Females 75+ years per cell
+
+  WorldPop/GP/100m/pop_age_sex_cons_unadj:
+    title: "WorldPop GP 100m Constrained Population Age + Sex (unadjusted, annual)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      population:
+        description: Total residents per ~100m grid cell (constrained, unadjusted)
+      M_0:
+        description: Males 0-1 years per cell
+      M_15:
+        description: Males 15-19 years per cell
+      M_65:
+        description: Males 65-69 years per cell
+      F_0:
+        description: Females 0-1 years per cell
+      F_15:
+        description: Females 15-19 years per cell
+      F_65:
+        description: Females 65-69 years per cell
+
+  CSIRO/SLGA:
+    title: "CSIRO SLGA: Soil and Landscape Grid of Australia (Soil Attributes, ~90m)"
+    provider: CSIRO / SLGA
+    ee_type: image_collection
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+      bbox: [113, -44.15, 154, -9.97]
+    default_reducer: mosaic
+    terms: Free for use (CSIRO).
+    user_uploaded: true
+    bands:
+      AWC_000_005_EV:
+        description: Available water capacity (0-5 cm, expected value)
+        units: "%"
+      BDW_000_005_EV:
+        description: Bulk density of fine earth (0-5 cm, expected value)
+        units: g/cm^3
+      CLY_000_005_EV:
+        description: Clay percentage (0-5 cm, expected value)
+        units: "%"
+      SLT_000_005_EV:
+        description: Silt percentage (0-5 cm, expected value)
+        units: "%"
+      SND_000_005_EV:
+        description: Sand percentage (0-5 cm, expected value)
+        units: "%"
+      SOC_000_005_EV:
+        description: Soil organic carbon (0-5 cm, expected value)
+        units: "%"
+      DER_000_005_EV:
+        description: Depth of regolith (expected value)
+        units: m
+      DES_000_005_EV:
+        description: Depth of soil (expected value)
+        units: m
+
+  COPERNICUS/MARINE/GLOBAL_SEA_SURFACE/NRT_DAILY:
+    title: "Copernicus Marine Global Sea-Surface Salinity + Density NRT (Daily ~14km)"
+    provider: Copernicus Marine Service
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 14000
+    extent:
+      start_date: "2023-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under Copernicus Marine SLA.
+    bands:
+      sos:
+        description: Sea-surface salinity
+        units: psu
+      sos_error:
+        description: Sea-surface salinity error
+        units: psu
+      dos:
+        description: Sea-surface density
+        units: kg/m^3
+      dos_error:
+        description: Sea-surface density error
+        units: kg/m^3
+      sea_ice_fraction:
+        description: Sea-surface ice fraction
+        units: "%"
+
+  COPERNICUS/MARINE/GLOBAL_SEA_SURFACE/REP_DAILY:
+    title: "Copernicus Marine Global Sea-Surface Salinity + Density REP (Daily ~14km, 1993-)"
+    provider: Copernicus Marine Service
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 14000
+    extent:
+      start_date: "1993-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under Copernicus Marine SLA.
+    bands:
+      sos:
+        description: Sea-surface salinity
+        units: psu
+      sos_error:
+        description: Sea-surface salinity error
+        units: psu
+      dos:
+        description: Sea-surface density
+        units: kg/m^3
+      dos_error:
+        description: Sea-surface density error
+        units: kg/m^3
+      sea_ice_fraction:
+        description: Sea-surface ice fraction
+        units: "%"
+
+  COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_PHY_DAILY:
+    title: "Copernicus Marine Global Ocean Physics Analysis + Forecast (Daily ~9km)"
+    provider: Copernicus Marine Service
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 9276.62
+    extent:
+      start_date: "2022-06-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under Copernicus Marine SLA.
+    bands:
+      siconc:
+        description: Sea-ice concentration
+      sithick:
+        description: Sea-ice thickness
+        units: m
+      ist:
+        description: Sea-ice surface temperature
+        units: deg_C
+      sialb:
+        description: Mean albedo over sea ice
+        units: "%"
+      siage:
+        description: Mean sea-ice age
+        units: y
+      sivelo:
+        description: Sea-ice velocity
+        units: m/s
+
+  OpenET/ENSEMBLE/CONUS/GRIDMET/MONTHLY/v2_0:
+    title: "OpenET Ensemble Monthly ET v2.0 (CONUS, 30m, 1999-)"
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-10-01"
+      end_date: null
+      bbox: [-126, 25, -66, 50]
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      et_ensemble_mad:
+        description: Ensemble ET, mean of the median-absolute-deviation-filtered models
+        units: mm
+      et_ensemble_mad_min:
+        description: Minimum ET in the filtered ensemble range
+        units: mm
+      et_ensemble_mad_max:
+        description: Maximum ET in the filtered ensemble range
+        units: mm
+      et_ensemble_mad_count:
+        description: Number of models contributing to the ensemble after filtering
+      et_ensemble_sam:
+        description: Simple arithmetic mean across all six OpenET models
+        units: mm
+
+  OpenET/SSEBOP/CONUS/GRIDMET/MONTHLY/v2_0:
+    title: "OpenET SSEBop Monthly ET v2.0 (CONUS, 30m, 1999-)"
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-10-01"
+      end_date: null
+      bbox: [-126, 25, -66, 50]
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      et:
+        description: SSEBop monthly evapotranspiration
+        units: mm
+      count:
+        description: Number of cloud-free Landsat scenes contributing
+
+  OpenET/DISALEXI/CONUS/GRIDMET/MONTHLY/v2_0:
+    title: "OpenET DisALEXI Monthly ET v2.0 (CONUS, 30m, 2001-)"
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-126, 25, -66, 50]
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      et:
+        description: DisALEXI monthly evapotranspiration (two-source energy balance)
+        units: mm
+      count:
+        description: Number of cloud-free Landsat scenes contributing
+
+  OpenET/EEMETRIC/CONUS/GRIDMET/MONTHLY/v2_0:
+    title: "OpenET eeMETRIC Monthly ET v2.0 (CONUS, 30m, 1999-)"
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-10-01"
+      end_date: null
+      bbox: [-126, 25, -66, 50]
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      et:
+        description: eeMETRIC monthly evapotranspiration (METRIC adapted to EE)
+        units: mm
+      count:
+        description: Number of cloud-free Landsat scenes contributing
+
+  OpenET/GEESEBAL/CONUS/GRIDMET/MONTHLY/v2_0:
+    title: "OpenET geeSEBAL Monthly ET v2.0 (CONUS, 30m, 1999-)"
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-10-01"
+      end_date: null
+      bbox: [-126, 25, -66, 50]
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      et:
+        description: geeSEBAL monthly evapotranspiration (SEBAL on EE)
+        units: mm
+      count:
+        description: Number of cloud-free Landsat scenes contributing
+
+  OpenET/PTJPL/CONUS/GRIDMET/MONTHLY/v2_0:
+    title: "OpenET PT-JPL Monthly ET v2.0 (CONUS, 30m, 1999-)"
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-10-01"
+      end_date: null
+      bbox: [-126, 25, -66, 50]
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      et:
+        description: PT-JPL monthly evapotranspiration (Priestley-Taylor JPL)
+        units: mm
+      count:
+        description: Number of cloud-free Landsat scenes contributing
+
+  OpenET/SIMS/CONUS/GRIDMET/MONTHLY/v2_0:
+    title: "OpenET SIMS Monthly ET v2.0 (CONUS, 30m, 1999-)"
+    provider: OpenET, Inc.
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-10-01"
+      end_date: null
+      bbox: [-126, 25, -66, 50]
+    default_reducer: mean
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      et:
+        description: SIMS monthly evapotranspiration (Satellite Irrigation Management Support)
+        units: mm
+      count:
+        description: Number of cloud-free Landsat scenes contributing
+
+  NOAA/CFSR:
+    title: "NOAA NCEP CFSR: Climate Forecast System Reanalysis (6-hourly ~55km, 2018-)"
+    provider: NOAA / NCEP
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 55660
+    extent:
+      start_date: "2018-12-13"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NOAA).
+    bands:
+      Temperature_height_above_ground:
+        description: 2 m air temperature
+        units: K
+      u-component_of_wind_hybrid:
+        description: U-component of wind at hybrid level
+        units: m/s
+      v-component_of_wind_hybrid:
+        description: V-component of wind at hybrid level
+        units: m/s
+      Pressure_surface:
+        description: Surface pressure
+        units: Pa
+      Albedo_surface_3_Hour_Average:
+        description: Surface albedo, 3-hour average
+        units: "%"
+      Categorical_Rain_surface:
+        description: Categorical rain flag at surface
+      Canopy_water_evaporation_surface_3_Hour_Average:
+        description: Canopy water evaporation, 3-hour average
+        units: W/m^2
+
+  USGS/GMTED2010:
+    title: "USGS GMTED2010 Breakline Emphasis: Global Multi-Resolution Terrain Elevation (~230m)"
+    provider: USGS
+    ee_type: image
+    spatial_resolution: 231.92
+    extent:
+      start_date: "2010-01-01"
+      end_date: "2010-12-31"
+      bbox: [-180, -56, 180, 84]
+    default_reducer: mosaic
+    terms: Public domain (USGS).
+    bands:
+      be75:
+        description: Breakline-emphasis elevation
+        units: m
+
+  USGS/GMTED2010_FULL:
+    title: "USGS GMTED2010 Full: Global Multi-Resolution Terrain Elevation, all aggregation methods"
+    provider: USGS
+    ee_type: image
+    spatial_resolution: 231.92
+    extent:
+      start_date: "2010-01-01"
+      end_date: "2010-12-31"
+      bbox: [-180, -56, 180, 84]
+    default_reducer: mosaic
+    terms: Public domain (USGS).
+    bands:
+      be75:
+        description: Breakline emphasis elevation
+        units: m
+      mea:
+        description: Mean elevation aggregation
+        units: m
+      med:
+        description: Median elevation aggregation
+        units: m
+      min:
+        description: Minimum elevation aggregation
+        units: m
+      max:
+        description: Maximum elevation aggregation
+        units: m
+      std:
+        description: Standard deviation of elevation
+        units: m
+      dsc:
+        description: Sample subgrid elevation
+        units: m
+
+  DOE/ORNL/LandScan_HD/Ukraine_202201:
+    title: "ORNL LandScan HD: Ukraine 24-hour Population Count (100m, January 2022)"
+    provider: Oak Ridge National Laboratory
+    ee_type: image
+    spatial_resolution: 100
+    extent:
+      start_date: "2022-01-01"
+      end_date: "2022-01-31"
+      bbox: [22.125, 44.175, 40.225, 52.4]
+    default_reducer: mosaic
+    terms: Free for use (ORNL).
+    bands:
+      population:
+        description: 24-hour average population count estimate per 100m cell
+        units: persons
+
+  JAXA/ALOS/AW3D30/V2_1:
+    title: "ALOS AW3D30 v2.1: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    terms: Free for any use, attribution required (JAXA AW3D30 terms).
+    bands:
+      AVE_DSM:
+        description: Height above sea level (averaged DSM)
+        units: m
+      AVE_STK:
+        description: Stacking number of scene-unit DSMs used
+      AVE_MSK:
+        description: 8-bit mask for the AVE band
