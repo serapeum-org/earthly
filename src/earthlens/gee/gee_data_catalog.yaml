@@ -7775,3 +7775,494 @@ datasets:
     bands:
       population:
         description: Estimated number of residents per ~100m grid cell
+
+  COPERNICUS/S5P/NRTI/L3_O3:
+    title: "Sentinel-5P NRTI O3: Near-Real-Time Total Column Ozone"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-07-10"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      O3_column_number_density:
+        description: Total atmospheric column of O3 (surface to top of atmosphere)
+        units: mol/m^2
+      O3_effective_temperature:
+        description: Ozone cross-section effective temperature
+        units: K
+      cloud_fraction:
+        description: Effective cloud fraction
+        min: 0
+        max: 1
+
+  COPERNICUS/S5P/NRTI/L3_CO:
+    title: "Sentinel-5P NRTI CO: Near-Real-Time Carbon Monoxide Total Column"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-11-22"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      CO_column_number_density:
+        description: Vertically integrated CO column density
+        units: mol/m^2
+      H2O_column_number_density:
+        description: Water vapor column density
+        units: mol/m^2
+      cloud_height:
+        description: Effective scattering layer height
+        units: m
+
+  COPERNICUS/S5P/NRTI/L3_HCHO:
+    title: "Sentinel-5P NRTI HCHO: Near-Real-Time Tropospheric Formaldehyde"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-10-02"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      tropospheric_HCHO_column_number_density:
+        description: Tropospheric HCHO column number density
+        units: mol/m^2
+      tropospheric_HCHO_column_number_density_amf:
+        description: Tropospheric air mass factor
+      HCHO_slant_column_number_density:
+        description: HCHO slant column number density
+        units: mol/m^2
+      cloud_fraction:
+        description: Effective cloud fraction
+        min: 0
+        max: 1
+
+  COPERNICUS/S5P/NRTI/L3_AER_AI:
+    title: "Sentinel-5P NRTI AER_AI: Near-Real-Time UV Aerosol Index"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-07-10"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      absorbing_aerosol_index:
+        description: UV absorbing-aerosol index (354/388 nm)
+
+  COPERNICUS/S5P/NRTI/L3_SO2:
+    title: "Sentinel-5P NRTI SO2: Near-Real-Time Total Column Sulfur Dioxide"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1113.2
+    extent:
+      start_date: "2018-07-10"
+      end_date: null
+    default_reducer: mean
+    terms: Free for use under the Copernicus Sentinel data terms.
+    bands:
+      SO2_column_number_density:
+        description: SO2 vertical column density (ground level)
+        units: mol/m^2
+      SO2_column_number_density_amf:
+        description: Air mass factor (cloudy/clear weighted)
+      SO2_slant_column_number_density:
+        description: SO2 ring-corrected slant column number density
+        units: mol/m^2
+      cloud_fraction:
+        description: Effective cloud fraction
+        min: 0
+        max: 1
+
+  NOAA/VIIRS/DNB/ANNUAL_V21:
+    title: "VIIRS DNB Annual Composites V2.1 (Nighttime Lights, ~500m, 2012-)"
+    provider: Earth Observation Group, Colorado School of Mines
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2012-04-01"
+      end_date: null
+      bbox: [-180, -65, 180, 75]
+    default_reducer: mean
+    terms: Free for use with attribution (Colorado School of Mines).
+    bands:
+      average:
+        description: Annual average DNB radiance
+        units: nanoWatts/sr/cm^2
+      average_masked:
+        description: Annual average DNB radiance, background-masked
+        units: nanoWatts/sr/cm^2
+      median:
+        description: Annual median DNB radiance
+        units: nanoWatts/sr/cm^2
+      median_masked:
+        description: Annual median DNB radiance, background-masked
+        units: nanoWatts/sr/cm^2
+      maximum:
+        description: Annual maximum DNB radiance
+        units: nanoWatts/sr/cm^2
+      cf_cvg:
+        description: Cloud-free observation count contributing to the composite
+      cvg:
+        description: Total observations free of sunlight and moonlight
+
+  NOAA/VIIRS/001/VNP46A2:
+    title: "VNP46A2.001: VIIRS Lunar Gap-Filled BRDF-Corrected Nighttime Lights Daily 500m"
+    provider: NASA LAADS DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA LAADS).
+    bands:
+      DNB_BRDF_Corrected_NTL:
+        description: BRDF-corrected DNB nighttime light radiance
+      Gap_Filled_DNB_BRDF_Corrected_NTL:
+        description: Gap-filled BRDF-corrected DNB nighttime light radiance
+      DNB_Lunar_Irradiance:
+        description: Lunar irradiance contribution
+      Latest_High_Quality_Retrieval:
+        description: Latest high-quality BRDF-corrected DNB radiance retrieval
+      Mandatory_Quality_Flag:
+        description: Per-pixel mandatory quality flag (0=valid)
+        min: 0
+        max: 3
+
+  NOAA/VIIRS/001/VNP09GA:
+    title: "VNP09GA.001: VIIRS Surface Reflectance Daily Global 1km/500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (NASA LP DAAC).
+    bands:
+      M3:
+        description: Surface reflectance band M3 (visible blue)
+        scale: 0.0001
+        wavelength: 0.483
+      M4:
+        description: Surface reflectance band M4 (visible green)
+        scale: 0.0001
+        wavelength: 0.555
+      M5:
+        description: Surface reflectance band M5 (visible red)
+        scale: 0.0001
+        wavelength: 0.672
+      M7:
+        description: Surface reflectance band M7 (NIR)
+        scale: 0.0001
+        wavelength: 0.865
+      M10:
+        description: Surface reflectance band M10 (SWIR-1)
+        scale: 0.0001
+        wavelength: 1.61
+      M11:
+        description: Surface reflectance band M11 (SWIR-2)
+        scale: 0.0001
+        wavelength: 2.25
+      QF1:
+        description: Quality flag 1
+      QF2:
+        description: Quality flag 2
+
+  NOAA/VIIRS/001/VNP13A1:
+    title: "VNP13A1.001: VIIRS Vegetation Indices 8-Day Global 500m (NDVI/EVI/EVI2)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-17"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA LP DAAC).
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        scale: 0.0001
+      EVI:
+        description: 3-band Enhanced Vegetation Index
+        scale: 0.0001
+      EVI2:
+        description: 2-band Enhanced Vegetation Index
+        scale: 0.0001
+      NIR_reflectance:
+        description: NIR surface reflectance
+        wavelength: 0.866
+      SWIR1_reflectance:
+        description: SWIR-1 surface reflectance
+        wavelength: 1.24
+      SWIR2_reflectance:
+        description: SWIR-2 surface reflectance
+        wavelength: 1.61
+
+  NOAA/VIIRS/001/VNP21A1D:
+    title: "VNP21A1D.001: VIIRS Daytime Land Surface Temperature and Emissivity Daily 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: mean
+    terms: Public domain (NASA LP DAAC).
+    bands:
+      LST_1KM:
+        description: Daytime 1 km land surface temperature
+        units: K
+      QC:
+        description: LST + emissivity quality control flags
+      Emis_14:
+        description: Band M14 emissivity
+      Emis_15:
+        description: Band M15 emissivity
+      Emis_16:
+        description: Band M16 emissivity
+      View_Angle:
+        description: View zenith angle of the LST observation
+        units: deg
+
+  UMD/hansen/global_forest_change_2021_v1_9:
+    title: "Hansen Global Forest Change v1.9 (2000-2021)"
+    provider: Hansen / UMD / Google / USGS / NASA
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2021-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      treecover2000:
+        description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
+        units: "%"
+        min: 0
+        max: 100
+      loss:
+        description: Forest loss in 2000-2021 (binary stand-replacement disturbance)
+      gain:
+        description: Forest gain in 2000-2012 (binary inverse of loss)
+      lossyear:
+        description: Year of forest cover loss (1=2001 ... 21=2021)
+        min: 0
+        max: 21
+      datamask:
+        description: Data quality mask (no-data / land / permanent water)
+
+  NASA/HLS/HLSL30/v002:
+    title: "HLSL30 v002: Harmonized Landsat-8/9 Surface Reflectance (30m, sub-weekly)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2013-04-11"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (NASA LP DAAC).
+    bands:
+      B1:
+        description: Coastal aerosol
+      B2:
+        description: Blue
+      B3:
+        description: Green
+      B4:
+        description: Red
+      B5:
+        description: NIR
+      B6:
+        description: SWIR-1
+      B7:
+        description: SWIR-2
+      B9:
+        description: Cirrus
+      B10:
+        description: Thermal-1
+        units: K
+      B11:
+        description: Thermal-2
+        units: K
+      Fmask:
+        description: Cloud / shadow / snow / water quality bits
+
+  NASA/HLS/HLSS30/v002:
+    title: "HLSS30 v002: Harmonized Sentinel-2 Surface Reflectance (30m, sub-weekly)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2015-11-28"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (NASA LP DAAC).
+    bands:
+      B1:
+        description: Coastal aerosol
+      B2:
+        description: Blue
+      B3:
+        description: Green
+      B4:
+        description: Red
+      B5:
+        description: Red-Edge 1
+      B6:
+        description: Red-Edge 2
+      B7:
+        description: Red-Edge 3
+      B8:
+        description: NIR Broad
+      B8A:
+        description: NIR Narrow
+      B11:
+        description: SWIR-1
+      B12:
+        description: SWIR-2
+      Fmask:
+        description: Cloud / shadow / snow / water quality bits
+
+  CGIAR/SRTM90_V4:
+    title: "CGIAR-CSI SRTM 90m v4 (Void-Filled SRTM, ±60° lat)"
+    provider: NASA / CGIAR-CSI
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -56, 180, 60]
+    default_reducer: mosaic
+    terms: Free for non-commercial use; commercial requires attribution (CGIAR-CSI).
+    bands:
+      elevation:
+        description: Bare-earth elevation (void-filled)
+        units: m
+
+  NOAA/CDR/AVHRR/NDVI/V4:
+    title: "NOAA CDR AVHRR NDVI v4: Daily Global NDVI (legacy 5km, 1981-)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: median
+    terms: Public domain (NOAA CDR).
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index (legacy v4)
+        scale: 0.0001
+      TIMEOFDAY:
+        description: Hours since the start of the day at the observation time
+        units: h
+        scale: 0.01
+      QA:
+        description: Quality control bit flags
+
+  COPERNICUS/CORINE/V18_5_1/100m:
+    title: "Copernicus CORINE Land Cover v18.5.1 (100m, 1990/2000/2006/2012/2018)"
+    provider: EEA / Copernicus
+    ee_type: image_collection
+    cadence: { interval: 6, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "1986-01-01"
+      end_date: "2018-12-31"
+      bbox: [-81.77, -29.2, 94.13, 73.81]
+    default_reducer: mosaic
+    terms: Free with attribution (Copernicus).
+    bands:
+      landcover:
+        description: CORINE land-cover class
+
+  FAO/WAPOR/3/L1_AETI_D:
+    title: "FAO WAPOR v3 L1 AETI Dekadal: Actual Evapotranspiration + Interception (~250m, Africa+ME)"
+    provider: FAO UN
+    ee_type: image_collection
+    # Dekads are nominal 10-day windows (the last dekad of a month can be 8-11 days);
+    # 10/day is the most accurate cadence the catalog can express.
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 248.2
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free with attribution (FAO WAPOR).
+    user_uploaded: true
+    bands:
+      L1-AETI-D:
+        description: Actual evapotranspiration + interception (dekadal)
+        units: mm
+        scale: 0.1
+
+  JAXA/ALOS/PALSAR/YEARLY/FNF:
+    title: "ALOS PALSAR Yearly 3-Class Forest / Non-Forest Map (25m, 2007-)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 25
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: Free with attribution (JAXA EORC).
+    bands:
+      fnf:
+        description: Forest / non-forest classification (1=forest, 2=non-forest, 3=water)
+        min: 1
+        max: 3
+
+  WWF/HydroSHEDS/15ACC:
+    title: "WWF HydroSHEDS Flow Accumulation (15 arc-seconds, ~500m)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    terms: Free for non-commercial and commercial use.
+    bands:
+      b1:
+        description: Upstream flow accumulation (number of contributing pixels)
+
+  WWF/HydroSHEDS/15CONDEM:
+    title: "WWF HydroSHEDS Hydrologically Conditioned DEM (15 arc-seconds, ~500m)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    terms: Free for non-commercial and commercial use.
+    bands:
+      b1:
+        description: Hydrologically conditioned elevation
+        units: m
