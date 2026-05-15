@@ -47225,3 +47225,525 @@ datasets:
       TIME:
         description: Time elapsed since the start of image collection of this mosaic
         units: min
+
+  VITO/PROBAV/C1/S1_TOC_333M:
+    title: PROBA-V C1 Top Of Canopy Daily Synthesis 333m
+    provider: Vito / ESA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 333
+    extent:
+      start_date: "2013-10-17"
+      end_date: null
+    default_reducer: mosaic
+    terms: PROBA-V 300m and 100m data are freely available for data older than 1 month.
+    bands:
+      RED:
+        description: Top of canopy reflectance RED channel
+        wavelength: 0.658
+      NIR:
+        description: Top of canopy reflectance NIR channel
+        wavelength: 0.834
+      BLUE:
+        description: Top of canopy reflectance BLUE channel
+        wavelength: 0.46
+      SWIR:
+        description: Top of canopy reflectance SWIR channel
+        wavelength: 1.61
+      NDVI:
+        description: Normalized Difference Vegetation Index
+      SZA:
+        description: Solar zenith angle
+        units: deg
+      SAA:
+        description: Solar azimuth angle
+        units: deg
+      SWIRVAA:
+        description: Viewing azimuth angles SWIR detector
+        units: deg
+      SWIRVZA:
+        description: Viewing zenith angle SWIR detector
+        units: deg
+      VNIRVAA:
+        description: Viewing azimuth angle VNIR detector
+        units: deg
+      VNIRVZA:
+        description: Viewing zenith angle VNIR detector
+        units: deg
+      SM:
+        description: Quality / Information band.
+      TIME:
+        description: Time elapsed since the start of image collection of this mosaic
+        units: min
+
+  VITO/PROBAV/S1_TOC_100M:
+    title: PROBA-V C0 Top Of Canopy Daily Synthesis 100m [deprecated]
+    provider: Vito / ESA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 100
+    extent:
+      start_date: "2013-10-17"
+      end_date: null
+    default_reducer: mosaic
+    terms: PROBA-V 300m and 100m data are freely available for data older than 1 month.
+    bands:
+      RED:
+        description: Top of canopy reflectance RED channel
+        wavelength: 0.658
+      NIR:
+        description: Top of canopy reflectance NIR channel
+        wavelength: 0.834
+      BLUE:
+        description: Top of canopy reflectance BLUE channel
+        wavelength: 0.46
+      SWIR:
+        description: Top of canopy reflectance SWIR channel
+        wavelength: 1.61
+      NDVI:
+        description: Normalized Difference Vegetation Index
+      SZA:
+        description: Solar zenith angle
+        units: deg
+      SAA:
+        description: Solar azimuth angle
+        units: deg
+      SWIRVAA:
+        description: Viewing azimuth angles SWIR detector
+        units: deg
+      SWIRVZA:
+        description: Viewing zenith angle SWIR detector
+        units: deg
+      VNIRVAA:
+        description: Viewing azimuth angle VNIR detector
+        units: deg
+      VNIRVZA:
+        description: Viewing zenith angle VNIR detector
+        units: deg
+      SM:
+        description: Quality / Information band.
+      TIME:
+        description: Time elapsed since the start of image collection of this mosaic
+        units: min
+
+  VITO/PROBAV/S1_TOC_333M:
+    title: PROBA-V C0 Top Of Canopy Daily Synthesis 333m [deprecated]
+    provider: Vito / ESA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 333
+    extent:
+      start_date: "2013-10-17"
+      end_date: null
+    default_reducer: mosaic
+    terms: PROBA-V 300m and 100m data are freely available for data older than 1 month.
+    bands:
+      RED:
+        description: Top of canopy reflectance RED channel
+        wavelength: 0.658
+      NIR:
+        description: Top of canopy reflectance NIR channel
+        wavelength: 0.834
+      BLUE:
+        description: Top of canopy reflectance BLUE channel
+        wavelength: 0.46
+      SWIR:
+        description: Top of canopy reflectance SWIR channel
+        wavelength: 1.61
+      NDVI:
+        description: Normalized Difference Vegetation Index
+      SZA:
+        description: Solar zenith angle
+        units: deg
+      SAA:
+        description: Solar azimuth angle
+        units: deg
+      SWIRVAA:
+        description: Viewing azimuth angles SWIR detector
+        units: deg
+      SWIRVZA:
+        description: Viewing zenith angle SWIR detector
+        units: deg
+      VNIRVAA:
+        description: Viewing azimuth angle VNIR detector
+        units: deg
+      VNIRVZA:
+        description: Viewing zenith angle VNIR detector
+        units: deg
+      SM:
+        description: Quality / Information band.
+      TIME:
+        description: Time elapsed since the start of image collection of this mosaic
+        units: min
+
+  WHBU/NBAR_1YEAR:
+    title: MODIS 1-year Nadir BRDF-Adjusted Reflectance (NBAR) Mosaic
+    provider: Baccini, A. (Woods Hole Research Center), Sulla-Menashe, D. (Boston University)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 463
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+      bbox: [-180, -60.1, 180, 60.1]
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      Nadir_Reflectance_Band1:
+        description: Best NBAR at local solar noon for band 1
+        wavelength: 0.645
+      Nadir_Reflectance_Band2:
+        description: Best NBAR at local solar noon for band 2
+        wavelength: 0.8585
+      Nadir_Reflectance_Band3:
+        description: Best NBAR at local solar noon for band 3
+        wavelength: 0.469
+      Nadir_Reflectance_Band4:
+        description: Best NBAR at local solar noon for band 4
+        wavelength: 0.555
+      Nadir_Reflectance_Band5:
+        description: Best NBAR at local solar noon for band 5
+        wavelength: 1.24
+      Nadir_Reflectance_Band6:
+        description: Best NBAR at local solar noon for band 6
+        wavelength: 1.64
+      Nadir_Reflectance_Band7:
+        description: Best NBAR at local solar noon for band 7
+        wavelength: 2.13
+
+  WHBU/NBAR_2YEAR:
+    title: MODIS 2-year Nadir BRDF-Adjusted Reflectance (NBAR) Mosaic
+    provider: Baccini, A. (Woods Hole Research Center), Sulla-Menashe, D. (Boston University)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 463
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-180, -60.1, 180, 60.1]
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      Nadir_Reflectance_Band1:
+        description: Best NBAR at local solar noon for band 1
+        wavelength: 0.645
+      Nadir_Reflectance_Band2:
+        description: Best NBAR at local solar noon for band 2
+        wavelength: 0.8585
+      Nadir_Reflectance_Band3:
+        description: Best NBAR at local solar noon for band 3
+        wavelength: 0.469
+      Nadir_Reflectance_Band4:
+        description: Best NBAR at local solar noon for band 4
+        wavelength: 0.555
+      Nadir_Reflectance_Band5:
+        description: Best NBAR at local solar noon for band 5
+        wavelength: 1.24
+      Nadir_Reflectance_Band6:
+        description: Best NBAR at local solar noon for band 6
+        wavelength: 1.64
+      Nadir_Reflectance_Band7:
+        description: Best NBAR at local solar noon for band 7
+        wavelength: 2.13
+
+  WHBU/NBAR_3YEAR:
+    title: MODIS 3-year Nadir BRDF-Adjusted Reflectance (NBAR) Mosaic
+    provider: Baccini, A. (Woods Hole Research Center), Sulla-Menashe, D. (Boston University)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 463
+    extent:
+      start_date: "2002-01-01"
+      end_date: null
+      bbox: [-180, -60.1, 180, 60.1]
+    default_reducer: mosaic
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      Nadir_Reflectance_Band1:
+        description: Best NBAR at local solar noon for band 1
+        wavelength: 0.645
+      Nadir_Reflectance_Band2:
+        description: Best NBAR at local solar noon for band 2
+        wavelength: 0.8585
+      Nadir_Reflectance_Band3:
+        description: Best NBAR at local solar noon for band 3
+        wavelength: 0.469
+      Nadir_Reflectance_Band4:
+        description: Best NBAR at local solar noon for band 4
+        wavelength: 0.555
+      Nadir_Reflectance_Band5:
+        description: Best NBAR at local solar noon for band 5
+        wavelength: 1.24
+      Nadir_Reflectance_Band6:
+        description: Best NBAR at local solar noon for band 6
+        wavelength: 1.64
+      Nadir_Reflectance_Band7:
+        description: Best NBAR at local solar noon for band 7
+        wavelength: 2.13
+
+  WRI/Aqueduct_Flood_Hazard_Maps/V2:
+    title: WRI Aqueduct Floods Hazard Maps Version 2
+    provider: World Resources Institute
+    ee_type: image_collection
+    spatial_resolution: 1000
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The WRI datasets are available without restriction
+    bands:
+      inundation_depth:
+        description: Flood inundation depth
+        units: m
+        min: 0
+        max: 32.05
+
+  WRI/Aqueduct_Water_Risk/V4/baseline_annual:
+    title: WRI Aqueduct Baseline Annual Version 4.0
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The WRI datasets are available without restriction
+    bands:
+
+  WRI/Aqueduct_Water_Risk/V4/baseline_monthly:
+    title: WRI Aqueduct Baseline Monthly Version 4.0
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The WRI datasets are available without restriction
+    bands:
+
+  WRI/Aqueduct_Water_Risk/V4/future_annual:
+    title: WRI Aqueduct Future Annual Version 4.0
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: The WRI datasets are available without restriction
+    bands:
+
+  WRI/GFW/FORMA/alerts:
+    title: FORMA Alerts
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    terms: The FORMA datasets are available without restriction
+    user_uploaded: true
+    bands:
+      alert_delta:
+        description: Percentage of clearing which during the 6 MODIS periods (96 + N days)
+        units: '%'
+        min: 0
+        max: 100
+      alert_date:
+        description: Timestamp in milliseconds since 1970/01/01
+        units: ms
+
+  WRI/GFW/FORMA/raw_output_firms:
+    title: FORMA Raw Output FIRMS
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image_collection
+    spatial_resolution: 250
+    extent:
+      start_date: "2017-04-08"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    terms: The FORMA datasets are available without restriction
+    user_uploaded: true
+    bands:
+      nday:
+        description: Percentage of clearing in the last N days
+        units: '%'
+        min: 0
+        max: 100
+      delta_nday:
+        description: Percentage of clearing in the last 96+N days
+        units: '%'
+        min: 0
+        max: 100
+      near_term_delta_nday:
+        description: Percentage of clearing in the last 32+N days
+        units: '%'
+        min: 0
+        max: 100
+
+  WRI/GFW/FORMA/raw_output_ndvi:
+    title: FORMA Raw Output NDVI
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image_collection
+    spatial_resolution: 250
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    terms: The FORMA datasets are available without restriction
+    user_uploaded: true
+    bands:
+      delta:
+        description: Percentage of clearing in the last 96 days
+        units: '%'
+        min: 0
+        max: 100
+      near_term_delta:
+        description: Percentage of clearing in the last 32 days
+        units: '%'
+        min: 0
+        max: 100
+      accuracy:
+        description: Confidence in predictions
+        units: '%'
+        min: 0
+        max: 100
+      clearing:
+        description: Percentage of clearing in the last 365 days
+        units: '%'
+        min: 0
+        max: 100
+
+  WRI/GFW/FORMA/thresholds:
+    title: FORMA Alert Thresholds
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    terms: The FORMA datasets are available without restriction
+    user_uploaded: true
+    bands:
+      delta_bound:
+        description: The thresholds at which, when crossed, a FORMA alert is produced
+        units: '%'
+        min: 25
+        max: 40
+
+  WRI/GFW/FORMA/vegetation_tstats:
+    title: FORMA Vegetation T-Statistics
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image_collection
+    spatial_resolution: 250
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    terms: The FORMA datasets are available without restriction
+    user_uploaded: true
+    bands:
+      tstat_r:
+        description: Reversed rectified, ie (max(0,-t_stat)), t-statistics.
+        min: 0
+        max: 25.41
+
+  WRI/SBTN/naturalLands/v1/2020:
+    title: SBTN Natural Lands Map v1
+    provider: WRI
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 75]
+    default_reducer: mosaic
+    terms: '[CC-BY-NC-SA-4.0](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)'
+    bands:
+      classification:
+        description: Land cover classification.
+        min: 2
+        max: 21
+      natural:
+        description: Land cover classification.
+        min: 0
+        max: 1
+
+  WRI/SBTN/naturalLands/v1_1/2020:
+    title: SBTN Natural Lands Map v1.1
+    provider: WRI
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 75]
+    default_reducer: mosaic
+    terms: '[CC-BY-SA-4.0](https://spdx.org/licenses/CC-BY-SA-4.0.html)'
+    bands:
+      classification:
+        description: Land cover classification.
+        min: 2
+        max: 21
+      natural:
+        description: Land cover classification.
+        min: 0
+        max: 1
+
+  WWF/HydroSHEDS/03CONDEM:
+    title: WWF HydroSHEDS Hydrologically Conditioned DEM, 3 Arc-Seconds
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    bands:
+      b1:
+        description: Elevation
+        units: m
+        min: -440
+        max: 8527
+
+  WWF/HydroSHEDS/03VFDEM:
+    title: WWF HydroSHEDS Void-Filled DEM, 3 Arc-Seconds
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    bands:
+      b1:
+        description: Elevation
+        units: m
+        min: -424
+        max: 8642
+
+  WWF/HydroSHEDS/15DIR:
+    title: WWF HydroSHEDS Drainage Direction, 15 Arc-Seconds
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    terms: HydroSHEDS data are free for non-commercial and commercial
+    bands:
+      b1:
+        description: 'Drainage direction possible values: 1=E, 2=SE, 4=S,'
+        min: 0
+        max: 255
