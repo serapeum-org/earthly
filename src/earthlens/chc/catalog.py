@@ -1,7 +1,7 @@
 """Variable-catalog loader for the CHIRPS FTP data source.
 
 Hosts :class:`Catalog`, the pydantic-backed reader for
-`chirps_data_catalog.yaml`. Mirrors the design of
+`chc_data_catalog.yaml`. Mirrors the design of
 :mod:`earthlens.ecmwf.catalog` but adapted for the CHIRPS FTP
 directory structure.
 
@@ -28,7 +28,7 @@ Examples:
     - Construct the catalog and look up a variable:
 
         ```python
-        >>> from earthlens.chirps import Catalog
+        >>> from earthlens.chc import Catalog
         >>> cat = Catalog()
         >>> var = cat.get_variable("global-daily", "precipitation")
         >>> var.units
@@ -40,7 +40,7 @@ Examples:
     - Inspect a dataset's metadata:
 
         ```python
-        >>> from earthlens.chirps import Catalog
+        >>> from earthlens.chc import Catalog
         >>> ds = Catalog().get_dataset("global-monthly")
         >>> ds.temporal_resolution
         'monthly'
@@ -62,7 +62,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from earthlens.base import AbstractCatalog
 
-CATALOG_PATH: Path = Path(__file__).parent / "chirps_data_catalog.yaml"
+CATALOG_PATH: Path = Path(__file__).parent / "chc_data_catalog.yaml"
 
 _FTP_HOST: str = "data.chc.ucsb.edu"
 
@@ -71,7 +71,7 @@ class _StrictSafeLoader(yaml.SafeLoader):
     """:class:`yaml.SafeLoader` that rejects duplicate keys in any mapping.
 
     Prevents silent shadowing when the same dataset key or variable
-    name is accidentally duplicated in `chirps_data_catalog.yaml`.
+    name is accidentally duplicated in `chc_data_catalog.yaml`.
     """
 
 
@@ -103,7 +103,7 @@ class Variable(BaseModel):
     """Per-variable catalog entry for CHIRPS datasets.
 
     A frozen pydantic model carrying the metadata for one variable
-    row in `chirps_data_catalog.yaml`. CHIRPS currently only provides
+    row in `chc_data_catalog.yaml`. CHIRPS currently only provides
     precipitation, but the typed model keeps the interface symmetric
     with the ECMWF catalog.
 
@@ -140,7 +140,7 @@ class Dataset(BaseModel):
     """One CHIRPS dataset's section in the catalog.
 
     Mirrors the shape of a single `datasets.<key>:` block in
-    `chirps_data_catalog.yaml` and carries all metadata needed to
+    `chc_data_catalog.yaml` and carries all metadata needed to
     construct FTP paths, generate date ranges, and validate user
     inputs.
 
@@ -181,7 +181,7 @@ class Dataset(BaseModel):
         - Inspect a dataset:
 
             ```python
-            >>> from earthlens.chirps import Catalog
+            >>> from earthlens.chc import Catalog
             >>> ds = Catalog().get_dataset("global-daily")
             >>> ds.region
             'global'
@@ -194,7 +194,7 @@ class Dataset(BaseModel):
         - Access format-specific FTP paths:
 
             ```python
-            >>> from earthlens.chirps import Catalog
+            >>> from earthlens.chc import Catalog
             >>> ds = Catalog().get_dataset("global-daily")
             >>> ds.ftp_base   # default (first) path
             'pub/org/chc/products/CHIRPS-2.0/global_daily/tifs/p05/'
@@ -259,7 +259,7 @@ class Dataset(BaseModel):
 class Catalog(AbstractCatalog):
     """Variable catalog for the CHIRPS FTP data source.
 
-    Reads `chirps_data_catalog.yaml` (shipped as package data) and
+    Reads `chc_data_catalog.yaml` (shipped as package data) and
     exposes its consumed top-level sections as typed pydantic fields.
     Instantiate with no arguments (`Catalog()`) — :func:`model_post_init`
     parses the YAML and populates every field in one pass.
@@ -286,7 +286,7 @@ class Catalog(AbstractCatalog):
         - Look up a variable by `(dataset_key, variable_name)`:
 
             ```python
-            >>> from earthlens.chirps import Catalog
+            >>> from earthlens.chc import Catalog
             >>> spec = Catalog().get_variable(
             ...     "global-daily", "precipitation"
             ... )
@@ -299,7 +299,7 @@ class Catalog(AbstractCatalog):
         - List all curated dataset keys:
 
             ```python
-            >>> from earthlens.chirps import Catalog
+            >>> from earthlens.chc import Catalog
             >>> cat = Catalog()
             >>> "global-daily" in cat.datasets
             True
@@ -310,7 +310,7 @@ class Catalog(AbstractCatalog):
         - Inspect available dataset count:
 
             ```python
-            >>> from earthlens.chirps import Catalog
+            >>> from earthlens.chc import Catalog
             >>> len(Catalog().available_datasets) >= 90
             True
 
@@ -322,7 +322,7 @@ class Catalog(AbstractCatalog):
     datasets: dict[str, Dataset] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Parse `chirps_data_catalog.yaml` into the exposed fields.
+        """Parse `chc_data_catalog.yaml` into the exposed fields.
 
         Overrides :func:`AbstractCatalog.model_post_init` to populate
         :attr:`available_datasets`, :attr:`available_regions`, and
@@ -373,7 +373,7 @@ class Catalog(AbstractCatalog):
                     )
                 except ValidationError as exc:
                     raise ValueError(
-                        f"chirps_data_catalog.yaml variable {var_code!r} "
+                        f"chc_data_catalog.yaml variable {var_code!r} "
                         f"under dataset {ds_key!r} failed validation:\n{exc}"
                     ) from exc
                 total_vars += 1
@@ -389,7 +389,7 @@ class Catalog(AbstractCatalog):
             )
             if lat_boundaries is None or lon_boundaries is None:
                 raise ValueError(
-                    f"chirps_data_catalog.yaml dataset {ds_key!r} has no "
+                    f"chc_data_catalog.yaml dataset {ds_key!r} has no "
                     "`lat_boundaries` / `lon_boundaries` and its region "
                     f"{region_key!r} is not defined in the top-level "
                     "`regions:` block."
@@ -413,7 +413,7 @@ class Catalog(AbstractCatalog):
                 )
             except (ValidationError, KeyError) as exc:
                 raise ValueError(
-                    f"chirps_data_catalog.yaml dataset {ds_key!r} "
+                    f"chc_data_catalog.yaml dataset {ds_key!r} "
                     f"failed validation:\n{exc}"
                 ) from exc
 
@@ -441,7 +441,7 @@ class Catalog(AbstractCatalog):
             - Inspect the dataset map:
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> mapping = Catalog().get_catalog()
                 >>> "global-daily" in mapping
                 True
@@ -462,7 +462,7 @@ class Catalog(AbstractCatalog):
 
         Returns:
             Variable: Per-variable metadata loaded from
-            `chirps_data_catalog.yaml`.
+            `chc_data_catalog.yaml`.
 
         Raises:
             KeyError: If `dataset_key` is not curated, or if
@@ -472,7 +472,7 @@ class Catalog(AbstractCatalog):
             - Look up precipitation for global daily data:
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> spec = Catalog().get_variable("global-daily")
                 >>> spec.units
                 'mm/day'
@@ -483,7 +483,7 @@ class Catalog(AbstractCatalog):
             - Explicit variable name (the only one available):
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> Catalog().get_variable(
                 ...     "africa-monthly", "precipitation"
                 ... ).units
@@ -511,7 +511,7 @@ class Catalog(AbstractCatalog):
             - Read a dataset's temporal resolution and FTP base:
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> ds = Catalog().get_dataset("global-daily")
                 >>> ds.temporal_resolution
                 'daily'
@@ -527,7 +527,7 @@ class Catalog(AbstractCatalog):
 
         Args:
             region: Region key as it appears in the `regions:` block of
-                `chirps_data_catalog.yaml` (e.g. `"global"`, `"africa"`,
+                `chc_data_catalog.yaml` (e.g. `"global"`, `"africa"`,
                 `"global-land"`).
 
         Returns:
@@ -541,7 +541,7 @@ class Catalog(AbstractCatalog):
             - Read the standard global extent:
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> Catalog().describe_region("global")
                 {'lat_boundaries': [-50, 50], 'lon_boundaries': [-180, 180]}
 
@@ -549,7 +549,7 @@ class Catalog(AbstractCatalog):
             - CHIRTSdaily uses a wider land-surface extent:
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> Catalog().describe_region("global-land")
                 {'lat_boundaries': [-60, 70], 'lon_boundaries': [-180, 180]}
 
@@ -582,7 +582,7 @@ class Catalog(AbstractCatalog):
             - Describe global daily data at a glance:
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> info = Catalog().describe("global-daily")
                 >>> info["region"]
                 'global'
@@ -631,7 +631,7 @@ class Catalog(AbstractCatalog):
             - List all Africa datasets:
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> Catalog().list_datasets(region="africa")
                 ['africa-2-monthly', 'africa-3-monthly', 'africa-6-hourly', 'africa-daily', 'africa-dekad', 'africa-monthly', 'africa-pentad']
 
@@ -639,7 +639,7 @@ class Catalog(AbstractCatalog):
             - List all daily datasets regardless of region:
 
                 ```python
-                >>> from earthlens.chirps import Catalog
+                >>> from earthlens.chc import Catalog
                 >>> Catalog().list_datasets(temporal_resolution="daily")
                 ['africa-daily', 'chirp-daily', 'chirp-v3-global-daily', 'chirps-gefs-v12-daily-16day', 'chirps-gefs-v3-daily', 'chirps-v3-global-daily-prelim', 'chirps-v3-global-daily-rnl', 'chirps-v3-global-daily-sat', 'chirtsdaily-heat-index', 'chirtsdaily-relative-humidity', 'chirtsdaily-svp', 'chirtsdaily-tmax', 'chirtsdaily-tmin', 'chirtsdaily-vpd', 'global-daily', 'prelim-global-daily', 'western-hemisphere-daily']
 

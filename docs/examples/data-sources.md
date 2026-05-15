@@ -78,10 +78,10 @@ earthlens.download()
     range to keep wait times bearable. In CI the cdsapi client is
     mocked; the live end-to-end suite is selected with `pytest -m e2e`.
 
-## CHIRPS
+## CHC (CHIRPS / CHIRP / CHIRTS / …)
 
 ```python
-source = "chirps"
+source = "chc"
 path = "examples/data/chirps"
 variables = ["precipitation"]
 

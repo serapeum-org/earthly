@@ -7,7 +7,7 @@ temporal_resolution = "daily"
 latlim = [4.19, 4.64]
 lonlim = [-75.65, -74.73]
 # %%
-source = "chirps"
+source = "chc"
 path = r"examples\data\chirps"
 variables = ["precipitation"]
 earthlens = EarthLens(

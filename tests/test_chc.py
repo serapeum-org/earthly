@@ -6,9 +6,9 @@ import shutil
 
 import pytest
 
-from earthlens.chirps import CHIRPS
+from earthlens.chc import CHIRPS
 
-pytestmark = [pytest.mark.chirps]
+pytestmark = [pytest.mark.chc]
 
 
 @pytest.fixture(scope="module")

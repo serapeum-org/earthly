@@ -13,7 +13,7 @@ import pandas as pd
 import pytest
 
 from earthlens.aggregate import AggregationConfig
-from earthlens.chirps import CHIRPS
+from earthlens.chc import CHIRPS
 from earthlens.earthlens import EarthLens
 from earthlens.ecmwf import ECMWF
 from earthlens.s3 import S3
@@ -23,7 +23,7 @@ class _SentinelClient:
     """Stand-in for :class:`cdsapi.Client` used in facade tests."""
 
 
-@pytest.mark.chirps
+@pytest.mark.chc
 class TestChirpsBackend:
     @pytest.fixture(scope="module")
     def test_chirps_data_source_instantiate_object(

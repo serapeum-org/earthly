@@ -89,7 +89,9 @@ def ecmwf_data_source() -> str:
 
 @pytest.fixture(scope="session")
 def chirps_data_source() -> str:
-    return "chirps"
+    # Primary facade key is now `"chc"`; `"chirps"` remains a
+    # back-compat alias pointing at the same backend.
+    return "chc"
 
 
 @pytest.fixture(scope="session")

@@ -4,8 +4,8 @@ Downloads raster products from the Climate Hazards Center FTP server
 (`data.chc.ucsb.edu`) over anonymous FTP. Every dataset's FTP layout,
 spatial / temporal extent, file pattern, available formats, and per-
 variable metadata is sourced from
-:class:`~earthlens.chirps.Catalog`, which loads the bundled
-`chirps_data_catalog.yaml`. No FTP path or filename is hardcoded here.
+:class:`~earthlens.chc.Catalog`, which loads the bundled
+`chc_data_catalog.yaml`. No FTP path or filename is hardcoded here.
 
 The download pipeline (per `(dataset, variable, date)` triple) is:
 
@@ -47,9 +47,9 @@ from pyramids.dataset import Dataset
 from tqdm import tqdm
 
 from earthlens.base import AbstractDataSource, SpatialExtent, TemporalExtent
-from earthlens.chirps.catalog import Catalog
-from earthlens.chirps.catalog import Dataset as ChirpsDataset
-from earthlens.chirps.catalog import Variable
+from earthlens.chc.catalog import Catalog
+from earthlens.chc.catalog import Dataset as ChcDataset
+from earthlens.chc.catalog import Variable
 
 __all__ = ["CHIRPS"]
 
@@ -75,7 +75,7 @@ class CHIRPS(AbstractDataSource):
 
     Attributes:
         api_url: FTP hostname. Anonymous login; no credentials.
-        catalog: :class:`~earthlens.chirps.Catalog` instance loaded
+        catalog: :class:`~earthlens.chc.Catalog` instance loaded
             once at construction; resolves dataset keys to metadata.
     """
 
@@ -275,7 +275,7 @@ class CHIRPS(AbstractDataSource):
             - Legacy shape (CHIRPS-2.0 global daily):
 
                 ```python
-                >>> from earthlens.chirps import CHIRPS  # doctest: +SKIP
+                >>> from earthlens.chc import CHIRPS  # doctest: +SKIP
                 >>> CHIRPS(  # doctest: +SKIP
                 ...     variables=["precipitation"],
                 ...     temporal_resolution="daily",
@@ -288,7 +288,7 @@ class CHIRPS(AbstractDataSource):
             - Catalog shape (pulls Africa pentadal precipitation):
 
                 ```python
-                >>> from earthlens.chirps import CHIRPS  # doctest: +SKIP
+                >>> from earthlens.chc import CHIRPS  # doctest: +SKIP
                 >>> CHIRPS(  # doctest: +SKIP
                 ...     variables={"africa-pentad": ["precipitation"]},
                 ...     start="2020-01-01", end="2020-02-01",
@@ -345,7 +345,7 @@ class CHIRPS(AbstractDataSource):
     def _download_dataset(
         self,
         ds_key: str,
-        dataset: ChirpsDataset,
+        dataset: ChcDataset,
         var: Variable,
         progress_bar: bool = True,
         cores: int | None = None,
@@ -385,7 +385,7 @@ class CHIRPS(AbstractDataSource):
     def _api(
         self,
         ds_key: str,
-        dataset: ChirpsDataset,
+        dataset: ChcDataset,
         var: Variable,
         date: pd.Timestamp,
     ) -> Path | None:
@@ -473,7 +473,7 @@ class CHIRPS(AbstractDataSource):
         self,
         compressed_path: Path,
         ds_key: str,
-        dataset: ChirpsDataset,
+        dataset: ChcDataset,
         var: Variable,
         date: pd.Timestamp,
     ) -> Path:
@@ -560,7 +560,7 @@ class CHIRPS(AbstractDataSource):
     @staticmethod
     def _output_filename(
         ds_key: str,
-        dataset: ChirpsDataset,
+        dataset: ChcDataset,
         var: Variable,
         date: pd.Timestamp,
     ) -> str:

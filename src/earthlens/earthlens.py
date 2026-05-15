@@ -77,7 +77,7 @@ class EarthLens:
     """Facade that routes a download to the requested backend.
 
     The class-level :attr:`DataSources` mapping resolves a string key
-    (`"chirps"`, `"amazon-s3"`, `"ecmwf"`, or `"gee"` / its alias
+    (`"chc"`, `"amazon-s3"`, `"ecmwf"`, or `"gee"` / its alias
     `"google-earth-engine"`) to the concrete
     :class:`AbstractDataSource` subclass that owns the request shape,
     authentication, and post-processing for that provider. Each
@@ -102,7 +102,7 @@ class EarthLens:
             ```python
             >>> from earthlens.earthlens import EarthLens
             >>> sorted(EarthLens.DataSources)
-            ['amazon-s3', 'chirps', 'ecmwf', 'gee', 'google-earth-engine']
+            ['amazon-s3', 'chc', 'chirps', 'ecmwf', 'gee', 'google-earth-engine']
 
             ```
         - Asking for an unknown backend raises `ValueError`:
@@ -117,7 +117,7 @@ class EarthLens:
             ```
 
     See Also:
-        :class:`earthlens.chirps.CHIRPS`: CHIRPS rainfall over FTP.
+        :class:`earthlens.chc.CHIRPS`: CHIRPS rainfall over FTP.
         :class:`earthlens.s3.S3`: ERA5 on AWS public S3 bucket.
         :class:`earthlens.ecmwf.ECMWF`: ERA5 via the Copernicus
             Climate Data Store (cdsapi).
@@ -127,7 +127,12 @@ class EarthLens:
 
     DataSources = _LazyRegistry(
         {
-            "chirps": ("earthlens.chirps", "CHIRPS", ""),
+            "chc": ("earthlens.chc", "CHIRPS", ""),
+            # Back-compat alias: the package was originally named after
+            # its best-known dataset (CHIRPS), then generalised to cover
+            # the full Climate Hazards Center catalog. The `"chirps"`
+            # key is kept for callers that still use it.
+            "chirps": ("earthlens.chc", "CHIRPS", ""),
             "amazon-s3": ("earthlens.s3", "S3", "s3"),
             "ecmwf": ("earthlens.ecmwf", "ECMWF", "ecmwf"),
             "gee": ("earthlens.gee", "GEE", "gee"),
@@ -138,7 +143,7 @@ class EarthLens:
     def __init__(
         self,
         variables: dict[str, list[str]] | list[str],
-        data_source: str = "chirps",
+        data_source: str = "chc",
         temporal_resolution: str = "daily",
         start: str | None = None,
         end: str | None = None,
@@ -155,9 +160,10 @@ class EarthLens:
         instantiates the concrete backend bound to `self.datasource`.
 
         Args:
-            data_source: Backend key — one of `"chirps"`,
-                `"amazon-s3"`, `"ecmwf"`, or `"gee"` (alias
-                `"google-earth-engine"`). Defaults to `"chirps"`.
+            data_source: Backend key — one of `"chc"` (alias
+                `"chirps"`), `"amazon-s3"`, `"ecmwf"`, or `"gee"`
+                (alias `"google-earth-engine"`). Defaults to
+                `"chc"`.
             temporal_resolution: `"daily"` or `"monthly"` for most
                 backends; the GEE backend also accepts `"raw"` and
                 `"yearly"`. The concrete backend may accept a narrower
@@ -225,7 +231,9 @@ class EarthLens:
 
                 ```python
                 >>> from earthlens.earthlens import EarthLens
-                >>> EarthLens.DataSources["chirps"].__name__
+                >>> EarthLens.DataSources["chc"].__name__
+                'CHIRPS'
+                >>> EarthLens.DataSources["chirps"].__name__  # alias
                 'CHIRPS'
                 >>> EarthLens.DataSources["ecmwf"].__name__
                 'ECMWF'
@@ -338,7 +346,7 @@ class EarthLens:
                 ```python
                 >>> from earthlens.earthlens import EarthLens
                 >>> earthlens = EarthLens(  # doctest: +SKIP
-                ...     data_source="chirps",
+                ...     data_source="chc",
                 ...     start="2009-01-01",
                 ...     end="2009-01-02",
                 ...     variables=["precipitation"],
@@ -372,7 +380,7 @@ class EarthLens:
                 ```
 
         See Also:
-            :meth:`earthlens.chirps.CHIRPS.download`: CHIRPS
+            :meth:`earthlens.chc.CHIRPS.download`: CHIRPS
                 backend implementation, including the `cores=`
                 keyword for parallel retrieval.
             :meth:`earthlens.s3.S3.download`: S3/ERA5 backend
