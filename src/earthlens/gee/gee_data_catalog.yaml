@@ -45697,3 +45697,455 @@ datasets:
         units: '%'
         min: 0
         max: 100
+
+  UQ/murray/Intertidal/v1_1/data_mask:
+    title: Murray Global Intertidal Change Data Mask
+    provider: Murray/UQ/Google/USGS/NASA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      datamask:
+        description: A flag to indicate data inclusion.
+        units: occurrence
+
+  UQ/murray/Intertidal/v1_1/global_intertidal:
+    title: Murray Global Intertidal Change Classification
+    provider: Murray/UQ/Google/USGS/NASA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      classification:
+        description: Intertertidal area classification for the interval.
+        units: occurrence
+
+  UQ/murray/Intertidal/v1_1/qa_pixel_count:
+    title: Murray Global Intertidal Change QA Pixel Count
+    provider: Murray/UQ/Google/USGS/NASA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mosaic
+    terms: This work is licensed under a Creative Commons Attribution 4.0
+    user_uploaded: true
+    bands:
+      pixel_count:
+        description: Input image count.
+        units: count
+        min: 0
+        max: 400
+
+  USDA/SOLUS100/V0:
+    title: 'SOLUS: Soil properties of the conterminous United States at 100-m resolution'
+    provider: USDA-ARS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "2023-12-15"
+      end_date: null
+      bbox: [-125, 24, -66, 50]
+    default_reducer: mosaic
+    terms: The SOLUS dataset is in the public domain and is available without
+    bands:
+      r_0_cm_p:
+        description: Predicted value of soil property at 0cm depth
+      r_0_cm_l:
+        description: Lower 95% confidence limit of soil property at 0cm depth
+      r_0_cm_h:
+        description: Upper 95% confidence limit of soil property at 0cm depth
+      r_0_cm_rpi:
+        description: Relative property index of soil property at 0cm depth
+      r_5_cm_p:
+        description: Predicted value of soil property at 5cm depth
+      r_5_cm_l:
+        description: Lower 95% confidence limit of soil property at 5cm depth
+      r_5_cm_h:
+        description: Upper 95% confidence limit of soil property at 5cm depth
+      r_5_cm_rpi:
+        description: Relative property index of soil property at 5cm depth
+      r_15_cm_p:
+        description: Predicted value of soil property at 15cm depth
+      r_15_cm_l:
+        description: Lower 95% confidence limit of soil property at 15cm depth
+      r_15_cm_h:
+        description: Upper 95% confidence limit of soil property at 15cm depth
+      r_15_cm_rpi:
+        description: Relative property index of soil property at 15cm depth
+      r_30_cm_p:
+        description: Predicted value of soil property at 30cm depth
+      r_30_cm_l:
+        description: Lower 95% confidence limit of soil property at 30cm depth
+      r_30_cm_h:
+        description: Upper 95% confidence limit of soil property at 30cm depth
+      r_30_cm_rpi:
+        description: Relative property index of soil property at 30cm depth
+      r_60_cm_p:
+        description: Predicted value of soil property at 60cm depth
+      r_60_cm_l:
+        description: Lower 95% confidence limit of soil property at 60cm depth
+      r_60_cm_h:
+        description: Upper 95% confidence limit of soil property at 60cm depth
+      r_60_cm_rpi:
+        description: Relative property index of soil property at 60cm depth
+      r_100_cm_p:
+        description: Predicted value of soil property at 100cm depth
+      r_100_cm_l:
+        description: Lower 95% confidence limit of soil property at 100cm depth
+      r_100_cm_h:
+        description: Upper 95% confidence limit of soil property at 100cm depth
+      r_100_cm_rpi:
+        description: Relative property index of soil property at 100cm depth
+      r_150_cm_p:
+        description: Predicted value of soil property at 150cm depth
+      r_150_cm_l:
+        description: Lower 95% confidence limit of soil property at 150cm depth
+      r_150_cm_h:
+        description: Upper 95% confidence limit of soil property at 150cm depth
+      r_150_cm_rpi:
+        description: Relative property index of soil property at 150cm depth
+      r_cm_p:
+        description: Predicted depth to anylithic contact in cm
+        units: cm
+      r_cm_l:
+        description: Lower 95% confidence limit of depth to anylithic contact in cm
+        units: cm
+      r_cm_h:
+        description: Upper 95% confidence limit of depth to anylithic contact in cm
+        units: cm
+      r_cm_rpi:
+        description: Relative property index of depth to anylithic contact
+
+  USDA/WRC/v0:
+    title: Wildfire Risk to Communities v0
+    provider: USDA Forest Service Research Data Archive
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2020-12-31"
+      end_date: null
+      bbox: [-180, -67.933, 18.854, 63.904]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+      BP:
+        description: Annual Burn Probability.
+        min: 0
+        max: 0.14
+      CFL:
+        description: Conditional Flame Length; mean flame length for fire burning in direction of maximum
+        units: ft
+        min: 0
+        max: 861.7
+      CRPS:
+        description: Conditional Risk to Potential Structures; potential consequences of fire to a home
+        min: 0
+        max: 100
+      Exposure:
+        description: Measure of how exposed a housing unit would be to wildfire. A value of 1 is "direct"
+        min: 0
+        max: 1
+      FLEP4:
+        description: Flame Length Exceedance Probability - 4 ft; conditional probability that flame length
+        min: 0
+        max: 1
+      FLEP8:
+        description: Farm Length Exceedance Probability - 8 ft; conditional probability that flame length
+        min: 0
+        max: 1
+      RPS:
+        description: Risk to Potential Structures; relative risk to a house if one existed at that location.
+        min: 0
+        max: 13.2
+      WHP:
+        description: Wildfire Hazard Potential index.
+        min: 0
+        max: 99.853
+
+  USFS/GTAC/LCMS/v2020-5:
+    title: USFS Landscape Change Monitoring System v2020.5 (Conterminous United States and Southeastern
+    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "1985-06-01"
+      end_date: null
+      bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
+    default_reducer: mosaic
+    terms: The USDA Forest Service makes no warranty, expressed or implied, including the warranties
+    user_uploaded: true
+    bands:
+      Change:
+        description: Final thematic LCMS change product. A total of three change classes (slow loss, fast
+      Land_Cover:
+        description: Final thematic LCMS land cover product. A total of 14 land cover classes are mapped
+      Land_Use:
+        description: Final thematic LCMS land use product. A total of 6 land use classes are mapped on
+      Change_Raw_Probability_Slow_Loss:
+        description: 'Raw LCMS modeled probability of Slow Loss. Defined as: Slow Loss includes the following'
+      Change_Raw_Probability_Fast_Loss:
+        description: 'Raw LCMS modeled probability of Fast Loss. Defined as: Fast Loss includes the following'
+      Change_Raw_Probability_Gain:
+        description: 'Raw LCMS modeled probability of Gain. Defined as: Land exhibiting an increase in'
+      Land_Cover_Raw_Probability_Trees:
+        description: 'Raw LCMS modeled probability of Trees. Defined as: The majority of the pixel is comprised'
+      Land_Cover_Raw_Probability_Tall-Shrubs-and-Trees-Mix:
+        description: Raw LCMS modeled probability of Tall Shrubs and Trees Mix (SEAK Only). Defined
+      Land_Cover_Raw_Probability_Shrubs-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Shrubs and Trees Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb and Trees Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Trees Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Tall-Shrubs:
+        description: 'Raw LCMS modeled probability of Tall Shrubs (SEAK Only). Defined as: The majority'
+      Land_Cover_Raw_Probability_Shrubs:
+        description: 'Raw LCMS modeled probability of Shrubs. Defined as: The majority of the pixel is'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Shrubs-Mix:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb and Shrubs Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-and-Shrubs-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Shrubs Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb. Defined as: The majority of the'
+      Land_Cover_Raw_Probability_Barren-and-Grass-Forb-Herb-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Grass/Forb/Herb Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-or-Impervious:
+        description: 'Raw LCMS modeled probability of Barren or Impervious. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Snow-or-Ice:
+        description: 'Raw LCMS modeled probability of Snow or Ice. Defined as: The majority of the pixel'
+      Land_Cover_Raw_Probability_Water:
+        description: 'Raw LCMS modeled probability of Water. Defined as: The majority of the pixel is comprised'
+      Land_Use_Raw_Probability_Agriculture:
+        description: 'Raw LCMS modeled probability of Agriculture. Defined as: Land used for the production'
+      Land_Use_Raw_Probability_Developed:
+        description: 'Raw LCMS modeled probability of Developed. Defined as: Land covered by man-made structures'
+      Land_Use_Raw_Probability_Forest:
+        description: 'Raw LCMS modeled probability of Forest. Defined as: Land that is planted or naturally'
+      Land_Use_Raw_Probability_Non-Forest-Wetland:
+        description: 'Raw LCMS modeled probability of Non-Forest Wetland. Defined as: Lands adjacent to'
+      Land_Use_Raw_Probability_Other:
+        description: 'Raw LCMS modeled probability of Other. Defined as: Land (regardless of use) where'
+      Land_Use_Raw_Probability_Rangeland-or-Pasture:
+        description: 'Raw LCMS modeled probability of Rangeland or Pasture. Defined as: This class includes'
+
+  USFS/GTAC/LCMS/v2020-6:
+    title: USFS Landscape Change Monitoring System v2020.6 (Puerto Rico - US Virgin Islands only)
+    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "1985-06-01"
+      end_date: null
+      bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
+    default_reducer: mosaic
+    terms: The USDA Forest Service makes no warranty, expressed or implied, including
+    user_uploaded: true
+    bands:
+      Change:
+        description: Final thematic LCMS change product. A total of three change classes (slow loss, fast
+      Land_Cover:
+        description: Final thematic LCMS land cover product. A total of 14 land cover classes are mapped
+      Land_Use:
+        description: Final thematic LCMS land use product. A total of 6 land use classes are mapped on
+      Change_Raw_Probability_Slow_Loss:
+        description: 'Raw LCMS modeled probability of Slow Loss. Defined as: Slow Loss includes the following'
+      Change_Raw_Probability_Fast_Loss:
+        description: 'Raw LCMS modeled probability of Fast Loss. Defined as: Fast Loss includes the following'
+      Change_Raw_Probability_Gain:
+        description: 'Raw LCMS modeled probability of Gain. Defined as: Land exhibiting an increase in'
+      Land_Cover_Raw_Probability_Trees:
+        description: 'Raw LCMS modeled probability of Trees. Defined as: The majority of the pixel is comprised'
+      Land_Cover_Raw_Probability_Tall-Shrubs-and-Trees-Mix:
+        description: Raw LCMS modeled probability of Tall Shrubs and Trees Mix (SEAK Only). Defined
+      Land_Cover_Raw_Probability_Shrubs-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Shrubs and Trees Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb and Trees Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Trees Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Tall-Shrubs:
+        description: 'Raw LCMS modeled probability of Tall Shrubs (SEAK Only). Defined as: The majority'
+      Land_Cover_Raw_Probability_Shrubs:
+        description: 'Raw LCMS modeled probability of Shrubs. Defined as: The majority of the pixel is'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Shrubs-Mix:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb and Shrubs Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-and-Shrubs-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Shrubs Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb. Defined as: The majority of the'
+      Land_Cover_Raw_Probability_Barren-and-Grass-Forb-Herb-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Grass/Forb/Herb Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-or-Impervious:
+        description: 'Raw LCMS modeled probability of Barren or Impervious. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Snow-or-Ice:
+        description: 'Raw LCMS modeled probability of Snow or Ice. Defined as: The majority of the pixel'
+      Land_Cover_Raw_Probability_Water:
+        description: 'Raw LCMS modeled probability of Water. Defined as: The majority of'
+      Land_Use_Raw_Probability_Agriculture:
+        description: 'Raw LCMS modeled probability of Agriculture. Defined as: Land used for the production'
+      Land_Use_Raw_Probability_Developed:
+        description: 'Raw LCMS modeled probability of Developed. Defined as: Land covered by man-made structures'
+      Land_Use_Raw_Probability_Forest:
+        description: 'Raw LCMS modeled probability of Forest. Defined as: Land that is planted or naturally'
+      Land_Use_Raw_Probability_Non-Forest-Wetland:
+        description: 'Raw LCMS modeled probability of Non-Forest Wetland. Defined as: Lands adjacent to'
+      Land_Use_Raw_Probability_Other:
+        description: 'Raw LCMS modeled probability of Other. Defined as: Land (regardless of use) where'
+      Land_Use_Raw_Probability_Rangeland-or-Pasture:
+        description: 'Raw LCMS modeled probability of Rangeland or Pasture. Defined as: This class includes'
+      QA_Bits:
+        description: Ancillary information on the origin of the annual LCMS product output
+
+  USFS/GTAC/LCMS/v2021-7:
+    title: USFS Landscape Change Monitoring System v2021.7 (Conterminous United States and Southeastern
+    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "1985-06-01"
+      end_date: null
+      bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
+    default_reducer: mosaic
+    terms: The USDA Forest Service makes no warranty, expressed or implied, including
+    user_uploaded: true
+    bands:
+      Change:
+        description: Final thematic LCMS change product. A total of three change classes
+      Land_Cover:
+        description: Final thematic LCMS land cover product. A total of 14 land cover
+      Land_Use:
+        description: Final thematic LCMS land use product. A total of 6 land use classes
+      Change_Raw_Probability_Slow_Loss:
+        description: 'Raw LCMS modeled probability of Slow Loss. Defined as: Slow Loss'
+      Change_Raw_Probability_Fast_Loss:
+        description: 'Raw LCMS modeled probability of Fast Loss. Defined as: Fast Loss'
+      Change_Raw_Probability_Gain:
+        description: 'Raw LCMS modeled probability of Gain. Defined as: Land exhibiting an'
+      Land_Cover_Raw_Probability_Trees:
+        description: 'Raw LCMS modeled probability of Trees. Defined as: The majority of the'
+      Land_Cover_Raw_Probability_Tall-Shrubs-and-Trees-Mix:
+        description: Raw LCMS modeled probability of Tall Shrubs and Trees Mix (SEAK
+      Land_Cover_Raw_Probability_Shrubs-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Shrubs and Trees Mix. Defined as: The'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Trees-Mix:
+        description: Raw LCMS modeled probability of Grass/Forb/Herb and Trees Mix. Defined
+      Land_Cover_Raw_Probability_Barren-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Trees Mix. Defined as: The'
+      Land_Cover_Raw_Probability_Tall-Shrubs:
+        description: 'Raw LCMS modeled probability of Tall Shrubs (SEAK Only). Defined as:'
+      Land_Cover_Raw_Probability_Shrubs:
+        description: 'Raw LCMS modeled probability of Shrubs. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Shrubs-Mix:
+        description: Raw LCMS modeled probability of Grass/Forb/Herb and Shrubs
+      Land_Cover_Raw_Probability_Barren-and-Shrubs-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Shrubs Mix. Defined as: The'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb. Defined as: The'
+      Land_Cover_Raw_Probability_Barren-and-Grass-Forb-Herb-Mix:
+        description: Raw LCMS modeled probability of Barren and Grass/Forb/Herb
+      Land_Cover_Raw_Probability_Barren-or-Impervious:
+        description: 'Raw LCMS modeled probability of Barren or Impervious. Defined as: The'
+      Land_Cover_Raw_Probability_Snow-or-Ice:
+        description: 'Raw LCMS modeled probability of Snow or Ice. Defined as: The majority'
+      Land_Cover_Raw_Probability_Water:
+        description: 'Raw LCMS modeled probability of Water. Defined as: The majority of the'
+      Land_Use_Raw_Probability_Agriculture:
+        description: 'Raw LCMS modeled probability of Agriculture. Defined as: Land used for'
+      Land_Use_Raw_Probability_Developed:
+        description: 'Raw LCMS modeled probability of Developed. Defined as: Land covered by'
+      Land_Use_Raw_Probability_Forest:
+        description: 'Raw LCMS modeled probability of Forest. Defined as: Land that is'
+      Land_Use_Raw_Probability_Non-Forest-Wetland:
+        description: 'Raw LCMS modeled probability of Non-Forest Wetland. Defined as: Lands'
+      Land_Use_Raw_Probability_Other:
+        description: 'Raw LCMS modeled probability of Other. Defined as: Land (regardless of'
+      Land_Use_Raw_Probability_Rangeland-or-Pasture:
+        description: 'Raw LCMS modeled probability of Rangeland or Pasture. Defined as: This'
+      QA_Bits:
+        description: Ancillary information on the origin of the annual LCMS product output
+
+  USFS/GTAC/LCMS/v2022-8:
+    title: USFS Landscape Change Monitoring System v2022.8 (CONUS and OCONUS) [deprecated]
+    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "1985-01-01"
+      end_date: null
+      bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
+    default_reducer: mosaic
+    terms: The USDA Forest Service makes no warranty, expressed or implied, including the warranties
+    user_uploaded: true
+    bands:
+      Change:
+        description: Final thematic LCMS change product. A total of three change classes (slow loss, fast
+      Land_Cover:
+        description: Final thematic LCMS land cover product. A total of 14 land cover classes are mapped
+      Land_Use:
+        description: Final thematic LCMS land use product. A total of 6 land use classes are mapped on
+      Change_Raw_Probability_Slow_Loss:
+        description: 'Raw LCMS modeled probability of Slow Loss. Defined as: Slow Loss includes the following'
+      Change_Raw_Probability_Fast_Loss:
+        description: 'Raw LCMS modeled probability of Fast Loss. Defined as: Fast Loss includes the following'
+      Change_Raw_Probability_Gain:
+        description: 'Raw LCMS modeled probability of Gain. Defined as: Land exhibiting an increase in'
+      Land_Cover_Raw_Probability_Trees:
+        description: 'Raw LCMS modeled probability of Trees. Defined as: The majority of the pixel is comprised'
+      Land_Cover_Raw_Probability_Tall-Shrubs-and-Trees-Mix:
+        description: Raw LCMS modeled probability of Tall Shrubs and Trees Mix (SEAK Only). Defined
+      Land_Cover_Raw_Probability_Shrubs-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Shrubs and Trees Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb and Trees Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-and-Trees-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Trees Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Tall-Shrubs:
+        description: 'Raw LCMS modeled probability of Tall Shrubs (SEAK Only). Defined as: The majority'
+      Land_Cover_Raw_Probability_Shrubs:
+        description: 'Raw LCMS modeled probability of Shrubs. Defined as: The majority of the pixel is'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Shrubs-Mix:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb and Shrubs Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-and-Shrubs-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Shrubs Mix. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Grass-Forb-Herb:
+        description: 'Raw LCMS modeled probability of Grass/Forb/Herb. Defined as: The majority of the'
+      Land_Cover_Raw_Probability_Barren-and-Grass-Forb-Herb-Mix:
+        description: 'Raw LCMS modeled probability of Barren and Grass/Forb/Herb Mix. Defined as: The majority'
+      Land_Cover_Raw_Probability_Barren-or-Impervious:
+        description: 'Raw LCMS modeled probability of Barren or Impervious. Defined as: The majority of'
+      Land_Cover_Raw_Probability_Snow-or-Ice:
+        description: 'Raw LCMS modeled probability of Snow or Ice. Defined as: The majority of the pixel'
+      Land_Cover_Raw_Probability_Water:
+        description: 'Raw LCMS modeled probability of Water. Defined as: The majority of'
+      Land_Use_Raw_Probability_Agriculture:
+        description: 'Raw LCMS modeled probability of Agriculture. Defined as: Land used for the production'
+      Land_Use_Raw_Probability_Developed:
+        description: 'Raw LCMS modeled probability of Developed. Defined as: Land covered by man-made structures'
+      Land_Use_Raw_Probability_Forest:
+        description: 'Raw LCMS modeled probability of Forest. Defined as: Land that is planted or naturally'
+      Land_Use_Raw_Probability_Non-Forest-Wetland:
+        description: 'Raw LCMS modeled probability of Non-Forest Wetland. Defined as: Lands adjacent to'
+      Land_Use_Raw_Probability_Other:
+        description: 'Raw LCMS modeled probability of Other. Defined as: Land (regardless of use) where'
+      Land_Use_Raw_Probability_Rangeland-or-Pasture:
+        description: 'Raw LCMS modeled probability of Rangeland or Pasture. Defined as: This class includes'
+      QA_Bits:
+        description: Ancillary information on the origin of the annual LCMS product output
