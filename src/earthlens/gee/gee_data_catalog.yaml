@@ -17445,3 +17445,423 @@ datasets:
         description: Blue
         min: 0
         max: 255
+
+  EDF/MethaneSAT/MethaneAIR/methaneair-L4area-2021:
+    title: MethaneAIR L4 Area Sources 2021 [deprecated]
+    provider: Environmental Defense Fund - MethaneSAT
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2021-08-07"
+      end_date: null
+      bbox: [-110.3, 31.4, -103.1, 40.6]
+    default_reducer: mean
+    terms: Use of this data is subject to [MethaneSAT's Content License Terms of
+    user_uploaded: true
+    bands:
+      flux:
+        description: Methane emissions traceable to a 1km^2 area.
+        units: kg/h/km^2
+        min: 0
+        max: 22.89
+
+  EDF/MethaneSAT/MethaneAIR/methaneair-L4point-2021:
+    title: MethaneAIR L4 Point Sources 2021 [deprecated]
+    provider: Environmental Defense Fund - MethaneSAT
+    ee_type: table
+    extent:
+      start_date: "2021-08-07"
+      end_date: null
+      bbox: [-110.3, 31.4, -103.1, 40.6]
+    default_reducer: mean
+    terms: Use of this data is subject to [MethaneSAT's Content License Terms of
+    user_uploaded: true
+    bands:
+
+  Estonia/Maamet/orthos/rgb_low_flying:
+    title: Estonia RGB low flying orthophotos
+    provider: Estonia orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.4
+    extent:
+      start_date: "1993-01-01"
+      end_date: null
+      bbox: [21.5, 57.3, 28.1, 59.5]
+    default_reducer: mean
+    terms: The data is free to use for commercial and non-commercial purposes for a
+    bands:
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        min: 0
+        max: 255
+
+  FAO/GHG/1/DROSA_A:
+    title: UN FAO Drained Organic Soils Area (Annual) 1.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1992-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      cropland:
+        description: Area of cropland organic soils (histosols)
+        units: ha
+      grassland:
+        description: Area of grassland organic soils (histosols)
+        units: ha
+
+  FAO/GHG/1/DROSE_A:
+    title: Drained Organic Soils Emissions (Annual) 1.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1992-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      croplandc:
+        description: C emissions from cropland organic soils
+        units: Gg
+      croplandn2o:
+        description: N2O emissions from cropland organic soils
+        units: Gg
+      grasslandc:
+        description: C emissions from grassland organic soils
+        units: Gg
+      grasslandn2o:
+        description: N2O emissions from grassland organic soils
+        units: Gg
+
+  FAO/SOFO/1/FPP:
+    title: Forest proximate people (FPP) 1.0
+    provider: FAO Forestry Division (FPP 1km)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 0.0009
+    extent:
+      start_date: "2019-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      FPP_1km:
+        description: Number of people living in or within 1 kilometer of forests.
+        units: Number of people/ha
+      FPP_5km:
+        description: Number of people living in or within 5 kilometer of forests.
+        units: Number of people/ha
+
+  FAO/SOFO/1/TPP:
+    title: Tree proximate people (TPP) 1.0
+    provider: FAO Forestry Division (TPP 500m cropland)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 0.0009
+    extent:
+      start_date: "2019-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      TPP_1km:
+        description: Number of people living in or within 1 km from agricultural lands
+        units: Number of people/ha
+      TPP_1km_cropland:
+        description: Number of people living in or within 1 km from croplands with at
+        units: Number of people/ha
+      TPP_500m:
+        description: Number of people living in or within 500 m from agricultural lands
+        units: Number of people/ha
+      TPP_500m_cropland:
+        description: Number of people living in or within 500 m from croplands with at
+        units: Number of people/ha
+
+  FAO/WAPOR/2/L1_AETI_D:
+    title: WAPOR Actual Evapotranspiration and Interception 2.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 248.2
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-30.0044643, -40.0044644, 65.0044644, 40.0044643]
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      L1_AETI_D:
+        description: Actual Evapotranspiration and Interception (Dekadal) [mm]
+        units: mm
+        scale: 0.1
+
+  FAO/WAPOR/2/L1_E_D:
+    title: WAPOR Dekadal Evaporation 2.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 248.2
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-30.0044643, -40.0044644, 65.0044644, 40.0044643]
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      L1_E_D:
+        description: Evaporation (Dekadal) [mm]
+        units: mm
+        scale: 0.1
+
+  FAO/WAPOR/2/L1_I_D:
+    title: WAPOR Dekadal Interception 2.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 248.2
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-30.0044643, -40.0044644, 65.0044644, 40.0044643]
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      L1_I_D:
+        description: Interception (Dekadal) [mm]
+        units: mm
+        scale: 0.1
+
+  FAO/WAPOR/2/L1_NPP_D:
+    title: WAPOR Dekadal Net Primary Production 2.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 248.2
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-30.0044643, -40.0044644, 65.0044644, 40.0044643]
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      L1_NPP_D:
+        description: Net Primary Production
+        units: g/m^2
+        scale: 0.001
+
+  FAO/WAPOR/2/L1_RET_D:
+    title: WAPOR Dekadal Reference Evapotranspiration 2.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 18924
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-30.15, -39.9953437, 65.13, 40.0044643]
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      L1_RET_D:
+        description: Reference Evapotranspiration (Dekadal) [mm]
+        units: mm
+        scale: 0.1
+
+  FAO/WAPOR/2/L1_RET_E:
+    title: WAPOR Daily Reference Evapotranspiration 2.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 18924
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-30.15, -39.9953437, 65.13, 40.0044643]
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      L1_RET_E:
+        description: Reference Evapotranspiration (Daily) [mm]
+        units: mm
+        scale: 0.1
+
+  FAO/WAPOR/2/L1_T_D:
+    title: WAPOR Dekadal Transpiration 2.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 248.2
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-30.0044643, -40.0044644, 65.0044644, 40.0044643]
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      L1_T_D:
+        description: Transpiration (Dekadal) [mm]
+        units: mm
+        scale: 0.1
+
+  FAO/WAPOR/3/L1_I_D:
+    title: WAPOR Dekadal Interception 3.0
+    provider: FAO UN
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 248.2
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-30.0044643, -40.0044644, 65.0044644, 40.0044643]
+    default_reducer: mean
+    terms: The Food and Agriculture Organization of the United Nations (FAO) is
+    user_uploaded: true
+    bands:
+      L1-I-D:
+        description: Interception (Dekadal) [mm]
+        units: mm
+        scale: 0.1
+
+  FIRMS:
+    title: 'FIRMS: Fire Information for Resource Management System'
+    provider: NASA / LANCE / EOSDIS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-11-01"
+      end_date: null
+    default_reducer: mean
+    terms: NASA promotes the full and open sharing of all data with the research and
+    bands:
+      T21:
+        description: The brightness temperature of a fire pixel using MODIS channels 21/22.
+        units: K
+        min: 300
+        max: 509.29
+      confidence:
+        description: A detection confidence intended to help users gauge the
+        units: '%'
+        min: 0
+        max: 100
+      line_number:
+        description: Line number in the FIRMS CSV file that the pixel came from.
+        min: 1
+        max: 35302
+
+  FORMA/FORMA_500m:
+    title: FORMA Global Forest Watch Deforestation Alerts, 500m [deprecated]
+    provider: Global Forest Watch, World Resources Institute
+    ee_type: image
+    spatial_resolution: 500
+    extent:
+      start_date: "2006-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: The FORMA datasets are available without restriction on use or distribution.
+    bands:
+      constant:
+        description: '[Seconds since Jan 1, 1970](https://en.wikipedia.org/wiki/Unix_time)'
+        units: seconds
+        min: 1134979200
+        max: 1433919600
+
+  Finland/MAVI/VV/50cm:
+    title: Finland NRG NLS orthophotos 50 cm by Mavi
+    provider: NLS orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+      bbox: [18, 59, 29.2, 69.4]
+    default_reducer: mean
+    terms: Mention the name of the Licensor (the National Land Survey of Finland),
+    bands:
+      N:
+        description: Near-Infrared
+        min: 0
+        max: 255
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+
+  Finland/SMK/V/50cm:
+    title: Finland RGB NLS orthophotos 50 cm by SMK
+    provider: NLS orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+      bbox: [18, 59, 29.2, 69.4]
+    default_reducer: mean
+    terms: Mention the name of the Licensor (the National Land Survey of Finland),
+    bands:
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        min: 0
+        max: 255
+
+  Finland/SMK/VV/50cm:
+    title: Finland NRG NLS orthophotos 50 cm by SMK
+    provider: NLS orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+      bbox: [18, 59, 29.2, 69.4]
+    default_reducer: mean
+    terms: Mention the name of the Licensor (the National Land Survey of Finland),
+    bands:
+      N:
+        description: Near-Infrared
+        min: 0
+        max: 255
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
