@@ -49416,3 +49416,245 @@ datasets:
         description: The total number of available observations (i.e. scenes) in the study period.
         min: 0
         max: 2417
+
+  JRC/GWIS/GlobFire/v2/DailyPerimeters:
+    title: GlobFire Daily Fire Event Detection Based on MCD64A1
+    provider: European Commission, Joint Research Centre, Global Wildfire Information System
+    ee_type: table_collection
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  JRC/GWIS/GlobFire/v2/FinalPerimeters:
+    title: GlobFire Final Fire Event Detection Based on MCD64A1
+    provider: European Commission, Joint Research Centre, Global Wildfire Information System
+    ee_type: table
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  JRC/LUCAS/THLOC/V1/2022:
+    title: LUCAS THLOC (Points with attributes, 2022) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2022-01-01"
+      end_date: null
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    bands:
+
+  JRC/LUCAS_HARMO/COPERNICUS_POLYGONS/V1/2018:
+    title: LUCAS Copernicus (Polygons with attributes, 2018) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2006-02-05"
+      end_date: null
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    terms: Licensed under the Creative Commons Attribution 4.0 International License.
+    user_uploaded: true
+    bands:
+
+  JRC/LUCAS_HARMO/THLOC/V1:
+    title: LUCAS Harmonized (Theoretical Location, 2006-2018) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2006-02-05"
+      end_date: null
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+
+  LARSE/GEDI/GEDI02_A_002:
+    title: GEDI L2A Vector Canopy Top Height (Version 2)
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: table_collection
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    bands:
+
+  LARSE/GEDI/GEDI02_A_002_INDEX:
+    title: GEDI L2A table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    bands:
+
+  LARSE/GEDI/GEDI02_B_002:
+    title: GEDI L2B Vector Canopy Cover Vertical Profile Metrics (Version 2)
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: table_collection
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    bands:
+
+  LARSE/GEDI/GEDI02_B_002_INDEX:
+    title: GEDI L2B table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    bands:
+
+  LARSE/GEDI/GEDI04_A_002:
+    title: GEDI L4A Aboveground Biomass Density, Version 2.1
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: table_collection
+    extent:
+      start_date: "2019-04-18"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    bands:
+
+  LARSE/GEDI/GEDI04_A_002_INDEX:
+    title: GEDI L4A table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2019-04-18"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    terms: This dataset is in the public domain and is available
+    bands:
+
+  NOAA/IBTrACS/v4:
+    title: International Best Track Archive for Climate Stewardship Project
+    provider: NOAA NCEI
+    ee_type: table
+    extent:
+      start_date: "1842-10-25"
+      end_date: null
+      bbox: [-180, 0.4, 180, 63.1]
+    default_reducer: mosaic
+    terms: NOAA data, information, and products, regardless of the method of delivery,
+    bands:
+
+  NOAA/NHC/HURDAT2/atlantic:
+    title: NOAA NHC HURDAT2 Atlantic Hurricane Catalog
+    provider: NOAA NHC
+    ee_type: table
+    extent:
+      start_date: "1851-06-25"
+      end_date: null
+      bbox: [-109.5, 7.2, 63, 81]
+    default_reducer: mosaic
+    terms: NOAA data, information, and products, regardless of the method of delivery,
+    bands:
+
+  NOAA/NHC/HURDAT2/pacific:
+    title: NOAA NHC HURDAT2 Pacific Hurricane Catalog
+    provider: NOAA NHC
+    ee_type: table
+    extent:
+      start_date: "1949-06-11"
+      end_date: null
+      bbox: [-180, 0.4, 180, 63.1]
+    default_reducer: mosaic
+    terms: NOAA data, information, and products, regardless of the method of delivery,
+    bands:
+
+  TIGER/2010/BG:
+    title: 'TIGER: US Census Block Groups (BG) 2010'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2010/Blocks:
+    title: 'TIGER: US Census Blocks'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2010/Tracts_DP1:
+    title: 'TIGER: US Census Tracts Demographic - Profile 1'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2010/ZCTA5:
+    title: 'TIGER: US Census 5-digit ZIP Code Tabulation Areas 2010 [deprecated]'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2016/Counties:
+    title: 'TIGER: US Census Counties 2016'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
+
+  TIGER/2016/Roads:
+    title: 'TIGER: US Census Roads'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    terms: The U.S. Census Bureau offers some of its public data
+    bands:
