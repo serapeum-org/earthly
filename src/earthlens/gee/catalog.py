@@ -193,8 +193,11 @@ class Dataset(BaseModel):
         title: Human title.
         provider: Primary data provider, or `None`.
         ee_type: `"image"` (a single static raster), `"image_collection"`
-            (a time series), or `"table"` (a `FeatureCollection` — out of
-            scope for the raster backend).
+            (a time series), `"table"` (a `FeatureCollection` — out of
+            scope for the raster backend), `"table_collection"` (a
+            collection of FeatureCollections, e.g. GEDI footprint shots),
+            or `"bigquery_table"` (a BigQuery-backed table — also out of
+            scope for the raster backend; included for catalog completeness).
         cadence: Native temporal step, or `None` for static images.
         spatial_resolution: Nominal pixel size in metres, or `None`.
         extent: Spatial/temporal coverage.
@@ -213,7 +216,7 @@ class Dataset(BaseModel):
     id: str
     title: str
     provider: str | None = None
-    ee_type: Literal["image", "image_collection", "table"] = "image_collection"
+    ee_type: Literal["image", "image_collection", "table", "table_collection", "bigquery_table"] = "image_collection"
     cadence: Cadence | None = None
     spatial_resolution: float | None = None
     extent: Extent
