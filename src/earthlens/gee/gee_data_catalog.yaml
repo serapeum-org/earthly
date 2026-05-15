@@ -26132,16 +26132,16 @@ datasets:
     default_reducer: median
     terms: Landsat datasets are federally created data
     bands:
-      10:
+      "10":
         description: Green
         wavelength: 0.55
-      20:
+      "20":
         description: Red
         wavelength: 0.65
-      30:
+      "30":
         description: Near infrared
         wavelength: 0.75
-      40:
+      "40":
         description: Short-wavelength infrared
         wavelength: 0.95
 
@@ -26157,16 +26157,16 @@ datasets:
     default_reducer: median
     terms: Landsat datasets are federally created data
     bands:
-      10:
+      "10":
         description: Green
         wavelength: 0.55
-      20:
+      "20":
         description: Red
         wavelength: 0.65
-      30:
+      "30":
         description: Near infrared
         wavelength: 0.75
-      40:
+      "40":
         description: Short-wavelength infrared
         wavelength: 0.95
 
@@ -26181,22 +26181,22 @@ datasets:
     default_reducer: median
     terms: Landsat datasets are federally created data
     bands:
-      10:
+      "10":
         description: Blue
         wavelength: 0.485
-      20:
+      "20":
         description: Green
         wavelength: 0.56
-      30:
+      "30":
         description: Red
         wavelength: 0.66
-      40:
+      "40":
         description: Near infrared
         wavelength: 0.835
-      50:
+      "50":
         description: Shortwave infrared 1
         wavelength: 1.65
-      70:
+      "70":
         description: Shortwave infrared 2
         wavelength: 2.215
 
@@ -26211,25 +26211,25 @@ datasets:
     default_reducer: median
     terms: Landsat datasets are federally created data
     bands:
-      10:
+      "10":
         description: Blue
         wavelength: 0.485
-      20:
+      "20":
         description: Green
         wavelength: 0.56
-      30:
+      "30":
         description: Red
         wavelength: 0.66
-      40:
+      "40":
         description: Near infrared
         wavelength: 0.835
-      50:
+      "50":
         description: Shortwave infrared 1
         wavelength: 1.65
-      60:
+      "60":
         description: Thermal Infrared 1. Resampled from 60m to 30m.
         wavelength: 11.45
-      70:
+      "70":
         description: Shortwave infrared 2
         wavelength: 2.215
 
@@ -26244,25 +26244,25 @@ datasets:
     default_reducer: median
     terms: Landsat datasets are federally created data
     bands:
-      10:
+      "10":
         description: Blue
         wavelength: 0.485
-      20:
+      "20":
         description: Green
         wavelength: 0.56
-      30:
+      "30":
         description: Red
         wavelength: 0.66
-      40:
+      "40":
         description: Near infrared
         wavelength: 0.835
-      50:
+      "50":
         description: Shortwave infrared 1
         wavelength: 1.65
-      60:
+      "60":
         description: Thermal Infrared 1. Resampled from 60m to 30m.
         wavelength: 11.45
-      70:
+      "70":
         description: Shortwave infrared 2
         wavelength: 2.215
 

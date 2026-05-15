@@ -51,6 +51,11 @@ def _clean_value(text: str) -> str:
     return text
 
 
+def _quote_int_band_name(text: str) -> str:
+    """Quote 6-space-indented integer band names so YAML parses them as strings."""
+    return re.sub(r"^(      )(\d+):\s*$", r'\1"\2":', text)
+
+
 def _close_truncated_quote(text: str) -> str:
     """If a line looks like ``key: 'unterminated`` close it.
 
@@ -109,6 +114,7 @@ def _process(stream) -> str:
             continue
         cleaned = _clean_value(line)
         cleaned = _close_truncated_quote(cleaned)
+        cleaned = _quote_int_band_name(cleaned)
         out_lines.append(cleaned)
 
     text = "\n".join(out_lines)
