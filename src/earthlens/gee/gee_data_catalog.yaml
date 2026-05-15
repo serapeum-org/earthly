@@ -30866,3 +30866,3384 @@ datasets:
     bands:
       BAI:
         description: Burn Area Index
+
+  MODIS/MYD09GA_EVI:
+    title: MODIS Aqua Daily EVI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  MODIS/MYD09GA_NDSI:
+    title: MODIS Aqua Daily NDSI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDSI:
+        description: Normalized Difference Snow Index
+
+  MODIS/MYD09GA_NDVI:
+    title: MODIS Aqua Daily NDVI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  MODIS/MYD09GA_NDWI:
+    title: MODIS Aqua Daily NDWI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  MODIS/MYD09GQ:
+    title: MYD09GQ.005 Aqua Surface Reflectance Daily L2G Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MYD09Q1:
+    title: MYD09Q1.005 Surface Reflectance 8-Day L3 Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MYD10A1:
+    title: MYD10A1.005 Aqua Snow Cover Daily Global 500m [deprecated]
+    provider: NSIDC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: You may download and use photographs, imagery, or text
+    bands:
+      Snow_Cover_Daily_Tile:
+        description: NDSI snow cover plus other results. This value is
+      Snow_Spatial_QA:
+        description: A basic estimate of the quality of the algorithm result.
+      Snow_Albedo_Daily_Tile:
+        description: Snow albedo percentage plus other results.
+        min: 1
+        max: 254
+      Fractional_Snow_Cover:
+        description: Snow cover percentage plus other results.
+        min: 0
+        max: 254
+
+  MODIS/MYD11A1:
+    title: MYD11A1.005 Land Surface Temperature and Emissivity Daily Global 1 km Grid SIN [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    extent:
+      start_date: "2002-07-08"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MYD11A2:
+    title: MYD11A2.005 Land Surface Temperature and Emissivity 8-Day L3 Global 1km [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MYD13A1:
+    title: MYD13A1.005 Vegetation Indices 16-Day L3 Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MYD13Q1:
+    title: MYD13Q1.005 Vegetation Indices 16-Day Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/NTSG/MOD16A2/105:
+    title: 'MOD16A2: MODIS Global Terrestrial Evapotranspiration 8-Day Global 1km'
+    provider: Numerical Terradynamic Simulation Group, The University of Montana
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: median
+    terms: All NTSG data distributed through this [site](http://files.ntsg.umt.edu/)
+    bands:
+      ET:
+        description: Evapotranspiration, aggregated for period of coverage.
+        units: kg/m^2
+        scale: 0.1
+        min: -5
+        max: 453
+      LE:
+        description: Latent heat flux, averaged daily over the period of coverage.
+        units: J/m^2/day
+        scale: 10000
+        min: -20
+        max: 1671
+      PET:
+        description: Potential evapotranspiration, aggregated for period of coverage.
+        units: kg/m^2
+        scale: 0.1
+        min: -8
+        max: 793
+      PLE:
+        description: Potential Latent Heat Flux, averaged daily over the period ofcoverage.
+        units: J/m^2/day
+        scale: 10000
+        min: -40
+        max: 3174
+      ET_QC:
+        description: ET quality control.
+
+  NASA/ECOSTRESS/L2T_LSTE/V2:
+    title: ECOSTRESS Land Surface Temperature and Emissivity L2 Global 70 m V002
+    provider: Land Processes Distributed Active Archive Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 70
+    extent:
+      start_date: "2018-07-09"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      LST:
+        description: Land Surface Temperature
+        units: K
+      LST_err:
+        description: Land Surface Temperature error
+        units: K
+      QC:
+        description: Quality Control flags for LST and emissivity
+      EmisWB:
+        description: Wide band Emissivity
+      cloud:
+        description: Cloud mask
+      height:
+        description: Surface elevation of observation"
+        units: m
+      water:
+        description: Water mask
+      view_zenith:
+        description: View Zenith Angle
+        units: deg
+
+  NASA/ECOSTRESS/L2T_STARS/V2:
+    title: ECOSTRESS Tiled Ancillary NDVI and Albedo L2 Global 70 m V002
+    provider: Land Processes Distributed Active Archive Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 70
+    extent:
+      start_date: "2018-07-09"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index (NDVI)
+      NDVI-UQ:
+        description: Normalized Difference Vegetation Index (NDVI) uncertainty.
+      albedo:
+        description: Albedo
+      albedo-UQ:
+        description: Albedo uncertainty.
+
+  NASA/EMIT/L1B/RAD:
+    title: EMIT L1B At-Sensor Calibrated Radiance and Geolocation Data 60 m
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "2022-08-09"
+      end_date: null
+    default_reducer: median
+    terms: NASA EMIT data and products acquired through the LP DAAC
+    bands:
+      radiance_0:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_1:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_2:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_3:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_4:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_5:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_6:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_7:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_8:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_9:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_10:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_11:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_12:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_13:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_14:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_15:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_16:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_17:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_18:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_19:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_20:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_21:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_22:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_23:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_24:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_25:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_26:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_27:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_28:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_29:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_30:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_31:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_32:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_33:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_34:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_35:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_36:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_37:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_38:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_39:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_40:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_41:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_42:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_43:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_44:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_45:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_46:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_47:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_48:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_49:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_50:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_51:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_52:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_53:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_54:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_55:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_56:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_57:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_58:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_59:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_60:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_61:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_62:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_63:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_64:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_65:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_66:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_67:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_68:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_69:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_70:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_71:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_72:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_73:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_74:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_75:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_76:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_77:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_78:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_79:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_80:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_81:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_82:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_83:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_84:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_85:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_86:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_87:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_88:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_89:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_90:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_91:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_92:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_93:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_94:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_95:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_96:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_97:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_98:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_99:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_100:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_101:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_102:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_103:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_104:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_105:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_106:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_107:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_108:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_109:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_110:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_111:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_112:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_113:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_114:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_115:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_116:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_117:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_118:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_119:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_120:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_121:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_122:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_123:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_124:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_125:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_126:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_127:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_128:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_129:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_130:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_131:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_132:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_133:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_134:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_135:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_136:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_137:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_138:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_139:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_140:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_141:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_142:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_143:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_144:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_145:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_146:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_147:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_148:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_149:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_150:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_151:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_152:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_153:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_154:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_155:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_156:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_157:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_158:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_159:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_160:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_161:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_162:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_163:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_164:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_165:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_166:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_167:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_168:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_169:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_170:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_171:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_172:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_173:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_174:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_175:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_176:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_177:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_178:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_179:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_180:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_181:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_182:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_183:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_184:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_185:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_186:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_187:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_188:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_189:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_190:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_191:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_192:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_193:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_194:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_195:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_196:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_197:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_198:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_199:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_200:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_201:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_202:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_203:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_204:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_205:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_206:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_207:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_208:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_209:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_210:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_211:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_212:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_213:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_214:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_215:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_216:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_217:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_218:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_219:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_220:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_221:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_222:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_223:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_224:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_225:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_226:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_227:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_228:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_229:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_230:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_231:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_232:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_233:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_234:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_235:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_236:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_237:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_238:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_239:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_240:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_241:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_242:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_243:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_244:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_245:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_246:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_247:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_248:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_249:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_250:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_251:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_252:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_253:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_254:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_255:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_256:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_257:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_258:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_259:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_260:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_261:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_262:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_263:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_264:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_265:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_266:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_267:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_268:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_269:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_270:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_271:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_272:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_273:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_274:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_275:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_276:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_277:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_278:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_279:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_280:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_281:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_282:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_283:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      radiance_284:
+        description: Radiance observed for the corresponding radiance_fwhm and
+        units: nanoWatts/sr/cm^2/nm
+      elev:
+        description: Total elevation
+        units: m
+      path_length:
+        description: Distance between sensor and ground
+        units: m
+      to_sensor_azimuth:
+        description: 0 to 360 degrees clockwise from N
+        units: deg
+      to_sensor_zenith:
+        description: 0 to 90 degrees from zenith
+        units: deg
+      to_sun_azimuth:
+        description: 0 to 360 degrees clockwise from N
+        units: deg
+      to_sun_zenith:
+        description: 0 to 90 degrees from zenith
+        units: deg
+      solar_phase:
+        description: Degrees between to-sensor and to-sun vectors in principal plane
+        units: deg
+      slope:
+        description: Local surface slope as derived from Digital Elevation Model (DEM) in
+        units: deg
+      aspect:
+        description: Local surface aspect 0 to 360 degrees clockwise from N
+        units: deg
+      cosine_i:
+        description: Apparent local illumination factor based on DEM slope and aspect and
+      utc_time:
+        description: Fractional hours since UTC midnight
+        units: h
+      earth_sun_distance:
+        description: Distance between the Earth and the Sun
+        units: AU
+
+  NASA/EMIT/L2A/RFL:
+    title: EMIT L2A Estimated Surface Reflectance and Uncertainty and Masks 60 m
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "2022-08-09"
+      end_date: null
+    default_reducer: median
+    terms: NASA EMIT data and products acquired through the LP DAAC
+    bands:
+      reflectance_0:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_1:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_2:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_3:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_4:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_5:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_6:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_7:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_8:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_9:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_10:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_11:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_12:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_13:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_14:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_15:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_16:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_17:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_18:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_19:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_20:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_21:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_22:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_23:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_24:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_25:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_26:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_27:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_28:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_29:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_30:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_31:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_32:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_33:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_34:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_35:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_36:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_37:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_38:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_39:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_40:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_41:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_42:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_43:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_44:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_45:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_46:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_47:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_48:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_49:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_50:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_51:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_52:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_53:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_54:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_55:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_56:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_57:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_58:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_59:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_60:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_61:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_62:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_63:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_64:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_65:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_66:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_67:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_68:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_69:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_70:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_71:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_72:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_73:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_74:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_75:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_76:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_77:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_78:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_79:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_80:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_81:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_82:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_83:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_84:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_85:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_86:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_87:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_88:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_89:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_90:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_91:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_92:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_93:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_94:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_95:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_96:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_97:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_98:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_99:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_100:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_101:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_102:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_103:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_104:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_105:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_106:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_107:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_108:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_109:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_110:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_111:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_112:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_113:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_114:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_115:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_116:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_117:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_118:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_119:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_120:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_121:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_122:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_123:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_124:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_125:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_126:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_127:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_128:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_129:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_130:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_131:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_132:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_133:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_134:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_135:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_136:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_137:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_138:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_139:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_140:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_141:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_142:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_143:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_144:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_145:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_146:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_147:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_148:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_149:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_150:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_151:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_152:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_153:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_154:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_155:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_156:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_157:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_158:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_159:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_160:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_161:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_162:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_163:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_164:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_165:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_166:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_167:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_168:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_169:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_170:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_171:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_172:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_173:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_174:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_175:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_176:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_177:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_178:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_179:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_180:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_181:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_182:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_183:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_184:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_185:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_186:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_187:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_188:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_189:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_190:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_191:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_192:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_193:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_194:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_195:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_196:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_197:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_198:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_199:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_200:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_201:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_202:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_203:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_204:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_205:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_206:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_207:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_208:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_209:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_210:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_211:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_212:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_213:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_214:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_215:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_216:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_217:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_218:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_219:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_220:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_221:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_222:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_223:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_224:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_225:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_226:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_227:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_228:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_229:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_230:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_231:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_232:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_233:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_234:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_235:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_236:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_237:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_238:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_239:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_240:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_241:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_242:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_243:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_244:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_245:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_246:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_247:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_248:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_249:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_250:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_251:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_252:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_253:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_254:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_255:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_256:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_257:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_258:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_259:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_260:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_261:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_262:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_263:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_264:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_265:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_266:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_267:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_268:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_269:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_270:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_271:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_272:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_273:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_274:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_275:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_276:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_277:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_278:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_279:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_280:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_281:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_282:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_283:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_284:
+        description: Reflectance observed for the corresponding reflectance_fwhm and
+        units: Spectral reflectance
+      reflectance_uncertainity_0:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_1:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_2:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_3:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_4:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_5:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_6:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_7:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_8:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_9:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_10:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_11:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_12:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_13:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_14:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_15:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_16:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_17:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_18:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_19:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_20:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_21:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_22:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_23:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_24:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_25:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_26:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_27:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_28:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_29:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_30:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_31:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_32:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_33:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_34:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_35:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_36:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_37:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_38:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_39:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_40:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_41:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_42:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_43:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_44:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_45:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_46:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_47:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_48:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_49:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_50:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_51:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_52:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_53:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_54:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_55:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_56:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_57:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_58:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_59:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_60:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_61:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_62:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_63:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_64:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_65:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_66:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_67:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_68:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_69:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_70:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_71:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_72:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_73:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_74:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_75:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_76:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_77:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_78:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_79:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_80:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_81:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_82:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_83:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_84:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_85:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_86:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_87:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_88:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_89:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_90:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_91:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_92:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_93:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_94:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_95:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_96:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_97:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_98:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_99:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_100:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_101:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_102:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_103:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_104:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_105:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_106:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_107:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_108:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_109:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_110:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_111:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_112:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_113:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_114:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_115:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_116:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_117:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_118:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_119:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_120:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_121:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_122:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_123:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_124:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_125:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_126:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_127:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_128:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_129:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_130:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_131:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_132:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_133:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_134:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_135:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_136:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_137:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_138:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_139:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_140:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_141:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_142:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_143:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_144:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_145:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_146:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_147:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_148:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_149:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_150:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_151:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_152:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_153:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_154:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_155:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_156:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_157:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_158:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_159:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_160:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_161:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_162:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_163:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_164:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_165:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_166:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_167:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_168:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_169:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_170:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_171:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_172:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_173:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_174:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_175:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_176:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_177:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_178:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_179:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_180:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_181:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_182:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_183:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_184:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_185:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_186:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_187:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_188:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_189:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_190:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_191:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_192:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_193:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_194:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_195:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_196:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_197:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_198:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_199:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_200:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_201:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_202:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_203:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_204:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_205:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_206:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_207:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_208:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_209:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_210:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_211:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_212:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_213:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_214:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_215:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_216:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_217:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_218:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_219:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_220:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_221:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_222:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_223:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_224:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_225:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_226:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_227:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_228:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_229:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_230:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_231:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_232:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_233:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_234:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_235:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_236:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_237:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_238:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_239:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_240:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_241:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_242:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_243:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_244:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_245:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_246:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_247:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_248:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_249:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_250:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_251:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_252:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_253:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_254:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_255:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_256:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_257:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_258:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_259:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_260:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_261:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_262:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_263:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_264:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_265:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_266:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_267:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_268:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_269:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_270:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_271:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_272:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_273:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_274:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_275:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_276:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_277:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_278:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_279:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_280:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_281:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_282:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_283:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      reflectance_uncertainity_284:
+        description: Reflectance uncertainty observed for the corresponding
+        units: Standard deviation
+      elev:
+        description: Total elevation
+        units: m
+      cloud_flag:
+        description: Cloud Coverage
+      cirrus_flag:
+        description: Dense Cirrus clouds
+      water_flag:
+        description: Water bodies
+      spacecraft_flag:
+        description: Spacecraft or space station components that intersect the EMIT field
+      dilated_cloud_flag:
+        description: Cloud coverage + buffer
+      AOD550:
+        description: Aerosol Optical Depth at 550nm estimates
+      H2O:
+        description: Water Vapor estimates
+        units: g/cm^2
+      aggregate_flag:
+        description: Aggregated binary flag of bands, included flags are cloud, cirrus,
+
+  NASA/EMIT/L2B/CH4ENH:
+    title: Earth Surface Mineral Dust Source Investigation- Methane Enhancement
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 72000
+    extent:
+      start_date: "2022-08-10"
+      end_date: null
+    default_reducer: median
+    terms: NASA EMIT data and products acquired through the LP DAAC
+    bands:
+      vertical_column_enhancement:
+        description: Total vertical column enhancement estimate of methane
+        units: ppm m
+
+  NASA/EMIT/L2B/CH4PLM:
+    title: Earth Surface Mineral Dust Source Investigation- Methane Plume Complexes
+    provider: NASA Jet Propulsion Laboratory
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 72000
+    extent:
+      start_date: "2022-08-10"
+      end_date: null
+    default_reducer: median
+    terms: NASA EMIT data and products acquired through the LP DAAC
+    bands:
+      methane_plume_complex:
+        description: Estimated Methane plume complex.
+        units: ppm m
+
+  NASA/GEOS-CF/v1/fcst/htf:
+    title: 'GEOS-CF fcst htf v1: Goddard Earth Observing System Composition Forecast'
+    provider: NASA / GMAO
+    ee_type: image_collection
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-10-01"
+      end_date: null
+    default_reducer: median
+    terms: Unless otherwise noted, all NASA-produced data may be used for any purpose
+    bands:
+      CO:
+        description: Carbon monoxide (CO, MW = 28.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      PM25_RH35_GCC:
+        description: Particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25_RH35_GOCART:
+        description: Total reconstructed PM2.5 RH 35
+        units: kg/m^3
+      Q:
+        description: Specific humidity
+        units: Mass fraction
+      RH:
+        description: Relative humidity after moist
+      SLP:
+        description: Sea level pressure
+        units: Pa
+      SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      T:
+        description: Air temperature
+        units: K
+      U:
+        description: Eastward wind
+        units: m/s
+      V:
+        description: Northward wind
+        units: m/s
+
+  NASA/GEOS-CF/v1/fcst/tavg1hr:
+    title: 'GEOS-CF fcst tavg1hr v1: Goddard Earth Observing System Composition Forecast'
+    provider: NASA / GMAO
+    ee_type: image_collection
+    spatial_resolution: 27750
+    extent:
+      start_date: "2022-10-01"
+      end_date: null
+    default_reducer: median
+    terms: Unless otherwise noted, all NASA-produced data may be used for any purpose
+    bands:
+      ACET:
+        description: Acetone (CH3C(O)CH3, MW = 58.08 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      ALD2:
+        description: Acetaldehyde (CH3CHO, MW = 44.05 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      ALK4:
+        description: Lumped >= C4 Alkanes (MW = 58.12 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      AOD550_BC:
+        description: Black carbon optical depth at 550nm
+      AOD550_CLOUD:
+        description: Cloud optical depth
+      AOD550_DST1:
+        description: Dust bin1 optical depth at 550nm
+      AOD550_DST2:
+        description: Dust bin2 optical depth at 550nm
+      AOD550_DST3:
+        description: Dust bin3 optical depth at 550nm
+      AOD550_DST4:
+        description: Dust bin4 optical depth at 550nm
+      AOD550_DST5:
+        description: Dust bin5 optical depth at 550nm
+      AOD550_DST6:
+        description: Dust bin6 optical depth at 550nm
+      AOD550_DST7:
+        description: Dust bin7 optical depth at 550nm
+      AOD550_DUST:
+        description: Dust optical depth at 550nm
+      AOD550_OC:
+        description: Organic carbon optical depth at 550nm
+      AOD550_SALA:
+        description: Accumulation mode sea salt optical depth at 550nm
+      AOD550_SALC:
+        description: Coarse mode sea salt optical depth at 550nm
+      AOD550_SULFATE:
+        description: Sulfate optical depth at 550nm
+      BCPI:
+        description: Hydrophilic black carbon aerosol (MW = 12.01 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      BCPO:
+        description: Hydrophobic black carbon aerosol (MW = 12.01 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      BENZ:
+        description: Benzene (C6H6, MW = 78.11 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      C2H6:
+        description: Ethane (C2H6, MW = 30.07 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      C3H8:
+        description: Propane (C3H8, MW = 44.10 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      CH4:
+        description: Methane (CH4, MW = 16.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      CLDTT:
+        description: Total cloud area fraction
+      CO:
+        description: Carbon monoxide (CO, MW = 28.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      DRYDEPFLX_BCPI:
+        description: Hydrophilic black carbon aerosol (MW = 12.01 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_BCPO:
+        description: Hydrophobic black carbon aerosol (MW = 12.01 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_DST1:
+        description: Dust aerosol, Reff = 0.7 microns (MW = 29.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_DST2:
+        description: Dust aerosol, Reff = 1.4 microns (MW = 29.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_DST3:
+        description: Dust aerosol, Reff = 2.4 microns (MW = 29.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_DST4:
+        description: Dust aerosol, Reff = 4.5 microns (MW = 29.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_HNO3:
+        description: Nitric acid (HNO3, MW = 63.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_NH3:
+        description: Ammonia (NH3, MW = 17.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_NH4:
+        description: Ammonium (NH4, MW = 18.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_NIT:
+        description: Inorganic nitrates (MW = 62.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_OCPI:
+        description: Hydrophilic organic carbon aerosol (MW = 12.01 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_OCPO:
+        description: Hydrophobic organic carbon aerosol (MW = 12.01 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_SALA:
+        description: Fine (0.01-0.05 microns) sea salt aerosol (MW = 31.40 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DRYDEPFLX_SALC:
+        description: Coarse (0.5-8 microns) sea salt aerosol (MW = 31.40 g mol-1) dry deposition flux
+        units: molec cm-2 s-1
+      DST1:
+        description: Dust aerosol, Reff = 0.7 microns (MW = 29.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      DST2:
+        description: Dust aerosol, Reff = 1.4 microns (MW = 29.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      DST3:
+        description: Dust aerosol, Reff = 2.4 microns (MW = 29.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      DST4:
+        description: Dust aerosol, Reff = 4.5 microns (MW = 29.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      EOH:
+        description: Ethanol (C2H5OH, MW = 46.07 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      H2O2:
+        description: Hydrogen peroxide (H2O2, MW = 34.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      HNO3:
+        description: Nitric acid (HNO3, MW = 63.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      HNO4:
+        description: Peroxynitric acid (HNO4, MW = 79.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      ISOP:
+        description: Isoprene (CH2=C(CH3)CH=CH2, MW = 68.12 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      MACR:
+        description: Methacrolein (CH2=C(CH3)CHO, MW = 70.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      MEK:
+        description: Methyl Ethyl Ketone (RC(O)R, MW = 72.11 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      MVK:
+        description: Methyl vinyl ketone (CH2=CHC(=O)CH3, MW = 70.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      N2O5:
+        description: Dinitrogen pentoxide (N2O5, MW = 108.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NH3:
+        description: Ammonia (NH3, MW = 17.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NH4:
+        description: Ammonium (NH4, MW = 18.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NIT:
+        description: Inorganic nitrates (MW = 62.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NO:
+        description: Nitrogen oxide (NO, MW = 30.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      NOy:
+        description: Reactive nitrogen = NO NO2 HNO3 HNO4 HONO 2xN2O5 PAN OrganicNitrates AerosolNitrates
+        units: Mol fraction
+      O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      OCPI:
+        description: Hydrophilic organic carbon aerosol (MW = 12.01 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      OCPO:
+        description: Hydrophobic organic carbon aerosol (MW = 12.01 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      PAN:
+        description: Peroxyacetyl nitrate (CH3C(O)OONO2, MW = 121.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      PHIS:
+        description: Surface geopotential height
+        units: m^2 s-2
+      PM25_RH35_GCC:
+        description: Particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25_RH35_GOCART:
+        description: Total reconstructed PM2.5 RH 35
+        units: kg/m^3
+      PM25bc_RH35_GCC:
+        description: Black carbon particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25du_RH35_GCC:
+        description: Dust particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25ni_RH35_GCC:
+        description: Nitrate particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25oc_RH35_GCC:
+        description: Organic carbon particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25soa_RH35_GCC:
+        description: Secondary organic aerosol particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25ss_RH35_GCC:
+        description: Seasalt particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PM25su_RH35_GCC:
+        description: Sulfate particulate matter with diameter below 2.5 um RH 35
+        units: ug m-3
+      PRPE:
+        description: Lumped >= C3 alkenes (C3H6, MW = 42.08 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      PS:
+        description: Surface pressure
+        units: Pa
+      Q:
+        description: Specific humidity
+        units: Mass fraction
+      Q10M:
+        description: 10-meter specific humidity
+        units: Mass fraction
+      Q2M:
+        description: 2-meter specific humidity
+        units: Mass fraction
+      RCHO:
+        description: Lumped aldehyde >= C3 (CH3CH2CHO, MW = 58.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      RH:
+        description: Relative humidity after moist
+      SALA:
+        description: Fine (0.01-0.05 microns) sea salt aerosol (MW = 31.40 g mol-1) volume mixing ratio
+        units: Mol fraction
+      SALC:
+        description: Coarse (0.5-8 microns) sea salt aerosol (MW = 31.40 g mol-1) volume mixing ratio dry
+        units: Mol fraction
+      SLP:
+        description: Sea level pressure
+        units: Pa
+      SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      SOAP:
+        description: SOA Precursor - lumped species for simplified SOA parameterization (MW = 150.00 g
+        units: Mol fraction
+      SOAS:
+        description: SOA Simple - simplified non-volatile SOA parameterization (MW = 150.00 g mol-1) volume
+        units: Mol fraction
+      T:
+        description: Air temperature
+        units: K
+      T10M:
+        description: 10-meter air temperature
+        units: K
+      T2M:
+        description: 2-meter air temperature
+        units: K
+      TOLU:
+        description: Toluene (C7H8, MW = 92.14 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      TOTCOL_BrO:
+        description: Bromine monoxide (BrO, MW = 96.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_CO:
+        description: Carbon monoxide (CO, MW = 28.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_IO:
+        description: Iodine monoxide (IO, MW = 143.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TOTCOL_O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) total column density
+        units: Dobson
+      TOTCOL_SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) total column density
+        units: 1.0e15 molec cm-2
+      TPREC:
+        description: Total precipitation
+        units: kg/m^2/s
+      TROPCOL_BrO:
+        description: Bromine monoxide (BrO, MW = 96.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_CO:
+        description: Carbon monoxide (CO, MW = 28.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_IO:
+        description: Iodine monoxide (IO, MW = 143.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_NO2:
+        description: Nitrogen dioxide (NO2, MW = 46.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPCOL_O3:
+        description: Ozone (O3, MW = 48.00 g mol-1) tropospheric column density
+        units: Dobson
+      TROPCOL_SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) tropospheric column density
+        units: 1.0e15 molec cm-2
+      TROPPB:
+        description: Tropopause pressure based on blended estimate
+        units: Pa
+      TS:
+        description: Surface skin temperature
+        units: K
+      U:
+        description: Eastward wind
+        units: m/s
+      U10M:
+        description: 10-meter eastward wind
+        units: m/s
+      U2M:
+        description: 2-meter eastward wind
+        units: m/s
+      V:
+        description: Northward wind
+        units: m/s
+      V10M:
+        description: 10-meter northward wind
+        units: m/s
+      V2M:
+        description: 2-meter northward wind
+        units: m/s
+      WETDEPFLX_BCPI:
+        description: Hydrophilic black carbon aerosol (MW = 12.01 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_BCPO:
+        description: Hydrophobic black carbon aerosol (MW = 12.01 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_DST1:
+        description: Dust aerosol, Reff = 0.7 microns (MW = 29.00 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_DST2:
+        description: Dust aerosol, Reff = 1.4 microns (MW = 29.00 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_DST3:
+        description: Dust aerosol, Reff = 2.4 microns (MW = 29.00 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_DST4:
+        description: Dust aerosol, Reff = 4.5 microns (MW = 29.00 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_HCHO:
+        description: Formaldehyde (CH2O, MW = 30.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_HNO3:
+        description: Nitric acid (HNO3, MW = 63.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_NH3:
+        description: Ammonia (NH3, MW = 17.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_NH4:
+        description: Ammonium (NH4, MW = 18.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_NIT:
+        description: Inorganic nitrates (MW = 62.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_OCPI:
+        description: Hydrophilic organic carbon aerosol (MW = 12.01 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_OCPO:
+        description: Hydrophobic organic carbon aerosol (MW = 12.01 g mol-1) vertical integrated loss due
+        units: kg/m^2/s
+      WETDEPFLX_SALA:
+        description: Fine (0.01-0.05 microns) sea salt aerosol (MW = 31.40 g mol-1) vertical integrated
+        units: kg/m^2/s
+      WETDEPFLX_SALC:
+        description: Coarse (0.5-8 microns) sea salt aerosol (MW = 31.40 g mol-1) vertical integrated loss
+        units: kg/m^2/s
+      WETDEPFLX_SO2:
+        description: Sulfur dioxide (SO2, MW = 64.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      WETDEPFLX_SO4:
+        description: Sulfate (SO4, MW = 96.00 g mol-1) vertical integrated loss due to wet scavenging
+        units: kg/m^2/s
+      XYLE:
+        description: Xylene (C8H10, MW = 106.16 g mol-1) volume mixing ratio dry air
+        units: Mol fraction
+      ZL:
+        description: Mid layer heights
+        units: m
+      ZPBL:
+        description: Planetary boundary layer height
+        units: m
