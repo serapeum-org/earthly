@@ -48,8 +48,10 @@ class TestChirpsBackend:
         )
         assert isinstance(earthlens.DataSources, Mapping)
         assert isinstance(earthlens.datasource, CHIRPS)
-        assert earthlens.datasource.vars == chirps_variables
-        assert isinstance(earthlens.datasource.lat_lim, list)
+        # Legacy list-shape `variables` is normalized to the catalog
+        # dict shape (mirroring ECMWF). The dataset key is derived
+        # from `temporal_resolution`: "daily" → "global-daily".
+        assert earthlens.datasource.vars == {"global-daily": chirps_variables}
         return earthlens
 
     @pytest.mark.e2e
@@ -60,9 +62,12 @@ class TestChirpsBackend:
         number_downloaded_files: int,
     ):
         test_chirps_data_source_instantiate_object.download()
-        fname = "P_CHIRPS"
+        # Filename scheme is `<dataset-key>_<variable>_<date>.tif`.
         filelist = glob.glob(
-            os.path.join(f"{chirps_data_source_output_dir}", f"{fname}*.tif")
+            os.path.join(
+                f"{chirps_data_source_output_dir}",
+                "global-daily_precipitation_*.tif",
+            )
         )
         assert len(filelist) == number_downloaded_files
         # delete the files

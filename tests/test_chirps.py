@@ -3,7 +3,6 @@ from __future__ import annotations
 import glob
 import os
 import shutil
-from typing import List
 
 import pytest
 
@@ -31,10 +30,12 @@ def test_create_chirps_object(
         path=chirps_base_dir,
     )
     assert coello.api_url == "data.chc.ucsb.edu"
-    assert coello.lon_boundaries == [-180, 180]
-    assert coello.lat_bondaries == [-50, 50]
-    assert str(coello.dates[0].date()) == dates[0]
-    assert str(coello.dates[-1].date()) == dates[1]
+    # Legacy list-shape `variables` is normalized to the catalog dict shape.
+    assert coello.vars == {"global-daily": ["precipitation"]}
+    # `self.time` carries the outer window; per-dataset frequencies live
+    # in the catalog (`Dataset.pandas_freq`) and are resolved per call.
+    assert str(coello.time.start_date.date()) == dates[0]
+    assert str(coello.time.end_date.date()) == dates[1]
 
     return coello
 
@@ -45,10 +46,12 @@ def test_download(
     chirps_base_dir: str,
     number_downloaded_files: int,
 ):
-    fname = test_create_chirps_object.clipped_fname
     test_create_chirps_object.download()
 
-    filelist = glob.glob(os.path.join(f"{chirps_base_dir}", f"{fname}*.tif"))
+    # New filename scheme is `<dataset-key>_<variable>_<date>.tif`.
+    filelist = glob.glob(
+        os.path.join(f"{chirps_base_dir}", "global-daily_precipitation_*.tif")
+    )
     assert len(filelist) == number_downloaded_files
     # delete the files
     try:

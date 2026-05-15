@@ -178,8 +178,16 @@ class EarthLens:
                 * GEE: `dict[str, list[str]]` mapping an Earth Engine
                   asset id to a list of band ids, e.g.
                   `{"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]}`.
-                * CHIRPS: `list[str]` of variable codes
-                  (e.g. `["precipitation"]`).
+                * CHIRPS: either `list[str]` of variable codes
+                  (legacy — auto-routed to the `"global-daily"` /
+                  `"global-monthly"` dataset key via
+                  `temporal_resolution`), or `dict[str, list[str]]`
+                  mapping a CHIRPS catalog dataset key (e.g.
+                  `"africa-pentad"`, `"chirps-v3-global-monthly"`)
+                  to a list of variable codes drawn from that
+                  dataset, e.g. `{"africa-monthly": ["precipitation"]}`.
+                  See `Catalog().list_datasets()` for the curated
+                  dataset keys.
                 * S3 / ERA5: `list[str]` of variable codes from the
                   S3 backend's catalog.
 
