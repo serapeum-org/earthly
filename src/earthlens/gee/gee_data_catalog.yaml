@@ -19886,3 +19886,5126 @@ datasets:
         units: m
         min: 0
         max: 255
+
+  IPCC/AR6/SLP:
+    title: IPCC AR6 Sea Level Projections Regional (Medium Confidence)
+    provider: IPCC
+    ee_type: image_collection
+    cadence: { interval: 10, unit: year }
+    spatial_resolution: 111.32
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: This dataset is made available publicly under the Creative Commons by
+    bands:
+      total_rates_quantile_0:
+        description: Total rates for the quantile 0
+        units: mm/y
+      total_rates_quantile_0_001:
+        description: Total rates for the quantile 0.001
+        units: mm/y
+      total_rates_quantile_0_005:
+        description: Total rates for the quantile 0.005
+        units: mm/y
+      total_rates_quantile_0_01:
+        description: Total rates for the quantile 0.01
+        units: mm/y
+      total_rates_quantile_0_02:
+        description: Total rates for the quantile 0.02
+        units: mm/y
+      total_rates_quantile_0_03:
+        description: Total rates for the quantile 0.03
+        units: mm/y
+      total_rates_quantile_0_04:
+        description: Total rates for the quantile 0.04
+        units: mm/y
+      total_rates_quantile_0_05:
+        description: Total rates for the quantile 0.05
+        units: mm/y
+      total_rates_quantile_0_06:
+        description: Total rates for the quantile 0.06
+        units: mm/y
+      total_rates_quantile_0_07:
+        description: Total rates for the quantile 0.07
+        units: mm/y
+      total_rates_quantile_0_08:
+        description: Total rates for the quantile 0.08
+        units: mm/y
+      total_rates_quantile_0_09:
+        description: Total rates for the quantile 0.09
+        units: mm/y
+      total_rates_quantile_0_1:
+        description: Total rates for the quantile 0.1
+        units: mm/y
+      total_rates_quantile_0_11:
+        description: Total rates for the quantile 0.11
+        units: mm/y
+      total_rates_quantile_0_12:
+        description: Total rates for the quantile 0.12
+        units: mm/y
+      total_rates_quantile_0_13:
+        description: Total rates for the quantile 0.13
+        units: mm/y
+      total_rates_quantile_0_14:
+        description: Total rates for the quantile 0.14
+        units: mm/y
+      total_rates_quantile_0_15:
+        description: Total rates for the quantile 0.15
+        units: mm/y
+      total_rates_quantile_0_16:
+        description: Total rates for the quantile 0.16
+        units: mm/y
+      total_rates_quantile_0_167:
+        description: Total rates for the quantile 0.167
+        units: mm/y
+      total_rates_quantile_0_17:
+        description: Total rates for the quantile 0.17
+        units: mm/y
+      total_rates_quantile_0_18:
+        description: Total rates for the quantile 0.18
+        units: mm/y
+      total_rates_quantile_0_19:
+        description: Total rates for the quantile 0.19
+        units: mm/y
+      total_rates_quantile_0_2:
+        description: Total rates for the quantile 0.2
+        units: mm/y
+      total_rates_quantile_0_21:
+        description: Total rates for the quantile 0.21
+        units: mm/y
+      total_rates_quantile_0_22:
+        description: Total rates for the quantile 0.22
+        units: mm/y
+      total_rates_quantile_0_23:
+        description: Total rates for the quantile 0.23
+        units: mm/y
+      total_rates_quantile_0_24:
+        description: Total rates for the quantile 0.24
+        units: mm/y
+      total_rates_quantile_0_25:
+        description: Total rates for the quantile 0.25
+        units: mm/y
+      total_rates_quantile_0_26:
+        description: Total rates for the quantile 0.26
+        units: mm/y
+      total_rates_quantile_0_27:
+        description: Total rates for the quantile 0.27
+        units: mm/y
+      total_rates_quantile_0_28:
+        description: Total rates for the quantile 0.28
+        units: mm/y
+      total_rates_quantile_0_29:
+        description: Total rates for the quantile 0.29
+        units: mm/y
+      total_rates_quantile_0_3:
+        description: Total rates for the quantile 0.3
+        units: mm/y
+      total_rates_quantile_0_31:
+        description: Total rates for the quantile 0.31
+        units: mm/y
+      total_rates_quantile_0_32:
+        description: Total rates for the quantile 0.32
+        units: mm/y
+      total_rates_quantile_0_33:
+        description: Total rates for the quantile 0.33
+        units: mm/y
+      total_rates_quantile_0_34:
+        description: Total rates for the quantile 0.34
+        units: mm/y
+      total_rates_quantile_0_35:
+        description: Total rates for the quantile 0.35
+        units: mm/y
+      total_rates_quantile_0_36:
+        description: Total rates for the quantile 0.36
+        units: mm/y
+      total_rates_quantile_0_37:
+        description: Total rates for the quantile 0.37
+        units: mm/y
+      total_rates_quantile_0_38:
+        description: Total rates for the quantile 0.38
+        units: mm/y
+      total_rates_quantile_0_39:
+        description: Total rates for the quantile 0.39
+        units: mm/y
+      total_rates_quantile_0_4:
+        description: Total rates for the quantile 0.4
+        units: mm/y
+      total_rates_quantile_0_41:
+        description: Total rates for the quantile 0.41
+        units: mm/y
+      total_rates_quantile_0_42:
+        description: Total rates for the quantile 0.42
+        units: mm/y
+      total_rates_quantile_0_43:
+        description: Total rates for the quantile 0.43
+        units: mm/y
+      total_rates_quantile_0_44:
+        description: Total rates for the quantile 0.44
+        units: mm/y
+      total_rates_quantile_0_45:
+        description: Total rates for the quantile 0.45
+        units: mm/y
+      total_rates_quantile_0_46:
+        description: Total rates for the quantile 0.46
+        units: mm/y
+      total_rates_quantile_0_47:
+        description: Total rates for the quantile 0.47
+        units: mm/y
+      total_rates_quantile_0_48:
+        description: Total rates for the quantile 0.48
+        units: mm/y
+      total_rates_quantile_0_49:
+        description: Total rates for the quantile 0.49
+        units: mm/y
+      total_rates_quantile_0_5:
+        description: Total rates for the quantile 0.5
+        units: mm/y
+      total_rates_quantile_0_51:
+        description: Total rates for the quantile 0.51
+        units: mm/y
+      total_rates_quantile_0_52:
+        description: Total rates for the quantile 0.52
+        units: mm/y
+      total_rates_quantile_0_53:
+        description: Total rates for the quantile 0.53
+        units: mm/y
+      total_rates_quantile_0_54:
+        description: Total rates for the quantile 0.54
+        units: mm/y
+      total_rates_quantile_0_55:
+        description: Total rates for the quantile 0.55
+        units: mm/y
+      total_rates_quantile_0_56:
+        description: Total rates for the quantile 0.56
+        units: mm/y
+      total_rates_quantile_0_57:
+        description: Total rates for the quantile 0.57
+        units: mm/y
+      total_rates_quantile_0_58:
+        description: Total rates for the quantile 0.58
+        units: mm/y
+      total_rates_quantile_0_59:
+        description: Total rates for the quantile 0.59
+        units: mm/y
+      total_rates_quantile_0_6:
+        description: Total rates for the quantile 0.6
+        units: mm/y
+      total_rates_quantile_0_61:
+        description: Total rates for the quantile 0.61
+        units: mm/y
+      total_rates_quantile_0_62:
+        description: Total rates for the quantile 0.62
+        units: mm/y
+      total_rates_quantile_0_63:
+        description: Total rates for the quantile 0.63
+        units: mm/y
+      total_rates_quantile_0_64:
+        description: Total rates for the quantile 0.64
+        units: mm/y
+      total_rates_quantile_0_65:
+        description: Total rates for the quantile 0.65
+        units: mm/y
+      total_rates_quantile_0_66:
+        description: Total rates for the quantile 0.66
+        units: mm/y
+      total_rates_quantile_0_67:
+        description: Total rates for the quantile 0.67
+        units: mm/y
+      total_rates_quantile_0_68:
+        description: Total rates for the quantile 0.68
+        units: mm/y
+      total_rates_quantile_0_69:
+        description: Total rates for the quantile 0.69
+        units: mm/y
+      total_rates_quantile_0_7:
+        description: Total rates for the quantile 0.7
+        units: mm/y
+      total_rates_quantile_0_71:
+        description: Total rates for the quantile 0.71
+        units: mm/y
+      total_rates_quantile_0_72:
+        description: Total rates for the quantile 0.72
+        units: mm/y
+      total_rates_quantile_0_73:
+        description: Total rates for the quantile 0.73
+        units: mm/y
+      total_rates_quantile_0_74:
+        description: Total rates for the quantile 0.74
+        units: mm/y
+      total_rates_quantile_0_75:
+        description: Total rates for the quantile 0.75
+        units: mm/y
+      total_rates_quantile_0_76:
+        description: Total rates for the quantile 0.76
+        units: mm/y
+      total_rates_quantile_0_77:
+        description: Total rates for the quantile 0.77
+        units: mm/y
+      total_rates_quantile_0_78:
+        description: Total rates for the quantile 0.78
+        units: mm/y
+      total_rates_quantile_0_79:
+        description: Total rates for the quantile 0.79
+        units: mm/y
+      total_rates_quantile_0_8:
+        description: Total rates for the quantile 0.8
+        units: mm/y
+      total_rates_quantile_0_81:
+        description: Total rates for the quantile 0.81
+        units: mm/y
+      total_rates_quantile_0_82:
+        description: Total rates for the quantile 0.82
+        units: mm/y
+      total_rates_quantile_0_83:
+        description: Total rates for the quantile 0.83
+        units: mm/y
+      total_rates_quantile_0_833:
+        description: Total rates for the quantile 0.833
+        units: mm/y
+      total_rates_quantile_0_84:
+        description: Total rates for the quantile 0.84
+        units: mm/y
+      total_rates_quantile_0_85:
+        description: Total rates for the quantile 0.85
+        units: mm/y
+      total_rates_quantile_0_86:
+        description: Total rates for the quantile 0.86
+        units: mm/y
+      total_rates_quantile_0_87:
+        description: Total rates for the quantile 0.87
+        units: mm/y
+      total_rates_quantile_0_88:
+        description: Total rates for the quantile 0.88
+        units: mm/y
+      total_rates_quantile_0_89:
+        description: Total rates for the quantile 0.89
+        units: mm/y
+      total_rates_quantile_0_9:
+        description: Total rates for the quantile 0.9
+        units: mm/y
+      total_rates_quantile_0_91:
+        description: Total rates for the quantile 0.91
+        units: mm/y
+      total_rates_quantile_0_92:
+        description: Total rates for the quantile 0.92
+        units: mm/y
+      total_rates_quantile_0_93:
+        description: Total rates for the quantile 0.93
+        units: mm/y
+      total_rates_quantile_0_94:
+        description: Total rates for the quantile 0.94
+        units: mm/y
+      total_rates_quantile_0_95:
+        description: Total rates for the quantile 0.95
+        units: mm/y
+      total_rates_quantile_0_96:
+        description: Total rates for the quantile 0.96
+        units: mm/y
+      total_rates_quantile_0_97:
+        description: Total rates for the quantile 0.97
+        units: mm/y
+      total_rates_quantile_0_98:
+        description: Total rates for the quantile 0.98
+        units: mm/y
+      total_rates_quantile_0_99:
+        description: Total rates for the quantile 0.99
+        units: mm/y
+      total_rates_quantile_0_995:
+        description: Total rates for the quantile 0.995
+        units: mm/y
+      total_rates_quantile_0_999:
+        description: Total rates for the quantile 0.999
+        units: mm/y
+      total_rates_quantile_1:
+        description: Total rates for the quantile 1
+        units: mm/y
+      total_values_quantile_0:
+        description: Total values for the quantile 0
+        units: mm
+      total_values_quantile_0_001:
+        description: Total values for the quantile 0.001
+        units: mm
+      total_values_quantile_0_005:
+        description: Total values for the quantile 0.005
+        units: mm
+      total_values_quantile_0_01:
+        description: Total values for the quantile 0.01
+        units: mm
+      total_values_quantile_0_02:
+        description: Total values for the quantile 0.02
+        units: mm
+      total_values_quantile_0_03:
+        description: Total values for the quantile 0.03
+        units: mm
+      total_values_quantile_0_04:
+        description: Total values for the quantile 0.04
+        units: mm
+      total_values_quantile_0_05:
+        description: Total values for the quantile 0.05
+        units: mm
+      total_values_quantile_0_06:
+        description: Total values for the quantile 0.06
+        units: mm
+      total_values_quantile_0_07:
+        description: Total values for the quantile 0.07
+        units: mm
+      total_values_quantile_0_08:
+        description: Total values for the quantile 0.08
+        units: mm
+      total_values_quantile_0_09:
+        description: Total values for the quantile 0.09
+        units: mm
+      total_values_quantile_0_1:
+        description: Total values for the quantile 0.1
+        units: mm
+      total_values_quantile_0_11:
+        description: Total values for the quantile 0.11
+        units: mm
+      total_values_quantile_0_12:
+        description: Total values for the quantile 0.12
+        units: mm
+      total_values_quantile_0_13:
+        description: Total values for the quantile 0.13
+        units: mm
+      total_values_quantile_0_14:
+        description: Total values for the quantile 0.14
+        units: mm
+      total_values_quantile_0_15:
+        description: Total values for the quantile 0.15
+        units: mm
+      total_values_quantile_0_16:
+        description: Total values for the quantile 0.16
+        units: mm
+      total_values_quantile_0_167:
+        description: Total values for the quantile 0.167
+        units: mm
+      total_values_quantile_0_17:
+        description: Total values for the quantile 0.17
+        units: mm
+      total_values_quantile_0_18:
+        description: Total values for the quantile 0.18
+        units: mm
+      total_values_quantile_0_19:
+        description: Total values for the quantile 0.19
+        units: mm
+      total_values_quantile_0_2:
+        description: Total values for the quantile 0.2
+        units: mm
+      total_values_quantile_0_21:
+        description: Total values for the quantile 0.21
+        units: mm
+      total_values_quantile_0_22:
+        description: Total values for the quantile 0.22
+        units: mm
+      total_values_quantile_0_23:
+        description: Total values for the quantile 0.23
+        units: mm
+      total_values_quantile_0_24:
+        description: Total values for the quantile 0.24
+        units: mm
+      total_values_quantile_0_25:
+        description: Total values for the quantile 0.25
+        units: mm
+      total_values_quantile_0_26:
+        description: Total values for the quantile 0.26
+        units: mm
+      total_values_quantile_0_27:
+        description: Total values for the quantile 0.27
+        units: mm
+      total_values_quantile_0_28:
+        description: Total values for the quantile 0.28
+        units: mm
+      total_values_quantile_0_29:
+        description: Total values for the quantile 0.29
+        units: mm
+      total_values_quantile_0_3:
+        description: Total values for the quantile 0.3
+        units: mm
+      total_values_quantile_0_31:
+        description: Total values for the quantile 0.31
+        units: mm
+      total_values_quantile_0_32:
+        description: Total values for the quantile 0.32
+        units: mm
+      total_values_quantile_0_33:
+        description: Total values for the quantile 0.33
+        units: mm
+      total_values_quantile_0_34:
+        description: Total values for the quantile 0.34
+        units: mm
+      total_values_quantile_0_35:
+        description: Total values for the quantile 0.35
+        units: mm
+      total_values_quantile_0_36:
+        description: Total values for the quantile 0.36
+        units: mm
+      total_values_quantile_0_37:
+        description: Total values for the quantile 0.37
+        units: mm
+      total_values_quantile_0_38:
+        description: Total values for the quantile 0.38
+        units: mm
+      total_values_quantile_0_39:
+        description: Total values for the quantile 0.39
+        units: mm
+      total_values_quantile_0_4:
+        description: Total values for the quantile 0.4
+        units: mm
+      total_values_quantile_0_41:
+        description: Total values for the quantile 0.41
+        units: mm
+      total_values_quantile_0_42:
+        description: Total values for the quantile 0.42
+        units: mm
+      total_values_quantile_0_43:
+        description: Total values for the quantile 0.43
+        units: mm
+      total_values_quantile_0_44:
+        description: Total values for the quantile 0.44
+        units: mm
+      total_values_quantile_0_45:
+        description: Total values for the quantile 0.45
+        units: mm
+      total_values_quantile_0_46:
+        description: Total values for the quantile 0.46
+        units: mm
+      total_values_quantile_0_47:
+        description: Total values for the quantile 0.47
+        units: mm
+      total_values_quantile_0_48:
+        description: Total values for the quantile 0.48
+        units: mm
+      total_values_quantile_0_49:
+        description: Total values for the quantile 0.49
+        units: mm
+      total_values_quantile_0_5:
+        description: Total values for the quantile 0.5
+        units: mm
+      total_values_quantile_0_51:
+        description: Total values for the quantile 0.51
+        units: mm
+      total_values_quantile_0_52:
+        description: Total values for the quantile 0.52
+        units: mm
+      total_values_quantile_0_53:
+        description: Total values for the quantile 0.53
+        units: mm
+      total_values_quantile_0_54:
+        description: Total values for the quantile 0.54
+        units: mm
+      total_values_quantile_0_55:
+        description: Total values for the quantile 0.55
+        units: mm
+      total_values_quantile_0_56:
+        description: Total values for the quantile 0.56
+        units: mm
+      total_values_quantile_0_57:
+        description: Total values for the quantile 0.57
+        units: mm
+      total_values_quantile_0_58:
+        description: Total values for the quantile 0.58
+        units: mm
+      total_values_quantile_0_59:
+        description: Total values for the quantile 0.59
+        units: mm
+      total_values_quantile_0_6:
+        description: Total values for the quantile 0.6
+        units: mm
+      total_values_quantile_0_61:
+        description: Total values for the quantile 0.61
+        units: mm
+      total_values_quantile_0_62:
+        description: Total values for the quantile 0.62
+        units: mm
+      total_values_quantile_0_63:
+        description: Total values for the quantile 0.63
+        units: mm
+      total_values_quantile_0_64:
+        description: Total values for the quantile 0.64
+        units: mm
+      total_values_quantile_0_65:
+        description: Total values for the quantile 0.65
+        units: mm
+      total_values_quantile_0_66:
+        description: Total values for the quantile 0.66
+        units: mm
+      total_values_quantile_0_67:
+        description: Total values for the quantile 0.67
+        units: mm
+      total_values_quantile_0_68:
+        description: Total values for the quantile 0.68
+        units: mm
+      total_values_quantile_0_69:
+        description: Total values for the quantile 0.69
+        units: mm
+      total_values_quantile_0_7:
+        description: Total values for the quantile 0.7
+        units: mm
+      total_values_quantile_0_71:
+        description: Total values for the quantile 0.71
+        units: mm
+      total_values_quantile_0_72:
+        description: Total values for the quantile 0.72
+        units: mm
+      total_values_quantile_0_73:
+        description: Total values for the quantile 0.73
+        units: mm
+      total_values_quantile_0_74:
+        description: Total values for the quantile 0.74
+        units: mm
+      total_values_quantile_0_75:
+        description: Total values for the quantile 0.75
+        units: mm
+      total_values_quantile_0_76:
+        description: Total values for the quantile 0.76
+        units: mm
+      total_values_quantile_0_77:
+        description: Total values for the quantile 0.77
+        units: mm
+      total_values_quantile_0_78:
+        description: Total values for the quantile 0.78
+        units: mm
+      total_values_quantile_0_79:
+        description: Total values for the quantile 0.79
+        units: mm
+      total_values_quantile_0_8:
+        description: Total values for the quantile 0.8
+        units: mm
+      total_values_quantile_0_81:
+        description: Total values for the quantile 0.81
+        units: mm
+      total_values_quantile_0_82:
+        description: Total values for the quantile 0.82
+        units: mm
+      total_values_quantile_0_83:
+        description: Total values for the quantile 0.83
+        units: mm
+      total_values_quantile_0_833:
+        description: Total values for the quantile 0.833
+        units: mm
+      total_values_quantile_0_84:
+        description: Total values for the quantile 0.84
+        units: mm
+      total_values_quantile_0_85:
+        description: Total values for the quantile 0.85
+        units: mm
+      total_values_quantile_0_86:
+        description: Total values for the quantile 0.86
+        units: mm
+      total_values_quantile_0_87:
+        description: Total values for the quantile 0.87
+        units: mm
+      total_values_quantile_0_88:
+        description: Total values for the quantile 0.88
+        units: mm
+      total_values_quantile_0_89:
+        description: Total values for the quantile 0.89
+        units: mm
+      total_values_quantile_0_9:
+        description: Total values for the quantile 0.9
+        units: mm
+      total_values_quantile_0_91:
+        description: Total values for the quantile 0.91
+        units: mm
+      total_values_quantile_0_92:
+        description: Total values for the quantile 0.92
+        units: mm
+      total_values_quantile_0_93:
+        description: Total values for the quantile 0.93
+        units: mm
+      total_values_quantile_0_94:
+        description: Total values for the quantile 0.94
+        units: mm
+      total_values_quantile_0_95:
+        description: Total values for the quantile 0.95
+        units: mm
+      total_values_quantile_0_96:
+        description: Total values for the quantile 0.96
+        units: mm
+      total_values_quantile_0_97:
+        description: Total values for the quantile 0.97
+        units: mm
+      total_values_quantile_0_98:
+        description: Total values for the quantile 0.98
+        units: mm
+      total_values_quantile_0_99:
+        description: Total values for the quantile 0.99
+        units: mm
+      total_values_quantile_0_995:
+        description: Total values for the quantile 0.995
+        units: mm
+      total_values_quantile_0_999:
+        description: Total values for the quantile 0.999
+        units: mm
+      total_values_quantile_1:
+        description: Total values for the quantile 1
+        units: mm
+      AIS_rates_quantile_0:
+        description: AIS rates for the quantile 0
+        units: mm/y
+      AIS_rates_quantile_0_001:
+        description: AIS rates for the quantile 0.001
+        units: mm/y
+      AIS_rates_quantile_0_005:
+        description: AIS rates for the quantile 0.005
+        units: mm/y
+      AIS_rates_quantile_0_01:
+        description: AIS rates for the quantile 0.01
+        units: mm/y
+      AIS_rates_quantile_0_02:
+        description: AIS rates for the quantile 0.02
+        units: mm/y
+      AIS_rates_quantile_0_03:
+        description: AIS rates for the quantile 0.03
+        units: mm/y
+      AIS_rates_quantile_0_04:
+        description: AIS rates for the quantile 0.04
+        units: mm/y
+      AIS_rates_quantile_0_05:
+        description: AIS rates for the quantile 0.05
+        units: mm/y
+      AIS_rates_quantile_0_06:
+        description: AIS rates for the quantile 0.06
+        units: mm/y
+      AIS_rates_quantile_0_07:
+        description: AIS rates for the quantile 0.07
+        units: mm/y
+      AIS_rates_quantile_0_08:
+        description: AIS rates for the quantile 0.08
+        units: mm/y
+      AIS_rates_quantile_0_09:
+        description: AIS rates for the quantile 0.09
+        units: mm/y
+      AIS_rates_quantile_0_1:
+        description: AIS rates for the quantile 0.1
+        units: mm/y
+      AIS_rates_quantile_0_11:
+        description: AIS rates for the quantile 0.11
+        units: mm/y
+      AIS_rates_quantile_0_12:
+        description: AIS rates for the quantile 0.12
+        units: mm/y
+      AIS_rates_quantile_0_13:
+        description: AIS rates for the quantile 0.13
+        units: mm/y
+      AIS_rates_quantile_0_14:
+        description: AIS rates for the quantile 0.14
+        units: mm/y
+      AIS_rates_quantile_0_15:
+        description: AIS rates for the quantile 0.15
+        units: mm/y
+      AIS_rates_quantile_0_16:
+        description: AIS rates for the quantile 0.16
+        units: mm/y
+      AIS_rates_quantile_0_167:
+        description: AIS rates for the quantile 0.167
+        units: mm/y
+      AIS_rates_quantile_0_17:
+        description: AIS rates for the quantile 0.17
+        units: mm/y
+      AIS_rates_quantile_0_18:
+        description: AIS rates for the quantile 0.18
+        units: mm/y
+      AIS_rates_quantile_0_19:
+        description: AIS rates for the quantile 0.19
+        units: mm/y
+      AIS_rates_quantile_0_2:
+        description: AIS rates for the quantile 0.2
+        units: mm/y
+      AIS_rates_quantile_0_21:
+        description: AIS rates for the quantile 0.21
+        units: mm/y
+      AIS_rates_quantile_0_22:
+        description: AIS rates for the quantile 0.22
+        units: mm/y
+      AIS_rates_quantile_0_23:
+        description: AIS rates for the quantile 0.23
+        units: mm/y
+      AIS_rates_quantile_0_24:
+        description: AIS rates for the quantile 0.24
+        units: mm/y
+      AIS_rates_quantile_0_25:
+        description: AIS rates for the quantile 0.25
+        units: mm/y
+      AIS_rates_quantile_0_26:
+        description: AIS rates for the quantile 0.26
+        units: mm/y
+      AIS_rates_quantile_0_27:
+        description: AIS rates for the quantile 0.27
+        units: mm/y
+      AIS_rates_quantile_0_28:
+        description: AIS rates for the quantile 0.28
+        units: mm/y
+      AIS_rates_quantile_0_29:
+        description: AIS rates for the quantile 0.29
+        units: mm/y
+      AIS_rates_quantile_0_3:
+        description: AIS rates for the quantile 0.3
+        units: mm/y
+      AIS_rates_quantile_0_31:
+        description: AIS rates for the quantile 0.31
+        units: mm/y
+      AIS_rates_quantile_0_32:
+        description: AIS rates for the quantile 0.32
+        units: mm/y
+      AIS_rates_quantile_0_33:
+        description: AIS rates for the quantile 0.33
+        units: mm/y
+      AIS_rates_quantile_0_34:
+        description: AIS rates for the quantile 0.34
+        units: mm/y
+      AIS_rates_quantile_0_35:
+        description: AIS rates for the quantile 0.35
+        units: mm/y
+      AIS_rates_quantile_0_36:
+        description: AIS rates for the quantile 0.36
+        units: mm/y
+      AIS_rates_quantile_0_37:
+        description: AIS rates for the quantile 0.37
+        units: mm/y
+      AIS_rates_quantile_0_38:
+        description: AIS rates for the quantile 0.38
+        units: mm/y
+      AIS_rates_quantile_0_39:
+        description: AIS rates for the quantile 0.39
+        units: mm/y
+      AIS_rates_quantile_0_4:
+        description: AIS rates for the quantile 0.4
+        units: mm/y
+      AIS_rates_quantile_0_41:
+        description: AIS rates for the quantile 0.41
+        units: mm/y
+      AIS_rates_quantile_0_42:
+        description: AIS rates for the quantile 0.42
+        units: mm/y
+      AIS_rates_quantile_0_43:
+        description: AIS rates for the quantile 0.43
+        units: mm/y
+      AIS_rates_quantile_0_44:
+        description: AIS rates for the quantile 0.44
+        units: mm/y
+      AIS_rates_quantile_0_45:
+        description: AIS rates for the quantile 0.45
+        units: mm/y
+      AIS_rates_quantile_0_46:
+        description: AIS rates for the quantile 0.46
+        units: mm/y
+      AIS_rates_quantile_0_47:
+        description: AIS rates for the quantile 0.47
+        units: mm/y
+      AIS_rates_quantile_0_48:
+        description: AIS rates for the quantile 0.48
+        units: mm/y
+      AIS_rates_quantile_0_49:
+        description: AIS rates for the quantile 0.49
+        units: mm/y
+      AIS_rates_quantile_0_5:
+        description: AIS rates for the quantile 0.5
+        units: mm/y
+      AIS_rates_quantile_0_51:
+        description: AIS rates for the quantile 0.51
+        units: mm/y
+      AIS_rates_quantile_0_52:
+        description: AIS rates for the quantile 0.52
+        units: mm/y
+      AIS_rates_quantile_0_53:
+        description: AIS rates for the quantile 0.53
+        units: mm/y
+      AIS_rates_quantile_0_54:
+        description: AIS rates for the quantile 0.54
+        units: mm/y
+      AIS_rates_quantile_0_55:
+        description: AIS rates for the quantile 0.55
+        units: mm/y
+      AIS_rates_quantile_0_56:
+        description: AIS rates for the quantile 0.56
+        units: mm/y
+      AIS_rates_quantile_0_57:
+        description: AIS rates for the quantile 0.57
+        units: mm/y
+      AIS_rates_quantile_0_58:
+        description: AIS rates for the quantile 0.58
+        units: mm/y
+      AIS_rates_quantile_0_59:
+        description: AIS rates for the quantile 0.59
+        units: mm/y
+      AIS_rates_quantile_0_6:
+        description: AIS rates for the quantile 0.6
+        units: mm/y
+      AIS_rates_quantile_0_61:
+        description: AIS rates for the quantile 0.61
+        units: mm/y
+      AIS_rates_quantile_0_62:
+        description: AIS rates for the quantile 0.62
+        units: mm/y
+      AIS_rates_quantile_0_63:
+        description: AIS rates for the quantile 0.63
+        units: mm/y
+      AIS_rates_quantile_0_64:
+        description: AIS rates for the quantile 0.64
+        units: mm/y
+      AIS_rates_quantile_0_65:
+        description: AIS rates for the quantile 0.65
+        units: mm/y
+      AIS_rates_quantile_0_66:
+        description: AIS rates for the quantile 0.66
+        units: mm/y
+      AIS_rates_quantile_0_67:
+        description: AIS rates for the quantile 0.67
+        units: mm/y
+      AIS_rates_quantile_0_68:
+        description: AIS rates for the quantile 0.68
+        units: mm/y
+      AIS_rates_quantile_0_69:
+        description: AIS rates for the quantile 0.69
+        units: mm/y
+      AIS_rates_quantile_0_7:
+        description: AIS rates for the quantile 0.7
+        units: mm/y
+      AIS_rates_quantile_0_71:
+        description: AIS rates for the quantile 0.71
+        units: mm/y
+      AIS_rates_quantile_0_72:
+        description: AIS rates for the quantile 0.72
+        units: mm/y
+      AIS_rates_quantile_0_73:
+        description: AIS rates for the quantile 0.73
+        units: mm/y
+      AIS_rates_quantile_0_74:
+        description: AIS rates for the quantile 0.74
+        units: mm/y
+      AIS_rates_quantile_0_75:
+        description: AIS rates for the quantile 0.75
+        units: mm/y
+      AIS_rates_quantile_0_76:
+        description: AIS rates for the quantile 0.76
+        units: mm/y
+      AIS_rates_quantile_0_77:
+        description: AIS rates for the quantile 0.77
+        units: mm/y
+      AIS_rates_quantile_0_78:
+        description: AIS rates for the quantile 0.78
+        units: mm/y
+      AIS_rates_quantile_0_79:
+        description: AIS rates for the quantile 0.79
+        units: mm/y
+      AIS_rates_quantile_0_8:
+        description: AIS rates for the quantile 0.8
+        units: mm/y
+      AIS_rates_quantile_0_81:
+        description: AIS rates for the quantile 0.81
+        units: mm/y
+      AIS_rates_quantile_0_82:
+        description: AIS rates for the quantile 0.82
+        units: mm/y
+      AIS_rates_quantile_0_83:
+        description: AIS rates for the quantile 0.83
+        units: mm/y
+      AIS_rates_quantile_0_833:
+        description: AIS rates for the quantile 0.833
+        units: mm/y
+      AIS_rates_quantile_0_84:
+        description: AIS rates for the quantile 0.84
+        units: mm/y
+      AIS_rates_quantile_0_85:
+        description: AIS rates for the quantile 0.85
+        units: mm/y
+      AIS_rates_quantile_0_86:
+        description: AIS rates for the quantile 0.86
+        units: mm/y
+      AIS_rates_quantile_0_87:
+        description: AIS rates for the quantile 0.87
+        units: mm/y
+      AIS_rates_quantile_0_88:
+        description: AIS rates for the quantile 0.88
+        units: mm/y
+      AIS_rates_quantile_0_89:
+        description: AIS rates for the quantile 0.89
+        units: mm/y
+      AIS_rates_quantile_0_9:
+        description: AIS rates for the quantile 0.9
+        units: mm/y
+      AIS_rates_quantile_0_91:
+        description: AIS rates for the quantile 0.91
+        units: mm/y
+      AIS_rates_quantile_0_92:
+        description: AIS rates for the quantile 0.92
+        units: mm/y
+      AIS_rates_quantile_0_93:
+        description: AIS rates for the quantile 0.93
+        units: mm/y
+      AIS_rates_quantile_0_94:
+        description: AIS rates for the quantile 0.94
+        units: mm/y
+      AIS_rates_quantile_0_95:
+        description: AIS rates for the quantile 0.95
+        units: mm/y
+      AIS_rates_quantile_0_96:
+        description: AIS rates for the quantile 0.96
+        units: mm/y
+      AIS_rates_quantile_0_97:
+        description: AIS rates for the quantile 0.97
+        units: mm/y
+      AIS_rates_quantile_0_98:
+        description: AIS rates for the quantile 0.98
+        units: mm/y
+      AIS_rates_quantile_0_99:
+        description: AIS rates for the quantile 0.99
+        units: mm/y
+      AIS_rates_quantile_0_995:
+        description: AIS rates for the quantile 0.995
+        units: mm/y
+      AIS_rates_quantile_0_999:
+        description: AIS rates for the quantile 0.999
+        units: mm/y
+      AIS_rates_quantile_1:
+        description: AIS rates for the quantile 1
+        units: mm/y
+      AIS_values_quantile_0:
+        description: AIS values for the quantile 0
+        units: mm
+      AIS_values_quantile_0_001:
+        description: AIS values for the quantile 0.001
+        units: mm
+      AIS_values_quantile_0_005:
+        description: AIS values for the quantile 0.005
+        units: mm
+      AIS_values_quantile_0_01:
+        description: AIS values for the quantile 0.01
+        units: mm
+      AIS_values_quantile_0_02:
+        description: AIS values for the quantile 0.02
+        units: mm
+      AIS_values_quantile_0_03:
+        description: AIS values for the quantile 0.03
+        units: mm
+      AIS_values_quantile_0_04:
+        description: AIS values for the quantile 0.04
+        units: mm
+      AIS_values_quantile_0_05:
+        description: AIS values for the quantile 0.05
+        units: mm
+      AIS_values_quantile_0_06:
+        description: AIS values for the quantile 0.06
+        units: mm
+      AIS_values_quantile_0_07:
+        description: AIS values for the quantile 0.07
+        units: mm
+      AIS_values_quantile_0_08:
+        description: AIS values for the quantile 0.08
+        units: mm
+      AIS_values_quantile_0_09:
+        description: AIS values for the quantile 0.09
+        units: mm
+      AIS_values_quantile_0_1:
+        description: AIS values for the quantile 0.1
+        units: mm
+      AIS_values_quantile_0_11:
+        description: AIS values for the quantile 0.11
+        units: mm
+      AIS_values_quantile_0_12:
+        description: AIS values for the quantile 0.12
+        units: mm
+      AIS_values_quantile_0_13:
+        description: AIS values for the quantile 0.13
+        units: mm
+      AIS_values_quantile_0_14:
+        description: AIS values for the quantile 0.14
+        units: mm
+      AIS_values_quantile_0_15:
+        description: AIS values for the quantile 0.15
+        units: mm
+      AIS_values_quantile_0_16:
+        description: AIS values for the quantile 0.16
+        units: mm
+      AIS_values_quantile_0_167:
+        description: AIS values for the quantile 0.167
+        units: mm
+      AIS_values_quantile_0_17:
+        description: AIS values for the quantile 0.17
+        units: mm
+      AIS_values_quantile_0_18:
+        description: AIS values for the quantile 0.18
+        units: mm
+      AIS_values_quantile_0_19:
+        description: AIS values for the quantile 0.19
+        units: mm
+      AIS_values_quantile_0_2:
+        description: AIS values for the quantile 0.2
+        units: mm
+      AIS_values_quantile_0_21:
+        description: AIS values for the quantile 0.21
+        units: mm
+      AIS_values_quantile_0_22:
+        description: AIS values for the quantile 0.22
+        units: mm
+      AIS_values_quantile_0_23:
+        description: AIS values for the quantile 0.23
+        units: mm
+      AIS_values_quantile_0_24:
+        description: AIS values for the quantile 0.24
+        units: mm
+      AIS_values_quantile_0_25:
+        description: AIS values for the quantile 0.25
+        units: mm
+      AIS_values_quantile_0_26:
+        description: AIS values for the quantile 0.26
+        units: mm
+      AIS_values_quantile_0_27:
+        description: AIS values for the quantile 0.27
+        units: mm
+      AIS_values_quantile_0_28:
+        description: AIS values for the quantile 0.28
+        units: mm
+      AIS_values_quantile_0_29:
+        description: AIS values for the quantile 0.29
+        units: mm
+      AIS_values_quantile_0_3:
+        description: AIS values for the quantile 0.3
+        units: mm
+      AIS_values_quantile_0_31:
+        description: AIS values for the quantile 0.31
+        units: mm
+      AIS_values_quantile_0_32:
+        description: AIS values for the quantile 0.32
+        units: mm
+      AIS_values_quantile_0_33:
+        description: AIS values for the quantile 0.33
+        units: mm
+      AIS_values_quantile_0_34:
+        description: AIS values for the quantile 0.34
+        units: mm
+      AIS_values_quantile_0_35:
+        description: AIS values for the quantile 0.35
+        units: mm
+      AIS_values_quantile_0_36:
+        description: AIS values for the quantile 0.36
+        units: mm
+      AIS_values_quantile_0_37:
+        description: AIS values for the quantile 0.37
+        units: mm
+      AIS_values_quantile_0_38:
+        description: AIS values for the quantile 0.38
+        units: mm
+      AIS_values_quantile_0_39:
+        description: AIS values for the quantile 0.39
+        units: mm
+      AIS_values_quantile_0_4:
+        description: AIS values for the quantile 0.4
+        units: mm
+      AIS_values_quantile_0_41:
+        description: AIS values for the quantile 0.41
+        units: mm
+      AIS_values_quantile_0_42:
+        description: AIS values for the quantile 0.42
+        units: mm
+      AIS_values_quantile_0_43:
+        description: AIS values for the quantile 0.43
+        units: mm
+      AIS_values_quantile_0_44:
+        description: AIS values for the quantile 0.44
+        units: mm
+      AIS_values_quantile_0_45:
+        description: AIS values for the quantile 0.45
+        units: mm
+      AIS_values_quantile_0_46:
+        description: AIS values for the quantile 0.46
+        units: mm
+      AIS_values_quantile_0_47:
+        description: AIS values for the quantile 0.47
+        units: mm
+      AIS_values_quantile_0_48:
+        description: AIS values for the quantile 0.48
+        units: mm
+      AIS_values_quantile_0_49:
+        description: AIS values for the quantile 0.49
+        units: mm
+      AIS_values_quantile_0_5:
+        description: AIS values for the quantile 0.5
+        units: mm
+      AIS_values_quantile_0_51:
+        description: AIS values for the quantile 0.51
+        units: mm
+      AIS_values_quantile_0_52:
+        description: AIS values for the quantile 0.52
+        units: mm
+      AIS_values_quantile_0_53:
+        description: AIS values for the quantile 0.53
+        units: mm
+      AIS_values_quantile_0_54:
+        description: AIS values for the quantile 0.54
+        units: mm
+      AIS_values_quantile_0_55:
+        description: AIS values for the quantile 0.55
+        units: mm
+      AIS_values_quantile_0_56:
+        description: AIS values for the quantile 0.56
+        units: mm
+      AIS_values_quantile_0_57:
+        description: AIS values for the quantile 0.57
+        units: mm
+      AIS_values_quantile_0_58:
+        description: AIS values for the quantile 0.58
+        units: mm
+      AIS_values_quantile_0_59:
+        description: AIS values for the quantile 0.59
+        units: mm
+      AIS_values_quantile_0_6:
+        description: AIS values for the quantile 0.6
+        units: mm
+      AIS_values_quantile_0_61:
+        description: AIS values for the quantile 0.61
+        units: mm
+      AIS_values_quantile_0_62:
+        description: AIS values for the quantile 0.62
+        units: mm
+      AIS_values_quantile_0_63:
+        description: AIS values for the quantile 0.63
+        units: mm
+      AIS_values_quantile_0_64:
+        description: AIS values for the quantile 0.64
+        units: mm
+      AIS_values_quantile_0_65:
+        description: AIS values for the quantile 0.65
+        units: mm
+      AIS_values_quantile_0_66:
+        description: AIS values for the quantile 0.66
+        units: mm
+      AIS_values_quantile_0_67:
+        description: AIS values for the quantile 0.67
+        units: mm
+      AIS_values_quantile_0_68:
+        description: AIS values for the quantile 0.68
+        units: mm
+      AIS_values_quantile_0_69:
+        description: AIS values for the quantile 0.69
+        units: mm
+      AIS_values_quantile_0_7:
+        description: AIS values for the quantile 0.7
+        units: mm
+      AIS_values_quantile_0_71:
+        description: AIS values for the quantile 0.71
+        units: mm
+      AIS_values_quantile_0_72:
+        description: AIS values for the quantile 0.72
+        units: mm
+      AIS_values_quantile_0_73:
+        description: AIS values for the quantile 0.73
+        units: mm
+      AIS_values_quantile_0_74:
+        description: AIS values for the quantile 0.74
+        units: mm
+      AIS_values_quantile_0_75:
+        description: AIS values for the quantile 0.75
+        units: mm
+      AIS_values_quantile_0_76:
+        description: AIS values for the quantile 0.76
+        units: mm
+      AIS_values_quantile_0_77:
+        description: AIS values for the quantile 0.77
+        units: mm
+      AIS_values_quantile_0_78:
+        description: AIS values for the quantile 0.78
+        units: mm
+      AIS_values_quantile_0_79:
+        description: AIS values for the quantile 0.79
+        units: mm
+      AIS_values_quantile_0_8:
+        description: AIS values for the quantile 0.8
+        units: mm
+      AIS_values_quantile_0_81:
+        description: AIS values for the quantile 0.81
+        units: mm
+      AIS_values_quantile_0_82:
+        description: AIS values for the quantile 0.82
+        units: mm
+      AIS_values_quantile_0_83:
+        description: AIS values for the quantile 0.83
+        units: mm
+      AIS_values_quantile_0_833:
+        description: AIS values for the quantile 0.833
+        units: mm
+      AIS_values_quantile_0_84:
+        description: AIS values for the quantile 0.84
+        units: mm
+      AIS_values_quantile_0_85:
+        description: AIS values for the quantile 0.85
+        units: mm
+      AIS_values_quantile_0_86:
+        description: AIS values for the quantile 0.86
+        units: mm
+      AIS_values_quantile_0_87:
+        description: AIS values for the quantile 0.87
+        units: mm
+      AIS_values_quantile_0_88:
+        description: AIS values for the quantile 0.88
+        units: mm
+      AIS_values_quantile_0_89:
+        description: AIS values for the quantile 0.89
+        units: mm
+      AIS_values_quantile_0_9:
+        description: AIS values for the quantile 0.9
+        units: mm
+      AIS_values_quantile_0_91:
+        description: AIS values for the quantile 0.91
+        units: mm
+      AIS_values_quantile_0_92:
+        description: AIS values for the quantile 0.92
+        units: mm
+      AIS_values_quantile_0_93:
+        description: AIS values for the quantile 0.93
+        units: mm
+      AIS_values_quantile_0_94:
+        description: AIS values for the quantile 0.94
+        units: mm
+      AIS_values_quantile_0_95:
+        description: AIS values for the quantile 0.95
+        units: mm
+      AIS_values_quantile_0_96:
+        description: AIS values for the quantile 0.96
+        units: mm
+      AIS_values_quantile_0_97:
+        description: AIS values for the quantile 0.97
+        units: mm
+      AIS_values_quantile_0_98:
+        description: AIS values for the quantile 0.98
+        units: mm
+      AIS_values_quantile_0_99:
+        description: AIS values for the quantile 0.99
+        units: mm
+      AIS_values_quantile_0_995:
+        description: AIS values for the quantile 0.995
+        units: mm
+      AIS_values_quantile_0_999:
+        description: AIS values for the quantile 0.999
+        units: mm
+      AIS_values_quantile_1:
+        description: AIS values for the quantile 1
+        units: mm
+      GIS_rates_quantile_0:
+        description: GIS rates for the quantile 0
+        units: mm/y
+      GIS_rates_quantile_0_001:
+        description: GIS rates for the quantile 0.001
+        units: mm/y
+      GIS_rates_quantile_0_005:
+        description: GIS rates for the quantile 0.005
+        units: mm/y
+      GIS_rates_quantile_0_01:
+        description: GIS rates for the quantile 0.01
+        units: mm/y
+      GIS_rates_quantile_0_02:
+        description: GIS rates for the quantile 0.02
+        units: mm/y
+      GIS_rates_quantile_0_03:
+        description: GIS rates for the quantile 0.03
+        units: mm/y
+      GIS_rates_quantile_0_04:
+        description: GIS rates for the quantile 0.04
+        units: mm/y
+      GIS_rates_quantile_0_05:
+        description: GIS rates for the quantile 0.05
+        units: mm/y
+      GIS_rates_quantile_0_06:
+        description: GIS rates for the quantile 0.06
+        units: mm/y
+      GIS_rates_quantile_0_07:
+        description: GIS rates for the quantile 0.07
+        units: mm/y
+      GIS_rates_quantile_0_08:
+        description: GIS rates for the quantile 0.08
+        units: mm/y
+      GIS_rates_quantile_0_09:
+        description: GIS rates for the quantile 0.09
+        units: mm/y
+      GIS_rates_quantile_0_1:
+        description: GIS rates for the quantile 0.1
+        units: mm/y
+      GIS_rates_quantile_0_11:
+        description: GIS rates for the quantile 0.11
+        units: mm/y
+      GIS_rates_quantile_0_12:
+        description: GIS rates for the quantile 0.12
+        units: mm/y
+      GIS_rates_quantile_0_13:
+        description: GIS rates for the quantile 0.13
+        units: mm/y
+      GIS_rates_quantile_0_14:
+        description: GIS rates for the quantile 0.14
+        units: mm/y
+      GIS_rates_quantile_0_15:
+        description: GIS rates for the quantile 0.15
+        units: mm/y
+      GIS_rates_quantile_0_16:
+        description: GIS rates for the quantile 0.16
+        units: mm/y
+      GIS_rates_quantile_0_167:
+        description: GIS rates for the quantile 0.167
+        units: mm/y
+      GIS_rates_quantile_0_17:
+        description: GIS rates for the quantile 0.17
+        units: mm/y
+      GIS_rates_quantile_0_18:
+        description: GIS rates for the quantile 0.18
+        units: mm/y
+      GIS_rates_quantile_0_19:
+        description: GIS rates for the quantile 0.19
+        units: mm/y
+      GIS_rates_quantile_0_2:
+        description: GIS rates for the quantile 0.2
+        units: mm/y
+      GIS_rates_quantile_0_21:
+        description: GIS rates for the quantile 0.21
+        units: mm/y
+      GIS_rates_quantile_0_22:
+        description: GIS rates for the quantile 0.22
+        units: mm/y
+      GIS_rates_quantile_0_23:
+        description: GIS rates for the quantile 0.23
+        units: mm/y
+      GIS_rates_quantile_0_24:
+        description: GIS rates for the quantile 0.24
+        units: mm/y
+      GIS_rates_quantile_0_25:
+        description: GIS rates for the quantile 0.25
+        units: mm/y
+      GIS_rates_quantile_0_26:
+        description: GIS rates for the quantile 0.26
+        units: mm/y
+      GIS_rates_quantile_0_27:
+        description: GIS rates for the quantile 0.27
+        units: mm/y
+      GIS_rates_quantile_0_28:
+        description: GIS rates for the quantile 0.28
+        units: mm/y
+      GIS_rates_quantile_0_29:
+        description: GIS rates for the quantile 0.29
+        units: mm/y
+      GIS_rates_quantile_0_3:
+        description: GIS rates for the quantile 0.3
+        units: mm/y
+      GIS_rates_quantile_0_31:
+        description: GIS rates for the quantile 0.31
+        units: mm/y
+      GIS_rates_quantile_0_32:
+        description: GIS rates for the quantile 0.32
+        units: mm/y
+      GIS_rates_quantile_0_33:
+        description: GIS rates for the quantile 0.33
+        units: mm/y
+      GIS_rates_quantile_0_34:
+        description: GIS rates for the quantile 0.34
+        units: mm/y
+      GIS_rates_quantile_0_35:
+        description: GIS rates for the quantile 0.35
+        units: mm/y
+      GIS_rates_quantile_0_36:
+        description: GIS rates for the quantile 0.36
+        units: mm/y
+      GIS_rates_quantile_0_37:
+        description: GIS rates for the quantile 0.37
+        units: mm/y
+      GIS_rates_quantile_0_38:
+        description: GIS rates for the quantile 0.38
+        units: mm/y
+      GIS_rates_quantile_0_39:
+        description: GIS rates for the quantile 0.39
+        units: mm/y
+      GIS_rates_quantile_0_4:
+        description: GIS rates for the quantile 0.4
+        units: mm/y
+      GIS_rates_quantile_0_41:
+        description: GIS rates for the quantile 0.41
+        units: mm/y
+      GIS_rates_quantile_0_42:
+        description: GIS rates for the quantile 0.42
+        units: mm/y
+      GIS_rates_quantile_0_43:
+        description: GIS rates for the quantile 0.43
+        units: mm/y
+      GIS_rates_quantile_0_44:
+        description: GIS rates for the quantile 0.44
+        units: mm/y
+      GIS_rates_quantile_0_45:
+        description: GIS rates for the quantile 0.45
+        units: mm/y
+      GIS_rates_quantile_0_46:
+        description: GIS rates for the quantile 0.46
+        units: mm/y
+      GIS_rates_quantile_0_47:
+        description: GIS rates for the quantile 0.47
+        units: mm/y
+      GIS_rates_quantile_0_48:
+        description: GIS rates for the quantile 0.48
+        units: mm/y
+      GIS_rates_quantile_0_49:
+        description: GIS rates for the quantile 0.49
+        units: mm/y
+      GIS_rates_quantile_0_5:
+        description: GIS rates for the quantile 0.5
+        units: mm/y
+      GIS_rates_quantile_0_51:
+        description: GIS rates for the quantile 0.51
+        units: mm/y
+      GIS_rates_quantile_0_52:
+        description: GIS rates for the quantile 0.52
+        units: mm/y
+      GIS_rates_quantile_0_53:
+        description: GIS rates for the quantile 0.53
+        units: mm/y
+      GIS_rates_quantile_0_54:
+        description: GIS rates for the quantile 0.54
+        units: mm/y
+      GIS_rates_quantile_0_55:
+        description: GIS rates for the quantile 0.55
+        units: mm/y
+      GIS_rates_quantile_0_56:
+        description: GIS rates for the quantile 0.56
+        units: mm/y
+      GIS_rates_quantile_0_57:
+        description: GIS rates for the quantile 0.57
+        units: mm/y
+      GIS_rates_quantile_0_58:
+        description: GIS rates for the quantile 0.58
+        units: mm/y
+      GIS_rates_quantile_0_59:
+        description: GIS rates for the quantile 0.59
+        units: mm/y
+      GIS_rates_quantile_0_6:
+        description: GIS rates for the quantile 0.6
+        units: mm/y
+      GIS_rates_quantile_0_61:
+        description: GIS rates for the quantile 0.61
+        units: mm/y
+      GIS_rates_quantile_0_62:
+        description: GIS rates for the quantile 0.62
+        units: mm/y
+      GIS_rates_quantile_0_63:
+        description: GIS rates for the quantile 0.63
+        units: mm/y
+      GIS_rates_quantile_0_64:
+        description: GIS rates for the quantile 0.64
+        units: mm/y
+      GIS_rates_quantile_0_65:
+        description: GIS rates for the quantile 0.65
+        units: mm/y
+      GIS_rates_quantile_0_66:
+        description: GIS rates for the quantile 0.66
+        units: mm/y
+      GIS_rates_quantile_0_67:
+        description: GIS rates for the quantile 0.67
+        units: mm/y
+      GIS_rates_quantile_0_68:
+        description: GIS rates for the quantile 0.68
+        units: mm/y
+      GIS_rates_quantile_0_69:
+        description: GIS rates for the quantile 0.69
+        units: mm/y
+      GIS_rates_quantile_0_7:
+        description: GIS rates for the quantile 0.7
+        units: mm/y
+      GIS_rates_quantile_0_71:
+        description: GIS rates for the quantile 0.71
+        units: mm/y
+      GIS_rates_quantile_0_72:
+        description: GIS rates for the quantile 0.72
+        units: mm/y
+      GIS_rates_quantile_0_73:
+        description: GIS rates for the quantile 0.73
+        units: mm/y
+      GIS_rates_quantile_0_74:
+        description: GIS rates for the quantile 0.74
+        units: mm/y
+      GIS_rates_quantile_0_75:
+        description: GIS rates for the quantile 0.75
+        units: mm/y
+      GIS_rates_quantile_0_76:
+        description: GIS rates for the quantile 0.76
+        units: mm/y
+      GIS_rates_quantile_0_77:
+        description: GIS rates for the quantile 0.77
+        units: mm/y
+      GIS_rates_quantile_0_78:
+        description: GIS rates for the quantile 0.78
+        units: mm/y
+      GIS_rates_quantile_0_79:
+        description: GIS rates for the quantile 0.79
+        units: mm/y
+      GIS_rates_quantile_0_8:
+        description: GIS rates for the quantile 0.8
+        units: mm/y
+      GIS_rates_quantile_0_81:
+        description: GIS rates for the quantile 0.81
+        units: mm/y
+      GIS_rates_quantile_0_82:
+        description: GIS rates for the quantile 0.82
+        units: mm/y
+      GIS_rates_quantile_0_83:
+        description: GIS rates for the quantile 0.83
+        units: mm/y
+      GIS_rates_quantile_0_833:
+        description: GIS rates for the quantile 0.833
+        units: mm/y
+      GIS_rates_quantile_0_84:
+        description: GIS rates for the quantile 0.84
+        units: mm/y
+      GIS_rates_quantile_0_85:
+        description: GIS rates for the quantile 0.85
+        units: mm/y
+      GIS_rates_quantile_0_86:
+        description: GIS rates for the quantile 0.86
+        units: mm/y
+      GIS_rates_quantile_0_87:
+        description: GIS rates for the quantile 0.87
+        units: mm/y
+      GIS_rates_quantile_0_88:
+        description: GIS rates for the quantile 0.88
+        units: mm/y
+      GIS_rates_quantile_0_89:
+        description: GIS rates for the quantile 0.89
+        units: mm/y
+      GIS_rates_quantile_0_9:
+        description: GIS rates for the quantile 0.9
+        units: mm/y
+      GIS_rates_quantile_0_91:
+        description: GIS rates for the quantile 0.91
+        units: mm/y
+      GIS_rates_quantile_0_92:
+        description: GIS rates for the quantile 0.92
+        units: mm/y
+      GIS_rates_quantile_0_93:
+        description: GIS rates for the quantile 0.93
+        units: mm/y
+      GIS_rates_quantile_0_94:
+        description: GIS rates for the quantile 0.94
+        units: mm/y
+      GIS_rates_quantile_0_95:
+        description: GIS rates for the quantile 0.95
+        units: mm/y
+      GIS_rates_quantile_0_96:
+        description: GIS rates for the quantile 0.96
+        units: mm/y
+      GIS_rates_quantile_0_97:
+        description: GIS rates for the quantile 0.97
+        units: mm/y
+      GIS_rates_quantile_0_98:
+        description: GIS rates for the quantile 0.98
+        units: mm/y
+      GIS_rates_quantile_0_99:
+        description: GIS rates for the quantile 0.99
+        units: mm/y
+      GIS_rates_quantile_0_995:
+        description: GIS rates for the quantile 0.995
+        units: mm/y
+      GIS_rates_quantile_0_999:
+        description: GIS rates for the quantile 0.999
+        units: mm/y
+      GIS_rates_quantile_1:
+        description: GIS rates for the quantile 1
+        units: mm/y
+      GIS_values_quantile_0:
+        description: GIS values for the quantile 0
+        units: mm
+      GIS_values_quantile_0_001:
+        description: GIS values for the quantile 0.001
+        units: mm
+      GIS_values_quantile_0_005:
+        description: GIS values for the quantile 0.005
+        units: mm
+      GIS_values_quantile_0_01:
+        description: GIS values for the quantile 0.01
+        units: mm
+      GIS_values_quantile_0_02:
+        description: GIS values for the quantile 0.02
+        units: mm
+      GIS_values_quantile_0_03:
+        description: GIS values for the quantile 0.03
+        units: mm
+      GIS_values_quantile_0_04:
+        description: GIS values for the quantile 0.04
+        units: mm
+      GIS_values_quantile_0_05:
+        description: GIS values for the quantile 0.05
+        units: mm
+      GIS_values_quantile_0_06:
+        description: GIS values for the quantile 0.06
+        units: mm
+      GIS_values_quantile_0_07:
+        description: GIS values for the quantile 0.07
+        units: mm
+      GIS_values_quantile_0_08:
+        description: GIS values for the quantile 0.08
+        units: mm
+      GIS_values_quantile_0_09:
+        description: GIS values for the quantile 0.09
+        units: mm
+      GIS_values_quantile_0_1:
+        description: GIS values for the quantile 0.1
+        units: mm
+      GIS_values_quantile_0_11:
+        description: GIS values for the quantile 0.11
+        units: mm
+      GIS_values_quantile_0_12:
+        description: GIS values for the quantile 0.12
+        units: mm
+      GIS_values_quantile_0_13:
+        description: GIS values for the quantile 0.13
+        units: mm
+      GIS_values_quantile_0_14:
+        description: GIS values for the quantile 0.14
+        units: mm
+      GIS_values_quantile_0_15:
+        description: GIS values for the quantile 0.15
+        units: mm
+      GIS_values_quantile_0_16:
+        description: GIS values for the quantile 0.16
+        units: mm
+      GIS_values_quantile_0_167:
+        description: GIS values for the quantile 0.167
+        units: mm
+      GIS_values_quantile_0_17:
+        description: GIS values for the quantile 0.17
+        units: mm
+      GIS_values_quantile_0_18:
+        description: GIS values for the quantile 0.18
+        units: mm
+      GIS_values_quantile_0_19:
+        description: GIS values for the quantile 0.19
+        units: mm
+      GIS_values_quantile_0_2:
+        description: GIS values for the quantile 0.2
+        units: mm
+      GIS_values_quantile_0_21:
+        description: GIS values for the quantile 0.21
+        units: mm
+      GIS_values_quantile_0_22:
+        description: GIS values for the quantile 0.22
+        units: mm
+      GIS_values_quantile_0_23:
+        description: GIS values for the quantile 0.23
+        units: mm
+      GIS_values_quantile_0_24:
+        description: GIS values for the quantile 0.24
+        units: mm
+      GIS_values_quantile_0_25:
+        description: GIS values for the quantile 0.25
+        units: mm
+      GIS_values_quantile_0_26:
+        description: GIS values for the quantile 0.26
+        units: mm
+      GIS_values_quantile_0_27:
+        description: GIS values for the quantile 0.27
+        units: mm
+      GIS_values_quantile_0_28:
+        description: GIS values for the quantile 0.28
+        units: mm
+      GIS_values_quantile_0_29:
+        description: GIS values for the quantile 0.29
+        units: mm
+      GIS_values_quantile_0_3:
+        description: GIS values for the quantile 0.3
+        units: mm
+      GIS_values_quantile_0_31:
+        description: GIS values for the quantile 0.31
+        units: mm
+      GIS_values_quantile_0_32:
+        description: GIS values for the quantile 0.32
+        units: mm
+      GIS_values_quantile_0_33:
+        description: GIS values for the quantile 0.33
+        units: mm
+      GIS_values_quantile_0_34:
+        description: GIS values for the quantile 0.34
+        units: mm
+      GIS_values_quantile_0_35:
+        description: GIS values for the quantile 0.35
+        units: mm
+      GIS_values_quantile_0_36:
+        description: GIS values for the quantile 0.36
+        units: mm
+      GIS_values_quantile_0_37:
+        description: GIS values for the quantile 0.37
+        units: mm
+      GIS_values_quantile_0_38:
+        description: GIS values for the quantile 0.38
+        units: mm
+      GIS_values_quantile_0_39:
+        description: GIS values for the quantile 0.39
+        units: mm
+      GIS_values_quantile_0_4:
+        description: GIS values for the quantile 0.4
+        units: mm
+      GIS_values_quantile_0_41:
+        description: GIS values for the quantile 0.41
+        units: mm
+      GIS_values_quantile_0_42:
+        description: GIS values for the quantile 0.42
+        units: mm
+      GIS_values_quantile_0_43:
+        description: GIS values for the quantile 0.43
+        units: mm
+      GIS_values_quantile_0_44:
+        description: GIS values for the quantile 0.44
+        units: mm
+      GIS_values_quantile_0_45:
+        description: GIS values for the quantile 0.45
+        units: mm
+      GIS_values_quantile_0_46:
+        description: GIS values for the quantile 0.46
+        units: mm
+      GIS_values_quantile_0_47:
+        description: GIS values for the quantile 0.47
+        units: mm
+      GIS_values_quantile_0_48:
+        description: GIS values for the quantile 0.48
+        units: mm
+      GIS_values_quantile_0_49:
+        description: GIS values for the quantile 0.49
+        units: mm
+      GIS_values_quantile_0_5:
+        description: GIS values for the quantile 0.5
+        units: mm
+      GIS_values_quantile_0_51:
+        description: GIS values for the quantile 0.51
+        units: mm
+      GIS_values_quantile_0_52:
+        description: GIS values for the quantile 0.52
+        units: mm
+      GIS_values_quantile_0_53:
+        description: GIS values for the quantile 0.53
+        units: mm
+      GIS_values_quantile_0_54:
+        description: GIS values for the quantile 0.54
+        units: mm
+      GIS_values_quantile_0_55:
+        description: GIS values for the quantile 0.55
+        units: mm
+      GIS_values_quantile_0_56:
+        description: GIS values for the quantile 0.56
+        units: mm
+      GIS_values_quantile_0_57:
+        description: GIS values for the quantile 0.57
+        units: mm
+      GIS_values_quantile_0_58:
+        description: GIS values for the quantile 0.58
+        units: mm
+      GIS_values_quantile_0_59:
+        description: GIS values for the quantile 0.59
+        units: mm
+      GIS_values_quantile_0_6:
+        description: GIS values for the quantile 0.6
+        units: mm
+      GIS_values_quantile_0_61:
+        description: GIS values for the quantile 0.61
+        units: mm
+      GIS_values_quantile_0_62:
+        description: GIS values for the quantile 0.62
+        units: mm
+      GIS_values_quantile_0_63:
+        description: GIS values for the quantile 0.63
+        units: mm
+      GIS_values_quantile_0_64:
+        description: GIS values for the quantile 0.64
+        units: mm
+      GIS_values_quantile_0_65:
+        description: GIS values for the quantile 0.65
+        units: mm
+      GIS_values_quantile_0_66:
+        description: GIS values for the quantile 0.66
+        units: mm
+      GIS_values_quantile_0_67:
+        description: GIS values for the quantile 0.67
+        units: mm
+      GIS_values_quantile_0_68:
+        description: GIS values for the quantile 0.68
+        units: mm
+      GIS_values_quantile_0_69:
+        description: GIS values for the quantile 0.69
+        units: mm
+      GIS_values_quantile_0_7:
+        description: GIS values for the quantile 0.7
+        units: mm
+      GIS_values_quantile_0_71:
+        description: GIS values for the quantile 0.71
+        units: mm
+      GIS_values_quantile_0_72:
+        description: GIS values for the quantile 0.72
+        units: mm
+      GIS_values_quantile_0_73:
+        description: GIS values for the quantile 0.73
+        units: mm
+      GIS_values_quantile_0_74:
+        description: GIS values for the quantile 0.74
+        units: mm
+      GIS_values_quantile_0_75:
+        description: GIS values for the quantile 0.75
+        units: mm
+      GIS_values_quantile_0_76:
+        description: GIS values for the quantile 0.76
+        units: mm
+      GIS_values_quantile_0_77:
+        description: GIS values for the quantile 0.77
+        units: mm
+      GIS_values_quantile_0_78:
+        description: GIS values for the quantile 0.78
+        units: mm
+      GIS_values_quantile_0_79:
+        description: GIS values for the quantile 0.79
+        units: mm
+      GIS_values_quantile_0_8:
+        description: GIS values for the quantile 0.8
+        units: mm
+      GIS_values_quantile_0_81:
+        description: GIS values for the quantile 0.81
+        units: mm
+      GIS_values_quantile_0_82:
+        description: GIS values for the quantile 0.82
+        units: mm
+      GIS_values_quantile_0_83:
+        description: GIS values for the quantile 0.83
+        units: mm
+      GIS_values_quantile_0_833:
+        description: GIS values for the quantile 0.833
+        units: mm
+      GIS_values_quantile_0_84:
+        description: GIS values for the quantile 0.84
+        units: mm
+      GIS_values_quantile_0_85:
+        description: GIS values for the quantile 0.85
+        units: mm
+      GIS_values_quantile_0_86:
+        description: GIS values for the quantile 0.86
+        units: mm
+      GIS_values_quantile_0_87:
+        description: GIS values for the quantile 0.87
+        units: mm
+      GIS_values_quantile_0_88:
+        description: GIS values for the quantile 0.88
+        units: mm
+      GIS_values_quantile_0_89:
+        description: GIS values for the quantile 0.89
+        units: mm
+      GIS_values_quantile_0_9:
+        description: GIS values for the quantile 0.9
+        units: mm
+      GIS_values_quantile_0_91:
+        description: GIS values for the quantile 0.91
+        units: mm
+      GIS_values_quantile_0_92:
+        description: GIS values for the quantile 0.92
+        units: mm
+      GIS_values_quantile_0_93:
+        description: GIS values for the quantile 0.93
+        units: mm
+      GIS_values_quantile_0_94:
+        description: GIS values for the quantile 0.94
+        units: mm
+      GIS_values_quantile_0_95:
+        description: GIS values for the quantile 0.95
+        units: mm
+      GIS_values_quantile_0_96:
+        description: GIS values for the quantile 0.96
+        units: mm
+      GIS_values_quantile_0_97:
+        description: GIS values for the quantile 0.97
+        units: mm
+      GIS_values_quantile_0_98:
+        description: GIS values for the quantile 0.98
+        units: mm
+      GIS_values_quantile_0_99:
+        description: GIS values for the quantile 0.99
+        units: mm
+      GIS_values_quantile_0_995:
+        description: GIS values for the quantile 0.995
+        units: mm
+      GIS_values_quantile_0_999:
+        description: GIS values for the quantile 0.999
+        units: mm
+      GIS_values_quantile_1:
+        description: GIS values for the quantile 1
+        units: mm
+      glaciers_rates_quantile_0:
+        description: Glaciers rates for the quantile 0
+        units: mm/y
+      glaciers_rates_quantile_0_001:
+        description: Glaciers rates for the quantile 0.001
+        units: mm/y
+      glaciers_rates_quantile_0_005:
+        description: Glaciers rates for the quantile 0.005
+        units: mm/y
+      glaciers_rates_quantile_0_01:
+        description: Glaciers rates for the quantile 0.01
+        units: mm/y
+      glaciers_rates_quantile_0_02:
+        description: Glaciers rates for the quantile 0.02
+        units: mm/y
+      glaciers_rates_quantile_0_03:
+        description: Glaciers rates for the quantile 0.03
+        units: mm/y
+      glaciers_rates_quantile_0_04:
+        description: Glaciers rates for the quantile 0.04
+        units: mm/y
+      glaciers_rates_quantile_0_05:
+        description: Glaciers rates for the quantile 0.05
+        units: mm/y
+      glaciers_rates_quantile_0_06:
+        description: Glaciers rates for the quantile 0.06
+        units: mm/y
+      glaciers_rates_quantile_0_07:
+        description: Glaciers rates for the quantile 0.07
+        units: mm/y
+      glaciers_rates_quantile_0_08:
+        description: Glaciers rates for the quantile 0.08
+        units: mm/y
+      glaciers_rates_quantile_0_09:
+        description: Glaciers rates for the quantile 0.09
+        units: mm/y
+      glaciers_rates_quantile_0_1:
+        description: Glaciers rates for the quantile 0.1
+        units: mm/y
+      glaciers_rates_quantile_0_11:
+        description: Glaciers rates for the quantile 0.11
+        units: mm/y
+      glaciers_rates_quantile_0_12:
+        description: Glaciers rates for the quantile 0.12
+        units: mm/y
+      glaciers_rates_quantile_0_13:
+        description: Glaciers rates for the quantile 0.13
+        units: mm/y
+      glaciers_rates_quantile_0_14:
+        description: Glaciers rates for the quantile 0.14
+        units: mm/y
+      glaciers_rates_quantile_0_15:
+        description: Glaciers rates for the quantile 0.15
+        units: mm/y
+      glaciers_rates_quantile_0_16:
+        description: Glaciers rates for the quantile 0.16
+        units: mm/y
+      glaciers_rates_quantile_0_167:
+        description: Glaciers rates for the quantile 0.167
+        units: mm/y
+      glaciers_rates_quantile_0_17:
+        description: Glaciers rates for the quantile 0.17
+        units: mm/y
+      glaciers_rates_quantile_0_18:
+        description: Glaciers rates for the quantile 0.18
+        units: mm/y
+      glaciers_rates_quantile_0_19:
+        description: Glaciers rates for the quantile 0.19
+        units: mm/y
+      glaciers_rates_quantile_0_2:
+        description: Glaciers rates for the quantile 0.2
+        units: mm/y
+      glaciers_rates_quantile_0_21:
+        description: Glaciers rates for the quantile 0.21
+        units: mm/y
+      glaciers_rates_quantile_0_22:
+        description: Glaciers rates for the quantile 0.22
+        units: mm/y
+      glaciers_rates_quantile_0_23:
+        description: Glaciers rates for the quantile 0.23
+        units: mm/y
+      glaciers_rates_quantile_0_24:
+        description: Glaciers rates for the quantile 0.24
+        units: mm/y
+      glaciers_rates_quantile_0_25:
+        description: Glaciers rates for the quantile 0.25
+        units: mm/y
+      glaciers_rates_quantile_0_26:
+        description: Glaciers rates for the quantile 0.26
+        units: mm/y
+      glaciers_rates_quantile_0_27:
+        description: Glaciers rates for the quantile 0.27
+        units: mm/y
+      glaciers_rates_quantile_0_28:
+        description: Glaciers rates for the quantile 0.28
+        units: mm/y
+      glaciers_rates_quantile_0_29:
+        description: Glaciers rates for the quantile 0.29
+        units: mm/y
+      glaciers_rates_quantile_0_3:
+        description: Glaciers rates for the quantile 0.3
+        units: mm/y
+      glaciers_rates_quantile_0_31:
+        description: Glaciers rates for the quantile 0.31
+        units: mm/y
+      glaciers_rates_quantile_0_32:
+        description: Glaciers rates for the quantile 0.32
+        units: mm/y
+      glaciers_rates_quantile_0_33:
+        description: Glaciers rates for the quantile 0.33
+        units: mm/y
+      glaciers_rates_quantile_0_34:
+        description: Glaciers rates for the quantile 0.34
+        units: mm/y
+      glaciers_rates_quantile_0_35:
+        description: Glaciers rates for the quantile 0.35
+        units: mm/y
+      glaciers_rates_quantile_0_36:
+        description: Glaciers rates for the quantile 0.36
+        units: mm/y
+      glaciers_rates_quantile_0_37:
+        description: Glaciers rates for the quantile 0.37
+        units: mm/y
+      glaciers_rates_quantile_0_38:
+        description: Glaciers rates for the quantile 0.38
+        units: mm/y
+      glaciers_rates_quantile_0_39:
+        description: Glaciers rates for the quantile 0.39
+        units: mm/y
+      glaciers_rates_quantile_0_4:
+        description: Glaciers rates for the quantile 0.4
+        units: mm/y
+      glaciers_rates_quantile_0_41:
+        description: Glaciers rates for the quantile 0.41
+        units: mm/y
+      glaciers_rates_quantile_0_42:
+        description: Glaciers rates for the quantile 0.42
+        units: mm/y
+      glaciers_rates_quantile_0_43:
+        description: Glaciers rates for the quantile 0.43
+        units: mm/y
+      glaciers_rates_quantile_0_44:
+        description: Glaciers rates for the quantile 0.44
+        units: mm/y
+      glaciers_rates_quantile_0_45:
+        description: Glaciers rates for the quantile 0.45
+        units: mm/y
+      glaciers_rates_quantile_0_46:
+        description: Glaciers rates for the quantile 0.46
+        units: mm/y
+      glaciers_rates_quantile_0_47:
+        description: Glaciers rates for the quantile 0.47
+        units: mm/y
+      glaciers_rates_quantile_0_48:
+        description: Glaciers rates for the quantile 0.48
+        units: mm/y
+      glaciers_rates_quantile_0_49:
+        description: Glaciers rates for the quantile 0.49
+        units: mm/y
+      glaciers_rates_quantile_0_5:
+        description: Glaciers rates for the quantile 0.5
+        units: mm/y
+      glaciers_rates_quantile_0_51:
+        description: Glaciers rates for the quantile 0.51
+        units: mm/y
+      glaciers_rates_quantile_0_52:
+        description: Glaciers rates for the quantile 0.52
+        units: mm/y
+      glaciers_rates_quantile_0_53:
+        description: Glaciers rates for the quantile 0.53
+        units: mm/y
+      glaciers_rates_quantile_0_54:
+        description: Glaciers rates for the quantile 0.54
+        units: mm/y
+      glaciers_rates_quantile_0_55:
+        description: Glaciers rates for the quantile 0.55
+        units: mm/y
+      glaciers_rates_quantile_0_56:
+        description: Glaciers rates for the quantile 0.56
+        units: mm/y
+      glaciers_rates_quantile_0_57:
+        description: Glaciers rates for the quantile 0.57
+        units: mm/y
+      glaciers_rates_quantile_0_58:
+        description: Glaciers rates for the quantile 0.58
+        units: mm/y
+      glaciers_rates_quantile_0_59:
+        description: Glaciers rates for the quantile 0.59
+        units: mm/y
+      glaciers_rates_quantile_0_6:
+        description: Glaciers rates for the quantile 0.6
+        units: mm/y
+      glaciers_rates_quantile_0_61:
+        description: Glaciers rates for the quantile 0.61
+        units: mm/y
+      glaciers_rates_quantile_0_62:
+        description: Glaciers rates for the quantile 0.62
+        units: mm/y
+      glaciers_rates_quantile_0_63:
+        description: Glaciers rates for the quantile 0.63
+        units: mm/y
+      glaciers_rates_quantile_0_64:
+        description: Glaciers rates for the quantile 0.64
+        units: mm/y
+      glaciers_rates_quantile_0_65:
+        description: Glaciers rates for the quantile 0.65
+        units: mm/y
+      glaciers_rates_quantile_0_66:
+        description: Glaciers rates for the quantile 0.66
+        units: mm/y
+      glaciers_rates_quantile_0_67:
+        description: Glaciers rates for the quantile 0.67
+        units: mm/y
+      glaciers_rates_quantile_0_68:
+        description: Glaciers rates for the quantile 0.68
+        units: mm/y
+      glaciers_rates_quantile_0_69:
+        description: Glaciers rates for the quantile 0.69
+        units: mm/y
+      glaciers_rates_quantile_0_7:
+        description: Glaciers rates for the quantile 0.7
+        units: mm/y
+      glaciers_rates_quantile_0_71:
+        description: Glaciers rates for the quantile 0.71
+        units: mm/y
+      glaciers_rates_quantile_0_72:
+        description: Glaciers rates for the quantile 0.72
+        units: mm/y
+      glaciers_rates_quantile_0_73:
+        description: Glaciers rates for the quantile 0.73
+        units: mm/y
+      glaciers_rates_quantile_0_74:
+        description: Glaciers rates for the quantile 0.74
+        units: mm/y
+      glaciers_rates_quantile_0_75:
+        description: Glaciers rates for the quantile 0.75
+        units: mm/y
+      glaciers_rates_quantile_0_76:
+        description: Glaciers rates for the quantile 0.76
+        units: mm/y
+      glaciers_rates_quantile_0_77:
+        description: Glaciers rates for the quantile 0.77
+        units: mm/y
+      glaciers_rates_quantile_0_78:
+        description: Glaciers rates for the quantile 0.78
+        units: mm/y
+      glaciers_rates_quantile_0_79:
+        description: Glaciers rates for the quantile 0.79
+        units: mm/y
+      glaciers_rates_quantile_0_8:
+        description: Glaciers rates for the quantile 0.8
+        units: mm/y
+      glaciers_rates_quantile_0_81:
+        description: Glaciers rates for the quantile 0.81
+        units: mm/y
+      glaciers_rates_quantile_0_82:
+        description: Glaciers rates for the quantile 0.82
+        units: mm/y
+      glaciers_rates_quantile_0_83:
+        description: Glaciers rates for the quantile 0.83
+        units: mm/y
+      glaciers_rates_quantile_0_833:
+        description: Glaciers rates for the quantile 0.833
+        units: mm/y
+      glaciers_rates_quantile_0_84:
+        description: Glaciers rates for the quantile 0.84
+        units: mm/y
+      glaciers_rates_quantile_0_85:
+        description: Glaciers rates for the quantile 0.85
+        units: mm/y
+      glaciers_rates_quantile_0_86:
+        description: Glaciers rates for the quantile 0.86
+        units: mm/y
+      glaciers_rates_quantile_0_87:
+        description: Glaciers rates for the quantile 0.87
+        units: mm/y
+      glaciers_rates_quantile_0_88:
+        description: Glaciers rates for the quantile 0.88
+        units: mm/y
+      glaciers_rates_quantile_0_89:
+        description: Glaciers rates for the quantile 0.89
+        units: mm/y
+      glaciers_rates_quantile_0_9:
+        description: Glaciers rates for the quantile 0.9
+        units: mm/y
+      glaciers_rates_quantile_0_91:
+        description: Glaciers rates for the quantile 0.91
+        units: mm/y
+      glaciers_rates_quantile_0_92:
+        description: Glaciers rates for the quantile 0.92
+        units: mm/y
+      glaciers_rates_quantile_0_93:
+        description: Glaciers rates for the quantile 0.93
+        units: mm/y
+      glaciers_rates_quantile_0_94:
+        description: Glaciers rates for the quantile 0.94
+        units: mm/y
+      glaciers_rates_quantile_0_95:
+        description: Glaciers rates for the quantile 0.95
+        units: mm/y
+      glaciers_rates_quantile_0_96:
+        description: Glaciers rates for the quantile 0.96
+        units: mm/y
+      glaciers_rates_quantile_0_97:
+        description: Glaciers rates for the quantile 0.97
+        units: mm/y
+      glaciers_rates_quantile_0_98:
+        description: Glaciers rates for the quantile 0.98
+        units: mm/y
+      glaciers_rates_quantile_0_99:
+        description: Glaciers rates for the quantile 0.99
+        units: mm/y
+      glaciers_rates_quantile_0_995:
+        description: Glaciers rates for the quantile 0.995
+        units: mm/y
+      glaciers_rates_quantile_0_999:
+        description: Glaciers rates for the quantile 0.999
+        units: mm/y
+      glaciers_rates_quantile_1:
+        description: Glaciers rates for the quantile 1
+        units: mm/y
+      glaciers_values_quantile_0:
+        description: Glaciers values for the quantile 0
+        units: mm
+      glaciers_values_quantile_0_001:
+        description: Glaciers values for the quantile 0.001
+        units: mm
+      glaciers_values_quantile_0_005:
+        description: Glaciers values for the quantile 0.005
+        units: mm
+      glaciers_values_quantile_0_01:
+        description: Glaciers values for the quantile 0.01
+        units: mm
+      glaciers_values_quantile_0_02:
+        description: Glaciers values for the quantile 0.02
+        units: mm
+      glaciers_values_quantile_0_03:
+        description: Glaciers values for the quantile 0.03
+        units: mm
+      glaciers_values_quantile_0_04:
+        description: Glaciers values for the quantile 0.04
+        units: mm
+      glaciers_values_quantile_0_05:
+        description: Glaciers values for the quantile 0.05
+        units: mm
+      glaciers_values_quantile_0_06:
+        description: Glaciers values for the quantile 0.06
+        units: mm
+      glaciers_values_quantile_0_07:
+        description: Glaciers values for the quantile 0.07
+        units: mm
+      glaciers_values_quantile_0_08:
+        description: Glaciers values for the quantile 0.08
+        units: mm
+      glaciers_values_quantile_0_09:
+        description: Glaciers values for the quantile 0.09
+        units: mm
+      glaciers_values_quantile_0_1:
+        description: Glaciers values for the quantile 0.1
+        units: mm
+      glaciers_values_quantile_0_11:
+        description: Glaciers values for the quantile 0.11
+        units: mm
+      glaciers_values_quantile_0_12:
+        description: Glaciers values for the quantile 0.12
+        units: mm
+      glaciers_values_quantile_0_13:
+        description: Glaciers values for the quantile 0.13
+        units: mm
+      glaciers_values_quantile_0_14:
+        description: Glaciers values for the quantile 0.14
+        units: mm
+      glaciers_values_quantile_0_15:
+        description: Glaciers values for the quantile 0.15
+        units: mm
+      glaciers_values_quantile_0_16:
+        description: Glaciers values for the quantile 0.16
+        units: mm
+      glaciers_values_quantile_0_167:
+        description: Glaciers values for the quantile 0.167
+        units: mm
+      glaciers_values_quantile_0_17:
+        description: Glaciers values for the quantile 0.17
+        units: mm
+      glaciers_values_quantile_0_18:
+        description: Glaciers values for the quantile 0.18
+        units: mm
+      glaciers_values_quantile_0_19:
+        description: Glaciers values for the quantile 0.19
+        units: mm
+      glaciers_values_quantile_0_2:
+        description: Glaciers values for the quantile 0.2
+        units: mm
+      glaciers_values_quantile_0_21:
+        description: Glaciers values for the quantile 0.21
+        units: mm
+      glaciers_values_quantile_0_22:
+        description: Glaciers values for the quantile 0.22
+        units: mm
+      glaciers_values_quantile_0_23:
+        description: Glaciers values for the quantile 0.23
+        units: mm
+      glaciers_values_quantile_0_24:
+        description: Glaciers values for the quantile 0.24
+        units: mm
+      glaciers_values_quantile_0_25:
+        description: Glaciers values for the quantile 0.25
+        units: mm
+      glaciers_values_quantile_0_26:
+        description: Glaciers values for the quantile 0.26
+        units: mm
+      glaciers_values_quantile_0_27:
+        description: Glaciers values for the quantile 0.27
+        units: mm
+      glaciers_values_quantile_0_28:
+        description: Glaciers values for the quantile 0.28
+        units: mm
+      glaciers_values_quantile_0_29:
+        description: Glaciers values for the quantile 0.29
+        units: mm
+      glaciers_values_quantile_0_3:
+        description: Glaciers values for the quantile 0.3
+        units: mm
+      glaciers_values_quantile_0_31:
+        description: Glaciers values for the quantile 0.31
+        units: mm
+      glaciers_values_quantile_0_32:
+        description: Glaciers values for the quantile 0.32
+        units: mm
+      glaciers_values_quantile_0_33:
+        description: Glaciers values for the quantile 0.33
+        units: mm
+      glaciers_values_quantile_0_34:
+        description: Glaciers values for the quantile 0.34
+        units: mm
+      glaciers_values_quantile_0_35:
+        description: Glaciers values for the quantile 0.35
+        units: mm
+      glaciers_values_quantile_0_36:
+        description: Glaciers values for the quantile 0.36
+        units: mm
+      glaciers_values_quantile_0_37:
+        description: Glaciers values for the quantile 0.37
+        units: mm
+      glaciers_values_quantile_0_38:
+        description: Glaciers values for the quantile 0.38
+        units: mm
+      glaciers_values_quantile_0_39:
+        description: Glaciers values for the quantile 0.39
+        units: mm
+      glaciers_values_quantile_0_4:
+        description: Glaciers values for the quantile 0.4
+        units: mm
+      glaciers_values_quantile_0_41:
+        description: Glaciers values for the quantile 0.41
+        units: mm
+      glaciers_values_quantile_0_42:
+        description: Glaciers values for the quantile 0.42
+        units: mm
+      glaciers_values_quantile_0_43:
+        description: Glaciers values for the quantile 0.43
+        units: mm
+      glaciers_values_quantile_0_44:
+        description: Glaciers values for the quantile 0.44
+        units: mm
+      glaciers_values_quantile_0_45:
+        description: Glaciers values for the quantile 0.45
+        units: mm
+      glaciers_values_quantile_0_46:
+        description: Glaciers values for the quantile 0.46
+        units: mm
+      glaciers_values_quantile_0_47:
+        description: Glaciers values for the quantile 0.47
+        units: mm
+      glaciers_values_quantile_0_48:
+        description: Glaciers values for the quantile 0.48
+        units: mm
+      glaciers_values_quantile_0_49:
+        description: Glaciers values for the quantile 0.49
+        units: mm
+      glaciers_values_quantile_0_5:
+        description: Glaciers values for the quantile 0.5
+        units: mm
+      glaciers_values_quantile_0_51:
+        description: Glaciers values for the quantile 0.51
+        units: mm
+      glaciers_values_quantile_0_52:
+        description: Glaciers values for the quantile 0.52
+        units: mm
+      glaciers_values_quantile_0_53:
+        description: Glaciers values for the quantile 0.53
+        units: mm
+      glaciers_values_quantile_0_54:
+        description: Glaciers values for the quantile 0.54
+        units: mm
+      glaciers_values_quantile_0_55:
+        description: Glaciers values for the quantile 0.55
+        units: mm
+      glaciers_values_quantile_0_56:
+        description: Glaciers values for the quantile 0.56
+        units: mm
+      glaciers_values_quantile_0_57:
+        description: Glaciers values for the quantile 0.57
+        units: mm
+      glaciers_values_quantile_0_58:
+        description: Glaciers values for the quantile 0.58
+        units: mm
+      glaciers_values_quantile_0_59:
+        description: Glaciers values for the quantile 0.59
+        units: mm
+      glaciers_values_quantile_0_6:
+        description: Glaciers values for the quantile 0.6
+        units: mm
+      glaciers_values_quantile_0_61:
+        description: Glaciers values for the quantile 0.61
+        units: mm
+      glaciers_values_quantile_0_62:
+        description: Glaciers values for the quantile 0.62
+        units: mm
+      glaciers_values_quantile_0_63:
+        description: Glaciers values for the quantile 0.63
+        units: mm
+      glaciers_values_quantile_0_64:
+        description: Glaciers values for the quantile 0.64
+        units: mm
+      glaciers_values_quantile_0_65:
+        description: Glaciers values for the quantile 0.65
+        units: mm
+      glaciers_values_quantile_0_66:
+        description: Glaciers values for the quantile 0.66
+        units: mm
+      glaciers_values_quantile_0_67:
+        description: Glaciers values for the quantile 0.67
+        units: mm
+      glaciers_values_quantile_0_68:
+        description: Glaciers values for the quantile 0.68
+        units: mm
+      glaciers_values_quantile_0_69:
+        description: Glaciers values for the quantile 0.69
+        units: mm
+      glaciers_values_quantile_0_7:
+        description: Glaciers values for the quantile 0.7
+        units: mm
+      glaciers_values_quantile_0_71:
+        description: Glaciers values for the quantile 0.71
+        units: mm
+      glaciers_values_quantile_0_72:
+        description: Glaciers values for the quantile 0.72
+        units: mm
+      glaciers_values_quantile_0_73:
+        description: Glaciers values for the quantile 0.73
+        units: mm
+      glaciers_values_quantile_0_74:
+        description: Glaciers values for the quantile 0.74
+        units: mm
+      glaciers_values_quantile_0_75:
+        description: Glaciers values for the quantile 0.75
+        units: mm
+      glaciers_values_quantile_0_76:
+        description: Glaciers values for the quantile 0.76
+        units: mm
+      glaciers_values_quantile_0_77:
+        description: Glaciers values for the quantile 0.77
+        units: mm
+      glaciers_values_quantile_0_78:
+        description: Glaciers values for the quantile 0.78
+        units: mm
+      glaciers_values_quantile_0_79:
+        description: Glaciers values for the quantile 0.79
+        units: mm
+      glaciers_values_quantile_0_8:
+        description: Glaciers values for the quantile 0.8
+        units: mm
+      glaciers_values_quantile_0_81:
+        description: Glaciers values for the quantile 0.81
+        units: mm
+      glaciers_values_quantile_0_82:
+        description: Glaciers values for the quantile 0.82
+        units: mm
+      glaciers_values_quantile_0_83:
+        description: Glaciers values for the quantile 0.83
+        units: mm
+      glaciers_values_quantile_0_833:
+        description: Glaciers values for the quantile 0.833
+        units: mm
+      glaciers_values_quantile_0_84:
+        description: Glaciers values for the quantile 0.84
+        units: mm
+      glaciers_values_quantile_0_85:
+        description: Glaciers values for the quantile 0.85
+        units: mm
+      glaciers_values_quantile_0_86:
+        description: Glaciers values for the quantile 0.86
+        units: mm
+      glaciers_values_quantile_0_87:
+        description: Glaciers values for the quantile 0.87
+        units: mm
+      glaciers_values_quantile_0_88:
+        description: Glaciers values for the quantile 0.88
+        units: mm
+      glaciers_values_quantile_0_89:
+        description: Glaciers values for the quantile 0.89
+        units: mm
+      glaciers_values_quantile_0_9:
+        description: Glaciers values for the quantile 0.9
+        units: mm
+      glaciers_values_quantile_0_91:
+        description: Glaciers values for the quantile 0.91
+        units: mm
+      glaciers_values_quantile_0_92:
+        description: Glaciers values for the quantile 0.92
+        units: mm
+      glaciers_values_quantile_0_93:
+        description: Glaciers values for the quantile 0.93
+        units: mm
+      glaciers_values_quantile_0_94:
+        description: Glaciers values for the quantile 0.94
+        units: mm
+      glaciers_values_quantile_0_95:
+        description: Glaciers values for the quantile 0.95
+        units: mm
+      glaciers_values_quantile_0_96:
+        description: Glaciers values for the quantile 0.96
+        units: mm
+      glaciers_values_quantile_0_97:
+        description: Glaciers values for the quantile 0.97
+        units: mm
+      glaciers_values_quantile_0_98:
+        description: Glaciers values for the quantile 0.98
+        units: mm
+      glaciers_values_quantile_0_99:
+        description: Glaciers values for the quantile 0.99
+        units: mm
+      glaciers_values_quantile_0_995:
+        description: Glaciers values for the quantile 0.995
+        units: mm
+      glaciers_values_quantile_0_999:
+        description: Glaciers values for the quantile 0.999
+        units: mm
+      glaciers_values_quantile_1:
+        description: Glaciers values for the quantile 1
+        units: mm
+      landwaterstorage_rates_quantile_0:
+        description: Land water storage rates for the quantile 0
+        units: mm/y
+      landwaterstorage_rates_quantile_0_001:
+        description: Land water storage rates for the quantile 0.001
+        units: mm/y
+      landwaterstorage_rates_quantile_0_005:
+        description: Land water storage rates for the quantile 0.005
+        units: mm/y
+      landwaterstorage_rates_quantile_0_01:
+        description: Land water storage rates for the quantile 0.01
+        units: mm/y
+      landwaterstorage_rates_quantile_0_02:
+        description: Land water storage rates for the quantile 0.02
+        units: mm/y
+      landwaterstorage_rates_quantile_0_03:
+        description: Land water storage rates for the quantile 0.03
+        units: mm/y
+      landwaterstorage_rates_quantile_0_04:
+        description: Land water storage rates for the quantile 0.04
+        units: mm/y
+      landwaterstorage_rates_quantile_0_05:
+        description: Land water storage rates for the quantile 0.05
+        units: mm/y
+      landwaterstorage_rates_quantile_0_06:
+        description: Land water storage rates for the quantile 0.06
+        units: mm/y
+      landwaterstorage_rates_quantile_0_07:
+        description: Land water storage rates for the quantile 0.07
+        units: mm/y
+      landwaterstorage_rates_quantile_0_08:
+        description: Land water storage rates for the quantile 0.08
+        units: mm/y
+      landwaterstorage_rates_quantile_0_09:
+        description: Land water storage rates for the quantile 0.09
+        units: mm/y
+      landwaterstorage_rates_quantile_0_1:
+        description: Land water storage rates for the quantile 0.1
+        units: mm/y
+      landwaterstorage_rates_quantile_0_11:
+        description: Land water storage rates for the quantile 0.11
+        units: mm/y
+      landwaterstorage_rates_quantile_0_12:
+        description: Land water storage rates for the quantile 0.12
+        units: mm/y
+      landwaterstorage_rates_quantile_0_13:
+        description: Land water storage rates for the quantile 0.13
+        units: mm/y
+      landwaterstorage_rates_quantile_0_14:
+        description: Land water storage rates for the quantile 0.14
+        units: mm/y
+      landwaterstorage_rates_quantile_0_15:
+        description: Land water storage rates for the quantile 0.15
+        units: mm/y
+      landwaterstorage_rates_quantile_0_16:
+        description: Land water storage rates for the quantile 0.16
+        units: mm/y
+      landwaterstorage_rates_quantile_0_167:
+        description: Land water storage rates for the quantile 0.167
+        units: mm/y
+      landwaterstorage_rates_quantile_0_17:
+        description: Land water storage rates for the quantile 0.17
+        units: mm/y
+      landwaterstorage_rates_quantile_0_18:
+        description: Land water storage rates for the quantile 0.18
+        units: mm/y
+      landwaterstorage_rates_quantile_0_19:
+        description: Land water storage rates for the quantile 0.19
+        units: mm/y
+      landwaterstorage_rates_quantile_0_2:
+        description: Land water storage rates for the quantile 0.2
+        units: mm/y
+      landwaterstorage_rates_quantile_0_21:
+        description: Land water storage rates for the quantile 0.21
+        units: mm/y
+      landwaterstorage_rates_quantile_0_22:
+        description: Land water storage rates for the quantile 0.22
+        units: mm/y
+      landwaterstorage_rates_quantile_0_23:
+        description: Land water storage rates for the quantile 0.23
+        units: mm/y
+      landwaterstorage_rates_quantile_0_24:
+        description: Land water storage rates for the quantile 0.24
+        units: mm/y
+      landwaterstorage_rates_quantile_0_25:
+        description: Land water storage rates for the quantile 0.25
+        units: mm/y
+      landwaterstorage_rates_quantile_0_26:
+        description: Land water storage rates for the quantile 0.26
+        units: mm/y
+      landwaterstorage_rates_quantile_0_27:
+        description: Land water storage rates for the quantile 0.27
+        units: mm/y
+      landwaterstorage_rates_quantile_0_28:
+        description: Land water storage rates for the quantile 0.28
+        units: mm/y
+      landwaterstorage_rates_quantile_0_29:
+        description: Land water storage rates for the quantile 0.29
+        units: mm/y
+      landwaterstorage_rates_quantile_0_3:
+        description: Land water storage rates for the quantile 0.3
+        units: mm/y
+      landwaterstorage_rates_quantile_0_31:
+        description: Land water storage rates for the quantile 0.31
+        units: mm/y
+      landwaterstorage_rates_quantile_0_32:
+        description: Land water storage rates for the quantile 0.32
+        units: mm/y
+      landwaterstorage_rates_quantile_0_33:
+        description: Land water storage rates for the quantile 0.33
+        units: mm/y
+      landwaterstorage_rates_quantile_0_34:
+        description: Land water storage rates for the quantile 0.34
+        units: mm/y
+      landwaterstorage_rates_quantile_0_35:
+        description: Land water storage rates for the quantile 0.35
+        units: mm/y
+      landwaterstorage_rates_quantile_0_36:
+        description: Land water storage rates for the quantile 0.36
+        units: mm/y
+      landwaterstorage_rates_quantile_0_37:
+        description: Land water storage rates for the quantile 0.37
+        units: mm/y
+      landwaterstorage_rates_quantile_0_38:
+        description: Land water storage rates for the quantile 0.38
+        units: mm/y
+      landwaterstorage_rates_quantile_0_39:
+        description: Land water storage rates for the quantile 0.39
+        units: mm/y
+      landwaterstorage_rates_quantile_0_4:
+        description: Land water storage rates for the quantile 0.4
+        units: mm/y
+      landwaterstorage_rates_quantile_0_41:
+        description: Land water storage rates for the quantile 0.41
+        units: mm/y
+      landwaterstorage_rates_quantile_0_42:
+        description: Land water storage rates for the quantile 0.42
+        units: mm/y
+      landwaterstorage_rates_quantile_0_43:
+        description: Land water storage rates for the quantile 0.43
+        units: mm/y
+      landwaterstorage_rates_quantile_0_44:
+        description: Land water storage rates for the quantile 0.44
+        units: mm/y
+      landwaterstorage_rates_quantile_0_45:
+        description: Land water storage rates for the quantile 0.45
+        units: mm/y
+      landwaterstorage_rates_quantile_0_46:
+        description: Land water storage rates for the quantile 0.46
+        units: mm/y
+      landwaterstorage_rates_quantile_0_47:
+        description: Land water storage rates for the quantile 0.47
+        units: mm/y
+      landwaterstorage_rates_quantile_0_48:
+        description: Land water storage rates for the quantile 0.48
+        units: mm/y
+      landwaterstorage_rates_quantile_0_49:
+        description: Land water storage rates for the quantile 0.49
+        units: mm/y
+      landwaterstorage_rates_quantile_0_5:
+        description: Land water storage rates for the quantile 0.5
+        units: mm/y
+      landwaterstorage_rates_quantile_0_51:
+        description: Land water storage rates for the quantile 0.51
+        units: mm/y
+      landwaterstorage_rates_quantile_0_52:
+        description: Land water storage rates for the quantile 0.52
+        units: mm/y
+      landwaterstorage_rates_quantile_0_53:
+        description: Land water storage rates for the quantile 0.53
+        units: mm/y
+      landwaterstorage_rates_quantile_0_54:
+        description: Land water storage rates for the quantile 0.54
+        units: mm/y
+      landwaterstorage_rates_quantile_0_55:
+        description: Land water storage rates for the quantile 0.55
+        units: mm/y
+      landwaterstorage_rates_quantile_0_56:
+        description: Land water storage rates for the quantile 0.56
+        units: mm/y
+      landwaterstorage_rates_quantile_0_57:
+        description: Land water storage rates for the quantile 0.57
+        units: mm/y
+      landwaterstorage_rates_quantile_0_58:
+        description: Land water storage rates for the quantile 0.58
+        units: mm/y
+      landwaterstorage_rates_quantile_0_59:
+        description: Land water storage rates for the quantile 0.59
+        units: mm/y
+      landwaterstorage_rates_quantile_0_6:
+        description: Land water storage rates for the quantile 0.6
+        units: mm/y
+      landwaterstorage_rates_quantile_0_61:
+        description: Land water storage rates for the quantile 0.61
+        units: mm/y
+      landwaterstorage_rates_quantile_0_62:
+        description: Land water storage rates for the quantile 0.62
+        units: mm/y
+      landwaterstorage_rates_quantile_0_63:
+        description: Land water storage rates for the quantile 0.63
+        units: mm/y
+      landwaterstorage_rates_quantile_0_64:
+        description: Land water storage rates for the quantile 0.64
+        units: mm/y
+      landwaterstorage_rates_quantile_0_65:
+        description: Land water storage rates for the quantile 0.65
+        units: mm/y
+      landwaterstorage_rates_quantile_0_66:
+        description: Land water storage rates for the quantile 0.66
+        units: mm/y
+      landwaterstorage_rates_quantile_0_67:
+        description: Land water storage rates for the quantile 0.67
+        units: mm/y
+      landwaterstorage_rates_quantile_0_68:
+        description: Land water storage rates for the quantile 0.68
+        units: mm/y
+      landwaterstorage_rates_quantile_0_69:
+        description: Land water storage rates for the quantile 0.69
+        units: mm/y
+      landwaterstorage_rates_quantile_0_7:
+        description: Land water storage rates for the quantile 0.7
+        units: mm/y
+      landwaterstorage_rates_quantile_0_71:
+        description: Land water storage rates for the quantile 0.71
+        units: mm/y
+      landwaterstorage_rates_quantile_0_72:
+        description: Land water storage rates for the quantile 0.72
+        units: mm/y
+      landwaterstorage_rates_quantile_0_73:
+        description: Land water storage rates for the quantile 0.73
+        units: mm/y
+      landwaterstorage_rates_quantile_0_74:
+        description: Land water storage rates for the quantile 0.74
+        units: mm/y
+      landwaterstorage_rates_quantile_0_75:
+        description: Land water storage rates for the quantile 0.75
+        units: mm/y
+      landwaterstorage_rates_quantile_0_76:
+        description: Land water storage rates for the quantile 0.76
+        units: mm/y
+      landwaterstorage_rates_quantile_0_77:
+        description: Land water storage rates for the quantile 0.77
+        units: mm/y
+      landwaterstorage_rates_quantile_0_78:
+        description: Land water storage rates for the quantile 0.78
+        units: mm/y
+      landwaterstorage_rates_quantile_0_79:
+        description: Land water storage rates for the quantile 0.79
+        units: mm/y
+      landwaterstorage_rates_quantile_0_8:
+        description: Land water storage rates for the quantile 0.8
+        units: mm/y
+      landwaterstorage_rates_quantile_0_81:
+        description: Land water storage rates for the quantile 0.81
+        units: mm/y
+      landwaterstorage_rates_quantile_0_82:
+        description: Land water storage rates for the quantile 0.82
+        units: mm/y
+      landwaterstorage_rates_quantile_0_83:
+        description: Land water storage rates for the quantile 0.83
+        units: mm/y
+      landwaterstorage_rates_quantile_0_833:
+        description: Land water storage rates for the quantile 0.833
+        units: mm/y
+      landwaterstorage_rates_quantile_0_84:
+        description: Land water storage rates for the quantile 0.84
+        units: mm/y
+      landwaterstorage_rates_quantile_0_85:
+        description: Land water storage rates for the quantile 0.85
+        units: mm/y
+      landwaterstorage_rates_quantile_0_86:
+        description: Land water storage rates for the quantile 0.86
+        units: mm/y
+      landwaterstorage_rates_quantile_0_87:
+        description: Land water storage rates for the quantile 0.87
+        units: mm/y
+      landwaterstorage_rates_quantile_0_88:
+        description: Land water storage rates for the quantile 0.88
+        units: mm/y
+      landwaterstorage_rates_quantile_0_89:
+        description: Land water storage rates for the quantile 0.89
+        units: mm/y
+      landwaterstorage_rates_quantile_0_9:
+        description: Land water storage rates for the quantile 0.9
+        units: mm/y
+      landwaterstorage_rates_quantile_0_91:
+        description: Land water storage rates for the quantile 0.91
+        units: mm/y
+      landwaterstorage_rates_quantile_0_92:
+        description: Land water storage rates for the quantile 0.92
+        units: mm/y
+      landwaterstorage_rates_quantile_0_93:
+        description: Land water storage rates for the quantile 0.93
+        units: mm/y
+      landwaterstorage_rates_quantile_0_94:
+        description: Land water storage rates for the quantile 0.94
+        units: mm/y
+      landwaterstorage_rates_quantile_0_95:
+        description: Land water storage rates for the quantile 0.95
+        units: mm/y
+      landwaterstorage_rates_quantile_0_96:
+        description: Land water storage rates for the quantile 0.96
+        units: mm/y
+      landwaterstorage_rates_quantile_0_97:
+        description: Land water storage rates for the quantile 0.97
+        units: mm/y
+      landwaterstorage_rates_quantile_0_98:
+        description: Land water storage rates for the quantile 0.98
+        units: mm/y
+      landwaterstorage_rates_quantile_0_99:
+        description: Land water storage rates for the quantile 0.99
+        units: mm/y
+      landwaterstorage_rates_quantile_0_995:
+        description: Land water storage rates for the quantile 0.995
+        units: mm/y
+      landwaterstorage_rates_quantile_0_999:
+        description: Land water storage rates for the quantile 0.999
+        units: mm/y
+      landwaterstorage_rates_quantile_1:
+        description: Land water storage rates for the quantile 1
+        units: mm/y
+      landwaterstorage_values_quantile_0:
+        description: Land water storage values for the quantile 0
+        units: mm
+      landwaterstorage_values_quantile_0_001:
+        description: Land water storage values for the quantile 0.001
+        units: mm
+      landwaterstorage_values_quantile_0_005:
+        description: Land water storage values for the quantile 0.005
+        units: mm
+      landwaterstorage_values_quantile_0_01:
+        description: Land water storage values for the quantile 0.01
+        units: mm
+      landwaterstorage_values_quantile_0_02:
+        description: Land water storage values for the quantile 0.02
+        units: mm
+      landwaterstorage_values_quantile_0_03:
+        description: Land water storage values for the quantile 0.03
+        units: mm
+      landwaterstorage_values_quantile_0_04:
+        description: Land water storage values for the quantile 0.04
+        units: mm
+      landwaterstorage_values_quantile_0_05:
+        description: Land water storage values for the quantile 0.05
+        units: mm
+      landwaterstorage_values_quantile_0_06:
+        description: Land water storage values for the quantile 0.06
+        units: mm
+      landwaterstorage_values_quantile_0_07:
+        description: Land water storage values for the quantile 0.07
+        units: mm
+      landwaterstorage_values_quantile_0_08:
+        description: Land water storage values for the quantile 0.08
+        units: mm
+      landwaterstorage_values_quantile_0_09:
+        description: Land water storage values for the quantile 0.09
+        units: mm
+      landwaterstorage_values_quantile_0_1:
+        description: Land water storage values for the quantile 0.1
+        units: mm
+      landwaterstorage_values_quantile_0_11:
+        description: Land water storage values for the quantile 0.11
+        units: mm
+      landwaterstorage_values_quantile_0_12:
+        description: Land water storage values for the quantile 0.12
+        units: mm
+      landwaterstorage_values_quantile_0_13:
+        description: Land water storage values for the quantile 0.13
+        units: mm
+      landwaterstorage_values_quantile_0_14:
+        description: Land water storage values for the quantile 0.14
+        units: mm
+      landwaterstorage_values_quantile_0_15:
+        description: Land water storage values for the quantile 0.15
+        units: mm
+      landwaterstorage_values_quantile_0_16:
+        description: Land water storage values for the quantile 0.16
+        units: mm
+      landwaterstorage_values_quantile_0_167:
+        description: Land water storage values for the quantile 0.167
+        units: mm
+      landwaterstorage_values_quantile_0_17:
+        description: Land water storage values for the quantile 0.17
+        units: mm
+      landwaterstorage_values_quantile_0_18:
+        description: Land water storage values for the quantile 0.18
+        units: mm
+      landwaterstorage_values_quantile_0_19:
+        description: Land water storage values for the quantile 0.19
+        units: mm
+      landwaterstorage_values_quantile_0_2:
+        description: Land water storage values for the quantile 0.2
+        units: mm
+      landwaterstorage_values_quantile_0_21:
+        description: Land water storage values for the quantile 0.21
+        units: mm
+      landwaterstorage_values_quantile_0_22:
+        description: Land water storage values for the quantile 0.22
+        units: mm
+      landwaterstorage_values_quantile_0_23:
+        description: Land water storage values for the quantile 0.23
+        units: mm
+      landwaterstorage_values_quantile_0_24:
+        description: Land water storage values for the quantile 0.24
+        units: mm
+      landwaterstorage_values_quantile_0_25:
+        description: Land water storage values for the quantile 0.25
+        units: mm
+      landwaterstorage_values_quantile_0_26:
+        description: Land water storage values for the quantile 0.26
+        units: mm
+      landwaterstorage_values_quantile_0_27:
+        description: Land water storage values for the quantile 0.27
+        units: mm
+      landwaterstorage_values_quantile_0_28:
+        description: Land water storage values for the quantile 0.28
+        units: mm
+      landwaterstorage_values_quantile_0_29:
+        description: Land water storage values for the quantile 0.29
+        units: mm
+      landwaterstorage_values_quantile_0_3:
+        description: Land water storage values for the quantile 0.3
+        units: mm
+      landwaterstorage_values_quantile_0_31:
+        description: Land water storage values for the quantile 0.31
+        units: mm
+      landwaterstorage_values_quantile_0_32:
+        description: Land water storage values for the quantile 0.32
+        units: mm
+      landwaterstorage_values_quantile_0_33:
+        description: Land water storage values for the quantile 0.33
+        units: mm
+      landwaterstorage_values_quantile_0_34:
+        description: Land water storage values for the quantile 0.34
+        units: mm
+      landwaterstorage_values_quantile_0_35:
+        description: Land water storage values for the quantile 0.35
+        units: mm
+      landwaterstorage_values_quantile_0_36:
+        description: Land water storage values for the quantile 0.36
+        units: mm
+      landwaterstorage_values_quantile_0_37:
+        description: Land water storage values for the quantile 0.37
+        units: mm
+      landwaterstorage_values_quantile_0_38:
+        description: Land water storage values for the quantile 0.38
+        units: mm
+      landwaterstorage_values_quantile_0_39:
+        description: Land water storage values for the quantile 0.39
+        units: mm
+      landwaterstorage_values_quantile_0_4:
+        description: Land water storage values for the quantile 0.4
+        units: mm
+      landwaterstorage_values_quantile_0_41:
+        description: Land water storage values for the quantile 0.41
+        units: mm
+      landwaterstorage_values_quantile_0_42:
+        description: Land water storage values for the quantile 0.42
+        units: mm
+      landwaterstorage_values_quantile_0_43:
+        description: Land water storage values for the quantile 0.43
+        units: mm
+      landwaterstorage_values_quantile_0_44:
+        description: Land water storage values for the quantile 0.44
+        units: mm
+      landwaterstorage_values_quantile_0_45:
+        description: Land water storage values for the quantile 0.45
+        units: mm
+      landwaterstorage_values_quantile_0_46:
+        description: Land water storage values for the quantile 0.46
+        units: mm
+      landwaterstorage_values_quantile_0_47:
+        description: Land water storage values for the quantile 0.47
+        units: mm
+      landwaterstorage_values_quantile_0_48:
+        description: Land water storage values for the quantile 0.48
+        units: mm
+      landwaterstorage_values_quantile_0_49:
+        description: Land water storage values for the quantile 0.49
+        units: mm
+      landwaterstorage_values_quantile_0_5:
+        description: Land water storage values for the quantile 0.5
+        units: mm
+      landwaterstorage_values_quantile_0_51:
+        description: Land water storage values for the quantile 0.51
+        units: mm
+      landwaterstorage_values_quantile_0_52:
+        description: Land water storage values for the quantile 0.52
+        units: mm
+      landwaterstorage_values_quantile_0_53:
+        description: Land water storage values for the quantile 0.53
+        units: mm
+      landwaterstorage_values_quantile_0_54:
+        description: Land water storage values for the quantile 0.54
+        units: mm
+      landwaterstorage_values_quantile_0_55:
+        description: Land water storage values for the quantile 0.55
+        units: mm
+      landwaterstorage_values_quantile_0_56:
+        description: Land water storage values for the quantile 0.56
+        units: mm
+      landwaterstorage_values_quantile_0_57:
+        description: Land water storage values for the quantile 0.57
+        units: mm
+      landwaterstorage_values_quantile_0_58:
+        description: Land water storage values for the quantile 0.58
+        units: mm
+      landwaterstorage_values_quantile_0_59:
+        description: Land water storage values for the quantile 0.59
+        units: mm
+      landwaterstorage_values_quantile_0_6:
+        description: Land water storage values for the quantile 0.6
+        units: mm
+      landwaterstorage_values_quantile_0_61:
+        description: Land water storage values for the quantile 0.61
+        units: mm
+      landwaterstorage_values_quantile_0_62:
+        description: Land water storage values for the quantile 0.62
+        units: mm
+      landwaterstorage_values_quantile_0_63:
+        description: Land water storage values for the quantile 0.63
+        units: mm
+      landwaterstorage_values_quantile_0_64:
+        description: Land water storage values for the quantile 0.64
+        units: mm
+      landwaterstorage_values_quantile_0_65:
+        description: Land water storage values for the quantile 0.65
+        units: mm
+      landwaterstorage_values_quantile_0_66:
+        description: Land water storage values for the quantile 0.66
+        units: mm
+      landwaterstorage_values_quantile_0_67:
+        description: Land water storage values for the quantile 0.67
+        units: mm
+      landwaterstorage_values_quantile_0_68:
+        description: Land water storage values for the quantile 0.68
+        units: mm
+      landwaterstorage_values_quantile_0_69:
+        description: Land water storage values for the quantile 0.69
+        units: mm
+      landwaterstorage_values_quantile_0_7:
+        description: Land water storage values for the quantile 0.7
+        units: mm
+      landwaterstorage_values_quantile_0_71:
+        description: Land water storage values for the quantile 0.71
+        units: mm
+      landwaterstorage_values_quantile_0_72:
+        description: Land water storage values for the quantile 0.72
+        units: mm
+      landwaterstorage_values_quantile_0_73:
+        description: Land water storage values for the quantile 0.73
+        units: mm
+      landwaterstorage_values_quantile_0_74:
+        description: Land water storage values for the quantile 0.74
+        units: mm
+      landwaterstorage_values_quantile_0_75:
+        description: Land water storage values for the quantile 0.75
+        units: mm
+      landwaterstorage_values_quantile_0_76:
+        description: Land water storage values for the quantile 0.76
+        units: mm
+      landwaterstorage_values_quantile_0_77:
+        description: Land water storage values for the quantile 0.77
+        units: mm
+      landwaterstorage_values_quantile_0_78:
+        description: Land water storage values for the quantile 0.78
+        units: mm
+      landwaterstorage_values_quantile_0_79:
+        description: Land water storage values for the quantile 0.79
+        units: mm
+      landwaterstorage_values_quantile_0_8:
+        description: Land water storage values for the quantile 0.8
+        units: mm
+      landwaterstorage_values_quantile_0_81:
+        description: Land water storage values for the quantile 0.81
+        units: mm
+      landwaterstorage_values_quantile_0_82:
+        description: Land water storage values for the quantile 0.82
+        units: mm
+      landwaterstorage_values_quantile_0_83:
+        description: Land water storage values for the quantile 0.83
+        units: mm
+      landwaterstorage_values_quantile_0_833:
+        description: Land water storage values for the quantile 0.833
+        units: mm
+      landwaterstorage_values_quantile_0_84:
+        description: Land water storage values for the quantile 0.84
+        units: mm
+      landwaterstorage_values_quantile_0_85:
+        description: Land water storage values for the quantile 0.85
+        units: mm
+      landwaterstorage_values_quantile_0_86:
+        description: Land water storage values for the quantile 0.86
+        units: mm
+      landwaterstorage_values_quantile_0_87:
+        description: Land water storage values for the quantile 0.87
+        units: mm
+      landwaterstorage_values_quantile_0_88:
+        description: Land water storage values for the quantile 0.88
+        units: mm
+      landwaterstorage_values_quantile_0_89:
+        description: Land water storage values for the quantile 0.89
+        units: mm
+      landwaterstorage_values_quantile_0_9:
+        description: Land water storage values for the quantile 0.9
+        units: mm
+      landwaterstorage_values_quantile_0_91:
+        description: Land water storage values for the quantile 0.91
+        units: mm
+      landwaterstorage_values_quantile_0_92:
+        description: Land water storage values for the quantile 0.92
+        units: mm
+      landwaterstorage_values_quantile_0_93:
+        description: Land water storage values for the quantile 0.93
+        units: mm
+      landwaterstorage_values_quantile_0_94:
+        description: Land water storage values for the quantile 0.94
+        units: mm
+      landwaterstorage_values_quantile_0_95:
+        description: Land water storage values for the quantile 0.95
+        units: mm
+      landwaterstorage_values_quantile_0_96:
+        description: Land water storage values for the quantile 0.96
+        units: mm
+      landwaterstorage_values_quantile_0_97:
+        description: Land water storage values for the quantile 0.97
+        units: mm
+      landwaterstorage_values_quantile_0_98:
+        description: Land water storage values for the quantile 0.98
+        units: mm
+      landwaterstorage_values_quantile_0_99:
+        description: Land water storage values for the quantile 0.99
+        units: mm
+      landwaterstorage_values_quantile_0_995:
+        description: Land water storage values for the quantile 0.995
+        units: mm
+      landwaterstorage_values_quantile_0_999:
+        description: Land water storage values for the quantile 0.999
+        units: mm
+      landwaterstorage_values_quantile_1:
+        description: Land water storage values for the quantile 1
+        units: mm
+      oceandynamics_rates_quantile_0:
+        description: Ocean dynamics rates for the quantile 0
+        units: mm/y
+      oceandynamics_rates_quantile_0_001:
+        description: Ocean dynamics rates for the quantile 0.001
+        units: mm/y
+      oceandynamics_rates_quantile_0_005:
+        description: Ocean dynamics rates for the quantile 0.005
+        units: mm/y
+      oceandynamics_rates_quantile_0_01:
+        description: Ocean dynamics rates for the quantile 0.01
+        units: mm/y
+      oceandynamics_rates_quantile_0_02:
+        description: Ocean dynamics rates for the quantile 0.02
+        units: mm/y
+      oceandynamics_rates_quantile_0_03:
+        description: Ocean dynamics rates for the quantile 0.03
+        units: mm/y
+      oceandynamics_rates_quantile_0_04:
+        description: Ocean dynamics rates for the quantile 0.04
+        units: mm/y
+      oceandynamics_rates_quantile_0_05:
+        description: Ocean dynamics rates for the quantile 0.05
+        units: mm/y
+      oceandynamics_rates_quantile_0_06:
+        description: Ocean dynamics rates for the quantile 0.06
+        units: mm/y
+      oceandynamics_rates_quantile_0_07:
+        description: Ocean dynamics rates for the quantile 0.07
+        units: mm/y
+      oceandynamics_rates_quantile_0_08:
+        description: Ocean dynamics rates for the quantile 0.08
+        units: mm/y
+      oceandynamics_rates_quantile_0_09:
+        description: Ocean dynamics rates for the quantile 0.09
+        units: mm/y
+      oceandynamics_rates_quantile_0_1:
+        description: Ocean dynamics rates for the quantile 0.1
+        units: mm/y
+      oceandynamics_rates_quantile_0_11:
+        description: Ocean dynamics rates for the quantile 0.11
+        units: mm/y
+      oceandynamics_rates_quantile_0_12:
+        description: Ocean dynamics rates for the quantile 0.12
+        units: mm/y
+      oceandynamics_rates_quantile_0_13:
+        description: Ocean dynamics rates for the quantile 0.13
+        units: mm/y
+      oceandynamics_rates_quantile_0_14:
+        description: Ocean dynamics rates for the quantile 0.14
+        units: mm/y
+      oceandynamics_rates_quantile_0_15:
+        description: Ocean dynamics rates for the quantile 0.15
+        units: mm/y
+      oceandynamics_rates_quantile_0_16:
+        description: Ocean dynamics rates for the quantile 0.16
+        units: mm/y
+      oceandynamics_rates_quantile_0_167:
+        description: Ocean dynamics rates for the quantile 0.167
+        units: mm/y
+      oceandynamics_rates_quantile_0_17:
+        description: Ocean dynamics rates for the quantile 0.17
+        units: mm/y
+      oceandynamics_rates_quantile_0_18:
+        description: Ocean dynamics rates for the quantile 0.18
+        units: mm/y
+      oceandynamics_rates_quantile_0_19:
+        description: Ocean dynamics rates for the quantile 0.19
+        units: mm/y
+      oceandynamics_rates_quantile_0_2:
+        description: Ocean dynamics rates for the quantile 0.2
+        units: mm/y
+      oceandynamics_rates_quantile_0_21:
+        description: Ocean dynamics rates for the quantile 0.21
+        units: mm/y
+      oceandynamics_rates_quantile_0_22:
+        description: Ocean dynamics rates for the quantile 0.22
+        units: mm/y
+      oceandynamics_rates_quantile_0_23:
+        description: Ocean dynamics rates for the quantile 0.23
+        units: mm/y
+      oceandynamics_rates_quantile_0_24:
+        description: Ocean dynamics rates for the quantile 0.24
+        units: mm/y
+      oceandynamics_rates_quantile_0_25:
+        description: Ocean dynamics rates for the quantile 0.25
+        units: mm/y
+      oceandynamics_rates_quantile_0_26:
+        description: Ocean dynamics rates for the quantile 0.26
+        units: mm/y
+      oceandynamics_rates_quantile_0_27:
+        description: Ocean dynamics rates for the quantile 0.27
+        units: mm/y
+      oceandynamics_rates_quantile_0_28:
+        description: Ocean dynamics rates for the quantile 0.28
+        units: mm/y
+      oceandynamics_rates_quantile_0_29:
+        description: Ocean dynamics rates for the quantile 0.29
+        units: mm/y
+      oceandynamics_rates_quantile_0_3:
+        description: Ocean dynamics rates for the quantile 0.3
+        units: mm/y
+      oceandynamics_rates_quantile_0_31:
+        description: Ocean dynamics rates for the quantile 0.31
+        units: mm/y
+      oceandynamics_rates_quantile_0_32:
+        description: Ocean dynamics rates for the quantile 0.32
+        units: mm/y
+      oceandynamics_rates_quantile_0_33:
+        description: Ocean dynamics rates for the quantile 0.33
+        units: mm/y
+      oceandynamics_rates_quantile_0_34:
+        description: Ocean dynamics rates for the quantile 0.34
+        units: mm/y
+      oceandynamics_rates_quantile_0_35:
+        description: Ocean dynamics rates for the quantile 0.35
+        units: mm/y
+      oceandynamics_rates_quantile_0_36:
+        description: Ocean dynamics rates for the quantile 0.36
+        units: mm/y
+      oceandynamics_rates_quantile_0_37:
+        description: Ocean dynamics rates for the quantile 0.37
+        units: mm/y
+      oceandynamics_rates_quantile_0_38:
+        description: Ocean dynamics rates for the quantile 0.38
+        units: mm/y
+      oceandynamics_rates_quantile_0_39:
+        description: Ocean dynamics rates for the quantile 0.39
+        units: mm/y
+      oceandynamics_rates_quantile_0_4:
+        description: Ocean dynamics rates for the quantile 0.4
+        units: mm/y
+      oceandynamics_rates_quantile_0_41:
+        description: Ocean dynamics rates for the quantile 0.41
+        units: mm/y
+      oceandynamics_rates_quantile_0_42:
+        description: Ocean dynamics rates for the quantile 0.42
+        units: mm/y
+      oceandynamics_rates_quantile_0_43:
+        description: Ocean dynamics rates for the quantile 0.43
+        units: mm/y
+      oceandynamics_rates_quantile_0_44:
+        description: Ocean dynamics rates for the quantile 0.44
+        units: mm/y
+      oceandynamics_rates_quantile_0_45:
+        description: Ocean dynamics rates for the quantile 0.45
+        units: mm/y
+      oceandynamics_rates_quantile_0_46:
+        description: Ocean dynamics rates for the quantile 0.46
+        units: mm/y
+      oceandynamics_rates_quantile_0_47:
+        description: Ocean dynamics rates for the quantile 0.47
+        units: mm/y
+      oceandynamics_rates_quantile_0_48:
+        description: Ocean dynamics rates for the quantile 0.48
+        units: mm/y
+      oceandynamics_rates_quantile_0_49:
+        description: Ocean dynamics rates for the quantile 0.49
+        units: mm/y
+      oceandynamics_rates_quantile_0_5:
+        description: Ocean dynamics rates for the quantile 0.5
+        units: mm/y
+      oceandynamics_rates_quantile_0_51:
+        description: Ocean dynamics rates for the quantile 0.51
+        units: mm/y
+      oceandynamics_rates_quantile_0_52:
+        description: Ocean dynamics rates for the quantile 0.52
+        units: mm/y
+      oceandynamics_rates_quantile_0_53:
+        description: Ocean dynamics rates for the quantile 0.53
+        units: mm/y
+      oceandynamics_rates_quantile_0_54:
+        description: Ocean dynamics rates for the quantile 0.54
+        units: mm/y
+      oceandynamics_rates_quantile_0_55:
+        description: Ocean dynamics rates for the quantile 0.55
+        units: mm/y
+      oceandynamics_rates_quantile_0_56:
+        description: Ocean dynamics rates for the quantile 0.56
+        units: mm/y
+      oceandynamics_rates_quantile_0_57:
+        description: Ocean dynamics rates for the quantile 0.57
+        units: mm/y
+      oceandynamics_rates_quantile_0_58:
+        description: Ocean dynamics rates for the quantile 0.58
+        units: mm/y
+      oceandynamics_rates_quantile_0_59:
+        description: Ocean dynamics rates for the quantile 0.59
+        units: mm/y
+      oceandynamics_rates_quantile_0_6:
+        description: Ocean dynamics rates for the quantile 0.6
+        units: mm/y
+      oceandynamics_rates_quantile_0_61:
+        description: Ocean dynamics rates for the quantile 0.61
+        units: mm/y
+      oceandynamics_rates_quantile_0_62:
+        description: Ocean dynamics rates for the quantile 0.62
+        units: mm/y
+      oceandynamics_rates_quantile_0_63:
+        description: Ocean dynamics rates for the quantile 0.63
+        units: mm/y
+      oceandynamics_rates_quantile_0_64:
+        description: Ocean dynamics rates for the quantile 0.64
+        units: mm/y
+      oceandynamics_rates_quantile_0_65:
+        description: Ocean dynamics rates for the quantile 0.65
+        units: mm/y
+      oceandynamics_rates_quantile_0_66:
+        description: Ocean dynamics rates for the quantile 0.66
+        units: mm/y
+      oceandynamics_rates_quantile_0_67:
+        description: Ocean dynamics rates for the quantile 0.67
+        units: mm/y
+      oceandynamics_rates_quantile_0_68:
+        description: Ocean dynamics rates for the quantile 0.68
+        units: mm/y
+      oceandynamics_rates_quantile_0_69:
+        description: Ocean dynamics rates for the quantile 0.69
+        units: mm/y
+      oceandynamics_rates_quantile_0_7:
+        description: Ocean dynamics rates for the quantile 0.7
+        units: mm/y
+      oceandynamics_rates_quantile_0_71:
+        description: Ocean dynamics rates for the quantile 0.71
+        units: mm/y
+      oceandynamics_rates_quantile_0_72:
+        description: Ocean dynamics rates for the quantile 0.72
+        units: mm/y
+      oceandynamics_rates_quantile_0_73:
+        description: Ocean dynamics rates for the quantile 0.73
+        units: mm/y
+      oceandynamics_rates_quantile_0_74:
+        description: Ocean dynamics rates for the quantile 0.74
+        units: mm/y
+      oceandynamics_rates_quantile_0_75:
+        description: Ocean dynamics rates for the quantile 0.75
+        units: mm/y
+      oceandynamics_rates_quantile_0_76:
+        description: Ocean dynamics rates for the quantile 0.76
+        units: mm/y
+      oceandynamics_rates_quantile_0_77:
+        description: Ocean dynamics rates for the quantile 0.77
+        units: mm/y
+      oceandynamics_rates_quantile_0_78:
+        description: Ocean dynamics rates for the quantile 0.78
+        units: mm/y
+      oceandynamics_rates_quantile_0_79:
+        description: Ocean dynamics rates for the quantile 0.79
+        units: mm/y
+      oceandynamics_rates_quantile_0_8:
+        description: Ocean dynamics rates for the quantile 0.8
+        units: mm/y
+      oceandynamics_rates_quantile_0_81:
+        description: Ocean dynamics rates for the quantile 0.81
+        units: mm/y
+      oceandynamics_rates_quantile_0_82:
+        description: Ocean dynamics rates for the quantile 0.82
+        units: mm/y
+      oceandynamics_rates_quantile_0_83:
+        description: Ocean dynamics rates for the quantile 0.83
+        units: mm/y
+      oceandynamics_rates_quantile_0_833:
+        description: Ocean dynamics rates for the quantile 0.833
+        units: mm/y
+      oceandynamics_rates_quantile_0_84:
+        description: Ocean dynamics rates for the quantile 0.84
+        units: mm/y
+      oceandynamics_rates_quantile_0_85:
+        description: Ocean dynamics rates for the quantile 0.85
+        units: mm/y
+      oceandynamics_rates_quantile_0_86:
+        description: Ocean dynamics rates for the quantile 0.86
+        units: mm/y
+      oceandynamics_rates_quantile_0_87:
+        description: Ocean dynamics rates for the quantile 0.87
+        units: mm/y
+      oceandynamics_rates_quantile_0_88:
+        description: Ocean dynamics rates for the quantile 0.88
+        units: mm/y
+      oceandynamics_rates_quantile_0_89:
+        description: Ocean dynamics rates for the quantile 0.89
+        units: mm/y
+      oceandynamics_rates_quantile_0_9:
+        description: Ocean dynamics rates for the quantile 0.9
+        units: mm/y
+      oceandynamics_rates_quantile_0_91:
+        description: Ocean dynamics rates for the quantile 0.91
+        units: mm/y
+      oceandynamics_rates_quantile_0_92:
+        description: Ocean dynamics rates for the quantile 0.92
+        units: mm/y
+      oceandynamics_rates_quantile_0_93:
+        description: Ocean dynamics rates for the quantile 0.93
+        units: mm/y
+      oceandynamics_rates_quantile_0_94:
+        description: Ocean dynamics rates for the quantile 0.94
+        units: mm/y
+      oceandynamics_rates_quantile_0_95:
+        description: Ocean dynamics rates for the quantile 0.95
+        units: mm/y
+      oceandynamics_rates_quantile_0_96:
+        description: Ocean dynamics rates for the quantile 0.96
+        units: mm/y
+      oceandynamics_rates_quantile_0_97:
+        description: Ocean dynamics rates for the quantile 0.97
+        units: mm/y
+      oceandynamics_rates_quantile_0_98:
+        description: Ocean dynamics rates for the quantile 0.98
+        units: mm/y
+      oceandynamics_rates_quantile_0_99:
+        description: Ocean dynamics rates for the quantile 0.99
+        units: mm/y
+      oceandynamics_rates_quantile_0_995:
+        description: Ocean dynamics rates for the quantile 0.995
+        units: mm/y
+      oceandynamics_rates_quantile_0_999:
+        description: Ocean dynamics rates for the quantile 0.999
+        units: mm/y
+      oceandynamics_rates_quantile_1:
+        description: Ocean dynamics rates for the quantile 1
+        units: mm/y
+      oceandynamics_values_quantile_0:
+        description: Ocean dynamics values for the quantile 0
+        units: mm
+      oceandynamics_values_quantile_0_001:
+        description: Ocean dynamics values for the quantile 0.001
+        units: mm
+      oceandynamics_values_quantile_0_005:
+        description: Ocean dynamics values for the quantile 0.005
+        units: mm
+      oceandynamics_values_quantile_0_01:
+        description: Ocean dynamics values for the quantile 0.01
+        units: mm
+      oceandynamics_values_quantile_0_02:
+        description: Ocean dynamics values for the quantile 0.02
+        units: mm
+      oceandynamics_values_quantile_0_03:
+        description: Ocean dynamics values for the quantile 0.03
+        units: mm
+      oceandynamics_values_quantile_0_04:
+        description: Ocean dynamics values for the quantile 0.04
+        units: mm
+      oceandynamics_values_quantile_0_05:
+        description: Ocean dynamics values for the quantile 0.05
+        units: mm
+      oceandynamics_values_quantile_0_06:
+        description: Ocean dynamics values for the quantile 0.06
+        units: mm
+      oceandynamics_values_quantile_0_07:
+        description: Ocean dynamics values for the quantile 0.07
+        units: mm
+      oceandynamics_values_quantile_0_08:
+        description: Ocean dynamics values for the quantile 0.08
+        units: mm
+      oceandynamics_values_quantile_0_09:
+        description: Ocean dynamics values for the quantile 0.09
+        units: mm
+      oceandynamics_values_quantile_0_1:
+        description: Ocean dynamics values for the quantile 0.1
+        units: mm
+      oceandynamics_values_quantile_0_11:
+        description: Ocean dynamics values for the quantile 0.11
+        units: mm
+      oceandynamics_values_quantile_0_12:
+        description: Ocean dynamics values for the quantile 0.12
+        units: mm
+      oceandynamics_values_quantile_0_13:
+        description: Ocean dynamics values for the quantile 0.13
+        units: mm
+      oceandynamics_values_quantile_0_14:
+        description: Ocean dynamics values for the quantile 0.14
+        units: mm
+      oceandynamics_values_quantile_0_15:
+        description: Ocean dynamics values for the quantile 0.15
+        units: mm
+      oceandynamics_values_quantile_0_16:
+        description: Ocean dynamics values for the quantile 0.16
+        units: mm
+      oceandynamics_values_quantile_0_167:
+        description: Ocean dynamics values for the quantile 0.167
+        units: mm
+      oceandynamics_values_quantile_0_17:
+        description: Ocean dynamics values for the quantile 0.17
+        units: mm
+      oceandynamics_values_quantile_0_18:
+        description: Ocean dynamics values for the quantile 0.18
+        units: mm
+      oceandynamics_values_quantile_0_19:
+        description: Ocean dynamics values for the quantile 0.19
+        units: mm
+      oceandynamics_values_quantile_0_2:
+        description: Ocean dynamics values for the quantile 0.2
+        units: mm
+      oceandynamics_values_quantile_0_21:
+        description: Ocean dynamics values for the quantile 0.21
+        units: mm
+      oceandynamics_values_quantile_0_22:
+        description: Ocean dynamics values for the quantile 0.22
+        units: mm
+      oceandynamics_values_quantile_0_23:
+        description: Ocean dynamics values for the quantile 0.23
+        units: mm
+      oceandynamics_values_quantile_0_24:
+        description: Ocean dynamics values for the quantile 0.24
+        units: mm
+      oceandynamics_values_quantile_0_25:
+        description: Ocean dynamics values for the quantile 0.25
+        units: mm
+      oceandynamics_values_quantile_0_26:
+        description: Ocean dynamics values for the quantile 0.26
+        units: mm
+      oceandynamics_values_quantile_0_27:
+        description: Ocean dynamics values for the quantile 0.27
+        units: mm
+      oceandynamics_values_quantile_0_28:
+        description: Ocean dynamics values for the quantile 0.28
+        units: mm
+      oceandynamics_values_quantile_0_29:
+        description: Ocean dynamics values for the quantile 0.29
+        units: mm
+      oceandynamics_values_quantile_0_3:
+        description: Ocean dynamics values for the quantile 0.3
+        units: mm
+      oceandynamics_values_quantile_0_31:
+        description: Ocean dynamics values for the quantile 0.31
+        units: mm
+      oceandynamics_values_quantile_0_32:
+        description: Ocean dynamics values for the quantile 0.32
+        units: mm
+      oceandynamics_values_quantile_0_33:
+        description: Ocean dynamics values for the quantile 0.33
+        units: mm
+      oceandynamics_values_quantile_0_34:
+        description: Ocean dynamics values for the quantile 0.34
+        units: mm
+      oceandynamics_values_quantile_0_35:
+        description: Ocean dynamics values for the quantile 0.35
+        units: mm
+      oceandynamics_values_quantile_0_36:
+        description: Ocean dynamics values for the quantile 0.36
+        units: mm
+      oceandynamics_values_quantile_0_37:
+        description: Ocean dynamics values for the quantile 0.37
+        units: mm
+      oceandynamics_values_quantile_0_38:
+        description: Ocean dynamics values for the quantile 0.38
+        units: mm
+      oceandynamics_values_quantile_0_39:
+        description: Ocean dynamics values for the quantile 0.39
+        units: mm
+      oceandynamics_values_quantile_0_4:
+        description: Ocean dynamics values for the quantile 0.4
+        units: mm
+      oceandynamics_values_quantile_0_41:
+        description: Ocean dynamics values for the quantile 0.41
+        units: mm
+      oceandynamics_values_quantile_0_42:
+        description: Ocean dynamics values for the quantile 0.42
+        units: mm
+      oceandynamics_values_quantile_0_43:
+        description: Ocean dynamics values for the quantile 0.43
+        units: mm
+      oceandynamics_values_quantile_0_44:
+        description: Ocean dynamics values for the quantile 0.44
+        units: mm
+      oceandynamics_values_quantile_0_45:
+        description: Ocean dynamics values for the quantile 0.45
+        units: mm
+      oceandynamics_values_quantile_0_46:
+        description: Ocean dynamics values for the quantile 0.46
+        units: mm
+      oceandynamics_values_quantile_0_47:
+        description: Ocean dynamics values for the quantile 0.47
+        units: mm
+      oceandynamics_values_quantile_0_48:
+        description: Ocean dynamics values for the quantile 0.48
+        units: mm
+      oceandynamics_values_quantile_0_49:
+        description: Ocean dynamics values for the quantile 0.49
+        units: mm
+      oceandynamics_values_quantile_0_5:
+        description: Ocean dynamics values for the quantile 0.5
+        units: mm
+      oceandynamics_values_quantile_0_51:
+        description: Ocean dynamics values for the quantile 0.51
+        units: mm
+      oceandynamics_values_quantile_0_52:
+        description: Ocean dynamics values for the quantile 0.52
+        units: mm
+      oceandynamics_values_quantile_0_53:
+        description: Ocean dynamics values for the quantile 0.53
+        units: mm
+      oceandynamics_values_quantile_0_54:
+        description: Ocean dynamics values for the quantile 0.54
+        units: mm
+      oceandynamics_values_quantile_0_55:
+        description: Ocean dynamics values for the quantile 0.55
+        units: mm
+      oceandynamics_values_quantile_0_56:
+        description: Ocean dynamics values for the quantile 0.56
+        units: mm
+      oceandynamics_values_quantile_0_57:
+        description: Ocean dynamics values for the quantile 0.57
+        units: mm
+      oceandynamics_values_quantile_0_58:
+        description: Ocean dynamics values for the quantile 0.58
+        units: mm
+      oceandynamics_values_quantile_0_59:
+        description: Ocean dynamics values for the quantile 0.59
+        units: mm
+      oceandynamics_values_quantile_0_6:
+        description: Ocean dynamics values for the quantile 0.6
+        units: mm
+      oceandynamics_values_quantile_0_61:
+        description: Ocean dynamics values for the quantile 0.61
+        units: mm
+      oceandynamics_values_quantile_0_62:
+        description: Ocean dynamics values for the quantile 0.62
+        units: mm
+      oceandynamics_values_quantile_0_63:
+        description: Ocean dynamics values for the quantile 0.63
+        units: mm
+      oceandynamics_values_quantile_0_64:
+        description: Ocean dynamics values for the quantile 0.64
+        units: mm
+      oceandynamics_values_quantile_0_65:
+        description: Ocean dynamics values for the quantile 0.65
+        units: mm
+      oceandynamics_values_quantile_0_66:
+        description: Ocean dynamics values for the quantile 0.66
+        units: mm
+      oceandynamics_values_quantile_0_67:
+        description: Ocean dynamics values for the quantile 0.67
+        units: mm
+      oceandynamics_values_quantile_0_68:
+        description: Ocean dynamics values for the quantile 0.68
+        units: mm
+      oceandynamics_values_quantile_0_69:
+        description: Ocean dynamics values for the quantile 0.69
+        units: mm
+      oceandynamics_values_quantile_0_7:
+        description: Ocean dynamics values for the quantile 0.7
+        units: mm
+      oceandynamics_values_quantile_0_71:
+        description: Ocean dynamics values for the quantile 0.71
+        units: mm
+      oceandynamics_values_quantile_0_72:
+        description: Ocean dynamics values for the quantile 0.72
+        units: mm
+      oceandynamics_values_quantile_0_73:
+        description: Ocean dynamics values for the quantile 0.73
+        units: mm
+      oceandynamics_values_quantile_0_74:
+        description: Ocean dynamics values for the quantile 0.74
+        units: mm
+      oceandynamics_values_quantile_0_75:
+        description: Ocean dynamics values for the quantile 0.75
+        units: mm
+      oceandynamics_values_quantile_0_76:
+        description: Ocean dynamics values for the quantile 0.76
+        units: mm
+      oceandynamics_values_quantile_0_77:
+        description: Ocean dynamics values for the quantile 0.77
+        units: mm
+      oceandynamics_values_quantile_0_78:
+        description: Ocean dynamics values for the quantile 0.78
+        units: mm
+      oceandynamics_values_quantile_0_79:
+        description: Ocean dynamics values for the quantile 0.79
+        units: mm
+      oceandynamics_values_quantile_0_8:
+        description: Ocean dynamics values for the quantile 0.8
+        units: mm
+      oceandynamics_values_quantile_0_81:
+        description: Ocean dynamics values for the quantile 0.81
+        units: mm
+      oceandynamics_values_quantile_0_82:
+        description: Ocean dynamics values for the quantile 0.82
+        units: mm
+      oceandynamics_values_quantile_0_83:
+        description: Ocean dynamics values for the quantile 0.83
+        units: mm
+      oceandynamics_values_quantile_0_833:
+        description: Ocean dynamics values for the quantile 0.833
+        units: mm
+      oceandynamics_values_quantile_0_84:
+        description: Ocean dynamics values for the quantile 0.84
+        units: mm
+      oceandynamics_values_quantile_0_85:
+        description: Ocean dynamics values for the quantile 0.85
+        units: mm
+      oceandynamics_values_quantile_0_86:
+        description: Ocean dynamics values for the quantile 0.86
+        units: mm
+      oceandynamics_values_quantile_0_87:
+        description: Ocean dynamics values for the quantile 0.87
+        units: mm
+      oceandynamics_values_quantile_0_88:
+        description: Ocean dynamics values for the quantile 0.88
+        units: mm
+      oceandynamics_values_quantile_0_89:
+        description: Ocean dynamics values for the quantile 0.89
+        units: mm
+      oceandynamics_values_quantile_0_9:
+        description: Ocean dynamics values for the quantile 0.9
+        units: mm
+      oceandynamics_values_quantile_0_91:
+        description: Ocean dynamics values for the quantile 0.91
+        units: mm
+      oceandynamics_values_quantile_0_92:
+        description: Ocean dynamics values for the quantile 0.92
+        units: mm
+      oceandynamics_values_quantile_0_93:
+        description: Ocean dynamics values for the quantile 0.93
+        units: mm
+      oceandynamics_values_quantile_0_94:
+        description: Ocean dynamics values for the quantile 0.94
+        units: mm
+      oceandynamics_values_quantile_0_95:
+        description: Ocean dynamics values for the quantile 0.95
+        units: mm
+      oceandynamics_values_quantile_0_96:
+        description: Ocean dynamics values for the quantile 0.96
+        units: mm
+      oceandynamics_values_quantile_0_97:
+        description: Ocean dynamics values for the quantile 0.97
+        units: mm
+      oceandynamics_values_quantile_0_98:
+        description: Ocean dynamics values for the quantile 0.98
+        units: mm
+      oceandynamics_values_quantile_0_99:
+        description: Ocean dynamics values for the quantile 0.99
+        units: mm
+      oceandynamics_values_quantile_0_995:
+        description: Ocean dynamics values for the quantile 0.995
+        units: mm
+      oceandynamics_values_quantile_0_999:
+        description: Ocean dynamics values for the quantile 0.999
+        units: mm
+      oceandynamics_values_quantile_1:
+        description: Ocean dynamics values for the quantile 1
+        units: mm
+      verticallandmotion_rates_quantile_0:
+        description: Vertical land motion rates for the quantile 0
+        units: mm/y
+      verticallandmotion_rates_quantile_0_001:
+        description: Vertical land motion rates for the quantile 0.001
+        units: mm/y
+      verticallandmotion_rates_quantile_0_005:
+        description: Vertical land motion rates for the quantile 0.005
+        units: mm/y
+      verticallandmotion_rates_quantile_0_01:
+        description: Vertical land motion rates for the quantile 0.01
+        units: mm/y
+      verticallandmotion_rates_quantile_0_02:
+        description: Vertical land motion rates for the quantile 0.02
+        units: mm/y
+      verticallandmotion_rates_quantile_0_03:
+        description: Vertical land motion rates for the quantile 0.03
+        units: mm/y
+      verticallandmotion_rates_quantile_0_04:
+        description: Vertical land motion rates for the quantile 0.04
+        units: mm/y
+      verticallandmotion_rates_quantile_0_05:
+        description: Vertical land motion rates for the quantile 0.05
+        units: mm/y
+      verticallandmotion_rates_quantile_0_06:
+        description: Vertical land motion rates for the quantile 0.06
+        units: mm/y
+      verticallandmotion_rates_quantile_0_07:
+        description: Vertical land motion rates for the quantile 0.07
+        units: mm/y
+      verticallandmotion_rates_quantile_0_08:
+        description: Vertical land motion rates for the quantile 0.08
+        units: mm/y
+      verticallandmotion_rates_quantile_0_09:
+        description: Vertical land motion rates for the quantile 0.09
+        units: mm/y
+      verticallandmotion_rates_quantile_0_1:
+        description: Vertical land motion rates for the quantile 0.1
+        units: mm/y
+      verticallandmotion_rates_quantile_0_11:
+        description: Vertical land motion rates for the quantile 0.11
+        units: mm/y
+      verticallandmotion_rates_quantile_0_12:
+        description: Vertical land motion rates for the quantile 0.12
+        units: mm/y
+      verticallandmotion_rates_quantile_0_13:
+        description: Vertical land motion rates for the quantile 0.13
+        units: mm/y
+      verticallandmotion_rates_quantile_0_14:
+        description: Vertical land motion rates for the quantile 0.14
+        units: mm/y
+      verticallandmotion_rates_quantile_0_15:
+        description: Vertical land motion rates for the quantile 0.15
+        units: mm/y
+      verticallandmotion_rates_quantile_0_16:
+        description: Vertical land motion rates for the quantile 0.16
+        units: mm/y
+      verticallandmotion_rates_quantile_0_167:
+        description: Vertical land motion rates for the quantile 0.167
+        units: mm/y
+      verticallandmotion_rates_quantile_0_17:
+        description: Vertical land motion rates for the quantile 0.17
+        units: mm/y
+      verticallandmotion_rates_quantile_0_18:
+        description: Vertical land motion rates for the quantile 0.18
+        units: mm/y
+      verticallandmotion_rates_quantile_0_19:
+        description: Vertical land motion rates for the quantile 0.19
+        units: mm/y
+      verticallandmotion_rates_quantile_0_2:
+        description: Vertical land motion rates for the quantile 0.2
+        units: mm/y
+      verticallandmotion_rates_quantile_0_21:
+        description: Vertical land motion rates for the quantile 0.21
+        units: mm/y
+      verticallandmotion_rates_quantile_0_22:
+        description: Vertical land motion rates for the quantile 0.22
+        units: mm/y
+      verticallandmotion_rates_quantile_0_23:
+        description: Vertical land motion rates for the quantile 0.23
+        units: mm/y
+      verticallandmotion_rates_quantile_0_24:
+        description: Vertical land motion rates for the quantile 0.24
+        units: mm/y
+      verticallandmotion_rates_quantile_0_25:
+        description: Vertical land motion rates for the quantile 0.25
+        units: mm/y
+      verticallandmotion_rates_quantile_0_26:
+        description: Vertical land motion rates for the quantile 0.26
+        units: mm/y
+      verticallandmotion_rates_quantile_0_27:
+        description: Vertical land motion rates for the quantile 0.27
+        units: mm/y
+      verticallandmotion_rates_quantile_0_28:
+        description: Vertical land motion rates for the quantile 0.28
+        units: mm/y
+      verticallandmotion_rates_quantile_0_29:
+        description: Vertical land motion rates for the quantile 0.29
+        units: mm/y
+      verticallandmotion_rates_quantile_0_3:
+        description: Vertical land motion rates for the quantile 0.3
+        units: mm/y
+      verticallandmotion_rates_quantile_0_31:
+        description: Vertical land motion rates for the quantile 0.31
+        units: mm/y
+      verticallandmotion_rates_quantile_0_32:
+        description: Vertical land motion rates for the quantile 0.32
+        units: mm/y
+      verticallandmotion_rates_quantile_0_33:
+        description: Vertical land motion rates for the quantile 0.33
+        units: mm/y
+      verticallandmotion_rates_quantile_0_34:
+        description: Vertical land motion rates for the quantile 0.34
+        units: mm/y
+      verticallandmotion_rates_quantile_0_35:
+        description: Vertical land motion rates for the quantile 0.35
+        units: mm/y
+      verticallandmotion_rates_quantile_0_36:
+        description: Vertical land motion rates for the quantile 0.36
+        units: mm/y
+      verticallandmotion_rates_quantile_0_37:
+        description: Vertical land motion rates for the quantile 0.37
+        units: mm/y
+      verticallandmotion_rates_quantile_0_38:
+        description: Vertical land motion rates for the quantile 0.38
+        units: mm/y
+      verticallandmotion_rates_quantile_0_39:
+        description: Vertical land motion rates for the quantile 0.39
+        units: mm/y
+      verticallandmotion_rates_quantile_0_4:
+        description: Vertical land motion rates for the quantile 0.4
+        units: mm/y
+      verticallandmotion_rates_quantile_0_41:
+        description: Vertical land motion rates for the quantile 0.41
+        units: mm/y
+      verticallandmotion_rates_quantile_0_42:
+        description: Vertical land motion rates for the quantile 0.42
+        units: mm/y
+      verticallandmotion_rates_quantile_0_43:
+        description: Vertical land motion rates for the quantile 0.43
+        units: mm/y
+      verticallandmotion_rates_quantile_0_44:
+        description: Vertical land motion rates for the quantile 0.44
+        units: mm/y
+      verticallandmotion_rates_quantile_0_45:
+        description: Vertical land motion rates for the quantile 0.45
+        units: mm/y
+      verticallandmotion_rates_quantile_0_46:
+        description: Vertical land motion rates for the quantile 0.46
+        units: mm/y
+      verticallandmotion_rates_quantile_0_47:
+        description: Vertical land motion rates for the quantile 0.47
+        units: mm/y
+      verticallandmotion_rates_quantile_0_48:
+        description: Vertical land motion rates for the quantile 0.48
+        units: mm/y
+      verticallandmotion_rates_quantile_0_49:
+        description: Vertical land motion rates for the quantile 0.49
+        units: mm/y
+      verticallandmotion_rates_quantile_0_5:
+        description: Vertical land motion rates for the quantile 0.5
+        units: mm/y
+      verticallandmotion_rates_quantile_0_51:
+        description: Vertical land motion rates for the quantile 0.51
+        units: mm/y
+      verticallandmotion_rates_quantile_0_52:
+        description: Vertical land motion rates for the quantile 0.52
+        units: mm/y
+      verticallandmotion_rates_quantile_0_53:
+        description: Vertical land motion rates for the quantile 0.53
+        units: mm/y
+      verticallandmotion_rates_quantile_0_54:
+        description: Vertical land motion rates for the quantile 0.54
+        units: mm/y
+      verticallandmotion_rates_quantile_0_55:
+        description: Vertical land motion rates for the quantile 0.55
+        units: mm/y
+      verticallandmotion_rates_quantile_0_56:
+        description: Vertical land motion rates for the quantile 0.56
+        units: mm/y
+      verticallandmotion_rates_quantile_0_57:
+        description: Vertical land motion rates for the quantile 0.57
+        units: mm/y
+      verticallandmotion_rates_quantile_0_58:
+        description: Vertical land motion rates for the quantile 0.58
+        units: mm/y
+      verticallandmotion_rates_quantile_0_59:
+        description: Vertical land motion rates for the quantile 0.59
+        units: mm/y
+      verticallandmotion_rates_quantile_0_6:
+        description: Vertical land motion rates for the quantile 0.6
+        units: mm/y
+      verticallandmotion_rates_quantile_0_61:
+        description: Vertical land motion rates for the quantile 0.61
+        units: mm/y
+      verticallandmotion_rates_quantile_0_62:
+        description: Vertical land motion rates for the quantile 0.62
+        units: mm/y
+      verticallandmotion_rates_quantile_0_63:
+        description: Vertical land motion rates for the quantile 0.63
+        units: mm/y
+      verticallandmotion_rates_quantile_0_64:
+        description: Vertical land motion rates for the quantile 0.64
+        units: mm/y
+      verticallandmotion_rates_quantile_0_65:
+        description: Vertical land motion rates for the quantile 0.65
+        units: mm/y
+      verticallandmotion_rates_quantile_0_66:
+        description: Vertical land motion rates for the quantile 0.66
+        units: mm/y
+      verticallandmotion_rates_quantile_0_67:
+        description: Vertical land motion rates for the quantile 0.67
+        units: mm/y
+      verticallandmotion_rates_quantile_0_68:
+        description: Vertical land motion rates for the quantile 0.68
+        units: mm/y
+      verticallandmotion_rates_quantile_0_69:
+        description: Vertical land motion rates for the quantile 0.69
+        units: mm/y
+      verticallandmotion_rates_quantile_0_7:
+        description: Vertical land motion rates for the quantile 0.7
+        units: mm/y
+      verticallandmotion_rates_quantile_0_71:
+        description: Vertical land motion rates for the quantile 0.71
+        units: mm/y
+      verticallandmotion_rates_quantile_0_72:
+        description: Vertical land motion rates for the quantile 0.72
+        units: mm/y
+      verticallandmotion_rates_quantile_0_73:
+        description: Vertical land motion rates for the quantile 0.73
+        units: mm/y
+      verticallandmotion_rates_quantile_0_74:
+        description: Vertical land motion rates for the quantile 0.74
+        units: mm/y
+      verticallandmotion_rates_quantile_0_75:
+        description: Vertical land motion rates for the quantile 0.75
+        units: mm/y
+      verticallandmotion_rates_quantile_0_76:
+        description: Vertical land motion rates for the quantile 0.76
+        units: mm/y
+      verticallandmotion_rates_quantile_0_77:
+        description: Vertical land motion rates for the quantile 0.77
+        units: mm/y
+      verticallandmotion_rates_quantile_0_78:
+        description: Vertical land motion rates for the quantile 0.78
+        units: mm/y
+      verticallandmotion_rates_quantile_0_79:
+        description: Vertical land motion rates for the quantile 0.79
+        units: mm/y
+      verticallandmotion_rates_quantile_0_8:
+        description: Vertical land motion rates for the quantile 0.8
+        units: mm/y
+      verticallandmotion_rates_quantile_0_81:
+        description: Vertical land motion rates for the quantile 0.81
+        units: mm/y
+      verticallandmotion_rates_quantile_0_82:
+        description: Vertical land motion rates for the quantile 0.82
+        units: mm/y
+      verticallandmotion_rates_quantile_0_83:
+        description: Vertical land motion rates for the quantile 0.83
+        units: mm/y
+      verticallandmotion_rates_quantile_0_833:
+        description: Vertical land motion rates for the quantile 0.833
+        units: mm/y
+      verticallandmotion_rates_quantile_0_84:
+        description: Vertical land motion rates for the quantile 0.84
+        units: mm/y
+      verticallandmotion_rates_quantile_0_85:
+        description: Vertical land motion rates for the quantile 0.85
+        units: mm/y
+      verticallandmotion_rates_quantile_0_86:
+        description: Vertical land motion rates for the quantile 0.86
+        units: mm/y
+      verticallandmotion_rates_quantile_0_87:
+        description: Vertical land motion rates for the quantile 0.87
+        units: mm/y
+      verticallandmotion_rates_quantile_0_88:
+        description: Vertical land motion rates for the quantile 0.88
+        units: mm/y
+      verticallandmotion_rates_quantile_0_89:
+        description: Vertical land motion rates for the quantile 0.89
+        units: mm/y
+      verticallandmotion_rates_quantile_0_9:
+        description: Vertical land motion rates for the quantile 0.9
+        units: mm/y
+      verticallandmotion_rates_quantile_0_91:
+        description: Vertical land motion rates for the quantile 0.91
+        units: mm/y
+      verticallandmotion_rates_quantile_0_92:
+        description: Vertical land motion rates for the quantile 0.92
+        units: mm/y
+      verticallandmotion_rates_quantile_0_93:
+        description: Vertical land motion rates for the quantile 0.93
+        units: mm/y
+      verticallandmotion_rates_quantile_0_94:
+        description: Vertical land motion rates for the quantile 0.94
+        units: mm/y
+      verticallandmotion_rates_quantile_0_95:
+        description: Vertical land motion rates for the quantile 0.95
+        units: mm/y
+      verticallandmotion_rates_quantile_0_96:
+        description: Vertical land motion rates for the quantile 0.96
+        units: mm/y
+      verticallandmotion_rates_quantile_0_97:
+        description: Vertical land motion rates for the quantile 0.97
+        units: mm/y
+      verticallandmotion_rates_quantile_0_98:
+        description: Vertical land motion rates for the quantile 0.98
+        units: mm/y
+      verticallandmotion_rates_quantile_0_99:
+        description: Vertical land motion rates for the quantile 0.99
+        units: mm/y
+      verticallandmotion_rates_quantile_0_995:
+        description: Vertical land motion rates for the quantile 0.995
+        units: mm/y
+      verticallandmotion_rates_quantile_0_999:
+        description: Vertical land motion rates for the quantile 0.999
+        units: mm/y
+      verticallandmotion_rates_quantile_1:
+        description: Vertical land motion rates for the quantile 1
+        units: mm/y
+      verticallandmotion_values_quantile_0:
+        description: Vertical land motion values for the quantile 0
+        units: mm
+      verticallandmotion_values_quantile_0_001:
+        description: Vertical land motion values for the quantile 0.001
+        units: mm
+      verticallandmotion_values_quantile_0_005:
+        description: Vertical land motion values for the quantile 0.005
+        units: mm
+      verticallandmotion_values_quantile_0_01:
+        description: Vertical land motion values for the quantile 0.01
+        units: mm
+      verticallandmotion_values_quantile_0_02:
+        description: Vertical land motion values for the quantile 0.02
+        units: mm
+      verticallandmotion_values_quantile_0_03:
+        description: Vertical land motion values for the quantile 0.03
+        units: mm
+      verticallandmotion_values_quantile_0_04:
+        description: Vertical land motion values for the quantile 0.04
+        units: mm
+      verticallandmotion_values_quantile_0_05:
+        description: Vertical land motion values for the quantile 0.05
+        units: mm
+      verticallandmotion_values_quantile_0_06:
+        description: Vertical land motion values for the quantile 0.06
+        units: mm
+      verticallandmotion_values_quantile_0_07:
+        description: Vertical land motion values for the quantile 0.07
+        units: mm
+      verticallandmotion_values_quantile_0_08:
+        description: Vertical land motion values for the quantile 0.08
+        units: mm
+      verticallandmotion_values_quantile_0_09:
+        description: Vertical land motion values for the quantile 0.09
+        units: mm
+      verticallandmotion_values_quantile_0_1:
+        description: Vertical land motion values for the quantile 0.1
+        units: mm
+      verticallandmotion_values_quantile_0_11:
+        description: Vertical land motion values for the quantile 0.11
+        units: mm
+      verticallandmotion_values_quantile_0_12:
+        description: Vertical land motion values for the quantile 0.12
+        units: mm
+      verticallandmotion_values_quantile_0_13:
+        description: Vertical land motion values for the quantile 0.13
+        units: mm
+      verticallandmotion_values_quantile_0_14:
+        description: Vertical land motion values for the quantile 0.14
+        units: mm
+      verticallandmotion_values_quantile_0_15:
+        description: Vertical land motion values for the quantile 0.15
+        units: mm
+      verticallandmotion_values_quantile_0_16:
+        description: Vertical land motion values for the quantile 0.16
+        units: mm
+      verticallandmotion_values_quantile_0_167:
+        description: Vertical land motion values for the quantile 0.167
+        units: mm
+      verticallandmotion_values_quantile_0_17:
+        description: Vertical land motion values for the quantile 0.17
+        units: mm
+      verticallandmotion_values_quantile_0_18:
+        description: Vertical land motion values for the quantile 0.18
+        units: mm
+      verticallandmotion_values_quantile_0_19:
+        description: Vertical land motion values for the quantile 0.19
+        units: mm
+      verticallandmotion_values_quantile_0_2:
+        description: Vertical land motion values for the quantile 0.2
+        units: mm
+      verticallandmotion_values_quantile_0_21:
+        description: Vertical land motion values for the quantile 0.21
+        units: mm
+      verticallandmotion_values_quantile_0_22:
+        description: Vertical land motion values for the quantile 0.22
+        units: mm
+      verticallandmotion_values_quantile_0_23:
+        description: Vertical land motion values for the quantile 0.23
+        units: mm
+      verticallandmotion_values_quantile_0_24:
+        description: Vertical land motion values for the quantile 0.24
+        units: mm
+      verticallandmotion_values_quantile_0_25:
+        description: Vertical land motion values for the quantile 0.25
+        units: mm
+      verticallandmotion_values_quantile_0_26:
+        description: Vertical land motion values for the quantile 0.26
+        units: mm
+      verticallandmotion_values_quantile_0_27:
+        description: Vertical land motion values for the quantile 0.27
+        units: mm
+      verticallandmotion_values_quantile_0_28:
+        description: Vertical land motion values for the quantile 0.28
+        units: mm
+      verticallandmotion_values_quantile_0_29:
+        description: Vertical land motion values for the quantile 0.29
+        units: mm
+      verticallandmotion_values_quantile_0_3:
+        description: Vertical land motion values for the quantile 0.3
+        units: mm
+      verticallandmotion_values_quantile_0_31:
+        description: Vertical land motion values for the quantile 0.31
+        units: mm
+      verticallandmotion_values_quantile_0_32:
+        description: Vertical land motion values for the quantile 0.32
+        units: mm
+      verticallandmotion_values_quantile_0_33:
+        description: Vertical land motion values for the quantile 0.33
+        units: mm
+      verticallandmotion_values_quantile_0_34:
+        description: Vertical land motion values for the quantile 0.34
+        units: mm
+      verticallandmotion_values_quantile_0_35:
+        description: Vertical land motion values for the quantile 0.35
+        units: mm
+      verticallandmotion_values_quantile_0_36:
+        description: Vertical land motion values for the quantile 0.36
+        units: mm
+      verticallandmotion_values_quantile_0_37:
+        description: Vertical land motion values for the quantile 0.37
+        units: mm
+      verticallandmotion_values_quantile_0_38:
+        description: Vertical land motion values for the quantile 0.38
+        units: mm
+      verticallandmotion_values_quantile_0_39:
+        description: Vertical land motion values for the quantile 0.39
+        units: mm
+      verticallandmotion_values_quantile_0_4:
+        description: Vertical land motion values for the quantile 0.4
+        units: mm
+      verticallandmotion_values_quantile_0_41:
+        description: Vertical land motion values for the quantile 0.41
+        units: mm
+      verticallandmotion_values_quantile_0_42:
+        description: Vertical land motion values for the quantile 0.42
+        units: mm
+      verticallandmotion_values_quantile_0_43:
+        description: Vertical land motion values for the quantile 0.43
+        units: mm
+      verticallandmotion_values_quantile_0_44:
+        description: Vertical land motion values for the quantile 0.44
+        units: mm
+      verticallandmotion_values_quantile_0_45:
+        description: Vertical land motion values for the quantile 0.45
+        units: mm
+      verticallandmotion_values_quantile_0_46:
+        description: Vertical land motion values for the quantile 0.46
+        units: mm
+      verticallandmotion_values_quantile_0_47:
+        description: Vertical land motion values for the quantile 0.47
+        units: mm
+      verticallandmotion_values_quantile_0_48:
+        description: Vertical land motion values for the quantile 0.48
+        units: mm
+      verticallandmotion_values_quantile_0_49:
+        description: Vertical land motion values for the quantile 0.49
+        units: mm
+      verticallandmotion_values_quantile_0_5:
+        description: Vertical land motion values for the quantile 0.5
+        units: mm
+      verticallandmotion_values_quantile_0_51:
+        description: Vertical land motion values for the quantile 0.51
+        units: mm
+      verticallandmotion_values_quantile_0_52:
+        description: Vertical land motion values for the quantile 0.52
+        units: mm
+      verticallandmotion_values_quantile_0_53:
+        description: Vertical land motion values for the quantile 0.53
+        units: mm
+      verticallandmotion_values_quantile_0_54:
+        description: Vertical land motion values for the quantile 0.54
+        units: mm
+      verticallandmotion_values_quantile_0_55:
+        description: Vertical land motion values for the quantile 0.55
+        units: mm
+      verticallandmotion_values_quantile_0_56:
+        description: Vertical land motion values for the quantile 0.56
+        units: mm
+      verticallandmotion_values_quantile_0_57:
+        description: Vertical land motion values for the quantile 0.57
+        units: mm
+      verticallandmotion_values_quantile_0_58:
+        description: Vertical land motion values for the quantile 0.58
+        units: mm
+      verticallandmotion_values_quantile_0_59:
+        description: Vertical land motion values for the quantile 0.59
+        units: mm
+      verticallandmotion_values_quantile_0_6:
+        description: Vertical land motion values for the quantile 0.6
+        units: mm
+      verticallandmotion_values_quantile_0_61:
+        description: Vertical land motion values for the quantile 0.61
+        units: mm
+      verticallandmotion_values_quantile_0_62:
+        description: Vertical land motion values for the quantile 0.62
+        units: mm
+      verticallandmotion_values_quantile_0_63:
+        description: Vertical land motion values for the quantile 0.63
+        units: mm
+      verticallandmotion_values_quantile_0_64:
+        description: Vertical land motion values for the quantile 0.64
+        units: mm
+      verticallandmotion_values_quantile_0_65:
+        description: Vertical land motion values for the quantile 0.65
+        units: mm
+      verticallandmotion_values_quantile_0_66:
+        description: Vertical land motion values for the quantile 0.66
+        units: mm
+      verticallandmotion_values_quantile_0_67:
+        description: Vertical land motion values for the quantile 0.67
+        units: mm
+      verticallandmotion_values_quantile_0_68:
+        description: Vertical land motion values for the quantile 0.68
+        units: mm
+      verticallandmotion_values_quantile_0_69:
+        description: Vertical land motion values for the quantile 0.69
+        units: mm
+      verticallandmotion_values_quantile_0_7:
+        description: Vertical land motion values for the quantile 0.7
+        units: mm
+      verticallandmotion_values_quantile_0_71:
+        description: Vertical land motion values for the quantile 0.71
+        units: mm
+      verticallandmotion_values_quantile_0_72:
+        description: Vertical land motion values for the quantile 0.72
+        units: mm
+      verticallandmotion_values_quantile_0_73:
+        description: Vertical land motion values for the quantile 0.73
+        units: mm
+      verticallandmotion_values_quantile_0_74:
+        description: Vertical land motion values for the quantile 0.74
+        units: mm
+      verticallandmotion_values_quantile_0_75:
+        description: Vertical land motion values for the quantile 0.75
+        units: mm
+      verticallandmotion_values_quantile_0_76:
+        description: Vertical land motion values for the quantile 0.76
+        units: mm
+      verticallandmotion_values_quantile_0_77:
+        description: Vertical land motion values for the quantile 0.77
+        units: mm
+      verticallandmotion_values_quantile_0_78:
+        description: Vertical land motion values for the quantile 0.78
+        units: mm
+      verticallandmotion_values_quantile_0_79:
+        description: Vertical land motion values for the quantile 0.79
+        units: mm
+      verticallandmotion_values_quantile_0_8:
+        description: Vertical land motion values for the quantile 0.8
+        units: mm
+      verticallandmotion_values_quantile_0_81:
+        description: Vertical land motion values for the quantile 0.81
+        units: mm
+      verticallandmotion_values_quantile_0_82:
+        description: Vertical land motion values for the quantile 0.82
+        units: mm
+      verticallandmotion_values_quantile_0_83:
+        description: Vertical land motion values for the quantile 0.83
+        units: mm
+      verticallandmotion_values_quantile_0_833:
+        description: Vertical land motion values for the quantile 0.833
+        units: mm
+      verticallandmotion_values_quantile_0_84:
+        description: Vertical land motion values for the quantile 0.84
+        units: mm
+      verticallandmotion_values_quantile_0_85:
+        description: Vertical land motion values for the quantile 0.85
+        units: mm
+      verticallandmotion_values_quantile_0_86:
+        description: Vertical land motion values for the quantile 0.86
+        units: mm
+      verticallandmotion_values_quantile_0_87:
+        description: Vertical land motion values for the quantile 0.87
+        units: mm
+      verticallandmotion_values_quantile_0_88:
+        description: Vertical land motion values for the quantile 0.88
+        units: mm
+      verticallandmotion_values_quantile_0_89:
+        description: Vertical land motion values for the quantile 0.89
+        units: mm
+      verticallandmotion_values_quantile_0_9:
+        description: Vertical land motion values for the quantile 0.9
+        units: mm
+      verticallandmotion_values_quantile_0_91:
+        description: Vertical land motion values for the quantile 0.91
+        units: mm
+      verticallandmotion_values_quantile_0_92:
+        description: Vertical land motion values for the quantile 0.92
+        units: mm
+      verticallandmotion_values_quantile_0_93:
+        description: Vertical land motion values for the quantile 0.93
+        units: mm
+      verticallandmotion_values_quantile_0_94:
+        description: Vertical land motion values for the quantile 0.94
+        units: mm
+      verticallandmotion_values_quantile_0_95:
+        description: Vertical land motion values for the quantile 0.95
+        units: mm
+      verticallandmotion_values_quantile_0_96:
+        description: Vertical land motion values for the quantile 0.96
+        units: mm
+      verticallandmotion_values_quantile_0_97:
+        description: Vertical land motion values for the quantile 0.97
+        units: mm
+      verticallandmotion_values_quantile_0_98:
+        description: Vertical land motion values for the quantile 0.98
+        units: mm
+      verticallandmotion_values_quantile_0_99:
+        description: Vertical land motion values for the quantile 0.99
+        units: mm
+      verticallandmotion_values_quantile_0_995:
+        description: Vertical land motion values for the quantile 0.995
+        units: mm
+      verticallandmotion_values_quantile_0_999:
+        description: Vertical land motion values for the quantile 0.999
+        units: mm
+      verticallandmotion_values_quantile_1:
+        description: Vertical land motion values for the quantile 1
+        units: mm
+
+  ISDASOIL/Africa/v1/aluminium_extractable:
+    title: iSDAsoil extractable Aluminium
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Aluminium, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 3
+        max: 80
+      mean_20_50:
+        description: Aluminium, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 4
+        max: 79
+      stdev_0_20:
+        description: Aluminium, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 53
+      stdev_20_50:
+        description: Aluminium, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 1
+        max: 51
+
+  ISDASOIL/Africa/v1/bedrock_depth:
+    title: iSDAsoil Depth to Bedrock
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_200:
+        description: Depth to bedrock, predicted mean at 0-200 cm depth
+        units: cm
+        min: 27
+        max: 200
+      stdev_0_200:
+        description: Depth to bedrock, standard deviation at 0-20 cm depth
+        units: cm
+        min: 9
+        max: 254
+
+  ISDASOIL/Africa/v1/bulk_density:
+    title: iSDAsoil Bulk Density, <2mm Fraction
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Bulk density, <2mm fraction, predicted mean at 0-20 cm depth
+        units: g/cm^3
+        min: 44
+        max: 197
+      mean_20_50:
+        description: Bulk density, <2mm fraction, predicted mean at 20-50 cm depth
+        units: g/cm^3
+        min: 44
+        max: 196
+      stdev_0_20:
+        description: Bulk density, <2mm fraction, standard deviation at 0-20 cm depth
+        units: g/cm^3
+        min: 0
+        max: 92
+      stdev_20_50:
+        description: Bulk density, <2mm fraction, standard deviation at 20-50 cm depth
+        units: g/cm^3
+        min: 0
+        max: 92
+
+  ISDASOIL/Africa/v1/calcium_extractable:
+    title: iSDAsoil Extractable Calcium
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Calcium, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 20
+        max: 100
+      mean_20_50:
+        description: Calcium, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 14
+        max: 100
+      stdev_0_20:
+        description: Calcium, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 62
+      stdev_20_50:
+        description: Calcium, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 63
+
+  ISDASOIL/Africa/v1/carbon_organic:
+    title: iSDAsoil Organic Carbon
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Carbon, organic, predicted mean at 0-20 cm depth
+        units: g/kg
+        min: 1
+        max: 46
+      mean_20_50:
+        description: Carbon, organic, predicted mean at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 46
+      stdev_0_20:
+        description: Carbon, organic, standard deviation at 0-20 cm depth
+        units: g/kg
+        min: 0
+        max: 12
+      stdev_20_50:
+        description: Carbon, organic, standard deviation at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 13
+
+  ISDASOIL/Africa/v1/carbon_total:
+    title: iSDAsoil Total Carbon
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Carbon, total, predicted mean at 0-20 cm depth
+        units: g/kg
+        min: 0
+        max: 58
+      mean_20_50:
+        description: Carbon, total, predicted mean at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 55
+      stdev_0_20:
+        description: Carbon, total, standard deviation at 0-20 cm depth
+        units: g/kg
+        min: 0
+        max: 151
+      stdev_20_50:
+        description: Carbon, total, standard deviation at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 150
+
+  ISDASOIL/Africa/v1/cation_exchange_capacity:
+    title: iSDAsoil Effective Cation Exchange Capacity
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Effective Cation Exchange Capacity, predicted mean at 0-20 cm depth
+        units: cmol(+)/kg
+        min: 0
+        max: 45
+      mean_20_50:
+        description: Effective Cation Exchange Capacity, predicted mean at 20-50 cm depth
+        units: cmol(+)/kg
+        min: 0
+        max: 46
+      stdev_0_20:
+        description: Effective Cation Exchange Capacity, standard deviation at 0-20 cm depth
+        units: cmol(+)/kg
+        min: 0
+        max: 19
+      stdev_20_50:
+        description: Effective Cation Exchange Capacity, standard deviation at 20-50 cm depth
+        units: cmol(+)/kg
+        min: 0
+        max: 20
+
+  ISDASOIL/Africa/v1/clay_content:
+    title: iSDAsoil Clay Content
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Clay content, predicted mean at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 84
+      mean_20_50:
+        description: Clay content, predicted mean at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 78
+      stdev_0_20:
+        description: Clay content, standard deviation at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 90
+      stdev_20_50:
+        description: Clay content, standard deviation at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 90
+
+  ISDASOIL/Africa/v1/fcc:
+    title: iSDAsoil Fertility Capability Classification
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      fcc:
+        description: Fertility Capability Classification.
+        min: 0
+        max: 1853
+
+  ISDASOIL/Africa/v1/iron_extractable:
+    title: iSDAsoil Extractable Iron
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Iron, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 62
+      mean_20_50:
+        description: Iron, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 47
+      stdev_0_20:
+        description: Iron, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 39
+      stdev_20_50:
+        description: Iron, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 39
+
+  ISDASOIL/Africa/v1/magnesium_extractable:
+    title: iSDAsoil Extractable Magnesium
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Magnesium, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 16
+        max: 80
+      mean_20_50:
+        description: Magnesium, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 12
+        max: 80
+      stdev_0_20:
+        description: Magnesium, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 76
+      stdev_20_50:
+        description: Magnesium, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 76
+
+  ISDASOIL/Africa/v1/nitrogen_total:
+    title: iSDAsoil Total Nitrogen
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Nitrogen, total, predicted mean at 0-20 cm depth
+        units: g/kg
+        min: 3
+        max: 246
+      mean_20_50:
+        description: Nitrogen, total, predicted mean at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 254
+      stdev_0_20:
+        description: Nitrogen, total, standard deviation at 0-20 cm depth
+        units: g/kg
+        min: 1
+        max: 124
+      stdev_20_50:
+        description: Nitrogen, total, standard deviation at 20-50 cm depth
+        units: g/kg
+        min: 1
+        max: 125
+
+  ISDASOIL/Africa/v1/ph:
+    title: iSDAsoil pH
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: pH, predicted mean at 0-20 cm depth
+        min: 35
+        max: 103
+      mean_20_50:
+        description: pH, predicted mean at 20-50 cm depth
+        min: 35
+        max: 102
+      stdev_0_20:
+        description: pH, standard deviation at 0-20 cm depth
+        min: 0
+        max: 18
+      stdev_20_50:
+        description: pH, standard deviation at 20-50 cm depth
+        min: 0
+        max: 18
+
+  ISDASOIL/Africa/v1/phosphorus_extractable:
+    title: iSDAsoil Extractable Phosphorus
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Phosphorus, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 55
+      mean_20_50:
+        description: Phosphorus, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 52
+      stdev_0_20:
+        description: Phosphorus, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 19
+      stdev_20_50:
+        description: Phosphorus, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 20
+
+  ISDASOIL/Africa/v1/potassium_extractable:
+    title: iSDAsoil Extractable Potassium
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Potassium, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 80
+      mean_20_50:
+        description: Potassium, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 79
+      stdev_0_20:
+        description: Potassium, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 92
+      stdev_20_50:
+        description: Potassium, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 92
+
+  ISDASOIL/Africa/v1/sand_content:
+    title: iSDAsoil Sand Content
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Sand content, predicted mean at 0-20 cm depth
+        units: '%'
+        min: 2
+        max: 94
+      mean_20_50:
+        description: Sand content, predicted mean at 20-50 cm depth
+        units: '%'
+        min: 2
+        max: 95
+      stdev_0_20:
+        description: Sand content, standard deviation at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 144
+      stdev_20_50:
+        description: Sand content, standard deviation at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 143
+
+  ISDASOIL/Africa/v1/silt_content:
+    title: iSDAsoil Silt Content
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Silt content, predicted mean at 0-20 cm depth
+        units: '%'
+        min: 1
+        max: 61
+      mean_20_50:
+        description: Silt content, predicted mean at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 62
+      stdev_0_20:
+        description: Silt content, standard deviation at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 38
+      stdev_20_50:
+        description: Silt content, standard deviation at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 38
+
+  ISDASOIL/Africa/v1/stone_content:
+    title: iSDAsoil Stone Content
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Stone content, predicted mean at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 42
+      mean_20_50:
+        description: Stone content, predicted mean at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 42
+      stdev_0_20:
+        description: Stone content, standard deviation at 0-20 cm depth
+        units: '%'
+        min: 1
+        max: 159
+      stdev_20_50:
+        description: Stone content, standard deviation at 20-50 cm depth
+        units: '%'
+        min: 1
+        max: 158
+
+  ISDASOIL/Africa/v1/sulphur_extractable:
+    title: iSDAsoil Extractable Sulfur
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Sulfur, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 3
+        max: 42
+      mean_20_50:
+        description: Sulfur, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 39
+      stdev_0_20:
+        description: Sulfur, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 37
+      stdev_20_50:
+        description: Sulfur, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 3
+        max: 41
