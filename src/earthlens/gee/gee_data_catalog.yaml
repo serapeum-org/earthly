@@ -11292,3 +11292,512 @@ datasets:
       error_y:
         description: Ice flow Y-velocity error
         units: m/yr
+
+  Oxford/MAP/TCB_5km_Monthly:
+    title: "Oxford MAP TCB 5km Monthly: Gap-Filled Tasselled Cap Brightness (2001-)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-02-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    bands:
+      Mean:
+        description: Monthly mean Tasselled Cap Brightness
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/TCW_5km_Monthly:
+    title: "Oxford MAP TCW 5km Monthly: Gap-Filled Tasselled Cap Wetness (2001-)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-02-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    bands:
+      Mean:
+        description: Monthly mean Tasselled Cap Wetness
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  JAXA/ALOS/AVNIR-2/ORI:
+    title: "ALOS AVNIR-2 ORI: Ortho-Rectified Optical Imagery (10m, 2006-, Japan + select global)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2006-04-26"
+      end_date: "2011-04-22"
+      bbox: [127.05, 23.81, 154.41, 46.04]
+    default_reducer: median
+    terms: Free with attribution (JAXA AVNIR-2 terms).
+    bands:
+      B1:
+        description: Blue (0.42-0.50 µm)
+        wavelength: 0.46
+      B2:
+        description: Green (0.52-0.60 µm)
+        wavelength: 0.56
+      B3:
+        description: Red (0.61-0.69 µm)
+        wavelength: 0.65
+      B4:
+        description: Near-Infrared (0.76-0.89 µm)
+        wavelength: 0.825
+
+  projects/sat-io/open-datasets/ORNL/LANDSCAN_GLOBAL:
+    title: "ORNL LandScan Global: 24-hour Population Count (~1km, annual, 2000-)"
+    provider: Oak Ridge National Laboratory (republished via sat-io)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    terms: ORNL LandScan terms — free for non-commercial use with citation.
+    user_uploaded: true
+    bands:
+      b1:
+        description: 24-hour ambient population count per ~1km cell
+        units: persons
+
+  LARSE/GEDI/GEDI02_B_002_MONTHLY:
+    title: "GEDI L2B v002: Monthly Raster Canopy-Cover + Vertical Profile Metrics (25m, ±51.6° lat)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 25
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mean
+    terms: Public domain (NASA / USFS).
+    bands:
+      cover:
+        description: Total canopy cover
+        min: 0
+        max: 1
+      fhd_normal:
+        description: Foliage height diversity
+      l2b_quality_flag:
+        description: L2B quality flag (1=pass)
+        min: 0
+        max: 1
+      algorithmrun_flag:
+        description: Whether the L2B algorithm ran (1) or not (0)
+        min: 0
+        max: 1
+      beam:
+        description: GEDI beam identifier
+        min: 0
+        max: 11
+      delta_time:
+        description: Shot transmit time, seconds since 2018-01-01
+        units: s
+      degrade_flag:
+        description: Pointing/positioning degraded-state flag
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/1KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure Metrics + Biomass Density (1km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    terms: Public domain (NASA / USFS).
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      meanbse:
+        description: Bootstrap-resampled standard error of the mean
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/6KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure + Biomass Density (6km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 6000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    terms: Public domain (NASA / USFS).
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/12KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure + Biomass Density (12km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 12000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    terms: Public domain (NASA / USFS).
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/1KM:
+    title: "GEDI GRIDDEDVEG v002 COUNTS: Shot/Orbit/Track Counts (1km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    terms: Public domain (NASA / USFS).
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: Number of GEDI shots contributing to the pixel
+      orbits_uniq:
+        description: Number of unique orbits contributing
+      tracks_uniq:
+        description: Number of unique ground tracks contributing
+      shots_nni:
+        description: Nearest Neighbor Index (Evans et al. 2023)
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/6KM:
+    title: "GEDI GRIDDEDVEG v002 COUNTS: Shot/Orbit/Track Counts (6km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 6000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    terms: Public domain (NASA / USFS).
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: Number of GEDI shots contributing to the pixel
+      orbits_uniq:
+        description: Number of unique orbits contributing
+      tracks_uniq:
+        description: Number of unique ground tracks contributing
+      shots_nni:
+        description: Nearest Neighbor Index (Evans et al. 2023)
+
+  Oxford/MAP/friction_surface_2015_v1_0:
+    title: "Oxford MAP Global Friction Surface 2015 v1.0 (1km travel speed, legacy)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
+      bbox: [-180, -60, 180, 85]
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      friction:
+        description: Land-based travel speed
+        units: min/m
+
+  projects/sat-io/open-datasets/GLOBathy/GLOBathy_bathymetry:
+    title: "GLOBathy: Global Lakes Bathymetry (~30m, derived from HydroLAKES)"
+    provider: GLOBathy / Sat-IO open-datasets
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2022-01-01"
+      end_date: "2022-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      b1:
+        description: Lake bathymetric depth (positive downward)
+        units: m
+
+  projects/sat-io/open-datasets/us-drought-monitor:
+    title: "US Drought Monitor (weekly raster, ~5km, 2000-)"
+    provider: NDMC / USDA / NOAA (republished via sat-io)
+    ee_type: image_collection
+    cadence: { interval: 7, unit: day }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2000-01-04"
+      end_date: null
+      bbox: [-130, 24, -65, 53]
+    default_reducer: mosaic
+    terms: Public domain (USDM).
+    user_uploaded: true
+    bands:
+      b1:
+        description: Drought-intensity class (-1=none, 0=D0 abnormally dry, 1=D1 moderate, 2=D2 severe, 3=D3 extreme, 4=D4 exceptional)
+        min: -1
+        max: 4
+
+  OREGONSTATE/PRISM/ANd:
+    title: "PRISM ANd: US Daily Climate (4km, 1981-)"
+    provider: PRISM Climate Group, Oregon State University
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-125, 24, -66, 50]
+    default_reducer: mean
+    terms: Free for any use (PRISM Climate Group).
+    bands:
+      ppt:
+        description: Daily total precipitation (rain + melted snow)
+        units: mm
+      tmean:
+        description: Daily mean temperature
+        units: deg_C
+      tmin:
+        description: Daily minimum temperature
+        units: deg_C
+      tmax:
+        description: Daily maximum temperature
+        units: deg_C
+      tdmean:
+        description: Daily mean dew-point temperature
+        units: deg_C
+      vpdmin:
+        description: Daily minimum vapor-pressure deficit
+        units: hPa
+      vpdmax:
+        description: Daily maximum vapor-pressure deficit
+        units: hPa
+
+  OREGONSTATE/PRISM/ANm:
+    title: "PRISM ANm: US Monthly Climate (4km, 1895-, alternate AN81m)"
+    provider: PRISM Climate Group, Oregon State University
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1895-01-01"
+      end_date: null
+      bbox: [-125, 24, -66, 50]
+    default_reducer: mean
+    terms: Free for any use (PRISM Climate Group).
+    bands:
+      ppt:
+        description: Monthly total precipitation
+        units: mm
+      tmean:
+        description: Monthly mean of daily mean temperature
+        units: deg_C
+      tmin:
+        description: Monthly mean of daily minimum temperature
+        units: deg_C
+      tmax:
+        description: Monthly mean of daily maximum temperature
+        units: deg_C
+      tdmean:
+        description: Monthly mean of daily mean dew-point temperature
+        units: deg_C
+      vpdmin:
+        description: Monthly mean of daily minimum vapor-pressure deficit
+        units: hPa
+      vpdmax:
+        description: Monthly mean of daily maximum vapor-pressure deficit
+        units: hPa
+
+  OREGONSTATE/PRISM/Norm81m:
+    title: "PRISM Norm81m: US 30-Year Monthly Climate Normals (1981-2010, 4km)"
+    provider: PRISM Climate Group, Oregon State University
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1981-01-01"
+      end_date: "2010-12-31"
+      bbox: [-125, 24, -66, 50]
+    default_reducer: mean
+    terms: Free for any use (PRISM Climate Group).
+    bands:
+      ppt:
+        description: 30-year average of monthly total precipitation
+        units: mm
+      tmean:
+        description: 30-year average of monthly mean temperature
+        units: deg_C
+      tmin:
+        description: 30-year average of monthly minimum temperature
+        units: deg_C
+      tmax:
+        description: 30-year average of monthly maximum temperature
+        units: deg_C
+      tdmean:
+        description: 30-year average of monthly mean dew-point temperature
+        units: deg_C
+
+  OREGONSTATE/PRISM/Norm91m:
+    title: "PRISM Norm91m: US 30-Year Monthly Climate Normals (1991-2020, 4km)"
+    provider: PRISM Climate Group, Oregon State University
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1991-01-01"
+      end_date: "2020-12-31"
+      bbox: [-125, 24, -66, 50]
+    default_reducer: mean
+    terms: Free for any use (PRISM Climate Group).
+    bands:
+      ppt:
+        description: 30-year average of monthly total precipitation
+        units: mm
+      tmean:
+        description: 30-year average of monthly mean temperature
+        units: deg_C
+      tmin:
+        description: 30-year average of monthly minimum temperature
+        units: deg_C
+      tmax:
+        description: 30-year average of monthly maximum temperature
+        units: deg_C
+      tdmean:
+        description: 30-year average of monthly mean dew-point temperature
+        units: deg_C
+
+  projects/planet-nicfi/assets/basemaps/africa:
+    title: "Planet NICFI Tropical Africa Basemap (~4.77m, monthly, 2020-)"
+    provider: Planet Labs (NICFI programme)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4.77
+    extent:
+      start_date: "2020-09-01"
+      end_date: null
+      bbox: [-30, -36, 60, 30]
+    default_reducer: median
+    terms: Free for non-commercial use under Planet NICFI terms.
+    user_uploaded: true
+    bands:
+      R:
+        description: Red (analytic surface reflectance, scaled DN)
+      G:
+        description: Green (analytic surface reflectance, scaled DN)
+      B:
+        description: Blue (analytic surface reflectance, scaled DN)
+      N:
+        description: Near infrared (analytic surface reflectance, scaled DN)
+      Q:
+        description: Per-pixel quality assurance band
+
+  projects/planet-nicfi/assets/basemaps/americas:
+    title: "Planet NICFI Tropical Americas Basemap (~4.77m, monthly, 2020-)"
+    provider: Planet Labs (NICFI programme)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4.77
+    extent:
+      start_date: "2020-09-01"
+      end_date: null
+      bbox: [-120, -34, -33, 30]
+    default_reducer: median
+    terms: Free for non-commercial use under Planet NICFI terms.
+    user_uploaded: true
+    bands:
+      R:
+        description: Red (analytic surface reflectance, scaled DN)
+      G:
+        description: Green (analytic surface reflectance, scaled DN)
+      B:
+        description: Blue (analytic surface reflectance, scaled DN)
+      N:
+        description: Near infrared (analytic surface reflectance, scaled DN)
+      Q:
+        description: Per-pixel quality assurance band
+
+  projects/planet-nicfi/assets/basemaps/asia:
+    title: "Planet NICFI Tropical Asia Basemap (~4.77m, monthly, 2020-)"
+    provider: Planet Labs (NICFI programme)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4.77
+    extent:
+      start_date: "2020-09-01"
+      end_date: null
+      bbox: [60, -15, 165, 30]
+    default_reducer: median
+    terms: Free for non-commercial use under Planet NICFI terms.
+    user_uploaded: true
+    bands:
+      R:
+        description: Red (analytic surface reflectance, scaled DN)
+      G:
+        description: Green (analytic surface reflectance, scaled DN)
+      B:
+        description: Blue (analytic surface reflectance, scaled DN)
+      N:
+        description: Near infrared (analytic surface reflectance, scaled DN)
+      Q:
+        description: Per-pixel quality assurance band
