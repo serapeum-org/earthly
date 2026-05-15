@@ -403,24 +403,61 @@ class CHIRPS(AbstractDataSource):
     ) -> None:
         """Fetch each entry in `dataset.discrete_files` once.
 
-        For datasets that publish a fixed set of multi-year archive
-        files (CenTrends and similar), date iteration is meaningless —
-        each file is the whole product, not a per-date partition. The
-        files are saved verbatim as `<ds_key>_<source_filename>` in
-        `self.root_dir`; the per-date GeoTIFF bbox clip is skipped
-        because these archives are typically `(time, lat, lon)`
-        NetCDFs that need xarray-style time-and-region subsetting,
-        which is out of scope for this backend.
+        For datasets that publish a fixed set of archive files
+        (CenTrends, CHPclim v2, similar), date iteration is meaningless
+        — each file is the whole product, not a per-date partition.
+        Files are saved as `<ds_key>_<source_filename>` in
+        `self.root_dir`.
+
+        Post-processing branches on the catalog's `default_format`:
+
+        * 2-D raster formats (`tif`, `cog`, `bil`) are clipped to the
+          user's bbox in place via :meth:`_clip_raster_in_place`, just
+          like the per-date `_post_process` path. CHPclim v2 monthly
+          climatology TIFs flow through here.
+        * Multi-dim / opaque formats (`netcdf`, `bin`) are passed
+          through unmodified — CenTrends multi-year monthly NetCDFs
+          carry a `time` axis that the 2-D clip math cannot handle
+          correctly, so time-and-region subsetting is left to the
+          caller (read with xarray and use
+          `.sel(time=..., lat=..., lon=...)`).
         """
         fmt_key = dataset.default_format
         ftp_base = dataset.ftp_bases[fmt_key]
         filenames = dataset.discrete_files[fmt_key]
+        is_2d_raster = fmt_key in {"tif", "cog", "bil"}
         iterable = tqdm(
             filenames, desc=f"CHC {ds_key}", disable=not progress_bar
         )
         for filename in iterable:
             local_path = self.root_dir / f"{ds_key}_{filename}"
             self._fetch_ftp(ftp_base, filename, local_path)
+            if is_2d_raster:
+                self._clip_raster_in_place(local_path)
+
+    def _clip_raster_in_place(self, path: Path) -> None:
+        """Read a 2-D raster at `path`, clip to `self.space`, write back.
+
+        Used by :meth:`_download_discrete` for `tif` / `cog` / `bil`
+        outputs. Negative pixels are normalised to -9999 (CHC's
+        documented no-data sentinel) and -9999 is declared as the
+        output band's no-data value, mirroring the per-date
+        :meth:`_post_process` behaviour.
+        """
+        raster = Dataset.read_file(str(path))
+        data = raster.read_array()
+        clipped, new_geo = self._clip_to_bbox(data, raster.geotransform)
+        nodata_sentinel: float = -9999.0
+        clipped = np.where(clipped < 0, nodata_sentinel, clipped).astype(
+            data.dtype, copy=False
+        )
+        new_raster = Dataset.create_from_array(
+            clipped,
+            geo=new_geo,
+            epsg=raster.epsg,
+            no_data_value=nodata_sentinel,
+        )
+        new_raster.to_file(str(path))
 
     def _api(
         self,
