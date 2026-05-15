@@ -28529,3 +28529,509 @@ datasets:
         max: 254
       q_scan:
         description: 250m scan value information
+
+  MODIS/006/MYD09GQ:
+    title: MYD09GQ.006 Aqua Surface Reflectance Daily Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 250
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      num_observations:
+        description: Number of observations per 250m pixel
+        min: 0
+        max: 127
+      sur_refl_b01:
+        description: Surface reflectance band 1
+        scale: 0.0001
+        wavelength: 0.645
+        min: -100
+        max: 16000
+      sur_refl_b02:
+        description: Surface reflectance for band 2
+        scale: 0.0001
+        wavelength: 0.8585
+        min: -100
+        max: 16000
+      QC_250m:
+        description: Surface reflectance quality assurance
+      obscov:
+        description: Observation coverage percent
+        scale: 0.01
+        min: 0
+        max: 100
+      iobs_res:
+        description: Observation number
+        min: 0
+        max: 254
+      orbit_pnt:
+        description: Orbit pointer
+        min: 0
+        max: 15
+      granule_pnt:
+        description: Granule pointer
+        min: 0
+        max: 254
+
+  MODIS/006/MYD09Q1:
+    title: MYD09Q1.006 Aqua Surface Reflectance 8-Day Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 250
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      sur_refl_b01:
+        description: Surface reflectance band 1
+        scale: 0.0001
+        wavelength: 0.645
+        min: -100
+        max: 16000
+      sur_refl_b02:
+        description: Surface reflectance for band 2
+        scale: 0.0001
+        wavelength: 0.8585
+        min: -100
+        max: 16000
+      State:
+        description: Surface reflectance 250m state flags
+      QA:
+        description: Surface reflectance 250m band quality control flags
+
+  MODIS/006/MYD10A1:
+    title: MYD10A1.006 Aqua Snow Cover Daily Global 500m [deprecated]
+    provider: NASA NSIDC DAAC at CIRES
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: You may download and use photographs, imagery, or text
+    bands:
+      NDSI_Snow_Cover:
+        description: NDSI snow cover. This value is
+        min: 0
+        max: 100
+      NDSI_Snow_Cover_Basic_QA:
+        description: A basic estimate of the quality of the algorithm result.
+      NDSI_Snow_Cover_Algorithm_Flags_QA:
+        description: Bit flags indicating screen results and the presence
+      NDSI:
+        description: Raw NDSI (i.e. prior to screening). This value is
+        scale: 0.0001
+        min: 0
+        max: 10000
+      Snow_Albedo_Daily_Tile:
+        description: Snow albedo percentage. Provider values above 100 are masked out in
+        min: 1
+        max: 100
+      orbit_pnt:
+        description: Pointer to the orbit number of the swath that was
+      granule_pnt:
+        description: Pointer to the granule (swath) that was mapped into
+      NDSI_Snow_Cover_Class:
+        description: Landcover classes from the "NDSI_Snow_Cover" subdataset
+      Snow_Albedo_Daily_Tile_Class:
+        description: Landcover classes from the "Snow_Albedo_Daily_Tile" subdataset
+
+  MODIS/006/MYD11A1:
+    title: MYD11A1.006 Aqua Land Surface Temperature and Emissivity Daily Global 1km [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      LST_Day_1km:
+        description: Daytime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      QC_Day:
+        description: Daytime LST Quality Indicators
+      Day_view_time:
+        description: Local time of day observation
+        units: h
+        scale: 0.1
+        min: 0
+        max: 240
+      Day_view_angle:
+        description: View zenith angle of day observation
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      LST_Night_1km:
+        description: Nighttime Land Surface Temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      QC_Night:
+        description: Nighttime LST Quality indicators
+      Night_view_time:
+        description: Local time of night observation
+        units: h
+        scale: 0.1
+        min: 0
+        max: 240
+      Night_view_angle:
+        description: View zenith angle of night observation
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Emis_31:
+        description: Band 31 emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32:
+        description: Band 32 emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Clear_day_cov:
+        description: Day clear-sky coverage
+        scale: 0.0005
+        min: 1
+        max: 65535
+      Clear_night_cov:
+        description: Night clear-sky coverage
+        scale: 0.0005
+        min: 1
+        max: 65535
+
+  MODIS/006/MYD11A2:
+    title: MYD11A2.006 Aqua Land Surface Temperature and Emissivity 8-Day Global 1km [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      LST_Day_1km:
+        description: Day land surface temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65535
+      QC_Day:
+        description: Daytime LST quality indicators
+      Day_view_time:
+        description: Local time of day observation
+        units: h
+        scale: 0.1
+        min: 0
+        max: 240
+      Day_view_angl:
+        description: View zenith angle of day observation
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      LST_Night_1km:
+        description: Night land surface temperature
+        units: K
+        scale: 0.02
+        min: 7500
+        max: 65635
+      QC_Night:
+        description: Nighttime LST quality indicators
+      Night_view_time:
+        description: Local time of night observation
+        units: h
+        scale: 0.1
+        min: 0
+        max: 240
+      Night_view_angl:
+        description: View zenith angle of night observation
+        units: deg
+        offset: -65
+        min: 0
+        max: 130
+      Emis_31:
+        description: Band 31 emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Emis_32:
+        description: Band 32 emissivity
+        scale: 0.002
+        offset: 0.49
+        min: 1
+        max: 255
+      Clear_sky_days:
+        description: Days in clear-sky conditions
+      Clear_sky_nights:
+        description: Nights in clear-sky conditions
+
+  MODIS/006/MYD13A1:
+    title: MYD13A1.006 Aqua Vegetation Indices 16-Day Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        scale: 0.0001
+        min: -2000
+        max: 10000
+      EVI:
+        description: Enhanced Vegetation Index
+        scale: 0.0001
+        min: -2000
+        max: 10000
+      DetailedQA:
+        description: VI quality indicators
+      sur_refl_b01:
+        description: Red surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+        min: 0
+        max: 10000
+      sur_refl_b02:
+        description: NIR surface reflectance
+        scale: 0.0001
+        wavelength: 0.858
+        min: 0
+        max: 10000
+      sur_refl_b03:
+        description: Blue surface reflectance
+        scale: 0.0001
+        wavelength: 0.469
+        min: 0
+        max: 10000
+      sur_refl_b07:
+        description: MIR surface reflectance
+        scale: 0.0001
+        wavelength: 2.13
+        min: 0
+        max: 10000
+      ViewZenith:
+        description: View zenith angle
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      SolarZenith:
+        description: Solar zenith angle
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      RelativeAzimuth:
+        description: Relative azimuth angle
+        units: deg
+        scale: 0.01
+        min: -18000
+        max: 18000
+      DayOfYear:
+        description: Julian day of year
+        min: 1
+        max: 366
+      SummaryQA:
+        description: Quality reliability of VI pixel
+
+  MODIS/006/MYD13A2:
+    title: MYD13A2.006 Aqua Vegetation Indices 16-Day Global 1km [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      NDVI:
+        description: 16-day NDVI average
+        scale: 0.0001
+        min: -2000
+        max: 10000
+      EVI:
+        description: 16-day EVI average
+        scale: 0.0001
+        min: -2000
+        max: 10000
+      DetailedQA:
+        description: VI Quality indicators
+      sur_refl_b01:
+        description: Surface reflectance band 1 (red)
+        scale: 0.0001
+        wavelength: 0.645
+        min: 0
+        max: 10000
+      sur_refl_b02:
+        description: Surface reflectance band 2 (near-infrared)
+        scale: 0.0001
+        wavelength: 0.8585
+        min: 0
+        max: 10000
+      sur_refl_b03:
+        description: Surface reflectance band 3 (blue)
+        scale: 0.0001
+        wavelength: 0.469
+        min: 0
+        max: 10000
+      sur_refl_b07:
+        description: Surface reflectance band 7 (mid-infrared)
+        scale: 0.0001
+        wavelength: 2.13
+        min: 0
+        max: 10000
+      ViewZenith:
+        description: View zenith angle of VI Pixel
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      SolarZenith:
+        description: Sun zenith angle of VI pixel
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      RelativeAzimuth:
+        description: Relative azimuth angle of VI pixel
+        units: deg
+        scale: 0.01
+        min: -18000
+        max: 18000
+      DayOfYear:
+        description: Day of year VI pixel
+        units: Julian Day
+        min: 1
+        max: 366
+      SummaryQA:
+        description: Quality reliability of VI pixel
+
+  MODIS/006/MYD13Q1:
+    title: MYD13Q1.006 Aqua Vegetation Indices 16-Day Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 250
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        scale: 0.0001
+        min: -2000
+        max: 10000
+      EVI:
+        description: Enhanced Vegetation Index
+        scale: 0.0001
+        min: -2000
+        max: 10000
+      DetailedQA:
+        description: VI quality indicators
+      sur_refl_b01:
+        description: Red surface reflectance
+        scale: 0.0001
+        wavelength: 0.645
+        min: 0
+        max: 10000
+      sur_refl_b02:
+        description: NIR surface reflectance
+        scale: 0.0001
+        wavelength: 0.858
+        min: 0
+        max: 10000
+      sur_refl_b03:
+        description: Blue surface reflectance
+        scale: 0.0001
+        wavelength: 0.469
+        min: 0
+        max: 10000
+      sur_refl_b07:
+        description: MIR surface reflectance
+        scale: 0.0001
+        wavelength: 2.13
+        min: 0
+        max: 10000
+      ViewZenith:
+        description: View zenith angle
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      SolarZenith:
+        description: Solar zenith angle
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 18000
+      RelativeAzimuth:
+        description: Relative azimuth angle
+        units: deg
+        scale: 0.01
+        min: -18000
+        max: 18000
+      DayOfYear:
+        description: Julian day of year
+        min: 1
+        max: 366
+      SummaryQA:
+        description: Quality reliability of VI pixel
+
+  MODIS/006/MYD14A1:
+    title: 'MYD14A1.006: Aqua Thermal Anomalies & Fire Daily Global 1km [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC
+    bands:
+      FireMask:
+        description: Confidence of fire
+      MaxFRP:
+        description: Maximum fire radiative power
+        units: MW
+        scale: 0.1
+        min: 0
+        max: 180000
+      sample:
+        description: Position of fire pixel within scan
+        min: 0
+        max: 1353
+      QA:
+        description: Pixel quality indicators
