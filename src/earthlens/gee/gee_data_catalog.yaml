@@ -30444,3 +30444,293 @@ datasets:
         description: Normalized Difference Vegetation Index
         min: -1
         max: 1
+
+  MODIS/MCD43A4_NDWI:
+    title: MODIS Combined 16-Day NDWI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  MODIS/MOD09A1:
+    title: MOD09A1.005 Surface Reflectance 8-Day Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MOD09GA:
+    title: MOD09GA.005 Terra Surface Reflectance Daily L2G Global 1km and 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MOD09GA_006_BAI:
+    title: MODIS Terra Daily BAI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  MODIS/MOD09GA_006_EVI:
+    title: MODIS Terra Daily EVI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  MODIS/MOD09GA_006_NDSI:
+    title: MODIS Terra Daily NDSI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDSI:
+        description: Normalized Difference Snow Index
+
+  MODIS/MOD09GA_006_NDVI:
+    title: MODIS Terra Daily NDVI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  MODIS/MOD09GA_006_NDWI:
+    title: MODIS Terra Daily NDWI
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  MODIS/MOD09GA_BAI:
+    title: MODIS Terra Daily BAI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  MODIS/MOD09GA_EVI:
+    title: MODIS Terra Daily EVI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  MODIS/MOD09GA_NDSI:
+    title: MODIS Terra Daily NDSI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDSI:
+        description: Normalized Difference Snow Index
+
+  MODIS/MOD09GA_NDVI:
+    title: MODIS Terra Daily NDVI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  MODIS/MOD09GA_NDWI:
+    title: MODIS Terra Daily NDWI [deprecated]
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 463.312716528
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  MODIS/MOD09GQ:
+    title: MOD09GQ.005 Terra Surface Reflectance Daily L2G Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MOD09Q1:
+    title: MOD09Q1.005 Surface Reflectance 8-Day Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MOD10A1:
+    title: MOD10A1.005 Terra Snow Cover Daily Global 500m [deprecated]
+    provider: NSIDC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-24"
+      end_date: null
+    default_reducer: median
+    terms: You may download and use photographs, imagery, or text
+    bands:
+      Snow_Cover_Daily_Tile:
+        description: NDSI snow cover plus other results. This value is
+      Snow_Spatial_QA:
+        description: A basic estimate of the quality of the algorithm result.
+      Snow_Albedo_Daily_Tile:
+        description: Snow albedo percentage plus other results.
+        min: 1
+        max: 254
+      Fractional_Snow_Cover:
+        description: Snow cover percentage plus other results.
+        min: 0
+        max: 254
+
+  MODIS/MOD11A1:
+    title: MOD11A1.005 Terra Land Surface Temperature and Emissivity Daily Global 1 km Grid SIN
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    extent:
+      start_date: "2000-03-05"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MOD11A2:
+    title: MOD11A2.005 Land Surface Temperature and Emissivity 8-Day Global 1km [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    extent:
+      start_date: "2000-03-05"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MOD13A1:
+    title: MOD13A1.005 Vegetation Indices 16-Day L3 Global 500m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
+
+  MODIS/MOD13Q1:
+    title: MOD13Q1.005 Vegetation Indices 16-Day Global 250m [deprecated]
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    extent:
+      start_date: "2000-02-18"
+      end_date: null
+    default_reducer: median
+    terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
+    bands:
