@@ -40468,3 +40468,296 @@ datasets:
         description: Surface Reflectance State Quality Assurance (QA)
         min: 0
         max: 13311
+
+  NASA/VIIRS/002/VNP13A1:
+    title: 'VNP13A1.002: VIIRS Vegetation Indices 16-Day 500m'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-17"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      EVI:
+        description: 3 band Enhanced Vegetation Index
+      EVI2:
+        description: 2 band Enhanced Vegetation Index
+      NDVI:
+        description: Normalized Difference Vegetation Index
+      NIR_reflectance:
+        description: Near-infrared Radiation reflectance
+        wavelength: 0.866
+      SWIR1_reflectance:
+        description: Shortwave Infrared Radiation reflectance
+        wavelength: 1.24
+      SWIR2_reflectance:
+        description: Shortwave Infrared Radiation reflectance
+        wavelength: 1.61
+      SWIR3_reflectance:
+        description: Shortwave Infrared Radiation reflectance
+        wavelength: 2.25
+      VI_Quality:
+        description: Quality Assessment (QA) bit-field.
+      red_reflectance:
+        description: Red band reflectance
+        wavelength: 0.64
+      green_reflectance:
+        description: Green band reflectance
+        wavelength: 0.601
+      blue_reflectance:
+        description: Blue band reflectance
+        wavelength: 0.488
+      composite_day_of_the_year:
+        description: Julian day of year
+        units: d
+      pixel_reliability:
+        description: Pixel usefulness using a simple rank class
+      relative_azimuth_angle:
+        description: Relative azimuth angle for each pixel
+        units: deg
+      sun_zenith_angle:
+        description: Sun zenith angle for each pixel
+        units: deg
+      view_zenith_angle:
+        description: View zenith angle for each pixel
+        units: deg
+
+  NASA/VIIRS/002/VNP14A1:
+    title: 'VNP14A1.002: Thermal Anomalies/Fire Daily L3 Global 1km SIN Grid'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      FireMask:
+        description: Confidence of fire.
+      MaxFRP:
+        description: Maximum Fire Radiative Power
+        units: MW
+      QA:
+        description: Global Land Surface Phenology Quality Control
+      sample:
+        description: Sample number within a swath
+
+  NASA/VIIRS/002/VNP15A2H:
+    title: 'VNP15A2H: LAI/FPAR 8-Day L4 Global 500m SIN Grid'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-17"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      Fpar:
+        description: Fraction of Photosynthetically Active Radiation.
+      FparExtra_QC:
+        description: Pass-through Quality Control (QC) for FPAR
+      FparLai_QC:
+        description: Quality for LAI and FPAR
+      FparStdDev:
+        description: Standard deviation of FPAR
+      Lai:
+        description: Leaf Area Index
+        units: Area fraction
+      LaiStdDev:
+        description: Standard deviation for LAI
+        units: Area fraction
+
+  NASA/VIIRS/002/VNP21A1D:
+    title: 'VNP21A1D.002: Day Land Surface Temperature and Emissivity Daily 1km'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      LST_1KM:
+        description: Daily 1 km Land Surface Temperature.
+        units: K
+      QC:
+        description: Daily Quality control for LST and emissivity
+      Emis_14:
+        description: Daily M14 emissivity
+      Emis_15:
+        description: Daily M15 emissivity
+      Emis_16:
+        description: Daily M16 emissivity
+      View_Angle:
+        description: View zenith angle of LST
+        units: deg
+      View_Time:
+        description: Time of LST observation
+        units: h
+
+  NASA/VIIRS/002/VNP21A1N:
+    title: 'VNP21A1N.002: Night Land Surface Temperature and Emissivity Daily 1km'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      LST_1KM:
+        description: Daily 1 km Land Surface Temperature.
+        units: K
+      QC:
+        description: Daily Quality control for LST and emissivity
+      Emis_14:
+        description: Daily M14 emissivity
+      Emis_15:
+        description: Daily M15 emissivity
+      Emis_16:
+        description: Daily M16 emissivity
+      View_Angle:
+        description: View zenith angle of LST
+        units: deg
+      View_Time:
+        description: Time of LST observation
+        units: h
+
+  NASA/VIIRS/002/VNP43IA4:
+    title: 'VNP43IA4: BRDF/Albedo Quality Daily L3 Global 500m SIN Grid'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-17"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      BRDF_Albedo_Band_Mandatory_Quality_I1:
+        description: BRDF/Albedo mandatory quality for band I1
+      BRDF_Albedo_Band_Mandatory_Quality_I2:
+        description: BRDF/Albedo mandatory quality for band I2
+      BRDF_Albedo_Band_Mandatory_Quality_I3:
+        description: BRDF/Albedo mandatory quality for band I3
+      Nadir_Reflectance_I1:
+        description: Nadir BRDF/Albedo Reflectance at local solar noon for band
+      Nadir_Reflectance_I2:
+        description: Nadir BRDF/Albedo Reflectance at local solar noon for band
+      Nadir_Reflectance_I3:
+        description: Nadir BRDF/Albedo Reflectance at local solar noon for band
+
+  NASA/VIIRS/002/VNP46A2:
+    title: 'VNP46A2: VIIRS Lunar Gap-Filled BRDF Nighttime Lights Daily L3 Global 500m'
+    provider: NASA LAADS DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      DNB_BRDF_Corrected_NTL:
+        description: BRDF corrected DNB NTL
+        min: 0
+        max: 6553.4
+      Gap_Filled_DNB_BRDF_Corrected_NTL:
+        description: Gap Filled BRDF corrected DNB NTL
+        min: 0
+        max: 6553.4
+      DNB_Lunar_Irradiance:
+        description: DNB Lunar Irradiance
+        min: 0
+        max: 6553.4
+      Latest_High_Quality_Retrieval:
+        description: Latest high quality BRDF corrected DNB radiance retrieval
+      Mandatory_Quality_Flag:
+        description: Mandatory quality flag
+        min: 0
+        max: 3
+      Snow_Flag:
+        description: Flag for snow cover
+        min: 0
+        max: 1
+      QF_Cloud_Mask:
+        description: Quality flag for cloud mask
+        min: 0
+        max: 65534
+
+  NASA/VIIRS/002/VNP64A1:
+    title: 'VNP64A1.002: Burned Area Monthly L4 Global 500m SIN Grid'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    terms: LP DAAC NASA data are freely accessible; however, when an author
+    bands:
+      Burn_Date:
+        description: Ordinal day of burn (1-366) for each 500-m grid cell.
+      Burn_Date_Uncertainty:
+        description: Estimated uncertainty in date of burn, in days. Unburned, unmapped,
+        units: d
+      QA:
+        description: Quality Assurance Indicators
+      First_Day:
+        description: First day of the year of reliable change detection
+      Last_Day:
+        description: Last day of the year of reliable change detection
+
+  NASA_USDA/HSL/SMAP10KM_soil_moisture:
+    title: NASA-USDA Enhanced SMAP Global Soil Moisture Data [deprecated]
+    provider: NASA GSFC
+    ee_type: image_collection
+    cadence: { interval: 3, unit: day }
+    spatial_resolution: 10000
+    extent:
+      start_date: "2015-04-02"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: median
+    terms: This dataset is in the public domain and is available
+    user_uploaded: true
+    bands:
+      ssm:
+        description: Surface soil moisture
+        units: mm
+        min: 0
+        max: 25.39
+      susm:
+        description: Subsurface soil moisture
+        units: mm
+        min: 0
+        max: 274.6
+      smp:
+        description: Soil moisture profile
+        units: Fraction
+        min: 0
+        max: 1
+      ssma:
+        description: Surface soil moisture anomaly
+        units: Dimensionless
+        min: -4
+        max: 4
+      susma:
+        description: Subsurface soil moisture anomaly
+        units: Dimensionless
+        min: -4
+        max: 4
