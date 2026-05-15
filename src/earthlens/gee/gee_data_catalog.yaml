@@ -8266,3 +8266,427 @@ datasets:
       b1:
         description: Hydrologically conditioned elevation
         units: m
+
+  LANDSAT/LM01/C02/T1:
+    title: "USGS Landsat 1 MSS Collection 2 Tier 1 Raw Scenes (60m, 1972-1978)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 18, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1972-07-26"
+      end_date: "1978-01-06"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM02/C02/T1:
+    title: "USGS Landsat 2 MSS Collection 2 Tier 1 Raw Scenes (60m, 1975-1982)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 18, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1975-01-31"
+      end_date: "1982-02-25"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM03/C02/T1:
+    title: "USGS Landsat 3 MSS Collection 2 Tier 1 Raw Scenes (60m, 1978-1983)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 18, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1978-06-03"
+      end_date: "1983-03-31"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM04/C02/T1:
+    title: "USGS Landsat 4 MSS Collection 2 Tier 1 Raw Scenes (60m, 1982-1993)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1982-08-14"
+      end_date: "1993-12-14"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Green
+        wavelength: 0.55
+      B2:
+        description: Red
+        wavelength: 0.65
+      B3:
+        description: Near infrared 1
+        wavelength: 0.75
+      B4:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM05/C02/T1:
+    title: "USGS Landsat 5 MSS Collection 2 Tier 1 Raw Scenes (60m, 1984-2013)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1984-04-07"
+      end_date: "2013-01-15"
+    default_reducer: median
+    terms: Public domain (USGS Landsat).
+    bands:
+      B1:
+        description: Green
+        wavelength: 0.55
+      B2:
+        description: Red
+        wavelength: 0.65
+      B3:
+        description: Near infrared 1
+        wavelength: 0.75
+      B4:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  Oxford/MAP/friction_surface_2019:
+    title: "Oxford MAP Global Friction Surface 2019 (1km travel speed)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
+      bbox: [-180, -60, 180, 85]
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      friction:
+        description: Land-based travel speed (motorised)
+        units: min/m
+      friction_walking_only:
+        description: Land-based travel speed (non-motorised / walking)
+        units: min/m
+
+  Oxford/MAP/EVI_5km_Monthly:
+    title: "Oxford MAP EVI 5km Monthly: Gap-Filled Enhanced Vegetation Index (2001-)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-02-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    bands:
+      Mean:
+        description: Monthly mean Enhanced Vegetation Index
+        min: 0
+        max: 1
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/LST_Day_5km_Monthly:
+    title: "Oxford MAP LST Day 5km Monthly: Gap-Filled Daytime Land Surface Temperature"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-03-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    bands:
+      Mean:
+        description: Monthly mean daytime land surface temperature
+        units: deg_C
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/LST_Night_5km_Monthly:
+    title: "Oxford MAP LST Night 5km Monthly: Gap-Filled Nighttime Land Surface Temperature"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-03-01"
+      end_date: null
+    default_reducer: mean
+    terms: CC-BY-NC-SA-4.0.
+    bands:
+      Mean:
+        description: Monthly mean nighttime land surface temperature
+        units: deg_C
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/accessibility_to_healthcare_2019:
+    title: "Oxford MAP Accessibility to Healthcare 2019 (1km global travel time)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
+      bbox: [-180, -60, 180, 85]
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      accessibility:
+        description: Travel time to the nearest hospital or clinic (motorised)
+        units: min
+      accessibility_walking_only:
+        description: Travel time to the nearest hospital or clinic (walking only)
+        units: min
+
+  ESA/WorldCereal/2021/MARKERS/v100:
+    title: "ESA WorldCereal 2021 MARKERS v100: Active Cropland Markers (10m)"
+    provider: ESA WorldCereal Consortium
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-01-01"
+      end_date: "2021-12-31"
+    default_reducer: mosaic
+    terms: CC-BY-4.0.
+    user_uploaded: true
+    bands:
+      classification:
+        description: Active-cropland marker (0=absent, 100=present)
+        min: 0
+        max: 100
+
+  JAXA/ALOS/AW3D30/V2_2:
+    title: "ALOS AW3D30 v2.2: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    terms: Free for any use, attribution required (JAXA AW3D30 terms).
+    bands:
+      AVE_DSM:
+        description: Height above sea level (averaged DSM)
+        units: m
+      AVE_STK:
+        description: Stacking number of scene-unit DSMs used
+      AVE_MSK:
+        description: 8-bit mask for the AVE band
+
+  JAXA/ALOS/AW3D30/V1_1:
+    title: "ALOS AW3D30 v1.1: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    terms: Free for any use, attribution required (JAXA AW3D30 terms).
+    bands:
+      AVE:
+        description: Height above sea level (averaged DSM)
+        units: m
+      MED:
+        description: Height above sea level (median DSM)
+        units: m
+
+  JAXA/GCOM-C/L3/OCEAN/CHLA/V1:
+    title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v1 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for any use (JAXA GCOM-C terms).
+    bands:
+      CHLA_AVE:
+        description: Sea-surface chlorophyll-a concentration
+        units: mg/m^3
+      CHLA_QA_flag:
+        description: Chlorophyll quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/CHLA/V2:
+    title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v2 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for any use (JAXA GCOM-C terms).
+    bands:
+      CHLA_AVE:
+        description: Sea-surface chlorophyll-a concentration
+        units: mg/m^3
+      CHLA_QA_flag:
+        description: Chlorophyll quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/SST/V1:
+    title: "GCOM-C/SGLI L3 Sea-Surface Temperature v1 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for any use (JAXA GCOM-C terms).
+    bands:
+      SST_AVE:
+        description: Sea-surface temperature
+        units: deg_C
+      SST_QA_flag:
+        description: SST quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/SST/V2:
+    title: "GCOM-C/SGLI L3 Sea-Surface Temperature v2 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    terms: Free for any use (JAXA GCOM-C terms).
+    bands:
+      SST_AVE:
+        description: Sea-surface temperature
+        units: deg_C
+      SST_QA_flag:
+        description: SST quality assurance
+
+  USGS/GTOPO30:
+    title: "USGS GTOPO30: Global 30 Arc-Second Elevation (~1km, 1996)"
+    provider: USGS
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1996-01-01"
+      end_date: "1996-12-31"
+    default_reducer: mosaic
+    terms: Public domain (USGS).
+    bands:
+      elevation:
+        description: Bare-earth elevation
+        units: m
+
+  WWF/HydroSHEDS/30CONDEM:
+    title: "WWF HydroSHEDS Hydrologically Conditioned DEM (30 arc-seconds, ~1km)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    terms: Free for non-commercial and commercial use.
+    bands:
+      b1:
+        description: Hydrologically conditioned elevation
+        units: m
+
+  WWF/HydroSHEDS/30DIR:
+    title: "WWF HydroSHEDS Drainage Direction (30 arc-seconds, ~1km)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    terms: Free for non-commercial and commercial use.
+    bands:
+      b1:
+        description: "Drainage direction (1=E, 2=SE, 4=S, 8=SW, 16=W, 32=NW, 64=N, 128=NE)"
+        min: 0
+        max: 255
