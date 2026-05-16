@@ -6,7 +6,7 @@ dataset are *bands*, and one image carries many at once), plus a date
 range, a bbox (or a `GeoDataFrame` region), a temporal-compositing
 resolution (`"raw"` / `"daily"` / `"monthly"` / `"yearly"`), and an
 output pixel `scale` in metres. Asset ids and band metadata are resolved
-through :class:`Catalog`, which loads the per-provider YAMLs under
+through :class:`Catalog`, which loads the per-category YAMLs under
 `src/earthlens/gee/catalog/` (the GEE analogue of the ECMWF
 `cds_data_catalog.yaml`, but shaped by Earth Engine's own data model —
 see that directory's `_index.yaml` header).
@@ -19,7 +19,7 @@ Public surface (re-exported from this package):
   call :meth:`GEE.download`.
 * :class:`AuthenticationError` — raised when Earth Engine cannot be
   initialised (missing/invalid key, unregistered project, missing IAM role).
-* :class:`Catalog` — pydantic-backed loader for the bundled per-provider
+* :class:`Catalog` — pydantic-backed loader for the bundled per-category
   catalog under `src/earthlens/gee/catalog/`, exposing
   `available_datasets`, `datasets`, and
   `get_dataset` / `get_band` / `get_variable`.

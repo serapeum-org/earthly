@@ -4,7 +4,7 @@ Walks the Earth Engine STAC catalog
 (``https://storage.googleapis.com/earthengine-stac/catalog/catalog.json``),
 collects every dataset asset id, groups them by provider, and rewrites
 the ``available_datasets:`` block in
-``src/earthlens/gee/catalog/_index.yaml`` in place. The per-provider
+``src/earthlens/gee/catalog/_index.yaml`` in place. The per-category
 curated stanzas under ``src/earthlens/gee/catalog/*.yaml`` and the
 ``_index.yaml`` header comments are preserved verbatim.
 

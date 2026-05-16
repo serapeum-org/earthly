@@ -3,8 +3,9 @@
 Hosts :class:`Catalog`, the pydantic-backed reader for the bundled GEE
 catalog — the analogue of `earthlens.ecmwf.Catalog` /
 `cds_data_catalog.yaml`. The catalog ships as a directory of
-per-provider YAML files at `src/earthlens/gee/catalog/`
-(`MODIS.yaml`, `COPERNICUS.yaml`, `LANDSAT.yaml`,
+per-category YAML files at `src/earthlens/gee/catalog/`
+(`optical-multispectral.yaml`, `climate-reanalysis.yaml`,
+`land-cover-change.yaml`, `hydrology-water.yaml`,
 `community.yaml` for `projects/...` user-contributed assets, …),
 plus a single `_index.yaml` carrying the merged
 `available_datasets:` list. Per-file sections each map to a typed
@@ -66,7 +67,7 @@ def _yaml_files_for(path: Path) -> list[Path]:
 
     `path` may point at either:
 
-    * a directory containing per-provider `*.yaml` files (the default
+    * a directory containing per-category `*.yaml` files (the default
       layout — `src/earthlens/gee/catalog/`); or
     * a single `*.yaml` file (back-compat for tests that monkey-patch
       `CATALOG_PATH` to a temp file, and for any external user still
@@ -87,7 +88,7 @@ def _load_catalog_data(path: Path) -> tuple[list[str], dict[str, "Dataset"]]:
     validation.
 
     Args:
-        path: Filesystem path — either the per-provider catalog directory
+        path: Filesystem path — either the per-category catalog directory
             (default `src/earthlens/gee/catalog/`) or a single `*.yaml`
             file.
 
@@ -435,11 +436,11 @@ class Catalog(AbstractCatalog):
     """YAML-backed catalog of Earth Engine datasets for the GEE backend.
 
     Reads every `*.yaml` file under :data:`CATALOG_PATH` (the
-    `catalog/` directory shipped with the package) on construction,
-    merging them into one logical catalog and validating every entry
-    into typed :class:`Dataset` / :class:`Band` models. A duplicate
-    dataset/band key in the YAML (within a file or across files), an
-    unknown band field, or a curated dataset not listed in
+    per-category `catalog/` directory shipped with the package) on
+    construction, merging them into one logical catalog and validating
+    every entry into typed :class:`Dataset` / :class:`Band` models. A
+    duplicate dataset/band key in the YAML (within a file or across
+    files), an unknown band field, or a curated dataset not listed in
     `available_datasets` is a load-time error.
 
     Attributes:

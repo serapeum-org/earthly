@@ -14,9 +14,9 @@ on the [Reference](../gee.md) page.
 
 ## 1. Find a dataset and its bands
 
-The catalog (`src/earthlens/gee/catalog/*.yaml`, loaded and merged by
-`earthlens.gee.Catalog`) maps Earth Engine asset ids to their band and
-aggregation metadata —
+The catalog (per-category `src/earthlens/gee/catalog/*.yaml` files,
+loaded and merged by `earthlens.gee.Catalog`) maps Earth Engine asset
+ids to their band and aggregation metadata —
 shaped by Earth Engine's own model (a dataset is an `image`,
 `image_collection`, or `table`; its addressable units are *bands*; each
 band may carry a `scale`/`offset`, `units`, `wavelength`, value range):

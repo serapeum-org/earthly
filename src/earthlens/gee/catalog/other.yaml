@@ -1,0 +1,2459 @@
+# Auto-grouped slice of the GEE catalog: other.
+# 103 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  CIESIN/GPWv4/ancillary-data-grids:
+    title: 'GPWv4: Gridded Population of the World Version 4, Ancillary Data Grids [deprecated]'
+    provider: CIESIN
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      water-mask:
+        description: Water mask
+      data-context:
+        description: Categorizes pixels with estimated zero population based on
+      mean-administrative-unit-area:
+        description: The mean area of the input unit(s) from which population count
+        units: km^2
+        min: 0
+        max: 816831
+      national-identifier:
+        description: An integer that represents the census data source used
+        min: 4
+        max: 999
+      land-area:
+        description: Estimate of the land area, excluding permanent ice and water, within each 30 arc-second
+        units: km^2
+        min: 0
+        max: 0.86
+      water-area:
+        description: Estimate of the water area (permanent ice and water) within each 30 arc-second pixel.
+        units: km^2
+        min: 0
+        max: 0.86
+
+  CIESIN/GPWv4/population-count:
+    title: "GPWv4 Population Count (legacy, 1km, 5-yearly 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population-count:
+        description: Estimated number of persons per 30 arc-second cell
+        units: persons
+
+  CIESIN/GPWv4/population-density:
+    title: "GPWv4 Population Density (legacy, 1km, 5-yearly 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population-density:
+        description: Estimated number of persons per square kilometre
+        units: persons/km^2
+
+  CIESIN/GPWv4/unwpp-adjusted-population-count:
+    title: "GPWv4 UN WPP-Adjusted Population Count (legacy, 1km, 5-yearly)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population-count:
+        description: UN WPP-adjusted population count per cell
+        units: persons
+
+  CIESIN/GPWv4/unwpp-adjusted-population-density:
+    title: "GPWv4 UN WPP-Adjusted Population Density (legacy, 1km, 5-yearly)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population-density:
+        description: UN WPP-adjusted population density
+        units: persons/km^2
+
+  CIESIN/GPWv411/GPW_Basic_Demographic_Characteristics:
+    title: "GPWv4.11 Basic Demographic Characteristics (1km, age + sex per cell, 5-yearly)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      basic_demographic_characteristics:
+        description: Estimated number of persons by age and sex per 30 arc-second cell
+        units: persons
+
+  CIESIN/GPWv411/GPW_Data_Context:
+    title: 'GPWv411: Data Context (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      data_context:
+        description: Categorizes pixels with estimated zero population based on
+        min: 0
+        max: 207
+
+  CIESIN/GPWv411/GPW_Land_Area:
+    title: "GPWv4.11 Land Area (1km, 30 arc-second pixel land fraction)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      land_area:
+        description: Land area within each 30 arc-second cell
+        units: km^2
+
+  CIESIN/GPWv411/GPW_Mean_Administrative_Unit_Area:
+    title: 'GPWv411: Mean Administrative Unit Area (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_administrative_unit_area:
+        description: Displays a quantitative surface that indicates the size of the
+        min: 0
+        max: 767642
+
+  CIESIN/GPWv411/GPW_National_Identifier_Grid:
+    title: 'GPWv411: National Identifier Grid (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      national_identifier_grid:
+        description: An integer that represents the census data source used
+        min: 4
+        max: 999
+
+  CIESIN/GPWv411/GPW_Population_Count:
+    title: "GPWv4.11 Population Count (Gridded Population of the World, 5-yearly 1km)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      population_count:
+        description: Estimated population per 30 arc-second grid cell
+        units: persons
+        min: 0
+
+  CIESIN/GPWv411/GPW_Population_Density:
+    title: "GPWv4.11 Population Density (Gridded Population of the World, 5-yearly 1km)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      population_density:
+        description: Estimated population per square kilometre
+        units: persons/km^2
+
+  CIESIN/GPWv411/GPW_UNWPP-Adjusted_Population_Count:
+    title: "GPWv4.11 UN WPP-Adjusted Population Count (5-yearly 1km, 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      unwpp-adjusted_population_count:
+        description: Population count adjusted to UN WPP country totals (per 30 arc-second cell)
+        units: persons
+        min: 0
+
+  CIESIN/GPWv411/GPW_UNWPP-Adjusted_Population_Density:
+    title: "GPWv4.11 UN WPP-Adjusted Population Density (5-yearly 1km, 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      unwpp-adjusted_population_density:
+        description: Population density adjusted to UN WPP country totals
+        units: persons/km^2
+        min: 0
+
+  CIESIN/GPWv411/GPW_Water_Area:
+    title: "GPWv4.11 Water Area (1km, 30 arc-second pixel water fraction)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      water_area:
+        description: Water area within each 30 arc-second cell
+        units: km^2
+
+  CIESIN/GPWv411/GPW_Water_Mask:
+    title: "GPWv4.11 Water Mask (1km, water-class enum)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      water_mask:
+        description: Water-class enum (0=land ... 3=water)
+        min: 0
+        max: 3
+
+  CSIRO/SLGA:
+    title: "CSIRO SLGA: Soil and Landscape Grid of Australia (Soil Attributes, ~90m)"
+    provider: CSIRO / SLGA
+    ee_type: image_collection
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+      bbox: [113, -44.15, 154, -9.97]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for use (CSIRO).'
+    user_uploaded: true
+    bands:
+      AWC_000_005_EV:
+        description: Available water capacity (0-5 cm, expected value)
+        units: "%"
+      BDW_000_005_EV:
+        description: Bulk density of fine earth (0-5 cm, expected value)
+        units: g/cm^3
+      CLY_000_005_EV:
+        description: Clay percentage (0-5 cm, expected value)
+        units: "%"
+      SLT_000_005_EV:
+        description: Silt percentage (0-5 cm, expected value)
+        units: "%"
+      SND_000_005_EV:
+        description: Sand percentage (0-5 cm, expected value)
+        units: "%"
+      SOC_000_005_EV:
+        description: Soil organic carbon (0-5 cm, expected value)
+        units: "%"
+      DER_000_005_EV:
+        description: Depth of regolith (expected value)
+        units: m
+      DES_000_005_EV:
+        description: Depth of soil (expected value)
+        units: m
+
+  DOE/ORNL/LandScan_HD/Ukraine_202201:
+    title: "ORNL LandScan HD: Ukraine 24-hour Population Count (100m, January 2022)"
+    provider: Oak Ridge National Laboratory
+    ee_type: image
+    spatial_resolution: 100
+    extent:
+      start_date: "2022-01-01"
+      end_date: "2022-01-31"
+      bbox: [22.125, 44.175, 40.225, 52.4]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for use (ORNL).'
+    bands:
+      population:
+        description: 24-hour average population count estimate per 100m cell
+        units: persons
+
+  EDF/OGIM/OGIM_v2-4_RF06_RF08:
+    title: 'OGIM: Oil and Gas Infrastructure Mapping Database v2.4_RF06_RF08 [deprecated]'
+    provider: Environmental Defense Fund - MethaneSAT
+    ee_type: table
+    extent:
+      start_date: "2023-11-14"
+      end_date: "2023-11-14"
+      bbox: [-110.3, 31.4, -103.1, 40.6]
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  EDF/OGIM/current:
+    title: 'OGIM: Oil and Gas Infrastructure Mapping Database v2.5.1'
+    provider: Environmental Defense Fund - MethaneSAT
+    ee_type: table
+    extent:
+      start_date: "2024-05-15"
+      end_date: "2024-05-15"
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  EPA/Ecoregions/2013/L3:
+    title: US EPA Ecoregions (Level III)
+    provider: United States Environmental Protection Agency
+    ee_type: table
+    extent:
+      start_date: "2013-04-16"
+      end_date: null
+      bbox: [-124.8, 24.5, -66.9, 49.4]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+
+  EPA/Ecoregions/2013/L4:
+    title: US EPA Ecoregions (Level IV)
+    provider: United States Environmental Protection Agency
+    ee_type: table
+    extent:
+      start_date: "2013-04-16"
+      end_date: null
+      bbox: [-124.8, 24.5, -66.9, 49.4]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+
+  FAO/GAUL/2015/level0:
+    title: 'FAO GAUL: Global Administrative Unit Layers 2015, Country Boundaries'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'The GAUL dataset is distributed to the United Nations and other authorized'
+    bands:
+
+  FAO/GAUL/2015/level1:
+    title: 'FAO GAUL: Global Administrative Unit Layers 2015, First-Level Administrative Units'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'The GAUL dataset is distributed to the United Nations and other authorized'
+    bands:
+
+  FAO/GAUL/2015/level2:
+    title: 'FAO GAUL: Global Administrative Unit Layers 2015, Second-Level Administrative Units'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The GAUL dataset is distributed to the United Nations and other authorized'
+    bands:
+
+  FAO/GAUL_SIMPLIFIED_500m/2015/level0:
+    title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, Country Boundaries'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The GAUL dataset is distributed to the United Nations and other authorized'
+    bands:
+
+  FAO/GAUL_SIMPLIFIED_500m/2015/level1:
+    title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, First-Level Administrative'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The GAUL dataset is distributed to the United Nations and other authorized'
+    bands:
+
+  FAO/GAUL_SIMPLIFIED_500m/2015/level2:
+    title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, Second-Level Administrative'
+    provider: FAO UN
+    ee_type: table
+    extent:
+      start_date: "2014-12-19"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The GAUL dataset is distributed to the United Nations and other authorized'
+    bands:
+
+  GOOGLE/AirView/California_Unified_2015_2019:
+    title: 'Google Street View Air Quality: High Resolution Air Pollution Mapping in California'
+    provider: Google / Aclima
+    ee_type: table
+    extent:
+      start_date: "2015-05-28"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-NC-4.0
+    user_uploaded: true
+    bands:
+
+  GOOGLE/Research/open-buildings-temporal/v1:
+    title: Open Buildings Temporal V1
+    provider: Google Research - Open Buildings
+    ee_type: image_collection
+    spatial_resolution: 4
+    extent:
+      start_date: "2016-06-30"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      building_fractional_count:
+        description: Source data for deriving building counts for a given AOI. Please see
+        min: 0
+        max: 0.0216
+      building_height:
+        description: Building height relative to the terrain in range [0m, 100m].
+        units: m
+        min: 0
+        max: 100
+      building_presence:
+        description: Model confidence values (i.e. how confident a model is that the pixel is
+        min: 0
+        max: 1
+
+  GOOGLE/Research/open-buildings/v1/polygons:
+    title: Open Buildings V1 Polygons [deprecated]
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2021-04-30"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  GOOGLE/Research/open-buildings/v2/polygons:
+    title: Open Buildings V2 Polygons [deprecated]
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2022-08-30"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  GOOGLE/Research/open-buildings/v3/polygons:
+    title: Open Buildings V3 Polygons
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2023-05-30"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL:
+    title: Satellite Embedding V1
+    provider: Google Earth Engine
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      A00:
+        description: The 0th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A01:
+        description: The 1st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A02:
+        description: The 2nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A03:
+        description: The 3rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A04:
+        description: The 4th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A05:
+        description: The 5th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A06:
+        description: The 6th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A07:
+        description: The 7th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A08:
+        description: The 8th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A09:
+        description: The 9th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A10:
+        description: The 10th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A11:
+        description: The 11th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A12:
+        description: The 12th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A13:
+        description: The 13th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A14:
+        description: The 14th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A15:
+        description: The 15th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A16:
+        description: The 16th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A17:
+        description: The 17th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A18:
+        description: The 18th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A19:
+        description: The 19th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A20:
+        description: The 20th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A21:
+        description: The 21st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A22:
+        description: The 22nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A23:
+        description: The 23rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A24:
+        description: The 24th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A25:
+        description: The 25th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A26:
+        description: The 26th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A27:
+        description: The 27th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A28:
+        description: The 28th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A29:
+        description: The 29th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A30:
+        description: The 30th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A31:
+        description: The 31st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A32:
+        description: The 32nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A33:
+        description: The 33rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A34:
+        description: The 34th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A35:
+        description: The 35th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A36:
+        description: The 36th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A37:
+        description: The 37th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A38:
+        description: The 38th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A39:
+        description: The 39th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A40:
+        description: The 40th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A41:
+        description: The 41st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A42:
+        description: The 42nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A43:
+        description: The 43rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A44:
+        description: The 44th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A45:
+        description: The 45th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A46:
+        description: The 46th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A47:
+        description: The 47th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A48:
+        description: The 48th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A49:
+        description: The 49th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A50:
+        description: The 50th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A51:
+        description: The 51st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A52:
+        description: The 52nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A53:
+        description: The 53rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A54:
+        description: The 54th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A55:
+        description: The 55th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A56:
+        description: The 56th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A57:
+        description: The 57th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A58:
+        description: The 58th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A59:
+        description: The 59th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A60:
+        description: The 60th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A61:
+        description: The 61st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A62:
+        description: The 62nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A63:
+        description: The 63rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+
+  ISDASOIL/Africa/v1/aluminium_extractable:
+    title: iSDAsoil extractable Aluminium
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Aluminium, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 3
+        max: 80
+      mean_20_50:
+        description: Aluminium, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 4
+        max: 79
+      stdev_0_20:
+        description: Aluminium, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 53
+      stdev_20_50:
+        description: Aluminium, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 1
+        max: 51
+
+  ISDASOIL/Africa/v1/bedrock_depth:
+    title: iSDAsoil Depth to Bedrock
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_200:
+        description: Depth to bedrock, predicted mean at 0-200 cm depth
+        units: cm
+        min: 27
+        max: 200
+      stdev_0_200:
+        description: Depth to bedrock, standard deviation at 0-20 cm depth
+        units: cm
+        min: 9
+        max: 254
+
+  ISDASOIL/Africa/v1/bulk_density:
+    title: iSDAsoil Bulk Density, <2mm Fraction
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Bulk density, <2mm fraction, predicted mean at 0-20 cm depth
+        units: g/cm^3
+        min: 44
+        max: 197
+      mean_20_50:
+        description: Bulk density, <2mm fraction, predicted mean at 20-50 cm depth
+        units: g/cm^3
+        min: 44
+        max: 196
+      stdev_0_20:
+        description: Bulk density, <2mm fraction, standard deviation at 0-20 cm depth
+        units: g/cm^3
+        min: 0
+        max: 92
+      stdev_20_50:
+        description: Bulk density, <2mm fraction, standard deviation at 20-50 cm depth
+        units: g/cm^3
+        min: 0
+        max: 92
+
+  ISDASOIL/Africa/v1/calcium_extractable:
+    title: iSDAsoil Extractable Calcium
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Calcium, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 20
+        max: 100
+      mean_20_50:
+        description: Calcium, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 14
+        max: 100
+      stdev_0_20:
+        description: Calcium, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 62
+      stdev_20_50:
+        description: Calcium, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 63
+
+  ISDASOIL/Africa/v1/carbon_organic:
+    title: iSDAsoil Organic Carbon
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Carbon, organic, predicted mean at 0-20 cm depth
+        units: g/kg
+        min: 1
+        max: 46
+      mean_20_50:
+        description: Carbon, organic, predicted mean at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 46
+      stdev_0_20:
+        description: Carbon, organic, standard deviation at 0-20 cm depth
+        units: g/kg
+        min: 0
+        max: 12
+      stdev_20_50:
+        description: Carbon, organic, standard deviation at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 13
+
+  ISDASOIL/Africa/v1/carbon_total:
+    title: iSDAsoil Total Carbon
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Carbon, total, predicted mean at 0-20 cm depth
+        units: g/kg
+        min: 0
+        max: 58
+      mean_20_50:
+        description: Carbon, total, predicted mean at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 55
+      stdev_0_20:
+        description: Carbon, total, standard deviation at 0-20 cm depth
+        units: g/kg
+        min: 0
+        max: 151
+      stdev_20_50:
+        description: Carbon, total, standard deviation at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 150
+
+  ISDASOIL/Africa/v1/cation_exchange_capacity:
+    title: iSDAsoil Effective Cation Exchange Capacity
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Effective Cation Exchange Capacity, predicted mean at 0-20 cm depth
+        units: cmol(+)/kg
+        min: 0
+        max: 45
+      mean_20_50:
+        description: Effective Cation Exchange Capacity, predicted mean at 20-50 cm depth
+        units: cmol(+)/kg
+        min: 0
+        max: 46
+      stdev_0_20:
+        description: Effective Cation Exchange Capacity, standard deviation at 0-20 cm depth
+        units: cmol(+)/kg
+        min: 0
+        max: 19
+      stdev_20_50:
+        description: Effective Cation Exchange Capacity, standard deviation at 20-50 cm depth
+        units: cmol(+)/kg
+        min: 0
+        max: 20
+
+  ISDASOIL/Africa/v1/clay_content:
+    title: iSDAsoil Clay Content
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Clay content, predicted mean at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 84
+      mean_20_50:
+        description: Clay content, predicted mean at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 78
+      stdev_0_20:
+        description: Clay content, standard deviation at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 90
+      stdev_20_50:
+        description: Clay content, standard deviation at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 90
+
+  ISDASOIL/Africa/v1/fcc:
+    title: iSDAsoil Fertility Capability Classification
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      fcc:
+        description: Fertility Capability Classification.
+        min: 0
+        max: 1853
+
+  ISDASOIL/Africa/v1/iron_extractable:
+    title: iSDAsoil Extractable Iron
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Iron, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 62
+      mean_20_50:
+        description: Iron, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 47
+      stdev_0_20:
+        description: Iron, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 39
+      stdev_20_50:
+        description: Iron, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 39
+
+  ISDASOIL/Africa/v1/magnesium_extractable:
+    title: iSDAsoil Extractable Magnesium
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Magnesium, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 16
+        max: 80
+      mean_20_50:
+        description: Magnesium, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 12
+        max: 80
+      stdev_0_20:
+        description: Magnesium, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 76
+      stdev_20_50:
+        description: Magnesium, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 76
+
+  ISDASOIL/Africa/v1/nitrogen_total:
+    title: iSDAsoil Total Nitrogen
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Nitrogen, total, predicted mean at 0-20 cm depth
+        units: g/kg
+        min: 3
+        max: 246
+      mean_20_50:
+        description: Nitrogen, total, predicted mean at 20-50 cm depth
+        units: g/kg
+        min: 0
+        max: 254
+      stdev_0_20:
+        description: Nitrogen, total, standard deviation at 0-20 cm depth
+        units: g/kg
+        min: 1
+        max: 124
+      stdev_20_50:
+        description: Nitrogen, total, standard deviation at 20-50 cm depth
+        units: g/kg
+        min: 1
+        max: 125
+
+  ISDASOIL/Africa/v1/ph:
+    title: iSDAsoil pH
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: pH, predicted mean at 0-20 cm depth
+        min: 35
+        max: 103
+      mean_20_50:
+        description: pH, predicted mean at 20-50 cm depth
+        min: 35
+        max: 102
+      stdev_0_20:
+        description: pH, standard deviation at 0-20 cm depth
+        min: 0
+        max: 18
+      stdev_20_50:
+        description: pH, standard deviation at 20-50 cm depth
+        min: 0
+        max: 18
+
+  ISDASOIL/Africa/v1/phosphorus_extractable:
+    title: iSDAsoil Extractable Phosphorus
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Phosphorus, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 55
+      mean_20_50:
+        description: Phosphorus, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 52
+      stdev_0_20:
+        description: Phosphorus, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 19
+      stdev_20_50:
+        description: Phosphorus, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 20
+
+  ISDASOIL/Africa/v1/potassium_extractable:
+    title: iSDAsoil Extractable Potassium
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Potassium, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 80
+      mean_20_50:
+        description: Potassium, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 79
+      stdev_0_20:
+        description: Potassium, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 92
+      stdev_20_50:
+        description: Potassium, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 92
+
+  ISDASOIL/Africa/v1/sand_content:
+    title: iSDAsoil Sand Content
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Sand content, predicted mean at 0-20 cm depth
+        units: '%'
+        min: 2
+        max: 94
+      mean_20_50:
+        description: Sand content, predicted mean at 20-50 cm depth
+        units: '%'
+        min: 2
+        max: 95
+      stdev_0_20:
+        description: Sand content, standard deviation at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 144
+      stdev_20_50:
+        description: Sand content, standard deviation at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 143
+
+  ISDASOIL/Africa/v1/silt_content:
+    title: iSDAsoil Silt Content
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Silt content, predicted mean at 0-20 cm depth
+        units: '%'
+        min: 1
+        max: 61
+      mean_20_50:
+        description: Silt content, predicted mean at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 62
+      stdev_0_20:
+        description: Silt content, standard deviation at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 38
+      stdev_20_50:
+        description: Silt content, standard deviation at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 38
+
+  ISDASOIL/Africa/v1/stone_content:
+    title: iSDAsoil Stone Content
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Stone content, predicted mean at 0-20 cm depth
+        units: '%'
+        min: 0
+        max: 42
+      mean_20_50:
+        description: Stone content, predicted mean at 20-50 cm depth
+        units: '%'
+        min: 0
+        max: 42
+      stdev_0_20:
+        description: Stone content, standard deviation at 0-20 cm depth
+        units: '%'
+        min: 1
+        max: 159
+      stdev_20_50:
+        description: Stone content, standard deviation at 20-50 cm depth
+        units: '%'
+        min: 1
+        max: 158
+
+  ISDASOIL/Africa/v1/sulphur_extractable:
+    title: iSDAsoil Extractable Sulfur
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Sulfur, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 3
+        max: 42
+      mean_20_50:
+        description: Sulfur, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 39
+      stdev_0_20:
+        description: Sulfur, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 37
+      stdev_20_50:
+        description: Sulfur, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 3
+        max: 41
+
+  ISDASOIL/Africa/v1/texture_class:
+    title: iSDAsoil USDA Texture Class
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      texture_0_20:
+        description: USDA Texture Class at 0-20 cm depth
+      texture_20_50:
+        description: USDA Texture Class at 20-50 cm depth
+
+  ISDASOIL/Africa/v1/zinc_extractable:
+    title: iSDAsoil Extractable Zinc
+    provider: iSDA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-31.46, -35.22, 57.08, 37.98]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_0_20:
+        description: Zinc, extractable, predicted mean at 0-20 cm depth
+        units: ppm
+        min: 1
+        max: 32
+      mean_20_50:
+        description: Zinc, extractable, predicted mean at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 31
+      stdev_0_20:
+        description: Zinc, extractable, standard deviation at 0-20 cm depth
+        units: ppm
+        min: 0
+        max: 11
+      stdev_20_50:
+        description: Zinc, extractable, standard deviation at 20-50 cm depth
+        units: ppm
+        min: 0
+        max: 10
+
+  ISRIC/SoilGrids250m/v2_0:
+    title: "ISRIC SoilGrids 250m v2.0 — Volumetric Water Content (multiple depths)"
+    provider: ISRIC — World Soil Information
+    ee_type: image_collection
+    spatial_resolution: 250
+    extent:
+      start_date: "1905-04-01"
+      end_date: "2016-07-04"
+      bbox: [-180, -56, 180, 84]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      val_0_5cm_mean:
+        description: Mean volumetric water content (0-5 cm)
+        units: m^3/m^3
+      val_5_15cm_mean:
+        description: Mean volumetric water content (5-15 cm)
+        units: m^3/m^3
+      val_15_30cm_mean:
+        description: Mean volumetric water content (15-30 cm)
+        units: m^3/m^3
+      val_30_60cm_mean:
+        description: Mean volumetric water content (30-60 cm)
+        units: m^3/m^3
+      val_60_100cm_mean:
+        description: Mean volumetric water content (60-100 cm)
+        units: m^3/m^3
+      val_100_200cm_mean:
+        description: Mean volumetric water content (100-200 cm)
+        units: m^3/m^3
+
+  JRC/LUCAS/THLOC/V1/2022:
+    title: LUCAS THLOC (Points with attributes, 2022) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2022-01-01"
+      end_date: "2022-12-31"
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+
+  JRC/LUCAS_HARMO/COPERNICUS_POLYGONS/V1/2018:
+    title: LUCAS Copernicus (Polygons with attributes, 2018) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2006-02-05"
+      end_date: null
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  JRC/LUCAS_HARMO/THLOC/V1:
+    title: LUCAS Harmonized (Theoretical Location, 2006-2018) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2006-02-05"
+      end_date: null
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  NOAA/IBTrACS/v4:
+    title: International Best Track Archive for Climate Stewardship Project
+    provider: NOAA NCEI
+    ee_type: table
+    extent:
+      start_date: "1842-10-25"
+      end_date: null
+      bbox: [-180, 0.4, 180, 63.1]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+
+  NOAA/NHC/HURDAT2/atlantic:
+    title: NOAA NHC HURDAT2 Atlantic Hurricane Catalog
+    provider: NOAA NHC
+    ee_type: table
+    extent:
+      start_date: "1851-06-25"
+      end_date: null
+      bbox: [-109.5, 7.2, 63, 81]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+
+  NOAA/NHC/HURDAT2/pacific:
+    title: NOAA NHC HURDAT2 Pacific Hurricane Catalog
+    provider: NOAA NHC
+    ee_type: table
+    extent:
+      start_date: "1949-06-11"
+      end_date: null
+      bbox: [-180, 0.4, 180, 63.1]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+
+  OpenLandMap/SOL/SOL_BULKDENS-FINEEARTH_USDA-4A1H_M/v02:
+    title: "OpenLandMap Soil Bulk Density (fine earth, 250m, 6 depths)"
+    provider: EnvirometriX / OpenLandMap
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: "2018-12-31"
+    default_reducer: mosaic
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      b0:
+        description: Fine-earth bulk density at 0 cm depth
+        units: kg/m^3
+        scale: 10
+      b10:
+        description: Fine-earth bulk density at 10 cm depth
+        units: kg/m^3
+        scale: 10
+      b30:
+        description: Fine-earth bulk density at 30 cm depth
+        units: kg/m^3
+        scale: 10
+      b60:
+        description: Fine-earth bulk density at 60 cm depth
+        units: kg/m^3
+        scale: 10
+      b100:
+        description: Fine-earth bulk density at 100 cm depth
+        units: kg/m^3
+        scale: 10
+      b200:
+        description: Fine-earth bulk density at 200 cm depth
+        units: kg/m^3
+        scale: 10
+
+  OpenLandMap/SOL/SOL_CLAY-WFRACTION_USDA-3A1A1A_M/v02:
+    title: OpenLandMap Clay Content
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      b0:
+        description: Clay content at 0 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b10:
+        description: Clay content at 10 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b30:
+        description: Clay content at 30 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b60:
+        description: Clay content at 60 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b100:
+        description: Clay content at 100 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+      b200:
+        description: Clay content at 200 cm depth
+        units: '% (kg / kg)'
+        min: 2
+        max: 100
+
+  OpenLandMap/SOL/SOL_GRTGROUP_USDA-SOILTAX-HAPLUDALFS_P/v01:
+    title: OpenLandMap Predicted Hapludalfs Probability
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      grtgroup:
+        description: Predicted Hapludalfs probability
+        units: '%'
+        min: 0
+        max: 35
+
+  OpenLandMap/SOL/SOL_GRTGROUP_USDA-SOILTAX_C/v01:
+    title: OpenLandMap USDA Soil Taxonomy Great Groups
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      grtgroup:
+        description: USDA soil taxonomy great groups
+
+  OpenLandMap/SOL/SOL_ORGANIC-CARBON_USDA-6A1C_M/v02:
+    title: "OpenLandMap Soil Organic Carbon Content (250m, 6 depths)"
+    provider: EnvirometriX / OpenLandMap
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: "2018-12-31"
+    default_reducer: mosaic
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      b0:
+        description: Soil organic carbon content at 0 cm depth
+        units: g/kg
+        scale: 5
+      b10:
+        description: Soil organic carbon content at 10 cm depth
+        units: g/kg
+        scale: 5
+      b30:
+        description: Soil organic carbon content at 30 cm depth
+        units: g/kg
+        scale: 5
+      b60:
+        description: Soil organic carbon content at 60 cm depth
+        units: g/kg
+        scale: 5
+      b100:
+        description: Soil organic carbon content at 100 cm depth
+        units: g/kg
+        scale: 5
+      b200:
+        description: Soil organic carbon content at 200 cm depth
+        units: g/kg
+        scale: 5
+
+  OpenLandMap/SOL/SOL_PH-H2O_USDA-4C1A2A_M/v02:
+    title: OpenLandMap Soil pH in H2O
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      b0:
+        description: Soil pH in H2O at 0 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b10:
+        description: Soil pH in H2O at 10 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b30:
+        description: Soil pH in H2O at 30 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b60:
+        description: Soil pH in H2O at 60 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b100:
+        description: Soil pH in H2O at 100 cm depth
+        scale: 10
+        min: 42
+        max: 110
+      b200:
+        description: Soil pH in H2O at 200 cm depth
+        scale: 10
+        min: 42
+        max: 110
+
+  OpenLandMap/SOL/SOL_SAND-WFRACTION_USDA-3A1A1A_M/v02:
+    title: OpenLandMap Sand Content
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      b0:
+        description: Sand content at 0 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b10:
+        description: Sand content at 10 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b30:
+        description: Sand content at 30 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b60:
+        description: Sand content at 60 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b100:
+        description: Sand content at 100 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+      b200:
+        description: Sand content at 200 cm depth
+        units: '% (kg / kg)'
+        min: 1
+        max: 100
+
+  OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02:
+    title: "OpenLandMap Soil Texture Class (USDA system, 250m, 6 depths)"
+    provider: EnvirometriX / OpenLandMap
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: "2018-12-31"
+    default_reducer: mosaic
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      b0:
+        description: USDA soil-texture class at 0 cm depth
+      b10:
+        description: USDA soil-texture class at 10 cm depth
+      b30:
+        description: USDA soil-texture class at 30 cm depth
+      b60:
+        description: USDA soil-texture class at 60 cm depth
+      b100:
+        description: USDA soil-texture class at 100 cm depth
+      b200:
+        description: USDA soil-texture class at 200 cm depth
+
+  OpenLandMap/SOL/SOL_WATERCONTENT-33KPA_USDA-4B1C_M/v01:
+    title: OpenLandMap Soil Water Content at 33kPa (Field Capacity)
+    provider: EnvirometriX Ltd
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      b0:
+        description: Soil water content at 33kPa (field capacity) at 0 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b10:
+        description: Soil water content at 33kPa (field capacity) at 10 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b30:
+        description: Soil water content at 33kPa (field capacity) at 30 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b60:
+        description: Soil water content at 33kPa (field capacity) at 60 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b100:
+        description: Soil water content at 33kPa (field capacity) at 100 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+      b200:
+        description: Soil water content at 33kPa (field capacity) at 200 cm depth
+        units: '%'
+        min: 0
+        max: 52.9740182135385
+
+  TIGER/2010/BG:
+    title: 'TIGER: US Census Block Groups (BG) 2010'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2010/Blocks:
+    title: 'TIGER: US Census Blocks'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2010/Tracts_DP1:
+    title: 'TIGER: US Census Tracts Demographic - Profile 1'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2010/ZCTA5:
+    title: 'TIGER: US Census 5-digit ZIP Code Tabulation Areas 2010 [deprecated]'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2016/Counties:
+    title: 'TIGER: US Census Counties 2016'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2016/Roads:
+    title: 'TIGER: US Census Roads'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2016/States:
+    title: 'TIGER: US Census States 2016'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2018/Counties:
+    title: 'TIGER: US Census Counties 2018'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2018/States:
+    title: 'TIGER: US Census States 2018'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2020/BG:
+    title: 'TIGER: US Census Block Groups (BG) 2020'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2020/TABBLOCK20:
+    title: 'TIGER: 2020 Tabulation (Census) Block'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2020/TRACT:
+    title: 'TIGER: US Census Tracts'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2020/ZCTA5:
+    title: 'TIGER: US Census 5-digit ZIP Code Tabulation Areas 2020'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  UN/Geodata/BNDA_simplified/current:
+    title: 'United Nations Geospatial Data: BNDA_simplified'
+    provider: United Nations Geospatial
+    ee_type: table
+    extent:
+      start_date: "2023-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The UN Geodata is a global geospatial database available for use by the UN'
+    bands:
+
+  USDA/SOLUS100/V0:
+    title: 'SOLUS: Soil properties of the conterminous United States at 100-m resolution'
+    provider: USDA-ARS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "2023-12-15"
+      end_date: null
+      bbox: [-125, 24, -66, 50]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The SOLUS dataset is in the public domain and is available without'
+    bands:
+      r_0_cm_p:
+        description: Predicted value of soil property at 0cm depth
+      r_0_cm_l:
+        description: Lower 95% confidence limit of soil property at 0cm depth
+      r_0_cm_h:
+        description: Upper 95% confidence limit of soil property at 0cm depth
+      r_0_cm_rpi:
+        description: Relative property index of soil property at 0cm depth
+      r_5_cm_p:
+        description: Predicted value of soil property at 5cm depth
+      r_5_cm_l:
+        description: Lower 95% confidence limit of soil property at 5cm depth
+      r_5_cm_h:
+        description: Upper 95% confidence limit of soil property at 5cm depth
+      r_5_cm_rpi:
+        description: Relative property index of soil property at 5cm depth
+      r_15_cm_p:
+        description: Predicted value of soil property at 15cm depth
+      r_15_cm_l:
+        description: Lower 95% confidence limit of soil property at 15cm depth
+      r_15_cm_h:
+        description: Upper 95% confidence limit of soil property at 15cm depth
+      r_15_cm_rpi:
+        description: Relative property index of soil property at 15cm depth
+      r_30_cm_p:
+        description: Predicted value of soil property at 30cm depth
+      r_30_cm_l:
+        description: Lower 95% confidence limit of soil property at 30cm depth
+      r_30_cm_h:
+        description: Upper 95% confidence limit of soil property at 30cm depth
+      r_30_cm_rpi:
+        description: Relative property index of soil property at 30cm depth
+      r_60_cm_p:
+        description: Predicted value of soil property at 60cm depth
+      r_60_cm_l:
+        description: Lower 95% confidence limit of soil property at 60cm depth
+      r_60_cm_h:
+        description: Upper 95% confidence limit of soil property at 60cm depth
+      r_60_cm_rpi:
+        description: Relative property index of soil property at 60cm depth
+      r_100_cm_p:
+        description: Predicted value of soil property at 100cm depth
+      r_100_cm_l:
+        description: Lower 95% confidence limit of soil property at 100cm depth
+      r_100_cm_h:
+        description: Upper 95% confidence limit of soil property at 100cm depth
+      r_100_cm_rpi:
+        description: Relative property index of soil property at 100cm depth
+      r_150_cm_p:
+        description: Predicted value of soil property at 150cm depth
+      r_150_cm_l:
+        description: Lower 95% confidence limit of soil property at 150cm depth
+      r_150_cm_h:
+        description: Upper 95% confidence limit of soil property at 150cm depth
+      r_150_cm_rpi:
+        description: Relative property index of soil property at 150cm depth
+      r_cm_p:
+        description: Predicted depth to anylithic contact in cm
+        units: cm
+      r_cm_l:
+        description: Lower 95% confidence limit of depth to anylithic contact in cm
+        units: cm
+      r_cm_h:
+        description: Upper 95% confidence limit of depth to anylithic contact in cm
+        units: cm
+      r_cm_rpi:
+        description: Relative property index of depth to anylithic contact
+
+  USDOS/LSIB/2013:
+    title: 'LSIB 2013: Large Scale International Boundary Polygons, Detailed [deprecated]'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2013-03-08"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+
+  USDOS/LSIB/2017:
+    title: 'LSIB 2017: Large Scale International Boundary Polygons, Detailed'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2017-12-29"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+
+  USDOS/LSIB_SIMPLE/2017:
+    title: 'LSIB 2017: Large Scale International Boundary Polygons, Simplified'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2017-03-30"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+
+  WCMC/WDOECM/current/points:
+    title: 'WDOECM: Other Effective Area-based Conservation Measures (points)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2026-03-01"
+      end_date: "2026-04-01"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)'
+    bands:
+
+  WCMC/WDOECM/current/polygons:
+    title: 'WDOECM: Other Effective Area-based Conservation Measures (polygons)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2026-03-01"
+      end_date: "2026-04-01"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)'
+    bands:
+
+  WCMC/WDPA/current/points:
+    title: 'WDPA: World Database on Protected Areas (points)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2026-01-01"
+      end_date: "2026-02-01"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)'
+    bands:
+
+  WCMC/WDPA/current/polygons:
+    title: 'WDPA: World Database on Protected Areas (polygons)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2026-01-01"
+      end_date: "2026-02-01"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)'
+    bands:
+
+  WM/geoLab/geoBoundaries/600/ADM0:
+    title: 'geoBoundaries: Political administrative boundaries at Country level (ADM0), v6.0.0'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: 'geoBoundaries datasets are provided under the CC BY 4.0 license, which'
+    bands:
+
+  WM/geoLab/geoBoundaries/600/ADM1:
+    title: 'geoBoundaries: Political administrative boundaries at District level (ADM1), v6.0.0'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: 'geoBoundaries datasets are provided under the CC BY 4.0 license, which'
+    bands:
+
+  WM/geoLab/geoBoundaries/600/ADM2:
+    title: 'geoBoundaries: Political administrative boundaries at Municipality level (ADM2),'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: 'geoBoundaries datasets are provided under the CC BY 4.0 license, which'
+    bands:
+
+  WRI/GPPD/power_plants:
+    title: Global Power Plant Database
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2018-06-11"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+
+  WorldPop/GP/100m/pop:
+    title: "WorldPop GP 100m Population (annual estimated residents per grid cell)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population:
+        description: Estimated number of residents per ~100m grid cell
+
+  WorldPop/GP/100m/pop_age_sex:
+    title: "WorldPop GP 100m Population Age + Sex Structure (annual)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      population:
+        description: Total residents per ~100m grid cell
+      M_0:
+        description: Males 0-1 years per cell
+      M_15:
+        description: Males 15-19 years per cell
+      M_65:
+        description: Males 65-69 years per cell
+      M_75:
+        description: Males 75+ years per cell
+      F_0:
+        description: Females 0-1 years per cell
+      F_15:
+        description: Females 15-19 years per cell
+      F_65:
+        description: Females 65-69 years per cell
+      F_75:
+        description: Females 75+ years per cell
+
+  WorldPop/GP/100m/pop_age_sex_cons_unadj:
+    title: "WorldPop GP 100m Constrained Population Age + Sex (unadjusted, annual)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      population:
+        description: Total residents per ~100m grid cell (constrained, unadjusted)
+      M_0:
+        description: Males 0-1 years per cell
+      M_15:
+        description: Males 15-19 years per cell
+      M_65:
+        description: Males 65-69 years per cell
+      F_0:
+        description: Females 0-1 years per cell
+      F_15:
+        description: Females 15-19 years per cell
+      F_65:
+        description: Females 65-69 years per cell
+
+  WorldPop/POP:
+    title: "WorldPop Global Project Population (legacy, 100m, 2000-)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -59.94, 180, 54.08]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population:
+        description: Estimated number of residents per ~100m grid cell
+
+  iNaturalist/MULTI_SPECIES/LATEST:
+    title: iNaturalist Multispecies Open Range Maps
+    provider: iNaturalist
+    ee_type: bigquery_table
+    extent:
+      start_date: "2025-02-25"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+
+  overture-maps/places_place:
+    title: 'Overture Maps - Places: Place'
+    provider: Overture Maps Foundation
+    ee_type: bigquery_table
+    extent:
+      start_date: "2023-07-01"
+      end_date: null
+    default_reducer: mosaic
+    license: ODbL-1.0
+    bands:
+

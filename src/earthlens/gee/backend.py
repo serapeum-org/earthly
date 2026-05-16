@@ -6,7 +6,7 @@ and one image carries many at once), plus a date range, a bbox (or a
 `GeoDataFrame` region), a temporal-compositing resolution
 (`"raw"`/`"daily"`/`"monthly"`/`"yearly"`), and an output pixel `scale`
 in metres. The asset ids and band metadata are resolved through
-:class:`earthlens.gee.Catalog` (loaded from the per-provider YAMLs
+:class:`earthlens.gee.Catalog` (loaded from the per-category YAMLs
 under `src/earthlens/gee/catalog/`).
 
 Per `(asset, band-set, time-bucket)` the pipeline is:

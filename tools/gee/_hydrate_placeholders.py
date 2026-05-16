@@ -7,7 +7,7 @@ didn't carry a band manifest). This script:
 
 * Authenticates with the service-account credentials in
   ``GEE_SERVICE_ACCOUNT`` / ``GEE_SERVICE_KEY``.
-* Walks every dataset in the per-provider YAML files under
+* Walks every dataset in the per-category YAML files under
   ``src/earthlens/gee/catalog/`` whose ``bands`` field is empty
   (either ``bands: {}`` or a naked ``bands:`` with no children).
 * For each, calls ``ee.data.getAsset(id)`` to get the asset metadata

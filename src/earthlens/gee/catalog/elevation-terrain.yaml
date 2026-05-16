@@ -1,0 +1,1653 @@
+# Auto-grouped slice of the GEE catalog: elevation-terrain.
+# 81 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  AHN/AHN2_05M_INT:
+    title: "AHN2 Netherlands DEM Interpolated (0.5m, 2008-2012)"
+    provider: AHN
+    ee_type: image
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2012-01-01"
+      end_date: "2012-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      elevation:
+        description: Interpolated lidar elevation
+        units: m
+
+  AHN/AHN2_05M_NON:
+    title: "AHN2 Netherlands DEM Non-Interpolated (0.5m)"
+    provider: AHN
+    ee_type: image
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2012-01-01"
+      end_date: "2012-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      elevation:
+        description: Lidar elevation, non-interpolated cells only
+        units: m
+
+  AHN/AHN2_05M_RUW:
+    title: "AHN2 Netherlands DEM Raw Samples (0.5m)"
+    provider: AHN
+    ee_type: image
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2012-01-01"
+      end_date: "2012-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      elevation:
+        description: Raw lidar elevation samples
+        units: m
+
+  AHN/AHN3:
+    title: "AHN3: Netherlands Lidar DTM/DSM 0.5m (2014-2019)"
+    provider: AHN
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2014-01-01"
+      end_date: "2019-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      dtm:
+        description: Digital Terrain Model (bare-earth elevation)
+        units: m
+      dsm:
+        description: Digital Surface Model (highest reflective surface elevation)
+        units: m
+
+  AHN/AHN4:
+    title: "AHN4: Netherlands Lidar DTM/DSM 0.5m (2020-)"
+    provider: AHN
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      dtm:
+        description: Digital Terrain Model (bare-earth elevation)
+        units: m
+      dsm:
+        description: Digital Surface Model (highest reflective surface elevation)
+        units: m
+
+  AU/GA/AUSTRALIA_5M_DEM:
+    title: "Geoscience Australia 5m DEM (lidar-derived, partial coverage)"
+    provider: Geoscience Australia
+    ee_type: image_collection
+    spatial_resolution: 5
+    extent:
+      start_date: "2015-12-01"
+      end_date: null
+      bbox: [114.09, -43.45, 153.64, -9.88]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      elevation:
+        description: Bare-earth elevation
+        units: m
+
+  AU/GA/DEM_1SEC/v10/DEM-H:
+    title: "Australian SRTM Hydrologically Enforced DEM-H v1.0 (~30m)"
+    provider: Geoscience Australia
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2010-02-01"
+      end_date: "2010-12-31"
+      bbox: [112.99, -44.06, 154, -9.99]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      elevation:
+        description: Hydrologically enforced bare-earth elevation
+        units: m
+
+  AU/GA/DEM_1SEC/v10/DEM-S:
+    title: "Australian Smoothed DEM-S v1.0 (~30m)"
+    provider: Geoscience Australia
+    ee_type: image
+    spatial_resolution: 30.92
+    extent:
+      start_date: "2010-02-01"
+      end_date: "2010-12-31"
+      bbox: [112.99, -44.06, 154, -9.99]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      elevation:
+        description: Smoothed bare-earth elevation
+        units: m
+
+  CGIAR/SRTM90_V4:
+    title: "CGIAR-CSI SRTM 90m v4 (Void-Filled SRTM, ±60° lat)"
+    provider: NASA / CGIAR-CSI
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -56, 180, 60]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial use; commercial requires attribution (CGIAR-CSI).'
+    bands:
+      elevation:
+        description: Bare-earth elevation (void-filled)
+        units: m
+
+  COPERNICUS/DEM/GLO30:
+    title: "Copernicus DEM GLO-30: Global 30m Digital Elevation Model"
+    provider: ESA / Copernicus
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2010-12-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use under the Copernicus DEM licence.'
+    bands:
+      DEM:
+        description: Digital Surface Model elevation
+        units: m
+        min: -500
+        max: 9000
+        estimated_range: true
+      WBM:
+        description: Water Body Mask (0=land, 1=ocean, 2=lake, 3=river)
+        min: 0
+        max: 3
+
+  CPOM/CryoSat2/ANTARCTICA_DEM:
+    title: "CryoSat-2 Antarctica 1km DEM (CPOM, 2010-)"
+    provider: Centre for Polar Observation and Modelling (CPOM)
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2010-07-01"
+      end_date: "2016-12-31"
+      bbox: [-180, -88, 180, -60]
+    default_reducer: mosaic
+    license: unknown
+    terms_note: 'Free for use with citation (CPOM).'
+    bands:
+      elevation:
+        description: Antarctic ice-sheet and ice-shelf elevation
+        units: m
+      data_composition:
+        description: Data composition flag
+
+  CSP/ERGo/1_0/Global/ALOS_CHILI:
+    title: "Global ALOS CHILI: Continuous Heat-Insolation Load Index (90m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: ALOS-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/Global/ALOS_landforms:
+    title: "Global ALOS Landforms (90m, CSP ERGo)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: ALOS-derived landform classes
+
+  CSP/ERGo/1_0/Global/ALOS_mTPI:
+    title: "Global ALOS mTPI: Multi-Scale Topographic Position Index (270m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      AVE:
+        description: ALOS-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CSP/ERGo/1_0/Global/ALOS_topoDiversity:
+    title: Global ALOS Topographic Diversity
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: ALOS-derived topographic diversity
+        min: 0
+        max: 1
+
+  CSP/ERGo/1_0/Global/SRTM_CHILI:
+    title: "Global SRTM CHILI: Continuous Heat-Insolation Load Index (90m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: SRTM-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/Global/SRTM_landforms:
+    title: "Global SRTM-Derived Landforms (Conservation Science Partners, 90m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: SRTM-derived landform class
+
+  CSP/ERGo/1_0/Global/SRTM_mTPI:
+    title: "Global SRTM mTPI: Multi-Scale Topographic Position Index (270m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      elevation:
+        description: SRTM-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CSP/ERGo/1_0/Global/SRTM_topoDiversity:
+    title: "Global SRTM Topographic Diversity (CSP ERGo, 270m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: SRTM-derived topographic-diversity index
+
+  CSP/ERGo/1_0/US/CHILI:
+    title: "US NED CHILI: Continuous Heat-Insolation Load Index (10m, CONUS)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: NED-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/US/landforms:
+    title: US NED Landforms
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: NED-derived landform classes
+
+  CSP/ERGo/1_0/US/lithology:
+    title: US Lithology
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      b1:
+        description: Lithology classes
+
+  CSP/ERGo/1_0/US/mTPI:
+    title: "US NED mTPI: Multi-Scale Topographic Position Index (270m, CONUS)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      elevation:
+        description: NED-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CSP/ERGo/1_0/US/physioDiversity:
+    title: US NED Physiographic Diversity
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      b1:
+        description: Physiographic diversity
+        min: 0
+        max: 1
+
+  CSP/ERGo/1_0/US/physiography:
+    title: US Physiography
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: Landforms and lithology intersection
+        min: 1100
+        max: 4220
+
+  CSP/ERGo/1_0/US/topoDiversity:
+    title: US NED Topographic Diversity
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: NED-derived topographic diversity
+        min: 0
+        max: 1
+
+  IGN/RGE_ALTI/1M/2_0:
+    title: 'RGE ALTI: IGN RGE ALTI Digital Elevation 1m'
+    provider: IGN
+    ee_type: image_collection
+    spatial_resolution: 1
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-5.2, 41.35, 9.85, 51.14]
+    default_reducer: mosaic
+    license: etalab-2.0
+    bands:
+      MNT:
+        description: Terrain elevation in meters.
+        units: m
+        min: -40
+        max: 4810
+      SRC:
+        description: The main source of the data used to calculate the altitude
+      DST:
+        description: The distance in meters between the node and the nearest point used to
+        units: m
+        min: 0
+        max: 255
+
+  JAXA/ALOS/AW3D30/V1_1:
+    title: "ALOS AW3D30 v1.1: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      AVE:
+        description: Height above sea level (averaged DSM)
+        units: m
+      MED:
+        description: Height above sea level (median DSM)
+        units: m
+
+  JAXA/ALOS/AW3D30/V2_1:
+    title: "ALOS AW3D30 v2.1: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      AVE_DSM:
+        description: Height above sea level (averaged DSM)
+        units: m
+      AVE_STK:
+        description: Stacking number of scene-unit DSMs used
+      AVE_MSK:
+        description: 8-bit mask for the AVE band
+
+  JAXA/ALOS/AW3D30/V2_2:
+    title: "ALOS AW3D30 v2.2: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      AVE_DSM:
+        description: Height above sea level (averaged DSM)
+        units: m
+      AVE_STK:
+        description: Stacking number of scene-unit DSMs used
+      AVE_MSK:
+        description: 8-bit mask for the AVE band
+
+  JAXA/ALOS/AW3D30/V3_2:
+    title: "ALOS AW3D30 v3.2: Global 30m Digital Surface Model"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      DSM:
+        description: Height above sea level
+        units: m
+        min: -433
+        max: 8768
+        estimated_range: true
+      MSK:
+        description: 8-bit mask for the band
+      STK:
+        description: Stacking number of scene-unit DSMs used
+        min: 1
+        max: 54
+        estimated_range: true
+
+  JAXA/ALOS/AW3D30/V4_1:
+    title: "ALOS AW3D30 v4.1: Global 30m Digital Surface Model (latest, 2006-)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      DSM:
+        description: Height above sea level
+        units: m
+        min: -433
+        max: 8768
+        estimated_range: true
+      MSK:
+        description: 8-bit mask for the band
+      STK:
+        description: Stacking number of scene-unit DSMs used
+
+  LARSE/GEDI/GEDI02_A_002:
+    title: GEDI L2A Vector Canopy Top Height (Version 2)
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: image_collection
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI02_A_002_INDEX:
+    title: GEDI L2A table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI02_A_002_MONTHLY:
+    title: "GEDI L2A v002: Monthly Raster Canopy-Top Heights and Relative-Height Profile (25m, ±51.6° lat)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 25
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      elev_highestreturn:
+        description: Elevation of the highest detected return
+        units: m
+      elev_lowestmode:
+        description: Elevation of the centre of the lowest mode (ground)
+        units: m
+      digital_elevation_model:
+        description: TanDEM-X elevation at the GEDI footprint
+        units: m
+      digital_elevation_model_srtm:
+        description: SRTM elevation at the GEDI footprint
+        units: m
+      rh50:
+        description: Relative-height percentile 50 (median canopy)
+        units: m
+      rh75:
+        description: Relative-height percentile 75
+        units: m
+      rh98:
+        description: Relative-height percentile 98 (canopy top)
+        units: m
+      rh100:
+        description: Relative-height percentile 100 (max return)
+        units: m
+      sensitivity:
+        description: Maximum canopy cover at which the algorithm can detect ground
+      quality_flag:
+        description: Per-shot quality flag (1 = pass)
+      beam:
+        description: GEDI beam identifier
+        min: 0
+        max: 12
+
+  LARSE/GEDI/GEDI02_B_002:
+    title: GEDI L2B Vector Canopy Cover Vertical Profile Metrics (Version 2)
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: image_collection
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI02_B_002_INDEX:
+    title: GEDI L2B table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI02_B_002_MONTHLY:
+    title: "GEDI L2B v002: Monthly Raster Canopy-Cover + Vertical Profile Metrics (25m, ±51.6° lat)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 25
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      cover:
+        description: Total canopy cover
+        min: 0
+        max: 1
+      fhd_normal:
+        description: Foliage height diversity
+      l2b_quality_flag:
+        description: L2B quality flag (1=pass)
+        min: 0
+        max: 1
+      algorithmrun_flag:
+        description: Whether the L2B algorithm ran (1) or not (0)
+        min: 0
+        max: 1
+      beam:
+        description: GEDI beam identifier
+        min: 0
+        max: 11
+      delta_time:
+        description: Shot transmit time, seconds since 2018-01-01
+        units: s
+      degrade_flag:
+        description: Pointing/positioning degraded-state flag
+
+  LARSE/GEDI/GEDI04_A_002:
+    title: GEDI L4A Aboveground Biomass Density, Version 2.1
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: image_collection
+    extent:
+      start_date: "2019-04-18"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI04_A_002_INDEX:
+    title: GEDI L4A table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI04_A_002_MONTHLY:
+    title: "GEDI L4A v2.1: Monthly Aboveground Biomass Density (25m, ±51.6° lat)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 25
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      agbd:
+        description: Predicted above-ground biomass density
+        units: Mg/ha
+      agbd_se:
+        description: Above-ground biomass density prediction standard error
+        units: Mg/ha
+      agbd_pi_lower:
+        description: Lower prediction interval bound
+        units: Mg/ha
+      agbd_pi_upper:
+        description: Upper prediction interval bound
+        units: Mg/ha
+      beam:
+        description: GEDI beam identifier
+
+  LARSE/GEDI/GEDI04_B_002:
+    title: "GEDI L4B v2: Gridded Above-Ground Biomass Density (1km, 2019-present)"
+    provider: NASA / USFS LARSE
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-18"
+      end_date: "2023-03-16"
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      MU:
+        description: Mean above-ground biomass density
+        units: Mg/ha
+      SE:
+        description: Standard error of the mean AGBD
+        units: Mg/ha
+      PE:
+        description: Standard error as a fraction of the mean AGBD
+        units: "%"
+      V1:
+        description: Variance component 1 (uncertainty in the estimate of mean)
+      V2:
+        description: Variance component 2
+      NC:
+        description: Number of unique GEDI ground tracks contributing
+      NS:
+        description: Number of high-quality waveforms across the cell
+      QF:
+        description: Cell quality flag
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/12KM:
+    title: Gridded GEDI Vegetation Structure Metrics and Biomass Density with COUNTS metrics,
+    provider: 'Rasterization: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: image_collection
+    spatial_resolution: 12000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: The number of shots. For a shot to be counted in this layer the
+      orbits_uniq:
+        description: The number of unique orbits.
+      tracks_uniq:
+        description: The number of unique tracks. A track is the combination of orbit and
+      shots_nni:
+        description: The Nearest Neighbor Index (Evans et al. 2023).
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/1KM:
+    title: "GEDI GRIDDEDVEG v002 COUNTS: Shot/Orbit/Track Counts (1km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: Number of GEDI shots contributing to the pixel
+      orbits_uniq:
+        description: Number of unique orbits contributing
+      tracks_uniq:
+        description: Number of unique ground tracks contributing
+      shots_nni:
+        description: Nearest Neighbor Index (Evans et al. 2023)
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/6KM:
+    title: "GEDI GRIDDEDVEG v002 COUNTS: Shot/Orbit/Track Counts (6km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 6000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: Number of GEDI shots contributing to the pixel
+      orbits_uniq:
+        description: Number of unique orbits contributing
+      tracks_uniq:
+        description: Number of unique ground tracks contributing
+      shots_nni:
+        description: Nearest Neighbor Index (Evans et al. 2023)
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/12KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure + Biomass Density (12km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 12000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/1KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure Metrics + Biomass Density (1km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      meanbse:
+        description: Bootstrap-resampled standard error of the mean
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/6KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure + Biomass Density (6km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 6000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+
+  MERIT/DEM/v1_0_3:
+    title: "MERIT DEM v1.0.3: Multi-Error-Removed Improved-Terrain DEM (90m)"
+    provider: Dai Yamazaki — University of Tokyo
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1987-01-01"
+      end_date: "2017-12-31"
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with citation (Yamazaki et al., 2017).'
+    user_uploaded: true
+    bands:
+      dem:
+        description: Elevation referenced to the EGM96 geoid
+        units: m
+
+  MERIT/Hydro/v1_0_1:
+    title: "MERIT Hydro v1.0.1: Global Hydrography (90m, derived from MERIT DEM)"
+    provider: Dai Yamazaki — University of Tokyo
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1987-01-01"
+      end_date: "2017-12-31"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with citation (Yamazaki et al., 2019).'
+    user_uploaded: true
+    bands:
+      elv:
+        description: Elevation (referenced to EGM96 geoid)
+        units: m
+      dir:
+        description: Local drainage direction
+      wth:
+        description: River channel width at the centerline
+        units: m
+      wat:
+        description: Land vs permanent-water mask
+      upa:
+        description: Upstream drainage area (flow accumulation)
+        units: km^2
+      upg:
+        description: Upstream drainage pixel count (flow accumulation grid)
+      hnd:
+        description: Height-Above-Nearest-Drainage (HAND)
+        units: m
+
+  MERIT/Hydro_reduced/v1_0_1:
+    title: 'MERIT Hydro: Supplementary Visualization Layers'
+    provider: Dai Yamazaki (University of Tokyo)
+    ee_type: image
+    spatial_resolution: 556.6
+    extent:
+      start_date: "1987-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Citation to the paper is adequate if you simply use MERIT Hydro. If you'
+    user_uploaded: true
+    bands:
+      wth:
+        description: River channel width at the channel centerlines. River channel width is
+      upa:
+        description: Upstream drainage area (flow accumulation area). This band was upscaled
+        units: km^2
+
+  NASA/ASTER_GED/AG100_003:
+    title: "ASTER Global Emissivity Database AG100 v003 (100m, 2000-2008 baseline)"
+    provider: NASA LP DAAC
+    ee_type: image
+    spatial_resolution: 100
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2008-12-31"
+      bbox: [-180, -59, 180, 80]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      emissivity_band10:
+        description: ASTER band 10 mean emissivity
+        scale: 0.001
+      emissivity_band11:
+        description: ASTER band 11 mean emissivity
+        scale: 0.001
+      emissivity_band12:
+        description: ASTER band 12 mean emissivity
+        scale: 0.001
+      emissivity_band13:
+        description: ASTER band 13 mean emissivity
+        scale: 0.001
+      emissivity_band14:
+        description: ASTER band 14 mean emissivity
+        scale: 0.001
+      temperature:
+        description: Mean land-surface temperature
+        units: K
+        scale: 0.01
+      ndvi:
+        description: Mean NDVI
+        scale: 0.01
+      elevation:
+        description: ASTER GDEM elevation (V002)
+        units: m
+      land_water_map:
+        description: Land / water mask
+      num_obs:
+        description: Number of observations contributing per pixel
+
+  NASA/JPL/global_forest_canopy_height_2005:
+    title: Global Forest Canopy Height, 2005
+    provider: NASA/JPL
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2005-05-20"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'Most materials published on the Earth Observatory, including images, are'
+    bands:
+      "1":
+        description: Tree heights
+        units: m
+        min: 0
+        max: 73
+
+  NASA/MEASURES/GFCC/TC/v3:
+    title: "Global Forest Cover Change (GFCC) Tree Cover v3 (multi-year 30m)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NASA LP DAAC — no restrictions.'
+    bands:
+      tree_canopy_cover:
+        description: Per-pixel tree-canopy cover
+        units: "%"
+        min: 0
+        max: 100
+      uncertainty:
+        description: RMSE for tree-canopy cover
+      source_index:
+        description: Source-image index for the pixel
+
+  NASA/NASADEM_HGT/001:
+    title: "NASADEM: NASA Merged 30m Digital Elevation Model"
+    provider: NASA / USGS / JPL-Caltech
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -56, 180, 60]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      elevation:
+        description: Void-filled merged DEM elevation
+        units: m
+        min: -512
+        max: 8768
+        estimated_range: true
+      num:
+        description: Source-scene index and source-count
+        min: 0
+        max: 255
+      swb:
+        description: Updated SRTM water body data
+        min: 0
+        max: 255
+
+  NOAA/NGDC/ETOPO1:
+    title: "ETOPO1: Global 1 Arc-Minute Bedrock + Ice-Surface Elevation (NOAA NGDC)"
+    provider: NOAA NGDC
+    ee_type: image
+    spatial_resolution: 1855
+    extent:
+      start_date: "2008-08-01"
+      end_date: "2008-08-01"
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      bedrock:
+        description: Elevation at ground level / base of Antarctic and Greenland ice sheets
+        units: m
+      ice_surface:
+        description: Elevation at ground level / top of Antarctic and Greenland ice sheets
+        units: m
+
+  NRCan/CDEM:
+    title: Canadian Digital Elevation Model
+    provider: NRCan
+    ee_type: image_collection
+    spatial_resolution: 23.19
+    extent:
+      start_date: "1945-01-01"
+      end_date: null
+      bbox: [-142, 41, -52, 84]
+    default_reducer: median
+    license: unknown
+    terms_note: 'Licensed under the'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+        min: -226
+        max: 5944
+
+  OSU/GIMP/2000_ICE_OCEAN_MASK:
+    title: "GIMP Greenland Ice + Ocean Mask 2000 (15m, OSU Greenland Mapping Project)"
+    provider: NASA NSIDC DAAC
+    ee_type: image
+    spatial_resolution: 15
+    extent:
+      start_date: "1999-06-30"
+      end_date: "2002-12-31"
+      bbox: [-89.32, 58.80, 7.56, 83.95]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with citation (OSU Greenland Mapping Project).'
+    bands:
+      ocean_mask:
+        description: Ocean mask (binary)
+      ice_mask:
+        description: Ice mask (binary)
+
+  OSU/GIMP/2000_IMAGERY_MOSAIC:
+    title: "GIMP 2000 Greenland Imagery Mosaic (Landsat-7 ETM+, 15m)"
+    provider: NASA NSIDC DAAC
+    ee_type: image
+    spatial_resolution: 15
+    extent:
+      start_date: "1999-06-30"
+      end_date: "2002-12-31"
+      bbox: [-89.32, 58.80, 7.56, 83.95]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with citation (OSU Greenland Mapping Project).'
+    bands:
+      B1:
+        description: Landsat-7 ETM+ blue
+      B2:
+        description: Landsat-7 ETM+ green
+      B3:
+        description: Landsat-7 ETM+ red
+      B4:
+        description: Landsat-7 ETM+ NIR
+      B5:
+        description: Landsat-7 ETM+ SWIR-1
+
+  OSU/GIMP/DEM:
+    title: "GIMP Greenland DEM (~30m, OSU Greenland Mapping Project)"
+    provider: NASA NSIDC DAAC
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-06-30"
+      end_date: "2002-12-31"
+      bbox: [-89.32, 58.79, 7.56, 83.95]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with citation (OSU Greenland Mapping Project).'
+    bands:
+      elevation:
+        description: Bare-earth elevation
+        units: m
+
+  OSU/GIMP/ICE_VELOCITY_OPT:
+    title: "MEaSUREs Greenland Ice Velocity from Optical Imagery (100m, 1985-)"
+    provider: NASA NSIDC DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "1985-03-01"
+      end_date: null
+      bbox: [-89.32, 58.80, 7.56, 83.95]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with citation (NASA NSIDC).'
+    bands:
+      velocity_x:
+        description: Ice flow X-component velocity
+        units: m/yr
+      velocity_y:
+        description: Ice flow Y-component velocity
+        units: m/yr
+      error_x:
+        description: Ice flow X-velocity error
+        units: m/yr
+      error_y:
+        description: Ice flow Y-velocity error
+        units: m/yr
+
+  UK/EA/ENGLAND_1M_TERRAIN/2022:
+    title: England 1m Composite DTM/DSM (Environment Agency)
+    provider: UK Environment Agency
+    ee_type: image
+    spatial_resolution: 1
+    extent:
+      start_date: "2000-06-06"
+      end_date: null
+    default_reducer: median
+    license: proprietary
+    terms_note: 'You are free to: copy, publish, distribute and transmit the Information;'
+    bands:
+      dtm:
+        description: Digital Terrain Model
+        units: m
+      dsm_first:
+        description: First Return Digital Surface Model
+        units: m
+      dsm_last:
+        description: Last Return Digital Surface Model
+        units: m
+
+  UMN/PGC/ArcticDEM/V2/2m:
+    title: ArcticDEM Strips [deprecated]
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image_collection
+    spatial_resolution: 2
+    extent:
+      start_date: "2009-08-16"
+      end_date: null
+      bbox: [-180, 50, 180, 90]
+    default_reducer: median
+    license: proprietary
+    terms_note: 'National Science Foundation (PGC''s primary funding source) policy requires'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+      matchtag:
+        description: Bitmask raster indicating DEM pixels processing
+
+  UMN/PGC/ArcticDEM/V2/5m:
+    title: ArcticDEM Mosaic [deprecated]
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image
+    spatial_resolution: 5
+    extent:
+      start_date: "2016-09-21"
+      end_date: null
+      bbox: [-180, 50, 180, 90]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'National Science Foundation (PGC''s primary funding source) policy requires'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+        min: -416.45
+        max: 5971.24
+      matchtag:
+        description: Bitmask raster indicating DEM pixels derived from a stereo
+
+  UMN/PGC/ArcticDEM/V3/2m:
+    title: ArcticDEM Strips
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image_collection
+    spatial_resolution: 2
+    extent:
+      start_date: "2009-08-16"
+      end_date: null
+      bbox: [-180, 50, 180, 90]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'National Science Foundation (PGC''s primary funding source) policy requires'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+      matchtag:
+        description: Bitmask raster indicating DEM pixels processing
+
+  UMN/PGC/ArcticDEM/V3/2m_mosaic:
+    title: ArcticDEM V3 2m Mosaic [deprecated]
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image
+    spatial_resolution: 2
+    extent:
+      start_date: "2016-09-21"
+      end_date: null
+      bbox: [-180, 50, 180, 90]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'National Science Foundation (PGC''s primary funding source) policy requires'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+        min: -416.45
+        max: 5971.24
+
+  UMN/PGC/ArcticDEM/V4/2m_mosaic:
+    title: ArcticDEM Mosaic V4.1
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image
+    spatial_resolution: 2
+    extent:
+      start_date: "2012-06-03"
+      end_date: null
+      bbox: [-180, 50, 180, 90]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'National Science Foundation (PGC''s primary funding source) policy requires'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+        min: -416.45
+        max: 5971.24
+      count:
+        description: Number of source DEMs used to calculate the elevation value at that pixel.
+      mad:
+        description: Median absolute deviation of the stack of source datasets from the median elevation
+        units: m
+      mindate:
+        description: Earliest date of the source DEMs used to build the mosaic, as the number of days since
+      maxdate:
+        description: Latest date of the source DEMs used to build the mosaic, as the number of days since
+      datamask:
+        description: Data mask indicates whether the elevation was 0 or 1.
+
+  UMN/PGC/REMA/V1/2m:
+    title: REMA Strips 2m
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image_collection
+    spatial_resolution: 2
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-180, -88.3, 180, -53.8]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'National Science Foundation (PGC''s primary funding source) policy requires'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+      matchtag:
+        description: Bitmask raster indicating DEM pixels processing
+
+  UMN/PGC/REMA/V1/8m:
+    title: REMA Strips 8m
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image_collection
+    spatial_resolution: 8
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-180, -88.3, 180, -53.8]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'National Science Foundation (PGC''s primary funding source) policy requires'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+      matchtag:
+        description: Bitmask raster indicating DEM pixels processing
+
+  UMN/PGC/REMA/V1_1/8m:
+    title: REMA Mosaic
+    provider: University of Minnesota Polar Geospatial Center
+    ee_type: image
+    spatial_resolution: 8
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-180, -88.3, 180, -53.8]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'National Science Foundation (PGC''s primary funding source) policy requires'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+
+  USGS/3DEP/10m:
+    title: "USGS 3DEP Seamless 10m DEM (1/3 arc-second, US coverage)"
+    provider: USGS
+    ee_type: image
+    spatial_resolution: 10.2
+    extent:
+      start_date: "1998-08-16"
+      end_date: null
+      bbox: [-171, -16.6, 164, 76.9]
+    default_reducer: mosaic
+    license: public-domain
+    user_uploaded: true
+    bands:
+      elevation:
+        description: Bare-earth elevation
+        units: m
+
+  USGS/3DEP/10m_collection:
+    title: USGS 3DEP 10m National Map Seamless (1/3 Arc-Second)
+    provider: United States Geological Survey
+    ee_type: image_collection
+    spatial_resolution: 10.2
+    extent:
+      start_date: "1998-08-16"
+      end_date: null
+      bbox: [-171, -16.6, 164, 76.9]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'Most U.S. Geological Survey (USGS) information resides'
+    user_uploaded: true
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+
+  USGS/3DEP/10m_metadata:
+    title: USGS 3DEP National Map Spatial Metadata 1/3 Arc-Second (10m)
+    provider: United States Geological Survey
+    ee_type: table
+    extent:
+      start_date: "1998-08-16"
+      end_date: null
+      bbox: [-171, -16.6, 164, 76.9]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'Most U.S. Geological Survey (USGS) information resides'
+    user_uploaded: true
+    bands:
+
+  USGS/3DEP/1m:
+    title: USGS 3DEP 1m National Map
+    provider: United States Geological Survey
+    ee_type: image_collection
+    spatial_resolution: 1
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+      bbox: [-171, -16.6, 164, 76.9]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'Most U.S. Geological Survey (USGS) information resides'
+    bands:
+      elevation:
+        description: Elevation (NAVD88)
+        units: m
+
+  USGS/GMTED2010:
+    title: "USGS GMTED2010 Breakline Emphasis: Global Multi-Resolution Terrain Elevation (~230m)"
+    provider: USGS
+    ee_type: image
+    spatial_resolution: 231.92
+    extent:
+      start_date: "2010-01-01"
+      end_date: "2010-12-31"
+      bbox: [-180, -56, 180, 84]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      be75:
+        description: Breakline-emphasis elevation
+        units: m
+
+  USGS/GMTED2010_FULL:
+    title: "USGS GMTED2010 Full: Global Multi-Resolution Terrain Elevation, all aggregation methods"
+    provider: USGS
+    ee_type: image
+    spatial_resolution: 231.92
+    extent:
+      start_date: "2010-01-01"
+      end_date: "2010-12-31"
+      bbox: [-180, -56, 180, 84]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      be75:
+        description: Breakline emphasis elevation
+        units: m
+      mea:
+        description: Mean elevation aggregation
+        units: m
+      med:
+        description: Median elevation aggregation
+        units: m
+      min:
+        description: Minimum elevation aggregation
+        units: m
+      max:
+        description: Maximum elevation aggregation
+        units: m
+      std:
+        description: Standard deviation of elevation
+        units: m
+      dsc:
+        description: Sample subgrid elevation
+        units: m
+
+  USGS/GTOPO30:
+    title: "USGS GTOPO30: Global 30 Arc-Second Elevation (~1km, 1996)"
+    provider: USGS
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1996-01-01"
+      end_date: "1996-12-31"
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      elevation:
+        description: Bare-earth elevation
+        units: m
+
+  USGS/NED:
+    title: USGS National Elevation Dataset 1/3 Arc-Second [deprecated]
+    provider: United States Geological Survey
+    ee_type: image
+    spatial_resolution: 10.2
+    extent:
+      start_date: "2012-02-07"
+      end_date: null
+      bbox: [-171, -15, 164, 70]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'Most U.S. Geological Survey (USGS) information resides'
+    bands:
+      elevation:
+        description: Elevation
+        units: m
+        min: -85.61
+        max: 4414.22
+
+  USGS/SRTMGL1_003:
+    title: NASA SRTM Digital Elevation 30m
+    provider: NASA/USGS/JPL-Caltech
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      elevation:
+        description: Elevation above sea level
+        units: m
+        min: -10
+        max: 6500
+        estimated_range: true
+
+  WWF/HydroSHEDS/15CONDEM:
+    title: "WWF HydroSHEDS Hydrologically Conditioned DEM (15 arc-seconds, ~500m)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial and commercial use.'
+    bands:
+      b1:
+        description: Hydrologically conditioned elevation
+        units: m
+
+  WWF/HydroSHEDS/30CONDEM:
+    title: "WWF HydroSHEDS Hydrologically Conditioned DEM (30 arc-seconds, ~1km)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial and commercial use.'
+    bands:
+      b1:
+        description: Hydrologically conditioned elevation
+        units: m
+

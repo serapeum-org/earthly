@@ -51,8 +51,9 @@ and machine-readable via its
 [STAC catalog](https://storage.googleapis.com/earthengine-stac/catalog/catalog.json).
 
 earthlens ships a curated subset of this in
-`src/earthlens/gee/catalog/` — a directory of per-provider YAML files
-(`MODIS.yaml`, `COPERNICUS.yaml`, `LANDSAT.yaml`, `community.yaml` for
+`src/earthlens/gee/catalog/` — a directory of per-category YAML files
+(`optical-multispectral.yaml`, `climate-reanalysis.yaml`,
+`land-cover-change.yaml`, `hydrology-water.yaml`, `community.yaml` for
 `projects/...` assets, …) plus `_index.yaml` carrying the merged
 `available_datasets:` list. The loader (`earthlens.gee.Catalog`)
 parses every file and merges them. This is the GEE analogue of the

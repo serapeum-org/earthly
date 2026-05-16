@@ -7,9 +7,10 @@ Usage::
 Pipes the requested asset ids through ``refresh_gee_catalog.py
 --with-bands`` (with PYTHONIOENCODING=utf-8 to keep Unicode safe), runs
 the result through ``_compact_stanzas`` to normalise reducers / line
-endings / quote-truncation, appends each stanza to the per-provider
-file under ``src/earthlens/gee/catalog/``, and loads the catalog to
-verify it still parses (raises if not).
+endings / quote-truncation, appends each stanza to the per-category
+file under ``src/earthlens/gee/catalog/`` chosen by
+``_catalog_io.category_for``, and loads the catalog to verify it still
+parses (raises if not).
 
 Skips ids that are already in the curated ``datasets`` block.
 
@@ -26,15 +27,23 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-CATALOG_DIR = Path("src/earthlens/gee/catalog")
+sys.path.insert(0, "tools/gee")
+from _catalog_io import CATALOG_DIR, category_for  # noqa: E402
 
 _STANZA_RE = re.compile(r"^  (?P<asset>[A-Za-z0-9_./\-]+):\s*$", re.MULTILINE)
+_TITLE_RE = re.compile(r"^    title:\s*(.+?)\s*$", re.MULTILINE)
 
 
-def _provider_of(asset_id: str) -> str:
-    if asset_id.startswith("projects/"):
-        return "community"
-    return asset_id.split("/", 1)[0]
+def _title_of(stanza: str) -> str:
+    m = _TITLE_RE.search(stanza)
+    if not m:
+        return ""
+    t = m.group(1).strip()
+    if t.startswith("'") and t.endswith("'"):
+        t = t[1:-1].replace("''", "'")
+    elif t.startswith('"') and t.endswith('"'):
+        t = t[1:-1]
+    return t
 
 
 def _split_stanzas(body: str) -> list[tuple[str, str]]:
@@ -76,19 +85,19 @@ def _run(ids: list[str]) -> int:
     body = "".join(c.split("\n", 1)[1] if "\n" in c else "" for c in chunks[1:])
     compact = _process(io.StringIO(body))
 
-    per_provider: dict[str, list[str]] = defaultdict(list)
+    per_category: dict[str, list[str]] = defaultdict(list)
     for asset_id, stanza in _split_stanzas(compact):
-        per_provider[_provider_of(asset_id)].append(stanza)
+        per_category[category_for(asset_id, _title_of(stanza))].append(stanza)
 
-    for provider, stanzas in per_provider.items():
-        target = CATALOG_DIR / f"{provider}.yaml"
+    for category, stanzas in per_category.items():
+        target = CATALOG_DIR / f"{category}.yaml"
         if target.exists():
             existing_bytes = target.read_bytes()
             if not existing_bytes.endswith(b"\n"):
                 existing_bytes += b"\n"
         else:
             header = (
-                f"# Auto-grouped slice of the GEE catalog: {provider}.\n"
+                f"# Auto-grouped slice of the GEE catalog: {category}.\n"
                 f"# Created by _run_batch.py. Edit in place.\n\n"
                 f"datasets:\n"
             ).encode("utf-8")
