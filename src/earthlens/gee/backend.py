@@ -179,6 +179,18 @@ class GEE(AbstractDataSource):
         region: GeoDataFrame | None = None,
         http_timeout: float | None = None,
     ):
+        # Validate the pure (no-I/O) config first so a bad `export_via`
+        # fails fast, before paying for the ~3.3 s cold-cache catalog
+        # parse (M3 in pr-diff-review).
+        if export_via not in {"url", "drive", "gcs"}:
+            raise ValueError(
+                f"export_via must be 'url', 'drive', or 'gcs', got {export_via!r}"
+            )
+        if export_via == "drive" and not drive_folder:
+            raise ValueError("export_via='drive' requires drive_folder=")
+        if export_via == "gcs" and not gcs_bucket:
+            raise ValueError("export_via='gcs' requires gcs_bucket=")
+
         # These must be set before `super().__init__` runs, because the
         # parent constructor immediately calls `self._initialize()` (and
         # `_create_grid` / `_check_input_dates`), which read them.
@@ -190,14 +202,6 @@ class GEE(AbstractDataSource):
         self.scale = scale
         self.crs = crs
         self.reducer = reducer
-        if export_via not in {"url", "drive", "gcs"}:
-            raise ValueError(
-                f"export_via must be 'url', 'drive', or 'gcs', got {export_via!r}"
-            )
-        if export_via == "drive" and not drive_folder:
-            raise ValueError("export_via='drive' requires drive_folder=")
-        if export_via == "gcs" and not gcs_bucket:
-            raise ValueError("export_via='gcs' requires gcs_bucket=")
         self.export_via = export_via
         self.drive_folder = drive_folder
         self.gcs_bucket = gcs_bucket
@@ -217,8 +221,6 @@ class GEE(AbstractDataSource):
             fmt=fmt,
             path=path,
         )
-
-    # ------------------------------------------------------------------ hooks
 
     def _initialize(self) -> Any:
         """Authenticate and initialise the Earth Engine connection.
@@ -329,8 +331,6 @@ class GEE(AbstractDataSource):
             resolution=temporal_resolution,
             dates=dates,
         )
-
-    # ------------------------------------------------------------------ download
 
     def download(
         self, progress_bar: bool = True, aggregate: Any = None
@@ -447,8 +447,6 @@ class GEE(AbstractDataSource):
         if progress_bar:
             iterator = tqdm(buckets, desc=f"{asset_id} [{','.join(bands)}]", unit="img")
         return [self._api(image, var_info, bands, when) for when, image in iterator]
-
-    # ------------------------------------------------------------------ EE pipeline
 
     def _build_collection(
         self, var_info: Dataset, bands: list[str], start: dt.datetime, end: dt.datetime
@@ -626,8 +624,6 @@ class GEE(AbstractDataSource):
         wait_for_task(task, progress_bar=True)
         logger.info(f"Exported {destination} (pull it from the {self.export_via} destination)")
         return destination
-
-    # ------------------------------------------------------------------ helpers
 
     def _ee_region(self):
         """Return the `ee.Geometry` to clip / filter requests to.

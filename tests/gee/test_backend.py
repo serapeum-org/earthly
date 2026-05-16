@@ -310,6 +310,27 @@ class TestInit:
         with pytest.raises(ValueError, match="export_via must be"):
             make_gee(export_via="ftp")
 
+    def test_bad_export_via_fails_before_catalog_load(self, monkeypatch, tmp_path):
+        """A typo'd `export_via` raises before paying for the catalog parse (M3)."""
+        from earthlens.gee import backend as backend_module
+
+        loads = 0
+
+        class _ExplodingCatalog:
+            def __init__(self, *_a, **_k):
+                nonlocal loads
+                loads += 1
+
+        monkeypatch.setattr(backend_module, "Catalog", _ExplodingCatalog)
+        with pytest.raises(ValueError, match="export_via must be"):
+            GEE(
+                start="2000-02-11", end="2000-02-12",
+                variables={"USGS/SRTMGL1_003": ["elevation"]},
+                lat_lim=[29.9, 30.0], lon_lim=[31.2, 31.3], path=str(tmp_path),
+                export_via="ftp",
+            )
+        assert loads == 0, "Catalog() should not be constructed when export_via is invalid"
+
     def test_initialize_without_credentials_raises(self, fake_ee, tmp_path):
         """No service account and no `project` → `AuthenticationError`."""
         from earthlens.gee.backend import AuthenticationError
