@@ -638,3 +638,45 @@ class TestCatalog:
         assert set(parsed) == set(shipped_catalog.datasets)
         for asset_id, body in parsed.items():
             assert body["title"] == shipped_catalog.get_dataset(asset_id).title
+
+
+class TestCatalogCache:
+    """Tests for the module-level `(path, mtime_ns)` parse cache."""
+
+    def test_cache_hit_returns_equivalent_data(self, monkeypatch, tmp_path):
+        """A second `Catalog()` on an unchanged file reuses the cached parse."""
+        path = _write_catalog_yaml(tmp_path, _MINIMAL_YAML)
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", path)
+        catalog_module.clear_catalog_cache()
+        a = Catalog()
+        b = Catalog()
+        assert set(a.datasets) == set(b.datasets)
+        assert a.get_dataset("DEMO/IMAGE").title == b.get_dataset("DEMO/IMAGE").title
+
+    def test_cache_invalidates_on_mtime_change(self, monkeypatch, tmp_path):
+        """Touching the file (changing its mtime) reparses on the next call."""
+        import os
+
+        path = _write_catalog_yaml(tmp_path, _MINIMAL_YAML)
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", path)
+        catalog_module.clear_catalog_cache()
+        a = Catalog()
+        assert "DEMO/IMAGE" in a.datasets
+
+        # Rewrite the file with a different title and a bumped mtime
+        new_yaml = _MINIMAL_YAML.replace("Demo static image", "Demo CHANGED image")
+        path.write_text(new_yaml)
+        os.utime(path, ns=(path.stat().st_atime_ns, path.stat().st_mtime_ns + 1_000_000_000))
+
+        b = Catalog()
+        assert b.get_dataset("DEMO/IMAGE").title == "Demo CHANGED image"
+
+    def test_clear_catalog_cache(self, monkeypatch, tmp_path):
+        """`clear_catalog_cache()` drops cached entries; the next call reparses."""
+        path = _write_catalog_yaml(tmp_path, _MINIMAL_YAML)
+        monkeypatch.setattr(catalog_module, "CATALOG_PATH", path)
+        catalog_module.clear_catalog_cache()
+        Catalog()
+        assert catalog_module._CATALOG_CACHE
+        catalog_module.clear_catalog_cache()
+        assert not catalog_module._CATALOG_CACHE

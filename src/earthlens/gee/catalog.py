@@ -47,6 +47,96 @@ from earthlens.base.yaml_loader import load_yaml_strict
 
 CATALOG_PATH: Path = Path(__file__).parent / "gee_data_catalog.yaml"
 
+# Module-level cache of parsed catalog data, keyed on the resolved YAML
+# path and its mtime (in nanoseconds). The full parse + pydantic
+# validation across 11k+ band entries is ~5 s on the bundled catalog; a
+# second `Catalog()` call on the same on-disk file should be ~1 ms.
+# Touching the file (via editor save or `_run_batch.py` append) bumps
+# the mtime and invalidates the entry naturally.
+_CATALOG_CACHE: dict[tuple[str, int], tuple[list[str], dict[str, "Dataset"]]] = {}
+
+
+def _load_catalog_data(path: Path) -> tuple[list[str], dict[str, "Dataset"]]:
+    """Parse, validate and cache the YAML at `path`.
+
+    Returns a `(available_datasets, datasets)` tuple of the same shape the
+    `Catalog` model exposes. The result is cached on the
+    `(resolved-path, mtime_ns)` pair, so a fresh `Catalog()` on an
+    unchanged file skips both YAML parsing and pydantic validation.
+
+    Args:
+        path: Filesystem path of a `gee_data_catalog.yaml` file.
+
+    Returns:
+        Tuple of `(list[str], dict[str, Dataset])` — the parsed
+        `available_datasets:` and `datasets:` blocks.
+
+    Raises:
+        ValueError: If the YAML is missing, has no `datasets:` block,
+            declares a duplicate key, contains an unknown band field, or
+            lists a curated dataset that is absent from
+            `available_datasets`.
+    """
+    resolved = str(path.resolve())
+    try:
+        mtime_ns = path.stat().st_mtime_ns
+    except FileNotFoundError:
+        mtime_ns = 0
+    key = (resolved, mtime_ns)
+    cached = _CATALOG_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    data = load_yaml_strict(path) or {}
+    available_datasets = list(data.get("available_datasets") or [])
+
+    datasets_yaml = data.get("datasets")
+    if not datasets_yaml:
+        raise ValueError(
+            f"{path} is missing or has an empty 'datasets:' "
+            "block. The catalog must contain at least one curated dataset."
+        )
+
+    available = set(available_datasets)
+    datasets: dict[str, Dataset] = {}
+    for asset_id, body in datasets_yaml.items():
+        body = dict(body or {})
+        bands_yaml = dict(body.pop("bands", {}) or {})
+        bands: dict[str, Band] = {}
+        for band_id, band_body in bands_yaml.items():
+            try:
+                bands[band_id] = Band(id=band_id, **dict(band_body or {}))
+            except ValidationError as exc:
+                raise ValueError(
+                    f"invalid band {band_id!r} under dataset {asset_id!r} "
+                    f"in {path}: {exc}"
+                ) from exc
+        try:
+            datasets[asset_id] = Dataset(id=asset_id, bands=bands, **body)
+        except ValidationError as exc:
+            raise ValueError(
+                f"invalid dataset {asset_id!r} in {path}: {exc}"
+            ) from exc
+        if available and asset_id not in available:
+            raise ValueError(
+                f"dataset {asset_id!r} is in 'datasets:' but missing from "
+                f"'available_datasets:' in {path}; add it there too."
+            )
+
+    _CATALOG_CACHE[key] = (available_datasets, datasets)
+    return _CATALOG_CACHE[key]
+
+
+def clear_catalog_cache() -> None:
+    """Empty the module-level catalog cache.
+
+    Useful in tests that rewrite the catalog on disk and want to force a
+    re-parse. Production callers do not need this — the cache key
+    includes `st_mtime_ns`, so any real file mutation invalidates the
+    entry on its own.
+    """
+    _CATALOG_CACHE.clear()
+
 
 class Cadence(BaseModel):
     """Native temporal step of an Earth Engine collection.
@@ -332,10 +422,11 @@ class Catalog(AbstractCatalog):
     datasets: dict[str, Dataset] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Parse the bundled YAML into typed models after validation.
+        """Populate :attr:`available_datasets` / :attr:`datasets` from the YAML cache.
 
-        Overrides :meth:`AbstractCatalog.model_post_init` to populate
-        :attr:`available_datasets` and :attr:`datasets` directly.
+        Delegates to :func:`_load_catalog_data`, which parses, validates
+        and caches the YAML on `(path, mtime_ns)`. Repeated construction
+        on an unchanged file is ~1 ms.
 
         Raises:
             ValueError: If the YAML is missing, has no `datasets:`
@@ -343,43 +434,9 @@ class Catalog(AbstractCatalog):
                 band field, or lists a curated dataset that is absent
                 from `available_datasets`.
         """
-        data = load_yaml_strict(CATALOG_PATH) or {}
-        self.available_datasets = list(data.get("available_datasets") or [])
-
-        datasets_yaml = data.get("datasets")
-        if not datasets_yaml:
-            raise ValueError(
-                f"{CATALOG_PATH} is missing or has an empty 'datasets:' "
-                "block. The catalog must contain at least one curated dataset."
-            )
-
-        available = set(self.available_datasets)
-        datasets: dict[str, Dataset] = {}
-        for asset_id, body in datasets_yaml.items():
-            body = dict(body or {})
-            bands_yaml = dict(body.pop("bands", {}) or {})
-            bands: dict[str, Band] = {}
-            for band_id, band_body in bands_yaml.items():
-                try:
-                    bands[band_id] = Band(id=band_id, **dict(band_body or {}))
-                except ValidationError as exc:
-                    raise ValueError(
-                        f"invalid band {band_id!r} under dataset {asset_id!r} "
-                        f"in {CATALOG_PATH}: {exc}"
-                    ) from exc
-            try:
-                datasets[asset_id] = Dataset(id=asset_id, bands=bands, **body)
-            except ValidationError as exc:
-                raise ValueError(
-                    f"invalid dataset {asset_id!r} in {CATALOG_PATH}: {exc}"
-                ) from exc
-            if available and asset_id not in available:
-                raise ValueError(
-                    f"dataset {asset_id!r} is in 'datasets:' but missing from "
-                    f"'available_datasets:' in {CATALOG_PATH}; add it there too."
-                )
-
-        self.datasets = datasets
+        available_datasets, datasets = _load_catalog_data(CATALOG_PATH)
+        self.available_datasets = list(available_datasets)
+        self.datasets = dict(datasets)
         super().model_post_init(__context)
 
     def get_catalog(self) -> dict[str, Dataset]:
