@@ -610,35 +610,80 @@ class Catalog(AbstractCatalog):
     providers: dict[str, Provider] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Populate :attr:`available_datasets` / :attr:`datasets` / :attr:`providers`.
+        """Auto-load the bundled catalog when the user didn't supply one.
 
-        Delegates dataset parsing to :func:`_load_catalog_data` and
-        provider parsing to :func:`_load_providers`, both cached on
-        `(path, mtime_ns)`. Validates that every `Dataset.provider`
-        slug is present in the registry.
+        `Catalog()` with no args is sugar for `Catalog.load()` — it
+        reads the bundled `catalog/*.yaml` and `providers.yaml`. If
+        the caller passed `datasets=...` (or any non-empty field),
+        the disk read is skipped: that path is for tests and ad-hoc
+        in-memory catalogs (see :meth:`load` for the heavy-lifting
+        classmethod).
 
         Raises:
-            ValueError: If the YAML is missing, has no `datasets:`
-                block, declares the same key twice, contains an unknown
-                band field, lists a curated dataset that is absent from
-                `available_datasets`, or references an unregistered
-                provider slug.
+            ValueError: When auto-loading, propagates the same errors
+                as :meth:`load` (missing YAML, duplicate key, unknown
+                band field, unregistered provider slug, …).
         """
-        available_datasets, datasets = _load_catalog_data(CATALOG_PATH)
-        providers = _load_providers(PROVIDERS_PATH)
+        if self.datasets:
+            super().model_post_init(__context)
+            return
+        loaded = Catalog.load()
+        self.available_datasets = loaded.available_datasets
+        self.datasets = loaded.datasets
+        self.providers = loaded.providers
+        super().model_post_init(__context)
+
+    @classmethod
+    def load(
+        cls,
+        catalog_path: Path | None = None,
+        providers_path: Path | None = None,
+    ) -> Catalog:
+        """Read the catalog directory + providers registry from disk (N1).
+
+        Factored out of `model_post_init` so callers can:
+
+        * point at a non-default catalog tree without monkey-patching
+          `CATALOG_PATH` (`Catalog.load(my_dir)`);
+        * hand-build a `Catalog` in tests via `Catalog(datasets=...)`
+          without triggering disk I/O;
+        * keep the parse cached on `(path, mtime_ns)` for both paths.
+
+        Args:
+            catalog_path: Per-category catalog directory (or a single
+                `*.yaml` file for tests). Defaults to module-level
+                :data:`CATALOG_PATH` at call time (so test
+                monkey-patches take effect).
+            providers_path: Path to `providers.yaml`. Defaults to
+                module-level :data:`PROVIDERS_PATH` at call time.
+
+        Returns:
+            A fully-populated :class:`Catalog`.
+
+        Raises:
+            ValueError: If a YAML is missing, declares the same key
+                twice, contains an unknown band field, lists a curated
+                dataset absent from `available_datasets`, or references
+                an unregistered provider slug.
+        """
+        catalog_path = catalog_path if catalog_path is not None else CATALOG_PATH
+        providers_path = providers_path if providers_path is not None else PROVIDERS_PATH
+        available_datasets, datasets = _load_catalog_data(catalog_path)
+        providers = _load_providers(providers_path)
         unknown = sorted(
             {d.provider for d in datasets.values() if d.provider and d.provider not in providers}
         )
         if unknown:
             raise ValueError(
                 f"the following provider slugs are referenced by "
-                f"`catalog/*.yaml` but missing from {PROVIDERS_PATH}: {unknown}. "
+                f"`catalog/*.yaml` but missing from {providers_path}: {unknown}. "
                 "Add them to providers.yaml or fix the typo."
             )
-        self.available_datasets = list(available_datasets)
-        self.datasets = dict(datasets)
-        self.providers = dict(providers)
-        super().model_post_init(__context)
+        return cls(
+            available_datasets=list(available_datasets),
+            datasets=dict(datasets),
+            providers=dict(providers),
+        )
 
     def health(self) -> dict[str, list[str]]:
         """Report structural hygiene issues across the loaded catalog (L3).
@@ -889,6 +934,14 @@ class Catalog(AbstractCatalog):
         `None`-valued fields are omitted so the output stays readable;
         the ordering of `datasets:` keys follows insertion (which mirrors
         the YAML file).
+
+        Cost note (N2): with the shipped 1104-dataset catalog this
+        serialises ~2.3 MB of YAML and takes ~3 s. Fine for one-off
+        interactive use (`print(Catalog())`), but don't drop a
+        `str(cat)` into a hot path, an error-message f-string, or a
+        log line — render the specific `Dataset` you care about
+        instead. The `Catalog()` parse cache (H1) does not memoise
+        `__str__`; repeat calls re-serialise.
 
         Examples:
             - The YAML dump starts with the first curated dataset's id:
