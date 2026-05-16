@@ -8818,7 +8818,7 @@ packages:
 - pypi: ./
   name: earthlens
   version: 0.5.0
-  sha256: 8a4250485e692ac33eafed4fe3c75dc9080bd5fdb416f62e4e385fb2d7d04582
+  sha256: 6275377c9f73de747d5313634e23b438ce5c658dbf5f2727ad9f1800ce4f497e
   requires_dist:
   - pyramids-gis>=0.17.0
   - joblib>=1.2.0
