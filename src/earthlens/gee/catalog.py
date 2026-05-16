@@ -43,6 +43,7 @@ Examples:
 from __future__ import annotations
 
 import difflib
+import re
 from pathlib import Path
 from typing import Any, Literal
 
@@ -638,6 +639,57 @@ class Catalog(AbstractCatalog):
         self.datasets = dict(datasets)
         self.providers = dict(providers)
         super().model_post_init(__context)
+
+    def health(self) -> dict[str, list[str]]:
+        """Report structural hygiene issues across the loaded catalog (L3).
+
+        Returns a mapping from a check name to the list of asset ids
+        (or provider slugs) that fail it. An empty list means the
+        check is currently passing; an empty dict means the catalog
+        is clean. Intended for `tools/gee/audit_gee_datasets.py` and
+        CI hygiene checks.
+
+        Checks reported:
+
+        * `long_title` — datasets whose `title` exceeds 180 chars.
+        * `html_in_title` — titles containing an `<html-tag>` pattern.
+        * `raster_no_bands` — `is_raster` datasets with zero curated
+          bands (often access-restricted or hydration-failed assets).
+        * `unregistered_provider` — `Dataset.provider` slugs absent
+          from `providers.yaml`. Should always be `[]` since the
+          loader fails fast on this; included for defence in depth.
+        * `unused_provider` — providers in `providers.yaml` that no
+          dataset references. Lets you prune dead registry entries.
+
+        Returns:
+            `{check_name: [offending_ids, ...], ...}` with at least
+            one key per check (empty list if nothing offends).
+        """
+        long_title: list[str] = []
+        html_in_title: list[str] = []
+        raster_no_bands: list[str] = []
+        unregistered_provider: list[str] = []
+        used_providers: set[str] = set()
+        html_re = re.compile(r"<[A-Za-z][^>]*>")
+        for asset_id, d in self.datasets.items():
+            if d.title and len(d.title) > 180:
+                long_title.append(asset_id)
+            if d.title and html_re.search(d.title):
+                html_in_title.append(asset_id)
+            if d.is_raster and not d.bands:
+                raster_no_bands.append(asset_id)
+            if d.provider:
+                used_providers.add(d.provider)
+                if d.provider not in self.providers:
+                    unregistered_provider.append(asset_id)
+        unused_provider = sorted(set(self.providers) - used_providers)
+        return {
+            "long_title": sorted(long_title),
+            "html_in_title": sorted(html_in_title),
+            "raster_no_bands": sorted(raster_no_bands),
+            "unregistered_provider": sorted(unregistered_provider),
+            "unused_provider": unused_provider,
+        }
 
     def get_provider(self, slug: str) -> Provider:
         """Return the :class:`Provider` for `slug`.

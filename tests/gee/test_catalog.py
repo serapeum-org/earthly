@@ -664,6 +664,36 @@ class TestLicenseField:
         assert d.terms_note  # non-empty prose
 
 
+class TestCatalogHealth:
+    """Tests for `Catalog.health()` (L3)."""
+
+    def test_returns_all_expected_checks(self, shipped_catalog: Catalog):
+        """The report keys are stable: same five checks every time."""
+        report = shipped_catalog.health()
+        assert set(report) == {
+            "long_title", "html_in_title", "raster_no_bands",
+            "unregistered_provider", "unused_provider",
+        }
+        assert all(isinstance(v, list) for v in report.values())
+
+    def test_blocking_checks_pass_on_shipped_catalog(self, shipped_catalog: Catalog):
+        """Long titles, HTML titles, and unregistered providers must be zero."""
+        report = shipped_catalog.health()
+        assert report["long_title"] == []
+        assert report["html_in_title"] == []
+        assert report["unregistered_provider"] == []
+
+    def test_flags_html_and_long_titles_when_injected(self, shipped_catalog: Catalog):
+        """Mutating the loaded catalog with bad titles surfaces them in the report."""
+        bad_html = Dataset(id="X", title="A <b>bold</b> dataset", extent=Extent(start_date="2000-01-01"))
+        bad_long = Dataset(id="Y", title="x" * 181, extent=Extent(start_date="2000-01-01"))
+        shipped_catalog.datasets["X"] = bad_html
+        shipped_catalog.datasets["Y"] = bad_long
+        report = shipped_catalog.health()
+        assert "X" in report["html_in_title"]
+        assert "Y" in report["long_title"]
+
+
 class TestCatalogCache:
     """Tests for the module-level `(path, mtime_ns)` parse cache."""
 

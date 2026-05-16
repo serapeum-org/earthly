@@ -28,6 +28,7 @@ Not part of the installed package.
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from collections import Counter
@@ -39,6 +40,13 @@ from _gee_stac import fetch_collection_stac, stac_url  # noqa: E402
 from earthlens.gee import Catalog  # noqa: E402
 
 CACHE_DIR = Path("tools/gee/_gee_stac_cache")
+
+# Checks where any failure should fail CI. `raster_no_bands` and
+# `unused_provider` are reported but not blocking — the former tracks
+# access-restricted assets that legitimately can't be hydrated, the
+# latter just notes registry entries (often parent slugs) that no
+# dataset currently references.
+_BLOCKING_CHECKS = ("long_title", "html_in_title", "unregistered_provider")
 
 
 def _cached_stac(asset_id: str) -> dict | None:
@@ -70,13 +78,44 @@ def classify(asset_id: str, curated: set[str]) -> str:
     return "addressable" if (bands and has_metadata) else "thin"
 
 
-def main() -> int:
+def _print_health(cat: Catalog) -> int:
+    """Print `Catalog.health()` and return non-zero if a blocking check fails."""
+    report = cat.health()
+    print("\nCatalog hygiene (Catalog.health()):")
+    for check, ids in report.items():
+        tag = "FAIL" if (check in _BLOCKING_CHECKS and ids) else "ok  "
+        print(f"  [{tag}] {check:24s} {len(ids)}")
+        for aid in ids[:5]:
+            print(f"             - {aid}")
+        if len(ids) > 5:
+            print(f"             ... and {len(ids) - 5} more")
+    failed = [c for c in _BLOCKING_CHECKS if report.get(c)]
+    if failed:
+        print(f"\nblocking hygiene checks failed: {failed}", file=sys.stderr)
+        return 1
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
     """Classify every ``available_datasets:`` entry and print a coverage report."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--health-only",
+        action="store_true",
+        help="skip the STAC walk + coverage classification; only run the "
+             "Catalog.health() hygiene checks (fast, no network).",
+    )
+    args = parser.parse_args(argv)
+
     try:
         cat = Catalog()
     except (FileNotFoundError, ValueError) as exc:
         print(f"could not load the GEE catalog: {exc}", file=sys.stderr)
         return 1
+
+    if args.health_only:
+        return _print_health(cat)
+
     available = list(cat.available_datasets)
     curated = set(cat.datasets.keys())
     if not available:
@@ -95,12 +134,13 @@ def main() -> int:
     todo = sorted(buckets.get("addressable", []))
     if todo:
         print(f"\nTODO — {len(todo)} addressable datasets not yet curated "
-              "(auto-stanza with `refresh_gee_catalog.py --with-bands <id>`):")
+              "(auto-stanza with `refresh-gee-catalog refresh --with-bands <id>`):")
         for asset_id in todo[:40]:
             print(f"  - {asset_id}   ({stac_url(asset_id)})")
         if len(todo) > 40:
             print(f"  ... and {len(todo) - 40} more")
-    return 0
+
+    return _print_health(cat)
 
 
 if __name__ == "__main__":
