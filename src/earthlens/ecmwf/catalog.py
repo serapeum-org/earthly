@@ -63,6 +63,132 @@ _LEGACY_MARS_KEYS: frozenset[str] = frozenset(
 CATALOG_PATH: Path = Path(__file__).parent / "cds_data_catalog.yaml"
 
 
+def _build_dataset_map(
+    datasets_yaml: dict[str, dict[str, Any]],
+    catalog_path: Path,
+) -> tuple[dict[str, "Dataset"], int]:
+    """Build the structural per-dataset :class:`Dataset` map (N1).
+
+    Walks every entry in `datasets_yaml`, validates each variable into
+    a :class:`Variable`, and packs the per-dataset metadata (monthly
+    cross-reference, pressure_level / product_type defaults, extras,
+    request_kind) into a :class:`Dataset`. Returns the map plus the
+    total variable count (used by the caller to fail loudly when a
+    catalog declares zero variables).
+
+    Args:
+        datasets_yaml: Raw `datasets:` mapping from the YAML.
+        catalog_path: Path of the YAML file (used in error messages).
+
+    Returns:
+        (`structural`, `total_vars`) — the dataset map and the count
+        of variables built across all datasets.
+
+    Raises:
+        ValueError: If any variable fails :class:`Variable` validation.
+    """
+    structural: dict[str, Dataset] = {}
+    total_vars = 0
+    for ds_name, ds_body in datasets_yaml.items():
+        monthly = ds_body.get("monthly")
+        pressure_level = ds_body.get("pressure_level")
+        ds_product_type = ds_body.get("product_type")
+        ds_extras = dict(ds_body.get("extras") or {})
+        ds_request_kind = ds_body.get("request_kind", "form")
+        ds_vars: dict[str, Variable] = {}
+        for code, entry in (ds_body.get("variables") or {}).items():
+            merged = dict(entry)
+            merged["cds_dataset"] = ds_name
+            # Default cds_variable to the slug-with-underscores form
+            # of the YAML key (e.g. "2m-temperature" -> "2m_temperature").
+            # A per-variable row may set `cds_variable` explicitly
+            # to override this when the request name does not match.
+            merged.setdefault("cds_variable", code.replace("-", "_"))
+            # Per-variable override wins; otherwise inherit the
+            # dataset-level default. Only single-level datasets
+            # leave both unset.
+            if "cds_pressure_level" not in merged and pressure_level is not None:
+                merged["cds_pressure_level"] = pressure_level
+            # Same parent-default / per-row-override pattern for
+            # product_type. Parent unset → Variable's own default
+            # (`["reanalysis"]`) applies.
+            if "product_type" not in merged and ds_product_type is not None:
+                merged["product_type"] = ds_product_type
+            # Merge parent-level extras under per-row overrides:
+            # row-level keys win on collision so a variable can
+            # diverge from the family defaults (e.g. one CARRA row
+            # carrying a different leadtime than the rest).
+            row_extras = dict(merged.get("extras") or {})
+            merged["extras"] = {**ds_extras, **row_extras}
+            merged.setdefault("request_kind", ds_request_kind)
+            try:
+                ds_vars[code] = Variable(**merged)
+            except ValidationError as exc:
+                raise ValueError(
+                    f"{catalog_path} entry {code!r} failed "
+                    f"validation:\n{exc}"
+                ) from exc
+            total_vars += 1
+        structural[ds_name] = Dataset(
+            monthly=monthly,
+            pressure_level=pressure_level,
+            product_type=ds_product_type,
+            extras=ds_extras,
+            request_kind=ds_request_kind,
+            variables=ds_vars,
+        )
+    return structural, total_vars
+
+
+def _synthesize_monthly_entries(
+    structural: dict[str, "Dataset"],
+    datasets_yaml: dict[str, dict[str, Any]],
+) -> None:
+    """Mutate `structural` to add an auto-synthesised entry per `monthly:` xref (N1).
+
+    The YAML keeps `monthly: <name>` on the parent dataset (compact); the
+    catalog presents both names as queryable datasets with the same
+    variable set, so users can name either form in their `variables`
+    dict. The synthesised entry rebrands each variable's `cds_dataset`
+    to the monthly name; everything else (variable code, units,
+    nc_variable, extras) is shared. The monthly entry needs its own
+    product_type — there is no hardcoded fallback; the parent must
+    declare `monthly_product_type:` alongside `monthly:`.
+
+    Raises:
+        ValueError: If a dataset declares `monthly:` but is missing
+            `monthly_product_type:`.
+    """
+    for ds_name, ds_body in datasets_yaml.items():
+        ds = structural[ds_name]
+        if not ds.monthly or ds.monthly in structural:
+            continue
+        monthly_pt = ds_body.get("monthly_product_type")
+        if monthly_pt is None:
+            raise ValueError(
+                f"dataset {ds_name!r} declares `monthly: "
+                f"{ds.monthly!r}` but no `monthly_product_type:`. "
+                "Auto-synthesis of the monthly-means catalog "
+                "entry needs an explicit product_type for the "
+                "synthesized variables (e.g. "
+                "`monthly_product_type: [monthly_averaged_reanalysis]`)."
+            )
+        rebranded = {
+            code: var.model_copy(
+                update={"cds_dataset": ds.monthly, "product_type": monthly_pt}
+            )
+            for code, var in ds.variables.items()
+        }
+        structural[ds.monthly] = Dataset(
+            monthly=None,
+            pressure_level=ds.pressure_level,
+            product_type=monthly_pt,
+            extras=dict(ds.extras),
+            request_kind=ds.request_kind,
+            variables=rebranded,
+        )
+
+
 def _read_cdsapirc() -> dict[str, str]:
     """Parse `~/.cdsapirc` into a {url, key} dict.
 
@@ -318,6 +444,9 @@ class Catalog(AbstractCatalog):
         Overrides :func:`AbstractCatalog.model_post_init` to populate
         :attr:`available_datasets` and :attr:`datasets` directly,
         bypassing the flat-`get_catalog` path the base class assumes.
+        Delegates the per-dataset variable construction to
+        :func:`_build_dataset_map` and the monthly-cross-reference
+        synthesis to :func:`_synthesize_monthly_entries`.
 
         Raises:
             ValueError: If the YAML is missing or has an empty
@@ -337,99 +466,8 @@ class Catalog(AbstractCatalog):
                 "at the top of the file."
             )
 
-        structural: dict[str, Dataset] = {}
-        total_vars = 0
-        for ds_name, ds_body in datasets_yaml.items():
-            monthly = ds_body.get("monthly")
-            pressure_level = ds_body.get("pressure_level")
-            ds_product_type = ds_body.get("product_type")
-            ds_extras = dict(ds_body.get("extras") or {})
-            ds_request_kind = ds_body.get("request_kind", "form")
-            ds_vars: dict[str, Variable] = {}
-            for code, entry in (ds_body.get("variables") or {}).items():
-                merged = dict(entry)
-                merged["cds_dataset"] = ds_name
-                # Default cds_variable to the slug-with-underscores form
-                # of the YAML key (e.g. "2m-temperature" -> "2m_temperature").
-                # A per-variable row may set `cds_variable` explicitly
-                # to override this when the request name does not match.
-                merged.setdefault("cds_variable", code.replace("-", "_"))
-                # Per-variable override wins; otherwise inherit the
-                # dataset-level default. Only single-level datasets
-                # leave both unset.
-                if "cds_pressure_level" not in merged and pressure_level is not None:
-                    merged["cds_pressure_level"] = pressure_level
-                # Same parent-default / per-row-override pattern for
-                # product_type. Parent unset → Variable's own default
-                # (`["reanalysis"]`) applies.
-                if "product_type" not in merged and ds_product_type is not None:
-                    merged["product_type"] = ds_product_type
-                # Merge parent-level extras under per-row overrides:
-                # row-level keys win on collision so a variable can
-                # diverge from the family defaults (e.g. one CARRA row
-                # carrying a different leadtime than the rest).
-                row_extras = dict(merged.get("extras") or {})
-                merged["extras"] = {**ds_extras, **row_extras}
-                merged.setdefault("request_kind", ds_request_kind)
-                try:
-                    ds_vars[code] = Variable(**merged)
-                except ValidationError as exc:
-                    raise ValueError(
-                        f"cds_data_catalog.yaml entry {code!r} failed "
-                        f"validation:\n{exc}"
-                    ) from exc
-                total_vars += 1
-            structural[ds_name] = Dataset(
-                monthly=monthly,
-                pressure_level=pressure_level,
-                product_type=ds_product_type,
-                extras=ds_extras,
-                request_kind=ds_request_kind,
-                variables=ds_vars,
-            )
-
-        # Auto-synthesize a first-class entry for each `monthly:`
-        # cross-reference. The YAML keeps `monthly: <name>` on the
-        # parent dataset (compact); the catalog presents both names
-        # as queryable datasets with the same variable set, so users
-        # can name either form in their `variables` dict. The
-        # synthesized entry rebrands each variable's `cds_dataset` to
-        # the monthly name; everything else (variable code, units,
-        # nc_variable, extras) is shared.
-        # The synthesized monthly-means entry needs its own
-        # product_type — it cannot be inferred. The parent must
-        # declare `monthly_product_type:` alongside `monthly:`. No
-        # hardcoded fallback.
-        for ds_name, ds_body in datasets_yaml.items():
-            ds = structural[ds_name]
-            if ds.monthly and ds.monthly not in structural:
-                monthly_pt = ds_body.get("monthly_product_type")
-                if monthly_pt is None:
-                    raise ValueError(
-                        f"dataset {ds_name!r} declares `monthly: "
-                        f"{ds.monthly!r}` but no `monthly_product_type:`. "
-                        "Auto-synthesis of the monthly-means catalog "
-                        "entry needs an explicit product_type for the "
-                        "synthesized variables (e.g. "
-                        "`monthly_product_type: [monthly_averaged_reanalysis]`)."
-                    )
-                rebranded = {
-                    code: var.model_copy(
-                        update={
-                            "cds_dataset": ds.monthly,
-                            "product_type": monthly_pt,
-                        }
-                    )
-                    for code, var in ds.variables.items()
-                }
-                structural[ds.monthly] = Dataset(
-                    monthly=None,
-                    pressure_level=ds.pressure_level,
-                    product_type=monthly_pt,
-                    extras=dict(ds.extras),
-                    request_kind=ds.request_kind,
-                    variables=rebranded,
-                )
+        structural, total_vars = _build_dataset_map(datasets_yaml, catalog_path)
+        _synthesize_monthly_entries(structural, datasets_yaml)
 
         if total_vars == 0:
             raise ValueError(

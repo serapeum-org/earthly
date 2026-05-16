@@ -296,6 +296,87 @@ class Dataset(BaseModel):
         return self.discrete_files is not None
 
 
+def _build_chc_dataset(
+    ds_key: str,
+    ds_body: dict[str, Any],
+    regions_map: dict[str, dict[str, list[float]]],
+    catalog_path: Path,
+) -> tuple["Dataset", int]:
+    """Build one :class:`Dataset` from its YAML body + variables (N1).
+
+    Validates every variable into a :class:`Variable`, resolves the
+    dataset's `region:` key against `regions_map` (with per-dataset
+    inline `lat_boundaries` / `lon_boundaries` overrides winning), and
+    constructs the :class:`Dataset` record.
+
+    Args:
+        ds_key: The dataset name (used in error messages).
+        ds_body: Raw mapping for one dataset out of `datasets:`.
+        regions_map: Top-level `regions:` block.
+        catalog_path: Path of the catalog YAML (used in error messages).
+
+    Returns:
+        (`Dataset`, `n_vars`) — the constructed record and the count
+        of variables under it.
+
+    Raises:
+        ValueError: If a variable or the dataset itself fails pydantic
+            validation, or if the region key can't be resolved and the
+            dataset doesn't override `lat_boundaries` / `lon_boundaries`.
+    """
+    ds_vars: dict[str, Variable] = {}
+    for var_code, var_entry in (ds_body.get("variables") or {}).items():
+        try:
+            ds_vars[var_code] = Variable(
+                dataset_key=ds_key,
+                name=var_code,
+                description=var_entry.get("description", ""),
+                units=var_entry.get("units", ""),
+                types=var_entry.get("types"),
+            )
+        except ValidationError as exc:
+            raise ValueError(
+                f"{catalog_path.name} variable {var_code!r} "
+                f"under dataset {ds_key!r} failed validation:\n{exc}"
+            ) from exc
+
+    region_key = ds_body.get("region", "")
+    region_def = regions_map.get(region_key, {})
+    lat_boundaries = ds_body.get("lat_boundaries") or region_def.get("lat_boundaries")
+    lon_boundaries = ds_body.get("lon_boundaries") or region_def.get("lon_boundaries")
+    if lat_boundaries is None or lon_boundaries is None:
+        raise ValueError(
+            f"{catalog_path.name} dataset {ds_key!r} has no "
+            "`lat_boundaries` / `lon_boundaries` and its region "
+            f"{region_key!r} is not defined in the top-level "
+            "`regions:` block."
+        )
+
+    try:
+        ds = Dataset(
+            ftp_bases=ds_body["ftp_bases"],
+            file_patterns=ds_body.get("file_patterns") or None,
+            discrete_files=ds_body.get("discrete_files") or None,
+            region=region_key,
+            temporal_resolution=ds_body["temporal_resolution"],
+            pandas_freq=ds_body["pandas_freq"],
+            spatial_resolution=ds_body["spatial_resolution"],
+            formats=ds_body["formats"],
+            lat_boundaries=lat_boundaries,
+            lon_boundaries=lon_boundaries,
+            start_date=ds_body["start_date"],
+            end_date=ds_body.get("end_date"),
+            preliminary=ds_body.get("preliminary", False),
+            variables=ds_vars,
+        )
+    except (ValidationError, KeyError) as exc:
+        raise ValueError(
+            f"{catalog_path.name} dataset {ds_key!r} "
+            f"failed validation:\n{exc}"
+        ) from exc
+    return ds, len(ds_vars)
+
+
 class Catalog(AbstractCatalog):
     """Variable catalog for the CHIRPS FTP data source.
 
@@ -367,13 +448,14 @@ class Catalog(AbstractCatalog):
         Overrides :func:`AbstractCatalog.model_post_init` to populate
         :attr:`available_datasets`, :attr:`available_regions`, and
         :attr:`datasets` directly, bypassing the flat `get_catalog` path
-        the base class assumes.
+        the base class assumes. Per-dataset construction is delegated to
+        :func:`_build_chc_dataset`.
 
         Since catalog v2 the YAML omits `lat_boundaries` / `lon_boundaries`
-        from individual dataset entries; the loader expands them here from
-        the top-level `regions:` block keyed by the dataset's `region:`
-        field.  Per-dataset explicit overrides (if present) still win so
-        the format is backward-compatible with v1 files.
+        from individual dataset entries; the helper expands them from the
+        top-level `regions:` block keyed by the dataset's `region:` field.
+        Per-dataset explicit overrides (if present) still win so the
+        format is backward-compatible with v1 files.
 
         Raises:
             ValueError: If the YAML is missing, has an empty `datasets:`
@@ -399,64 +481,10 @@ class Catalog(AbstractCatalog):
 
         structural: dict[str, Dataset] = {}
         total_vars = 0
-
         for ds_key, ds_body in datasets_yaml.items():
-            ds_vars: dict[str, Variable] = {}
-            for var_code, var_entry in (ds_body.get("variables") or {}).items():
-                try:
-                    ds_vars[var_code] = Variable(
-                        dataset_key=ds_key,
-                        name=var_code,
-                        description=var_entry.get("description", ""),
-                        units=var_entry.get("units", ""),
-                        types=var_entry.get("types"),
-                    )
-                except ValidationError as exc:
-                    raise ValueError(
-                        f"chc_data_catalog.yaml variable {var_code!r} "
-                        f"under dataset {ds_key!r} failed validation:\n{exc}"
-                    ) from exc
-                total_vars += 1
-
-            # Expand lat/lon from the regions block when not given inline.
-            region_key = ds_body.get("region", "")
-            region_def = regions_map.get(region_key, {})
-            lat_boundaries = ds_body.get("lat_boundaries") or region_def.get(
-                "lat_boundaries"
-            )
-            lon_boundaries = ds_body.get("lon_boundaries") or region_def.get(
-                "lon_boundaries"
-            )
-            if lat_boundaries is None or lon_boundaries is None:
-                raise ValueError(
-                    f"chc_data_catalog.yaml dataset {ds_key!r} has no "
-                    "`lat_boundaries` / `lon_boundaries` and its region "
-                    f"{region_key!r} is not defined in the top-level "
-                    "`regions:` block."
-                )
-
-            try:
-                structural[ds_key] = Dataset(
-                    ftp_bases=ds_body["ftp_bases"],
-                    file_patterns=ds_body.get("file_patterns") or None,
-                    discrete_files=ds_body.get("discrete_files") or None,
-                    region=region_key,
-                    temporal_resolution=ds_body["temporal_resolution"],
-                    pandas_freq=ds_body["pandas_freq"],
-                    spatial_resolution=ds_body["spatial_resolution"],
-                    formats=ds_body["formats"],
-                    lat_boundaries=lat_boundaries,
-                    lon_boundaries=lon_boundaries,
-                    start_date=ds_body["start_date"],
-                    end_date=ds_body.get("end_date"),
-                    preliminary=ds_body.get("preliminary", False),
-                    variables=ds_vars,
-                )
-            except (ValidationError, KeyError) as exc:
-                raise ValueError(
-                    f"chc_data_catalog.yaml dataset {ds_key!r} "
-                    f"failed validation:\n{exc}"
-                ) from exc
+            ds, n_vars = _build_chc_dataset(ds_key, ds_body, regions_map, catalog_path)
+            structural[ds_key] = ds
+            total_vars += n_vars
 
         if total_vars == 0:
             raise ValueError(
