@@ -44,13 +44,17 @@ Examples:
 
 from __future__ import annotations
 
+import datetime
+import urllib.request
 from pathlib import Path
 from typing import Any
 
+import requests
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 from earthlens.base import AbstractCatalog
 from earthlens.base.yaml_loader import load_yaml_strict
+from earthlens.ecmwf.constraints import fetch_constraints
 
 _LEGACY_MARS_KEYS: frozenset[str] = frozenset(
     {"number_para", "download type", "var_name"}
@@ -656,8 +660,6 @@ class Catalog(AbstractCatalog):
 
                 ```
         """
-        from earthlens.ecmwf.constraints import fetch_constraints
-
         constraints = fetch_constraints(dataset_name)
         request: dict[str, Any] = {"data_format": "netcdf"}
         if not constraints:
@@ -730,10 +732,6 @@ class Catalog(AbstractCatalog):
 
                 ```
         """
-        import datetime
-
-        import requests
-
         cfg = _read_cdsapirc()
         url = cfg["url"].rstrip("/") + "/retrieve/v1/jobs"
         params: dict[str, Any] = {"limit": limit}
@@ -788,10 +786,6 @@ class Catalog(AbstractCatalog):
             ValueError: If the job's results record contains no
                 downloadable asset href.
         """
-        import urllib.request
-
-        import requests
-
         cfg = _read_cdsapirc()
         target_path = Path(target)
         if target_path.exists() and target_path.stat().st_size > 0:

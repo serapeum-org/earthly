@@ -47,6 +47,7 @@ import re
 from pathlib import Path
 from typing import Any, Literal
 
+import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from earthlens.base import AbstractCatalog
@@ -951,8 +952,6 @@ class Catalog(AbstractCatalog):
 
                 ```
         """
-        import yaml
-
         body = {
             asset_id: dataset.model_dump(exclude_none=True)
             for asset_id, dataset in self.datasets.items()

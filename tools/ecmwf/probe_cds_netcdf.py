@@ -26,6 +26,8 @@ from typing import Any
 import cdsapi
 from pyramids.netcdf import NetCDF
 
+from earthlens.ecmwf.constraints import RequestValidator
+
 CACHE_DIR = Path("C:/tmp/cds_probe")
 
 
@@ -92,8 +94,6 @@ def fetch_one_batch(
     # ECMWF.api() uses. Probes that fail here would otherwise sit
     # in the CDS queue for 5-30 min before failing server-side
     # with the same answer.
-    from earthlens.ecmwf.constraints import RequestValidator
-
     RequestValidator(dataset, request).check()
     if not target.exists():
         target.parent.mkdir(parents=True, exist_ok=True)

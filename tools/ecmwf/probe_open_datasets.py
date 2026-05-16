@@ -12,6 +12,8 @@ Usage::
 
 from __future__ import annotations
 
+import argparse
+import time
 from pathlib import Path
 from typing import Any
 
@@ -88,9 +90,6 @@ def submit_async(dataset: str, request: dict[str, Any]) -> str:
 
 
 def main() -> int:
-    import argparse
-    import time
-
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--dry-run",
