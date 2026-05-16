@@ -55,9 +55,9 @@
 
 version: 2
 
-# Geographic-coverage profiles.  Each dataset's ``region:`` field is one
-# of these keys; the catalog loader expands it into ``lat_boundaries`` and
-# ``lon_boundaries`` at runtime, so those fields need not be repeated in
+# Geographic-coverage profiles.  Each dataset's `region:` field is one
+# of these keys; the catalog loader expands it into `lat_boundaries` and
+# `lon_boundaries` at runtime, so those fields need not be repeated in
 # every dataset entry.
 #
 #   global           — standard CHIRPS / CHIRP global coverage (±50° lat)
@@ -100,10 +100,10 @@ regions:
     lon_boundaries: [-180, 0]
 
 # Canonical variable-metadata definitions.  Each entry carries a YAML
-# anchor so dataset ``variables:`` blocks can reference the metadata via
+# anchor so dataset `variables:` blocks can reference the metadata via
 # a YAML alias instead of repeating it inline.  The description field
-# omits the geographic region because ``region:`` and the dataset key
-# already capture that; ``preliminary:`` covers near-real-time status.
+# omits the geographic region because `region:` and the dataset key
+# already capture that; `preliminary:` covers near-real-time status.
 #
 # Usage in a dataset block:
 #
@@ -198,7 +198,7 @@ variable_templates:
     types: state
 
 # Available-format profiles.  The FTP server organises each dataset's
-# files in per-format subdirectories; ``formats:`` lists every format
+# files in per-format subdirectories; `formats:` lists every format
 # published there.  Profiles are defined once here with YAML anchors so
 # dataset entries reference them with a single alias instead of repeating
 # the list inline.

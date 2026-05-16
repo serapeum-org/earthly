@@ -680,6 +680,34 @@ def _rewrite_stanza(text: str, asset_id: str, payload: dict[str, Any], existing_
     return text[: m.start()] + f"  {asset_id}:\n" + new_block + text[m.end():]
 
 
+class _FileCache:
+    """Per-file read/write buffer used by `_cmd_hydrate_live`.
+
+    Reads each file at most once, marks it dirty when a caller assigns
+    new text, and writes every dirty buffer back on `flush()`. Used so
+    that 100s of stanza rewrites against the same per-category YAML
+    only produce one disk write per save checkpoint.
+    """
+
+    def __init__(self) -> None:
+        self._texts: dict[Path, str] = {}
+        self._dirty: set[Path] = set()
+
+    def load(self, path: Path) -> str:
+        if path not in self._texts:
+            self._texts[path] = path.read_text(encoding="utf-8")
+        return self._texts[path]
+
+    def replace(self, path: Path, new_text: str) -> None:
+        self._texts[path] = new_text
+        self._dirty.add(path)
+
+    def flush(self) -> None:
+        for path in list(self._dirty):
+            path.write_text(self._texts[path], encoding="utf-8")
+        self._dirty.clear()
+
+
 def _cmd_hydrate_live(args: argparse.Namespace) -> int:
     sa = os.environ.get("GEE_SERVICE_ACCOUNT")
     key = os.environ.get("GEE_SERVICE_KEY")
@@ -704,19 +732,7 @@ def _cmd_hydrate_live(args: argparse.Namespace) -> int:
         print(f"limiting to first {args.limit}")
     existing_titles = {k: cat.datasets[k].title for k in placeholders}
 
-    file_texts: dict[Path, str] = {}
-    dirty: set[Path] = set()
-
-    def _load(path: Path) -> str:
-        if path not in file_texts:
-            file_texts[path] = path.read_text(encoding="utf-8")
-        return file_texts[path]
-
-    def _flush() -> None:
-        for path in list(dirty):
-            path.write_text(file_texts[path], encoding="utf-8")
-        dirty.clear()
-
+    cache = _FileCache()
     success = 0
     skipped = 0
     for i, aid in enumerate(placeholders, start=1):
@@ -729,21 +745,20 @@ def _cmd_hydrate_live(args: argparse.Namespace) -> int:
             skipped += 1
             continue
         path = _file_for_existing_asset(aid)
-        text = _load(path)
+        text = cache.load(path)
         new_text = _rewrite_stanza(text, aid, payload, existing_titles.get(aid))
         if new_text != text:
-            file_texts[path] = new_text
-            dirty.add(path)
+            cache.replace(path, new_text)
             success += 1
             tag = f"[{len(payload['bands']):3d} bands, {payload['ee_type']}]"
             print(f"  ok  {i:4d}/{len(placeholders)} {aid:80s} {tag}")
         else:
             skipped += 1
         if i % args.save_every == 0:
-            _flush()
+            cache.flush()
             time.sleep(0.5)
 
-    _flush()
+    cache.flush()
     print(f"hydrated: {success}, skipped: {skipped}")
 
     clear_catalog_cache()

@@ -461,34 +461,39 @@ def _write_providers_yaml() -> None:
 _PROVIDER_LINE = re.compile(r"^(?P<lead>    provider:[ \t]*)(?P<value>.+?)[ \t]*$", re.MULTILINE)
 
 
+def _unquote_yaml_scalar(raw: str) -> str:
+    """Strip YAML single- or double-quoting from a scalar value."""
+    if raw.startswith("'") and raw.endswith("'"):
+        return raw[1:-1].replace("''", "'")
+    if raw.startswith('"') and raw.endswith('"'):
+        return raw[1:-1].replace('\\"', '"')
+    return raw
+
+
 def _rewrite_file(path: Path, mapping: dict[str, str]) -> tuple[int, int]:
     text = path.read_text(encoding="utf-8")
     replaced = 0
     unknown = 0
 
-    def _sub(match: re.Match[str]) -> str:
-        nonlocal replaced, unknown
-        raw = match.group("value")
-        # Strip YAML quoting if present.
-        if raw.startswith("'") and raw.endswith("'"):
-            value = raw[1:-1].replace("''", "'")
-            quoted = "single"
-        elif raw.startswith('"') and raw.endswith('"'):
-            value = raw[1:-1].replace('\\"', '"')
-            quoted = "double"
-        else:
-            value = raw
-            quoted = None
+    # Walk every `    provider: <value>` line, rebuilding the file
+    # text as we go. Avoids a `re.sub` closure (L1: no nested fns).
+    parts: list[str] = []
+    last_end = 0
+    for match in _PROVIDER_LINE.finditer(text):
+        parts.append(text[last_end:match.start()])
+        value = _unquote_yaml_scalar(match.group("value"))
         slug = mapping.get(value)
         if slug is None:
             unknown += 1
-            return match.group(0)
-        if value == slug:
-            return match.group(0)
-        replaced += 1
-        return f"{match.group('lead')}{slug}"
-
-    new_text = _PROVIDER_LINE.sub(_sub, text)
+            parts.append(match.group(0))
+        elif value == slug:
+            parts.append(match.group(0))
+        else:
+            replaced += 1
+            parts.append(f"{match.group('lead')}{slug}")
+        last_end = match.end()
+    parts.append(text[last_end:])
+    new_text = "".join(parts)
     if new_text != text:
         path.write_text(new_text, encoding="utf-8")
     return replaced, unknown

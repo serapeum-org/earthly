@@ -1640,8 +1640,8 @@ datasets:
     product_type: [reanalysis]
     # CDS daily aggregations of ERA5-Land. The dataset-level extras
     # below carry sensible defaults; per-request callers can override
-    # ``daily_statistic`` (one of daily_mean/daily_minimum/daily_maximum),
-    # ``frequency`` (1_hourly/3_hourly/6_hourly), or ``time_zone``.
+    # `daily_statistic` (one of daily_mean/daily_minimum/daily_maximum),
+    # `frequency` (1_hourly/3_hourly/6_hourly), or `time_zone`.
     extras:
       daily_statistic: daily_mean
       frequency: "1_hourly"
@@ -1827,16 +1827,16 @@ datasets:
   reanalysis-oras5:
     product_type: [reanalysis]
     # Monthly-only ocean reanalysis from ECMWF (NEMO 3.4.1, ORCA025
-    # grid). ``product_type`` selects the temporal coverage:
-    # ``consolidated`` covers 1958-2014 (the default); ``operational``
-    # covers 2015 onwards. ``vertical_resolution`` is per-variable —
-    # 21 of the 27 fields are 2-D (``single_level``) and 6 are 3-D
-    # (``all_levels``); each variable row pins its own value via the
-    # row-level ``extras`` map. ORAS5 returns NEMO-style nc_variables
-    # (``vomecrty`` etc.) rather than ECMWF GRIB short names. The
-    # ``oceanic_monthly`` request_kind tells ECMWF.api() to drop the
-    # ERA5 template defaults that ORAS5 rejects (``day``, ``time``,
-    # ``area``, ``product_type``).
+    # grid). `product_type` selects the temporal coverage:
+    # `consolidated` covers 1958-2014 (the default); `operational`
+    # covers 2015 onwards. `vertical_resolution` is per-variable —
+    # 21 of the 27 fields are 2-D (`single_level`) and 6 are 3-D
+    # (`all_levels`); each variable row pins its own value via the
+    # row-level `extras` map. ORAS5 returns NEMO-style nc_variables
+    # (`vomecrty` etc.) rather than ECMWF GRIB short names. The
+    # `oceanic_monthly` request_kind tells ECMWF.api() to drop the
+    # ERA5 template defaults that ORAS5 rejects (`day`, `time`,
+    # `area`, `product_type`).
     request_kind: oceanic_monthly
     extras:
       product_type: [consolidated]
@@ -2009,8 +2009,8 @@ datasets:
     # CDS daily aggregations of ERA5 single-levels. Each variable
     # row carries the same nc_variable / units as the underlying
     # reanalysis-era5-single-levels row; the daily aggregation is
-    # selected at request time via ``daily_statistic`` (one of
-    # daily_mean/daily_minimum/daily_maximum). Keys use the ``-daily``
+    # selected at request time via `daily_statistic` (one of
+    # daily_mean/daily_minimum/daily_maximum). Keys use the `-daily`
     # suffix to avoid colliding with the underlying single-levels keys.
     extras:
       daily_statistic: daily_mean
@@ -3346,7 +3346,7 @@ datasets:
     product_type: [reanalysis]
     # CDS daily aggregations of ERA5 pressure-levels. Mirrors the
     # reanalysis-era5-pressure-levels variable set, with the same
-    # nc_variable / units. ``pressure_level`` is propagated from
+    # nc_variable / units. `pressure_level` is propagated from
     # the parent dataset; per-row may override.
     pressure_level: ["1000"]
     extras:
@@ -3447,7 +3447,7 @@ datasets:
     # Default extras below pick the EURO-CORDEX EC-Earth/RACMO22E
     # historical run on the 0.11° grid; override per-request to
     # access other scenarios. Variables use CMIP-standard CMOR short
-    # names (tas, pr, hurs, …). Keys are suffixed with ``-cordex`` to
+    # names (tas, pr, hurs, …). Keys are suffixed with `-cordex` to
     # avoid colliding with the same-named ERA5 single-levels rows.
     # 16 of 25 catalogued variables are included here — the missing 9
     # (10m u/v wind, surface pressure, total runoff, 200hPa upper-air,
@@ -3572,7 +3572,7 @@ datasets:
     # carries most surface vars; override per-request to pick a
     # different scenario or model. CMIP5 returns CMOR-named
     # NetCDFs (tas, pr, psl, …) inside a zip; the package already
-    # passes those through unchanged. Keys carry the ``-cmip5m``
+    # passes those through unchanged. Keys carry the `-cmip5m`
     # suffix to avoid colliding with same-named ERA5 single-levels
     # rows. 9 of 39 catalogued variables are included; the rest
     # are model-pair-specific and need their own probes.
@@ -3640,12 +3640,12 @@ datasets:
   projections-cmip5-monthly-pressure-levels:
     product_type: [reanalysis]
     # CMIP5 monthly atmospheric variables on pressure levels. The
-    # ``pressure_level`` is a per-request selector; the parent's
-    # ``["1000"]`` default mirrors the ERA5 pressure-levels
+    # `pressure_level` is a per-request selector; the parent's
+    # `["1000"]` default mirrors the ERA5 pressure-levels
     # convention. Same EC-Earth historical defaults as the single-
-    # levels block. Keys carry the ``-cmip5m`` suffix to namespace
+    # levels block. Keys carry the `-cmip5m` suffix to namespace
     # them. 5 of 6 catalogued variables are included; the missing
-    # ``relative_humidity`` is not present in EC-Earth's CMIP5
+    # `relative_humidity` is not present in EC-Earth's CMIP5
     # archive — probe a different model if you need it.
     pressure_level: ["1000"]
     extras:
@@ -3690,7 +3690,7 @@ datasets:
     # CARRA Copernicus Arctic Regional Reanalysis. Pressure-level
     # variables on the East/West Greenland domain (~2.5km, 65-86°N).
     # All 14 catalogued variables are probe-confirmed below. Default
-    # extras pin the ``east_domain`` analysis at leadtime_hour=3 on
+    # extras pin the `east_domain` analysis at leadtime_hour=3 on
     # the 1000hPa level; override per-request.
     pressure_level: ["1000"]
     extras:
@@ -3785,7 +3785,7 @@ datasets:
   reanalysis-carra-height-levels:
     product_type: [reanalysis]
     # CARRA height-level variables. All 7 catalogued vars probe-
-    # confirmed. The ``height_level`` extra picks the height in
+    # confirmed. The `height_level` extra picks the height in
     # metres (one of 15/30/50/75/100/150/200/250/300/400/500 m).
     extras:
       product_type: [analysis]
@@ -3839,7 +3839,7 @@ datasets:
   reanalysis-carra-model-levels:
     product_type: [reanalysis]
     # CARRA model-level variables. All 11 catalogued vars probe-
-    # confirmed. ``model_level`` ranges 1-65; default to the lowest.
+    # confirmed. `model_level` ranges 1-65; default to the lowest.
     extras:
       product_type: [analysis]
       domain: east_domain
@@ -3918,9 +3918,9 @@ datasets:
     # CARRA single-level (surface / atmosphere) variables. 22 of 67
     # catalogued vars are probe-confirmed below; the remaining 45 are
     # deferred to a follow-up commit because they require the
-    # ``forecast`` product_type and/or specific date constraints, or
+    # `forecast` product_type and/or specific date constraints, or
     # are not present for the default ec_earth east_domain combo.
-    # Most ``time_integral_*`` and ``*_since_previous_post_processing``
+    # Most `time_integral_*` and `*_since_previous_post_processing`
     # variables fall in the deferred set. Users who need those can
     # construct the request manually until they are added.
     extras:
@@ -4332,9 +4332,9 @@ datasets:
   reanalysis-carra-means:
     product_type: [reanalysis]
     # CARRA-means: temporally-aggregated CARRA. Six forecast-based
-    # single-level variables are probe-confirmed. ``request_kind``
-    # is ``carra_means`` so api() drops the ``time`` selector — the
-    # aggregate is over the window indicated by ``time_aggregation``.
+    # single-level variables are probe-confirmed. `request_kind`
+    # is `carra_means` so api() drops the `time` selector — the
+    # aggregate is over the window indicated by `time_aggregation`.
     # Remaining 75 catalogued vars (analysis-based plus other
     # level_types) are pending probes; partial coverage shipped here.
     request_kind: carra_means
@@ -5359,7 +5359,7 @@ datasets:
     # CERRA Copernicus Regional Reanalysis (Europe, ~5.5km).
     # Single-level vars on surface_or_atmosphere. 6 of 39 catalogued
     # vars are probe-confirmed; remaining 33 pending probes.
-    # ``data_type`` selects reanalysis vs ensemble_members; analysis
+    # `data_type` selects reanalysis vs ensemble_members; analysis
     # has no leadtime, forecast has leadtime_hour 1-30.
     extras:
       product_type: [reanalysis]
@@ -5605,7 +5605,7 @@ datasets:
     product_type: [reanalysis]
     # CERRA height-level variables on the European 5.5km grid.
     # 5 of 10 catalogued vars probe-confirmed (at 100m); the
-    # ``height_level`` extra picks one of 15/30/50/75/100/150/200/
+    # `height_level` extra picks one of 15/30/50/75/100/150/200/
     # 250/300/400/500 m. nc_variable suffix reflects the probed
     # level (e.g. si100 = wind speed at 100m).
     extras:
@@ -5677,7 +5677,7 @@ datasets:
   reanalysis-cerra-pressure-levels:
     product_type: [reanalysis]
     # CERRA pressure-level variables. 5 of 11 catalogued vars
-    # probe-confirmed at 1000hPa; ``pressure_level`` extra selects
+    # probe-confirmed at 1000hPa; `pressure_level` extra selects
     # one of 1..1000 hPa.
     pressure_level: ["1000"]
     extras:
@@ -6019,7 +6019,7 @@ datasets:
     # CARRA domains (no_ar / east_ar / west_ar / no_pacific). 6 of
     # ~40 single_levels vars probe-confirmed; height_levels,
     # pressure_levels and model_levels not yet probed.
-    # ``level_type`` is required by CDS; default to single_levels.
+    # `level_type` is required by CDS; default to single_levels.
     extras:
       product_type: [reanalysis]
       level_type: single_levels
@@ -6903,7 +6903,7 @@ datasets:
     # 1 of 5 catalogued cds_variables probe-confirmed
     # (surface_air_temperature -> t2m). The CDS default returns GRIB
     # without an explicit data_format override, so the
-    # ``data_format: netcdf4`` extra is included to ensure NetCDF
+    # `data_format: netcdf4` extra is included to ensure NetCDF
     # output. Remaining 4 vars (relative_humidity, soil_moisture,
     # precipitation, sea_ice_cover) pending probes.
     extras:
@@ -6947,9 +6947,9 @@ datasets:
     product_type: [reanalysis]
     # PAN-CARRA temporally-aggregated forecast-based reanalysis.
     # 1 of ~30 catalogued vars probe-confirmed (evaporation -> eva).
-    # ``request_kind`` would normally be ``carra_means`` to drop the
-    # ``time`` selector, but PAN-CARRA-means uses a different request
-    # shape — keep ``form`` and let the validator check on submit.
+    # `request_kind` would normally be `carra_means` to drop the
+    # `time` selector, but PAN-CARRA-means uses a different request
+    # shape — keep `form` and let the validator check on submit.
     extras:
       product_type: [forecast_based]
       level_type: single_levels
