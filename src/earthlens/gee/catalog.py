@@ -267,9 +267,9 @@ class Band(BaseModel):
             True
 
             ```
-        - An unknown field is rejected:
+        - An unknown field is rejected by `extra="forbid"`:
             ```python
-            >>> Band(id="x", description="d", colour="red")  # doctest: +IGNORE_EXCEPTION_DETAIL
+            >>> Band(id="x", description="d", not_a_band_field="x")  # doctest: +IGNORE_EXCEPTION_DETAIL
             Traceback (most recent call last):
                 ...
             pydantic_core._pydantic_core.ValidationError: 1 validation error for Band

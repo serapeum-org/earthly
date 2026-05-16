@@ -128,7 +128,7 @@ class TestBand:
     def test_extra_field_rejected(self):
         """Unknown band fields are rejected (`extra="forbid"`)."""
         with pytest.raises(ValidationError):
-            Band(id="x", description="d", colour="red")
+            Band(id="x", description="d", not_a_band_field="x")
 
     def test_description_optional(self):
         """``description`` defaults to ``None`` (M4)."""
