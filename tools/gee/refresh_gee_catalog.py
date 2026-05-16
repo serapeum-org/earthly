@@ -51,7 +51,13 @@ from typing import Any
 import yaml
 
 sys.path.insert(0, str(Path(__file__).parent))
-from _catalog_io import CATALOG_DIR, category_for, find_stanza_span  # noqa: E402
+from _catalog_io import (  # noqa: E402
+    CATALOG_DIR,
+    category_for,
+    find_stanza_span,
+    split_stanzas,
+    title_of,
+)
 from _gee_stac import collect_collection_ids, fetch_collection_stac  # noqa: E402
 
 CATALOG_INDEX_PATH = Path("src/earthlens/gee/catalog/_index.yaml")
@@ -466,31 +472,6 @@ def _cmd_minimal_stanza(args: argparse.Namespace) -> int:
 # add-ids — fetch --with-bands, compact, append to the right category file
 # ---------------------------------------------------------------------------
 
-_STANZA_RE = re.compile(r"^  (?P<asset>[A-Za-z0-9_./\-]+):\s*$", re.MULTILINE)
-_TITLE_RE = re.compile(r"^    title:\s*(.+?)\s*$", re.MULTILINE)
-
-
-def _title_of(stanza: str) -> str:
-    m = _TITLE_RE.search(stanza)
-    if not m:
-        return ""
-    t = m.group(1).strip()
-    if t.startswith("'") and t.endswith("'"):
-        t = t[1:-1].replace("''", "'")
-    elif t.startswith('"') and t.endswith('"'):
-        t = t[1:-1]
-    return t
-
-
-def _split_stanzas(body: str) -> list[tuple[str, str]]:
-    matches = list(_STANZA_RE.finditer(body))
-    pairs: list[tuple[str, str]] = []
-    for i, m in enumerate(matches):
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(body)
-        pairs.append((m.group("asset"), body[m.start():end]))
-    return pairs
-
-
 def _cmd_add_ids(args: argparse.Namespace) -> int:
     sys.path.insert(0, "src")
     from earthlens.gee import Catalog
@@ -513,8 +494,8 @@ def _cmd_add_ids(args: argparse.Namespace) -> int:
     compact = compact_text(raw.getvalue())
 
     per_category: dict[str, list[str]] = defaultdict(list)
-    for asset_id, stanza in _split_stanzas(compact):
-        per_category[category_for(asset_id, _title_of(stanza))].append(stanza)
+    for asset_id, stanza in split_stanzas(compact):
+        per_category[category_for(asset_id, title_of(stanza))].append(stanza)
 
     for category, stanzas in per_category.items():
         target = CATALOG_DIR / f"{category}.yaml"

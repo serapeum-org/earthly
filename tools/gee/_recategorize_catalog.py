@@ -26,10 +26,12 @@ produces the same output.
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from collections import defaultdict
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from _catalog_io import split_stanzas, title_of  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[2]
 CATALOG_DIR = REPO / "src" / "earthlens" / "gee" / "catalog"
@@ -420,10 +422,6 @@ _RULES: list[tuple[str, str, str]] = [
 ]
 
 
-_STANZA_RE = re.compile(r"^  (?P<asset>[A-Za-z0-9_./\-]+):\s*$", re.MULTILINE)
-_TITLE_RE = re.compile(r"^    title:\s*(.+?)\s*$", re.MULTILINE)
-
-
 def _categorise(asset_id: str, title: str) -> str:
     """Return the bucket name for one (asset_id, title) pair."""
     title_lc = title.lower()
@@ -435,33 +433,6 @@ def _categorise(asset_id: str, title: str) -> str:
         if kind == "title_kw" and needle in title_lc:
             return category
     return "other"
-
-
-def _extract_title(stanza: str) -> str:
-    m = _TITLE_RE.search(stanza)
-    if not m:
-        return ""
-    t = m.group(1).strip()
-    if t.startswith("'") and t.endswith("'"):
-        t = t[1:-1].replace("''", "'")
-    elif t.startswith('"') and t.endswith('"'):
-        t = t[1:-1]
-    return t
-
-
-def _split_stanzas_in_file(text: str) -> list[tuple[str, str]]:
-    """Slice a per-provider file's body into `(asset_id, stanza_text)` pairs."""
-    # Strip leading per-file comment headers + the `datasets:` line.
-    m = re.search(r"^datasets:\s*\n", text, re.MULTILINE)
-    if not m:
-        return []
-    body = text[m.end():]
-    matches = list(_STANZA_RE.finditer(body))
-    pairs: list[tuple[str, str]] = []
-    for i, mm in enumerate(matches):
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(body)
-        pairs.append((mm.group("asset"), body[mm.start():end]))
-    return pairs
 
 
 def main() -> int:
@@ -479,8 +450,8 @@ def main() -> int:
     asset_ids: list[str] = []
     for path in files:
         text = path.read_text(encoding="utf-8")
-        for asset_id, stanza in _split_stanzas_in_file(text):
-            title = _extract_title(stanza)
+        for asset_id, stanza in split_stanzas(text):
+            title = title_of(stanza)
             cat = _categorise(asset_id, title)
             by_cat[cat].append((asset_id, stanza))
             asset_ids.append(asset_id)

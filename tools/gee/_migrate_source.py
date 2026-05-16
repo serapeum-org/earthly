@@ -17,16 +17,18 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from _catalog_io import STANZA_RE  # noqa: E402
+
 CATALOG_DIR = Path("src/earthlens/gee/catalog")
 
-_STANZA_RE = re.compile(r"^  (?P<asset>[A-Za-z0-9_./\-]+):\s*$", re.MULTILINE)
 _USER_UPLOADED_LINE = re.compile(r"^    user_uploaded:\s*true\s*$\n", re.MULTILINE)
 _HAS_SOURCE = re.compile(r"^    source:\s*\S+\s*$", re.MULTILINE)
 
 
 def _rewrite_file(path: Path) -> tuple[int, int]:
     text = path.read_text(encoding="utf-8")
-    matches = list(_STANZA_RE.finditer(text))
+    matches = list(STANZA_RE.finditer(text))
     if not matches:
         return 0, 0
 
