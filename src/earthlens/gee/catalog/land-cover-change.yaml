@@ -3865,74 +3865,39 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       BRDF_Albedo_Parameters_Band1_iso:
-        description: Band BRDF_Albedo_Parameters_Band1_iso
       BRDF_Albedo_Parameters_Band1_vol:
-        description: Band BRDF_Albedo_Parameters_Band1_vol
       BRDF_Albedo_Parameters_Band1_geo:
-        description: Band BRDF_Albedo_Parameters_Band1_geo
       BRDF_Albedo_Parameters_Band2_iso:
-        description: Band BRDF_Albedo_Parameters_Band2_iso
       BRDF_Albedo_Parameters_Band2_vol:
-        description: Band BRDF_Albedo_Parameters_Band2_vol
       BRDF_Albedo_Parameters_Band2_geo:
-        description: Band BRDF_Albedo_Parameters_Band2_geo
       BRDF_Albedo_Parameters_Band3_iso:
-        description: Band BRDF_Albedo_Parameters_Band3_iso
       BRDF_Albedo_Parameters_Band3_vol:
-        description: Band BRDF_Albedo_Parameters_Band3_vol
       BRDF_Albedo_Parameters_Band3_geo:
-        description: Band BRDF_Albedo_Parameters_Band3_geo
       BRDF_Albedo_Parameters_Band4_iso:
-        description: Band BRDF_Albedo_Parameters_Band4_iso
       BRDF_Albedo_Parameters_Band4_vol:
-        description: Band BRDF_Albedo_Parameters_Band4_vol
       BRDF_Albedo_Parameters_Band4_geo:
-        description: Band BRDF_Albedo_Parameters_Band4_geo
       BRDF_Albedo_Parameters_Band5_iso:
-        description: Band BRDF_Albedo_Parameters_Band5_iso
       BRDF_Albedo_Parameters_Band5_vol:
-        description: Band BRDF_Albedo_Parameters_Band5_vol
       BRDF_Albedo_Parameters_Band5_geo:
-        description: Band BRDF_Albedo_Parameters_Band5_geo
       BRDF_Albedo_Parameters_Band6_iso:
-        description: Band BRDF_Albedo_Parameters_Band6_iso
       BRDF_Albedo_Parameters_Band6_vol:
-        description: Band BRDF_Albedo_Parameters_Band6_vol
       BRDF_Albedo_Parameters_Band6_geo:
-        description: Band BRDF_Albedo_Parameters_Band6_geo
       BRDF_Albedo_Parameters_Band7_iso:
-        description: Band BRDF_Albedo_Parameters_Band7_iso
       BRDF_Albedo_Parameters_Band7_vol:
-        description: Band BRDF_Albedo_Parameters_Band7_vol
       BRDF_Albedo_Parameters_Band7_geo:
-        description: Band BRDF_Albedo_Parameters_Band7_geo
       BRDF_Albedo_Parameters_vis_iso:
-        description: Band BRDF_Albedo_Parameters_vis_iso
       BRDF_Albedo_Parameters_vis_vol:
-        description: Band BRDF_Albedo_Parameters_vis_vol
       BRDF_Albedo_Parameters_vis_geo:
-        description: Band BRDF_Albedo_Parameters_vis_geo
       BRDF_Albedo_Parameters_nir_iso:
-        description: Band BRDF_Albedo_Parameters_nir_iso
       BRDF_Albedo_Parameters_nir_vol:
-        description: Band BRDF_Albedo_Parameters_nir_vol
       BRDF_Albedo_Parameters_nir_geo:
-        description: Band BRDF_Albedo_Parameters_nir_geo
       BRDF_Albedo_Parameters_shortwave_iso:
-        description: Band BRDF_Albedo_Parameters_shortwave_iso
       BRDF_Albedo_Parameters_shortwave_vol:
-        description: Band BRDF_Albedo_Parameters_shortwave_vol
       BRDF_Albedo_Parameters_shortwave_geo:
-        description: Band BRDF_Albedo_Parameters_shortwave_geo
       BRDF_Shape_Indicators_ANIF:
-        description: Band BRDF_Shape_Indicators_ANIF
       BRDF_Shape_Indicators_AFX:
-        description: Band BRDF_Shape_Indicators_AFX
       BRDF_Shape_Indicators_NDAX:
-        description: Band BRDF_Shape_Indicators_NDAX
       BRDF_Shape_Indicators_SSI:
-        description: Band BRDF_Shape_Indicators_SSI
-
   MODIS/MCD43A2:
     title: MCD43A2.005 BRDF-Albedo Quality 16-Day Global 500m [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -3946,14 +3911,9 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       BRDF_Albedo_Quality:
-        description: Band BRDF_Albedo_Quality
       Snow_BRDF_Albedo:
-        description: Band Snow_BRDF_Albedo
       BRDF_Albedo_Ancillary:
-        description: Band BRDF_Albedo_Ancillary
       BRDF_Albedo_Band_Quality:
-        description: Band BRDF_Albedo_Band_Quality
-
   MODIS/MCD43A4_006_NDVI:
     title: MODIS Combined 16-Day NDVI
     provider: Google
@@ -4071,30 +4031,17 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       NDVI:
-        description: Band NDVI
       EVI:
-        description: Band EVI
       DetailedQA:
-        description: Band DetailedQA
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       sur_refl_b03:
-        description: Band sur_refl_b03
       sur_refl_b07:
-        description: Band sur_refl_b07
       ViewZenith:
-        description: Band ViewZenith
       SolarZenith:
-        description: Band SolarZenith
       RelativeAzimuth:
-        description: Band RelativeAzimuth
       DayOfYear:
-        description: Band DayOfYear
       SummaryQA:
-        description: Band SummaryQA
-
   MODIS/MOD13Q1:
     title: MOD13Q1.005 Vegetation Indices 16-Day Global 250m [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -4108,30 +4055,17 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       NDVI:
-        description: Band NDVI
       EVI:
-        description: Band EVI
       DetailedQA:
-        description: Band DetailedQA
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       sur_refl_b03:
-        description: Band sur_refl_b03
       sur_refl_b07:
-        description: Band sur_refl_b07
       ViewZenith:
-        description: Band ViewZenith
       SolarZenith:
-        description: Band SolarZenith
       RelativeAzimuth:
-        description: Band RelativeAzimuth
       DayOfYear:
-        description: Band DayOfYear
       SummaryQA:
-        description: Band SummaryQA
-
   MODIS/MYD09GA_006_NDVI:
     title: MODIS Aqua Daily NDVI
     provider: Google
@@ -4197,30 +4131,17 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       NDVI:
-        description: Band NDVI
       EVI:
-        description: Band EVI
       DetailedQA:
-        description: Band DetailedQA
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       sur_refl_b03:
-        description: Band sur_refl_b03
       sur_refl_b07:
-        description: Band sur_refl_b07
       ViewZenith:
-        description: Band ViewZenith
       SolarZenith:
-        description: Band SolarZenith
       RelativeAzimuth:
-        description: Band RelativeAzimuth
       DayOfYear:
-        description: Band DayOfYear
       SummaryQA:
-        description: Band SummaryQA
-
   MODIS/MYD13Q1:
     title: MYD13Q1.005 Vegetation Indices 16-Day Global 250m [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -4234,30 +4155,17 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       NDVI:
-        description: Band NDVI
       EVI:
-        description: Band EVI
       DetailedQA:
-        description: Band DetailedQA
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       sur_refl_b03:
-        description: Band sur_refl_b03
       sur_refl_b07:
-        description: Band sur_refl_b07
       ViewZenith:
-        description: Band ViewZenith
       SolarZenith:
-        description: Band SolarZenith
       RelativeAzimuth:
-        description: Band RelativeAzimuth
       DayOfYear:
-        description: Band DayOfYear
       SummaryQA:
-        description: Band SummaryQA
-
   NASA/GIMMS/3GV0:
     title: "GIMMS NDVI 3g v0: AVHRR-Derived NDVI Bimonthly (~9km, 1981-2015)"
     provider: NASA / NOAA

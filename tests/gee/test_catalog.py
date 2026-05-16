@@ -168,14 +168,15 @@ class TestBand:
         with pytest.raises(ValidationError):
             Band(id="x", description="d", colour="red")
 
-    def test_missing_required_field_rejected(self):
-        """``description`` is required.
+    def test_description_optional(self):
+        """``description`` defaults to ``None`` (M4)."""
+        b = Band(id="x")
+        assert b.description is None
 
-        Test scenario:
-            ``Band(id="x")`` should raise ``ValidationError``.
-        """
+    def test_missing_id_rejected(self):
+        """``id`` is required."""
         with pytest.raises(ValidationError):
-            Band(id="x")
+            Band(description="d")
 
 
 class TestExtent:

@@ -6705,20 +6705,12 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       Nadir_Reflectance_Band1:
-        description: Band Nadir_Reflectance_Band1
       Nadir_Reflectance_Band2:
-        description: Band Nadir_Reflectance_Band2
       Nadir_Reflectance_Band3:
-        description: Band Nadir_Reflectance_Band3
       Nadir_Reflectance_Band4:
-        description: Band Nadir_Reflectance_Band4
       Nadir_Reflectance_Band5:
-        description: Band Nadir_Reflectance_Band5
       Nadir_Reflectance_Band6:
-        description: Band Nadir_Reflectance_Band6
       Nadir_Reflectance_Band7:
-        description: Band Nadir_Reflectance_Band7
-
   MODIS/MCD43A4_006_BAI:
     title: MODIS Combined 16-Day BAI
     provider: Google
@@ -6844,32 +6836,18 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       sur_refl_b03:
-        description: Band sur_refl_b03
       sur_refl_b04:
-        description: Band sur_refl_b04
       sur_refl_b05:
-        description: Band sur_refl_b05
       sur_refl_b06:
-        description: Band sur_refl_b06
       sur_refl_b07:
-        description: Band sur_refl_b07
       QA:
-        description: Band QA
       SolarZenith:
-        description: Band SolarZenith
       ViewZenith:
-        description: Band ViewZenith
       RelativeAzimuth:
-        description: Band RelativeAzimuth
       StateQA:
-        description: Band StateQA
       DayOfYear:
-        description: Band DayOfYear
-
   MODIS/MOD09GA:
     title: MOD09GA.005 Terra Surface Reflectance Daily L2G Global 1km and 500m [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -6883,48 +6861,26 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       num_observations_1km:
-        description: Band num_observations_1km
       state_1km:
-        description: Band state_1km
       SensorZenith:
-        description: Band SensorZenith
       SensorAzimuth:
-        description: Band SensorAzimuth
       Range:
-        description: Band Range
       SolarZenith:
-        description: Band SolarZenith
       SolarAzimuth:
-        description: Band SolarAzimuth
       gflags:
-        description: Band gflags
       orbit_pnt:
-        description: Band orbit_pnt
       num_observations_500m:
-        description: Band num_observations_500m
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       sur_refl_b03:
-        description: Band sur_refl_b03
       sur_refl_b04:
-        description: Band sur_refl_b04
       sur_refl_b05:
-        description: Band sur_refl_b05
       sur_refl_b06:
-        description: Band sur_refl_b06
       sur_refl_b07:
-        description: Band sur_refl_b07
       QC_500m:
-        description: Band QC_500m
       obscov_500m:
-        description: Band obscov_500m
       iobs_res:
-        description: Band iobs_res
       q_scan:
-        description: Band q_scan
-
   MODIS/MOD09GA_006_BAI:
     title: MODIS Terra Daily BAI
     provider: Google
@@ -7050,16 +7006,10 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       num_observations:
-        description: Band num_observations
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       QC_250m:
-        description: Band QC_250m
       obscov:
-        description: Band obscov
-
   MODIS/MOD09Q1:
     title: MOD09Q1.005 Surface Reflectance 8-Day Global 250m [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -7073,12 +7023,8 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       QA:
-        description: Band QA
-
   MODIS/MOD11A1:
     title: MOD11A1.005 Terra Land Surface Temperature and Emissivity Daily Global 1 km Grid SIN
     provider: NASA LP DAAC at the USGS EROS Center
@@ -7092,30 +7038,17 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       LST_Day_1km:
-        description: Band LST_Day_1km
       QC_Day:
-        description: Band QC_Day
       Day_view_time:
-        description: Band Day_view_time
       Day_view_angle:
-        description: Band Day_view_angle
       LST_Night_1km:
-        description: Band LST_Night_1km
       QC_Night:
-        description: Band QC_Night
       Night_view_time:
-        description: Band Night_view_time
       Night_view_angle:
-        description: Band Night_view_angle
       Emis_31:
-        description: Band Emis_31
       Emis_32:
-        description: Band Emis_32
       Clear_day_cov:
-        description: Band Clear_day_cov
       Clear_night_cov:
-        description: Band Clear_night_cov
-
   MODIS/MOD11A2:
     title: MOD11A2.005 Land Surface Temperature and Emissivity 8-Day Global 1km [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -7129,30 +7062,17 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       LST_Day_1km:
-        description: Band LST_Day_1km
       QC_Day:
-        description: Band QC_Day
       Day_view_time:
-        description: Band Day_view_time
       Day_view_angl:
-        description: Band Day_view_angl
       LST_Night_1km:
-        description: Band LST_Night_1km
       QC_Night:
-        description: Band QC_Night
       Night_view_time:
-        description: Band Night_view_time
       Night_view_angl:
-        description: Band Night_view_angl
       Emis_31:
-        description: Band Emis_31
       Emis_32:
-        description: Band Emis_32
       Clear_sky_days:
-        description: Band Clear_sky_days
       Clear_sky_nights:
-        description: Band Clear_sky_nights
-
   MODIS/MOD44W/MOD44W_005_2000_02_24:
     title: MOD44W.005 Land Water Mask Derived From MODIS and SRTM
     provider: NASA LP DAAC at the USGS EROS Center
@@ -7183,32 +7103,18 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       sur_refl_b03:
-        description: Band sur_refl_b03
       sur_refl_b04:
-        description: Band sur_refl_b04
       sur_refl_b05:
-        description: Band sur_refl_b05
       sur_refl_b06:
-        description: Band sur_refl_b06
       sur_refl_b07:
-        description: Band sur_refl_b07
       QA:
-        description: Band QA
       SolarZenith:
-        description: Band SolarZenith
       ViewZenith:
-        description: Band ViewZenith
       RelativeAzimuth:
-        description: Band RelativeAzimuth
       StateQA:
-        description: Band StateQA
       DayOfYear:
-        description: Band DayOfYear
-
   MODIS/MYD09GA:
     title: MYD09GA.005 Aqua Surface Reflectance Daily L2G Global 1km and 500m [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -7222,48 +7128,26 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       num_observations_1km:
-        description: Band num_observations_1km
       state_1km:
-        description: Band state_1km
       SensorZenith:
-        description: Band SensorZenith
       SensorAzimuth:
-        description: Band SensorAzimuth
       Range:
-        description: Band Range
       SolarZenith:
-        description: Band SolarZenith
       SolarAzimuth:
-        description: Band SolarAzimuth
       gflags:
-        description: Band gflags
       orbit_pnt:
-        description: Band orbit_pnt
       num_observations_500m:
-        description: Band num_observations_500m
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       sur_refl_b03:
-        description: Band sur_refl_b03
       sur_refl_b04:
-        description: Band sur_refl_b04
       sur_refl_b05:
-        description: Band sur_refl_b05
       sur_refl_b06:
-        description: Band sur_refl_b06
       sur_refl_b07:
-        description: Band sur_refl_b07
       QC_500m:
-        description: Band QC_500m
       obscov_500m:
-        description: Band obscov_500m
       iobs_res:
-        description: Band iobs_res
       q_scan:
-        description: Band q_scan
-
   MODIS/MYD09GA_006_BAI:
     title: MODIS Aqua Daily BAI
     provider: Google
@@ -7389,16 +7273,10 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       num_observations:
-        description: Band num_observations
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       QC_250m:
-        description: Band QC_250m
       obscov:
-        description: Band obscov
-
   MODIS/MYD09Q1:
     title: MYD09Q1.005 Surface Reflectance 8-Day L3 Global 250m [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -7412,12 +7290,8 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       sur_refl_b01:
-        description: Band sur_refl_b01
       sur_refl_b02:
-        description: Band sur_refl_b02
       QA:
-        description: Band QA
-
   MODIS/MYD11A1:
     title: MYD11A1.005 Land Surface Temperature and Emissivity Daily Global 1 km Grid SIN [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -7431,30 +7305,17 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       LST_Day_1km:
-        description: Band LST_Day_1km
       QC_Day:
-        description: Band QC_Day
       Day_view_time:
-        description: Band Day_view_time
       Day_view_angle:
-        description: Band Day_view_angle
       LST_Night_1km:
-        description: Band LST_Night_1km
       QC_Night:
-        description: Band QC_Night
       Night_view_time:
-        description: Band Night_view_time
       Night_view_angle:
-        description: Band Night_view_angle
       Emis_31:
-        description: Band Emis_31
       Emis_32:
-        description: Band Emis_32
       Clear_day_cov:
-        description: Band Clear_day_cov
       Clear_night_cov:
-        description: Band Clear_night_cov
-
   MODIS/MYD11A2:
     title: MYD11A2.005 Land Surface Temperature and Emissivity 8-Day L3 Global 1km [deprecated]
     provider: NASA LP DAAC at the USGS EROS Center
@@ -7468,30 +7329,17 @@ datasets:
     terms_note: 'MODIS data and products acquired through the LP DAAC have no restrictions on subsequent'
     bands:
       LST_Day_1km:
-        description: Band LST_Day_1km
       QC_Day:
-        description: Band QC_Day
       Day_view_time:
-        description: Band Day_view_time
       Day_view_angl:
-        description: Band Day_view_angl
       LST_Night_1km:
-        description: Band LST_Night_1km
       QC_Night:
-        description: Band QC_Night
       Night_view_time:
-        description: Band Night_view_time
       Night_view_angl:
-        description: Band Night_view_angl
       Emis_31:
-        description: Band Emis_31
       Emis_32:
-        description: Band Emis_32
       Clear_sky_days:
-        description: Band Clear_sky_days
       Clear_sky_nights:
-        description: Band Clear_sky_nights
-
   NASA/HLS/HLSL30/v002:
     title: "HLSL30 v002: Harmonized Landsat-8/9 Surface Reflectance (30m, sub-weekly)"
     provider: NASA LP DAAC

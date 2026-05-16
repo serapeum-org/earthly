@@ -225,7 +225,10 @@ class Band(BaseModel):
 
     Attributes:
         id: The Earth Engine band id (e.g. `"SR_B4"`, `"precipitation"`).
-        description: Human description of the band.
+        description: Human description of the band, or `None` when only
+            the band id is known. The catalog drops bare `"Band <id>"`
+            stub descriptions (which carry no information beyond the id)
+            at load time — read the id if you just need a label.
         units: Physical unit string, or `None` (common for reflectance
             and indices).
         scale: Multiply the raw DN by this to get physical units, or
@@ -250,6 +253,12 @@ class Band(BaseModel):
             True
 
             ```
+        - A band with only an id is fine — `description` is optional:
+            ```python
+            >>> Band(id="b1").description is None
+            True
+
+            ```
         - An unknown field is rejected:
             ```python
             >>> Band(id="x", description="d", colour="red")  # doctest: +IGNORE_EXCEPTION_DETAIL
@@ -263,7 +272,7 @@ class Band(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
     id: str
-    description: str
+    description: str | None = None
     units: str | None = None
     scale: float | None = None
     offset: float | None = None
