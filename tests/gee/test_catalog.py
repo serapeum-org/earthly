@@ -258,12 +258,14 @@ class TestDataset:
         Test scenario:
             A collection built with only id/title/extent has
             ``ee_type == "image_collection"``, ``default_reducer == "median"``,
-            ``terms is None``, ``user_uploaded is False``, empty ``extras`` and ``bands``.
+            ``license is None``, ``terms_note is None``, ``user_uploaded is False``,
+            empty ``extras`` and ``bands``.
         """
         ds = Dataset(id="X", title="X", extent=Extent(start_date="2000-01-01"))
         assert ds.ee_type == "image_collection"
         assert ds.default_reducer == "median"
-        assert ds.terms is None and ds.user_uploaded is False
+        assert ds.license is None and ds.terms_note is None
+        assert ds.user_uploaded is False
         assert ds.extras == {} and ds.bands == {}
 
     def test_is_image_collection_true(self):
@@ -638,6 +640,27 @@ class TestCatalog:
         assert set(parsed) == set(shipped_catalog.datasets)
         for asset_id, body in parsed.items():
             assert body["title"] == shipped_catalog.get_dataset(asset_id).title
+
+
+class TestLicenseField:
+    """Tests for the post-M2 `license` + `terms_note` schema on `Dataset`."""
+
+    def test_shipped_catalog_uses_normalised_licenses(self, shipped_catalog: Catalog):
+        """Every shipped stanza carries one of the agreed SPDX / conventional licence ids."""
+        allowed = {
+            "CC-BY-4.0", "CC-BY-SA-4.0", "CC-BY-NC-4.0", "CC-BY-NC-SA-4.0",
+            "CC0-1.0", "ODbL-1.0", "OGL-Canada-2.0", "etalab-2.0",
+            "CDLA-Permissive-1.0", "public-domain", "proprietary", "unknown",
+        }
+        bad = sorted({d.license for d in shipped_catalog.datasets.values()} - allowed - {None})
+        assert not bad, f"unexpected license ids: {bad}"
+
+    def test_terms_note_preserved_for_proprietary(self, shipped_catalog: Catalog):
+        """`proprietary` stanzas carry the original prose in `terms_note`."""
+        # Sentinel-2 SR Harmonized — published under Copernicus Sentinel terms
+        d = shipped_catalog.get_dataset("COPERNICUS/S2_SR_HARMONIZED")
+        assert d.license == "proprietary"
+        assert d.terms_note  # non-empty prose
 
 
 class TestCatalogCache:

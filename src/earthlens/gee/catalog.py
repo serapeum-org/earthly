@@ -295,7 +295,15 @@ class Dataset(BaseModel):
             temporal composite (`"median"` for cloud-screened optical
             scenes, `"mean"` for continuous fields / rates, `"mosaic"`
             for tiled or annual static maps).
-        terms: Short licence / attribution note, or `None`.
+        license: SPDX identifier (`"CC-BY-4.0"`, `"CC-BY-SA-4.0"`,
+            `"CC-BY-NC-SA-4.0"`, `"CC0-1.0"`, `"ODbL-1.0"`, …) or one of
+            the conventional values `"public-domain"`, `"proprietary"`
+            (publisher-specific terms-of-service), or `"unknown"`. `None`
+            for stanzas that pre-date the licence-normalisation pass.
+        terms_note: Free-text note that doesn't fit the SPDX id —
+            attribution requirements, custom commercial clauses, links
+            to publisher terms-of-use pages, etc. `None` when the
+            `license` field alone conveys everything.
         user_uploaded: `True` for community-uploaded assets.
         extras: Passthrough kwargs for the request builder.
         bands: Band id → :class:`Band`.
@@ -311,7 +319,8 @@ class Dataset(BaseModel):
     spatial_resolution: float | None = None
     extent: Extent
     default_reducer: str = "median"
-    terms: str | None = None
+    license: str | None = None
+    terms_note: str | None = None
     user_uploaded: bool = False
     extras: dict[str, Any] = Field(default_factory=dict)
     bands: dict[str, Band] = Field(default_factory=dict)
