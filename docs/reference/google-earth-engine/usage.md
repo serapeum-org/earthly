@@ -100,7 +100,7 @@ Static `image` datasets (e.g. `USGS/SRTMGL1_003`) ignore
 
 By default the clip is the lat/lon bbox (`ee.Geometry.Rectangle`). Pass
 `region=<GeoDataFrame>` to clip to an exact polygon set (converted via
-`earthlens.gee.createFeature`); the bbox is then used only for the
+`earthlens.gee.create_feature`); the bbox is then used only for the
 `"url"` size estimate.
 
 ## 3. Export modes (`export_via`)

@@ -238,7 +238,7 @@ _FAKE_TIFF_BYTES = b"MM\x00*" + b"\x00" * 64
 
 @pytest.fixture(scope="function")
 def fake_ee(monkeypatch) -> _FakeEE:
-    """Replace `ee` in the backend (and `createFeature`/`requests`) with fakes.
+    """Replace `ee` in the backend (and `create_feature`/`requests`) with fakes.
 
     Returns:
         _FakeEE: The fake `ee` module (its `ic_log` / `image_log` record
@@ -252,7 +252,7 @@ def fake_ee(monkeypatch) -> _FakeEE:
     )
     _FakePyramidsDataset.reset()
     monkeypatch.setattr(backend_module, "PyramidsDataset", _FakePyramidsDataset)
-    monkeypatch.setattr(backend_module, "createFeature", lambda gdf: SimpleNamespace(geometry=lambda: _FakeGeometry("from-gdf")))
+    monkeypatch.setattr(backend_module, "create_feature", lambda gdf: SimpleNamespace(geometry=lambda: _FakeGeometry("from-gdf")))
     monkeypatch.setattr(
         backend_module.EarthEngineAuth, "initialize",
         staticmethod(lambda service_account, service_key, project=None: project or "fake-project"),
@@ -638,7 +638,7 @@ class TestEeRegion:
         assert gee._ee_region() is region
 
     def test_geodataframe_region_uses_create_feature(self, make_gee):
-        """A `region` GeoDataFrame is routed through `features.createFeature`."""
+        """A `region` GeoDataFrame is routed through `features.create_feature`."""
         sentinel_gdf = object()
         gee = make_gee(region=sentinel_gdf)
         region = gee._ee_region()

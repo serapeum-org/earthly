@@ -65,7 +65,7 @@ from earthlens.gee._helpers import (
 )
 from earthlens.gee.auth import AuthenticationError, EarthEngineAuth
 from earthlens.gee.catalog import Catalog, Dataset
-from earthlens.gee.features import createFeature
+from earthlens.gee.features import create_feature
 
 if TYPE_CHECKING:  # pragma: no cover - typing only
     from geopandas import GeoDataFrame
@@ -629,7 +629,7 @@ class GEE(AbstractDataSource):
         """Return the `ee.Geometry` to clip / filter requests to.
 
         Uses the constructor `region` `GeoDataFrame` (converted via
-        :func:`earthlens.gee.features.createFeature`) when given,
+        :func:`earthlens.gee.features.create_feature`) when given,
         otherwise an `ee.Geometry.Rectangle` built from the lat/lon
         bbox. Computed once and cached.
 
@@ -638,7 +638,7 @@ class GEE(AbstractDataSource):
         """
         if self._ee_geometry is None:
             if self.region is not None:
-                self._ee_geometry = createFeature(self.region).geometry()
+                self._ee_geometry = create_feature(self.region).geometry()
             else:
                 self._ee_geometry = ee.Geometry.Rectangle(
                     [

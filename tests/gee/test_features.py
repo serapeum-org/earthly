@@ -14,7 +14,7 @@ import pytest
 from shapely.geometry import LineString, MultiPoint, MultiPolygon, Point, Polygon
 
 from earthlens.gee import features as features_module
-from earthlens.gee.features import createFeature, createGeometry
+from earthlens.gee.features import create_feature, create_geometry
 
 _SQUARE = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
 _SQUARE_2 = Polygon([(2, 2), (3, 2), (3, 3), (2, 3)])
@@ -66,38 +66,38 @@ def fake_ee(monkeypatch):
 
 
 class TestCreateGeometry:
-    """Tests for `createGeometry`."""
+    """Tests for `create_geometry`."""
 
     def test_polygon(self, fake_ee):
         """A Shapely `Polygon` becomes an `ee.Geometry.Polygon` with the EPSG."""
-        geom = createGeometry(_SQUARE)
+        geom = create_geometry(_SQUARE)
         assert geom.kind == "Polygon"
         assert geom.crs == "epsg:4326"
         assert geom.coords == _SQUARE.__geo_interface__["coordinates"]
 
     def test_polygon_custom_epsg(self, fake_ee):
         """A non-default `epsg` is forwarded to `ee.Geometry.Polygon`."""
-        assert createGeometry(_SQUARE, epsg=3857).crs == "epsg:3857"
+        assert create_geometry(_SQUARE, epsg=3857).crs == "epsg:3857"
 
     def test_point(self, fake_ee):
         """A Shapely `Point` becomes an `ee.Geometry.Point`."""
-        geom = createGeometry(Point(3, 4))
+        geom = create_geometry(Point(3, 4))
         assert geom.kind == "Point"
         assert geom.coords == Point(3, 4).__geo_interface__["coordinates"]
 
     def test_linestring_not_implemented(self, fake_ee):
         """A `LineString` raises `NotImplementedError` (not yet supported)."""
         with pytest.raises(NotImplementedError, match="LineString geometries"):
-            createGeometry(LineString([(0, 0), (1, 1)]))
+            create_geometry(LineString([(0, 0), (1, 1)]))
 
     def test_unsupported_type_raises_not_implemented(self, fake_ee):
         """An unsupported geometry type (e.g. `MultiPolygon`) raises `NotImplementedError`."""
         with pytest.raises(NotImplementedError, match="MultiPolygon geometries"):
-            createGeometry(MultiPolygon([_SQUARE, _SQUARE_2]))
+            create_geometry(MultiPolygon([_SQUARE, _SQUARE_2]))
 
 
 class TestCreateFeature:
-    """Tests for `createFeature`."""
+    """Tests for `create_feature`."""
 
     def test_polygons_with_properties(self, fake_ee):
         """Each row becomes an `ee.Feature(geometry, {col: value, ...})`."""
@@ -105,7 +105,7 @@ class TestCreateFeature:
             {"name": ["a", "b"], "value": [1, 2], "geometry": [_SQUARE, _SQUARE_2]},
             crs="EPSG:4326",
         )
-        fc = createFeature(gdf)
+        fc = create_feature(gdf)
         assert isinstance(fc, _FakeFeatureCollection)
         assert len(fc.features) == 2
         assert fc.features[0].properties == {"name": "a", "value": 1}
@@ -116,13 +116,13 @@ class TestCreateFeature:
         gdf = gpd.GeoDataFrame(
             {"name": ["a"], "value": [1], "geometry": [_SQUARE]}, crs="EPSG:4326"
         )
-        fc = createFeature(gdf, columns=["name"])
+        fc = create_feature(gdf, columns=["name"])
         assert fc.features[0].properties == {"name": "a"}
 
     def test_no_columns_yields_features_without_properties(self, fake_ee):
         """A geometry-only GeoDataFrame yields features with no properties."""
         gdf = gpd.GeoDataFrame({"geometry": [_SQUARE, _SQUARE_2]}, crs="EPSG:4326")
-        fc = createFeature(gdf)
+        fc = create_feature(gdf)
         assert len(fc.features) == 2
         assert all(f.properties is None for f in fc.features)
 
@@ -132,7 +132,7 @@ class TestCreateFeature:
             {"name": ["both"], "geometry": [MultiPolygon([_SQUARE, _SQUARE_2])]},
             crs="EPSG:4326",
         )
-        fc = createFeature(gdf)
+        fc = create_feature(gdf)
         assert len(fc.features) == 2
         assert all(g.kind == "Polygon" for g in (f.geometry for f in fc.features))
 
@@ -142,7 +142,7 @@ class TestCreateFeature:
             {"geometry": [LineString([(0, 0), (1, 1)])]}, crs="EPSG:4326"
         )
         with pytest.raises(ValueError):
-            createFeature(gdf)
+            create_feature(gdf)
 
     def test_unsupported_geometry_raises_locally(self, fake_ee):
         """`MultiPoint` (and other unsupported types) raise locally, not at EE (M2)."""
@@ -154,4 +154,4 @@ class TestCreateFeature:
             crs="EPSG:4326",
         )
         with pytest.raises(ValueError, match="row 1 .MultiPoint."):
-            createFeature(gdf)
+            create_feature(gdf)

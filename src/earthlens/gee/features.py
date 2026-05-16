@@ -19,7 +19,7 @@ from geopandas.geodataframe import GeoDataFrame
 from shapely.geometry import LineString, Point, Polygon
 
 
-def createGeometry(  # noqa: N802 - established public name
+def create_geometry(
     shapely_geometry: Polygon | Point | LineString,
     epsg: int = 4326,
 ) -> Geometry:
@@ -41,16 +41,16 @@ def createGeometry(  # noqa: N802 - established public name
         NotImplementedError: If `shapely_geometry` is any geometry type
             other than `Polygon` or `Point` (e.g. `LineString`,
             `MultiPoint`, `GeometryCollection`). Use
-            :func:`createFeature` for `MultiPolygon` inputs — it
+            :func:`create_feature` for `MultiPolygon` inputs — it
             explodes them into per-polygon rows before calling this.
 
     Examples:
         - Convert a unit-square polygon (needs the `ee` SDK initialised):
             ```python
             >>> from shapely.geometry import Polygon
-            >>> from earthlens.gee.features import createGeometry
+            >>> from earthlens.gee.features import create_geometry
             >>> square = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
-            >>> geom = createGeometry(square)  # doctest: +SKIP
+            >>> geom = create_geometry(square)  # doctest: +SKIP
 
             ```
         - The GeoJSON coordinates that get handed to Earth Engine:
@@ -63,8 +63,8 @@ def createGeometry(  # noqa: N802 - established public name
         - A `LineString` is rejected:
             ```python
             >>> from shapely.geometry import LineString
-            >>> from earthlens.gee.features import createGeometry
-            >>> createGeometry(LineString([(0, 0), (1, 1)]))
+            >>> from earthlens.gee.features import create_geometry
+            >>> create_geometry(LineString([(0, 0), (1, 1)]))
             Traceback (most recent call last):
                 ...
             NotImplementedError: LineString geometries are not yet supported by the GEE backend.
@@ -72,7 +72,7 @@ def createGeometry(  # noqa: N802 - established public name
             ```
 
     See Also:
-        createFeature: Builds an `ee.FeatureCollection` from a
+        create_feature: Builds an `ee.FeatureCollection` from a
             `GeoDataFrame`, calling this for each row's geometry.
     """
     coords = shapely_geometry.__geo_interface__["coordinates"]
@@ -88,17 +88,17 @@ def createGeometry(  # noqa: N802 - established public name
     raise NotImplementedError(
         f"{geom_type} geometries are not supported by the GEE backend; "
         "only Polygon and Point are accepted (MultiPolygon is auto-exploded "
-        "by createFeature)."
+        "by create_feature)."
     )
 
 
-def createFeature(  # noqa: N802 - established public name
+def create_feature(
     gdf: GeoDataFrame, columns: list[str] | None = None
 ) -> FeatureCollection:
     """Build an `ee.FeatureCollection` from a `GeoDataFrame`.
 
     Each row becomes an `ee.Feature` whose geometry is the converted
-    Shapely geometry (via :func:`createGeometry`) and whose properties
+    Shapely geometry (via :func:`create_geometry`) and whose properties
     are that row's non-geometry columns (optionally narrowed to
     `columns`). A row holding a `MultiPolygon` is exploded into one
     feature per constituent polygon.
@@ -117,7 +117,7 @@ def createFeature(  # noqa: N802 - established public name
 
     Raises:
         ValueError: If any row's geometry cannot be converted via
-            :func:`createGeometry` (e.g. a `LineString`).
+            :func:`create_geometry` (e.g. a `LineString`).
         KeyError: If `gdf` has no `geometry` column, or if any of the
             requested `columns` is missing from `gdf`.
         Other exceptions raised by `pandas` / `geopandas` /
@@ -130,32 +130,32 @@ def createFeature(  # noqa: N802 - established public name
             ```python
             >>> import geopandas as gpd
             >>> from shapely.geometry import Polygon
-            >>> from earthlens.gee.features import createFeature
+            >>> from earthlens.gee.features import create_feature
             >>> gdf = gpd.GeoDataFrame(
             ...     {"name": ["a", "b"],
             ...      "geometry": [Polygon([(0, 0), (1, 0), (1, 1)]),
             ...                   Polygon([(2, 2), (3, 2), (3, 3)])]},
             ...     crs="EPSG:4326",
             ... )
-            >>> fc = createFeature(gdf)  # doctest: +SKIP
+            >>> fc = create_feature(gdf)  # doctest: +SKIP
 
             ```
         - Restricting which columns become properties:
             ```python
             >>> import geopandas as gpd
             >>> from shapely.geometry import Polygon
-            >>> from earthlens.gee.features import createFeature
+            >>> from earthlens.gee.features import create_feature
             >>> gdf = gpd.GeoDataFrame(
             ...     {"name": ["a"], "value": [1],
             ...      "geometry": [Polygon([(0, 0), (1, 0), (1, 1)])]},
             ...     crs="EPSG:4326",
             ... )
-            >>> fc = createFeature(gdf, columns=["name"])  # doctest: +SKIP
+            >>> fc = create_feature(gdf, columns=["name"])  # doctest: +SKIP
 
             ```
 
     See Also:
-        createGeometry: Converts a single Shapely geometry; called per row.
+        create_geometry: Converts a single Shapely geometry; called per row.
     """
     geotype = [i.geom_type for i in gdf["geometry"]]
     # if any is "MultiPolygon" explode the dataframe to single polygons
@@ -170,10 +170,10 @@ def createFeature(  # noqa: N802 - established public name
     ee_geom_list: list[Geometry] = []
     for i, geom in enumerate(gdf.geometry):
         try:
-            ee_geom_list.append(createGeometry(geom))
+            ee_geom_list.append(create_geometry(geom))
         except NotImplementedError as exc:
             raise ValueError(
-                f"createFeature cannot convert row {i} "
+                f"create_feature cannot convert row {i} "
                 f"({geom.geom_type}): {exc}"
             ) from exc
     records_df = pd.DataFrame(gdf.drop("geometry", axis=1))

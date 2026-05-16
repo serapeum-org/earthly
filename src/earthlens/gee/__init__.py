@@ -30,7 +30,7 @@ Public surface (re-exported from this package):
   YAML file.
 * :class:`EarthEngineAuth` — the low-level service-account auth helper
   (`ee.Initialize` against a registered project; base64 key encode/decode).
-* :func:`createGeometry` / :func:`createFeature` — Shapely /
+* :func:`create_geometry` / :func:`create_feature` — Shapely /
   `GeoDataFrame` → `ee.Geometry` / `ee.FeatureCollection` converters.
 
 The Earth Engine SDK (`earthengine-api`, the `[gee]` extra) is imported
@@ -69,7 +69,7 @@ from earthlens.gee.catalog import (
     Extent,
     Provider,
 )
-from earthlens.gee.features import createFeature, createGeometry
+from earthlens.gee.features import create_feature, create_geometry
 
 __all__ = [
     "GEE",
@@ -83,6 +83,6 @@ __all__ = [
     "CATALOG_PATH",
     "PROVIDERS_PATH",
     "EarthEngineAuth",
-    "createGeometry",
-    "createFeature",
+    "create_geometry",
+    "create_feature",
 ]

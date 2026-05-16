@@ -15,14 +15,14 @@ from earthlens.gee import (
     Catalog,
     Dataset,
     EarthEngineAuth,
-    createFeature,
-    createGeometry,
+    create_feature,
+    create_geometry,
 )
 
 _EXPECTED_EXPORTS = {
     "GEE", "AuthenticationError", "Catalog", "Dataset", "Band", "Cadence",
     "Extent", "Provider", "CATALOG_PATH", "PROVIDERS_PATH", "EarthEngineAuth",
-    "createGeometry", "createFeature",
+    "create_geometry", "create_feature",
 }
 
 
@@ -51,9 +51,9 @@ class TestPublicSurface:
         assert (CATALOG_PATH / "_index.yaml").is_file()
 
     def test_feature_helpers_are_callable(self):
-        """`createGeometry` / `createFeature` are importable callables."""
-        assert callable(createGeometry) and createGeometry.__name__ == "createGeometry"
-        assert callable(createFeature) and createFeature.__name__ == "createFeature"
+        """`create_geometry` / `create_feature` are importable callables."""
+        assert callable(create_geometry) and create_geometry.__name__ == "create_geometry"
+        assert callable(create_feature) and create_feature.__name__ == "create_feature"
 
     def test_catalog_usable_from_package_root(self):
         """`Catalog` works when imported from `earthlens.gee` directly."""
