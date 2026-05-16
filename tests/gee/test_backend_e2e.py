@@ -32,13 +32,7 @@ _skip_without_creds = pytest.mark.skipif(
 
 @_skip_without_creds
 def test_live_srtm_download(tmp_path):
-    """Download one tiny SRTM tile from Earth Engine via the facade.
-
-    Test scenario:
-        `EarthLens(data_source="gee", ...)` for `USGS/SRTMGL1_003`
-        `["elevation"]` over a ~0.05° box at 90 m must write a single
-        non-empty GeoTIFF that opens as a 1-band raster.
-    """
+    """Download one tiny SRTM tile from Earth Engine via the facade."""
     el = EarthLens(
         data_source="gee",
         start="2000-02-11",

@@ -30,23 +30,13 @@ class TestPublicSurface:
     """Tests for the names re-exported from `earthlens.gee`."""
 
     def test_all_lists_the_expected_names(self):
-        """`__all__` is exactly the documented public surface.
-
-        Test scenario:
-            `set(earthlens.gee.__all__)` equals the expected set.
-        """
+        """`__all__` is exactly the documented public surface."""
         assert set(gee_pkg.__all__) == _EXPECTED_EXPORTS, (
             f"__all__ mismatch: {set(gee_pkg.__all__) ^ _EXPECTED_EXPORTS}"
         )
 
     def test_classes_resolve_to_their_modules(self):
-        """The re-exported classes are the canonical ones from their submodules.
-
-        Test scenario:
-            `GEE` is `backend.GEE`, `Catalog`/`Dataset`/`Band`/`Cadence`/`Extent`
-            are from `catalog`, `EarthEngineAuth`/`AuthenticationError` from
-            `auth` — checked via `__module__`.
-        """
+        """The re-exported classes are the canonical ones from their submodules."""
         assert GEE.__module__ == "earthlens.gee.backend"
         assert AuthenticationError.__module__ == "earthlens.gee.auth"
         assert EarthEngineAuth.__module__ == "earthlens.gee.auth"
@@ -61,28 +51,15 @@ class TestPublicSurface:
         assert (CATALOG_PATH / "_index.yaml").is_file()
 
     def test_feature_helpers_are_callable(self):
-        """`createGeometry` / `createFeature` are importable callables.
-
-        Test scenario:
-            Both are functions exported at the package level.
-        """
+        """`createGeometry` / `createFeature` are importable callables."""
         assert callable(createGeometry) and createGeometry.__name__ == "createGeometry"
         assert callable(createFeature) and createFeature.__name__ == "createFeature"
 
     def test_catalog_usable_from_package_root(self):
-        """`Catalog` works when imported from `earthlens.gee` directly.
-
-        Test scenario:
-            `Catalog().get_dataset("USGS/SRTMGL1_003").title` is the SRTM title
-            (the same network-free lookup the module docstring's doctest does).
-        """
+        """`Catalog` works when imported from `earthlens.gee` directly."""
         assert Catalog().get_dataset("USGS/SRTMGL1_003").title == "NASA SRTM Digital Elevation 30m"
 
     def test_module_has_a_docstring(self):
-        """The package has a module docstring describing the backend.
-
-        Test scenario:
-            `earthlens.gee.__doc__` is non-empty and mentions Earth Engine.
-        """
+        """The package has a module docstring describing the backend."""
         doc = importlib.import_module("earthlens.gee").__doc__ or ""
         assert "Earth Engine" in doc and len(doc) > 100

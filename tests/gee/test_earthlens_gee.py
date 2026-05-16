@@ -54,12 +54,7 @@ class TestRegistry:
     """Tests for the `"gee"` / `"google-earth-engine"` registry entries."""
 
     def test_keys_present(self):
-        """Both GEE keys are registered alongside the other backends.
-
-        Test scenario:
-            `"gee"` and `"google-earth-engine"` are in `EarthLens.DataSources`,
-            and `sorted(...)` lists them with chirps/amazon-s3/ecmwf.
-        """
+        """Both GEE keys are registered alongside the other backends."""
         assert "gee" in EarthLens.DataSources
         assert "google-earth-engine" in EarthLens.DataSources
         assert sorted(EarthLens.DataSources) == [
@@ -67,12 +62,7 @@ class TestRegistry:
         ]
 
     def test_keys_resolve_to_gee_class(self):
-        """Both keys resolve to `earthlens.gee.GEE`.
-
-        Test scenario:
-            Indexing the registry returns the same `GEE` class for both
-            the canonical key and the alias.
-        """
+        """Both keys resolve to `earthlens.gee.GEE`."""
         assert EarthLens.DataSources["gee"] is earthlens.gee.GEE
         assert EarthLens.DataSources["google-earth-engine"] is earthlens.gee.GEE
         assert EarthLens.DataSources["gee"].__name__ == "GEE"
@@ -82,13 +72,7 @@ class TestFacadeConstruction:
     """Tests for `EarthLens(data_source="gee", ...)`."""
 
     def test_constructs_backend_with_standard_args(self, fake_gee):
-        """The facade builds the `GEE` backend with the standard arguments.
-
-        Test scenario:
-            `EarthLens(data_source="gee", ...)` calls `GEE(...)` once with
-            `start`/`end`/`variables`/`lat_lim`/`lon_lim`/`temporal_resolution`/
-            `path`/`fmt`, and binds the result to `datasource`.
-        """
+        """The facade builds the `GEE` backend with the standard arguments."""
         el = EarthLens(**_gee_kwargs())
         fake_gee.assert_called_once()
         kwargs = fake_gee.call_args.kwargs
@@ -100,13 +84,7 @@ class TestFacadeConstruction:
         assert el.datasource is fake_gee.return_value
 
     def test_forwards_backend_kwargs(self, fake_gee):
-        """GEE-specific keyword arguments are forwarded verbatim to `GEE(...)`.
-
-        Test scenario:
-            `service_account` / `service_key` / `project` / `scale` / `crs` /
-            `reducer` / `export_via` / `drive_folder` / `gcs_bucket` / `region`
-            all appear in the `GEE` constructor call.
-        """
+        """GEE-specific keyword arguments are forwarded verbatim to `GEE(...)`."""
         extra = dict(
             service_account="sa@x.iam", service_key="key.json", project="p",
             scale=90, crs="EPSG:3857", reducer="median", export_via="drive",
@@ -118,21 +96,12 @@ class TestFacadeConstruction:
             assert kwargs.get(name) == value, f"{name} not forwarded: {kwargs.get(name)!r}"
 
     def test_alias_builds_same_backend(self, fake_gee):
-        """`data_source="google-earth-engine"` constructs the `GEE` backend too.
-
-        Test scenario:
-            Using the alias instantiates the same mock class.
-        """
+        """`data_source="google-earth-engine"` constructs the `GEE` backend too."""
         EarthLens(**_gee_kwargs(data_source="google-earth-engine"))
         fake_gee.assert_called_once()
 
     def test_default_bbox_when_omitted(self, fake_gee):
-        """Omitting `lat_lim` / `lon_lim` passes the whole-Earth defaults.
-
-        Test scenario:
-            `EarthLens(data_source="gee", variables=...)` with no bbox →
-            `GEE(..., lat_lim=[-90, 90], lon_lim=[-180, 180])`.
-        """
+        """Omitting `lat_lim` / `lon_lim` passes the whole-Earth defaults."""
         params = _gee_kwargs()
         params.pop("lat_lim")
         params.pop("lon_lim")
@@ -142,11 +111,7 @@ class TestFacadeConstruction:
         assert kwargs["lon_lim"] == [-180, 180]
 
     def test_unknown_data_source_raises_value_error(self):
-        """An unknown `data_source` is rejected before any backend import.
-
-        Test scenario:
-            `EarthLens(variables=[], data_source="nope")` → `ValueError`.
-        """
+        """An unknown `data_source` is rejected before any backend import."""
         with pytest.raises(ValueError, match="nope not supported"):
             EarthLens(variables=[], data_source="nope")
 
@@ -155,23 +120,13 @@ class TestFacadeDownloadDelegation:
     """Tests for `EarthLens.download` routing to the GEE backend."""
 
     def test_download_delegates(self, fake_gee):
-        """`download()` is forwarded to the bound backend.
-
-        Test scenario:
-            `EarthLens(data_source="gee", ...).download(progress_bar=False)` →
-            `GEE(...).download(progress_bar=False)`.
-        """
+        """`download()` is forwarded to the bound backend."""
         el = EarthLens(**_gee_kwargs())
         el.download(progress_bar=False)
         fake_gee.return_value.download.assert_called_once_with(progress_bar=False)
 
     def test_download_forwards_aggregate(self, fake_gee):
-        """A non-`None` `aggregate=` is forwarded as a keyword.
-
-        Test scenario:
-            `download(aggregate=<sentinel>)` reaches the backend as
-            `download(progress_bar=..., aggregate=<sentinel>)`.
-        """
+        """A non-`None` `aggregate=` is forwarded as a keyword."""
         sentinel = object()
         el = EarthLens(**_gee_kwargs())
         el.download(progress_bar=False, aggregate=sentinel)
@@ -183,13 +138,7 @@ class TestMissingExtra:
     """Tests for the friendly error when the `[gee]` SDK is not installed."""
 
     def test_missing_earthengine_api_raises_friendly_importerror(self, monkeypatch):
-        """A missing `earthengine-api` surfaces as a `pip install` hint.
-
-        Test scenario:
-            With `importlib.import_module("earthlens.gee")` made to raise
-            `ImportError`, `EarthLens(data_source="gee", ...)` raises an
-            `ImportError` naming the backend and the `earthlens[gee]` extra.
-        """
+        """A missing `earthengine-api` surfaces as a `pip install` hint."""
         real_import = importlib.import_module
 
         def fake_import(name, *args, **kwargs):
