@@ -528,7 +528,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Use of this data is subject to [MethaneSAT''s Content License Terms of'
-    user_uploaded: true
+    source: republished
     bands:
       XCH4:
         description: Retrieved column-averaged dry-air CH4 mole fraction.
@@ -562,7 +562,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Use of this data is subject to [MethaneSAT''s Content License Terms of'
-    user_uploaded: true
+    source: republished
     bands:
       flux:
         description: Methane emissions traceable to a 1km^2 area.
@@ -581,7 +581,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Use of this data is subject to [MethaneSAT''s Content License Terms of'
-    user_uploaded: true
+    source: republished
     bands:
 
   EDF/MethaneSAT/MethaneAIR/methaneair-L4area-2021:
@@ -596,7 +596,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Use of this data is subject to [MethaneSAT''s Content License Terms of'
-    user_uploaded: true
+    source: republished
     bands:
       flux:
         description: Methane emissions traceable to a 1km^2 area.
@@ -615,7 +615,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Use of this data is subject to [MethaneSAT''s Content License Terms of'
-    user_uploaded: true
+    source: republished
     bands:
 
   MODIS/006/MCD19A2_GRANULES:

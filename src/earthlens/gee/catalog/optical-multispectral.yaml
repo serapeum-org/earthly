@@ -1476,7 +1476,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'The user must ensure that the source note contains the following'
-    user_uploaded: true
+    source: republished
     bands:
       "N":
         description: Near infrared

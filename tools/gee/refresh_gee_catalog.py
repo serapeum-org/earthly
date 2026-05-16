@@ -199,7 +199,7 @@ def stanza_for(asset_id: str) -> str:
     if doc.get("gee:terms_of_use"):
         lines.append(f"    terms: {_yaml_str(_first_line(doc['gee:terms_of_use']) or '')}")
     if doc.get("gee:user_uploaded"):
-        lines.append("    user_uploaded: true")
+        lines.append("    source: republished")
     lines.append("    bands:")
     for band in eo_bands:
         lines.append(f"      {band.get('name')}:")
@@ -452,7 +452,7 @@ def minimal_stanza(asset_id: str) -> str:
         f"{indent}  end_date: null\n"
         f"{indent}default_reducer: {reducer}\n"
         f"{indent}terms: {terms}\n"
-        f"{indent}user_uploaded: true\n"
+        f"{indent}source: community\n"
         f"{indent}bands: {{}}\n"
     )
 

@@ -211,7 +211,7 @@ datasets:
       end_date: "2006-01-24"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: ALOS-derived CHILI index (0=very cool ... 255=very warm)
@@ -228,7 +228,7 @@ datasets:
       end_date: "2006-01-24"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: ALOS-derived landform classes
@@ -243,7 +243,7 @@ datasets:
       end_date: "2006-01-24"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       AVE:
         description: ALOS-derived mTPI (negative=valleys, positive=ridges)
@@ -259,7 +259,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: ALOS-derived topographic diversity
@@ -276,7 +276,7 @@ datasets:
       end_date: "2006-01-24"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: SRTM-derived CHILI index (0=very cool ... 255=very warm)
@@ -293,7 +293,7 @@ datasets:
       end_date: "2006-01-24"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: SRTM-derived landform class
@@ -308,7 +308,7 @@ datasets:
       end_date: "2006-01-24"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       elevation:
         description: SRTM-derived mTPI (negative=valleys, positive=ridges)
@@ -324,7 +324,7 @@ datasets:
       end_date: "2006-01-24"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: SRTM-derived topographic-diversity index
@@ -340,7 +340,7 @@ datasets:
       bbox: [-132.09, 12.54, -60.35, 56.21]
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: NED-derived CHILI index (0=very cool ... 255=very warm)
@@ -358,7 +358,7 @@ datasets:
       bbox: [-132.09, 12.54, -60.35, 56.21]
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: NED-derived landform classes
@@ -374,7 +374,7 @@ datasets:
       bbox: [-132.09, 12.54, -60.35, 56.21]
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b1:
         description: Lithology classes
@@ -390,7 +390,7 @@ datasets:
       bbox: [-132.09, 12.54, -60.35, 56.21]
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       elevation:
         description: NED-derived mTPI (negative=valleys, positive=ridges)
@@ -407,7 +407,7 @@ datasets:
       bbox: [-132.09, 12.54, -60.35, 56.21]
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b1:
         description: Physiographic diversity
@@ -425,7 +425,7 @@ datasets:
       bbox: [-132.09, 12.54, -60.35, 56.21]
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: Landforms and lithology intersection
@@ -443,7 +443,7 @@ datasets:
       bbox: [-132.09, 12.54, -60.35, 56.21]
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       constant:
         description: NED-derived topographic diversity
@@ -816,7 +816,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'This dataset is in the public domain and is available'
-    user_uploaded: true
+    source: republished
     bands:
       shots_count:
         description: The number of shots. For a shot to be counted in this layer the
@@ -839,7 +839,7 @@ datasets:
       bbox: [-180, -52, 180, 52]
     default_reducer: mean
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       shots_count:
         description: Number of GEDI shots contributing to the pixel
@@ -862,7 +862,7 @@ datasets:
       bbox: [-180, -52, 180, 52]
     default_reducer: mean
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       shots_count:
         description: Number of GEDI shots contributing to the pixel
@@ -885,7 +885,7 @@ datasets:
       bbox: [-180, -52, 180, 52]
     default_reducer: mean
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       mean:
         description: Mean of GEDI shot-metric values within the pixel
@@ -914,7 +914,7 @@ datasets:
       bbox: [-180, -52, 180, 52]
     default_reducer: mean
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       mean:
         description: Mean of GEDI shot-metric values within the pixel
@@ -945,7 +945,7 @@ datasets:
       bbox: [-180, -52, 180, 52]
     default_reducer: mean
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       mean:
         description: Mean of GEDI shot-metric values within the pixel
@@ -974,7 +974,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free with citation (Yamazaki et al., 2017).'
-    user_uploaded: true
+    source: republished
     bands:
       dem:
         description: Elevation referenced to the EGM96 geoid
@@ -991,7 +991,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free with citation (Yamazaki et al., 2019).'
-    user_uploaded: true
+    source: republished
     bands:
       elv:
         description: Elevation (referenced to EGM96 geoid)
@@ -1023,7 +1023,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Citation to the paper is adequate if you simply use MERIT Hydro. If you'
-    user_uploaded: true
+    source: republished
     bands:
       wth:
         description: River channel width at the channel centerlines. River channel width is
@@ -1460,7 +1460,7 @@ datasets:
       bbox: [-171, -16.6, 164, 76.9]
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       elevation:
         description: Bare-earth elevation
@@ -1478,7 +1478,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'Most U.S. Geological Survey (USGS) information resides'
-    user_uploaded: true
+    source: republished
     bands:
       elevation:
         description: Elevation
@@ -1495,7 +1495,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'Most U.S. Geological Survey (USGS) information resides'
-    user_uploaded: true
+    source: republished
     bands:
 
   USGS/3DEP/1m:

@@ -113,7 +113,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       basic_demographic_characteristics:
         description: Estimated number of persons by age and sex per 30 arc-second cell
@@ -129,7 +129,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       data_context:
         description: Categorizes pixels with estimated zero population based on
@@ -146,7 +146,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       land_area:
         description: Land area within each 30 arc-second cell
@@ -162,7 +162,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_administrative_unit_area:
         description: Displays a quantitative surface that indicates the size of the
@@ -179,7 +179,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       national_identifier_grid:
         description: An integer that represents the census data source used
@@ -197,7 +197,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       population_count:
         description: Estimated population per 30 arc-second grid cell
@@ -215,7 +215,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       population_density:
         description: Estimated population per square kilometre
@@ -232,7 +232,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       unwpp-adjusted_population_count:
         description: Population count adjusted to UN WPP country totals (per 30 arc-second cell)
@@ -250,7 +250,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       unwpp-adjusted_population_density:
         description: Population density adjusted to UN WPP country totals
@@ -267,7 +267,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       water_area:
         description: Water area within each 30 arc-second cell
@@ -283,7 +283,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       water_mask:
         description: Water-class enum (0=land ... 3=water)
@@ -302,7 +302,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (CSIRO).'
-    user_uploaded: true
+    source: republished
     bands:
       AWC_000_005_EV:
         description: Available water capacity (0-5 cm, expected value)
@@ -356,7 +356,7 @@ datasets:
       bbox: [-110.3, 31.4, -103.1, 40.6]
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   EDF/OGIM/current:
@@ -368,7 +368,7 @@ datasets:
       end_date: "2024-05-15"
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   EPA/Ecoregions/2013/L3:
@@ -476,7 +476,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-NC-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   GOOGLE/Research/open-buildings-temporal/v1:
@@ -489,7 +489,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       building_fractional_count:
         description: Source data for deriving building counts for a given AOI. Please see
@@ -514,7 +514,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   GOOGLE/Research/open-buildings/v2/polygons:
@@ -526,7 +526,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   GOOGLE/Research/open-buildings/v3/polygons:
@@ -538,7 +538,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL:
@@ -884,7 +884,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Aluminium, extractable, predicted mean at 0-20 cm depth
@@ -918,7 +918,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_200:
         description: Depth to bedrock, predicted mean at 0-200 cm depth
@@ -942,7 +942,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Bulk density, <2mm fraction, predicted mean at 0-20 cm depth
@@ -976,7 +976,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Calcium, extractable, predicted mean at 0-20 cm depth
@@ -1010,7 +1010,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Carbon, organic, predicted mean at 0-20 cm depth
@@ -1044,7 +1044,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Carbon, total, predicted mean at 0-20 cm depth
@@ -1078,7 +1078,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Effective Cation Exchange Capacity, predicted mean at 0-20 cm depth
@@ -1112,7 +1112,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Clay content, predicted mean at 0-20 cm depth
@@ -1146,7 +1146,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       fcc:
         description: Fertility Capability Classification.
@@ -1164,7 +1164,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Iron, extractable, predicted mean at 0-20 cm depth
@@ -1198,7 +1198,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Magnesium, extractable, predicted mean at 0-20 cm depth
@@ -1232,7 +1232,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Nitrogen, total, predicted mean at 0-20 cm depth
@@ -1266,7 +1266,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: pH, predicted mean at 0-20 cm depth
@@ -1296,7 +1296,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Phosphorus, extractable, predicted mean at 0-20 cm depth
@@ -1330,7 +1330,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Potassium, extractable, predicted mean at 0-20 cm depth
@@ -1364,7 +1364,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Sand content, predicted mean at 0-20 cm depth
@@ -1398,7 +1398,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Silt content, predicted mean at 0-20 cm depth
@@ -1432,7 +1432,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Stone content, predicted mean at 0-20 cm depth
@@ -1466,7 +1466,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Sulfur, extractable, predicted mean at 0-20 cm depth
@@ -1500,7 +1500,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       texture_0_20:
         description: USDA Texture Class at 0-20 cm depth
@@ -1518,7 +1518,7 @@ datasets:
       bbox: [-31.46, -35.22, 57.08, 37.98]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       mean_0_20:
         description: Zinc, extractable, predicted mean at 0-20 cm depth
@@ -1594,7 +1594,7 @@ datasets:
       bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   JRC/LUCAS_HARMO/THLOC/V1:
@@ -1607,7 +1607,7 @@ datasets:
       bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   NOAA/IBTrACS/v4:
@@ -1659,7 +1659,7 @@ datasets:
       end_date: "2018-12-31"
     default_reducer: mosaic
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b0:
         description: Fine-earth bulk density at 0 cm depth
@@ -1696,7 +1696,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b0:
         description: Clay content at 0 cm depth
@@ -1739,7 +1739,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       grtgroup:
         description: Predicted Hapludalfs probability
@@ -1757,7 +1757,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       grtgroup:
         description: USDA soil taxonomy great groups
@@ -1772,7 +1772,7 @@ datasets:
       end_date: "2018-12-31"
     default_reducer: mosaic
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b0:
         description: Soil organic carbon content at 0 cm depth
@@ -1809,7 +1809,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b0:
         description: Soil pH in H2O at 0 cm depth
@@ -1852,7 +1852,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b0:
         description: Sand content at 0 cm depth
@@ -1895,7 +1895,7 @@ datasets:
       end_date: "2018-12-31"
     default_reducer: mosaic
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b0:
         description: USDA soil-texture class at 0 cm depth
@@ -1920,7 +1920,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b0:
         description: Soil water content at 33kPa (field capacity) at 0 cm depth
@@ -2370,7 +2370,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       population:
         description: Total residents per ~100m grid cell
@@ -2402,7 +2402,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       population:
         description: Total residents per ~100m grid cell (constrained, unadjusted)

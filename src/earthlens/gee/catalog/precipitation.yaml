@@ -14,7 +14,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       SPEI_01_month:
         description: SPEI accumulated over 1 month
@@ -322,7 +322,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       jan:
         description: Jan Precipitation monthly

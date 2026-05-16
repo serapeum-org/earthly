@@ -13,7 +13,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under EDF MethaneSAT terms.'
-    user_uploaded: true
+    source: community
     bands:
       XCH4:
       albedo:
@@ -29,7 +29,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under EDF MethaneSAT terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/edf-methanesat-ee/assets/public-preview/L3concentration:
@@ -42,7 +42,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under EDF MethaneSAT terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/edf-methanesat-ee/assets/public-preview/L4area:
@@ -55,7 +55,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under EDF MethaneSAT terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/edf-methanesat-ee/assets/public-preview/L4area_v2:
@@ -68,7 +68,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under EDF MethaneSAT terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/edf-methanesat-ee/assets/public-preview/L4point:
@@ -81,7 +81,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under EDF MethaneSAT terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/ee-kbas-in-gee/assets/current:
@@ -94,7 +94,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under KBAs terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/ee-pkurelab/assets/LHScat:
@@ -107,7 +107,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use with citation (PKU REL).'
-    user_uploaded: true
+    source: community
     bands:
       radar_signals:
   projects/ee-pkurelab/assets/LHScatQC:
@@ -120,7 +120,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use with citation (PKU REL).'
-    user_uploaded: true
+    source: community
     bands:
       Pearsonr:
       RMSE:
@@ -134,7 +134,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/cocoa/model_2025a:
@@ -147,7 +147,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/cocoa/model_2025b:
@@ -160,7 +160,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/coffee/model_2025a:
@@ -173,7 +173,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/coffee/model_2025b:
@@ -186,7 +186,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/community_forests/ForestPersistence_2020:
@@ -199,7 +199,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       value:
   projects/forestdatapartnership/assets/community_palm/20240312:
@@ -212,7 +212,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/palm/model_2024a:
@@ -225,7 +225,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/palm/model_2025a:
@@ -238,7 +238,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/palm/model_2025b:
@@ -251,7 +251,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/rubber/model_2024a:
@@ -264,7 +264,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/rubber/model_2025a:
@@ -277,7 +277,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/forestdatapartnership/assets/rubber/model_2025b:
@@ -290,7 +290,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use under the Forest Data Partnership terms.'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/gcp-public-data-weathernext/assets/126478713_1_0:
@@ -303,7 +303,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under Google Cloud public-data terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/gcp-public-data-weathernext/assets/59572747_4_0:
@@ -316,7 +316,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under Google Cloud public-data terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/gcp-public-data-weathernext/assets/weathernext_2_0_0:
@@ -329,7 +329,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under Google Cloud public-data terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/gcp-public-data-weathernext/assets/weathernext_2_0_0_mean:
@@ -342,7 +342,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under Google Cloud public-data terms.'
-    user_uploaded: true
+    source: community
     bands: {}
 
   projects/gcpm041u-lemur/assets/scanfi_v12/SCANFI_v1_2:
@@ -355,7 +355,7 @@ datasets:
     default_reducer: mosaic
     license: unknown
     terms_note: 'Free for use with citation.'
-    user_uploaded: true
+    source: community
     bands:
       biomass:
       closure:
@@ -382,7 +382,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (Global Pasture Watch).'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/global-pasture-watch/assets/ggc-30m/v1/grassland_c:
@@ -395,7 +395,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (Global Pasture Watch).'
-    user_uploaded: true
+    source: community
     bands:
       dominant_class:
   projects/global-pasture-watch/assets/ggc-30m/v1/nat-semi-grassland_p:
@@ -408,7 +408,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (Global Pasture Watch).'
-    user_uploaded: true
+    source: community
     bands:
       probability:
   projects/global-pasture-watch/assets/ggpp-30m/v1/ugpp_m:
@@ -421,7 +421,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use (Global Pasture Watch).'
-    user_uploaded: true
+    source: community
     bands:
       gc_m2:
   projects/global-pasture-watch/assets/gsvh-30m/v1/short-veg-height_m:
@@ -434,7 +434,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (Global Pasture Watch).'
-    user_uploaded: true
+    source: community
     bands:
       height:
   projects/global-precipitation-nowcast/assets/global_estimation:
@@ -447,7 +447,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use under Google Cloud public-data terms.'
-    user_uploaded: true
+    source: community
     bands:
       precipitation:
   projects/gtac-data-publish/assets/LCMS/Product_Version/2025-11:
@@ -459,7 +459,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: community
     bands:
       Change:
       Change_Raw_Probability_Slow_Loss:
@@ -496,7 +496,7 @@ datasets:
       end_date: "2024-01-01"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       classification:
       probability_1:
@@ -515,7 +515,7 @@ datasets:
       end_date: "2023-01-01"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       classification:
       probability_1:
@@ -534,7 +534,7 @@ datasets:
       end_date: "2025-01-01"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       classification:
       probability_1:
@@ -553,7 +553,7 @@ datasets:
       end_date: "2026-01-01"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       classification:
       probability_1:
@@ -572,7 +572,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/EVI_v061/1km/Annual:
@@ -584,7 +584,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/EVI_v061/1km/Monthly:
@@ -596,7 +596,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/LST_Day_v061/1km/8-Daily:
@@ -608,7 +608,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/LST_Day_v061/1km/Annual:
@@ -620,7 +620,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/LST_Day_v061/1km/Monthly:
@@ -632,7 +632,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/LST_Night_v061/1km/8-Daily:
@@ -644,7 +644,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/LST_Night_v061/1km/Annual:
@@ -656,7 +656,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/LST_Night_v061/1km/Monthly:
@@ -668,7 +668,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/TCB_v061/1km/8-Daily:
@@ -680,7 +680,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/TCB_v061/1km/Annual:
@@ -692,7 +692,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/TCB_v061/1km/Monthly:
@@ -704,7 +704,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/TCW_v061/1km/8-Daily:
@@ -716,7 +716,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/TCW_v061/1km/Annual:
@@ -728,7 +728,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/TCW_v061/1km/Monthly:
@@ -740,7 +740,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       Mean:
   projects/malariaatlasproject/assets/accessibility/accessibility_to_cities/2015_v1_0:
@@ -752,7 +752,7 @@ datasets:
       end_date: "2015-12-31"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       accessibility:
   projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019:
@@ -764,7 +764,7 @@ datasets:
       end_date: "2019-12-31"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       accessibility:
   projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019_walking_only:
@@ -776,7 +776,7 @@ datasets:
       end_date: "2019-12-31"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       accessibility_walking_only:
   projects/malariaatlasproject/assets/accessibility/friction_surface/2015_v1_0:
@@ -788,7 +788,7 @@ datasets:
       end_date: "2015-12-31"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       friction:
   projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1:
@@ -800,7 +800,7 @@ datasets:
       end_date: "2019-12-31"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       friction:
   projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1_walking_only:
@@ -812,7 +812,7 @@ datasets:
       end_date: "2019-12-31"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       friction:
   projects/mapbiomas-public/assets/bolivia/lulc/v1:
@@ -824,7 +824,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       classification:
   projects/mapbiomas-public/assets/brazil/lulc/v1:
@@ -836,7 +836,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       classification:
   projects/mapbiomas-public/assets/ecuador/lulc/v1:
@@ -848,7 +848,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: community
     bands:
       classification:
   projects/nature-trace/assets/farmscapes/england_v1_0:
@@ -861,7 +861,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (Nature Trace).'
-    user_uploaded: true
+    source: community
     bands:
       B0:
       B1:
@@ -876,7 +876,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (Nature Trace).'
-    user_uploaded: true
+    source: community
     bands:
       B0:
   projects/nature-trace/assets/species_distribution_models/australia_mammals/v0:
@@ -889,7 +889,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (Nature Trace).'
-    user_uploaded: true
+    source: community
     bands:
       AgileAntechinus:
       AustralianSwampRat:
@@ -925,7 +925,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: community
     bands:
       CHM:
   projects/neon-prod-earthengine/assets/CNC/002:
@@ -937,7 +937,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: community
     bands:
       Nitrogen_Percent:
       Nitrogen_Uncertainty:
@@ -952,7 +952,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: community
     bands:
       DSM:
       DTM:
@@ -965,7 +965,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: community
     bands:
       B001:
       B002:
@@ -1418,7 +1418,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: community
     bands:
       B001:
       B002:
@@ -1871,7 +1871,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: community
     bands:
       R:
       G:
@@ -1885,7 +1885,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       nidem:
       nidem_mask:
@@ -1900,7 +1900,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -1913,7 +1913,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -1926,7 +1926,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -1939,7 +1939,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -1952,7 +1952,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -1965,7 +1965,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et_ensemble_mad:
       et_ensemble_mad_min:
@@ -1982,7 +1982,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et_ensemble_mad:
       et_ensemble_mad_min:
@@ -1999,7 +1999,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et_ensemble_mad:
       et_ensemble_mad_min:
@@ -2016,7 +2016,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2029,7 +2029,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2042,7 +2042,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2055,7 +2055,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2068,7 +2068,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2081,7 +2081,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2094,7 +2094,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2107,7 +2107,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2120,7 +2120,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2133,7 +2133,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2146,7 +2146,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2159,7 +2159,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       et:
       count:
@@ -2176,7 +2176,7 @@ datasets:
     default_reducer: median
     license: proprietary
     terms_note: 'Free for non-commercial use under Planet NICFI terms.'
-    user_uploaded: true
+    source: community
     bands:
       R:
         description: Red (analytic surface reflectance, scaled DN)
@@ -2202,7 +2202,7 @@ datasets:
     default_reducer: median
     license: proprietary
     terms_note: 'Free for non-commercial use under Planet NICFI terms.'
-    user_uploaded: true
+    source: community
     bands:
       R:
         description: Red (analytic surface reflectance, scaled DN)
@@ -2228,7 +2228,7 @@ datasets:
     default_reducer: median
     license: proprietary
     terms_note: 'Free for non-commercial use under Planet NICFI terms.'
-    user_uploaded: true
+    source: community
     bands:
       R:
         description: Red (analytic surface reflectance, scaled DN)
@@ -2251,7 +2251,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'Free for use with citation (PML_V2).'
-    user_uploaded: true
+    source: community
     bands:
       GPP:
       ET:
@@ -2270,7 +2270,7 @@ datasets:
       end_date: "2022-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: community
     bands:
       b1:
         description: Lake bathymetric depth (positive downward)
@@ -2288,7 +2288,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'ORNL LandScan terms — free for non-commercial use with citation.'
-    user_uploaded: true
+    source: community
     bands:
       b1:
         description: 24-hour ambient population count per ~1km cell
@@ -2306,7 +2306,7 @@ datasets:
       bbox: [-130, 24, -65, 53]
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: community
     bands:
       b1:
         description: Drought-intensity class (-1=none, 0=D0 abnormally dry, 1=D1 moderate, 2=D2 severe, 3=D3 extreme, 4=D4 exceptional)

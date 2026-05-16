@@ -14,7 +14,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       SPEI_01_month:
         description: SPEI accumulated over 1 month
@@ -34,7 +34,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       SPEI_01_month:
         description: SPEI accumulated over 1 month
@@ -8932,7 +8932,7 @@ datasets:
       end_date: null
     default_reducer: median
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       jan:
         description: Long-term Land Surface Temperature monthly day-night difference
@@ -9017,7 +9017,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       jan:
         description: Long-term Land Surface Temperature daytime monthly mean, January
@@ -9102,7 +9102,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       jan:
         description: Long-term Land Surface Temperature daytime monthly stddev, January
@@ -9188,7 +9188,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       PAR_Daily:
         description: Surface downwelling photosynthetic radiative flux in air

@@ -361,7 +361,21 @@ class Dataset(BaseModel):
             attribution requirements, custom commercial clauses, links
             to publisher terms-of-use pages, etc. `None` when the
             `license` field alone conveys everything.
-        user_uploaded: `True` for community-uploaded assets.
+        source: Where the asset originated, used to disambiguate the
+            three publication paths Earth Engine exposes. One of:
+
+            * `"ee_native"` — first-party Earth Engine catalog entry
+              published by the data provider directly (the default;
+              the vast majority of assets).
+            * `"republished"` — a copy of an external dataset that
+              Google or a partner re-hosts in the EE catalog under
+              an organisation-style asset id.
+            * `"community"` — a user-uploaded asset whose path starts
+              with `projects/...`. Often documented less rigorously
+              than the first two.
+
+            Replaces the older ambiguous `user_uploaded: bool` flag
+            (L2 in the catalog architecture review).
         bands: Band id → :class:`Band`.
     """
 
@@ -377,7 +391,7 @@ class Dataset(BaseModel):
     default_reducer: Literal["mean", "median", "mosaic", "min", "max", "mode", "sum"] = "median"
     license: str | None = None
     terms_note: str | None = None
-    user_uploaded: bool = False
+    source: Literal["ee_native", "republished", "community"] = "ee_native"
     bands: dict[str, Band] = Field(default_factory=dict)
 
     @property

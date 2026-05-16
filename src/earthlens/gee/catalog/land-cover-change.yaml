@@ -32,7 +32,7 @@ datasets:
       bbox: [-180, -33, 180, 33]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       geomorphic:
         description: Classification of geomorphic zonation.
@@ -52,7 +52,7 @@ datasets:
       bbox: [-180, -33, 180, 33]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       geomorphic:
         description: Geomorphic zonation class
@@ -72,7 +72,7 @@ datasets:
       end_date: "2019-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       classification:
         description: Oil-palm plantation class
@@ -118,7 +118,7 @@ datasets:
       bbox: [-180, -65, 180, 75]
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       b1:
         description: Inter-calibrated nighttime light digital number
@@ -185,7 +185,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free with attribution (Copernicus).'
-    user_uploaded: true
+    source: republished
     bands:
       discrete_classification:
         description: Land-cover class (discrete)
@@ -233,7 +233,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free with attribution (Copernicus).'
-    user_uploaded: true
+    source: republished
     bands:
       discrete_classification:
         description: Land-cover class (discrete)
@@ -280,7 +280,7 @@ datasets:
       end_date: "2016-12-31"
     default_reducer: mosaic
     license: CC-BY-NC-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       gHM:
         description: Cumulative Human Modification index (0 = none, 1 = full)
@@ -297,7 +297,7 @@ datasets:
       end_date: "2015-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       settlement:
         description: Binary settlement / built-up classification (255 = settlement)
@@ -334,7 +334,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for any use with attribution.'
-    user_uploaded: true
+    source: republished
     bands:
       BurnDate:
         description: Day of year of first burn detection
@@ -378,7 +378,7 @@ datasets:
       end_date: "2021-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       classification:
         description: Active-cropland marker (0=absent, 100=present)
@@ -396,7 +396,7 @@ datasets:
       end_date: "2021-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       classification:
         description: Cropland / crop-type classification (0 = absent, 100 = present)
@@ -416,7 +416,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   ESA/WorldCover/v100:
@@ -430,7 +430,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       Map:
         description: Land-cover class (ESA WorldCover legend, 10-100)
@@ -448,7 +448,7 @@ datasets:
       end_date: "2022-01-01"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       Map:
         description: Land-cover class (ESA WorldCover legend)
@@ -467,7 +467,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'The Food and Agriculture Organization of the United Nations (FAO) is'
-    user_uploaded: true
+    source: republished
     bands:
       cropland:
         description: Area of cropland organic soils (histosols)
@@ -488,7 +488,7 @@ datasets:
     default_reducer: mean
     license: proprietary
     terms_note: 'The Food and Agriculture Organization of the United Nations (FAO) is'
-    user_uploaded: true
+    source: republished
     bands:
       croplandc:
         description: C emissions from cropland organic soils
@@ -514,7 +514,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       FPP_1km:
         description: Number of people living in or within 1 kilometer of forests.
@@ -534,7 +534,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       TPP_1km:
         description: Number of people living in or within 1 km from agricultural lands
@@ -607,7 +607,7 @@ datasets:
     default_reducer: mosaic
     license: CC-BY-SA-4.0
     terms_note: 'This work is licensed under a Creative Commons Attribution-ShareAlike 4.0'
-    user_uploaded: true
+    source: republished
     bands:
       drifting_longlines:
         description: Hours per sq. km of fishing with drifting longlines.
@@ -640,7 +640,7 @@ datasets:
     default_reducer: mosaic
     license: CC-BY-SA-4.0
     terms_note: 'This work is licensed under a Creative Commons Attribution-ShareAlike 4.0'
-    user_uploaded: true
+    source: republished
     bands:
       drifting_longlines:
         description: Hours per sq. km of fishing vessel presence with drifting longlines.
@@ -828,7 +828,7 @@ datasets:
       bbox: [-180, -60, 180, 72]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       tStart:
         description: 1-D Array containing the date of the start of each segment (fractional year).
@@ -931,7 +931,7 @@ datasets:
       bbox: [-16.171875, 34.313433, 36.386719, 72.182526]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       classification:
         description: Crop-specific land-cover classification
@@ -948,7 +948,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The data may be used by anyone, anywhere, anytime without permission,'
-    user_uploaded: true
+    source: republished
     bands:
       Map:
         description: Global forest cover 2020
@@ -965,7 +965,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for any use (JRC).'
-    user_uploaded: true
+    source: republished
     bands:
       Map:
         description: Global forest cover for 2020 (binary)
@@ -997,7 +997,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The data may be used by anyone, anywhere, anytime without permission,'
-    user_uploaded: true
+    source: republished
     bands:
       Map:
         description: Global forest types 2020
@@ -1013,7 +1013,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The data may be used by anyone, anywhere, anytime without permission,'
-    user_uploaded: true
+    source: republished
     bands:
       Map:
         description: Global forest types 2020
@@ -1029,7 +1029,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (JRC).'
-    user_uploaded: true
+    source: republished
     bands:
       built:
         description: Multitemporal built-up presence (epoch encoded)
@@ -1050,7 +1050,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (JRC).'
-    user_uploaded: true
+    source: republished
     bands:
       population_count:
         description: Number of people per 250m cell
@@ -1067,7 +1067,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for use (JRC).'
-    user_uploaded: true
+    source: republished
     bands:
       smod_code:
         description: Degree-of-urbanisation class
@@ -1211,7 +1211,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   JRC/GWIS/GlobFire/v2/FinalPerimeters:
@@ -1223,7 +1223,7 @@ datasets:
       end_date: null
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
 
   KNTU/LiDARLab/IranLandCover/V1:
@@ -1238,7 +1238,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'This work "Iran Land Cover Map'
-    user_uploaded: true
+    source: republished
     bands:
       classification:
         description: Classification
@@ -1255,7 +1255,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       FRG:
         description: Fire Regime Groups
@@ -1272,7 +1272,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       MFRI:
         description: Mean Fire Return Interval
@@ -1289,7 +1289,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       PLS:
         description: Percent Low-severity Fire
@@ -1306,7 +1306,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       PMS:
         description: Percent of Mixed-severity Fire
@@ -1323,7 +1323,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       PRS:
         description: Percent of Replacement-severity Fire
@@ -1340,7 +1340,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       SClass:
         description: Succession Classes
@@ -1357,7 +1357,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       VCC:
         description: Vegetation Condition Class
@@ -1374,7 +1374,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       VDep:
         description: Vegetation Departure
@@ -1391,7 +1391,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       BPS:
         description: Biophysical Settings
@@ -1408,7 +1408,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       ESP:
         description: Environmental Site Potential
@@ -1425,7 +1425,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       ESP:
         description: Environmental Site Potential
@@ -1442,7 +1442,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       ESP:
         description: Environmental Site Potential
@@ -1459,7 +1459,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       EVC:
         description: Existing Vegetation Cover
@@ -1476,7 +1476,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'LANDFIRE data are public domain data with no use restrictions, though if modifications'
-    user_uploaded: true
+    source: republished
     bands:
       EVH:
         description: Existing Vegetation Height
@@ -1493,7 +1493,7 @@ datasets:
       bbox: [-175.1, 17.52, -63.66, 71.48]
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       EVT:
         description: Existing vegetation-type class
@@ -4197,7 +4197,7 @@ datasets:
       bbox: [-180, -61.1, 180, 84]
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       agb:
         description: Above-ground living biomass carbon density (woody + herbaceous)
@@ -4900,7 +4900,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       biome_type:
         description: Potential distribution of biomes
@@ -4915,7 +4915,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       jan:
         description: Jan Potential FAPAR monthly
@@ -5140,7 +5140,7 @@ datasets:
       bbox: [-180, -60, 180, 85]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       accessibility:
         description: Travel time to the nearest densely-populated area
@@ -5158,7 +5158,7 @@ datasets:
       bbox: [-180, -60, 180, 85]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       accessibility:
         description: Travel time to the nearest hospital or clinic (motorised)
@@ -5178,7 +5178,7 @@ datasets:
       bbox: [-180, -60, 180, 85]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       friction:
         description: Land-based travel speed
@@ -5195,7 +5195,7 @@ datasets:
       bbox: [-180, -60, 180, 85]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       friction:
         description: Land-based travel speed (motorised)
@@ -5225,7 +5225,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       LCZ:
         description: The raw, pixel-based global LCZ map with LCZ classes
@@ -5245,7 +5245,7 @@ datasets:
       end_date: null
     default_reducer: mean
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       LCZ:
         description: The raw, pixel-based global LCZ map with LCZ classes
@@ -5266,7 +5266,7 @@ datasets:
       bbox: [70, 0, 140, 60]
     default_reducer: median
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       terrace:
         description: 1 when a terrace is present, 0 when it is not.
@@ -5299,7 +5299,7 @@ datasets:
     default_reducer: mosaic
     license: proprietary
     terms_note: 'Free for any use (UMD/GLAD).'
-    user_uploaded: true
+    source: republished
     bands:
       Primary_HT_forests:
         description: Binary mask of primary humid tropical forest extent
@@ -5494,7 +5494,7 @@ datasets:
       end_date: "2016-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5522,7 +5522,7 @@ datasets:
       end_date: "2017-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5550,7 +5550,7 @@ datasets:
       end_date: "2018-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5578,7 +5578,7 @@ datasets:
       end_date: "2019-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5606,7 +5606,7 @@ datasets:
       end_date: "2020-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5634,7 +5634,7 @@ datasets:
       end_date: "2021-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5662,7 +5662,7 @@ datasets:
       end_date: "2022-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5690,7 +5690,7 @@ datasets:
       end_date: "2023-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5718,7 +5718,7 @@ datasets:
       end_date: "2024-12-31"
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Year-2000 tree canopy cover (canopy closure for vegetation >5m)
@@ -5746,7 +5746,7 @@ datasets:
       end_date: null
     default_reducer: median
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       treecover2000:
         description: Tree canopy cover for year 2000, defined as canopy closure for all
@@ -5799,7 +5799,7 @@ datasets:
       bbox: [-124.5, 31.3, -99, 49]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       classification:
         description: Irrigated pixels have the value of 1, the other pixels are masked out.
@@ -5815,7 +5815,7 @@ datasets:
       bbox: [-124.5, 31.3, -99, 49]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       classification:
         description: Irrigated pixels have the value of 1, the other pixels are masked out.
@@ -5833,7 +5833,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'This work is in the public domain and is free of known copyright'
-    user_uploaded: true
+    source: republished
     bands:
       GPP:
         description: 16-day gross primary production
@@ -5857,7 +5857,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'This work is in the public domain and is free of known copyright'
-    user_uploaded: true
+    source: republished
     bands:
       annualNPP:
         description: Annual net primary production
@@ -5884,7 +5884,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'This work is in the public domain and is free of known copyright'
-    user_uploaded: true
+    source: republished
     bands:
       GPP:
         description: 8-day gross primary production
@@ -5910,7 +5910,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'This work is in the public domain and is free of known copyright'
-    user_uploaded: true
+    source: republished
     bands:
       annualNPP:
         description: Annual net primary productivity
@@ -6009,7 +6009,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including the warranties'
-    user_uploaded: true
+    source: republished
     bands:
       Change:
         description: Final thematic LCMS change product. A total of three change classes (slow loss, fast
@@ -6076,7 +6076,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including'
-    user_uploaded: true
+    source: republished
     bands:
       Change:
         description: Final thematic LCMS change product. A total of three change classes (slow loss, fast
@@ -6145,7 +6145,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including'
-    user_uploaded: true
+    source: republished
     bands:
       Change:
         description: Final thematic LCMS change product. A total of three change classes
@@ -6214,7 +6214,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including the warranties'
-    user_uploaded: true
+    source: republished
     bands:
       Change:
         description: Final thematic LCMS change product. A total of three change classes (slow loss, fast
@@ -6283,7 +6283,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including the warranties'
-    user_uploaded: true
+    source: republished
     bands:
       Change:
         description: Final thematic LCMS change product. A total of three change classes (slow loss, fast
@@ -6352,7 +6352,7 @@ datasets:
       bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       Change:
         description: Final thematic LCMS change class (15-class)
@@ -6373,7 +6373,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including'
-    user_uploaded: true
+    source: republished
     bands:
       Severity:
         description: Burn severity layers are thematic images depicting severity as
@@ -6389,7 +6389,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including'
-    user_uploaded: true
+    source: republished
     bands:
 
   USFS/GTAC/TreeMap/v2016:
@@ -6404,7 +6404,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including the warranties'
-    user_uploaded: true
+    source: republished
     bands:
       ALSTK:
         description: All-Live-Tree Stocking. The sum of stocking percent values of all live trees on the
@@ -6480,7 +6480,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including the'
-    user_uploaded: true
+    source: republished
     bands:
       ALSTK:
         description: All-Live-Tree Stocking. The sum of stocking percent values of all live trees on
@@ -6557,7 +6557,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The USDA Forest Service makes no warranty, expressed or implied, including the'
-    user_uploaded: true
+    source: republished
     bands:
       ALSTK:
         description: All-Live-Tree Stocking. The sum of stocking percent values of all live trees on
@@ -6686,7 +6686,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The Digital Object Identifier [doi:10.5066/P955KPLE](https://doi.org/10.5066/P955KPLE)'
-    user_uploaded: true
+    source: republished
     bands:
 
   USGS/GAP/PAD-US/v20/easement:
@@ -6699,7 +6699,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The Digital Object Identifier [doi:10.5066/P955KPLE](https://doi.org/10.5066/P955KPLE)'
-    user_uploaded: true
+    source: republished
     bands:
 
   USGS/GAP/PAD-US/v20/fee:
@@ -6712,7 +6712,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The Digital Object Identifier [doi:10.5066/P955KPLE](https://doi.org/10.5066/P955KPLE)'
-    user_uploaded: true
+    source: republished
     bands:
 
   USGS/GAP/PAD-US/v20/proclamation:
@@ -6725,7 +6725,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The Digital Object Identifier [doi:10.5066/P955KPLE](https://doi.org/10.5066/P955KPLE)'
-    user_uploaded: true
+    source: republished
     bands:
 
   USGS/GAP/PR/2001:
@@ -6901,7 +6901,7 @@ datasets:
       bbox: [-130.24, 21.75, -63.66, 50]
     default_reducer: mosaic
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       landcover:
         description: NLCD land-cover class (Anderson Level II)
@@ -6926,7 +6926,7 @@ datasets:
       bbox: [-175, 14, -50, 84]
     default_reducer: mosaic
     license: CC0-1.0
-    user_uploaded: true
+    source: republished
     bands:
       landcover:
         description: Land-cover classification (CEC 19-class scheme)
@@ -6972,7 +6972,7 @@ datasets:
       bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
     default_reducer: mean
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       Science_Percent_Tree_Canopy_Cover:
         description: Direct model output of mean predicted tree-canopy cover
@@ -6998,7 +6998,7 @@ datasets:
       bbox: [-128.0026, 26.5157, -99.6758, 51.5761]
     default_reducer: mean
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       rangeland_annual_herbaceous:
         description: Per-pixel cover of annual herbaceous vegetation
@@ -7053,7 +7053,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'This work was authored as part of the Contributor''s official duties as an'
-    user_uploaded: true
+    source: republished
     bands:
       annual_herbaceous_break_point:
         description: Number of structural breaks observed in the annual herbaceous time series
@@ -7294,7 +7294,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'This work was authored as part of the Contributor''s official duties as an'
-    user_uploaded: true
+    source: republished
     bands:
       annual_herbaceous_break_point:
         description: Annual structural breaks in each component of annual herbaceous present or
@@ -7479,7 +7479,7 @@ datasets:
       bbox: [-135.286387, 20.38379, -56.446306, 52.459364]
     default_reducer: mean
     license: public-domain
-    user_uploaded: true
+    source: republished
     bands:
       Science_Percent_Tree_Canopy_Cover:
         description: Direct model output of mean predicted tree-canopy cover
@@ -7504,7 +7504,7 @@ datasets:
       end_date: "2010-12-31"
     default_reducer: mosaic
     license: CC-BY-SA-4.0
-    user_uploaded: true
+    source: republished
     bands:
       carbon_tonnes_per_ha:
         description: Above- + below-ground biomass carbon density
@@ -7543,7 +7543,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The FORMA datasets are available without restriction'
-    user_uploaded: true
+    source: republished
     bands:
       alert_delta:
         description: Percentage of clearing which during the 6 MODIS periods (96 + N days)
@@ -7566,7 +7566,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The FORMA datasets are available without restriction'
-    user_uploaded: true
+    source: republished
     bands:
       nday:
         description: Percentage of clearing in the last N days
@@ -7596,7 +7596,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The FORMA datasets are available without restriction'
-    user_uploaded: true
+    source: republished
     bands:
       delta:
         description: Percentage of clearing in the last 96 days
@@ -7631,7 +7631,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The FORMA datasets are available without restriction'
-    user_uploaded: true
+    source: republished
     bands:
       delta_bound:
         description: The thresholds at which, when crossed, a FORMA alert is produced
@@ -7651,7 +7651,7 @@ datasets:
     default_reducer: mosaic
     license: public-domain
     terms_note: 'The FORMA datasets are available without restriction'
-    user_uploaded: true
+    source: republished
     bands:
       tstat_r:
         description: Reversed rectified, ie (max(0,-t_stat)), t-statistics.
@@ -7711,7 +7711,7 @@ datasets:
       bbox: [-180, -49.98, 180, 69.7]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       Daytime:
         description: Daytime UHI
@@ -7731,7 +7731,7 @@ datasets:
       bbox: [-180, -49.98, 180, 69.7]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       all_daytime_UHI:
         description: All Daytime UHI
@@ -7763,7 +7763,7 @@ datasets:
       bbox: [-180, -49.98, 180, 69.7]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       Jan_day_UHI:
         description: January Daytime UHI
@@ -7849,7 +7849,7 @@ datasets:
       bbox: [-180, -49.98, 180, 69.7]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       Daytime:
         description: Daytime UHI
@@ -7869,7 +7869,7 @@ datasets:
       bbox: [-180, -49.98, 180, 69.7]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       Daytime:
         description: Daytime UHI
@@ -7889,7 +7889,7 @@ datasets:
       bbox: [-180, -49.98, 180, 69.7]
     default_reducer: mosaic
     license: CC-BY-4.0
-    user_uploaded: true
+    source: republished
     bands:
       Daytime:
         description: Daytime UHI
