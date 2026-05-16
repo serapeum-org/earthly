@@ -1,0 +1,24 @@
+# Auto-grouped slice of the GEE catalog: WHRC.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  WHRC/biomass/tropical:
+    title: "WHRC Pantropical Above-Ground Biomass (500m, 2000 baseline)"
+    provider: Woods Hole Research Center
+    ee_type: image
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-29"
+      end_date: "2012-01-29"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial use; see WHRC terms.'
+    bands:
+      Mg:
+        description: Above-ground live woody biomass
+        units: Mg/ha
+        min: 0
+        max: 503
+        estimated_range: true
+

@@ -1,0 +1,272 @@
+# Auto-grouped slice of the GEE catalog: CSP.
+# 16 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  CSP/ERGo/1_0/Global/ALOS_CHILI:
+    title: "Global ALOS CHILI: Continuous Heat-Insolation Load Index (90m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: ALOS-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/Global/ALOS_landforms:
+    title: "Global ALOS Landforms (90m, CSP ERGo)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: ALOS-derived landform classes
+
+  CSP/ERGo/1_0/Global/ALOS_mTPI:
+    title: "Global ALOS mTPI: Multi-Scale Topographic Position Index (270m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      AVE:
+        description: ALOS-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CSP/ERGo/1_0/Global/ALOS_topoDiversity:
+    title: Global ALOS Topographic Diversity
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: ALOS-derived topographic diversity
+        min: 0
+        max: 1
+
+  CSP/ERGo/1_0/Global/SRTM_CHILI:
+    title: "Global SRTM CHILI: Continuous Heat-Insolation Load Index (90m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: SRTM-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/Global/SRTM_landforms:
+    title: "Global SRTM-Derived Landforms (Conservation Science Partners, 90m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: SRTM-derived landform class
+
+  CSP/ERGo/1_0/Global/SRTM_mTPI:
+    title: "Global SRTM mTPI: Multi-Scale Topographic Position Index (270m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      elevation:
+        description: SRTM-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CSP/ERGo/1_0/Global/SRTM_topoDiversity:
+    title: "Global SRTM Topographic Diversity (CSP ERGo, 270m)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: SRTM-derived topographic-diversity index
+
+  CSP/ERGo/1_0/US/CHILI:
+    title: "US NED CHILI: Continuous Heat-Insolation Load Index (10m, CONUS)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: NED-derived CHILI index (0=very cool ... 255=very warm)
+        min: 0
+        max: 255
+
+  CSP/ERGo/1_0/US/landforms:
+    title: US NED Landforms
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: NED-derived landform classes
+
+  CSP/ERGo/1_0/US/lithology:
+    title: US Lithology
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      b1:
+        description: Lithology classes
+
+  CSP/ERGo/1_0/US/mTPI:
+    title: "US NED mTPI: Multi-Scale Topographic Position Index (270m, CONUS)"
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2006-01-24"
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      elevation:
+        description: NED-derived mTPI (negative=valleys, positive=ridges)
+        units: m
+
+  CSP/ERGo/1_0/US/physioDiversity:
+    title: US NED Physiographic Diversity
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 270
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      b1:
+        description: Physiographic diversity
+        min: 0
+        max: 1
+
+  CSP/ERGo/1_0/US/physiography:
+    title: US Physiography
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: Landforms and lithology intersection
+        min: 1100
+        max: 4220
+
+  CSP/ERGo/1_0/US/topoDiversity:
+    title: US NED Topographic Diversity
+    provider: Conservation Science Partners
+    ee_type: image
+    spatial_resolution: 90
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+      bbox: [-132.09, 12.54, -60.35, 56.21]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      constant:
+        description: NED-derived topographic diversity
+        min: 0
+        max: 1
+
+  CSP/HM/GlobalHumanModification:
+    title: "CSP gHM: Global Human Modification (1km, 2016 epoch)"
+    provider: Conservation Science Partners
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2016-01-01"
+      end_date: "2016-12-31"
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    user_uploaded: true
+    bands:
+      gHM:
+        description: Cumulative Human Modification index (0 = none, 1 = full)
+        min: 0
+        max: 1
+

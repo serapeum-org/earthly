@@ -1,0 +1,17 @@
+# Auto-grouped slice of the GEE catalog: UN.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  UN/Geodata/BNDA_simplified/current:
+    title: 'United Nations Geospatial Data: BNDA_simplified'
+    provider: United Nations Geospatial
+    ee_type: table
+    extent:
+      start_date: "2023-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The UN Geodata is a global geospatial database available for use by the UN'
+    bands:
+

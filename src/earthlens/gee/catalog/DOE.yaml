@@ -1,0 +1,22 @@
+# Auto-grouped slice of the GEE catalog: DOE.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  DOE/ORNL/LandScan_HD/Ukraine_202201:
+    title: "ORNL LandScan HD: Ukraine 24-hour Population Count (100m, January 2022)"
+    provider: Oak Ridge National Laboratory
+    ee_type: image
+    spatial_resolution: 100
+    extent:
+      start_date: "2022-01-01"
+      end_date: "2022-01-31"
+      bbox: [22.125, 44.175, 40.225, 52.4]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for use (ORNL).'
+    bands:
+      population:
+        description: 24-hour average population count estimate per 100m cell
+        units: persons
+

@@ -1,0 +1,34 @@
+# Auto-grouped slice of the GEE catalog: Switzerland.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  Switzerland/SWISSIMAGE/orthos/10cm:
+    title: SWISSIMAGE 10 cm RGB imagery
+    provider: Topography swisstopo
+    ee_type: image_collection
+    spatial_resolution: 0.1
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+      bbox: [5.9, 45.8, 10.6, 47.8]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'The free geodata and geoservices of swisstopo may be used, distributed and'
+    bands:
+      R:
+        description: Red
+        wavelength: 0.63
+        min: 0
+        max: 255
+      G:
+        description: Green
+        wavelength: 0.56
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        wavelength: 0.47
+        min: 0
+        max: 255
+

@@ -1,0 +1,70 @@
+# Auto-grouped slice of the GEE catalog: SKYSAT.
+# 2 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  SKYSAT/GEN-A/PUBLIC/ORTHO/MULTISPECTRAL:
+    title: Planet SkySat Public Ortho Imagery, Multispectral
+    provider: Planet Labs Inc.
+    ee_type: image_collection
+    spatial_resolution: 0.8
+    extent:
+      start_date: "2014-07-03"
+      end_date: null
+      bbox: [-180, -70, 180, 53]
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    terms_note: 'This dataset is made available publicly under the Creative Commons by'
+    bands:
+      B:
+        description: Blue
+        wavelength: 0.4825
+        min: 878
+        max: 62089
+      G:
+        description: Green
+        wavelength: 0.555
+        min: 341
+        max: 62007
+      R:
+        description: Red
+        wavelength: 0.65
+        min: 107
+        max: 63393
+      "N":
+        description: Near-IR
+        wavelength: 0.82
+        min: 16
+        max: 62874
+      P:
+        description: Panchromatic
+        wavelength: 0.675
+        min: 16
+        max: 65520
+
+  SKYSAT/GEN-A/PUBLIC/ORTHO/RGB:
+    title: Planet SkySat Public Ortho Imagery, RGB
+    provider: Planet Labs Inc.
+    ee_type: image_collection
+    spatial_resolution: 0.8
+    extent:
+      start_date: "2014-07-03"
+      end_date: null
+      bbox: [-180, -70, 180, 53]
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    terms_note: 'This dataset is made available publicly under the Creative Commons by'
+    bands:
+      R:
+        description: Red
+        min: 1
+        max: 255
+      G:
+        description: Green
+        min: 1
+        max: 255
+      B:
+        description: Blue
+        min: 1
+        max: 255
+

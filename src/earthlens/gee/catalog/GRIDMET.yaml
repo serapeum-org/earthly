@@ -1,0 +1,124 @@
+# Auto-grouped slice of the GEE catalog: GRIDMET.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  GRIDMET/DROUGHT:
+    title: 'GRIDMET DROUGHT: CONUS Drought Indices'
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 5, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1980-01-05"
+      end_date: null
+      bbox: [-124.9, 24.9, -66.8, 49.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This work (METDATA, by John Abatzoglou) is in the public'
+    bands:
+      spi14d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi30d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi90d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi180d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi270d:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi1y:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi2y:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      spi5y:
+        description: Standardized Precipitation Index (SPI) where precipitation was aggregated
+        min: -6
+        max: 6
+      eddi14d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi30d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi90d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi180d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi270d:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi1y:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi2y:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      eddi5y:
+        description: Evaporative Drought Demand Index (EDDI) where potential evapotranspiration
+        min: -6
+        max: 6
+      spei14d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei30d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei90d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei180d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei270d:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei1y:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei2y:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      spei5y:
+        description: Standardized Precipitation Evapotranspiration Index (SPEI) where
+        min: -6
+        max: 6
+      pdsi:
+        description: Palmer Drought Severity Index
+        min: -15
+        max: 15
+      z:
+        description: Palmer Z Index
+        min: -15
+        max: 15
+

@@ -1,0 +1,454 @@
+# Auto-grouped slice of the GEE catalog: WWF.
+# 32 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  WWF/HydroATLAS/v1/Basins/level03:
+    title: WWF HydroATLAS Basins Level 03
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level04:
+    title: WWF HydroATLAS Basins Level 04
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level05:
+    title: WWF HydroATLAS Basins Level 05
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level06:
+    title: WWF HydroATLAS Basins Level 06
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level07:
+    title: WWF HydroATLAS Basins Level 07
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level08:
+    title: WWF HydroATLAS Basins Level 08
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level09:
+    title: WWF HydroATLAS Basins Level 09
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level10:
+    title: WWF HydroATLAS Basins Level 10
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level11:
+    title: WWF HydroATLAS Basins Level 11
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroATLAS/v1/Basins/level12:
+    title: WWF HydroATLAS Basins Level 12
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-22"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: '''The HydroATLAS database is licensed under a Creative Commons Attribution'
+    bands:
+
+  WWF/HydroSHEDS/03CONDEM:
+    title: WWF HydroSHEDS Hydrologically Conditioned DEM, 3 Arc-Seconds
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    bands:
+      b1:
+        description: Elevation
+        units: m
+        min: -440
+        max: 8527
+
+  WWF/HydroSHEDS/03DIR:
+    title: "WWF HydroSHEDS Drainage Direction (3 arc-seconds)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial and commercial use.'
+    bands:
+      b1:
+        description: "Drainage direction (1=E, 2=SE, 4=S, 8=SW, 16=W, 32=NW, 64=N, 128=NE)"
+        min: 0
+        max: 255
+
+  WWF/HydroSHEDS/03VFDEM:
+    title: WWF HydroSHEDS Void-Filled DEM, 3 Arc-Seconds
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    bands:
+      b1:
+        description: Elevation
+        units: m
+        min: -424
+        max: 8642
+
+  WWF/HydroSHEDS/15ACC:
+    title: "WWF HydroSHEDS Flow Accumulation (15 arc-seconds, ~500m)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial and commercial use.'
+    bands:
+      b1:
+        description: Upstream flow accumulation (number of contributing pixels)
+
+  WWF/HydroSHEDS/15CONDEM:
+    title: "WWF HydroSHEDS Hydrologically Conditioned DEM (15 arc-seconds, ~500m)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial and commercial use.'
+    bands:
+      b1:
+        description: Hydrologically conditioned elevation
+        units: m
+
+  WWF/HydroSHEDS/15DIR:
+    title: WWF HydroSHEDS Drainage Direction, 15 Arc-Seconds
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    bands:
+      b1:
+        description: 'Drainage direction possible values: 1=E, 2=SE, 4=S,'
+        min: 0
+        max: 255
+
+  WWF/HydroSHEDS/30ACC:
+    title: WWF HydroSHEDS Flow Accumulation, 30 Arc-Seconds
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    bands:
+      b1:
+        description: Flow accumulation
+        min: 1
+        max: 6965746
+
+  WWF/HydroSHEDS/30CONDEM:
+    title: "WWF HydroSHEDS Hydrologically Conditioned DEM (30 arc-seconds, ~1km)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 60]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial and commercial use.'
+    bands:
+      b1:
+        description: Hydrologically conditioned elevation
+        units: m
+
+  WWF/HydroSHEDS/30DIR:
+    title: "WWF HydroSHEDS Drainage Direction (30 arc-seconds, ~1km)"
+    provider: WWF
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-02-11"
+      end_date: "2000-02-22"
+      bbox: [-180, -67.3, 180, 62]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for non-commercial and commercial use.'
+    bands:
+      b1:
+        description: "Drainage direction (1=E, 2=SE, 4=S, 8=SW, 16=W, 32=NW, 64=N, 128=NE)"
+        min: 0
+        max: 255
+
+  WWF/HydroSHEDS/v1/Basins/hybas_1:
+    title: WWF HydroSHEDS Basins Level 1
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_10:
+    title: WWF HydroSHEDS Basins Level 10
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_11:
+    title: WWF HydroSHEDS Basins Level 11
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_12:
+    title: WWF HydroSHEDS Basins Level 12
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_2:
+    title: WWF HydroSHEDS Basins Level 2
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_3:
+    title: WWF HydroSHEDS Basins Level 3
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_4:
+    title: WWF HydroSHEDS Basins Level 4
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_5:
+    title: WWF HydroSHEDS Basins Level 5
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_6:
+    title: WWF HydroSHEDS Basins Level 6
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_7:
+    title: WWF HydroSHEDS Basins Level 7
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_8:
+    title: WWF HydroSHEDS Basins Level 8
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/Basins/hybas_9:
+    title: WWF HydroSHEDS Basins Level 9
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+
+  WWF/HydroSHEDS/v1/FreeFlowingRivers:
+    title: WWF HydroSHEDS Free Flowing Rivers Network v1
+    provider: WWF
+    ee_type: table
+    extent:
+      start_date: "2000-02-11"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'HydroSHEDS data are free for non-commercial and commercial'
+    user_uploaded: true
+    bands:
+

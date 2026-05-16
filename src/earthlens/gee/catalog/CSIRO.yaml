@@ -1,0 +1,44 @@
+# Auto-grouped slice of the GEE catalog: CSIRO.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  CSIRO/SLGA:
+    title: "CSIRO SLGA: Soil and Landscape Grid of Australia (Soil Attributes, ~90m)"
+    provider: CSIRO / SLGA
+    ee_type: image_collection
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1950-01-01"
+      end_date: null
+      bbox: [113, -44.15, 154, -9.97]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for use (CSIRO).'
+    user_uploaded: true
+    bands:
+      AWC_000_005_EV:
+        description: Available water capacity (0-5 cm, expected value)
+        units: "%"
+      BDW_000_005_EV:
+        description: Bulk density of fine earth (0-5 cm, expected value)
+        units: g/cm^3
+      CLY_000_005_EV:
+        description: Clay percentage (0-5 cm, expected value)
+        units: "%"
+      SLT_000_005_EV:
+        description: Silt percentage (0-5 cm, expected value)
+        units: "%"
+      SND_000_005_EV:
+        description: Sand percentage (0-5 cm, expected value)
+        units: "%"
+      SOC_000_005_EV:
+        description: Soil organic carbon (0-5 cm, expected value)
+        units: "%"
+      DER_000_005_EV:
+        description: Depth of regolith (expected value)
+        units: m
+      DES_000_005_EV:
+        description: Depth of soil (expected value)
+        units: m
+

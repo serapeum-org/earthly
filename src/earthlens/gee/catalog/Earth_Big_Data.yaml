@@ -1,0 +1,254 @@
+# Auto-grouped slice of the GEE catalog: Earth_Big_Data.
+# 4 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  Earth_Big_Data/GLOBAL_SEASONAL_S1/V2019/BACKSCATTER:
+    title: Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter V2019 Backscatter
+    provider: Earth Big Data LLC
+    ee_type: image_collection
+    spatial_resolution: 92.7
+    extent:
+      start_date: "2019-12-01"
+      end_date: null
+      bbox: [-180, -79, 180, 82]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      fall_hh_AMP:
+        description: Fall (Sep-Nov 2020) HH backscatter amplitude.
+        units: dB
+      fall_hv_AMP:
+        description: Fall (Sep-Nov 2020) HV backscatter amplitude.
+        units: dB
+      fall_vh_AMP:
+        description: Fall (Sep-Nov 2020) VH backscatter amplitude.
+        units: dB
+      fall_vv_AMP:
+        description: Fall (Sep-Nov 2020) VV backscatter amplitude.
+        units: dB
+      spring_hh_AMP:
+        description: Spring (Mar-May 2020) HH backscatter amplitude.
+        units: dB
+      spring_hv_AMP:
+        description: Spring (Mar-May 2020) HV backscatter amplitude.
+        units: dB
+      spring_vh_AMP:
+        description: Spring (Mar-May 2020) VH backscatter amplitude.
+        units: dB
+      spring_vv_AMP:
+        description: Spring (Mar-May 2020) VV backscatter amplitude.
+        units: dB
+      summer_hh_AMP:
+        description: Summer (Jun-Aug 2020) HH backscatter amplitude.
+        units: dB
+      summer_hv_AMP:
+        description: Summer (Jun-Aug 2020) HV backscatter amplitude.
+        units: dB
+      summer_vh_AMP:
+        description: Summer (Jun-Aug 2020) VH backscatter amplitude.
+        units: dB
+      summer_vv_AMP:
+        description: Summer (Jun-Aug 2020) VV backscatter amplitude.
+        units: dB
+      winter_hh_AMP:
+        description: Winter (Dec 2019-Feb 2020) HH backscatter amplitude.
+        units: dB
+      winter_hv_AMP:
+        description: Winter (Dec 2019-Feb 2020) HV backscatter amplitude.
+        units: dB
+      winter_vh_AMP:
+        description: Winter (Dec 2019-Feb 2020) VH backscatter amplitude.
+        units: dB
+      winter_vv_AMP:
+        description: Winter (Dec 2019-Feb 2020) VV backscatter amplitude.
+        units: dB
+
+  Earth_Big_Data/GLOBAL_SEASONAL_S1/V2019/COHERENCE:
+    title: Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter V2019 Coherence
+    provider: Earth Big Data LLC
+    ee_type: image_collection
+    spatial_resolution: 92.7
+    extent:
+      start_date: "2019-12-01"
+      end_date: null
+      bbox: [-180, -79, 180, 82]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      fall_hh_COH06:
+        description: Median HH coherence for fall (Sep-Nov 2020) based on all
+      fall_hh_COH12:
+        description: Median HH coherence for fall (Sep-Nov 2020) based on all
+      fall_hh_COH18:
+        description: Median HH coherence for fall (Sep-Nov 2020) based on all
+      fall_hh_COH24:
+        description: Median HH coherence for fall (Sep-Nov 2020) based on all
+      fall_hh_COH36:
+        description: Median HH coherence for fall (Sep-Nov 2020) based on all
+      fall_hh_COH48:
+        description: Median HH coherence for fall (Sep-Nov 2020) based on all
+      fall_vv_COH06:
+        description: Median VV coherence for fall (Sep-Nov 2020) based on all
+      fall_vv_COH12:
+        description: Median VV coherence for fall (Sep-Nov 2020) based on all
+      fall_vv_COH18:
+        description: Median VV coherence for fall (Sep-Nov 2020) based on all
+      fall_vv_COH24:
+        description: Median VV coherence for fall (Sep-Nov 2020) based on all
+      fall_vv_COH36:
+        description: Median VV coherence for fall (Sep-Nov 2020) based on all
+      fall_vv_COH48:
+        description: Median VV coherence for fall (Sep-Nov 2020) based on all
+      spring_hh_COH06:
+        description: Median HH coherence for spring (Mar-May 2020) based on all
+      spring_hh_COH12:
+        description: Median HH coherence for spring (Mar-May 2020) based on all
+      spring_hh_COH18:
+        description: Median HH coherence for spring (Mar-May 2020) based on all
+      spring_hh_COH24:
+        description: Median HH coherence for spring (Mar-May 2020) based on all
+      spring_hh_COH36:
+        description: Median HH coherence for spring (Mar-May 2020) based on all
+      spring_hh_COH48:
+        description: Median HH coherence for spring (Mar-May 2020) based on all
+      spring_vv_COH06:
+        description: Median VV coherence for spring (Mar-May 2020) based on all
+      spring_vv_COH12:
+        description: Median VV coherence for spring (Mar-May 2020) based on all
+      spring_vv_COH18:
+        description: Median VV coherence for spring (Mar-May 2020) based on all
+      spring_vv_COH24:
+        description: Median VV coherence for spring (Mar-May 2020) based on all
+      spring_vv_COH36:
+        description: Median VV coherence for spring (Mar-May 2020) based on all
+      spring_vv_COH48:
+        description: Median VV coherence for spring (Mar-May 2020) based on all
+      summer_hh_COH06:
+        description: Median HH coherence for summer (Jun-Aug 2020) based on all
+      summer_hh_COH12:
+        description: Median HH coherence for summer (Jun-Aug 2020) based on all
+      summer_hh_COH18:
+        description: Median HH coherence for summer (Jun-Aug 2020) based on all
+      summer_hh_COH24:
+        description: Median HH coherence for summer (Jun-Aug 2020) based on all
+      summer_hh_COH36:
+        description: Median HH coherence for summer (Jun-Aug 2020) based on all
+      summer_hh_COH48:
+        description: Median HH coherence for summer (Jun-Aug 2020) based on all
+      summer_vv_COH06:
+        description: Median VV coherence for summer (Jun-Aug 2020) based on all
+      summer_vv_COH12:
+        description: Median VV coherence for summer (Jun-Aug 2020) based on all
+      summer_vv_COH18:
+        description: Median VV coherence for summer (Jun-Aug 2020) based on all
+      summer_vv_COH24:
+        description: Median VV coherence for summer (Jun-Aug 2020) based on all
+      summer_vv_COH36:
+        description: Median VV coherence for summer (Jun-Aug 2020) based on all
+      summer_vv_COH48:
+        description: Median VV coherence for summer (Jun-Aug 2020) based on all
+      winter_hh_COH06:
+        description: Median HH coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_hh_COH12:
+        description: Median HH coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_hh_COH18:
+        description: Median HH coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_hh_COH24:
+        description: Median HH coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_hh_COH36:
+        description: Median HH coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_hh_COH48:
+        description: Median HH coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_vv_COH06:
+        description: Median VV coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_vv_COH12:
+        description: Median VV coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_vv_COH18:
+        description: Median VV coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_vv_COH24:
+        description: Median VV coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_vv_COH36:
+        description: Median VV coherence for winter (Dec 2019-Feb 2020) based on all
+      winter_vv_COH48:
+        description: Median VV coherence for winter (Dec 2019-Feb 2020) based on all
+
+  Earth_Big_Data/GLOBAL_SEASONAL_S1/V2019/DECAY_MODEL_PARAMETERS:
+    title: Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter V2019 Decay Model
+    provider: Earth Big Data LLC
+    ee_type: image_collection
+    spatial_resolution: 92.7
+    extent:
+      start_date: "2019-12-01"
+      end_date: null
+      bbox: [-180, -79, 180, 82]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      fall_hh_rho:
+        description: Fall (Sep-Nov 2020) HH rho.
+      fall_hh_rmse:
+        description: Fall (Sep-Nov 2020) HH rmse.
+      fall_hh_tau:
+        description: Fall (Sep-Nov 2020) HH tau.
+      fall_vv_rho:
+        description: Fall (Sep-Nov 2020) VV rho.
+      fall_vv_rmse:
+        description: Fall (Sep-Nov 2020) VV rmse.
+      fall_vv_tau:
+        description: Fall (Sep-Nov 2020) VV tau.
+      spring_hh_rho:
+        description: Spring (Mar-May 2020) HH rho.
+      spring_hh_rmse:
+        description: Spring (Mar-May 2020) HH rmse.
+      spring_hh_tau:
+        description: Spring (Mar-May 2020) HH tau.
+      spring_vv_rho:
+        description: Spring (Mar-May 2020) VV rho.
+      spring_vv_rmse:
+        description: Spring (Mar-May 2020) VV rmse.
+      spring_vv_tau:
+        description: Spring (Mar-May 2020) VV tau.
+      summer_hh_rho:
+        description: Summer (Jun-Aug 2020) HH rho.
+      summer_hh_rmse:
+        description: Summer (Jun-Aug 2020) HH rmse.
+      summer_hh_tau:
+        description: Summer (Jun-Aug 2020) HH tau.
+      summer_vv_rho:
+        description: Summer (Jun-Aug 2020) VV rho.
+      summer_vv_rmse:
+        description: Summer (Jun-Aug 2020) VV rmse.
+      summer_vv_tau:
+        description: Summer (Jun-Aug 2020) VV tau.
+      winter_hh_rho:
+        description: Winter (Dec 2019-Feb 2020) HH rho.
+      winter_hh_rmse:
+        description: Winter (Dec 2019-Feb 2020) HH rmse.
+      winter_hh_tau:
+        description: Winter (Dec 2019-Feb 2020) HH tau.
+      winter_vv_rho:
+        description: Winter (Dec 2019-Feb 2020) VV rho.
+      winter_vv_rmse:
+        description: Winter (Dec 2019-Feb 2020) VV rmse.
+      winter_vv_tau:
+        description: Winter (Dec 2019-Feb 2020) VV tau.
+
+  Earth_Big_Data/GLOBAL_SEASONAL_S1/V2019/INCIDENCE_LAYOVER_SHADOW:
+    title: Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter V2019 Incidence
+    provider: Earth Big Data LLC
+    ee_type: image_collection
+    spatial_resolution: 92.7
+    extent:
+      start_date: "2019-12-01"
+      end_date: null
+      bbox: [-180, -79, 180, 82]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      inc:
+        description: The angle between the incoming radar signal path and the normal
+        units: deg
+      lsmap:
+        description: 'Layover/Shadow mask:'
+

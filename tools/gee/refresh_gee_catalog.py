@@ -4,8 +4,9 @@ Walks the Earth Engine STAC catalog
 (``https://storage.googleapis.com/earthengine-stac/catalog/catalog.json``),
 collects every dataset asset id, groups them by provider, and rewrites
 the ``available_datasets:`` block in
-``src/earthlens/gee/gee_data_catalog.yaml`` in place. The curated
-``datasets:`` map and the schema-header comments are preserved verbatim.
+``src/earthlens/gee/catalog/_index.yaml`` in place. The per-provider
+curated stanzas under ``src/earthlens/gee/catalog/*.yaml`` and the
+``_index.yaml`` header comments are preserved verbatim.
 
 Optionally, ``--with-bands <asset_id> ...`` also prints a ready-to-paste
 ``datasets.<asset_id>:`` stanza for each given id, built from that
@@ -37,7 +38,7 @@ import yaml
 sys.path.insert(0, str(Path(__file__).parent))
 from _gee_stac import collect_collection_ids, fetch_collection_stac  # noqa: E402
 
-CATALOG_PATH = Path("src/earthlens/gee/gee_data_catalog.yaml")
+CATALOG_INDEX_PATH = Path("src/earthlens/gee/catalog/_index.yaml")
 _GLOBAL_BBOX = [-180, -90, 180, 90]
 
 
@@ -79,28 +80,33 @@ def render_available_datasets_block(grouped: list[tuple[str, list[str]]]) -> str
     return "\n".join(lines) + "\n"
 
 
-def splice_into_yaml(text: str, block: str) -> str:
+def splice_into_index(text: str, block: str) -> str:
     """Replace the ``available_datasets:`` block in `text` with `block`.
 
+    `text` is the full contents of ``catalog/_index.yaml`` — a file
+    whose only top-level key is ``available_datasets:`` plus a leading
+    comment header. The header is preserved; the list itself is fully
+    rewritten.
+
     Args:
-        text: The full ``gee_data_catalog.yaml`` contents.
-        block: The replacement block (from :func:`render_available_datasets_block`).
+        text: The current ``_index.yaml`` contents.
+        block: The replacement block (from
+            :func:`render_available_datasets_block`), ending with a
+            newline.
 
     Returns:
-        The updated YAML text. The curated ``datasets:`` map and the
-        header comments are untouched.
+        The updated YAML text.
 
     Raises:
-        ValueError: If `text` has no ``available_datasets:`` block
-            followed by a top-level ``datasets:`` key.
+        ValueError: If `text` has no top-level ``available_datasets:``
+            key.
     """
-    pattern = re.compile(r"(?ms)^available_datasets:.*?(?=^datasets:)")
+    pattern = re.compile(r"(?ms)^available_datasets:.*\Z")
     if not pattern.search(text):
         raise ValueError(
-            "could not find an 'available_datasets:' block ending at a "
-            "top-level 'datasets:' key in the catalog YAML"
+            "could not find an 'available_datasets:' block in the index YAML"
         )
-    return pattern.sub(block + "\n", text)
+    return pattern.sub(block.rstrip("\n") + "\n", text)
 
 
 def _gsd_to_metres(gsd) -> float | None:
@@ -220,7 +226,7 @@ def _num(value) -> str:
 def main() -> int:
     """Refresh ``available_datasets:`` (and optionally print ``--with-bands`` stanzas)."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--catalog", type=Path, default=CATALOG_PATH, help="path to gee_data_catalog.yaml")
+    parser.add_argument("--catalog-index", type=Path, default=CATALOG_INDEX_PATH, help="path to catalog/_index.yaml")
     parser.add_argument("--dry-run", action="store_true", help="print the new available_datasets: block instead of writing")
     parser.add_argument("--with-bands", nargs="+", metavar="ASSET_ID", help="also print a ready-to-paste datasets: stanza for each id")
     parser.add_argument("-v", "--verbose", action="store_true", help="print STAC-walk progress")
@@ -240,9 +246,9 @@ def main() -> int:
     if args.dry_run:
         print(block)
     else:
-        text = args.catalog.read_text(encoding="utf-8")
-        args.catalog.write_text(splice_into_yaml(text, block), encoding="utf-8")
-        print(f"updated {args.catalog}")
+        text = args.catalog_index.read_text(encoding="utf-8")
+        args.catalog_index.write_text(splice_into_index(text, block), encoding="utf-8")
+        print(f"updated {args.catalog_index}")
 
     if args.with_bands:
         for asset_id in args.with_bands:

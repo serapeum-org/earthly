@@ -7,8 +7,9 @@ didn't carry a band manifest). This script:
 
 * Authenticates with the service-account credentials in
   ``GEE_SERVICE_ACCOUNT`` / ``GEE_SERVICE_KEY``.
-* Walks every dataset in ``gee_data_catalog.yaml`` whose ``bands`` field is
-  empty (either ``bands: {}`` or a naked ``bands:`` with no children).
+* Walks every dataset in the per-provider YAML files under
+  ``src/earthlens/gee/catalog/`` whose ``bands`` field is empty
+  (either ``bands: {}`` or a naked ``bands:`` with no children).
 * For each, calls ``ee.data.getAsset(id)`` to get the asset metadata
   (type, properties, bands when reported).
 * Falls back to ``ee.ImageCollection(id).first()`` / ``ee.Image(id)`` to
@@ -46,9 +47,10 @@ from typing import Any
 import ee  # type: ignore[import-untyped]
 
 sys.path.insert(0, "src")
-from earthlens.gee.auth import EarthEngineAuth  # noqa: E402
+sys.path.insert(0, "tools/gee")
+from _catalog_io import file_for  # noqa: E402
 
-CATALOG_PATH = Path("src/earthlens/gee/gee_data_catalog.yaml")
+from earthlens.gee.auth import EarthEngineAuth  # noqa: E402
 
 
 def _authenticate() -> None:
@@ -262,7 +264,20 @@ def main() -> int:
         print(f"limiting to first {args.limit}")
     existing_titles = {k: cat.datasets[k].title for k in placeholders}
 
-    text = CATALOG_PATH.read_text(encoding="utf-8")
+    # Per-provider file cache: read once, mutate, write back at save points.
+    file_texts: dict[Path, str] = {}
+    dirty: set[Path] = set()
+
+    def _load(path: Path) -> str:
+        if path not in file_texts:
+            file_texts[path] = path.read_text(encoding="utf-8")
+        return file_texts[path]
+
+    def _flush() -> None:
+        for path in list(dirty):
+            file_texts[path] and path.write_text(file_texts[path], encoding="utf-8")
+        dirty.clear()
+
     success = 0
     skipped = 0
     for i, aid in enumerate(placeholders, start=1):
@@ -274,24 +289,28 @@ def main() -> int:
         if not payload:
             skipped += 1
             continue
+        path = file_for(aid)
+        text = _load(path)
         new_text = _rewrite_stanza(text, aid, payload, existing_titles.get(aid))
         if new_text != text:
-            text = new_text
+            file_texts[path] = new_text
+            dirty.add(path)
             success += 1
             tag = f"[{len(payload['bands']):3d} bands, {payload['ee_type']}]"
             print(f"  ok  {i:4d}/{len(placeholders)} {aid:80s} {tag}")
         else:
             skipped += 1
         if i % args.save_every == 0:
-            CATALOG_PATH.write_text(text, encoding="utf-8")
+            _flush()
             time.sleep(0.5)
 
-    CATALOG_PATH.write_text(text, encoding="utf-8")
+    _flush()
     print(f"hydrated: {success}, skipped: {skipped}")
 
     from importlib import reload
     import earthlens.gee.catalog as _cat
     reload(_cat)
+    _cat.clear_catalog_cache()
     cat2 = _cat.Catalog()
     placeholders_after = [k for k, d in cat2.datasets.items() if not d.bands]
     print(f"placeholders after:  {len(placeholders_after)}")

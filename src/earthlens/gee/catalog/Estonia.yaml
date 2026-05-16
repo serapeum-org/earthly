@@ -1,0 +1,93 @@
+# Auto-grouped slice of the GEE catalog: Estonia.
+# 4 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  Estonia/Maamet/orthos/mono:
+    title: Estonia mono orthophotos
+    provider: Estonia orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.4
+    extent:
+      start_date: "1993-01-01"
+      end_date: null
+      bbox: [21.5, 57.3, 28.1, 59.5]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The data is free to use for commercial and non-commercial purposes for a'
+    bands:
+      mono:
+        description: Grayscale
+        min: 0
+        max: 255
+
+  Estonia/Maamet/orthos/mono_low_flying:
+    title: Estonia mono low flying orthophotos
+    provider: Estonia orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.4
+    extent:
+      start_date: "1993-01-01"
+      end_date: null
+      bbox: [21.5, 57.3, 28.1, 59.5]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The data is free to use for commercial and non-commercial purposes for a'
+    bands:
+      mono:
+        description: Grayscale
+        min: 0
+        max: 255
+
+  Estonia/Maamet/orthos/rgb:
+    title: Estonia RGB orthophotos
+    provider: Estonia orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.4
+    extent:
+      start_date: "1993-01-01"
+      end_date: null
+      bbox: [21.5, 57.3, 28.1, 59.5]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'The data is free to use for commercial and non-commercial purposes for a'
+    bands:
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        min: 0
+        max: 255
+
+  Estonia/Maamet/orthos/rgb_low_flying:
+    title: Estonia RGB low flying orthophotos
+    provider: Estonia orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.4
+    extent:
+      start_date: "1993-01-01"
+      end_date: null
+      bbox: [21.5, 57.3, 28.1, 59.5]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'The data is free to use for commercial and non-commercial purposes for a'
+    bands:
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        min: 0
+        max: 255
+

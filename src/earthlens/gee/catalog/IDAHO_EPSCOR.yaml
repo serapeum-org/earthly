@@ -1,0 +1,221 @@
+# Auto-grouped slice of the GEE catalog: IDAHO_EPSCOR.
+# 5 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  IDAHO_EPSCOR/GRIDMET:
+    title: "GRIDMET: University of Idaho Gridded Surface Meteorological Dataset"
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+      bbox: [-124.9, 24.9, -66.8, 49.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      pr:
+        description: Precipitation amount (daily total)
+        units: mm
+      rmax:
+        description: Maximum relative humidity
+        units: "%"
+        min: 0
+        max: 100
+      rmin:
+        description: Minimum relative humidity
+        units: "%"
+        min: 0
+        max: 100
+      sph:
+        description: Specific humidity (mass fraction)
+      srad:
+        description: Surface downward shortwave radiation
+        units: W/m^2
+      tmmn:
+        description: Minimum daily temperature
+        units: K
+      tmmx:
+        description: Maximum daily temperature
+        units: K
+      vs:
+        description: Wind speed at 10m
+        units: m/s
+      eto:
+        description: Daily grass reference evapotranspiration
+        units: mm
+      etr:
+        description: Daily alfalfa reference evapotranspiration
+        units: mm
+      vpd:
+        description: Mean vapor pressure deficit
+        units: kPa
+
+  IDAHO_EPSCOR/MACAv2_METDATA:
+    title: "MACAv2-METDATA: Daily CMIP5 Bias-Corrected Climate (CONUS, 4km, 1900-2099)"
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1900-01-01"
+      end_date: "2099-12-31"
+      bbox: [-124.9, 24.9, -67, 49.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      tasmax:
+        description: Daily maximum near-surface air temperature
+        units: K
+      tasmin:
+        description: Daily minimum near-surface air temperature
+        units: K
+      rhsmax:
+        description: Daily maximum near-surface relative humidity
+        units: "%"
+      rhsmin:
+        description: Daily minimum near-surface relative humidity
+        units: "%"
+      pr:
+        description: Daily total precipitation
+        units: mm
+      uas:
+        description: Daily mean eastward near-surface wind
+        units: m/s
+      vas:
+        description: Daily mean northward near-surface wind
+        units: m/s
+      huss:
+        description: Daily mean near-surface specific humidity
+      rsds:
+        description: Daily mean surface downwelling shortwave radiation
+        units: W/m^2
+
+  IDAHO_EPSCOR/MACAv2_METDATA_MONTHLY:
+    title: 'MACAv2-METDATA Monthly Summaries: University of Idaho, Multivariate Adaptive Constructed'
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1900-01-01"
+      end_date: null
+      bbox: [-124.9, 24.9, -67, 49.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The MACA datasets were created with funding from the'
+    bands:
+      tasmax:
+        description: Monthly average of maximum daily temperature near surface
+        units: K
+        min: 251.95
+        max: 330.64
+      tasmin:
+        description: Monthly average of minimum daily temperature near surface
+        units: K
+        min: 239.47
+        max: 316.2
+      huss:
+        description: Monthly average of mean daily specific humidity near surface
+        units: Mass fraction
+        min: 0
+        max: 0.03
+      pr:
+        description: Total monthly precipitation amount at surface
+        units: mm
+        min: 0
+        max: 3691.91
+      rsds:
+        description: Monthly average of mean daily downward shortwave radiation at surface
+        units: W/m^2
+        min: 15.84
+        max: 419
+      was:
+        description: Monthly average of mean daily near surface wind speed
+        units: m/s
+        min: 0.23
+        max: 14.16
+
+  IDAHO_EPSCOR/PDSI:
+    title: "PDSI: Palmer Drought Severity Index (CONUS, 4km, 10-day)"
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 10, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1979-03-01"
+      end_date: null
+      bbox: [-124.9, 24.9, -66.8, 49.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      pdsi:
+        description: Palmer Drought Severity Index (>4 extremely wet, <-4 extreme drought)
+
+  IDAHO_EPSCOR/TERRACLIMATE:
+    title: "TerraClimate: Monthly Climate and Climatic Water Balance"
+    provider: University of California Merced
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "1958-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC0-1.0
+    bands:
+      aet:
+        description: Actual evapotranspiration (one-D water-balance model)
+        units: mm
+        scale: 0.1
+      def:
+        description: Climate water deficit
+        units: mm
+        scale: 0.1
+      pdsi:
+        description: Palmer Drought Severity Index
+        scale: 0.01
+      pet:
+        description: Reference evapotranspiration (ASCE Penman-Monteith)
+        units: mm
+        scale: 0.1
+      pr:
+        description: Precipitation accumulation
+        units: mm
+      ro:
+        description: Runoff (one-D water-balance model)
+        units: mm
+      soil:
+        description: Soil moisture (one-D water-balance model)
+        units: mm
+        scale: 0.1
+      srad:
+        description: Downward surface shortwave radiation
+        units: W/m^2
+        scale: 0.1
+      swe:
+        description: Snow water equivalent
+        units: mm
+      tmmn:
+        description: Minimum temperature
+        units: deg_C
+        scale: 0.1
+      tmmx:
+        description: Maximum temperature
+        units: deg_C
+        scale: 0.1
+      vap:
+        description: Vapor pressure
+        units: kPa
+        scale: 0.001
+      vpd:
+        description: Vapor pressure deficit
+        units: kPa
+        scale: 0.01
+      vs:
+        description: Wind speed at 10m
+        units: m/s
+        scale: 0.01
+

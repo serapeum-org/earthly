@@ -6,9 +6,10 @@ dataset are *bands*, and one image carries many at once), plus a date
 range, a bbox (or a `GeoDataFrame` region), a temporal-compositing
 resolution (`"raw"` / `"daily"` / `"monthly"` / `"yearly"`), and an
 output pixel `scale` in metres. Asset ids and band metadata are resolved
-through :class:`Catalog`, which loads `gee_data_catalog.yaml` (the GEE
-analogue of the ECMWF `cds_data_catalog.yaml`, but shaped by Earth
-Engine's own data model — see that file's header).
+through :class:`Catalog`, which loads the per-provider YAMLs under
+`src/earthlens/gee/catalog/` (the GEE analogue of the ECMWF
+`cds_data_catalog.yaml`, but shaped by Earth Engine's own data model —
+see that directory's `_index.yaml` header).
 
 Public surface (re-exported from this package):
 
@@ -18,13 +19,15 @@ Public surface (re-exported from this package):
   call :meth:`GEE.download`.
 * :class:`AuthenticationError` — raised when Earth Engine cannot be
   initialised (missing/invalid key, unregistered project, missing IAM role).
-* :class:`Catalog` — pydantic-backed loader for `gee_data_catalog.yaml`,
-  exposing `available_datasets`, `datasets`, and
+* :class:`Catalog` — pydantic-backed loader for the bundled per-provider
+  catalog under `src/earthlens/gee/catalog/`, exposing
+  `available_datasets`, `datasets`, and
   `get_dataset` / `get_band` / `get_variable`.
 * :class:`Dataset` / :class:`Band` / :class:`Cadence` / :class:`Extent`
   — the frozen value objects the catalog is built from.
-* :data:`CATALOG_PATH` — absolute path to the bundled catalog YAML;
-  monkey-patchable to redirect the loader.
+* :data:`CATALOG_PATH` — absolute path to the bundled catalog directory;
+  monkey-patchable to redirect the loader at a temp directory or single
+  YAML file.
 * :class:`EarthEngineAuth` — the low-level service-account auth helper
   (`ee.Initialize` against a registered project; base64 key encode/decode).
 * :func:`createGeometry` / :func:`createFeature` — Shapely /

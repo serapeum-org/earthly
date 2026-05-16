@@ -1,0 +1,221 @@
+# Auto-grouped slice of the GEE catalog: Oxford.
+# 10 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  Oxford/MAP/EVI_5km_Monthly:
+    title: "Oxford MAP EVI 5km Monthly: Gap-Filled Enhanced Vegetation Index (2001-)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-02-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-NC-SA-4.0
+    bands:
+      Mean:
+        description: Monthly mean Enhanced Vegetation Index
+        min: 0
+        max: 1
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/IGBP_Fractional_Landcover_5km_Annual:
+    title: "Oxford MAP: IGBP Fractional Landcover (5km Annual, 2001-)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-NC-SA-4.0
+    bands:
+      Overall_Class:
+        description: Dominant IGBP land-cover class per pixel
+        min: 0
+        max: 17
+      Water:
+        description: Per-pixel water fraction
+        units: "%"
+        min: 0
+        max: 100
+      Evergreen_Needleleaf_Forest:
+        description: Per-pixel evergreen-needleleaf-forest fraction
+        units: "%"
+      Evergreen_Broadleaf_Forest:
+        description: Per-pixel evergreen-broadleaf-forest fraction
+        units: "%"
+      Deciduous_Needleleaf_Forest:
+        description: Per-pixel deciduous-needleleaf-forest fraction
+        units: "%"
+      Croplands:
+        description: Per-pixel cropland fraction
+        units: "%"
+      Urban_And_Built-Up:
+        description: Per-pixel built-up fraction
+        units: "%"
+
+  Oxford/MAP/LST_Day_5km_Monthly:
+    title: "Oxford MAP LST Day 5km Monthly: Gap-Filled Daytime Land Surface Temperature"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-03-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-NC-SA-4.0
+    bands:
+      Mean:
+        description: Monthly mean daytime land surface temperature
+        units: deg_C
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/LST_Night_5km_Monthly:
+    title: "Oxford MAP LST Night 5km Monthly: Gap-Filled Nighttime Land Surface Temperature"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-03-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-NC-SA-4.0
+    bands:
+      Mean:
+        description: Monthly mean nighttime land surface temperature
+        units: deg_C
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/TCB_5km_Monthly:
+    title: "Oxford MAP TCB 5km Monthly: Gap-Filled Tasselled Cap Brightness (2001-)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-02-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-NC-SA-4.0
+    bands:
+      Mean:
+        description: Monthly mean Tasselled Cap Brightness
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/TCW_5km_Monthly:
+    title: "Oxford MAP TCW 5km Monthly: Gap-Filled Tasselled Cap Wetness (2001-)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 5000
+    extent:
+      start_date: "2001-02-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-NC-SA-4.0
+    bands:
+      Mean:
+        description: Monthly mean Tasselled Cap Wetness
+      FilledProportion:
+        description: Percentage of the pixel that was gap-filled
+        units: "%"
+        min: 0
+        max: 100
+
+  Oxford/MAP/accessibility_to_cities_2015_v1_0:
+    title: "Oxford MAP Accessibility to Cities 2015 v1.0 (1km global travel time)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
+      bbox: [-180, -60, 180, 85]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      accessibility:
+        description: Travel time to the nearest densely-populated area
+        units: min
+        min: 0
+
+  Oxford/MAP/accessibility_to_healthcare_2019:
+    title: "Oxford MAP Accessibility to Healthcare 2019 (1km global travel time)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
+      bbox: [-180, -60, 180, 85]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      accessibility:
+        description: Travel time to the nearest hospital or clinic (motorised)
+        units: min
+      accessibility_walking_only:
+        description: Travel time to the nearest hospital or clinic (walking only)
+        units: min
+
+  Oxford/MAP/friction_surface_2015_v1_0:
+    title: "Oxford MAP Global Friction Surface 2015 v1.0 (1km travel speed, legacy)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
+      bbox: [-180, -60, 180, 85]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      friction:
+        description: Land-based travel speed
+        units: min/m
+
+  Oxford/MAP/friction_surface_2019:
+    title: "Oxford MAP Global Friction Surface 2019 (1km travel speed)"
+    provider: Oxford Malaria Atlas Project
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
+      bbox: [-180, -60, 180, 85]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      friction:
+        description: Land-based travel speed (motorised)
+        units: min/m
+      friction_walking_only:
+        description: Land-based travel speed (non-motorised / walking)
+        units: min/m
+

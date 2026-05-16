@@ -1,0 +1,581 @@
+# Auto-grouped slice of the GEE catalog: JAXA.
+# 28 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  JAXA/ALOS/AVNIR-2/ORI:
+    title: "ALOS AVNIR-2 ORI: Ortho-Rectified Optical Imagery (10m, 2006-, Japan + select global)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2006-04-26"
+      end_date: "2011-04-22"
+      bbox: [127.05, 23.81, 154.41, 46.04]
+    default_reducer: median
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA AVNIR-2 terms).'
+    bands:
+      B1:
+        description: Blue (0.42-0.50 µm)
+        wavelength: 0.46
+      B2:
+        description: Green (0.52-0.60 µm)
+        wavelength: 0.56
+      B3:
+        description: Red (0.61-0.69 µm)
+        wavelength: 0.65
+      B4:
+        description: Near-Infrared (0.76-0.89 µm)
+        wavelength: 0.825
+
+  JAXA/ALOS/AW3D30/V1_1:
+    title: "ALOS AW3D30 v1.1: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      AVE:
+        description: Height above sea level (averaged DSM)
+        units: m
+      MED:
+        description: Height above sea level (median DSM)
+        units: m
+
+  JAXA/ALOS/AW3D30/V2_1:
+    title: "ALOS AW3D30 v2.1: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      AVE_DSM:
+        description: Height above sea level (averaged DSM)
+        units: m
+      AVE_STK:
+        description: Stacking number of scene-unit DSMs used
+      AVE_MSK:
+        description: 8-bit mask for the AVE band
+
+  JAXA/ALOS/AW3D30/V2_2:
+    title: "ALOS AW3D30 v2.2: Global 30m Digital Surface Model (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      AVE_DSM:
+        description: Height above sea level (averaged DSM)
+        units: m
+      AVE_STK:
+        description: Stacking number of scene-unit DSMs used
+      AVE_MSK:
+        description: 8-bit mask for the AVE band
+
+  JAXA/ALOS/AW3D30/V3_2:
+    title: "ALOS AW3D30 v3.2: Global 30m Digital Surface Model"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: "2011-05-12"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      DSM:
+        description: Height above sea level
+        units: m
+        min: -433
+        max: 8768
+        estimated_range: true
+      MSK:
+        description: 8-bit mask for the band
+      STK:
+        description: Stacking number of scene-unit DSMs used
+        min: 1
+        max: 54
+        estimated_range: true
+
+  JAXA/ALOS/AW3D30/V4_1:
+    title: "ALOS AW3D30 v4.1: Global 30m Digital Surface Model (latest, 2006-)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2006-01-24"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use, attribution required (JAXA AW3D30 terms).'
+    bands:
+      DSM:
+        description: Height above sea level
+        units: m
+        min: -433
+        max: 8768
+        estimated_range: true
+      MSK:
+        description: 8-bit mask for the band
+      STK:
+        description: Stacking number of scene-unit DSMs used
+
+  JAXA/ALOS/PALSAR-2/Level2_1/StripMap_202401:
+    title: ALOS-2 PALSAR-2 StripMap Level 2.1
+    provider: JAXA EORC
+    ee_type: image_collection
+    spatial_resolution: 3
+    extent:
+      start_date: "2022-09-26"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Anyone can use this data free of charge subject to non-commercial use only.'
+    bands:
+      b1:
+        description: HH polarization Terrain-flattened Gamma-Nought backscatter
+
+  JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR:
+    title: "JAXA ALOS PALSAR-2 ScanSAR Level 2.2 (HH/HV terrain-flattened, 25m)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    spatial_resolution: 25
+    extent:
+      start_date: "2014-08-04"
+      end_date: null
+    default_reducer: median
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA EORC).'
+    bands:
+      HH:
+        description: HH-polarisation terrain-flattened gamma-nought backscatter
+      HV:
+        description: HV-polarisation terrain-flattened gamma-nought backscatter
+      LIN:
+        description: Local incidence angle
+        units: deg
+        scale: 0.01
+      MSK:
+        description: Data quality bitmask
+
+  JAXA/ALOS/PALSAR/YEARLY/FNF:
+    title: "ALOS PALSAR Yearly 3-Class Forest / Non-Forest Map (25m, 2007-)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 25
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA EORC).'
+    bands:
+      fnf:
+        description: Forest / non-forest classification (1=forest, 2=non-forest, 3=water)
+        min: 1
+        max: 3
+
+  JAXA/ALOS/PALSAR/YEARLY/FNF4:
+    title: "ALOS PALSAR Yearly 4-Class Forest / Non-Forest Map (25m, 2017-)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 25
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA EORC).'
+    bands:
+      fnf:
+        description: Forest / non-forest classification (1=dense, 2=non-dense, 3=non-forest, 4=water)
+        min: 1
+        max: 4
+
+  JAXA/ALOS/PALSAR/YEARLY/SAR:
+    title: "ALOS PALSAR-2 / PALSAR Global Yearly SAR Mosaic v1 (25m HH/HV)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 25
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use with attribution (JAXA EORC).'
+    bands:
+      HH:
+        description: HH-polarisation backscatter (16-bit DN; sigma0 = 10*log10(DN^2) - 83)
+      HV:
+        description: HV-polarisation backscatter (16-bit DN; sigma0 = 10*log10(DN^2) - 83)
+      angle:
+        description: Local incidence angle
+        units: deg
+      date:
+        description: Observation date (days since 1970-01-01)
+      qa:
+        description: Processing quality flags
+
+  JAXA/ALOS/PALSAR/YEARLY/SAR_EPOCH:
+    title: "ALOS PALSAR-2 / PALSAR Global Yearly Mosaic v2.5.0 (with epoch timestamp)"
+    provider: JAXA EORC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 25
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA EORC).'
+    bands:
+      HH:
+        description: HH-polarisation backscatter (16-bit DN; sigma0 = 10*log10(DN^2) - 83)
+      HV:
+        description: HV-polarisation backscatter (16-bit DN; sigma0 = 10*log10(DN^2) - 83)
+      angle:
+        description: Local incidence angle
+        units: deg
+      epoch:
+        description: Observation date timestamp (milliseconds since 1970-01-01)
+      qa:
+        description: Processing quality flags
+
+  JAXA/GCOM-C/L3/LAND/LAI/V1:
+    title: "GCOM-C/SGLI L3 Leaf Area Index v1 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      LAI_AVE:
+        description: One-sided green leaf area per unit ground area
+        units: m^2/m^2
+      LAI_QA_flag:
+        description: LAI quality assurance
+
+  JAXA/GCOM-C/L3/LAND/LAI/V2:
+    title: "GCOM-C/SGLI L3 Leaf Area Index v2 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      LAI_AVE:
+        description: One-sided green leaf area per unit ground area
+        units: m^2/m^2
+      LAI_QA_flag:
+        description: LAI quality assurance
+
+  JAXA/GCOM-C/L3/LAND/LAI/V3:
+    title: "GCOM-C/SGLI L3 Leaf Area Index v3 (Daily ~5km)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2021-11-29"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      LAI_AVE:
+        description: One-sided green leaf area per unit ground area
+        units: m^2/m^2
+      LAI_QA_flag:
+        description: LAI quality assurance
+
+  JAXA/GCOM-C/L3/LAND/LST/V1:
+    title: "GCOM-C/SGLI L3 Land Surface Temperature v1 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      LST_AVE:
+        description: Land surface temperature
+        units: K
+      LST_QA_flag:
+        description: LST quality assurance
+
+  JAXA/GCOM-C/L3/LAND/LST/V2:
+    title: "GCOM-C/SGLI L3 Land Surface Temperature v2 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      LST_AVE:
+        description: Land surface temperature
+        units: K
+      LST_QA_flag:
+        description: LST quality assurance
+
+  JAXA/GCOM-C/L3/LAND/LST/V3:
+    title: "GCOM-C/SGLI L3 Land Surface Temperature v3 (Daily ~5km)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2021-11-29"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      LST_AVE:
+        description: Land surface temperature
+        units: K
+      LST_QA_flag:
+        description: LST quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/CHLA/V1:
+    title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v1 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      CHLA_AVE:
+        description: Sea-surface chlorophyll-a concentration
+        units: mg/m^3
+      CHLA_QA_flag:
+        description: Chlorophyll quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/CHLA/V2:
+    title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v2 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      CHLA_AVE:
+        description: Sea-surface chlorophyll-a concentration
+        units: mg/m^3
+      CHLA_QA_flag:
+        description: Chlorophyll quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/CHLA/V3:
+    title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v3 (Daily ~5km)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2021-11-29"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      CHLA_AVE:
+        description: Sea-surface chlorophyll-a concentration
+        units: mg/m^3
+      CHLA_QA_flag:
+        description: Chlorophyll quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/SST/V1:
+    title: "GCOM-C/SGLI L3 Sea-Surface Temperature v1 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      SST_AVE:
+        description: Sea-surface temperature
+        units: deg_C
+      SST_QA_flag:
+        description: SST quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/SST/V2:
+    title: "GCOM-C/SGLI L3 Sea-Surface Temperature v2 (Daily ~5km, legacy)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      SST_AVE:
+        description: Sea-surface temperature
+        units: deg_C
+      SST_QA_flag:
+        description: SST quality assurance
+
+  JAXA/GCOM-C/L3/OCEAN/SST/V3:
+    title: "GCOM-C/SGLI L3 Sea-Surface Temperature v3 (Daily ~5km)"
+    provider: JAXA GCOM Project
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4638.3
+    extent:
+      start_date: "2018-01-22"
+      end_date: null
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for any use (JAXA GCOM-C terms).'
+    bands:
+      SST_AVE:
+        description: Sea-surface temperature
+        units: deg_C
+      SST_QA_flag:
+        description: SST quality assurance
+
+  JAXA/GPM_L3/GSMaP/v6/operational:
+    title: "GSMaP Operational v6: Global Satellite Mapping of Precipitation (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2014-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA GSMaP terms).'
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      hourlyPrecipRateGC:
+        description: Hourly precipitation rate, gauge-adjusted
+        units: mm/hr
+      satelliteInfoFlag:
+        description: Satellite/sensor used in the retrieval
+
+  JAXA/GPM_L3/GSMaP/v6/reanalysis:
+    title: "GSMaP Reanalysis v6: Global Satellite Mapping of Precipitation (2000-)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2000-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA GSMaP terms).'
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      satelliteInfoFlag:
+        description: Satellite/sensor used in the retrieval
+
+  JAXA/GPM_L3/GSMaP/v7/operational:
+    title: "GSMaP Operational v7: Global Satellite Mapping of Precipitation (legacy)"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2014-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA GSMaP terms).'
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      hourlyPrecipRateGC:
+        description: Hourly precipitation rate, gauge-adjusted
+        units: mm/hr
+
+  JAXA/GPM_L3/GSMaP/v8/operational:
+    title: "GSMaP Operational v8: Global Satellite Mapping of Precipitation"
+    provider: JAXA Earth Observation Research Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA GSMaP terms).'
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      hourlyPrecipRateGC:
+        description: Hourly precipitation rate, gauge-adjusted
+        units: mm/hr
+      satelliteInfoFlag:
+        description: Satellite/sensor used in the retrieval
+      gaugeQualityInfo:
+        description: Existence of gauge adjustment
+        units: count/d
+

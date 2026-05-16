@@ -33,7 +33,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-CATALOG_PATH = Path("src/earthlens/gee/gee_data_catalog.yaml")
+CATALOG_DIR = Path("src/earthlens/gee/catalog")
 
 
 # Each rule is (substring_to_match_case_insensitive, license_id,
@@ -292,12 +292,18 @@ def _rewrite(text: str) -> tuple[str, dict[str, int]]:
 
 
 def main() -> int:
-    text = CATALOG_PATH.read_text(encoding="utf-8")
-    new_text, counts = _rewrite(text)
-    CATALOG_PATH.write_text(new_text, encoding="utf-8")
-    total = sum(counts.values())
-    print(f"rewrote {total} terms: lines")
-    for license_id, n in sorted(counts.items(), key=lambda kv: -kv[1]):
+    totals: dict[str, int] = {}
+    files = sorted(p for p in CATALOG_DIR.glob("*.yaml") if p.name != "_index.yaml")
+    for path in files:
+        text = path.read_text(encoding="utf-8")
+        new_text, counts = _rewrite(text)
+        if new_text != text:
+            path.write_text(new_text, encoding="utf-8")
+        for license_id, n in counts.items():
+            totals[license_id] = totals.get(license_id, 0) + n
+    total = sum(totals.values())
+    print(f"rewrote {total} terms: lines across {len(files)} files")
+    for license_id, n in sorted(totals.items(), key=lambda kv: -kv[1]):
         print(f"  {n:5d}  {license_id}")
     return 0
 

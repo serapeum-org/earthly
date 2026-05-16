@@ -1,8 +1,9 @@
 """Audit Earth Engine datasets for inclusion in the GEE catalog.
 
 For every asset id in ``available_datasets:`` of
-``src/earthlens/gee/gee_data_catalog.yaml``, fetch its STAC document and
-classify it:
+``src/earthlens/gee/catalog/_index.yaml`` (merged with the per-provider
+``catalog/*.yaml`` files by :class:`earthlens.gee.Catalog`), fetch its
+STAC document and classify it:
 
 * **DONE** — already a key in the curated ``datasets:`` map.
 * **addressable** — an ``image`` / ``image_collection`` with at least
@@ -32,12 +33,11 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-import yaml
-
 sys.path.insert(0, str(Path(__file__).parent))
 from _gee_stac import fetch_collection_stac, stac_url  # noqa: E402
 
-CATALOG_PATH = Path("src/earthlens/gee/gee_data_catalog.yaml")
+from earthlens.gee import Catalog  # noqa: E402
+
 CACHE_DIR = Path("tools/gee/_gee_stac_cache")
 
 
@@ -72,12 +72,13 @@ def classify(asset_id: str, curated: set[str]) -> str:
 
 def main() -> int:
     """Classify every ``available_datasets:`` entry and print a coverage report."""
-    if not CATALOG_PATH.is_file():
-        print(f"{CATALOG_PATH} not found", file=sys.stderr)
+    try:
+        cat = Catalog()
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"could not load the GEE catalog: {exc}", file=sys.stderr)
         return 1
-    catalog = yaml.safe_load(CATALOG_PATH.read_text(encoding="utf-8")) or {}
-    available = list(catalog.get("available_datasets") or [])
-    curated = set((catalog.get("datasets") or {}).keys())
+    available = list(cat.available_datasets)
+    curated = set(cat.datasets.keys())
     if not available:
         print("available_datasets: is empty — run tools/gee/refresh_gee_catalog.py first", file=sys.stderr)
         return 1
@@ -87,7 +88,7 @@ def main() -> int:
         buckets.setdefault(classify(asset_id, curated), []).append(asset_id)
 
     counts = Counter({name: len(ids) for name, ids in buckets.items()})
-    print(f"\nAudited {len(available)} datasets in {CATALOG_PATH}:")
+    print(f"\nAudited {len(available)} datasets in src/earthlens/gee/catalog/:")
     for name in ("DONE", "addressable", "thin", "table", "missing"):
         print(f"  {name:12s}: {counts.get(name, 0)}")
 

@@ -1,0 +1,20 @@
+# Auto-grouped slice of the GEE catalog: DLR.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  DLR/WSF/WSF2015/v1:
+    title: "DLR World Settlement Footprint 2015 v1 (10m, global)"
+    provider: German Aerospace Centre (DLR)
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      settlement:
+        description: Binary settlement / built-up classification (255 = settlement)
+

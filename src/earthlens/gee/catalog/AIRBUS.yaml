@@ -1,0 +1,124 @@
+# Auto-grouped slice of the GEE catalog: AIRBUS.
+# 4 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  AIRBUS/SPOT_2_4_5/BRAZIL/2007_2009/MS/V1:
+    title: SPOT Multispectral Imagery 10-20m, Brazil
+    provider: Google/CNES
+    ee_type: image_collection
+    spatial_resolution: 20
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      G:
+        description: Green (0.50-0.59 µm)
+        units: dn
+        min: 0
+        max: 255
+      R:
+        description: Red (0.61-0.68 µm)
+        units: dn
+        min: 0
+        max: 255
+      "N":
+        description: Near-Infrared (NIR) (0.78-0.89 µm)
+        units: dn
+        min: 0
+        max: 255
+      S:
+        description: Shortwave near-Infrared SWIR (1.53-1.78 µm). Available for SPOT 4/5
+        units: dn
+        min: 0
+        max: 255
+
+  AIRBUS/SPOT_2_4_5/BRAZIL/2007_2009/MS_NC/V1:
+    title: SPOT Multispectral Pseudo Natural Color Imagery 10-20m, Brazil
+    provider: Google/CNES
+    ee_type: image_collection
+    spatial_resolution: 20
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      R:
+        description: Red reflectance
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green reflectance
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Blue reflectance, representing the synthetic blue channel of the pseudo-natural color
+        units: dn
+        min: 0
+        max: 255
+      cloud_mask:
+        description: 'Cloud mask: 0 = cloud/shadow, 1 = clear'
+        min: 0
+        max: 1
+
+  AIRBUS/SPOT_2_4_5/BRAZIL/2007_2009/PAN/V1:
+    title: SPOT Panchromatic Imagery 5-10m, Brazil
+    provider: Google/CNES
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      P:
+        description: Panchromatic
+        units: dn
+        min: 0
+        max: 255
+
+  AIRBUS/SPOT_2_4_5/BRAZIL/2007_2009/PMS_NC/V1:
+    title: SPOT Pansharpened Pseudo Natural Color Imagery 5-10m, Brazil
+    provider: Google/CNES
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      R:
+        description: Red reflectance
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green reflectance
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Pansharpened blue reflectance, representing the synthetic blue channel of the pseudo-natural
+        units: dn
+        min: 0
+        max: 255
+      cloud_mask:
+        description: 'Cloud mask: 0 = cloud/shadow, 1 = clear'
+        min: 0
+        max: 1
+

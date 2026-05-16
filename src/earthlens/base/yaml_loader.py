@@ -1,7 +1,8 @@
 """Strict YAML loading shared by the package's variable/data catalogs.
 
 The catalogs under `earthlens` (`cds_data_catalog.yaml` for the ECMWF
-backend, `gee_data_catalog.yaml` for the GEE backend, ...) are
+backend, the per-provider YAMLs under `earthlens/gee/catalog/` for the
+GEE backend, ...) are
 hand-maintained config-as-code. PyYAML's default `SafeLoader` silently
 merges duplicate mapping keys (last one wins), which would let a
 copy-paste typo — two identical variable/band codes under the same

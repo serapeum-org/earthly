@@ -1,0 +1,41 @@
+# Auto-grouped slice of the GEE catalog: WM.
+# 3 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  WM/geoLab/geoBoundaries/600/ADM0:
+    title: 'geoBoundaries: Political administrative boundaries at Country level (ADM0), v6.0.0'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: 'geoBoundaries datasets are provided under the CC BY 4.0 license, which'
+    bands:
+
+  WM/geoLab/geoBoundaries/600/ADM1:
+    title: 'geoBoundaries: Political administrative boundaries at District level (ADM1), v6.0.0'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: 'geoBoundaries datasets are provided under the CC BY 4.0 license, which'
+    bands:
+
+  WM/geoLab/geoBoundaries/600/ADM2:
+    title: 'geoBoundaries: Political administrative boundaries at Municipality level (ADM2),'
+    provider: William and Mary geoLab
+    ee_type: table
+    extent:
+      start_date: "2023-09-14"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: 'geoBoundaries datasets are provided under the CC BY 4.0 license, which'
+    bands:
+

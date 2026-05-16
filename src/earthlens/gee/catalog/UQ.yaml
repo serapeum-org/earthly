@@ -1,0 +1,61 @@
+# Auto-grouped slice of the GEE catalog: UQ.
+# 3 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  UQ/murray/Intertidal/v1_1/data_mask:
+    title: Murray Global Intertidal Change Data Mask
+    provider: Murray/UQ/Google/USGS/NASA
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      datamask:
+        description: A flag to indicate data inclusion.
+        units: occurrence
+
+  UQ/murray/Intertidal/v1_1/global_intertidal:
+    title: Murray Global Intertidal Change Classification
+    provider: Murray/UQ/Google/USGS/NASA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      classification:
+        description: Intertertidal area classification for the interval.
+        units: occurrence
+
+  UQ/murray/Intertidal/v1_1/qa_pixel_count:
+    title: Murray Global Intertidal Change QA Pixel Count
+    provider: Murray/UQ/Google/USGS/NASA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    terms_note: 'This work is licensed under a Creative Commons Attribution 4.0'
+    user_uploaded: true
+    bands:
+      pixel_count:
+        description: Input image count.
+        units: count
+        min: 0
+        max: 400
+

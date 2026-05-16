@@ -1,0 +1,292 @@
+# Auto-grouped slice of the GEE catalog: CIESIN.
+# 16 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  CIESIN/GPWv4/ancillary-data-grids:
+    title: 'GPWv4: Gridded Population of the World Version 4, Ancillary Data Grids [deprecated]'
+    provider: CIESIN
+    ee_type: image
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      water-mask:
+        description: Water mask
+      data-context:
+        description: Categorizes pixels with estimated zero population based on
+      mean-administrative-unit-area:
+        description: The mean area of the input unit(s) from which population count
+        units: km^2
+        min: 0
+        max: 816831
+      national-identifier:
+        description: An integer that represents the census data source used
+        min: 4
+        max: 999
+      land-area:
+        description: Estimate of the land area, excluding permanent ice and water, within each 30 arc-second
+        units: km^2
+        min: 0
+        max: 0.86
+      water-area:
+        description: Estimate of the water area (permanent ice and water) within each 30 arc-second pixel.
+        units: km^2
+        min: 0
+        max: 0.86
+
+  CIESIN/GPWv4/population-count:
+    title: "GPWv4 Population Count (legacy, 1km, 5-yearly 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population-count:
+        description: Estimated number of persons per 30 arc-second cell
+        units: persons
+
+  CIESIN/GPWv4/population-density:
+    title: "GPWv4 Population Density (legacy, 1km, 5-yearly 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population-density:
+        description: Estimated number of persons per square kilometre
+        units: persons/km^2
+
+  CIESIN/GPWv4/unwpp-adjusted-population-count:
+    title: "GPWv4 UN WPP-Adjusted Population Count (legacy, 1km, 5-yearly)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population-count:
+        description: UN WPP-adjusted population count per cell
+        units: persons
+
+  CIESIN/GPWv4/unwpp-adjusted-population-density:
+    title: "GPWv4 UN WPP-Adjusted Population Density (legacy, 1km, 5-yearly)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population-density:
+        description: UN WPP-adjusted population density
+        units: persons/km^2
+
+  CIESIN/GPWv411/GPW_Basic_Demographic_Characteristics:
+    title: "GPWv4.11 Basic Demographic Characteristics (1km, age + sex per cell, 5-yearly)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      basic_demographic_characteristics:
+        description: Estimated number of persons by age and sex per 30 arc-second cell
+        units: persons
+
+  CIESIN/GPWv411/GPW_Data_Context:
+    title: 'GPWv411: Data Context (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      data_context:
+        description: Categorizes pixels with estimated zero population based on
+        min: 0
+        max: 207
+
+  CIESIN/GPWv411/GPW_Land_Area:
+    title: "GPWv4.11 Land Area (1km, 30 arc-second pixel land fraction)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      land_area:
+        description: Land area within each 30 arc-second cell
+        units: km^2
+
+  CIESIN/GPWv411/GPW_Mean_Administrative_Unit_Area:
+    title: 'GPWv411: Mean Administrative Unit Area (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      mean_administrative_unit_area:
+        description: Displays a quantitative surface that indicates the size of the
+        min: 0
+        max: 767642
+
+  CIESIN/GPWv411/GPW_National_Identifier_Grid:
+    title: 'GPWv411: National Identifier Grid (Gridded Population of the World Version 4.11)'
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      national_identifier_grid:
+        description: An integer that represents the census data source used
+        min: 4
+        max: 999
+
+  CIESIN/GPWv411/GPW_Population_Count:
+    title: "GPWv4.11 Population Count (Gridded Population of the World, 5-yearly 1km)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      population_count:
+        description: Estimated population per 30 arc-second grid cell
+        units: persons
+        min: 0
+
+  CIESIN/GPWv411/GPW_Population_Density:
+    title: "GPWv4.11 Population Density (Gridded Population of the World, 5-yearly 1km)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      population_density:
+        description: Estimated population per square kilometre
+        units: persons/km^2
+
+  CIESIN/GPWv411/GPW_UNWPP-Adjusted_Population_Count:
+    title: "GPWv4.11 UN WPP-Adjusted Population Count (5-yearly 1km, 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      unwpp-adjusted_population_count:
+        description: Population count adjusted to UN WPP country totals (per 30 arc-second cell)
+        units: persons
+        min: 0
+
+  CIESIN/GPWv411/GPW_UNWPP-Adjusted_Population_Density:
+    title: "GPWv4.11 UN WPP-Adjusted Population Density (5-yearly 1km, 2000-2020)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      unwpp-adjusted_population_density:
+        description: Population density adjusted to UN WPP country totals
+        units: persons/km^2
+        min: 0
+
+  CIESIN/GPWv411/GPW_Water_Area:
+    title: "GPWv4.11 Water Area (1km, 30 arc-second pixel water fraction)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      water_area:
+        description: Water area within each 30 arc-second cell
+        units: km^2
+
+  CIESIN/GPWv411/GPW_Water_Mask:
+    title: "GPWv4.11 Water Mask (1km, water-class enum)"
+    provider: NASA SEDAC / CIESIN
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "2000-01-01"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      water_mask:
+        description: Water-class enum (0=land ... 3=water)
+        min: 0
+        max: 3
+

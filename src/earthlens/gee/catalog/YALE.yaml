@@ -1,0 +1,203 @@
+# Auto-grouped slice of the GEE catalog: YALE.
+# 6 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  YALE/YCEO/UHI/Summer_UHI_yearly_pixel/v4:
+    title: 'YCEO Surface Urban Heat Islands: Pixel-Level Composites of Yearly Summertime Daytime'
+    provider: Yale Center for Earth Observation (YCEO)
+    ee_type: image_collection
+    spatial_resolution: 300
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+      bbox: [-180, -49.98, 180, 69.7]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      Daytime:
+        description: Daytime UHI
+        units: 'deg_C'
+      Nighttime:
+        description: Nighttime UHI
+        units: 'deg_C'
+
+  YALE/YCEO/UHI/UHI_all_averaged/v4:
+    title: 'YCEO Surface Urban Heat Islands: Spatially-Averaged Daytime and Nighttime Intensity'
+    provider: Yale Center for Earth Observation (YCEO)
+    ee_type: image
+    spatial_resolution: 300
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+      bbox: [-180, -49.98, 180, 69.7]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      all_daytime_UHI:
+        description: All Daytime UHI
+        units: 'deg_C'
+      all_nighttime_UHI:
+        description: All Nighttime UHI
+        units: 'deg_C'
+      summer_daytime_UHI:
+        description: summer Daytime UHI
+        units: 'deg_C'
+      summer_nighttime_UHI:
+        description: Summer Nighttime UHI
+        units: 'deg_C'
+      winter_daytime_UHI:
+        description: Winter Daytime UHI
+        units: 'deg_C'
+      winter_nighttime_UHI:
+        description: Winter Nighttime UHI
+        units: 'deg_C'
+
+  YALE/YCEO/UHI/UHI_monthly_averaged/v4:
+    title: 'YCEO Surface Urban Heat Islands: Spatially-Averaged Monthly Composites of Daytime'
+    provider: Yale Center for Earth Observation (YCEO)
+    ee_type: image
+    spatial_resolution: 300
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+      bbox: [-180, -49.98, 180, 69.7]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      Jan_day_UHI:
+        description: January Daytime UHI
+        units: 'deg_C'
+      Jan_night_UHI:
+        description: January Nighttime UHI
+        units: 'deg_C'
+      Feb_day_UHI:
+        description: February Daytime UHI
+        units: 'deg_C'
+      Feb_night_UHI:
+        description: February Nighttime UHI
+        units: 'deg_C'
+      Mar_day_UHI:
+        description: March Daytime UHI
+        units: 'deg_C'
+      Mar_night_UHI:
+        description: March Nighttime UHI
+        units: 'deg_C'
+      Apr_day_UHI:
+        description: April Daytime UHI
+        units: 'deg_C'
+      Apr_night_UHI:
+        description: April Nighttime UHI
+        units: 'deg_C'
+      May_day_UHI:
+        description: May Daytime UHI
+        units: 'deg_C'
+      May_night_UHI:
+        description: May Nighttime UHI
+        units: 'deg_C'
+      Jun_day_UHI:
+        description: June Daytime UHI
+        units: 'deg_C'
+      Jun_night_UHI:
+        description: June Nighttime UHI
+        units: 'deg_C'
+      Jul_day_UHI:
+        description: July Daytime UHI
+        units: 'deg_C'
+      Jul_night_UHI:
+        description: July Nighttime UHI
+        units: 'deg_C'
+      Aug_day_UHI:
+        description: August Daytime UHI
+        units: 'deg_C'
+      Aug_night_UHI:
+        description: August Nighttime UHI
+        units: 'deg_C'
+      Sep_day_UHI:
+        description: September Daytime UHI
+        units: 'deg_C'
+      Sep_night_UHI:
+        description: September Nighttime UHI
+        units: 'deg_C'
+      Oct_day_UHI:
+        description: October Daytime UHI
+        units: 'deg_C'
+      Oct_night_UHI:
+        description: October Nighttime UHI
+        units: 'deg_C'
+      Nov_day_UHI:
+        description: November Daytime UHI
+        units: 'deg_C'
+      Nov_night_UHI:
+        description: November Nighttime UHI
+        units: 'deg_C'
+      Dec_day_UHI:
+        description: December Daytime UHI
+        units: 'deg_C'
+      Dec_night_UHI:
+        description: December Nighttime UHI
+        units: 'deg_C'
+
+  YALE/YCEO/UHI/UHI_yearly_averaged/v4:
+    title: 'YCEO Surface Urban Heat Islands: Spatially-Averaged Yearly Composites of Annual Daytime'
+    provider: Yale Center for Earth Observation (YCEO)
+    ee_type: image_collection
+    spatial_resolution: 300
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+      bbox: [-180, -49.98, 180, 69.7]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      Daytime:
+        description: Daytime UHI
+        units: 'deg_C'
+      Nighttime:
+        description: Nighttime UHI
+        units: 'deg_C'
+
+  YALE/YCEO/UHI/UHI_yearly_pixel/v4:
+    title: 'YCEO Surface Urban Heat Islands: Pixel-Level Annual Daytime and Nighttime Intensity'
+    provider: Yale Center for Earth Observation (YCEO)
+    ee_type: image_collection
+    spatial_resolution: 300
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+      bbox: [-180, -49.98, 180, 69.7]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      Daytime:
+        description: Daytime UHI
+        units: 'deg_C'
+      Nighttime:
+        description: Nighttime UHI
+        units: 'deg_C'
+
+  YALE/YCEO/UHI/Winter_UHI_yearly_pixel/v4:
+    title: 'YCEO Surface Urban Heat Islands: Pixel-Level Yearly Composites of Wintertime Daytime'
+    provider: Yale Center for Earth Observation (YCEO)
+    ee_type: image_collection
+    spatial_resolution: 300
+    extent:
+      start_date: "2003-01-01"
+      end_date: null
+      bbox: [-180, -49.98, 180, 69.7]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      Daytime:
+        description: Daytime UHI
+        units: 'deg_C'
+      Nighttime:
+        description: Nighttime UHI
+        units: 'deg_C'
+

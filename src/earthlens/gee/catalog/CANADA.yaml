@@ -1,0 +1,21 @@
+# Auto-grouped slice of the GEE catalog: CANADA.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  CANADA/NFIS/NTEMS/CA_FOREST_AGE:
+    title: "Canada NFIS NTEMS Landsat-Derived Forest Age (30m, 2019)"
+    provider: National Forest Information System (Canada)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      forest:
+        description: Forest stand age
+        units: y
+

@@ -52,16 +52,12 @@ class TestPublicSurface:
         for cls in (Catalog, Dataset, Band, Cadence):
             assert cls.__module__ == "earthlens.gee.catalog", cls
 
-    def test_catalog_path_points_at_the_bundled_yaml(self):
-        """`CATALOG_PATH` is the bundled `gee_data_catalog.yaml` and exists.
-
-        Test scenario:
-            It is a `Path` named `gee_data_catalog.yaml` sitting next to the
-            package, and the file is present.
-        """
+    def test_catalog_path_points_at_the_bundled_catalog_dir(self):
+        """`CATALOG_PATH` is the bundled `catalog/` directory and exists."""
         assert isinstance(CATALOG_PATH, Path)
-        assert CATALOG_PATH.name == "gee_data_catalog.yaml"
-        assert CATALOG_PATH.is_file()
+        assert CATALOG_PATH.name == "catalog"
+        assert CATALOG_PATH.is_dir()
+        assert (CATALOG_PATH / "_index.yaml").is_file()
 
     def test_feature_helpers_are_callable(self):
         """`createGeometry` / `createFeature` are importable callables.

@@ -1,0 +1,23 @@
+# Auto-grouped slice of the GEE catalog: AAFC.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  AAFC/ACI:
+    title: "AAFC ACI: Canada Annual Crop Inventory (30m, 2009-)"
+    provider: Agriculture and Agri-Food Canada
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-135.17, 36.83, -51.24, 62.25]
+    default_reducer: mosaic
+    license: OGL-Canada-2.0
+    bands:
+      landcover:
+        description: Crop-specific land-cover classification
+        min: 10
+        max: 230
+

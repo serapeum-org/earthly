@@ -1,0 +1,22 @@
+# Auto-grouped slice of the GEE catalog: BNU.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  BNU/FGS/CCNL/v1:
+    title: "BNU CCNL v1: Consistent + Corrected DMSP-OLS Nighttime Lights (1km, 1992-2013)"
+    provider: Beijing Normal University
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1992-01-01"
+      end_date: "2013-12-31"
+      bbox: [-180, -65, 180, 75]
+    default_reducer: mean
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      b1:
+        description: Inter-calibrated nighttime light digital number
+

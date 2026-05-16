@@ -1,0 +1,174 @@
+# Auto-grouped slice of the GEE catalog: TIGER.
+# 13 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  TIGER/2010/BG:
+    title: 'TIGER: US Census Block Groups (BG) 2010'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2010/Blocks:
+    title: 'TIGER: US Census Blocks'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2010/Tracts_DP1:
+    title: 'TIGER: US Census Tracts Demographic - Profile 1'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2010/ZCTA5:
+    title: 'TIGER: US Census 5-digit ZIP Code Tabulation Areas 2010 [deprecated]'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2016/Counties:
+    title: 'TIGER: US Census Counties 2016'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2016/Roads:
+    title: 'TIGER: US Census Roads'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2016/States:
+    title: 'TIGER: US Census States 2016'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2016-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2018/Counties:
+    title: 'TIGER: US Census Counties 2018'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2018/States:
+    title: 'TIGER: US Census States 2018'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2020/BG:
+    title: 'TIGER: US Census Block Groups (BG) 2020'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2020/TABBLOCK20:
+    title: 'TIGER: 2020 Tabulation (Census) Block'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2020/TRACT:
+    title: 'TIGER: US Census Tracts'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+
+  TIGER/2020/ZCTA5:
+    title: 'TIGER: US Census 5-digit ZIP Code Tabulation Areas 2020'
+    provider: United States Census Bureau
+    ee_type: table
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -14.69, -64.435, 71.567]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The U.S. Census Bureau offers some of its public data'
+    bands:
+

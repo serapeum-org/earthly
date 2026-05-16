@@ -1,0 +1,83 @@
+# Auto-grouped slice of the GEE catalog: Finland.
+# 3 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  Finland/MAVI/VV/50cm:
+    title: Finland NRG NLS orthophotos 50 cm by Mavi
+    provider: NLS orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+      bbox: [18, 59, 29.2, 69.4]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Mention the name of the Licensor (the National Land Survey of Finland),'
+    bands:
+      "N":
+        description: Near-Infrared
+        min: 0
+        max: 255
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+
+  Finland/SMK/V/50cm:
+    title: Finland RGB NLS orthophotos 50 cm by SMK
+    provider: NLS orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+      bbox: [18, 59, 29.2, 69.4]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Mention the name of the Licensor (the National Land Survey of Finland),'
+    bands:
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        min: 0
+        max: 255
+
+  Finland/SMK/VV/50cm:
+    title: Finland NRG NLS orthophotos 50 cm by SMK
+    provider: NLS orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2015-01-01"
+      end_date: null
+      bbox: [18, 59, 29.2, 69.4]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Mention the name of the Licensor (the National Land Survey of Finland),'
+    bands:
+      "N":
+        description: Near-Infrared
+        min: 0
+        max: 255
+      R:
+        description: Red
+        min: 0
+        max: 255
+      G:
+        description: Green
+        min: 0
+        max: 255
+

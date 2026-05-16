@@ -1,0 +1,16 @@
+# Auto-grouped slice of the GEE catalog: BLM.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  BLM/AIM/v1/TerrADat/TerrestrialAIM:
+    title: BLM AIM TerrADat TerrestrialAIM Point v1
+    provider: US Department of Interior Bureau of Land Management (BLM)
+    ee_type: table
+    extent:
+      start_date: "2011-05-10"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+

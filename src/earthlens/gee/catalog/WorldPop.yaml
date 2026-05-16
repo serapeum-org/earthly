@@ -1,0 +1,96 @@
+# Auto-grouped slice of the GEE catalog: WorldPop.
+# 4 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  WorldPop/GP/100m/pop:
+    title: "WorldPop GP 100m Population (annual estimated residents per grid cell)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population:
+        description: Estimated number of residents per ~100m grid cell
+
+  WorldPop/GP/100m/pop_age_sex:
+    title: "WorldPop GP 100m Population Age + Sex Structure (annual)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      population:
+        description: Total residents per ~100m grid cell
+      M_0:
+        description: Males 0-1 years per cell
+      M_15:
+        description: Males 15-19 years per cell
+      M_65:
+        description: Males 65-69 years per cell
+      M_75:
+        description: Males 75+ years per cell
+      F_0:
+        description: Females 0-1 years per cell
+      F_15:
+        description: Females 15-19 years per cell
+      F_65:
+        description: Females 65-69 years per cell
+      F_75:
+        description: Females 75+ years per cell
+
+  WorldPop/GP/100m/pop_age_sex_cons_unadj:
+    title: "WorldPop GP 100m Constrained Population Age + Sex (unadjusted, annual)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      population:
+        description: Total residents per ~100m grid cell (constrained, unadjusted)
+      M_0:
+        description: Males 0-1 years per cell
+      M_15:
+        description: Males 15-19 years per cell
+      M_65:
+        description: Males 65-69 years per cell
+      F_0:
+        description: Females 0-1 years per cell
+      F_15:
+        description: Females 15-19 years per cell
+      F_65:
+        description: Females 65-69 years per cell
+
+  WorldPop/POP:
+    title: "WorldPop Global Project Population (legacy, 100m, 2000-)"
+    provider: WorldPop
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 92.77
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+      bbox: [-180, -59.94, 180, 54.08]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population:
+        description: Estimated number of residents per ~100m grid cell
+

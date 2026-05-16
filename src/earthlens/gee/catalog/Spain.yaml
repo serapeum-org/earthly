@@ -1,0 +1,34 @@
+# Auto-grouped slice of the GEE catalog: Spain.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  Spain/PNOA/PNOA10:
+    title: Spain RGB orthophotos 10 cm
+    provider: Spain orthophotos
+    ee_type: image_collection
+    spatial_resolution: 0.1
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-9.32, 36.11, 4.7, 43.48]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'The data is free and free use for any legitimate purpose,'
+    bands:
+      R:
+        description: Red
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        units: dn
+        min: 0
+        max: 255
+

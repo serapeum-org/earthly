@@ -1,0 +1,38 @@
+# Auto-grouped slice of the GEE catalog: USDOS.
+# 3 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  USDOS/LSIB/2013:
+    title: 'LSIB 2013: Large Scale International Boundary Polygons, Detailed [deprecated]'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2013-03-08"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+
+  USDOS/LSIB/2017:
+    title: 'LSIB 2017: Large Scale International Boundary Polygons, Detailed'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2017-12-29"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+
+  USDOS/LSIB_SIMPLE/2017:
+    title: 'LSIB 2017: Large Scale International Boundary Polygons, Simplified'
+    provider: United States Department of State, Office of the Geographer
+    ee_type: table
+    extent:
+      start_date: "2017-03-30"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+

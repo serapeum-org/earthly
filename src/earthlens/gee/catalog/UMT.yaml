@@ -1,0 +1,141 @@
+# Auto-grouped slice of the GEE catalog: UMT.
+# 6 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  UMT/Climate/IrrMapper_RF/v1_1:
+    title: IrrMapper Irrigated Lands, Version 1.1 [deprecated]
+    provider: University of Montana / Montana Climate Office
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "1986-01-01"
+      end_date: null
+      bbox: [-124.5, 31.3, -99, 49]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      classification:
+        description: Irrigated pixels have the value of 1, the other pixels are masked out.
+
+  UMT/Climate/IrrMapper_RF/v1_2:
+    title: IrrMapper Irrigated Lands, Version 1.2
+    provider: University of Montana / Montana Climate Office
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "1986-01-01"
+      end_date: null
+      bbox: [-124.5, 31.3, -99, 49]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      classification:
+        description: Irrigated pixels have the value of 1, the other pixels are masked out.
+
+  UMT/NTSG/v2/LANDSAT/GPP:
+    title: Landsat Gross Primary Production CONUS
+    provider: University of Montana Numerical Terradynamic Simulation Group (NTSG)
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1986-01-01"
+      end_date: null
+      bbox: [-124.84, 24.42, -64.82, 49.72]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This work is in the public domain and is free of known copyright'
+    user_uploaded: true
+    bands:
+      GPP:
+        description: 16-day gross primary production
+        units: kg*C/m^2/16-day
+        scale: 0.0001
+        min: 0
+        max: 65535
+      QC:
+        description: Indicates the quality of the Landsat NDVI pixel used in the GPP Calculation
+
+  UMT/NTSG/v2/LANDSAT/NPP:
+    title: Landsat Net Primary Production CONUS
+    provider: University of Montana Numerical Terradynamic Simulation Group (NTSG)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1986-01-01"
+      end_date: null
+      bbox: [-124.84, 24.42, -64.82, 49.72]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This work is in the public domain and is free of known copyright'
+    user_uploaded: true
+    bands:
+      annualNPP:
+        description: Annual net primary production
+        units: kg*C/m^2
+        scale: 0.0001
+        min: 0
+        max: 65535
+      QC:
+        description: Percentage of gap-filled Landsat 16-day composites. Gaps are
+        units: '%'
+        min: 0
+        max: 255
+
+  UMT/NTSG/v2/MODIS/GPP:
+    title: MODIS Gross Primary Production CONUS
+    provider: University of Montana Numerical Terradynamic Simulation Group (NTSG)
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 250
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-124.84, 24.42, -64.82, 49.72]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This work is in the public domain and is free of known copyright'
+    user_uploaded: true
+    bands:
+      GPP:
+        description: 8-day gross primary production
+        units: kg*C/m^2/8-day
+        scale: 0.0001
+        min: 0
+        max: 65535
+      QC:
+        description: Indicates if the original NDVI value was adjusted through the
+        min: 0
+        max: 1
+
+  UMT/NTSG/v2/MODIS/NPP:
+    title: MODIS Net Primary Production CONUS
+    provider: University of Montana Numerical Terradynamic Simulation Group (NTSG)
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 250
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+      bbox: [-124.84, 24.42, -64.82, 49.72]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This work is in the public domain and is free of known copyright'
+    user_uploaded: true
+    bands:
+      annualNPP:
+        description: Annual net primary productivity
+        units: kg*C/m^2
+        scale: 0.0001
+        min: 0
+        max: 65535
+      QC:
+        description: Percentage of gap-filled NDVI values.
+        units: '%'
+        min: 0
+        max: 100
+

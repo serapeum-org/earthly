@@ -1,0 +1,34 @@
+# Auto-grouped slice of the GEE catalog: Slovakia.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  Slovakia/orthos/25cm:
+    title: Slovakia orthophotos
+    provider: Slovakia orthophotomosaic
+    ee_type: image_collection
+    spatial_resolution: 0.25
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+      bbox: [16.5, 47.44, 22.33, 49.36]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'The User is entitled to combine the Source Data with other data, use it in'
+    bands:
+      R:
+        description: Red
+        units: dn
+        min: 0
+        max: 255
+      G:
+        description: Green
+        units: dn
+        min: 0
+        max: 255
+      B:
+        description: Blue
+        units: dn
+        min: 0
+        max: 255
+

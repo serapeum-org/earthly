@@ -1,0 +1,74 @@
+# Auto-grouped slice of the GEE catalog: MERIT.
+# 3 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  MERIT/DEM/v1_0_3:
+    title: "MERIT DEM v1.0.3: Multi-Error-Removed Improved-Terrain DEM (90m)"
+    provider: Dai Yamazaki — University of Tokyo
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1987-01-01"
+      end_date: "2017-12-31"
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with citation (Yamazaki et al., 2017).'
+    user_uploaded: true
+    bands:
+      dem:
+        description: Elevation referenced to the EGM96 geoid
+        units: m
+
+  MERIT/Hydro/v1_0_1:
+    title: "MERIT Hydro v1.0.1: Global Hydrography (90m, derived from MERIT DEM)"
+    provider: Dai Yamazaki — University of Tokyo
+    ee_type: image
+    spatial_resolution: 92.77
+    extent:
+      start_date: "1987-01-01"
+      end_date: "2017-12-31"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free with citation (Yamazaki et al., 2019).'
+    user_uploaded: true
+    bands:
+      elv:
+        description: Elevation (referenced to EGM96 geoid)
+        units: m
+      dir:
+        description: Local drainage direction
+      wth:
+        description: River channel width at the centerline
+        units: m
+      wat:
+        description: Land vs permanent-water mask
+      upa:
+        description: Upstream drainage area (flow accumulation)
+        units: km^2
+      upg:
+        description: Upstream drainage pixel count (flow accumulation grid)
+      hnd:
+        description: Height-Above-Nearest-Drainage (HAND)
+        units: m
+
+  MERIT/Hydro_reduced/v1_0_1:
+    title: 'MERIT Hydro: Supplementary Visualization Layers'
+    provider: Dai Yamazaki (University of Tokyo)
+    ee_type: image
+    spatial_resolution: 556.6
+    extent:
+      start_date: "1987-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Citation to the paper is adequate if you simply use MERIT Hydro. If you'
+    user_uploaded: true
+    bands:
+      wth:
+        description: River channel width at the channel centerlines. River channel width is
+      upa:
+        description: Upstream drainage area (flow accumulation area). This band was upscaled
+        units: km^2
+

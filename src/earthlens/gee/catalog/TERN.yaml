@@ -1,0 +1,43 @@
+# Auto-grouped slice of the GEE catalog: TERN.
+# 2 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  TERN/AET/CMRSET_LANDSAT_V2_1:
+    title: Actual Evapotranspiration for Australia (CMRSET Landsat V2.1) [deprecated]
+    provider: TERN Landscapes / CSIRO Land and Water
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2012-02-01"
+      end_date: null
+      bbox: [110, -45, 155, -10]
+    default_reducer: median
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      ETa:
+        description: Average daily evapotranspiration (mm/day)
+        units: mm/d
+      pixel_qa:
+        description: Pixel QA attributes
+
+  TERN/AET/CMRSET_LANDSAT_V2_2:
+    title: Actual Evapotranspiration for Australia (CMRSET Landsat V2.2)
+    provider: TERN Landscapes / CSIRO Land and Water
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-02-01"
+      end_date: null
+      bbox: [110, -45, 155, -10]
+    default_reducer: median
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      ETa:
+        description: Average daily evapotranspiration
+        units: mm/d
+      pixel_qa:
+        description: Pixel QA attributes
+

@@ -6,7 +6,8 @@ and one image carries many at once), plus a date range, a bbox (or a
 `GeoDataFrame` region), a temporal-compositing resolution
 (`"raw"`/`"daily"`/`"monthly"`/`"yearly"`), and an output pixel `scale`
 in metres. The asset ids and band metadata are resolved through
-:class:`earthlens.gee.Catalog` (loaded from `gee_data_catalog.yaml`).
+:class:`earthlens.gee.Catalog` (loaded from the per-provider YAMLs
+under `src/earthlens/gee/catalog/`).
 
 Per `(asset, band-set, time-bucket)` the pipeline is:
 
@@ -88,7 +89,7 @@ class GEE(AbstractDataSource):
         end: Inclusive end date string.
         variables: Mapping `{asset_id: [band, ...]}` — each `asset_id`
             must be a key of :attr:`Catalog.datasets` and each band a
-            band of that dataset (see `gee_data_catalog.yaml`).
+            band of that dataset (see `src/earthlens/gee/catalog/`).
         lat_lim: `[lat_min, lat_max]` in degrees.
         lon_lim: `[lon_min, lon_max]` in degrees.
         temporal_resolution: How to composite over time — `"raw"` (one
@@ -389,7 +390,7 @@ class GEE(AbstractDataSource):
 
         See Also:
             earthlens.gee.Catalog: Resolves the `{asset_id: [band, ...]}`
-                request against `gee_data_catalog.yaml`.
+                request against `src/earthlens/gee/catalog/`.
             earthlens.gee.auth.EarthEngineAuth: Performs the one-time
                 `ee.Initialize` used by :meth:`_initialize`.
         """

@@ -1,0 +1,23 @@
+# Auto-grouped slice of the GEE catalog: FORMA.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  FORMA/FORMA_500m:
+    title: FORMA Global Forest Watch Deforestation Alerts, 500m [deprecated]
+    provider: Global Forest Watch, World Resources Institute
+    ee_type: image
+    spatial_resolution: 500
+    extent:
+      start_date: "2006-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The FORMA datasets are available without restriction on use or distribution.'
+    bands:
+      constant:
+        description: '[Seconds since Jan 1, 1970](https://en.wikipedia.org/wiki/Unix_time)'
+        units: seconds
+        min: 1134979200
+        max: 1433919600
+

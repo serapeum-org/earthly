@@ -1,0 +1,3981 @@
+# Auto-grouped slice of the GEE catalog: NOAA.
+# 71 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  NOAA/CDR/ATMOS_NEAR_SURFACE/V2:
+    title: 'NOAA CDR: Ocean Near-Surface Atmospheric Properties, Version 2'
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1988-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CDR Program''s official distribution point for CDRs is NOAA''s'
+    bands:
+      air_temperature:
+        description: Air temperature at 10m
+        units: 'deg_C'
+        min: -42.16
+        max: 42.77
+      specific_humidity:
+        description: Specific humidity at 10m
+        units: g/kg
+        min: 0.07
+        max: 37.06
+      wind_speed:
+        description: Wind speed at 10m
+        units: m/s
+        min: 0.13
+        max: 71.45
+      fill_missing_qc:
+        description: Quality control flags
+
+  NOAA/CDR/AVHRR/AOT/V3:
+    title: "NOAA CDR AVHRR AOT v3: Daily Global Ocean Aerosol Optical Thickness (legacy)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      aot:
+        description: Aerosol optical thickness over the ocean (legacy v3)
+        min: -0.19
+        max: 4.95
+        estimated_range: true
+
+  NOAA/CDR/AVHRR/AOT/V4:
+    title: "NOAA CDR AVHRR AOT v4: Daily Global Ocean Aerosol Optical Thickness (~10km)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      aot:
+        description: Aerosol optical thickness over the ocean
+        min: -0.19
+        max: 4.95
+        estimated_range: true
+
+  NOAA/CDR/AVHRR/LAI_FAPAR/V4:
+    title: "NOAA CDR AVHRR LAI/FAPAR v4 (Daily 5km, 1981-, legacy)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      LAI:
+        description: Leaf area index
+        scale: 0.001
+      FAPAR:
+        description: Fraction of absorbed photosynthetically active radiation
+        scale: 0.001
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CDR/AVHRR/LAI_FAPAR/V5:
+    title: "NOAA CDR AVHRR LAI/FAPAR v5 (Daily 5km, 1981-present)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      LAI:
+        description: Leaf area index
+        scale: 0.001
+      FAPAR:
+        description: Fraction of absorbed photosynthetically active radiation
+        scale: 0.001
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CDR/AVHRR/NDVI/V4:
+    title: "NOAA CDR AVHRR NDVI v4: Daily Global NDVI (legacy 5km, 1981-)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index (legacy v4)
+        scale: 0.0001
+      TIMEOFDAY:
+        description: Hours since the start of the day at the observation time
+        units: h
+        scale: 0.01
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CDR/AVHRR/NDVI/V5:
+    title: "NOAA CDR AVHRR NDVI v5: Daily Global NDVI (5km, 1981-present)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        scale: 0.0001
+        min: -9998
+        max: 9998
+      TIMEOFDAY:
+        description: Hours since the start of the day at the observation time
+        units: h
+        scale: 0.01
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CDR/AVHRR/SR/V4:
+    title: 'NOAA CDR AVHRR: Surface Reflectance, Version 4 [deprecated]'
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CDR Program''s official distribution point for CDRs is NOAA''s'
+    bands:
+      SREFL_CH1:
+        description: Bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 0.64
+        min: 1
+        max: 10000
+      SREFL_CH2:
+        description: Bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 0.86
+        min: 1
+        max: 10000
+      SREFL_CH3:
+        description: Bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 3.75
+        min: -32768
+        max: 32767
+      BT_CH3:
+        description: Brightness temperature
+        units: K
+        scale: 0.1
+        wavelength: 3.75
+        min: -32519
+        max: 30136
+      BT_CH4:
+        description: Brightness temperature
+        units: K
+        scale: 0.1
+        wavelength: 11
+        min: -32519
+        max: 31450
+      BT_CH5:
+        description: Brightness temperature
+        units: K
+        scale: 0.1
+        wavelength: 12
+        min: -7623
+        max: 18788
+      TIMEOFDAY:
+        description: Hours since start of day
+        units: h
+        scale: 0.01
+        min: 0
+        max: 2399
+      RELAZ:
+        description: Relative sensor azimuth angle
+        units: deg
+        scale: 0.01
+        min: -32768
+        max: 32767
+      SZEN:
+        description: Solar zenith angle
+        units: deg
+        scale: 0.01
+        min: 219
+        max: 8546
+      VZEN:
+        description: View zenith angle, scale 0.01
+        units: deg
+        scale: 0.01
+        min: 0
+        max: 6936
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CDR/AVHRR/SR/V5:
+    title: "NOAA CDR AVHRR Surface Reflectance v5 (Daily 5km, 1981-present)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-06-24"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      SREFL_CH1:
+        description: Channel 1 (red, 0.64 µm) bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 0.64
+      SREFL_CH2:
+        description: Channel 2 (NIR, 0.86 µm) bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 0.86
+      SREFL_CH3:
+        description: Channel 3 (3.75 µm) bidirectional surface reflectance
+        scale: 0.0001
+        wavelength: 3.75
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CDR/GRIDSAT-B1/V2:
+    title: "NOAA CDR GRIDSAT-B1 v2: Geostationary IR Brightness Temperature (3-hourly ~8km)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 7792
+    extent:
+      start_date: "1980-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      irwin_cdr:
+        description: Brightness temperature near 11 µm (nadir-most observation)
+        units: K
+        scale: 0.01
+        offset: 200
+      irwin_2:
+        description: Brightness temperature near 11 µm (second-best observation)
+        units: K
+        scale: 0.01
+        offset: 200
+      irwin_3:
+        description: Brightness temperature near 11 µm (third-best observation)
+        units: K
+        scale: 0.01
+        offset: 200
+      vschn:
+        description: Visible-channel reflectance (where available)
+
+  NOAA/CDR/HEAT_FLUXES/V2:
+    title: "NOAA CDR Ocean Surface Bundle: Heat Fluxes v2 (3-hourly 0.25°)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1988-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      surface_upward_latent_heat_flux:
+        description: Latent heat flux from the ocean surface (positive upward)
+        units: W/m^2
+      surface_upward_sensible_heat_flux:
+        description: Sensible heat flux from the ocean surface (positive upward)
+        units: W/m^2
+      fill_missing_qc:
+        description: Fill / missing-data quality control flag
+
+  NOAA/CDR/OISST/V2:
+    title: 'NOAA CDR OISST v2: Optimum Interpolation Sea Surface Temperature [deprecated]'
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1981-09-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CDR Program''s official distribution point for CDRs is NOAA''s'
+    bands:
+      sst:
+        description: Daily sea surface temperature
+        units: 'deg_C'
+        scale: 0.01
+        min: -180
+        max: 3764
+      anom:
+        description: Temperature anomaly; the daily OISST minus a 30-year climatological mean.
+        units: 'deg_C'
+        scale: 0.01
+        min: -1887
+        max: 1902
+      ice:
+        description: Seven-day median of daily sea ice concentrations.
+        units: '%'
+        scale: 0.01
+        min: 1
+        max: 100
+      err:
+        description: Estimated error; standard deviation of analyzed sea surface temperature.
+        units: 'deg_C'
+        scale: 0.01
+        min: 11
+        max: 171
+
+  NOAA/CDR/OISST/V2_1:
+    title: "NOAA CDR OISST v02r01: Optimum Interpolation SST (Daily 0.25°)"
+    provider: NOAA CDR Program
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1981-09-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      sst:
+        description: Daily sea-surface temperature
+        units: deg_C
+        scale: 0.01
+      anom:
+        description: SST anomaly versus 30-year climatological mean
+        units: deg_C
+        scale: 0.01
+      ice:
+        description: Seven-day median sea-ice concentration
+        units: "%"
+        scale: 0.01
+        min: 1
+        max: 100
+      err:
+        description: SST analysis error standard deviation
+        units: deg_C
+        scale: 0.01
+
+  NOAA/CDR/PATMOSX/V53:
+    title: "NOAA CDR PATMOS-x v5.3: AVHRR Cloud Properties + Reflectance + Brightness Temperature"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      cld_emiss_acha:
+        description: Cloud emissivity at 11 µm (ACHA retrieval)
+        scale: 0.003937008
+        offset: 0.5
+        wavelength: 11
+      cld_height_acha:
+        description: Cloud-top height (ACHA)
+        units: km
+        scale: 0.0003051851
+        offset: 10
+      cld_opd_acha:
+        description: Cloud optical depth at 0.65 µm (ACHA)
+        scale: 0.03228346
+        offset: 3.9
+        wavelength: 0.65
+      cld_opd_dcomp:
+        description: Cloud optical depth at 0.65 µm (DCOMP)
+        scale: 0.002444532
+        offset: 79.9
+        wavelength: 0.65
+
+  NOAA/CDR/SST_PATHFINDER/V53:
+    title: "NOAA AVHRR Pathfinder v5.3: Global 4km Sea-Surface Temperature (12-hourly)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 12, unit: hour }
+    spatial_resolution: 4000
+    extent:
+      start_date: "1981-08-24"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      sea_surface_temperature:
+        description: Skin sea-surface temperature
+        units: K
+        scale: 0.01
+        offset: 273.15
+      dt_analysis:
+        description: Difference vs previous-day analysis
+        units: K
+        scale: 0.1
+      wind_speed:
+        description: Surface wind speed (NCEP-DOE)
+        units: m/s
+      sea_ice_fraction:
+        description: Sea-ice concentration (EUMETSAT OSI SAF)
+        scale: 0.01
+
+  NOAA/CDR/SST_WHOI/V2:
+    title: "NOAA CDR WHOI Sea-Surface Temperature v2 (3-hourly ~28km, 1988-)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1988-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      sea_surface_temperature:
+        description: OISST with diurnal warming correction
+        units: deg_C
+      fill_missing_qc:
+        description: Fill / missing-data quality control flag
+
+  NOAA/CDR/VIIRS/LAI_FAPAR/V1:
+    title: 'NOAA CDR VIIRS LAI FAPAR: Leaf Area Index and Fraction of Absorbed Photosynthetically'
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "2014-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CDR Program''s official distribution point for CDRs is NOAA''s'
+    bands:
+      LAI:
+        description: Leaf area index
+        scale: 0.001
+        min: 0
+        max: 6205
+      FAPAR:
+        description: Fraction of absorbed photosynthetic active radiation
+        scale: 0.001
+        min: 0
+        max: 896
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CDR/VIIRS/NDVI/V1:
+    title: 'NOAA CDR VIIRS NDVI: Normalized Difference Vegetation Index, Version 1'
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "2014-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CDR Program''s official distribution point for CDRs is NOAA''s'
+    bands:
+      NDVI:
+        description: Normalized difference vegetation index
+        scale: 0.0001
+        min: -9998
+        max: 9998
+      TIMEOFDAY:
+        description: Hours since start of day
+        units: h
+        scale: 0.01
+        min: 0
+        max: 2400
+      QA:
+        description: Quality control bit flags
+
+  NOAA/CFSR:
+    title: "NOAA NCEP CFSR: Climate Forecast System Reanalysis (6-hourly ~55km, 2018-)"
+    provider: NOAA / NCEP
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 55660
+    extent:
+      start_date: "2018-12-13"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      Temperature_height_above_ground:
+        description: 2 m air temperature
+        units: K
+      u-component_of_wind_hybrid:
+        description: U-component of wind at hybrid level
+        units: m/s
+      v-component_of_wind_hybrid:
+        description: V-component of wind at hybrid level
+        units: m/s
+      Pressure_surface:
+        description: Surface pressure
+        units: Pa
+      Albedo_surface_3_Hour_Average:
+        description: Surface albedo, 3-hour average
+        units: "%"
+      Categorical_Rain_surface:
+        description: Categorical rain flag at surface
+      Canopy_water_evaporation_surface_3_Hour_Average:
+        description: Canopy water evaporation, 3-hour average
+        units: W/m^2
+
+  NOAA/CFSV2/FOR6H:
+    title: "NOAA NCEP CFSv2: Climate Forecast System Version 2, 6-Hourly Forecast Products"
+    provider: NOAA / NCEP
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 22264
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      Temperature_height_above_ground:
+        description: 2 m air temperature
+        units: K
+      Maximum_temperature_height_above_ground_6_Hour_Interval:
+        description: 6-hourly maximum 2 m air temperature
+        units: K
+      Minimum_temperature_height_above_ground_6_Hour_Interval:
+        description: 6-hourly minimum 2 m air temperature
+        units: K
+      Specific_humidity_height_above_ground:
+        description: 2 m specific humidity (mass fraction)
+      Pressure_surface:
+        description: Surface pressure
+        units: Pa
+      u-component_of_wind_height_above_ground:
+        description: 10 m wind, U-component
+        units: m/s
+      v-component_of_wind_height_above_ground:
+        description: 10 m wind, V-component
+        units: m/s
+      Precipitation_rate_surface_6_Hour_Average:
+        description: 6-hourly mean precipitation rate
+        units: kg/m^2/s
+      Downward_Short-Wave_Radiation_Flux_surface_6_Hour_Average:
+        description: 6-hourly mean downward shortwave radiation flux
+        units: W/m^2
+      Downward_Long-Wave_Radp_Flux_surface_6_Hour_Average:
+        description: 6-hourly mean downward longwave radiation flux
+        units: W/m^2
+      Latent_heat_net_flux_surface_6_Hour_Average:
+        description: 6-hourly mean latent heat net flux
+        units: W/m^2
+      Sensible_heat_net_flux_surface_6_Hour_Average:
+        description: 6-hourly mean sensible heat net flux
+        units: W/m^2
+      Volumetric_Soil_Moisture_Content_depth_below_surface_layer_5_cm:
+        description: Volumetric soil moisture, 5 cm depth
+      Volumetric_Soil_Moisture_Content_depth_below_surface_layer_25_cm:
+        description: Volumetric soil moisture, 25 cm depth
+
+  NOAA/CFSV2/FOR6H_HARMONIZED:
+    title: 'CFSV2: NCEP Climate Forecast System Version 2, 6-Hourly Products Harmonized'
+    provider: NOAA NWS National Centers for Environmental Prediction (NCEP)
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 22264
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Downward_Long-Wave_Radp_Flux_surface_6_Hour_Average:
+        description: Downward long-wave radiation flux at surface, 6-hour average
+        units: W/m^2
+        min: 41.76
+        max: 532.67
+      Downward_Short-Wave_Radiation_Flux_surface_6_Hour_Average:
+        description: Downward short-wave radiation flux at surface, 6-hour average
+        units: W/m^2
+        min: 0
+        max: 1125.23
+      Geopotential_height_surface:
+        description: Geopotential height at surface
+        units: gpm
+        min: -292
+        max: 5938.65
+      Latent_heat_net_flux_surface_6_Hour_Average:
+        description: Latent heat net flux at surface, 6-hour average
+        units: W/m^2
+        min: -628
+        max: 2357
+      Maximum_specific_humidity_at_2m_height_above_ground_6_Hour_Interval:
+        description: Maximum specific humidity 2m above ground, 6-hour interval
+        units: Mass fraction
+        min: 0
+        max: 0.1
+      Maximum_temperature_height_above_ground_6_Hour_Interval:
+        description: Maximum temperature 2m above ground, 6-hour interval
+        units: K
+        min: 189.8
+        max: 334.89
+      Minimum_specific_humidity_at_2m_height_above_ground_6_Hour_Interval:
+        description: Minimum specific humidity 2m above ground, 6-hour interval
+        units: Mass fraction
+        min: 0
+        max: 0.02
+      Minimum_temperature_height_above_ground_6_Hour_Interval:
+        description: Minimum temperature 2m above ground, 6-hour interval
+        units: K
+        min: 188.39
+        max: 324.39
+      Potential_Evaporation_Rate_surface_6_Hour_Average:
+        description: Potential evaporation rate at surface, 6-hour average
+        units: W/m^2
+        min: -202
+        max: 6277
+      Precipitation_rate_surface_6_Hour_Average:
+        description: Precipitation rate at surface, 6-hour average
+        units: kg/m^2/s
+        min: 0
+        max: 0.03
+      Pressure_surface:
+        description: Pressure at surface
+        units: Pa
+        min: 47200
+        max: 109180
+      Sensible_heat_net_flux_surface_6_Hour_Average:
+        description: Sensible heat net flux at surface, 6-hour average
+        units: W/m^2
+        min: -2295
+        max: 3112
+      Specific_humidity_height_above_ground:
+        description: Specific humidity 2m above ground
+        units: Mass fraction
+        min: 0
+        max: 0.06
+      Temperature_height_above_ground:
+        description: Temperature 2m above ground
+        units: K
+        min: 188.96
+        max: 328.68
+      u-component_of_wind_height_above_ground:
+        description: U-component of wind 10m above ground
+        units: m/s
+        min: -57.2
+        max: 57.99
+      Upward_Long-Wave_Radp_Flux_surface_6_Hour_Average:
+        description: Upward long-wave radiation flux at surface, 6-hour average
+        units: W/m^2
+        min: 59
+        max: 757
+      Upward_Short-Wave_Radiation_Flux_surface_6_Hour_Average:
+        description: Upward short-wave radiation flux at surface, 6-hour average
+        units: W/m^2
+        min: 0
+        max: 812
+      v-component_of_wind_height_above_ground:
+        description: V-component of wind 10m above ground
+        units: m/s
+        min: -53.09
+        max: 57.11
+      Volumetric_Soil_Moisture_Content_depth_below_surface_layer_5_cm:
+        description: Volumetric soil moisture content 5cm below surface layer
+        units: Fraction
+        min: 0.02
+        max: 1
+      Volumetric_Soil_Moisture_Content_depth_below_surface_layer_25_cm:
+        description: Volumetric soil moisture content 25cm below surface layer
+        units: Fraction
+        min: 0.02
+        max: 1
+      Volumetric_Soil_Moisture_Content_depth_below_surface_layer_70_cm:
+        description: Volumetric soil moisture content 70cm below surface layer
+        units: Fraction
+        min: 0.02
+        max: 1
+      Volumetric_Soil_Moisture_Content_depth_below_surface_layer_150_cm:
+        description: Volumetric soil moisture content 150cm below surface layer
+        units: Fraction
+        min: 0.02
+        max: 1
+
+  NOAA/CPC/Precipitation:
+    title: CPC Global Unified Gauge-Based Analysis of Daily Precipitation
+    provider: NOAA Physical Sciences Laboratory
+    ee_type: image_collection
+    spatial_resolution: 55500
+    extent:
+      start_date: "2006-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CPC datasets are available without restriction'
+    bands:
+      precipitation:
+        description: Daily total precipitation estimate in 0.1 mm
+        units: mm
+        min: 0
+        max: 10671.53
+      num_gauges:
+        description: Number of rain gauges contributing to the precipitation estimate
+        min: 0
+        max: 121
+
+  NOAA/CPC/Temperature:
+    title: CPC Global Unified Temperature
+    provider: NOAA Physical Sciences Laboratory
+    ee_type: image_collection
+    spatial_resolution: 55500
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CPC datasets are available without restriction'
+    bands:
+      tmax:
+        description: daily maximum temperature
+        units: 'deg_C'
+        min: -89.84
+        max: 66.03
+      tmin:
+        description: daily minimum temperature
+        units: 'deg_C'
+        min: -97.92
+        max: 54.26
+      nmax:
+        description: number of reports for maximum temperature
+        min: 0
+        max: 7
+      nmin:
+        description: number of reports for minimum temperature
+        min: 0
+        max: 7
+
+  NOAA/DMSP-OLS/CALIBRATED_LIGHTS_V4:
+    title: "DMSP-OLS Radiance-Calibrated Nighttime Lights v4 (1996-2010 composites)"
+    provider: NOAA / Earth Observation Group, Colorado School of Mines
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1996-03-16"
+      end_date: "2010-07-31"
+      bbox: [-180, -65, 180, 75]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      avg_vis:
+        description: Average DNB radiance (cloud-free observations only)
+      cf_cvg:
+        description: Cloud-free observation count contributing to the composite
+
+  NOAA/DMSP-OLS/NIGHTTIME_LIGHTS:
+    title: 'DMSP OLS: Nighttime Lights Time Series Version 4, Defense Meteorological Program'
+    provider: Earth Observation Group, Payne Institute for Public Policy, Colorado School of Mines
+    ee_type: image_collection
+    spatial_resolution: 927.67
+    extent:
+      start_date: "1992-01-01"
+      end_date: null
+      bbox: [-180, -65, 180, 75]
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      avg_vis:
+        description: The average of the visible band digital number values with no further filtering.
+        min: 0
+        max: 63
+      stable_lights:
+        description: The cleaned up avg_vis contains the lights from cities,
+        min: 0
+        max: 63
+      cf_cvg:
+        description: Cloud-free coverages tally the total number of observations
+        min: 0
+        max: 126
+      avg_lights_x_pct:
+        description: The average visible band digital number (DN) of cloud-free
+        min: 0
+        max: 63
+
+  NOAA/GFS0P25:
+    title: "NOAA GFS 0.25°: Global Forecast System (384-hour atmospheric forecast)"
+    provider: NOAA / NCEP / EMC
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "2015-07-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      temperature_2m_above_ground:
+        description: 2 m air temperature
+        units: deg_C
+      relative_humidity_2m_above_ground:
+        description: 2 m relative humidity
+        units: "%"
+      specific_humidity_2m_above_ground:
+        description: 2 m specific humidity (mass fraction)
+      u_component_of_wind_10m_above_ground:
+        description: 10 m wind, U-component
+        units: m/s
+      v_component_of_wind_10m_above_ground:
+        description: 10 m wind, V-component
+        units: m/s
+      total_precipitation_surface:
+        description: Surface total precipitation forecast
+        units: kg/m^2
+      total_cloud_cover_entire_atmosphere:
+        description: Total cloud cover (column)
+        units: "%"
+      precipitable_water_entire_atmosphere:
+        description: Precipitable water (column)
+        units: kg/m^2
+
+  NOAA/GOES/16/FDCC:
+    title: GOES-16 FDCC Series ABI Level 2 Fire/Hot Spot Characterization CONUS
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2017-05-24"
+      end_date: null
+      bbox: [-152.11, 14, -49.18, 56.77]
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Area:
+        description: Fire area
+        units: m^2
+        scale: 60.98
+        offset: 4000
+        min: 0
+        max: 16723
+      Temp:
+        description: Fire temperature
+        units: K
+        scale: 0.05493667
+        offset: 400
+        min: 0
+        max: 32642
+      Mask:
+        description: Fire mask categories.  Pixel values in the fire mask image
+      Power:
+        description: Fire radiative power
+        units: MW
+        min: 0
+        max: 200000
+      DQF:
+        description: Data quality flags
+        min: 0
+        max: 5
+
+  NOAA/GOES/16/FDCF:
+    title: GOES-16 FDCF Series ABI Level 2 Fire/Hot Spot Characterization Full Disk
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2017-05-24"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Area:
+        description: Fire area
+        units: m^2
+        scale: 60.98
+        offset: 4000
+        min: 0
+        max: 16723
+      Temp:
+        description: Fire temperature
+        units: K
+        scale: 0.05493667
+        offset: 400
+        min: 0
+        max: 32642
+      Mask:
+        description: Fire mask categories.  Pixel values in the fire mask image
+      Power:
+        description: Fire radiative power
+        units: MW
+        min: 0
+        max: 200000
+      DQF:
+        description: Data quality flags
+        min: 0
+        max: 5
+
+  NOAA/GOES/16/MCMIPC:
+    title: "NOAA GOES-16 ABI L2 Cloud and Moisture Imagery — CONUS (10-min, 2km)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2017-07-10"
+      end_date: null
+      bbox: [-152.11, 14, -49.18, 56.77]
+    default_reducer: median
+    license: public-domain
+    bands:
+      CMI_C01:
+        description: ABI band 01 (visible blue) reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      CMI_C02:
+        description: ABI band 02 (visible red) reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      CMI_C03:
+        description: ABI band 03 (veggie NIR) reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      CMI_C07:
+        description: ABI band 07 (shortwave IR) brightness temperature
+        units: K
+        wavelength: 3.9
+      CMI_C13:
+        description: ABI band 13 (clean longwave IR window) brightness temperature
+        units: K
+        wavelength: 10.35
+      DQF_C01:
+        description: Data quality flag, band 01
+      DQF_C13:
+        description: Data quality flag, band 13
+
+  NOAA/GOES/16/MCMIPF:
+    title: GOES-16 MCMIPF Series ABI Level 2 Cloud and Moisture Imagery Full Disk
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2017-07-10"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/16/MCMIPM:
+    title: GOES-16 MCMIPM Series ABI Level 2 Cloud and Moisture Imagery Mesoscale
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2017-07-10"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/17/FDCC:
+    title: GOES-17 FDCC Series ABI Level 2 Fire/Hot Spot Characterization CONUS
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2018-08-27"
+      end_date: null
+      bbox: [-180, 14.57, 180, 53.51]
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Area:
+        description: Fire area
+        units: m^2
+        scale: 60.98
+        offset: 4000
+        min: 0
+        max: 16723
+      Temp:
+        description: Fire temperature
+        units: K
+        scale: 0.05493667
+        offset: 400
+        min: 0
+        max: 32642
+      Mask:
+        description: Fire mask categories.  Pixel values in the fire mask image
+      Power:
+        description: Fire radiative power
+        units: MW
+        min: 0
+        max: 200000
+      DQF:
+        description: Data quality flags
+        min: 0
+        max: 5
+
+  NOAA/GOES/17/FDCF:
+    title: GOES-17 FDCF Series ABI Level 2 Fire/Hot Spot Characterization Full Disk
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2018-08-27"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Area:
+        description: Fire area
+        units: m^2
+        scale: 60.98
+        offset: 4000
+        min: 0
+        max: 16723
+      Temp:
+        description: Fire temperature
+        units: K
+        scale: 0.05493667
+        offset: 400
+        min: 0
+        max: 32642
+      Mask:
+        description: Fire mask categories.  Pixel values in the fire mask image
+      Power:
+        description: Fire radiative power
+        units: MW
+        min: 0
+        max: 200000
+      DQF:
+        description: Data quality flags
+        min: 0
+        max: 5
+
+  NOAA/GOES/17/MCMIPC:
+    title: "NOAA GOES-17 ABI L2 Cloud and Moisture Imagery — CONUS (10-min, 2km)"
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2018-12-04"
+      end_date: null
+      bbox: [-180, 14.57, 180, 53.51]
+    default_reducer: median
+    license: public-domain
+    bands:
+      CMI_C01:
+        description: ABI band 01 (visible blue) reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      CMI_C02:
+        description: ABI band 02 (visible red) reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      CMI_C03:
+        description: ABI band 03 (veggie NIR) reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      CMI_C07:
+        description: ABI band 07 (shortwave IR) brightness temperature
+        units: K
+        wavelength: 3.9
+      CMI_C13:
+        description: ABI band 13 (clean longwave IR window) brightness temperature
+        units: K
+        wavelength: 10.35
+      DQF_C01:
+        description: Data quality flag, band 01
+      DQF_C13:
+        description: Data quality flag, band 13
+
+  NOAA/GOES/17/MCMIPF:
+    title: GOES-17 MCMIPF Series ABI Level 2 Cloud and Moisture Imagery Full Disk
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2018-12-04"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/17/MCMIPM:
+    title: GOES-17 MCMIPM Series ABI Level 2 Cloud and Moisture Imagery Mesoscale
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2018-12-04"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/18/FDCC:
+    title: GOES-18 FDCC Series ABI Level 2 Fire/Hot Spot Characterization CONUS
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2022-10-13"
+      end_date: null
+      bbox: [-180, 14.57, 180, 53.51]
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Area:
+        description: Fire area
+        units: m^2
+        scale: 60.98
+        offset: 4000
+        min: 0
+        max: 16723
+      Temp:
+        description: Fire temperature
+        units: K
+        scale: 0.05493667
+        offset: 400
+        min: 0
+        max: 32642
+      Mask:
+        description: Fire mask categories.  Pixel values in the fire mask image
+      Power:
+        description: Fire radiative power
+        units: MW
+        min: 0
+        max: 200000
+      DQF:
+        description: Data quality flags
+        min: 0
+        max: 5
+
+  NOAA/GOES/18/FDCF:
+    title: GOES-18 FDCF Series ABI Level 2 Fire/Hot Spot Characterization Full Disk
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2022-10-13"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Area:
+        description: Fire area
+        units: m^2
+        scale: 60.98
+        offset: 4000
+        min: 0
+        max: 16723
+      Temp:
+        description: Fire temperature
+        units: K
+        scale: 0.05493667
+        offset: 400
+        min: 0
+        max: 32642
+      Mask:
+        description: Fire mask categories.  Pixel values in the fire mask image
+      Power:
+        description: Fire radiative power
+        units: MW
+        min: 0
+        max: 200000
+      DQF:
+        description: Data quality flags
+        min: 0
+        max: 5
+
+  NOAA/GOES/18/MCMIPC:
+    title: GOES-18 MCMIPC Series ABI Level 2 Cloud and Moisture Imagery CONUS
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2018-12-04"
+      end_date: null
+      bbox: [-180, 14.57, 180, 53.51]
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/18/MCMIPF:
+    title: GOES-18 MCMIPF Series ABI Level 2 Cloud and Moisture Imagery Full Disk
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2018-12-04"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/18/MCMIPM:
+    title: GOES-18 MCMIPM Series ABI Level 2 Cloud and Moisture Imagery Mesoscale
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2022-05-11"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/19/FDCC:
+    title: GOES-19 FDCC Series ABI Level 2 Fire/Hot Spot Characterization CONUS
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2025-04-07"
+      end_date: null
+      bbox: [-180, 14.57, 180, 53.51]
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Area:
+        description: Fire area
+        units: m^2
+        scale: 60.98
+        offset: 4000
+        min: 0
+        max: 16723
+      Temp:
+        description: Fire temperature
+        units: K
+        scale: 0.05493667
+        offset: 400
+        min: 0
+        max: 32642
+      Mask:
+        description: Fire mask categories.  Pixel values in the fire mask image
+      Power:
+        description: Fire radiative power
+        units: MW
+        min: 0
+        max: 200000
+      DQF:
+        description: Data quality flags
+        min: 0
+        max: 5
+
+  NOAA/GOES/19/FDCF:
+    title: GOES-19 FDCF Series ABI Level 2 Fire/Hot Spot Characterization Full Disk
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2025-04-07"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      Area:
+        description: Fire area
+        units: m^2
+        scale: 60.98
+        offset: 4000
+        min: 0
+        max: 16723
+      Temp:
+        description: Fire temperature
+        units: K
+        scale: 0.05493667
+        offset: 400
+        min: 0
+        max: 32642
+      Mask:
+        description: Fire mask categories.  Pixel values in the fire mask image
+      Power:
+        description: Fire radiative power
+        units: MW
+        min: 0
+        max: 200000
+      DQF:
+        description: Data quality flags
+        min: 0
+        max: 5
+
+  NOAA/GOES/19/MCMIPC:
+    title: GOES-19 MCMIPC Series ABI Level 2 Cloud and Moisture Imagery CONUS
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2025-04-07"
+      end_date: null
+      bbox: [-152.11, 14, -49.18, 56.77]
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/19/MCMIPF:
+    title: GOES-19 MCMIPF Series ABI Level 2 Cloud and Moisture Imagery Full Disk
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2025-04-07"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/GOES/19/MCMIPM:
+    title: GOES-19 MCMIPM Series ABI Level 2 Cloud and Moisture Imagery Mesoscale
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 10, unit: minute }
+    spatial_resolution: 2000
+    extent:
+      start_date: "2025-04-07"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+      CMI_C01:
+        description: Visible - Blue
+        units: Reflectance factor
+        wavelength: 0.47
+        min: 0
+        max: 1.3
+      DQF_C01:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C02:
+        description: Visible - Red
+        units: Reflectance factor
+        wavelength: 0.64
+        min: 0
+        max: 1.3
+      DQF_C02:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C03:
+        description: Near-IR - Veggie
+        units: Reflectance factor
+        wavelength: 0.865
+        min: 0
+        max: 1.3
+      DQF_C03:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C04:
+        description: Near-IR - Cirrus
+        units: Reflectance factor
+        wavelength: 1.378
+        min: 0
+        max: 1.3
+      DQF_C04:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C05:
+        description: Near-IR - Snow/Ice
+        units: Reflectance factor
+        wavelength: 1.61
+        min: 0
+        max: 1.3
+      DQF_C05:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C06:
+        description: Near IR - Cloud Particle Size
+        units: Reflectance factor
+        wavelength: 2.25
+        min: 0
+        max: 1.3
+      DQF_C06:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C07:
+        description: Infrared - Shortwave Window
+        units: K
+        wavelength: 3.89
+        min: 197.31
+        max: 411.86
+      DQF_C07:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C08:
+        description: Infrared - Upper-level water vapor
+        units: K
+        wavelength: 6.17
+        min: 138.05
+        max: 311.06
+      DQF_C08:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C09:
+        description: Infrared - Mid-level water vapor
+        units: K
+        wavelength: 6.95
+        min: 137.7
+        max: 311.08
+      DQF_C09:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C10:
+        description: Infrared - Lower-level water vapor
+        units: K
+        wavelength: 7.34
+        min: 126.91
+        max: 331.2
+      DQF_C10:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C11:
+        description: Infrared - Cloud-top phase
+        units: K
+        wavelength: 8.44
+        min: 127.69
+        max: 341.3
+      DQF_C11:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C12:
+        description: Infrared - Ozone
+        units: K
+        wavelength: 9.61
+        min: 117.49
+        max: 311.06
+      DQF_C12:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C13:
+        description: Infrared - "Clean" longwave window
+        units: K
+        wavelength: 10.35
+        min: 89.62
+        max: 341.27
+      DQF_C13:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C14:
+        description: Infrared - Longwave window
+        units: K
+        wavelength: 11.19
+        min: 96.19
+        max: 341.28
+      DQF_C14:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C15:
+        description: Infrared "Dirty" longwave
+        units: K
+        wavelength: 12.3
+        min: 97.38
+        max: 341.28
+      DQF_C15:
+        description: Data quality flags
+        min: 0
+        max: 4
+      CMI_C16:
+        description: Infrared - CO_2 longwave
+        units: K
+        wavelength: 13.3
+        min: 92.7
+        max: 318.26
+      DQF_C16:
+        description: Data quality flags
+        min: 0
+        max: 4
+
+  NOAA/IBTrACS/v4:
+    title: International Best Track Archive for Climate Stewardship Project
+    provider: NOAA NCEI
+    ee_type: table
+    extent:
+      start_date: "1842-10-25"
+      end_date: null
+      bbox: [-180, 0.4, 180, 63.1]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+
+  NOAA/NCEP_DOE_RE2/total_cloud_coverage:
+    title: "NCEP-DOE Reanalysis 2: Total Cloud Coverage (Gaussian grid, 6-hourly)"
+    provider: NOAA NCEP-DOE
+    ee_type: image_collection
+    cadence: { interval: 6, unit: hour }
+    spatial_resolution: 278300
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      tcdc:
+        description: Total cloud cover
+        units: "%"
+        min: 0
+        max: 100
+
+  NOAA/NGDC/ETOPO1:
+    title: "ETOPO1: Global 1 Arc-Minute Bedrock + Ice-Surface Elevation (NOAA NGDC)"
+    provider: NOAA NGDC
+    ee_type: image
+    spatial_resolution: 1855
+    extent:
+      start_date: "2008-08-01"
+      end_date: "2008-08-01"
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      bedrock:
+        description: Elevation at ground level / base of Antarctic and Greenland ice sheets
+        units: m
+      ice_surface:
+        description: Elevation at ground level / top of Antarctic and Greenland ice sheets
+        units: m
+
+  NOAA/NHC/HURDAT2/atlantic:
+    title: NOAA NHC HURDAT2 Atlantic Hurricane Catalog
+    provider: NOAA NHC
+    ee_type: table
+    extent:
+      start_date: "1851-06-25"
+      end_date: null
+      bbox: [-109.5, 7.2, 63, 81]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+
+  NOAA/NHC/HURDAT2/pacific:
+    title: NOAA NHC HURDAT2 Pacific Hurricane Catalog
+    provider: NOAA NHC
+    ee_type: table
+    extent:
+      start_date: "1949-06-11"
+      end_date: null
+      bbox: [-180, 0.4, 180, 63.1]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'NOAA data, information, and products, regardless of the method of delivery,'
+    bands:
+
+  NOAA/NWS/RTMA:
+    title: "NOAA NWS RTMA: Real-Time Mesoscale Analysis (CONUS, hourly 2.5km)"
+    provider: NOAA NWS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 2500
+    extent:
+      start_date: "2011-01-01"
+      end_date: null
+      bbox: [-130.17, 20.15, -60.81, 52.91]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      TMP:
+        description: 2 m air temperature
+        units: deg_C
+      DPT:
+        description: 2 m dewpoint temperature
+        units: deg_C
+      SPFH:
+        description: 2 m specific humidity (mass fraction)
+      PRES:
+        description: Surface pressure
+        units: Pa
+      UGRD:
+        description: 10 m wind, U-component
+        units: m/s
+      VGRD:
+        description: 10 m wind, V-component
+        units: m/s
+      WIND:
+        description: 10 m wind speed
+        units: m/s
+      GUST:
+        description: 10 m wind gust
+        units: m/s
+      VIS:
+        description: Surface visibility
+        units: m
+      TCDC:
+        description: Total cloud cover
+        units: "%"
+      ACPC01:
+        description: Hourly accumulated precipitation
+        units: kg/m^2
+
+  NOAA/PERSIANN-CDR:
+    title: "PERSIANN-CDR: Daily Precipitation Climate Data Record (0.25°, 1983-present)"
+    provider: NOAA NCDC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1983-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Daily precipitation total
+        units: mm
+
+  NOAA/VIIRS/001/VNP09GA:
+    title: "VNP09GA.001: VIIRS Surface Reflectance Daily Global 1km/500m"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      M3:
+        description: Surface reflectance band M3 (visible blue)
+        scale: 0.0001
+        wavelength: 0.483
+      M4:
+        description: Surface reflectance band M4 (visible green)
+        scale: 0.0001
+        wavelength: 0.555
+      M5:
+        description: Surface reflectance band M5 (visible red)
+        scale: 0.0001
+        wavelength: 0.672
+      M7:
+        description: Surface reflectance band M7 (NIR)
+        scale: 0.0001
+        wavelength: 0.865
+      M10:
+        description: Surface reflectance band M10 (SWIR-1)
+        scale: 0.0001
+        wavelength: 1.61
+      M11:
+        description: Surface reflectance band M11 (SWIR-2)
+        scale: 0.0001
+        wavelength: 2.25
+      QF1:
+        description: Quality flag 1
+      QF2:
+        description: Quality flag 2
+
+  NOAA/VIIRS/001/VNP09H1:
+    title: 'VNP09H1: VIIRS Surface Reflectance 8-Day L3 Global 500m [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      SurfReflect_I1:
+        description: 500 m Surface Reflectance Band I1
+        min: -100
+        max: 16000
+      SurfReflect_I2:
+        description: 500 m Surface Reflectance Band I2
+        min: -100
+        max: 16000
+      SurfReflect_I3:
+        description: 500 m Surface Reflectance Band I3
+        min: -100
+        max: 16000
+      SurfReflect_QC_500m:
+        description: Surface Reflectance Band Quality Control (QC)
+        min: 0
+        max: 13311
+      SurfReflect_State_500m:
+        description: Surface Reflectance State Quality Assurance (QA)
+        min: 0
+        max: 13311
+
+  NOAA/VIIRS/001/VNP13A1:
+    title: "VNP13A1.001: VIIRS Vegetation Indices 8-Day Global 500m (NDVI/EVI/EVI2)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-17"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        scale: 0.0001
+      EVI:
+        description: 3-band Enhanced Vegetation Index
+        scale: 0.0001
+      EVI2:
+        description: 2-band Enhanced Vegetation Index
+        scale: 0.0001
+      NIR_reflectance:
+        description: NIR surface reflectance
+        wavelength: 0.866
+      SWIR1_reflectance:
+        description: SWIR-1 surface reflectance
+        wavelength: 1.24
+      SWIR2_reflectance:
+        description: SWIR-2 surface reflectance
+        wavelength: 1.61
+
+  NOAA/VIIRS/001/VNP14A1:
+    title: 'VNP14A1.001: Thermal Anomalies/Fire Daily L3 Global 1km SIN Grid [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      FireMask:
+        description: Confidence of fire.
+      MaxFRP:
+        description: Maximum Fire Radiative Power
+        units: MW
+      QA:
+        description: Global Land Surface Phenology Quality Control
+      sample:
+        description: Sample number within a swath
+
+  NOAA/VIIRS/001/VNP15A2H:
+    title: 'VNP15A2H: LAI/FPAR 8-Day L4 Global 500m SIN Grid [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-17"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      Fpar:
+        description: Fraction of Photosynthetically Active Radiation.
+      FparExtra_QC:
+        description: Pass-through Quality Control (QC) for FPAR
+      FparLai_QC:
+        description: Quality for LAI and FPAR
+      FparStdDev:
+        description: Standard deviation of FPAR
+      Lai:
+        description: Leaf Area Index
+        units: Area fraction
+      LaiStdDev:
+        description: Standard deviation for LAI
+        units: Area fraction
+
+  NOAA/VIIRS/001/VNP21A1D:
+    title: "VNP21A1D.001: VIIRS Daytime Land Surface Temperature and Emissivity Daily 1km"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      LST_1KM:
+        description: Daytime 1 km land surface temperature
+        units: K
+      QC:
+        description: LST + emissivity quality control flags
+      Emis_14:
+        description: Band M14 emissivity
+      Emis_15:
+        description: Band M15 emissivity
+      Emis_16:
+        description: Band M16 emissivity
+      View_Angle:
+        description: View zenith angle of the LST observation
+        units: deg
+
+  NOAA/VIIRS/001/VNP21A1N:
+    title: 'VNP21A1N.001: Night Land Surface Temperature and Emissivity Daily 1km [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      LST_1KM:
+        description: Daily 1 km Land Surface Temperature.
+        units: K
+      QC:
+        description: Daily Quality control for LST and emissivity
+      Emis_14:
+        description: Daily M14 emissivity
+      Emis_15:
+        description: Daily M15 emissivity
+      Emis_16:
+        description: Daily M16 emissivity
+      View_Angle:
+        description: View zenith angle of LST
+        units: deg
+      View_Time:
+        description: Time of LST observation
+        units: h
+
+  NOAA/VIIRS/001/VNP22Q2:
+    title: 'VNP22Q2: Land Surface Phenology Yearly L3 Global 500m SIN Grid'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2013-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      Date_Mid_Greenup_Phase_1:
+        description: Date at a mid-greenup phase
+      Date_Mid_Senescence_Phase_1:
+        description: Date at a mid-senescence phase
+      EVI2_Growing_Season_Area_1:
+        description: Integrated EVI2 during a growing season
+      EVI2_Onset_Greenness_Increase_1:
+        description: EVI2 value at greenup onset
+      EVI2_Onset_Greenness_Maximum_1:
+        description: EVI2 value at maturity onset
+      GLSP_QC_1:
+        description: Global Land Surface Phenology Quality Control
+      Greenness_Agreement_Growing_Season_1:
+        description: EVI2 agreement between modeled values and raw observations
+      Growing_Season_Length_1:
+        description: Growing Season Length
+      Onset_Greenness_Decrease_1:
+        description: Date at which canopy greenness begins to decrease
+      Onset_Greenness_Increase_1:
+        description: Date of onset of greenness increase
+      Onset_Greenness_Maximum_1:
+        description: Date at which canopy greenness approaches its seasonal maximum
+      Onset_Greenness_Minimum_1:
+        description: Date at which canopy greenness reaches a minimum
+      PGQ_Growing_Season_1:
+        description: Proportion of good quality of VIIRS observations during a vegetation growing season
+      PGQ_Onset_Greenness_Decrease_1:
+        description: Proportion of good quality around senescence onset
+      PGQ_Onset_Greenness_Increase_1:
+        description: Proportion of good quality around greenup onset
+      PGQ_Onset_Greenness_Maximum_1:
+        description: Proportion of good quality around maturity onset
+      PGQ_Onset_Greenness_Minimum_1:
+        description: Proportion of good quality around dormancy onset
+      Rate_Greenness_Decrease_1:
+        description: Rates of change in EVI2 values during a senescence phase
+      Rate_Greenness_Increase_1:
+        description: Rates of change in EVI2 values during a greenup phase
+      Date_Mid_Greenup_Phase_2:
+        description: Date at a mid-greenup phase
+      Date_Mid_Senescence_Phase_2:
+        description: Date at a mid-senescence phase
+      EVI2_Growing_Season_Area_2:
+        description: Integrated EVI2 during a growing season
+      EVI2_Onset_Greenness_Increase_2:
+        description: EVI2 value at greenup onset
+      EVI2_Onset_Greenness_Maximum_2:
+        description: EVI2 value at maturity onset
+      GLSP_QC_2:
+        description: Global Land Surface Phenology Quality Control
+      Greenness_Agreement_Growing_Season_2:
+        description: EVI2 agreement between modeled values and raw observations
+      Growing_Season_Length_2:
+        description: Growing Season Length
+      Onset_Greenness_Decrease_2:
+        description: Date at which canopy greenness begins to decrease
+      Onset_Greenness_Increase_2:
+        description: Date of onset of greenness increase
+      Onset_Greenness_Maximum_2:
+        description: Date at which canopy greenness approaches its seasonal maximum
+      Onset_Greenness_Minimum_2:
+        description: Date at which canopy greenness reaches a minimum
+      PGQ_Growing_Season_2:
+        description: Proportion of good quality of VIIRS observations during a vegetation growing season
+      PGQ_Onset_Greenness_Decrease_2:
+        description: Proportion of good quality around senescence onset
+      PGQ_Onset_Greenness_Increase_2:
+        description: Proportion of good quality around greenup onset
+      PGQ_Onset_Greenness_Maximum_2:
+        description: Proportion of good quality around maturity onset
+      PGQ_Onset_Greenness_Minimum_2:
+        description: Proportion of good quality around dormancy onset
+      Rate_Greenness_Decrease_2:
+        description: Rates of change in EVI2 values during a senescence phase
+      Rate_Greenness_Increase_2:
+        description: Rates of change in EVI2 values during a greenup phase
+
+  NOAA/VIIRS/001/VNP43IA1:
+    title: 'VNP43IA1: BRDF/Albedo Model Parameters Daily L3 Global 500m SIN Grid'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-17"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      BRDF_Albedo_Band_Mandatory_Quality_I1:
+        description: BRDF/Albedo mandatory quality for band I1
+      BRDF_Albedo_Band_Mandatory_Quality_I2:
+        description: BRDF/Albedo mandatory quality for band I2
+      BRDF_Albedo_Band_Mandatory_Quality_I3:
+        description: BRDF/Albedo mandatory quality for band I3
+      BRDF_Albedo_Parameters_fiso_I1:
+        description: Isotropic parameter for band I1
+      BRDF_Albedo_Parameters_fvol_I1:
+        description: Volumetric parameter for band I1
+      BRDF_Albedo_Parameters_fgeo_I1:
+        description: Geometric parameter for band I1
+      BRDF_Albedo_Parameters_fiso_I2:
+        description: Isotropic parameter for band I2
+      BRDF_Albedo_Parameters_fvol_I2:
+        description: Volumetric parameter for band I2
+      BRDF_Albedo_Parameters_fgeo_I2:
+        description: Geometric parameter for band I2
+      BRDF_Albedo_Parameters_fiso_I3:
+        description: Isotropic parameter for band I3
+      BRDF_Albedo_Parameters_fvol_I3:
+        description: Volumetric parameter for band I3
+      BRDF_Albedo_Parameters_fgeo_I3:
+        description: Geometric parameter for band I3
+
+  NOAA/VIIRS/001/VNP43IA2:
+    title: 'VNP43IA2: BRDF/Albedo Quality Daily L3 Global 500m SIN Grid'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-17"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      BRDF_Albedo_Band_Quality_I1:
+        description: BRDF inversion information I1
+      BRDF_Albedo_Band_Quality_I2:
+        description: BRDF inversion information I2
+      BRDF_Albedo_Band_Quality_I3:
+        description: BRDF inversion information I3
+      BRDF_Albedo_LandWaterType:
+        description: Land/Water type
+      BRDF_Albedo_LocalSolarNoon:
+        description: Solar zenith angle at local solar noon
+        units: deg
+      BRDF_Albedo_Platform:
+        description: Platform name
+      BRDF_Albedo_Uncertainty:
+        description: Weight of Determination (WoD) of WSA
+      BRDF_Albedo_ValidObs_I1:
+        description: Days of valid observation within 16-day period for band
+        units: d
+      BRDF_Albedo_ValidObs_I2:
+        description: Days of valid observation within 16-day period for band
+        units: d
+      BRDF_Albedo_ValidObs_I3:
+        description: Days of valid observation within 16-day period for band
+        units: d
+      Snow_BRDF_Albedo:
+        description: Snow flag
+
+  NOAA/VIIRS/001/VNP46A1:
+    title: 'VNP46A1: VIIRS Daily Gridded Day Night Band 500m Linear Lat Lon Grid Night'
+    provider: NASA LAADS DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      BrightnessTemperature_M12:
+        description: Brightness temperature of band M12
+        units: K
+        offset: 203
+        min: 0
+        max: 163.835
+      BrightnessTemperature_M13:
+        description: Brightness temperature of band M13
+        units: K
+        offset: 203
+        min: 0
+        max: 163.835
+      BrightnessTemperature_M15:
+        description: Brightness temperature of band M15
+        units: K
+        offset: 111
+        min: 0
+        max: 163.835
+      BrightnessTemperature_M16:
+        description: Brightness temperature of band M16
+        units: K
+        offset: 103
+        min: 0
+        max: 163.835
+      DNB_At_Sensor_Radiance_500m:
+        description: At-sensor DNB radiance
+        min: 0
+        max: 6553.4
+      Glint_Angle:
+        description: Moon glint angle
+        units: deg
+        min: -180
+        max: 180
+      Granule:
+        description: Number of selected Granule
+        min: 0
+        max: 254
+      Lunar_Zenith:
+        description: Lunar zenith angle
+        units: deg
+        min: 0
+        max: 180
+      Lunar_Azimuth:
+        description: Lunar azimuth angle
+        units: deg
+        min: -180
+        max: 180
+      Moon_Illumination_Fraction:
+        description: Moon illumination fraction
+        units: '%'
+        min: 0
+        max: 100
+      Moon_Phase_Angle:
+        description: Moon phase angle
+        units: deg
+        min: 0
+        max: 180
+      QF_Cloud_Mask:
+        description: Quality flag for cloud mask
+        min: 0
+        max: 65534
+      QF_DNB:
+        description: DNB quality flag
+        min: 0
+        max: 65534
+      QF_VIIRS_M10:
+        description: Quality flag of band M10
+        min: 0
+        max: 65534
+      QF_VIIRS_M11:
+        description: Quality flag of band M11
+        min: 0
+        max: 65534
+      QF_VIIRS_M12:
+        description: Quality flag of band M12
+        min: 0
+        max: 65534
+      QF_VIIRS_M13:
+        description: Quality flag of band M13
+        min: 0
+        max: 65534
+      QF_VIIRS_M15:
+        description: Quality flag of band M15
+        min: 0
+        max: 65534
+      QF_VIIRS_M16:
+        description: Quality flag of band M16
+        min: 0
+        max: 65534
+      Radiance_M10:
+        description: Radiance in band M10
+        offset: -0.04
+        min: 0
+        max: 85.1942
+      Radiance_M11:
+        description: Radiance in band M11
+        offset: -0.02
+        min: 0
+        max: 38.00972
+      Sensor_Azimuth:
+        description: Sensor azimuth angle
+        units: deg
+        min: -180
+        max: 180
+      Sensor_Zenith:
+        description: Sensor zenith angle
+        units: deg
+        min: 0
+        max: 90
+      Solar_Azimuth:
+        description: Solar azimuth angle
+        units: deg
+        min: -180
+        max: 180
+      Solar_Zenith:
+        description: Solar zenith angle
+        units: deg
+        min: 0
+        max: 180
+      UTC_Time:
+        description: UTC time
+        units: h
+        min: 0
+        max: 24
+
+  NOAA/VIIRS/001/VNP46A2:
+    title: "VNP46A2.001: VIIRS Lunar Gap-Filled BRDF-Corrected Nighttime Lights Daily 500m"
+    provider: NASA LAADS DAAC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2012-01-19"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      DNB_BRDF_Corrected_NTL:
+        description: BRDF-corrected DNB nighttime light radiance
+      Gap_Filled_DNB_BRDF_Corrected_NTL:
+        description: Gap-filled BRDF-corrected DNB nighttime light radiance
+      DNB_Lunar_Irradiance:
+        description: Lunar irradiance contribution
+      Latest_High_Quality_Retrieval:
+        description: Latest high-quality BRDF-corrected DNB radiance retrieval
+      Mandatory_Quality_Flag:
+        description: Per-pixel mandatory quality flag (0=valid)
+        min: 0
+        max: 3
+
+  NOAA/VIIRS/001/VNP64A1:
+    title: 'VNP64A1: Burned Area Monthly L4 Global 500m SIN Grid'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 30, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2014-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'LP DAAC NASA data are freely accessible; however, when an author'
+    bands:
+      Burn_Date:
+        description: Ordinal day of burn (1-366) for each 500-m grid cell.
+      Burn_Date_Uncertainty:
+        description: Estimated uncertainty in date of burn, in days. Unburned, unmapped,
+        units: '%'
+      QA:
+        description: Quality Assurance Indicators
+      First_Day:
+        description: First day of the year of reliable change detection
+      Last_Day:
+        description: Last day of the year of reliable change detection
+
+  NOAA/VIIRS/AOD_EDR/V3:
+    title: VIIRS Aerosol Optical Depth and Aerosol Particle Size EDRs V3
+    provider: NOAA
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 750
+    extent:
+      start_date: "2022-10-29"
+      end_date: null
+      bbox: [-180, -85, 180, 85]
+    default_reducer: median
+    license: public-domain
+    terms_note: 'There are no restrictions on the use of JPSS data, and it can be used or'
+    bands:
+      AOD550:
+        description: Retrieved aerosol optical depth at 550 nm
+        units: Dimensionless
+      AOD_channel_M1:
+        description: Retrieved aerosol optical depth in sensor channel M1
+        units: Dimensionless
+      AOD_channel_M2:
+        description: Retrieved aerosol optical depth in sensor channel M2
+        units: Dimensionless
+      AOD_channel_M3:
+        description: Retrieved aerosol optical depth in sensor channel M3
+        units: Dimensionless
+      AOD_channel_M4:
+        description: Retrieved aerosol optical depth in sensor channel M4
+        units: Dimensionless
+      AOD_channel_M5:
+        description: Retrieved aerosol optical depth in sensor channel M5
+        units: Dimensionless
+      AOD_channel_M6:
+        description: Retrieved aerosol optical depth in sensor channel M6
+        units: Dimensionless
+      AOD_channel_M7:
+        description: Retrieved aerosol optical depth in sensor channel M7
+        units: Dimensionless
+      AOD_channel_M8:
+        description: Retrieved aerosol optical depth in sensor channel M8
+        units: Dimensionless
+      AOD_channel_M9:
+        description: Retrieved aerosol optical depth in sensor channel M9
+        units: Dimensionless
+      AOD_channel_M10:
+        description: Retrieved aerosol optical depth in sensor channel M10
+        units: Dimensionless
+      AOD_channel_M11:
+        description: Retrieved aerosol optical depth in sensor channel M11
+        units: Dimensionless
+      AngsExp1:
+        description: Angstrom Exponent calculated from AOD at M4 and M7 over ocean (M3 and
+        units: Dimensionless
+      AngsExp2:
+        description: Angstrom Exponent calculated from AOD at M7 and M10 over ocean
+        units: Dimensionless
+      SfcRefl_M1:
+        description: Surface reflectance of land and ocean for sensor channel M1
+        units: Dimensionless
+      SfcRefl_M2:
+        description: Surface reflectance of land and ocean for sensor channel M2
+        units: Dimensionless
+      SfcRefl_M3:
+        description: Surface reflectance of land and ocean for sensor channel M3
+        units: Dimensionless
+      SfcRefl_M4:
+        description: Surface reflectance of land and ocean for sensor channel M4
+        units: Dimensionless
+      SfcRefl_M5:
+        description: Surface reflectance of land and ocean for sensor channel M5
+        units: Dimensionless
+      SfcRefl_M6:
+        description: Surface reflectance of land and ocean for sensor channel M6
+        units: Dimensionless
+      SfcRefl_M7:
+        description: Surface reflectance of land and ocean for sensor channel M7
+        units: Dimensionless
+      SfcRefl_M8:
+        description: Surface reflectance of land and ocean for sensor channel M8
+        units: Dimensionless
+      SfcRefl_M9:
+        description: Surface reflectance of land and ocean for sensor channel M9
+        units: Dimensionless
+      SfcRefl_M10:
+        description: Surface reflectance of land and ocean for sensor channel M10
+        units: Dimensionless
+      SfcRefl_M11:
+        description: Surface reflectance of land and ocean for sensor channel M11
+        units: Dimensionless
+      SpaStddev:
+        description: 3 by 3 standard deviation of TOAreflectance at M1/M11 (land/ocean)
+        units: Dimensionless
+      Residual:
+        description: Retrieval residual of best solution
+        units: Dimensionless
+      AOD550LndMdl_Dust:
+        description: Retrieved AOD at 550nm for the dust land aerosol model
+        units: Dimensionless
+      AOD550LndMdl_Generic:
+        description: Retrieved AOD at 550nm for the generic land aerosol model'
+        units: Dimensionless
+      AOD550LndMdl_Urban:
+        description: Retrieved AOD at 550nm for the urban land aerosol model
+        units: Dimensionless
+      AOD550LndMdl_Smoke:
+        description: Retrieved AOD at 550nm for the smoke land aerosol model
+        units: Dimensionless
+      ResLndMdl_Dust:
+        description: Retrieval residual for the dust land aerosol model
+        units: Dimensionless
+      ResLndMdl_Generic:
+        description: Retrieval residual for the generic land aerosol model
+        units: Dimensionless
+      ResLndMdl_Urban:
+        description: Retrieval residual for the urban land aerosol model
+        units: Dimensionless
+      ResLndMdl_Smoke:
+        description: Retrieval residual for the smoke land aerosol model
+        units: Dimensionless
+      FineMdlIdx:
+        description: Index of fine mode aerosol model over ocean
+        units: Dimensionless
+      CoarseMdlIdx:
+        description: Index of coarse mode aerosol model over ocean
+        units: Dimensionless
+      FineModWgt:
+        description: Fine mode weight over ocean
+        units: Dimensionless
+      AerMdl:
+        description: 'Aerosol model selected from prescribed models during the retrieval:'
+        units: Dimensionless
+      QCAll:
+        description: 'Overall quality flag for aerosol optical depth retrieval:'
+        units: Dimensionless
+      QCAE:
+        description: 'Overall quality flag for Angstrom Exponent retrieval over ocean:'
+        units: Dimensionless
+      QCExtn:
+        description: Quality flag describing the external (or input) masks. For each
+        units: Dimensionless
+      QCTest:
+        description: Quality flag describing internal tests for specific conditions that
+        units: Dimensionless
+      QCInput:
+        description: Quality flag describing the types of bad inputs that impact or hinder
+        units: Dimensionless
+      QCPath:
+        description: Quality flag describing the retrieval paths/schemes. For each "yes/no"
+        units: Dimensionless
+      QCRet:
+        description: Quality flag describing problems arising from data retrieval that may
+        units: Dimensionless
+
+  NOAA/VIIRS/DNB/ANNUAL_V21:
+    title: "VIIRS DNB Annual Composites V2.1 (Nighttime Lights, ~500m, 2012-)"
+    provider: Earth Observation Group, Colorado School of Mines
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2012-04-01"
+      end_date: null
+      bbox: [-180, -65, 180, 75]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for use with attribution (Colorado School of Mines).'
+    bands:
+      average:
+        description: Annual average DNB radiance
+        units: nanoWatts/sr/cm^2
+      average_masked:
+        description: Annual average DNB radiance, background-masked
+        units: nanoWatts/sr/cm^2
+      median:
+        description: Annual median DNB radiance
+        units: nanoWatts/sr/cm^2
+      median_masked:
+        description: Annual median DNB radiance, background-masked
+        units: nanoWatts/sr/cm^2
+      maximum:
+        description: Annual maximum DNB radiance
+        units: nanoWatts/sr/cm^2
+      cf_cvg:
+        description: Cloud-free observation count contributing to the composite
+      cvg:
+        description: Total observations free of sunlight and moonlight
+
+  NOAA/VIIRS/DNB/ANNUAL_V22:
+    title: VIIRS Nighttime Day/Night Annual Band Composites V2.2
+    provider: Earth Observation Group, Payne Institute for Public Policy, Colorado School of Mines
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2012-04-01"
+      end_date: null
+      bbox: [-180, -65, 180, 75]
+    default_reducer: median
+    license: proprietary
+    terms_note: 'Colorado School of Mines data, information, and products,'
+    bands:
+      average:
+        description: Average DNB radiance values.
+        units: nanoWatts/sr/cm^2
+      average_masked:
+        description: Average Masked DNB radiance values
+        units: nanoWatts/sr/cm^2
+      cf_cvg:
+        description: Cloud-free coverages; the total number of observations that
+      cvg:
+        description: Total number of observations free of sunlight and moonlight.
+      maximum:
+        description: Maximum DNB radiance values.
+        units: nanoWatts/sr/cm^2
+      median:
+        description: Median DNB radiance values
+        units: nanoWatts/sr/cm^2
+      median_masked:
+        description: Median masked DNB radiance values.
+        units: nanoWatts/sr/cm^2
+      minimum:
+        description: Minimum DNB radiance values
+        units: nanoWatts/sr/cm^2
+
+  NOAA/VIIRS/DNB/MONTHLY_V1/VCMCFG:
+    title: VIIRS Nighttime Day/Night Band Composites Version 1
+    provider: Earth Observation Group, Payne Institute for Public Policy, Colorado School of Mines
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2012-04-01"
+      end_date: null
+      bbox: [-180, -65, 180, 75]
+    default_reducer: median
+    license: proprietary
+    terms_note: 'Colorado School of Mines data, information, and products,'
+    bands:
+      avg_rad:
+        description: Average DNB radiance values.
+        units: nanoWatts/sr/cm^2
+        min: -1.5
+        max: 340572.84
+      cf_cvg:
+        description: Cloud-free coverages; the total number of observations that
+        min: 0
+        max: 58
+
+  NOAA/VIIRS/DNB/MONTHLY_V1/VCMSLCFG:
+    title: "VIIRS Stray-Light Corrected DNB Monthly Composites v1 (VCMSLCFG)"
+    provider: Earth Observation Group, Colorado School of Mines
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 463.83
+    extent:
+      start_date: "2014-01-01"
+      end_date: null
+      bbox: [-180, -65, 180, 75]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for use with attribution (Colorado School of Mines).'
+    bands:
+      avg_rad:
+        description: Monthly average DNB radiance (nighttime lights)
+        units: nanoWatts/sr/cm^2
+      cf_cvg:
+        description: Cloud-free observation count contributing to the composite
+

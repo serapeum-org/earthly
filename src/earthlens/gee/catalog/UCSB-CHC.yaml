@@ -1,0 +1,58 @@
+# Auto-grouped slice of the GEE catalog: UCSB-CHC.
+# 3 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  UCSB-CHC/CHIRPS/V3/DAILY_RNL:
+    title: "CHIRPS v3 Daily Reanalysis-Blended Precipitation (UCSB CHC, 1981-present)"
+    provider: UCSB / CHC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Daily precipitation (reanalysis-blended)
+        units: mm/d
+
+  UCSB-CHC/CHIRPS/V3/DAILY_SAT:
+    title: "CHIRPS v3 Daily Satellite-Only Near-Real-Time Precipitation (UCSB CHC)"
+    provider: UCSB / CHC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Daily precipitation (satellite-only NRT, no gauge merging)
+        units: mm/d
+
+  UCSB-CHC/CHIRPS/V3/PENTAD:
+    title: "CHIRPS v3 Pentad Precipitation (UCSB CHC, 1981-present)"
+    provider: UCSB / CHC
+    ee_type: image_collection
+    # Pentad = nominal 5-day window; recorded as `interval: 5, unit: day`
+    # because the Cadence model has no `pentad` unit.
+    cadence: { interval: 5, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: sum
+    license: public-domain
+    bands:
+      precipitation:
+        description: Pentad precipitation total
+        units: mm/pentad
+

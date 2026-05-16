@@ -1,0 +1,118 @@
+# Auto-grouped slice of the GEE catalog: CAS.
+# 3 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  CAS/IGSNRR/PML/V2:
+    title: "PML v2 (CAS): Coupled Evapotranspiration + GPP (8-day 500m, 2002-)"
+    provider: CAS IGSNRR / PML_V2 team
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2002-07-04"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free for use with citation (PML_V2).'
+    user_uploaded: true
+    bands:
+      GPP:
+        description: Gross primary production
+        units: gC/m^2/d
+      Ec:
+        description: Vegetation transpiration
+        units: mm/d
+      Es:
+        description: Soil evaporation
+        units: mm/d
+      Ei:
+        description: Canopy interception
+        units: mm/d
+      ET_water:
+        description: Evaporation from water bodies, snow and ice
+        units: mm/d
+
+  CAS/IGSNRR/PML/V2_v017:
+    title: 'PML_V2.1.7: Coupled Evapotranspiration and Gross Primary Product (GPP) [deprecated]'
+    provider: PML_V2
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-26"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mosaic
+    license: unknown
+    terms_note: 'Acknowledgements'
+    user_uploaded: true
+    bands:
+      GPP:
+        description: Gross primary production
+        units: gC m-2 d-1
+        min: 0
+        max: 39.01
+      Ec:
+        description: Vegetation transpiration
+        units: mm/d
+        min: 0
+        max: 15.33
+      Es:
+        description: Soil evaporation
+        units: mm/d
+        min: 0
+        max: 8.2
+      Ei:
+        description: Interception from vegetation canopy
+        units: mm/d
+        min: 0
+        max: 12.56
+      ET_water:
+        description: Evaporation from water bodies, snow, and ice. Calculated using the
+        units: mm/d
+        min: 0
+        max: 20.11
+
+  CAS/IGSNRR/PML/V2_v018:
+    title: 'PML_V2.1.8: Coupled Evapotranspiration and Gross Primary Product (GPP) [deprecated]'
+    provider: PML_V2
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 500
+    extent:
+      start_date: "2000-02-26"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mosaic
+    license: unknown
+    terms_note: 'Acknowledgements'
+    user_uploaded: true
+    bands:
+      GPP:
+        description: Gross primary production
+        units: gC m-2 d-1
+        min: 0
+        max: 39.01
+      Ec:
+        description: Vegetation transpiration
+        units: mm/d
+        min: 0
+        max: 15.33
+      Es:
+        description: Soil evaporation
+        units: mm/d
+        min: 0
+        max: 8.2
+      Ei:
+        description: Interception from vegetation canopy
+        units: mm/d
+        min: 0
+        max: 12.56
+      ET_water:
+        description: Evaporation from water bodies, snow, and ice. Calculated using the
+        units: mm/d
+        min: 0
+        max: 20.11
+

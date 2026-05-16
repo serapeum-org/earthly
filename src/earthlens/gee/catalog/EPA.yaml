@@ -1,0 +1,29 @@
+# Auto-grouped slice of the GEE catalog: EPA.
+# 2 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  EPA/Ecoregions/2013/L3:
+    title: US EPA Ecoregions (Level III)
+    provider: United States Environmental Protection Agency
+    ee_type: table
+    extent:
+      start_date: "2013-04-16"
+      end_date: null
+      bbox: [-124.8, 24.5, -66.9, 49.4]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+
+  EPA/Ecoregions/2013/L4:
+    title: US EPA Ecoregions (Level IV)
+    provider: United States Environmental Protection Agency
+    ee_type: table
+    extent:
+      start_date: "2013-04-16"
+      end_date: null
+      bbox: [-124.8, 24.5, -66.9, 49.4]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+

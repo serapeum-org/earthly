@@ -1,0 +1,128 @@
+# Auto-grouped slice of the GEE catalog: NASA_USDA.
+# 3 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  NASA_USDA/HSL/SMAP10KM_soil_moisture:
+    title: NASA-USDA Enhanced SMAP Global Soil Moisture Data [deprecated]
+    provider: NASA GSFC
+    ee_type: image_collection
+    cadence: { interval: 3, unit: day }
+    spatial_resolution: 10000
+    extent:
+      start_date: "2015-04-02"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: median
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    user_uploaded: true
+    bands:
+      ssm:
+        description: Surface soil moisture
+        units: mm
+        min: 0
+        max: 25.39
+      susm:
+        description: Subsurface soil moisture
+        units: mm
+        min: 0
+        max: 274.6
+      smp:
+        description: Soil moisture profile
+        units: Fraction
+        min: 0
+        max: 1
+      ssma:
+        description: Surface soil moisture anomaly
+        units: Dimensionless
+        min: -4
+        max: 4
+      susma:
+        description: Subsurface soil moisture anomaly
+        units: Dimensionless
+        min: -4
+        max: 4
+
+  NASA_USDA/HSL/SMAP_soil_moisture:
+    title: NASA-USDA SMAP Global Soil Moisture Data [deprecated]
+    provider: NASA GSFC
+    ee_type: image_collection
+    cadence: { interval: 3, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "2015-04-02"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    user_uploaded: true
+    bands:
+      ssm:
+        description: Surface soil moisture
+        units: mm
+        min: 0
+        max: 25.39
+      susm:
+        description: Subsurface soil moisture
+        units: mm
+        min: 0
+        max: 274.6
+      smp:
+        description: Soil moisture profile
+        units: Fraction
+        min: 0
+        max: 1
+      ssma:
+        description: Surface soil moisture anomaly
+        units: Dimensionless
+        min: -4
+        max: 4
+      susma:
+        description: Subsurface soil moisture anomaly
+        units: Dimensionless
+        min: -4
+        max: 4
+
+  NASA_USDA/HSL/soil_moisture:
+    title: NASA-USDA Global Soil Moisture Data [deprecated]
+    provider: NASA GSFC
+    ee_type: image_collection
+    cadence: { interval: 3, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "2010-01-13"
+      end_date: null
+      bbox: [-180, -60, 180, 90]
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    user_uploaded: true
+    bands:
+      ssm:
+        description: Surface soil moisture
+        units: mm
+        min: 0
+        max: 25.39
+      susm:
+        description: Subsurface soil moisture
+        units: mm
+        min: 0
+        max: 274.6
+      smp:
+        description: Soil moisture profile
+        units: Fraction
+        min: 0
+        max: 1
+      ssma:
+        description: Surface soil moisture anomaly
+        units: Dimensionless
+        min: -4
+        max: 4
+      susma:
+        description: Subsurface soil moisture anomaly
+        units: Dimensionless
+        min: -4
+        max: 4
+

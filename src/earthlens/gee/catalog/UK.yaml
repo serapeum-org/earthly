@@ -1,0 +1,27 @@
+# Auto-grouped slice of the GEE catalog: UK.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  UK/EA/ENGLAND_1M_TERRAIN/2022:
+    title: England 1m Composite DTM/DSM (Environment Agency)
+    provider: UK Environment Agency
+    ee_type: image
+    spatial_resolution: 1
+    extent:
+      start_date: "2000-06-06"
+      end_date: null
+    default_reducer: median
+    license: proprietary
+    terms_note: 'You are free to: copy, publish, distribute and transmit the Information;'
+    bands:
+      dtm:
+        description: Digital Terrain Model
+        units: m
+      dsm_first:
+        description: First Return Digital Surface Model
+        units: m
+      dsm_last:
+        description: Last Return Digital Surface Model
+        units: m
+

@@ -1,0 +1,33 @@
+# Auto-grouped slice of the GEE catalog: FIRMS.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  FIRMS:
+    title: 'FIRMS: Fire Information for Resource Management System'
+    provider: NASA / LANCE / EOSDIS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2000-11-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'NASA promotes the full and open sharing of all data with the research and'
+    bands:
+      T21:
+        description: The brightness temperature of a fire pixel using MODIS channels 21/22.
+        units: K
+        min: 300
+        max: 509.29
+      confidence:
+        description: A detection confidence intended to help users gauge the
+        units: '%'
+        min: 0
+        max: 100
+      line_number:
+        description: Line number in the FIRMS CSV file that the pixel came from.
+        min: 1
+        max: 35302
+

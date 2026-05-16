@@ -1,0 +1,96 @@
+# Auto-grouped slice of the GEE catalog: AHN.
+# 5 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  AHN/AHN2_05M_INT:
+    title: "AHN2 Netherlands DEM Interpolated (0.5m, 2008-2012)"
+    provider: AHN
+    ee_type: image
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2012-01-01"
+      end_date: "2012-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      elevation:
+        description: Interpolated lidar elevation
+        units: m
+
+  AHN/AHN2_05M_NON:
+    title: "AHN2 Netherlands DEM Non-Interpolated (0.5m)"
+    provider: AHN
+    ee_type: image
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2012-01-01"
+      end_date: "2012-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      elevation:
+        description: Lidar elevation, non-interpolated cells only
+        units: m
+
+  AHN/AHN2_05M_RUW:
+    title: "AHN2 Netherlands DEM Raw Samples (0.5m)"
+    provider: AHN
+    ee_type: image
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2012-01-01"
+      end_date: "2012-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      elevation:
+        description: Raw lidar elevation samples
+        units: m
+
+  AHN/AHN3:
+    title: "AHN3: Netherlands Lidar DTM/DSM 0.5m (2014-2019)"
+    provider: AHN
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2014-01-01"
+      end_date: "2019-12-31"
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      dtm:
+        description: Digital Terrain Model (bare-earth elevation)
+        units: m
+      dsm:
+        description: Digital Surface Model (highest reflective surface elevation)
+        units: m
+
+  AHN/AHN4:
+    title: "AHN4: Netherlands Lidar DTM/DSM 0.5m (2020-)"
+    provider: AHN
+    ee_type: image_collection
+    spatial_resolution: 0.5
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [3.35, 50.74, 7.24, 53.55]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Open Data (AHN).'
+    bands:
+      dtm:
+        description: Digital Terrain Model (bare-earth elevation)
+        units: m
+      dsm:
+        description: Digital Surface Model (highest reflective surface elevation)
+        units: m
+

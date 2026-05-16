@@ -1,0 +1,72 @@
+# Auto-grouped slice of the GEE catalog: WCMC.
+# 5 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  WCMC/WDOECM/current/points:
+    title: 'WDOECM: Other Effective Area-based Conservation Measures (points)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2026-03-01"
+      end_date: "2026-04-01"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)'
+    bands:
+
+  WCMC/WDOECM/current/polygons:
+    title: 'WDOECM: Other Effective Area-based Conservation Measures (polygons)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2026-03-01"
+      end_date: "2026-04-01"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)'
+    bands:
+
+  WCMC/WDPA/current/points:
+    title: 'WDPA: World Database on Protected Areas (points)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2026-01-01"
+      end_date: "2026-02-01"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)'
+    bands:
+
+  WCMC/WDPA/current/polygons:
+    title: 'WDPA: World Database on Protected Areas (polygons)'
+    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    ee_type: table
+    extent:
+      start_date: "2026-01-01"
+      end_date: "2026-02-01"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)'
+    bands:
+
+  WCMC/biomass_carbon_density/v1_0:
+    title: "WCMC Above- and Below-Ground Biomass Carbon Density v1.0 (300m, 2010 epoch)"
+    provider: UNEP-WCMC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 300
+    extent:
+      start_date: "2010-01-01"
+      end_date: "2010-12-31"
+    default_reducer: mosaic
+    license: CC-BY-SA-4.0
+    user_uploaded: true
+    bands:
+      carbon_tonnes_per_ha:
+        description: Above- + below-ground biomass carbon density
+        units: Mg/ha
+        min: 0
+        max: 445.5
+

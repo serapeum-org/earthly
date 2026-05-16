@@ -1,0 +1,43 @@
+# Auto-grouped slice of the GEE catalog: GLCF.
+# 2 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  GLCF/GLS_TCC:
+    title: 'GLCF: Landsat Tree Cover Continuous Fields [deprecated]'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Intellectual property rights to this dataset belong to'
+    bands:
+      tree_canopy_cover:
+        description: The percentage of pixel area covered by trees.
+        units: '%'
+        min: 0
+        max: 100
+      uncertainty:
+        description: RMSE for tree-canopy_cover
+      source_index:
+        description: Identity of source image used for the particular pixel. This is an index
+
+  GLCF/GLS_WATER:
+    title: 'GLCF: Landsat Global Inland Water'
+    provider: NASA LP DAAC at the USGS EROS Center
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Intellectual property rights to this dataset belong to University of'
+    bands:
+      water:
+        description: Water classification
+

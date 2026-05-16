@@ -1,0 +1,239 @@
+# Auto-grouped slice of the GEE catalog: WRI.
+# 12 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  WRI/Aqueduct_Flood_Hazard_Maps/V2:
+    title: WRI Aqueduct Floods Hazard Maps Version 2
+    provider: World Resources Institute
+    ee_type: image_collection
+    spatial_resolution: 1000
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The WRI datasets are available without restriction'
+    bands:
+      inundation_depth:
+        description: Flood inundation depth
+        units: m
+        min: 0
+        max: 32.05
+
+  WRI/Aqueduct_Water_Risk/V4/baseline_annual:
+    title: WRI Aqueduct Baseline Annual Version 4.0
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The WRI datasets are available without restriction'
+    bands:
+
+  WRI/Aqueduct_Water_Risk/V4/baseline_monthly:
+    title: WRI Aqueduct Baseline Monthly Version 4.0
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The WRI datasets are available without restriction'
+    bands:
+
+  WRI/Aqueduct_Water_Risk/V4/future_annual:
+    title: WRI Aqueduct Future Annual Version 4.0
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2010-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The WRI datasets are available without restriction'
+    bands:
+
+  WRI/GFW/FORMA/alerts:
+    title: FORMA Alerts
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The FORMA datasets are available without restriction'
+    user_uploaded: true
+    bands:
+      alert_delta:
+        description: Percentage of clearing which during the 6 MODIS periods (96 + N days)
+        units: '%'
+        min: 0
+        max: 100
+      alert_date:
+        description: Timestamp in milliseconds since 1970/01/01
+        units: ms
+
+  WRI/GFW/FORMA/raw_output_firms:
+    title: FORMA Raw Output FIRMS
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image_collection
+    spatial_resolution: 250
+    extent:
+      start_date: "2017-04-08"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The FORMA datasets are available without restriction'
+    user_uploaded: true
+    bands:
+      nday:
+        description: Percentage of clearing in the last N days
+        units: '%'
+        min: 0
+        max: 100
+      delta_nday:
+        description: Percentage of clearing in the last 96+N days
+        units: '%'
+        min: 0
+        max: 100
+      near_term_delta_nday:
+        description: Percentage of clearing in the last 32+N days
+        units: '%'
+        min: 0
+        max: 100
+
+  WRI/GFW/FORMA/raw_output_ndvi:
+    title: FORMA Raw Output NDVI
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image_collection
+    spatial_resolution: 250
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The FORMA datasets are available without restriction'
+    user_uploaded: true
+    bands:
+      delta:
+        description: Percentage of clearing in the last 96 days
+        units: '%'
+        min: 0
+        max: 100
+      near_term_delta:
+        description: Percentage of clearing in the last 32 days
+        units: '%'
+        min: 0
+        max: 100
+      accuracy:
+        description: Confidence in predictions
+        units: '%'
+        min: 0
+        max: 100
+      clearing:
+        description: Percentage of clearing in the last 365 days
+        units: '%'
+        min: 0
+        max: 100
+
+  WRI/GFW/FORMA/thresholds:
+    title: FORMA Alert Thresholds
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image
+    spatial_resolution: 250
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The FORMA datasets are available without restriction'
+    user_uploaded: true
+    bands:
+      delta_bound:
+        description: The thresholds at which, when crossed, a FORMA alert is produced
+        units: '%'
+        min: 25
+        max: 40
+
+  WRI/GFW/FORMA/vegetation_tstats:
+    title: FORMA Vegetation T-Statistics
+    provider: World Resources Institute / Global Forest Watch
+    ee_type: image_collection
+    spatial_resolution: 250
+    extent:
+      start_date: "2012-01-01"
+      end_date: null
+      bbox: [-120, -50, 180, 40]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The FORMA datasets are available without restriction'
+    user_uploaded: true
+    bands:
+      tstat_r:
+        description: Reversed rectified, ie (max(0,-t_stat)), t-statistics.
+        min: 0
+        max: 25.41
+
+  WRI/GPPD/power_plants:
+    title: Global Power Plant Database
+    provider: World Resources Institute
+    ee_type: table
+    extent:
+      start_date: "2018-06-11"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+
+  WRI/SBTN/naturalLands/v1/2020:
+    title: SBTN Natural Lands Map v1
+    provider: WRI
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 75]
+    default_reducer: mosaic
+    license: CC-BY-NC-SA-4.0
+    bands:
+      classification:
+        description: Land cover classification.
+        min: 2
+        max: 21
+      natural:
+        description: Land cover classification.
+        min: 0
+        max: 1
+
+  WRI/SBTN/naturalLands/v1_1/2020:
+    title: SBTN Natural Lands Map v1.1
+    provider: WRI
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 75]
+    default_reducer: mosaic
+    license: CC-BY-SA-4.0
+    bands:
+      classification:
+        description: Land cover classification.
+        min: 2
+        max: 21
+      natural:
+        description: Land cover classification.
+        min: 0
+        max: 1
+

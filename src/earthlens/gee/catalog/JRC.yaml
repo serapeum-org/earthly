@@ -1,0 +1,1024 @@
+# Auto-grouped slice of the GEE catalog: JRC.
+# 49 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  JRC/CEMS_GLOFAS/FloodHazard/v1:
+    title: "JRC CEMS GloFAS Global River Flood Hazard Maps v1 (90m, legacy)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 90
+    extent:
+      start_date: "2024-03-16"
+      end_date: "2024-03-16"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use (JRC).'
+    bands:
+      depth:
+        description: Modelled flood inundation depth
+        units: m
+
+  JRC/CEMS_GLOFAS/FloodHazard/v2_1:
+    title: "JRC CEMS GloFAS Global River Flood Hazard Maps v2.1 (90m, RP10-500)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 90
+    extent:
+      start_date: "2024-03-16"
+      end_date: "2024-03-16"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use (JRC).'
+    bands:
+      RP10_depth:
+        description: Flood inundation depth, 10-year return period
+        units: m
+      RP20_depth:
+        description: Flood inundation depth, 20-year return period
+        units: m
+      RP50_depth:
+        description: Flood inundation depth, 50-year return period
+        units: m
+      RP100_depth:
+        description: Flood inundation depth, 100-year return period
+        units: m
+      RP200_depth:
+        description: Flood inundation depth, 200-year return period
+        units: m
+      RP500_depth:
+        description: Flood inundation depth, 500-year return period
+        units: m
+      permanent_water_class:
+        description: Permanent-water mask used to patch the hazard maps
+      spurious_depth_category:
+        description: Areas where >10 m depths are predicted in small channels (spurious)
+
+  JRC/D5/EUCROPMAP/V1:
+    title: "EUCROPMAP v1: JRC EU Annual Crop Map (10m, Sentinel-1/2 derived)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2018-01-01"
+      end_date: null
+      bbox: [-16.171875, 34.313433, 36.386719, 72.182526]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      classification:
+        description: Crop-specific land-cover classification
+
+  JRC/GFC2020/V1:
+    title: EC JRC global map of forest cover 2020, V1 [deprecated]
+    provider: Joint Research Centre, European Commission
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-12-31"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The data may be used by anyone, anywhere, anytime without permission,'
+    user_uploaded: true
+    bands:
+      Map:
+        description: Global forest cover 2020
+
+  JRC/GFC2020/V2:
+    title: "JRC Global Forest Cover 2020 v2 (10m)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-12-31"
+      end_date: "2020-12-31"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for any use (JRC).'
+    user_uploaded: true
+    bands:
+      Map:
+        description: Global forest cover for 2020 (binary)
+
+  JRC/GFC2020/V3:
+    title: EC JRC global map of forest cover 2020, V3
+    provider: Joint Research Centre, European Commission
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-12-31"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The data may be used by anyone, anywhere, anytime without permission,'
+    bands:
+      Map:
+        description: Global forest cover 2020
+
+  JRC/GFC2020_subtypes/V0:
+    title: Global map of forest types 2020 V0 [deprecated]
+    provider: Joint Research Centre, European Commission
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The data may be used by anyone, anywhere, anytime without permission,'
+    user_uploaded: true
+    bands:
+      Map:
+        description: Global forest types 2020
+
+  JRC/GFC2020_subtypes/V1:
+    title: EC JRC global map of forest types 2020, V1
+    provider: Joint Research Centre, European Commission
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2020-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'The data may be used by anyone, anywhere, anytime without permission,'
+    user_uploaded: true
+    bands:
+      Map:
+        description: Global forest types 2020
+
+  JRC/GHSL/P2016/BUILT_LDSMT_GLOBE_V1:
+    title: "GHSL P2016: Built-Up Multitemporal Grid 1975/1990/2000/2015 (~38m, legacy)"
+    provider: EC JRC
+    ee_type: image
+    spatial_resolution: 38
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for use (JRC).'
+    user_uploaded: true
+    bands:
+      built:
+        description: Multitemporal built-up presence (epoch encoded)
+      cnfd:
+        description: Confidence grid on the built-up class
+      dm:
+        description: Mosaic of data availability across the four epochs
+
+  JRC/GHSL/P2016/POP_GPW_GLOBE_V1:
+    title: "GHSL P2016: Population Grid 1975/1990/2000/2015 (250m, legacy)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 250
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2015-12-31"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for use (JRC).'
+    user_uploaded: true
+    bands:
+      population_count:
+        description: Number of people per 250m cell
+
+  JRC/GHSL/P2016/SMOD_POP_GLOBE_V1:
+    title: "GHSL P2016: Settlement Grid (degree of urbanisation) 1975/1990/2000/2014 (1km, legacy)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2014-12-31"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for use (JRC).'
+    user_uploaded: true
+    bands:
+      smod_code:
+        description: Degree-of-urbanisation class
+
+  JRC/GHSL/P2023A/GHS_BUILT_C:
+    title: "GHSL P2023A: Global Settlement Characteristics 2018 (10m, P2023A)"
+    provider: EC JRC
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2018-01-01"
+      end_date: "2018-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      built_characteristics:
+        description: Settlement characteristic class (residential / non-residential / open-low-veg / etc.)
+
+  JRC/GHSL/P2023A/GHS_BUILT_H:
+    title: "GHSL P2023A: Global Building Height 2018 (100m)"
+    provider: EC JRC
+    ee_type: image_collection
+    spatial_resolution: 100
+    extent:
+      start_date: "2018-01-01"
+      end_date: "2018-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      built_height:
+        description: Average building height per 100m grid cell
+        units: m
+
+  JRC/GHSL/P2023A/GHS_BUILT_S:
+    title: "GHSL P2023A: Global Built-Up Surface 1975-2030 (100m)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2030-01-01"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      built_surface:
+        description: Built-up surface area per 100m grid cell
+        units: m^2
+      built_surface_nres:
+        description: Non-residential built-up surface per 100m grid cell
+        units: m^2
+
+  JRC/GHSL/P2023A/GHS_BUILT_S_10m:
+    title: "GHSL P2023A: Global Built-Up Surface 2018 (10m)"
+    provider: EC JRC
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2018-01-01"
+      end_date: "2018-12-31"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      built_surface:
+        description: Built-up surface area per 10 m grid cell
+        units: m^2
+      built_surface_nres:
+        description: Non-residential built-up surface per 10 m grid cell
+        units: m^2
+
+  JRC/GHSL/P2023A/GHS_BUILT_V:
+    title: "GHSL P2023A: Global Building Volume 1975-2030 (100m)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2030-01-01"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      built_volume_total:
+        description: Total building volume per 100m grid cell
+        units: m^3
+      built_volume_nres:
+        description: Non-residential building volume per 100m grid cell
+        units: m^3
+
+  JRC/GHSL/P2023A/GHS_POP:
+    title: "GHSL P2023A: Global Population Surfaces 1975-2030 (100m)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 100
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2030-01-01"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      population_count:
+        description: Population count per 100m grid cell
+
+  JRC/GHSL/P2023A/GHS_SMOD:
+    title: "GHSL P2023A: Degree of Urbanisation (SMOD) 1975-2030 (1km)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2030-01-01"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      smod_code:
+        description: Degree-of-urbanisation class (rural/town/city granularity)
+
+  JRC/GHSL/P2023A/GHS_SMOD_V2-0:
+    title: "GHSL P2023A: Degree of Urbanisation v2-0 (1km, 1975-2030)"
+    provider: EC JRC
+    ee_type: image_collection
+    cadence: { interval: 5, unit: year }
+    spatial_resolution: 1000
+    extent:
+      start_date: "1975-01-01"
+      end_date: "2030-01-01"
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      smod_code:
+        description: Degree-of-urbanisation class (rural/town/city granularity, v2-0)
+
+  JRC/GSW1_0/GlobalSurfaceWater:
+    title: JRC Global Surface Water Mapping Layers, v1.0 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      occurrence:
+        description: The frequency with which water was present.
+        units: '%'
+        min: 0
+        max: 100
+      change_abs:
+        description: 'Absolute change in occurrence between two epochs: 1984-1999 vs 2000-2015.'
+        units: '%'
+        min: -100
+        max: 100
+      change_norm:
+        description: Normalized change in occurrence. (epoch1-epoch2)/(epoch1+epoch2) * 100
+        units: '%'
+        min: -100
+        max: 100
+      seasonality:
+        description: Number of months water is present.
+        min: 0
+        max: 12
+      recurrence:
+        description: The frequency with which water returns from year to year.
+        units: '%'
+        min: 0
+        max: 100
+      transition:
+        description: Categorical classification of change between first and last year.
+      max_extent:
+        description: Binary image containing 1 anywhere water has ever been detected.
+
+  JRC/GSW1_0/Metadata:
+    title: JRC Global Surface Water Metadata, v1.0 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_0/MonthlyHistory:
+    title: JRC Monthly Water History, v1.0 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      water:
+        description: Water detection for the month.
+
+  JRC/GSW1_0/MonthlyRecurrence:
+    title: JRC Monthly Water Recurrence, v1.0 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      monthly_recurrence:
+        description: The recurrence value expressed as a percentage for this month.
+        units: '%'
+        min: 0
+        max: 100
+      has_observations:
+        description: A flag to indicate if the month has observations.
+
+  JRC/GSW1_0/YearlyHistory:
+    title: JRC Yearly Water Classification History, v1.0 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      waterClass:
+        description: Classification of the seasonality of water throughout the year.
+
+  JRC/GSW1_1/GlobalSurfaceWater:
+    title: JRC Global Surface Water Mapping Layers, v1.1 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      occurrence:
+        description: The frequency with which water was present.
+        units: '%'
+        min: 0
+        max: 100
+      change_abs:
+        description: 'Absolute change in occurrence between two epochs: 1984-1999 vs 2000-2018.'
+        units: '%'
+        min: -100
+        max: 100
+      change_norm:
+        description: Normalized change in occurrence. (epoch1-epoch2)/(epoch1+epoch2) * 100
+        units: '%'
+        min: -100
+        max: 100
+      seasonality:
+        description: Number of months water is present.
+        min: 0
+        max: 12
+      recurrence:
+        description: The frequency with which water returns from year to year.
+        units: '%'
+        min: 0
+        max: 100
+      transition:
+        description: Categorical classification of change between first and last year.
+      max_extent:
+        description: Binary image containing 1 anywhere water has ever been detected.
+
+  JRC/GSW1_1/Metadata:
+    title: JRC Global Surface Water Metadata, v1.1 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_1/MonthlyHistory:
+    title: JRC Monthly Water History, v1.1 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      water:
+        description: Water detection for the month.
+
+  JRC/GSW1_1/MonthlyRecurrence:
+    title: JRC Monthly Water Recurrence, v1.1 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      monthly_recurrence:
+        description: The recurrence value expressed as a percentage for this month.
+        units: '%'
+        min: 0
+        max: 100
+      has_observations:
+        description: A flag to indicate if the month has observations.
+
+  JRC/GSW1_1/YearlyHistory:
+    title: JRC Yearly Water Classification History, v1.1 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      waterClass:
+        description: Classification of the seasonality of water throughout the year.
+
+  JRC/GSW1_2/GlobalSurfaceWater:
+    title: JRC Global Surface Water Mapping Layers, v1.2 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      occurrence:
+        description: The frequency with which water was present.
+        units: '%'
+        min: 0
+        max: 100
+      change_abs:
+        description: 'Absolute change in occurrence between two epochs: 1984-1999 vs 2000-2019.'
+        units: '%'
+        min: -100
+        max: 100
+      change_norm:
+        description: Normalized change in occurrence. (epoch1-epoch2)/(epoch1+epoch2) * 100
+        units: '%'
+        min: -100
+        max: 100
+      seasonality:
+        description: Number of months water is present.
+        min: 0
+        max: 12
+      recurrence:
+        description: The frequency with which water returns from year to year.
+        units: '%'
+        min: 0
+        max: 100
+      transition:
+        description: Categorical classification of change between first and last year.
+      max_extent:
+        description: Binary image containing 1 anywhere water has ever been detected.
+
+  JRC/GSW1_2/Metadata:
+    title: JRC Global Surface Water Metadata, v1.2 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_2/MonthlyHistory:
+    title: JRC Monthly Water History, v1.2 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      water:
+        description: Water detection for the month.
+
+  JRC/GSW1_2/MonthlyRecurrence:
+    title: JRC Monthly Water Recurrence, v1.2 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      monthly_recurrence:
+        description: The recurrence value expressed as a percentage for this month.
+        units: '%'
+        min: 0
+        max: 100
+      has_observations:
+        description: A flag to indicate if the month has observations.
+
+  JRC/GSW1_2/YearlyHistory:
+    title: JRC Yearly Water Classification History, v1.2 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      waterClass:
+        description: Classification of the seasonality of water throughout the year.
+
+  JRC/GSW1_3/GlobalSurfaceWater:
+    title: JRC Global Surface Water Mapping Layers, v1.3 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      occurrence:
+        description: The frequency with which water was present.
+        units: '%'
+        min: 0
+        max: 100
+      change_abs:
+        description: 'Absolute change in occurrence between two epochs: 1984-1999 vs 2000-2019.'
+        units: '%'
+        min: -100
+        max: 100
+      change_norm:
+        description: Normalized change in occurrence. (epoch1-epoch2)/(epoch1+epoch2) * 100
+        units: '%'
+        min: -100
+        max: 100
+      seasonality:
+        description: Number of months water is present.
+        min: 0
+        max: 12
+      recurrence:
+        description: The frequency with which water returns from year to year.
+        units: '%'
+        min: 0
+        max: 100
+      transition:
+        description: Categorical classification of change between first and last year.
+      max_extent:
+        description: Binary image containing 1 anywhere water has ever been detected.
+
+  JRC/GSW1_3/Metadata:
+    title: JRC Global Surface Water Metadata, v1.3 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_3/MonthlyHistory:
+    title: JRC Monthly Water History, v1.3 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      water:
+        description: Water detection for the month.
+
+  JRC/GSW1_3/MonthlyRecurrence:
+    title: JRC Monthly Water Recurrence, v1.3 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      monthly_recurrence:
+        description: The recurrence value expressed as a percentage for this month.
+        units: '%'
+        min: 0
+        max: 100
+      has_observations:
+        description: A flag to indicate if the month has observations.
+
+  JRC/GSW1_3/YearlyHistory:
+    title: JRC Yearly Water Classification History, v1.3 [deprecated]
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      waterClass:
+        description: Classification of the seasonality of water throughout the year.
+
+  JRC/GSW1_4/GlobalSurfaceWater:
+    title: "JRC Global Surface Water Mapping Layers v1.4 (1984-2021)"
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: "2021-12-31"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Free for use under the Copernicus Programme licence.'
+    bands:
+      occurrence:
+        description: Frequency with which water was present (1984-2021)
+        units: "%"
+        min: 0
+        max: 100
+      seasonality:
+        description: Number of months with water present in 2021
+        min: 0
+        max: 12
+      recurrence:
+        description: Year-to-year frequency of water presence
+        units: "%"
+        min: 0
+        max: 100
+      transition:
+        description: Categorical change between first and last year
+      max_extent:
+        description: Binary mask — water ever detected (1) vs never (0)
+
+  JRC/GSW1_4/Metadata:
+    title: JRC Global Surface Water Metadata, v1.4
+    provider: EC JRC / Google
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      detections:
+        description: The number of water detections in the study period.
+        min: 0
+        max: 2007
+      valid_obs:
+        description: The number of valid observations in the study period.
+        min: 0
+        max: 2076
+      total_obs:
+        description: The total number of available observations (i.e. scenes) in the study period.
+        min: 0
+        max: 2417
+
+  JRC/GSW1_4/MonthlyHistory:
+    title: "JRC Global Surface Water — Monthly Water History v1.4 (1984-2021)"
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: "2021-12-31"
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mode
+    license: proprietary
+    terms_note: 'Free for use under the Copernicus Programme licence.'
+    bands:
+      water:
+        description: Water mask for the month (0=no_data, 1=not_water, 2=water)
+        min: 0
+        max: 2
+
+  JRC/GSW1_4/MonthlyRecurrence:
+    title: JRC Monthly Water Recurrence, v1.4
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'All data here is produced under the Copernicus Programme and is provided'
+    user_uploaded: true
+    bands:
+      monthly_recurrence:
+        description: The recurrence value expressed as a percentage for this month.
+        units: '%'
+        min: 0
+        max: 100
+      has_observations:
+        description: A flag to indicate if the month has observations.
+
+  JRC/GSW1_4/YearlyHistory:
+    title: "JRC Global Surface Water — Yearly Water Classification History v1.4 (1984-2021)"
+    provider: EC JRC / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: "2021-12-31"
+      bbox: [-180, -59, 180, 78]
+    default_reducer: mode
+    license: proprietary
+    terms_note: 'Free for use under the Copernicus Programme licence.'
+    bands:
+      waterClass:
+        description: "Water seasonality class (0=no_data, 1=not_water, 2=seasonal, 3=permanent)"
+        min: 0
+        max: 3
+
+  JRC/GWIS/GlobFire/v2/DailyPerimeters:
+    title: GlobFire Daily Fire Event Detection Based on MCD64A1
+    provider: European Commission, Joint Research Centre, Global Wildfire Information System
+    ee_type: image_collection
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  JRC/GWIS/GlobFire/v2/FinalPerimeters:
+    title: GlobFire Final Fire Event Detection Based on MCD64A1
+    provider: European Commission, Joint Research Centre, Global Wildfire Information System
+    ee_type: table
+    extent:
+      start_date: "2001-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  JRC/LUCAS/THLOC/V1/2022:
+    title: LUCAS THLOC (Points with attributes, 2022) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2022-01-01"
+      end_date: "2022-12-31"
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+
+  JRC/LUCAS_HARMO/COPERNICUS_POLYGONS/V1/2018:
+    title: LUCAS Copernicus (Polygons with attributes, 2018) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2006-02-05"
+      end_date: null
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  JRC/LUCAS_HARMO/THLOC/V1:
+    title: LUCAS Harmonized (Theoretical Location, 2006-2018) V1
+    provider: Joint Research Center, Unit D5
+    ee_type: table
+    extent:
+      start_date: "2006-02-05"
+      end_date: null
+      bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+

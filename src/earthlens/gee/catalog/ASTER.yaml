@@ -1,0 +1,61 @@
+# Auto-grouped slice of the GEE catalog: ASTER.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  ASTER/AST_L1T_003:
+    title: "ASTER L1T v003: Calibrated Top-of-Atmosphere Radiance (Terra ASTER, 15-90m)"
+    provider: NASA LP DAAC
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "2000-03-04"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Free for any use (NASA LP DAAC).'
+    bands:
+      B01:
+        description: VNIR band 1 (visible green/yellow)
+        wavelength: 0.56
+      B02:
+        description: VNIR band 2 (visible red)
+        wavelength: 0.66
+      B3N:
+        description: VNIR band 3N (NIR, nadir)
+        wavelength: 0.82
+      B04:
+        description: SWIR band 4
+        wavelength: 1.65
+      B05:
+        description: SWIR band 5
+        wavelength: 2.165
+      B06:
+        description: SWIR band 6
+        wavelength: 2.205
+      B07:
+        description: SWIR band 7
+        wavelength: 2.26
+      B08:
+        description: SWIR band 8
+        wavelength: 2.33
+      B09:
+        description: SWIR band 9
+        wavelength: 2.395
+      B10:
+        description: TIR band 10
+        wavelength: 8.3
+      B11:
+        description: TIR band 11
+        wavelength: 8.65
+      B12:
+        description: TIR band 12
+        wavelength: 9.1
+      B13:
+        description: TIR band 13
+        wavelength: 10.6
+      B14:
+        description: TIR band 14
+        wavelength: 11.3
+

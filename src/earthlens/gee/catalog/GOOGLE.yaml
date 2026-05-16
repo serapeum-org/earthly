@@ -1,0 +1,632 @@
+# Auto-grouped slice of the GEE catalog: GOOGLE.
+# 11 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  GOOGLE/AirView/California_Unified_2015_2019:
+    title: 'Google Street View Air Quality: High Resolution Air Pollution Mapping in California'
+    provider: Google / Aclima
+    ee_type: table
+    extent:
+      start_date: "2015-05-28"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-NC-4.0
+    user_uploaded: true
+    bands:
+
+  GOOGLE/BRAZIL_FOREST_2008/V1/ANALYTIC:
+    title: 'Brazil Forest Imagery Dataset 2008: Analytic Basemap'
+    provider: Google
+    ee_type: image
+    spatial_resolution: 10
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      G:
+        description: Green reflectance (top-of-atmosphere)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      R:
+        description: Red reflectance (top-of-atmosphere)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      "N":
+        description: Near-infrared reflectance (top-of-atmosphere)
+        scale: 0.0001
+        min: 0
+        max: 10000
+      date:
+        description: Observation date as epoch (seconds)
+        units: seconds
+      scale:
+        description: Pixel size of source image (see [Methodology](/earth-engine/guides/spot_brazil_forest_imagery_dataset_2008_v1))
+      satellite:
+        description: Source satellite (SPOT 2, 4, or 5)
+        min: 2
+        max: 5
+      coregistered:
+        description: 'Boolean: 1 if automated misregistration correction was applied (see [Methodology](/earth-engine/guides/spot_brazil_forest_imagery_dataset_2008_v1))'
+        min: 0
+        max: 1
+
+  GOOGLE/BRAZIL_FOREST_2008/V1/VISUAL:
+    title: 'Brazil Forest Imagery Dataset 2008: Visual Basemap'
+    provider: Google
+    ee_type: image
+    spatial_resolution: 5
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [-74, -34, -34, 6]
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'Use of this dataset is subject to the [Brazil Forest Imagery Dataset 2008 license'
+    bands:
+      R:
+        description: Red reflectance
+        min: 0
+        max: 255
+      G:
+        description: Green reflectance
+        min: 0
+        max: 255
+      B:
+        description: Blue reflectance, representing the synthetic blue channel of the pseudo-natural color
+        min: 0
+        max: 255
+      date:
+        description: Observation date as epoch (seconds)
+        units: seconds
+      scale:
+        description: Pixel size of source image (see [Methodology](/earth-engine/guides/spot_brazil_forest_imagery_dataset_2008_v1))
+      satellite:
+        description: Source satellite (SPOT 2, 4, or 5)
+        min: 2
+        max: 5
+      coregistered:
+        description: 'Boolean: 1 if automated misregistration correction was applied (see [Methodology](/earth-engine/guides/spot_brazil_forest_imagery_dataset_2008_v1))'
+        min: 0
+        max: 1
+
+  GOOGLE/CLOUD_SCORE_PLUS/V1/S2_HARMONIZED:
+    title: Cloud Score+ S2_HARMONIZED V1
+    provider: Google Earth Engine
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2015-06-27"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      cs:
+        description: Pixel quality score based on spectral distance from a
+        units: Dimensionless
+        min: 0
+        max: 1
+      cs_cdf:
+        description: Value of the cumulative distribution function of possible
+        units: Dimensionless
+        min: 0
+        max: 1
+
+  GOOGLE/DYNAMICWORLD/V1:
+    title: Dynamic World V1
+    provider: World Resources Institute
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2015-06-27"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      water:
+        description: Estimated probability of complete coverage by water
+        min: 0
+        max: 1
+      trees:
+        description: Estimated probability of complete coverage by trees
+        min: 0
+        max: 1
+      grass:
+        description: Estimated probability of complete coverage by grass
+        min: 0
+        max: 1
+      flooded_vegetation:
+        description: Estimated probability of complete coverage by flooded vegetation
+        min: 0
+        max: 1
+      crops:
+        description: Estimated probability of complete coverage by crops
+        min: 0
+        max: 1
+      shrub_and_scrub:
+        description: Estimated probability of complete coverage by shrub and scrub
+        min: 0
+        max: 1
+      built:
+        description: Estimated probability of complete coverage by built
+        min: 0
+        max: 1
+      bare:
+        description: Estimated probability of complete coverage by bare
+        min: 0
+        max: 1
+      snow_and_ice:
+        description: Estimated probability of complete coverage by snow and ice
+        min: 0
+        max: 1
+      label:
+        description: Index of the band with the highest estimated probability
+        min: 0
+        max: 8
+
+  GOOGLE/GLOBAL_CCDC/V1:
+    title: Google Global Landsat-based CCDC Segments (1999-2019)
+    provider: Google
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 72]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      tStart:
+        description: 1-D Array containing the date of the start of each segment (fractional year).
+      tEnd:
+        description: 1-D Array containing the date of the end of each segment (fractional year).
+      tBreak:
+        description: 1-D Array containing the date of the detected breakpoint of each segment (fractional
+      numObs:
+        description: 1-D Array containing the number of observations found in each segment.
+      changeProb:
+        description: A pseudo-probability of the detected breakpoint being real.
+      BLUE_coefs:
+        description: 2-D array containing harmonic model coefficients for the blue band, for each segment.
+      GREEN_coefs:
+        description: 2-D array containing harmonic model coefficients for the green band, for each segment.
+      RED_coefs:
+        description: 2-D array containing harmonic model coefficients for the red band, for each segment.
+      NIR_coefs:
+        description: 2-D array containing harmonic model coefficients for the near-infrared band, for each
+      SWIR1_coefs:
+        description: 2-D array containing harmonic model coefficients for the shortwave-infrared (1.55um-1.75um)
+      SWIR2_coefs:
+        description: 2-D array containing harmonic model coefficients for the shortwave-infrared (2.09um-2.35um)
+      TEMP_coefs:
+        description: 2-D array containing harmonic model coefficients for the thermal band, for each segment.
+      BLUE_rmse:
+        description: 1-D array containing the RMSE of the model for the blue band, for each segment.
+      GREEN_rmse:
+        description: 1-D array containing the RMSE of the model for the green band, for each segment.
+      RED_rmse:
+        description: 1-D array containing the RMSE of the model for the red band, for each segment.
+      NIR_rmse:
+        description: 1-D array containing the RMSE of the model for the near-infrared band, for each segment.
+      SWIR1_rmse:
+        description: 1-D array containing the RMSE of the model for the the shortwave-infrared (1.55um-1.75um)
+      SWIR2_rmse:
+        description: 1-D array containing the RMSE of the model for the shortwave-infrared (2.09um-2.35um)
+      TEMP_rmse:
+        description: 1-D array containing the RMSE of the model for the thermal band, for each segment.
+      BLUE_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the blue band, for
+      GREEN_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the green band,
+      RED_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the red band, for
+      NIR_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the near-infrared
+      SWIR1_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the shortwave-infrared-1
+      SWIR2_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the shortwave-infrared-2
+      TEMP_magnitude:
+        description: 1-D array containing the magnitude of the detected breakpoint for the thermal band,
+
+  GOOGLE/Research/open-buildings-temporal/v1:
+    title: Open Buildings Temporal V1
+    provider: Google Research - Open Buildings
+    ee_type: image_collection
+    spatial_resolution: 4
+    extent:
+      start_date: "2016-06-30"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      building_fractional_count:
+        description: Source data for deriving building counts for a given AOI. Please see
+        min: 0
+        max: 0.0216
+      building_height:
+        description: Building height relative to the terrain in range [0m, 100m].
+        units: m
+        min: 0
+        max: 100
+      building_presence:
+        description: Model confidence values (i.e. how confident a model is that the pixel is
+        min: 0
+        max: 1
+
+  GOOGLE/Research/open-buildings/v1/polygons:
+    title: Open Buildings V1 Polygons [deprecated]
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2021-04-30"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  GOOGLE/Research/open-buildings/v2/polygons:
+    title: Open Buildings V2 Polygons [deprecated]
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2022-08-30"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  GOOGLE/Research/open-buildings/v3/polygons:
+    title: Open Buildings V3 Polygons
+    provider: Google Research - Open Buildings
+    ee_type: table
+    extent:
+      start_date: "2023-05-30"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+
+  GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL:
+    title: Satellite Embedding V1
+    provider: Google Earth Engine
+    ee_type: image_collection
+    spatial_resolution: 10
+    extent:
+      start_date: "2017-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      A00:
+        description: The 0th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A01:
+        description: The 1st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A02:
+        description: The 2nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A03:
+        description: The 3rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A04:
+        description: The 4th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A05:
+        description: The 5th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A06:
+        description: The 6th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A07:
+        description: The 7th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A08:
+        description: The 8th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A09:
+        description: The 9th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A10:
+        description: The 10th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A11:
+        description: The 11th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A12:
+        description: The 12th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A13:
+        description: The 13th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A14:
+        description: The 14th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A15:
+        description: The 15th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A16:
+        description: The 16th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A17:
+        description: The 17th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A18:
+        description: The 18th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A19:
+        description: The 19th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A20:
+        description: The 20th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A21:
+        description: The 21st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A22:
+        description: The 22nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A23:
+        description: The 23rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A24:
+        description: The 24th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A25:
+        description: The 25th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A26:
+        description: The 26th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A27:
+        description: The 27th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A28:
+        description: The 28th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A29:
+        description: The 29th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A30:
+        description: The 30th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A31:
+        description: The 31st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A32:
+        description: The 32nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A33:
+        description: The 33rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A34:
+        description: The 34th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A35:
+        description: The 35th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A36:
+        description: The 36th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A37:
+        description: The 37th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A38:
+        description: The 38th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A39:
+        description: The 39th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A40:
+        description: The 40th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A41:
+        description: The 41st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A42:
+        description: The 42nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A43:
+        description: The 43rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A44:
+        description: The 44th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A45:
+        description: The 45th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A46:
+        description: The 46th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A47:
+        description: The 47th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A48:
+        description: The 48th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A49:
+        description: The 49th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A50:
+        description: The 50th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A51:
+        description: The 51st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A52:
+        description: The 52nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A53:
+        description: The 53rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A54:
+        description: The 54th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A55:
+        description: The 55th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A56:
+        description: The 56th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A57:
+        description: The 57th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A58:
+        description: The 58th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A59:
+        description: The 59th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A60:
+        description: The 60th axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A61:
+        description: The 61st axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A62:
+        description: The 62nd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+      A63:
+        description: The 63rd axis of the embedding vector.
+        units: Dimensionless
+        min: -1
+        max: 1
+

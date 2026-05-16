@@ -1,0 +1,30 @@
+# Auto-grouped slice of the GEE catalog: IGN.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  IGN/RGE_ALTI/1M/2_0:
+    title: 'RGE ALTI: IGN RGE ALTI Digital Elevation 1m'
+    provider: IGN
+    ee_type: image_collection
+    spatial_resolution: 1
+    extent:
+      start_date: "2009-01-01"
+      end_date: null
+      bbox: [-5.2, 41.35, 9.85, 51.14]
+    default_reducer: mosaic
+    license: etalab-2.0
+    bands:
+      MNT:
+        description: Terrain elevation in meters.
+        units: m
+        min: -40
+        max: 4810
+      SRC:
+        description: The main source of the data used to calculate the altitude
+      DST:
+        description: The distance in meters between the node and the nearest point used to
+        units: m
+        min: 0
+        max: 255
+

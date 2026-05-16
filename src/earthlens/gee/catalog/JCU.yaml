@@ -1,0 +1,34 @@
+# Auto-grouped slice of the GEE catalog: JCU.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  JCU/Murray/GIC/global_tidal_wetland_change/2019:
+    title: Murray Global Tidal Wetland Change v1.0 (1999-2019)
+    provider: Murray/JCU
+    ee_type: image
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-01-01"
+      end_date: null
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    user_uploaded: true
+    bands:
+      loss:
+        description: Set to 1 for loss locations, masked out otherwise.
+      lossYear:
+        description: Integer representing the end year of the time-step of loss analysis
+      lossType:
+        description: Loss type
+      gain:
+        description: Set to 1 for gain locations, masked out otherwise.
+      gainYear:
+        description: Integer representing the end year of the time-step of gain analysis
+      gainType:
+        description: 'Gain type:'
+      twprobabilityStart:
+        description: Random forest agreement of the overarching tidal wetland class for
+      twprobabilityEnd:
+        description: Random forest agreement of the overarching tidal wetland class for
+

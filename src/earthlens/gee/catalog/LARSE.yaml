@@ -1,0 +1,384 @@
+# Auto-grouped slice of the GEE catalog: LARSE.
+# 16 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  LARSE/GEDI/GEDI02_A_002:
+    title: GEDI L2A Vector Canopy Top Height (Version 2)
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: image_collection
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI02_A_002_INDEX:
+    title: GEDI L2A table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI02_A_002_MONTHLY:
+    title: "GEDI L2A v002: Monthly Raster Canopy-Top Heights and Relative-Height Profile (25m, ±51.6° lat)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 25
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      elev_highestreturn:
+        description: Elevation of the highest detected return
+        units: m
+      elev_lowestmode:
+        description: Elevation of the centre of the lowest mode (ground)
+        units: m
+      digital_elevation_model:
+        description: TanDEM-X elevation at the GEDI footprint
+        units: m
+      digital_elevation_model_srtm:
+        description: SRTM elevation at the GEDI footprint
+        units: m
+      rh50:
+        description: Relative-height percentile 50 (median canopy)
+        units: m
+      rh75:
+        description: Relative-height percentile 75
+        units: m
+      rh98:
+        description: Relative-height percentile 98 (canopy top)
+        units: m
+      rh100:
+        description: Relative-height percentile 100 (max return)
+        units: m
+      sensitivity:
+        description: Maximum canopy cover at which the algorithm can detect ground
+      quality_flag:
+        description: Per-shot quality flag (1 = pass)
+      beam:
+        description: GEDI beam identifier
+        min: 0
+        max: 12
+
+  LARSE/GEDI/GEDI02_B_002:
+    title: GEDI L2B Vector Canopy Cover Vertical Profile Metrics (Version 2)
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: image_collection
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI02_B_002_INDEX:
+    title: GEDI L2B table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI02_B_002_MONTHLY:
+    title: "GEDI L2B v002: Monthly Raster Canopy-Cover + Vertical Profile Metrics (25m, ±51.6° lat)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 25
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      cover:
+        description: Total canopy cover
+        min: 0
+        max: 1
+      fhd_normal:
+        description: Foliage height diversity
+      l2b_quality_flag:
+        description: L2B quality flag (1=pass)
+        min: 0
+        max: 1
+      algorithmrun_flag:
+        description: Whether the L2B algorithm ran (1) or not (0)
+        min: 0
+        max: 1
+      beam:
+        description: GEDI beam identifier
+        min: 0
+        max: 11
+      delta_time:
+        description: Shot transmit time, seconds since 2018-01-01
+        units: s
+      degrade_flag:
+        description: Pointing/positioning degraded-state flag
+
+  LARSE/GEDI/GEDI04_A_002:
+    title: GEDI L4A Aboveground Biomass Density, Version 2.1
+    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    ee_type: image_collection
+    extent:
+      start_date: "2019-04-18"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI04_A_002_INDEX:
+    title: GEDI L4A table index
+    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: table
+    extent:
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+
+  LARSE/GEDI/GEDI04_A_002_MONTHLY:
+    title: "GEDI L4A v2.1: Monthly Aboveground Biomass Density (25m, ±51.6° lat)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 25
+    extent:
+      start_date: "2019-03-25"
+      end_date: null
+      bbox: [-180, -51.6, 180, 51.6]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      agbd:
+        description: Predicted above-ground biomass density
+        units: Mg/ha
+      agbd_se:
+        description: Above-ground biomass density prediction standard error
+        units: Mg/ha
+      agbd_pi_lower:
+        description: Lower prediction interval bound
+        units: Mg/ha
+      agbd_pi_upper:
+        description: Upper prediction interval bound
+        units: Mg/ha
+      beam:
+        description: GEDI beam identifier
+
+  LARSE/GEDI/GEDI04_B_002:
+    title: "GEDI L4B v2: Gridded Above-Ground Biomass Density (1km, 2019-present)"
+    provider: NASA / USFS LARSE
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-18"
+      end_date: "2023-03-16"
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mosaic
+    license: public-domain
+    bands:
+      MU:
+        description: Mean above-ground biomass density
+        units: Mg/ha
+      SE:
+        description: Standard error of the mean AGBD
+        units: Mg/ha
+      PE:
+        description: Standard error as a fraction of the mean AGBD
+        units: "%"
+      V1:
+        description: Variance component 1 (uncertainty in the estimate of mean)
+      V2:
+        description: Variance component 2
+      NC:
+        description: Number of unique GEDI ground tracks contributing
+      NS:
+        description: Number of high-quality waveforms across the cell
+      QF:
+        description: Cell quality flag
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/12KM:
+    title: Gridded GEDI Vegetation Structure Metrics and Biomass Density with COUNTS metrics,
+    provider: 'Rasterization: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    ee_type: image_collection
+    spatial_resolution: 12000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mosaic
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: The number of shots. For a shot to be counted in this layer the
+      orbits_uniq:
+        description: The number of unique orbits.
+      tracks_uniq:
+        description: The number of unique tracks. A track is the combination of orbit and
+      shots_nni:
+        description: The Nearest Neighbor Index (Evans et al. 2023).
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/1KM:
+    title: "GEDI GRIDDEDVEG v002 COUNTS: Shot/Orbit/Track Counts (1km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: Number of GEDI shots contributing to the pixel
+      orbits_uniq:
+        description: Number of unique orbits contributing
+      tracks_uniq:
+        description: Number of unique ground tracks contributing
+      shots_nni:
+        description: Nearest Neighbor Index (Evans et al. 2023)
+
+  LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/6KM:
+    title: "GEDI GRIDDEDVEG v002 COUNTS: Shot/Orbit/Track Counts (6km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 6000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      shots_count:
+        description: Number of GEDI shots contributing to the pixel
+      orbits_uniq:
+        description: Number of unique orbits contributing
+      tracks_uniq:
+        description: Number of unique ground tracks contributing
+      shots_nni:
+        description: Nearest Neighbor Index (Evans et al. 2023)
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/12KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure + Biomass Density (12km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 12000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/1KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure Metrics + Biomass Density (1km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 1000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      meanbse:
+        description: Bootstrap-resampled standard error of the mean
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+
+  LARSE/GEDI/GRIDDEDVEG_002/V1/6KM:
+    title: "GEDI GRIDDEDVEG v002: Vegetation Structure + Biomass Density (6km grid)"
+    provider: NASA / USFS LARSE / Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 6000
+    extent:
+      start_date: "2019-04-17"
+      end_date: null
+      bbox: [-180, -52, 180, 52]
+    default_reducer: mean
+    license: public-domain
+    user_uploaded: true
+    bands:
+      mean:
+        description: Mean of GEDI shot-metric values within the pixel
+      median:
+        description: Median (P50) of GEDI shot-metric values
+      sd:
+        description: Standard deviation of GEDI shot-metric values
+      iqr:
+        description: Interquartile range (P75 - P25)
+      p95:
+        description: 95th-percentile shot-metric value
+      shan:
+        description: Shannon diversity index of shot-metric values
+      countf:
+        description: Count of GEDI shots contributing to the pixel
+

@@ -1,9 +1,14 @@
 """Dataset/band catalog loader for the Google Earth Engine backend.
 
-Hosts :class:`Catalog`, the pydantic-backed reader for
-`gee_data_catalog.yaml` — the GEE analogue of
-`earthlens.ecmwf.Catalog` / `cds_data_catalog.yaml`. The YAML's two
-top-level sections each map to a typed field on :class:`Catalog`:
+Hosts :class:`Catalog`, the pydantic-backed reader for the bundled GEE
+catalog — the analogue of `earthlens.ecmwf.Catalog` /
+`cds_data_catalog.yaml`. The catalog ships as a directory of
+per-provider YAML files at `src/earthlens/gee/catalog/`
+(`MODIS.yaml`, `COPERNICUS.yaml`, `LANDSAT.yaml`,
+`community.yaml` for `projects/...` user-contributed assets, …),
+plus a single `_index.yaml` carrying the merged
+`available_datasets:` list. Per-file sections each map to a typed
+field on :class:`Catalog` once merged:
 
 * `available_datasets` (informational list of Earth Engine asset ids)
   → :attr:`Catalog.available_datasets`
@@ -16,9 +21,9 @@ Datasets are addressed by their Earth Engine asset id (e.g.
 `(asset_id, band_id)` via :meth:`Catalog.get_band` (aliased as
 :meth:`Catalog.get_variable` for parity with the ECMWF catalog).
 
-The path to the bundled YAML lives at :data:`CATALOG_PATH`; tests can
-monkey-patch that module attribute to redirect the loader at a
-temporary file.
+The path to the bundled catalog directory lives at
+:data:`CATALOG_PATH`; tests can monkey-patch that module attribute to
+redirect the loader at a temporary directory or single YAML file.
 
 Examples:
     - Construct the catalog and look up a dataset / band:
@@ -45,61 +50,96 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from earthlens.base import AbstractCatalog
 from earthlens.base.yaml_loader import load_yaml_strict
 
-CATALOG_PATH: Path = Path(__file__).parent / "gee_data_catalog.yaml"
+CATALOG_PATH: Path = Path(__file__).parent / "catalog"
 
-# Module-level cache of parsed catalog data, keyed on the resolved YAML
-# path and its mtime (in nanoseconds). The full parse + pydantic
-# validation across 11k+ band entries is ~5 s on the bundled catalog; a
-# second `Catalog()` call on the same on-disk file should be ~1 ms.
-# Touching the file (via editor save or `_run_batch.py` append) bumps
-# the mtime and invalidates the entry naturally.
-_CATALOG_CACHE: dict[tuple[str, int], tuple[list[str], dict[str, "Dataset"]]] = {}
+# Module-level cache of parsed catalog data. Keyed on the resolved path
+# plus a tuple of `(file, mtime_ns)` for every YAML the load touched (so
+# editing any per-provider file invalidates the cache without us having
+# to inspect every entry). The full parse + pydantic validation across
+# 11k+ band entries is ~5 s on the bundled catalog; a second `Catalog()`
+# call on an unchanged tree should be ~1 ms.
+_CATALOG_CACHE: dict[Any, tuple[list[str], dict[str, "Dataset"]]] = {}
+
+
+def _yaml_files_for(path: Path) -> list[Path]:
+    """Return the sorted list of YAML files that contribute to a catalog load.
+
+    `path` may point at either:
+
+    * a directory containing per-provider `*.yaml` files (the default
+      layout — `src/earthlens/gee/catalog/`); or
+    * a single `*.yaml` file (back-compat for tests that monkey-patch
+      `CATALOG_PATH` to a temp file, and for any external user still
+      shipping the legacy monolithic `gee_data_catalog.yaml`).
+    """
+    if path.is_dir():
+        return sorted(path.glob("*.yaml"))
+    return [path]
 
 
 def _load_catalog_data(path: Path) -> tuple[list[str], dict[str, "Dataset"]]:
-    """Parse, validate and cache the YAML at `path`.
+    """Parse, validate and cache the catalog at `path`.
 
-    Returns a `(available_datasets, datasets)` tuple of the same shape the
-    `Catalog` model exposes. The result is cached on the
-    `(resolved-path, mtime_ns)` pair, so a fresh `Catalog()` on an
-    unchanged file skips both YAML parsing and pydantic validation.
+    Returns a `(available_datasets, datasets)` tuple of the same shape
+    the :class:`Catalog` model exposes. The result is cached on the
+    resolved path + every contributing file's mtime, so a fresh
+    `Catalog()` on an unchanged tree skips YAML parsing and pydantic
+    validation.
 
     Args:
-        path: Filesystem path of a `gee_data_catalog.yaml` file.
+        path: Filesystem path — either the per-provider catalog directory
+            (default `src/earthlens/gee/catalog/`) or a single `*.yaml`
+            file.
 
     Returns:
         Tuple of `(list[str], dict[str, Dataset])` — the parsed
-        `available_datasets:` and `datasets:` blocks.
+        `available_datasets:` (merged across files when loading a
+        directory) and `datasets:` blocks.
 
     Raises:
         ValueError: If the YAML is missing, has no `datasets:` block,
-            declares a duplicate key, contains an unknown band field, or
-            lists a curated dataset that is absent from
+            declares a duplicate dataset/band key, contains an unknown
+            band field, or lists a curated dataset that is absent from
             `available_datasets`.
     """
     resolved = str(path.resolve())
+    files = _yaml_files_for(path)
+    mtime_tuple: tuple[tuple[str, int], ...]
     try:
-        mtime_ns = path.stat().st_mtime_ns
+        mtime_tuple = tuple((str(f), f.stat().st_mtime_ns) for f in files)
     except FileNotFoundError:
-        mtime_ns = 0
-    key = (resolved, mtime_ns)
+        mtime_tuple = ((resolved, 0),)
+    key = (resolved, mtime_tuple)
     cached = _CATALOG_CACHE.get(key)
     if cached is not None:
         return cached
 
-    data = load_yaml_strict(path) or {}
-    available_datasets = list(data.get("available_datasets") or [])
+    merged_available: list[str] = []
+    merged_datasets_yaml: dict[str, Any] = {}
+    asset_origin: dict[str, Path] = {}
+    for file_path in files:
+        data = load_yaml_strict(file_path) or {}
+        for aid in data.get("available_datasets") or []:
+            merged_available.append(aid)
+        for asset_id, body in (data.get("datasets") or {}).items():
+            if asset_id in merged_datasets_yaml:
+                first_seen = asset_origin[asset_id]
+                raise ValueError(
+                    f"dataset {asset_id!r} declared in two catalog files: "
+                    f"{first_seen} and {file_path}"
+                )
+            merged_datasets_yaml[asset_id] = body
+            asset_origin[asset_id] = file_path
 
-    datasets_yaml = data.get("datasets")
-    if not datasets_yaml:
+    if not merged_datasets_yaml:
         raise ValueError(
-            f"{path} is missing or has an empty 'datasets:' "
-            "block. The catalog must contain at least one curated dataset."
+            f"{path} is missing or has an empty 'datasets:' block. "
+            "The catalog must contain at least one curated dataset."
         )
 
-    available = set(available_datasets)
+    available = set(merged_available)
     datasets: dict[str, Dataset] = {}
-    for asset_id, body in datasets_yaml.items():
+    for asset_id, body in merged_datasets_yaml.items():
         body = dict(body or {})
         bands_yaml = dict(body.pop("bands", {}) or {})
         bands: dict[str, Band] = {}
@@ -109,13 +149,13 @@ def _load_catalog_data(path: Path) -> tuple[list[str], dict[str, "Dataset"]]:
             except ValidationError as exc:
                 raise ValueError(
                     f"invalid band {band_id!r} under dataset {asset_id!r} "
-                    f"in {path}: {exc}"
+                    f"in {asset_origin[asset_id]}: {exc}"
                 ) from exc
         try:
             datasets[asset_id] = Dataset(id=asset_id, bands=bands, **body)
         except ValidationError as exc:
             raise ValueError(
-                f"invalid dataset {asset_id!r} in {path}: {exc}"
+                f"invalid dataset {asset_id!r} in {asset_origin[asset_id]}: {exc}"
             ) from exc
         if available and asset_id not in available:
             raise ValueError(
@@ -123,7 +163,7 @@ def _load_catalog_data(path: Path) -> tuple[list[str], dict[str, "Dataset"]]:
                 f"'available_datasets:' in {path}; add it there too."
             )
 
-    _CATALOG_CACHE[key] = (available_datasets, datasets)
+    _CATALOG_CACHE[key] = (merged_available, datasets)
     return _CATALOG_CACHE[key]
 
 
@@ -394,9 +434,11 @@ class Dataset(BaseModel):
 class Catalog(AbstractCatalog):
     """YAML-backed catalog of Earth Engine datasets for the GEE backend.
 
-    Reads `gee_data_catalog.yaml` (path in :data:`CATALOG_PATH`) on
-    construction, validating every entry into typed :class:`Dataset` /
-    :class:`Band` models. A duplicate dataset/band key in the YAML, an
+    Reads every `*.yaml` file under :data:`CATALOG_PATH` (the
+    `catalog/` directory shipped with the package) on construction,
+    merging them into one logical catalog and validating every entry
+    into typed :class:`Dataset` / :class:`Band` models. A duplicate
+    dataset/band key in the YAML (within a file or across files), an
     unknown band field, or a curated dataset not listed in
     `available_datasets` is a load-time error.
 

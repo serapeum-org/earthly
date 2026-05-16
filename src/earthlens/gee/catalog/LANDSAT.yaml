@@ -1,0 +1,2619 @@
+# Auto-grouped slice of the GEE catalog: LANDSAT.
+# 68 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      blue:
+        description: Blue (surface reflectance)
+      green:
+        description: Green (surface reflectance)
+      red:
+        description: Red (surface reflectance)
+      nir:
+        description: Near infrared (surface reflectance)
+      swir1:
+        description: Shortwave infrared 1 (surface reflectance)
+      swir2:
+        description: Shortwave infrared 2 (surface reflectance)
+      thermal:
+        description: Surface temperature
+        units: K
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_BAI:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day BAI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_EVI:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day EVI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_NBR:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day NBR Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NBR:
+        description: Normalized Burn Ratio Thermal
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_NDVI:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day NDVI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  LANDSAT/COMPOSITES/C02/T1_L2_32DAY_NDWI:
+    title: Landsat Collection 2 Tier 1 Level 2 32-Day NDWI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 32, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      blue:
+        description: Blue (surface reflectance)
+      green:
+        description: Green (surface reflectance)
+      red:
+        description: Red (surface reflectance)
+      nir:
+        description: Near infrared (surface reflectance)
+      swir1:
+        description: Shortwave infrared 1 (surface reflectance)
+      swir2:
+        description: Shortwave infrared 2 (surface reflectance)
+      thermal:
+        description: Surface temperature
+        units: K
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_BAI:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day BAI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_EVI:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day EVI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_NBR:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day NBR Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NBR:
+        description: Normalized Burn Ratio Thermal
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_NDVI:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day NDVI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  LANDSAT/COMPOSITES/C02/T1_L2_8DAY_NDWI:
+    title: Landsat Collection 2 Tier 1 Level 2 8-Day NDWI Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 8, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL:
+    title: Landsat Collection 2 Tier 1 Level 2 Annual Composite
+    provider: Google
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      blue:
+        description: Blue (surface reflectance)
+      green:
+        description: Green (surface reflectance)
+      red:
+        description: Red (surface reflectance)
+      nir:
+        description: Near infrared (surface reflectance)
+      swir1:
+        description: Shortwave infrared 1 (surface reflectance)
+      swir2:
+        description: Shortwave infrared 2 (surface reflectance)
+      thermal:
+        description: Surface temperature
+        units: K
+
+  LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL_BAI:
+    title: Landsat Collection 2 Tier 1 Level 2 Annual BAI Composite
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      BAI:
+        description: Burn Area Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL_EVI:
+    title: Landsat Collection 2 Tier 1 Level 2 Annual EVI Composite
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      EVI:
+        description: Enhanced Vegetation Index
+
+  LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL_NBR:
+    title: Landsat Collection 2 Tier 1 Level 2 Annual NBR Composite
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NBR:
+        description: Normalized Burn Ratio Thermal
+
+  LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL_NDVI:
+    title: Landsat Collection 2 Tier 1 Level 2 Annual NDVI Composite
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NDVI:
+        description: Normalized Difference Vegetation Index
+        min: -1
+        max: 1
+
+  LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL_NDWI:
+    title: Landsat Collection 2 Tier 1 Level 2 Annual NDWI Composite
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      NDWI:
+        description: Normalized Difference Water Index
+
+  LANDSAT/GLS1975:
+    title: Landsat Global Land Survey 1975
+    provider: USGS
+    ee_type: image_collection
+    spatial_resolution: 60
+    extent:
+      start_date: "1972-07-25"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      "10":
+        description: Green
+        wavelength: 0.55
+      "20":
+        description: Red
+        wavelength: 0.65
+      "30":
+        description: Near infrared
+        wavelength: 0.75
+      "40":
+        description: Short-wavelength infrared
+        wavelength: 0.95
+
+  LANDSAT/GLS1975_MOSAIC:
+    title: Landsat Global Land Survey 1975 Mosaic
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 1, unit: year }
+    spatial_resolution: 60
+    extent:
+      start_date: "1975-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      "10":
+        description: Green
+        wavelength: 0.55
+      "20":
+        description: Red
+        wavelength: 0.65
+      "30":
+        description: Near infrared
+        wavelength: 0.75
+      "40":
+        description: Short-wavelength infrared
+        wavelength: 0.95
+
+  LANDSAT/GLS2005:
+    title: Landsat Global Land Survey 2005, Landsat 5+7 scenes
+    provider: USGS
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2003-07-29"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      "10":
+        description: Blue
+        wavelength: 0.485
+      "20":
+        description: Green
+        wavelength: 0.56
+      "30":
+        description: Red
+        wavelength: 0.66
+      "40":
+        description: Near infrared
+        wavelength: 0.835
+      "50":
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      "70":
+        description: Shortwave infrared 2
+        wavelength: 2.215
+
+  LANDSAT/GLS2005_L5:
+    title: Landsat Global Land Survey 2005, Landsat 5 scenes
+    provider: USGS
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2003-08-14"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      "10":
+        description: Blue
+        wavelength: 0.485
+      "20":
+        description: Green
+        wavelength: 0.56
+      "30":
+        description: Red
+        wavelength: 0.66
+      "40":
+        description: Near infrared
+        wavelength: 0.835
+      "50":
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      "60":
+        description: Thermal Infrared 1. Resampled from 60m to 30m.
+        wavelength: 11.45
+      "70":
+        description: Shortwave infrared 2
+        wavelength: 2.215
+
+  LANDSAT/GLS2005_L7:
+    title: Landsat Global Land Survey 2005, Landsat 7 scenes
+    provider: USGS
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2003-07-29"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      "10":
+        description: Blue
+        wavelength: 0.485
+      "20":
+        description: Green
+        wavelength: 0.56
+      "30":
+        description: Red
+        wavelength: 0.66
+      "40":
+        description: Near infrared
+        wavelength: 0.835
+      "50":
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      "60":
+        description: Thermal Infrared 1. Resampled from 60m to 30m.
+        wavelength: 11.45
+      "70":
+        description: Shortwave infrared 2
+        wavelength: 2.215
+
+  LANDSAT/LC08/C02/T1:
+    title: USGS Landsat 8 Collection 2 Tier 1 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "2013-03-18"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Band 8 Panchromatic
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1, resampled from 100m to 30m
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2, resampled from 100m to 30m
+        wavelength: 12.005
+      QA_PIXEL:
+        description: Landsat Collection 2 OLI/TIRS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LC08/C02/T1_L2:
+    title: USGS Landsat 8 Level 2, Collection 2, Tier 1 (Surface Reflectance + Surface Temperature)
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2013-03-18"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B2:
+        description: Band 2 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.482
+        min: 1
+        max: 65455
+      SR_B3:
+        description: Band 3 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.562
+        min: 1
+        max: 65455
+      SR_B4:
+        description: Band 4 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.655
+        min: 1
+        max: 65455
+      SR_B5:
+        description: Band 5 (near infrared) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.865
+        min: 1
+        max: 65455
+      SR_B6:
+        description: Band 6 (shortwave infrared 1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.609
+        min: 1
+        max: 65455
+      SR_B7:
+        description: Band 7 (shortwave infrared 2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.201
+        min: 1
+        max: 65455
+      ST_B10:
+        description: Band 10 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149.0
+      QA_PIXEL:
+        description: Pixel quality attributes (CFMask)
+      QA_RADSAT:
+        description: Radiometric saturation and dropped-pixel QA
+
+  LANDSAT/LC08/C02/T1_RT:
+    title: USGS Landsat 8 Collection 2 Tier 1 and Real-Time data Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "2013-03-18"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Band 8 Panchromatic
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1, resampled from 100m to 30m
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2, resampled from 100m to 30m
+        wavelength: 12.005
+      QA_PIXEL:
+        description: Landsat Collection 2 OLI/TIRS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LC08/C02/T1_RT_TOA:
+    title: USGS Landsat 8 Collection 2 Tier 1 and Real-Time data TOA Reflectance
+    provider: USGS/Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "2013-03-18"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Band 8 Panchromatic
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1, resampled from 100m to 30m
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2, resampled from 100m to 30m
+        wavelength: 12.005
+      QA_PIXEL:
+        description: Landsat Collection 2 OLI/TIRS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LC08/C02/T1_TOA:
+    title: "USGS Landsat 8 Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2013-03-18"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1 (resampled from 100m to 30m)
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2 (resampled from 100m to 30m)
+        wavelength: 12.005
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LC08/C02/T2:
+    title: USGS Landsat 8 Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "2021-10-28"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Band 8 Panchromatic
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1, resampled from 100m to 30m
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2, resampled from 100m to 30m
+        wavelength: 12.005
+      QA_PIXEL:
+        description: Landsat Collection 2 OLI/TIRS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LC08/C02/T2_L2:
+    title: USGS Landsat 8 Level 2, Collection 2, Tier 2 (Surface Reflectance + Surface Temperature)
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2013-03-18"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B1:
+        description: Band 1 (ultra-blue / coastal aerosol) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.443
+      SR_B2:
+        description: Band 2 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.482
+      SR_B3:
+        description: Band 3 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.562
+      SR_B4:
+        description: Band 4 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.655
+      SR_B5:
+        description: Band 5 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.865
+      SR_B6:
+        description: Band 6 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.609
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.201
+      ST_B10:
+        description: Band 10 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 10.895
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LC08/C02/T2_TOA:
+    title: USGS Landsat 8 Collection 2 Tier 2 TOA Reflectance
+    provider: USGS/Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "2021-10-28"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Band 8 Panchromatic
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1, resampled from 100m to 30m
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2, resampled from 100m to 30m
+        wavelength: 12.005
+      QA_PIXEL:
+        description: Landsat Collection 2 OLI/TIRS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LC09/C02/T1:
+    title: USGS Landsat 9 Collection 2 Tier 1 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "2021-10-31"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Band 8 Panchromatic
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1, resampled from 100m to 30m
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2, resampled from 100m to 30m
+        wavelength: 12.005
+      QA_PIXEL:
+        description: Landsat Collection 2 OLI/TIRS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LC09/C02/T1_L2:
+    title: USGS Landsat 9 Level 2, Collection 2, Tier 1 (Surface Reflectance + Surface Temperature)
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2021-10-31"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B2:
+        description: Band 2 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.482
+        min: 1
+        max: 65455
+      SR_B3:
+        description: Band 3 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.562
+        min: 1
+        max: 65455
+      SR_B4:
+        description: Band 4 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.655
+        min: 1
+        max: 65455
+      SR_B5:
+        description: Band 5 (near infrared) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.865
+        min: 1
+        max: 65455
+      SR_B6:
+        description: Band 6 (shortwave infrared 1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.609
+        min: 1
+        max: 65455
+      SR_B7:
+        description: Band 7 (shortwave infrared 2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.201
+        min: 1
+        max: 65455
+      ST_B10:
+        description: Band 10 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149.0
+      QA_PIXEL:
+        description: Pixel quality attributes (CFMask)
+      QA_RADSAT:
+        description: Radiometric saturation and dropped-pixel QA
+
+  LANDSAT/LC09/C02/T1_TOA:
+    title: "USGS Landsat 9 Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2021-10-31"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1 (resampled from 100m to 30m)
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2 (resampled from 100m to 30m)
+        wavelength: 12.005
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LC09/C02/T2:
+    title: USGS Landsat 9 Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "2021-11-02"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Band 8 Panchromatic
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1, resampled from 100m to 30m
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2, resampled from 100m to 30m
+        wavelength: 12.005
+      QA_PIXEL:
+        description: Landsat Collection 2 OLI/TIRS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LC09/C02/T2_L2:
+    title: "USGS Landsat 9 Collection 2 Tier 2 Surface Reflectance + Surface Temperature"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2021-10-31"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B1:
+        description: Band 1 (coastal aerosol) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.443
+      SR_B2:
+        description: Band 2 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.482
+      SR_B3:
+        description: Band 3 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.562
+      SR_B4:
+        description: Band 4 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.655
+      SR_B5:
+        description: Band 5 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.865
+      SR_B6:
+        description: Band 6 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.609
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.201
+      ST_B10:
+        description: Band 10 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 10.895
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LC09/C02/T2_TOA:
+    title: "USGS Landsat 9 Collection 2 Tier 2 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "2021-11-02"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Coastal aerosol
+        wavelength: 0.44
+      B2:
+        description: Blue
+        wavelength: 0.48
+      B3:
+        description: Green
+        wavelength: 0.56
+      B4:
+        description: Red
+        wavelength: 0.655
+      B5:
+        description: Near infrared
+        wavelength: 0.865
+      B6:
+        description: Shortwave infrared 1
+        wavelength: 1.61
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.2
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      B9:
+        description: Cirrus
+        wavelength: 1.37
+      B10:
+        description: Thermal infrared 1 (resampled from 100m to 30m)
+        wavelength: 10.895
+      B11:
+        description: Thermal infrared 2 (resampled from 100m to 30m)
+        wavelength: 12.005
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LE07/C02/T1:
+    title: USGS Landsat 7 Collection 2 Tier 1 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "1999-05-28"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6_VCID_1:
+        description: Low-gain Thermal Infrared 1. This band has expanded dynamic range
+        wavelength: 11.45
+      B6_VCID_2:
+        description: High-gain Thermal Infrared 1. This band has higher radiometric
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      B8:
+        description: Panchromatic
+        wavelength: 0.71
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LE07/C02/T1_L2:
+    title: USGS Landsat 7 Level 2, Collection 2, Tier 1 (Surface Reflectance + Surface Temperature)
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-05-28"
+      end_date: "2024-04-06"
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LE07/C02/T1_RT:
+    title: USGS Landsat 7 Collection 2 Tier 1 and Real-Time data Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "1999-05-28"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6_VCID_1:
+        description: Low-gain Thermal Infrared 1. This band has expanded dynamic range
+        wavelength: 11.45
+      B6_VCID_2:
+        description: High-gain Thermal Infrared 1. This band has higher radiometric
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      B8:
+        description: Panchromatic
+        wavelength: 0.71
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LE07/C02/T1_RT_TOA:
+    title: USGS Landsat 7 Collection 2 Tier 1 and Real-Time data TOA Reflectance
+    provider: USGS/Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "1999-05-28"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6_VCID_1:
+        description: Low-gain Thermal Infrared 1. This band has expanded dynamic range
+        wavelength: 11.45
+      B6_VCID_2:
+        description: High-gain Thermal Infrared 1. This band has higher radiometric
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      B8:
+        description: Panchromatic
+        wavelength: 0.71
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LE07/C02/T1_TOA:
+    title: "USGS Landsat 7 Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-05-28"
+      end_date: "2024-04-06"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6_VCID_1:
+        description: Low-gain thermal infrared (extended dynamic range)
+        wavelength: 11.45
+      B6_VCID_2:
+        description: High-gain thermal infrared (greater sensitivity)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LE07/C02/T2:
+    title: USGS Landsat 7 Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 15
+    extent:
+      start_date: "1999-05-28"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6_VCID_1:
+        description: Low-gain Thermal Infrared 1. This band has expanded dynamic range
+        wavelength: 11.45
+      B6_VCID_2:
+        description: High-gain Thermal Infrared 1. This band has higher radiometric
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      B8:
+        description: Panchromatic
+        wavelength: 0.71
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LE07/C02/T2_L2:
+    title: "USGS Landsat 7 Collection 2 Tier 2 Surface Reflectance + Surface Temperature"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-05-28"
+      end_date: "2024-04-06"
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LE07/C02/T2_TOA:
+    title: "USGS Landsat 7 Collection 2 Tier 2 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1999-05-28"
+      end_date: "2024-04-06"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6_VCID_1:
+        description: Low-gain thermal infrared (extended dynamic range)
+        wavelength: 11.45
+      B6_VCID_2:
+        description: High-gain thermal infrared (greater sensitivity)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      B8:
+        description: Panchromatic (15m native)
+        wavelength: 0.71
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LM01/C02/T1:
+    title: "USGS Landsat 1 MSS Collection 2 Tier 1 Raw Scenes (60m, 1972-1978)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 18, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1972-07-26"
+      end_date: "1978-01-06"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM01/C02/T2:
+    title: USGS Landsat 1 MSS Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1972-07-25"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near Infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near Infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: Landsat Collection 2 MSS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM02/C02/T1:
+    title: "USGS Landsat 2 MSS Collection 2 Tier 1 Raw Scenes (60m, 1975-1982)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 18, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1975-01-31"
+      end_date: "1982-02-25"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM02/C02/T2:
+    title: USGS Landsat 2 MSS Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1975-01-24"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near Infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near Infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: Landsat Collection 2 MSS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM03/C02/T1:
+    title: "USGS Landsat 3 MSS Collection 2 Tier 1 Raw Scenes (60m, 1978-1983)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 18, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1978-06-03"
+      end_date: "1983-03-31"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM03/C02/T2:
+    title: USGS Landsat 3 MSS Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1978-03-07"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B4:
+        description: Green
+        wavelength: 0.55
+      B5:
+        description: Red
+        wavelength: 0.65
+      B6:
+        description: Near Infrared 1
+        wavelength: 0.75
+      B7:
+        description: Near Infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: Landsat Collection 2 MSS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM04/C02/T1:
+    title: "USGS Landsat 4 MSS Collection 2 Tier 1 Raw Scenes (60m, 1982-1993)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1982-08-14"
+      end_date: "1993-12-14"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Green
+        wavelength: 0.55
+      B2:
+        description: Red
+        wavelength: 0.65
+      B3:
+        description: Near infrared 1
+        wavelength: 0.75
+      B4:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM04/C02/T2:
+    title: USGS Landsat 4 MSS Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-06"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Green
+        wavelength: 0.55
+      B2:
+        description: Red
+        wavelength: 0.65
+      B3:
+        description: Near Infrared 1
+        wavelength: 0.75
+      B4:
+        description: Near Infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: Landsat Collection 2 MSS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM05/C02/T1:
+    title: "USGS Landsat 5 MSS Collection 2 Tier 1 Raw Scenes (60m, 1984-2013)"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 60
+    extent:
+      start_date: "1984-04-07"
+      end_date: "2013-01-15"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Green
+        wavelength: 0.55
+      B2:
+        description: Red
+        wavelength: 0.65
+      B3:
+        description: Near infrared 1
+        wavelength: 0.75
+      B4:
+        description: Near infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: MSS pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LM05/C02/T2:
+    title: USGS Landsat 5 MSS Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-04-07"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Green
+        wavelength: 0.55
+      B2:
+        description: Red
+        wavelength: 0.65
+      B3:
+        description: Near Infrared 1
+        wavelength: 0.75
+      B4:
+        description: Near Infrared 2
+        wavelength: 0.95
+      QA_PIXEL:
+        description: Landsat Collection 2 MSS QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LT04/C02/T1:
+    title: USGS Landsat 4 TM Collection 2 Tier 1 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-22"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal Infrared 1. Resampled from 60m to 30m.
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LT04/C02/T1_L2:
+    title: "USGS Landsat 4 Collection 2 Tier 1 Surface Reflectance + Surface Temperature"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-22"
+      end_date: "1993-12-14"
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LT04/C02/T1_TOA:
+    title: "USGS Landsat 4 TM Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-22"
+      end_date: "1993-12-14"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal infrared (resampled from 60m to 30m)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LT04/C02/T2:
+    title: USGS Landsat 4 TM Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-22"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal Infrared 1. Resampled from 60m to 30m.
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LT04/C02/T2_L2:
+    title: USGS Landsat 4 Level 2, Collection 2, Tier 2
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-22"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+        min: 1
+        max: 65455
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+        min: 1
+        max: 65455
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+        min: 1
+        max: 65455
+      SR_B4:
+        description: Band 4 (near infrared) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+        min: 1
+        max: 65455
+      SR_B5:
+        description: Band 5 (shortwave infrared 1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+        min: 1
+        max: 65455
+      SR_B7:
+        description: Band 7 (shortwave infrared 2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+        min: 1
+        max: 65455
+      SR_ATMOS_OPACITY:
+        description: A general interpretation of atmospheric opacity
+        scale: 0.001
+        min: 0
+        max: 10000
+      SR_CLOUD_QA:
+        description: Cloud Quality Assessment
+      ST_B6:
+        description: Band 6 surface temperature.
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+        min: 0
+        max: 65535
+      ST_ATRAN:
+        description: Atmospheric Transmittance.
+        scale: 0.0001
+        min: 0
+        max: 10000
+      ST_CDIST:
+        description: Pixel distance to cloud.
+        units: km
+        scale: 0.01
+        min: 0
+        max: 24000
+      ST_DRAD:
+        description: Downwelled Radiance.
+        units: W/(m^2*sr*um)/ DN
+        scale: 0.001
+        min: 0
+        max: 28000
+      ST_EMIS:
+        description: Emissivity estimated from ASTER GED.
+        scale: 0.0001
+        min: 0
+        max: 10000
+      ST_EMSD:
+        description: Emissivity standard deviation.
+        scale: 0.0001
+        min: 0
+        max: 10000
+      ST_QA:
+        description: Uncertainty of the Surface Temperature band.
+        units: K
+        scale: 0.01
+        min: 0
+        max: 32767
+      ST_TRAD:
+        description: Thermal band converted to radiance.
+        units: W/(m^2*sr*um)/ DN
+        scale: 0.001
+        min: 0
+        max: 22000
+      ST_URAD:
+        description: Upwelled Radiance.
+        units: W/(m^2*sr*um)/ DN
+        scale: 0.001
+        min: 0
+        max: 28000
+      QA_PIXEL:
+        description: Pixel quality attributes generated from the CFMASK algorithm.
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LT04/C02/T2_TOA:
+    title: USGS Landsat 4 TM Collection 2 Tier 2 TOA Reflectance
+    provider: USGS/Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1982-08-22"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal Infrared 1. Resampled from 60m to 30m.
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LT05/C02/T1:
+    title: USGS Landsat 5 TM Collection 2 Tier 1 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal Infrared 1. Resampled from 60m to 30m.
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LT05/C02/T1_L2:
+    title: USGS Landsat 5 Level 2, Collection 2, Tier 1 (Surface Reflectance + Surface Temperature)
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: "2012-05-05"
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LT05/C02/T1_TOA:
+    title: "USGS Landsat 5 TM Collection 2 Tier 1 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-04-19"
+      end_date: "2012-05-05"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal infrared (resampled from 60m to 30m)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/LT05/C02/T2:
+    title: USGS Landsat 5 TM Collection 2 Tier 2 Raw Scenes
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-06"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal Infrared 1. Resampled from 60m to 30m.
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: Landsat Collection 2 TM/ETM QA Bitmask
+      QA_RADSAT:
+        description: Radiometric saturation QA
+      SAA:
+        description: Solar Azimuth Angle
+      SZA:
+        description: Solar Zenith Angle
+      VAA:
+        description: View Azimuth Angle
+      VZA:
+        description: View Zenith Angle
+
+  LANDSAT/LT05/C02/T2_L2:
+    title: "USGS Landsat 5 Collection 2 Tier 2 Surface Reflectance + Surface Temperature"
+    provider: USGS
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-16"
+      end_date: "2012-05-05"
+    default_reducer: median
+    license: public-domain
+    bands:
+      SR_B1:
+        description: Band 1 (blue) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.485
+      SR_B2:
+        description: Band 2 (green) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.56
+      SR_B3:
+        description: Band 3 (red) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.66
+      SR_B4:
+        description: Band 4 (NIR) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 0.835
+      SR_B5:
+        description: Band 5 (SWIR-1) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 1.65
+      SR_B7:
+        description: Band 7 (SWIR-2) surface reflectance
+        scale: 2.75e-05
+        offset: -0.2
+        wavelength: 2.215
+      ST_B6:
+        description: Band 6 surface temperature
+        units: K
+        scale: 0.00341802
+        offset: 149
+        wavelength: 11.45
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+
+  LANDSAT/LT05/C02/T2_TOA:
+    title: "USGS Landsat 5 TM Collection 2 Tier 2 Top-of-Atmosphere Reflectance"
+    provider: USGS / Google
+    ee_type: image_collection
+    cadence: { interval: 16, unit: day }
+    spatial_resolution: 30
+    extent:
+      start_date: "1984-03-06"
+      end_date: "2012-05-05"
+    default_reducer: median
+    license: public-domain
+    bands:
+      B1:
+        description: Blue
+        wavelength: 0.485
+      B2:
+        description: Green
+        wavelength: 0.56
+      B3:
+        description: Red
+        wavelength: 0.66
+      B4:
+        description: Near infrared
+        wavelength: 0.835
+      B5:
+        description: Shortwave infrared 1
+        wavelength: 1.65
+      B6:
+        description: Thermal infrared (resampled from 60m to 30m)
+        wavelength: 11.45
+      B7:
+        description: Shortwave infrared 2
+        wavelength: 2.215
+      QA_PIXEL:
+        description: CFMask pixel quality flags
+      QA_RADSAT:
+        description: Radiometric saturation QA
+
+  LANDSAT/MANGROVE_FORESTS:
+    title: Global Mangrove Forests Distribution, v1 (2000)
+    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    ee_type: image_collection
+    spatial_resolution: 30
+    extent:
+      start_date: "2000-01-01"
+      end_date: null
+    default_reducer: median
+    license: public-domain
+    terms_note: 'Landsat datasets are federally created data'
+    bands:
+      "1":
+        description: Mangroves
+

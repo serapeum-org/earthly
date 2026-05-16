@@ -1,0 +1,65 @@
+# Auto-grouped slice of the GEE catalog: GLIMS.
+# 5 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  GLIMS/2016:
+    title: 'GLIMS 2016: Global Land Ice Measurements From Space [deprecated]'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "2015-06-15"
+      end_date: "2015-06-16"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'For the creation of any reports, publications, new'
+    bands:
+
+  GLIMS/20171027:
+    title: 'GLIMS 2017: Global Land Ice Measurements From Space [deprecated]'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1992-06-01"
+      end_date: "2017-10-27"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'For the creation of any reports, publications, new'
+    bands:
+
+  GLIMS/20210914:
+    title: 'GLIMS 2021: Global Land Ice Measurements From Space [deprecated]'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1992-06-01"
+      end_date: "2021-09-14"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'For the creation of any reports, publications, new'
+    bands:
+
+  GLIMS/20230607:
+    title: 'GLIMS 2023: Global Land Ice Measurements From Space'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1992-06-01"
+      end_date: "2023-06-07"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'For the creation of any reports, publications, new'
+    bands:
+
+  GLIMS/current:
+    title: 'GLIMS Current: Global Land Ice Measurements From Space'
+    provider: National Snow and Ice Data Center (NSDIC)
+    ee_type: table
+    extent:
+      start_date: "1992-06-01"
+      end_date: "2026-05-05"
+    default_reducer: mosaic
+    license: proprietary
+    terms_note: 'For the creation of any reports, publications, new'
+    bands:
+

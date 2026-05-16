@@ -1,0 +1,23 @@
+# Auto-grouped slice of the GEE catalog: UTOKYO.
+# 1 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  UTOKYO/WTLAB/KBDI/v1:
+    title: 'KBDI: Keetch-Byram Drought Index'
+    provider: Institute of Industrial Science, The University of Tokyo, Japan
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 4000
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+      bbox: [60, -60, 180, 60]
+    default_reducer: mosaic
+    license: CC-BY-4.0
+    bands:
+      KBDI:
+        description: Keetch-Byram Drought Index
+        min: 0
+        max: 800
+

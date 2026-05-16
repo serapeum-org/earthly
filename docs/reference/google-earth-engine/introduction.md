@@ -51,8 +51,12 @@ and machine-readable via its
 [STAC catalog](https://storage.googleapis.com/earthengine-stac/catalog/catalog.json).
 
 earthlens ships a curated subset of this in
-`src/earthlens/gee/gee_data_catalog.yaml` (the GEE analogue of the
-ECMWF `cds_data_catalog.yaml`), mapping asset IDs to the band and
+`src/earthlens/gee/catalog/` — a directory of per-provider YAML files
+(`MODIS.yaml`, `COPERNICUS.yaml`, `LANDSAT.yaml`, `community.yaml` for
+`projects/...` assets, …) plus `_index.yaml` carrying the merged
+`available_datasets:` list. The loader (`earthlens.gee.Catalog`)
+parses every file and merges them. This is the GEE analogue of the
+ECMWF `cds_data_catalog.yaml`, mapping asset IDs to the band and
 aggregation metadata the backend needs.
 
 ## Authentication
