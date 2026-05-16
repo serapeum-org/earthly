@@ -11,7 +11,7 @@ from types import SimpleNamespace
 
 import geopandas as gpd
 import pytest
-from shapely.geometry import LineString, MultiPolygon, Point, Polygon
+from shapely.geometry import LineString, MultiPoint, MultiPolygon, Point, Polygon
 
 from earthlens.gee import features as features_module
 from earthlens.gee.features import createFeature, createGeometry
@@ -141,4 +141,16 @@ class TestCreateFeature:
             {"geometry": [LineString([(0, 0), (1, 1)])]}, crs="EPSG:4326"
         )
         with pytest.raises(ValueError):
+            createFeature(gdf)
+
+    def test_unsupported_geometry_raises_locally(self, fake_ee):
+        """`MultiPoint` (and other unsupported types) raise locally, not at EE (M2)."""
+        gdf = gpd.GeoDataFrame(
+            {
+                "name": ["ok", "bad"],
+                "geometry": [_SQUARE, MultiPoint([(0, 0), (1, 1)])],
+            },
+            crs="EPSG:4326",
+        )
+        with pytest.raises(ValueError, match="row 1 .MultiPoint."):
             createFeature(gdf)

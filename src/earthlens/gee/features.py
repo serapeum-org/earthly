@@ -167,6 +167,24 @@ def createFeature(  # noqa: N802 - established public name
         gdf = gdf.explode(index_parts=True)
 
     ee_geom_list = gdf.geometry.apply(lambda geom: createGeometry(geom)).to_list()
+    # `createGeometry` returns `None` for any geometry that isn't a Polygon
+    # or Point (after the MultiPolygon-explode above) — fail here with the
+    # offending row indices and types instead of handing `None` to
+    # `ee.Feature(...)`, which the SDK only surfaces as an opaque
+    # `EEException` at request time (M2 in pr-diff-review).
+    bad = [
+        (i, t)
+        for i, (geom, t) in enumerate(zip(ee_geom_list, geotype))
+        if geom is None
+    ]
+    if bad:
+        summary = ", ".join(f"row {i} ({t})" for i, t in bad[:5])
+        more = "" if len(bad) <= 5 else f" (and {len(bad) - 5} more)"
+        raise ValueError(
+            f"createFeature cannot convert {len(bad)} row geometr{'y' if len(bad) == 1 else 'ies'} "
+            f"to an `ee.Geometry`: {summary}{more}. Only Polygon and Point "
+            "(and MultiPolygon, which is auto-exploded) are supported."
+        )
     records_df = pd.DataFrame(gdf.drop("geometry", axis=1))
     if columns:
         records_df = records_df[columns]
