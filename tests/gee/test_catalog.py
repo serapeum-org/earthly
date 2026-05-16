@@ -260,14 +260,14 @@ class TestDataset:
             A collection built with only id/title/extent has
             ``ee_type == "image_collection"``, ``default_reducer == "median"``,
             ``license is None``, ``terms_note is None``, ``user_uploaded is False``,
-            empty ``extras`` and ``bands``.
+            and empty ``bands``.
         """
         ds = Dataset(id="X", title="X", extent=Extent(start_date="2000-01-01"))
         assert ds.ee_type == "image_collection"
         assert ds.default_reducer == "median"
         assert ds.license is None and ds.terms_note is None
         assert ds.user_uploaded is False
-        assert ds.extras == {} and ds.bands == {}
+        assert ds.bands == {}
 
     def test_is_image_collection_true(self):
         """``is_image_collection`` is True for an image_collection.

@@ -3716,7 +3716,7 @@ datasets:
     title: WAPOR Actual Evapotranspiration and Interception 2.0
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2009-01-01"
@@ -3736,7 +3736,7 @@ datasets:
     title: WAPOR Dekadal Evaporation 2.0
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2009-01-01"
@@ -3756,7 +3756,7 @@ datasets:
     title: WAPOR Dekadal Interception 2.0
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2009-01-01"
@@ -3776,7 +3776,7 @@ datasets:
     title: WAPOR Dekadal Net Primary Production 2.0
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2009-01-01"
@@ -3796,7 +3796,7 @@ datasets:
     title: WAPOR Dekadal Reference Evapotranspiration 2.0
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 18924
     extent:
       start_date: "2009-01-01"
@@ -3836,7 +3836,7 @@ datasets:
     title: WAPOR Dekadal Transpiration 2.0
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2009-01-01"
@@ -3858,7 +3858,7 @@ datasets:
     ee_type: image_collection
     # Dekads are nominal 10-day windows (the last dekad of a month can be 8-11 days);
     # 10/day is the most accurate cadence the catalog can express.
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2018-01-01"
@@ -3877,7 +3877,7 @@ datasets:
     title: "FAO WAPOR v3 L1 E Dekadal: Soil Evaporation (~250m, Africa+ME, 2018-)"
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2018-01-01"
@@ -3896,7 +3896,7 @@ datasets:
     title: WAPOR Dekadal Interception 3.0
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2009-01-01"
@@ -3916,7 +3916,7 @@ datasets:
     title: "FAO WAPOR v3 L1 RET Dekadal: Reference Evapotranspiration (~20km, global, 2018-)"
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 18924
     extent:
       start_date: "2018-01-01"
@@ -3954,7 +3954,7 @@ datasets:
     title: "FAO WAPOR v3 L1 T Dekadal: Transpiration (~250m, Africa+ME, 2009-)"
     provider: fao
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 248.2
     extent:
       start_date: "2009-01-01"

@@ -216,7 +216,7 @@ class Cadence(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
     interval: int = Field(gt=0)
-    unit: Literal["minute", "hour", "day", "month", "year"]
+    unit: Literal["minute", "hour", "day", "pentad", "dekad", "month", "year"]
 
 
 class Band(BaseModel):
@@ -347,9 +347,11 @@ class Dataset(BaseModel):
         spatial_resolution: Nominal pixel size in metres, or `None`.
         extent: Spatial/temporal coverage.
         default_reducer: Earth Engine reducer name used to collapse a
-            temporal composite (`"median"` for cloud-screened optical
-            scenes, `"mean"` for continuous fields / rates, `"mosaic"`
-            for tiled or annual static maps).
+            temporal composite. One of `"mean"` (continuous fields /
+            rates), `"median"` (cloud-screened optical scenes),
+            `"mosaic"` (tiled / annual static maps), `"min"`, `"max"`,
+            `"mode"`, or `"sum"`. Constrained by `Literal` to catch
+            typos at YAML-load time.
         license: SPDX identifier (`"CC-BY-4.0"`, `"CC-BY-SA-4.0"`,
             `"CC-BY-NC-SA-4.0"`, `"CC0-1.0"`, `"ODbL-1.0"`, …) or one of
             the conventional values `"public-domain"`, `"proprietary"`
@@ -360,7 +362,6 @@ class Dataset(BaseModel):
             to publisher terms-of-use pages, etc. `None` when the
             `license` field alone conveys everything.
         user_uploaded: `True` for community-uploaded assets.
-        extras: Passthrough kwargs for the request builder.
         bands: Band id → :class:`Band`.
     """
 
@@ -373,12 +374,47 @@ class Dataset(BaseModel):
     cadence: Cadence | None = None
     spatial_resolution: float | None = None
     extent: Extent
-    default_reducer: str = "median"
+    default_reducer: Literal["mean", "median", "mosaic", "min", "max", "mode", "sum"] = "median"
     license: str | None = None
     terms_note: str | None = None
     user_uploaded: bool = False
-    extras: dict[str, Any] = Field(default_factory=dict)
     bands: dict[str, Band] = Field(default_factory=dict)
+
+    @property
+    def is_raster(self) -> bool:
+        """Whether the asset is a raster (image or image_collection).
+
+        Returns:
+            `True` if :attr:`ee_type` is `"image"` or `"image_collection"`,
+            else `False`. Use this to gate "can the backend download
+            this?" decisions — :attr:`is_image_collection` excludes
+            static `Image` assets (e.g. SRTM) and is therefore misleading
+            for that question.
+
+        Examples:
+            - Both `image` and `image_collection` are rasters:
+                ```python
+                >>> from earthlens.gee.catalog import Catalog
+                >>> cat = Catalog()
+                >>> cat.get_dataset("USGS/SRTMGL1_003").is_raster
+                True
+                >>> cat.get_dataset("LANDSAT/LC09/C02/T1_L2").is_raster
+                True
+
+                ```
+        """
+        return self.ee_type in {"image", "image_collection"}
+
+    @property
+    def is_tabular(self) -> bool:
+        """Whether the asset is tabular (FeatureCollection / table / BigQuery).
+
+        Returns:
+            `True` if :attr:`ee_type` is `"table"`, `"table_collection"`,
+            or `"bigquery_table"`, else `False`. Tabular assets are out
+            of scope for the raster backend.
+        """
+        return self.ee_type in {"table", "table_collection", "bigquery_table"}
 
     @property
     def is_image_collection(self) -> bool:
@@ -386,6 +422,12 @@ class Dataset(BaseModel):
 
         Returns:
             `True` if :attr:`ee_type` is `"image_collection"`, else `False`.
+
+        .. deprecated::
+            Prefer :attr:`is_raster` for the "can the backend download
+            this?" question — it correctly includes static `image`
+            assets like SRTM. This narrower property is kept for
+            back-compat with older callers.
 
         Examples:
             - SRTM is a single static image; Landsat 9 is a collection:

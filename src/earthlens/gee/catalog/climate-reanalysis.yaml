@@ -1522,7 +1522,7 @@ datasets:
     title: "PDSI: Palmer Drought Severity Index (CONUS, 4km, 10-day)"
     provider: uc-merced
     ee_type: image_collection
-    cadence: { interval: 10, unit: day }
+    cadence: { interval: 1, unit: dekad }
     spatial_resolution: 4638.3
     extent:
       start_date: "1979-03-01"

@@ -497,7 +497,7 @@ datasets:
     ee_type: image_collection
     # Pentad = nominal 5-day window; recorded as `interval: 5, unit: day`
     # because the Cadence model has no `pentad` unit.
-    cadence: { interval: 5, unit: day }
+    cadence: { interval: 1, unit: pentad }
     spatial_resolution: 5566
     extent:
       start_date: "1981-01-01"
@@ -536,7 +536,7 @@ datasets:
     ee_type: image_collection
     # Pentads are nominal 5-day windows (the last pentad of a month can be 3-6 days);
     # 5/day is the most accurate cadence the catalog can express.
-    cadence: { interval: 5, unit: day }
+    cadence: { interval: 1, unit: pentad }
     spatial_resolution: 5566
     extent:
       start_date: "1981-01-01"
