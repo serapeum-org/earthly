@@ -5,7 +5,7 @@
 datasets:
   AHN/AHN2_05M_INT:
     title: "AHN2 Netherlands DEM Interpolated (0.5m, 2008-2012)"
-    provider: AHN
+    provider: ahn
     ee_type: image
     spatial_resolution: 0.5
     extent:
@@ -22,7 +22,7 @@ datasets:
 
   AHN/AHN2_05M_NON:
     title: "AHN2 Netherlands DEM Non-Interpolated (0.5m)"
-    provider: AHN
+    provider: ahn
     ee_type: image
     spatial_resolution: 0.5
     extent:
@@ -39,7 +39,7 @@ datasets:
 
   AHN/AHN2_05M_RUW:
     title: "AHN2 Netherlands DEM Raw Samples (0.5m)"
-    provider: AHN
+    provider: ahn
     ee_type: image
     spatial_resolution: 0.5
     extent:
@@ -56,7 +56,7 @@ datasets:
 
   AHN/AHN3:
     title: "AHN3: Netherlands Lidar DTM/DSM 0.5m (2014-2019)"
-    provider: AHN
+    provider: ahn
     ee_type: image_collection
     spatial_resolution: 0.5
     extent:
@@ -76,7 +76,7 @@ datasets:
 
   AHN/AHN4:
     title: "AHN4: Netherlands Lidar DTM/DSM 0.5m (2020-)"
-    provider: AHN
+    provider: ahn
     ee_type: image_collection
     spatial_resolution: 0.5
     extent:
@@ -96,7 +96,7 @@ datasets:
 
   AU/GA/AUSTRALIA_5M_DEM:
     title: "Geoscience Australia 5m DEM (lidar-derived, partial coverage)"
-    provider: Geoscience Australia
+    provider: geoscience-australia
     ee_type: image_collection
     spatial_resolution: 5
     extent:
@@ -112,7 +112,7 @@ datasets:
 
   AU/GA/DEM_1SEC/v10/DEM-H:
     title: "Australian SRTM Hydrologically Enforced DEM-H v1.0 (~30m)"
-    provider: Geoscience Australia
+    provider: geoscience-australia
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -128,7 +128,7 @@ datasets:
 
   AU/GA/DEM_1SEC/v10/DEM-S:
     title: "Australian Smoothed DEM-S v1.0 (~30m)"
-    provider: Geoscience Australia
+    provider: geoscience-australia
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -144,7 +144,7 @@ datasets:
 
   CGIAR/SRTM90_V4:
     title: "CGIAR-CSI SRTM 90m v4 (Void-Filled SRTM, ±60° lat)"
-    provider: NASA / CGIAR-CSI
+    provider: nasa
     ee_type: image
     spatial_resolution: 90
     extent:
@@ -161,7 +161,7 @@ datasets:
 
   COPERNICUS/DEM/GLO30:
     title: "Copernicus DEM GLO-30: Global 30m Digital Elevation Model"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -184,7 +184,7 @@ datasets:
 
   CPOM/CryoSat2/ANTARCTICA_DEM:
     title: "CryoSat-2 Antarctica 1km DEM (CPOM, 2010-)"
-    provider: Centre for Polar Observation and Modelling (CPOM)
+    provider: cpom
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -203,7 +203,7 @@ datasets:
 
   CSP/ERGo/1_0/Global/ALOS_CHILI:
     title: "Global ALOS CHILI: Continuous Heat-Insolation Load Index (90m)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 90
     extent:
@@ -220,7 +220,7 @@ datasets:
 
   CSP/ERGo/1_0/Global/ALOS_landforms:
     title: "Global ALOS Landforms (90m, CSP ERGo)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 90
     extent:
@@ -235,7 +235,7 @@ datasets:
 
   CSP/ERGo/1_0/Global/ALOS_mTPI:
     title: "Global ALOS mTPI: Multi-Scale Topographic Position Index (270m)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 270
     extent:
@@ -251,7 +251,7 @@ datasets:
 
   CSP/ERGo/1_0/Global/ALOS_topoDiversity:
     title: Global ALOS Topographic Diversity
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 270
     extent:
@@ -268,7 +268,7 @@ datasets:
 
   CSP/ERGo/1_0/Global/SRTM_CHILI:
     title: "Global SRTM CHILI: Continuous Heat-Insolation Load Index (90m)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 90
     extent:
@@ -285,7 +285,7 @@ datasets:
 
   CSP/ERGo/1_0/Global/SRTM_landforms:
     title: "Global SRTM-Derived Landforms (Conservation Science Partners, 90m)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 90
     extent:
@@ -300,7 +300,7 @@ datasets:
 
   CSP/ERGo/1_0/Global/SRTM_mTPI:
     title: "Global SRTM mTPI: Multi-Scale Topographic Position Index (270m)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 270
     extent:
@@ -316,7 +316,7 @@ datasets:
 
   CSP/ERGo/1_0/Global/SRTM_topoDiversity:
     title: "Global SRTM Topographic Diversity (CSP ERGo, 270m)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 270
     extent:
@@ -331,7 +331,7 @@ datasets:
 
   CSP/ERGo/1_0/US/CHILI:
     title: "US NED CHILI: Continuous Heat-Insolation Load Index (10m, CONUS)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 10
     extent:
@@ -349,7 +349,7 @@ datasets:
 
   CSP/ERGo/1_0/US/landforms:
     title: US NED Landforms
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 10
     extent:
@@ -365,7 +365,7 @@ datasets:
 
   CSP/ERGo/1_0/US/lithology:
     title: US Lithology
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 90
     extent:
@@ -381,7 +381,7 @@ datasets:
 
   CSP/ERGo/1_0/US/mTPI:
     title: "US NED mTPI: Multi-Scale Topographic Position Index (270m, CONUS)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 270
     extent:
@@ -398,7 +398,7 @@ datasets:
 
   CSP/ERGo/1_0/US/physioDiversity:
     title: US NED Physiographic Diversity
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 270
     extent:
@@ -416,7 +416,7 @@ datasets:
 
   CSP/ERGo/1_0/US/physiography:
     title: US Physiography
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 90
     extent:
@@ -434,7 +434,7 @@ datasets:
 
   CSP/ERGo/1_0/US/topoDiversity:
     title: US NED Topographic Diversity
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image
     spatial_resolution: 90
     extent:
@@ -452,7 +452,7 @@ datasets:
 
   IGN/RGE_ALTI/1M/2_0:
     title: 'RGE ALTI: IGN RGE ALTI Digital Elevation 1m'
-    provider: IGN
+    provider: ign
     ee_type: image_collection
     spatial_resolution: 1
     extent:
@@ -477,7 +477,7 @@ datasets:
 
   JAXA/ALOS/AW3D30/V1_1:
     title: "ALOS AW3D30 v1.1: Global 30m Digital Surface Model (legacy)"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -496,7 +496,7 @@ datasets:
 
   JAXA/ALOS/AW3D30/V2_1:
     title: "ALOS AW3D30 v2.1: Global 30m Digital Surface Model (legacy)"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -516,7 +516,7 @@ datasets:
 
   JAXA/ALOS/AW3D30/V2_2:
     title: "ALOS AW3D30 v2.2: Global 30m Digital Surface Model (legacy)"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -536,7 +536,7 @@ datasets:
 
   JAXA/ALOS/AW3D30/V3_2:
     title: "ALOS AW3D30 v3.2: Global 30m Digital Surface Model"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -562,7 +562,7 @@ datasets:
 
   JAXA/ALOS/AW3D30/V4_1:
     title: "ALOS AW3D30 v4.1: Global 30m Digital Surface Model (latest, 2006-)"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -585,7 +585,7 @@ datasets:
 
   LARSE/GEDI/GEDI02_A_002:
     title: GEDI L2A Vector Canopy Top Height (Version 2)
-    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    provider: larse-usfs
     ee_type: image_collection
     extent:
       start_date: "2019-03-25"
@@ -598,7 +598,7 @@ datasets:
 
   LARSE/GEDI/GEDI02_A_002_INDEX:
     title: GEDI L2A table index
-    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    provider: larse-usfs
     ee_type: table
     extent:
       start_date: "2026-05-15"
@@ -611,7 +611,7 @@ datasets:
 
   LARSE/GEDI/GEDI02_A_002_MONTHLY:
     title: "GEDI L2A v002: Monthly Raster Canopy-Top Heights and Relative-Height Profile (25m, ±51.6° lat)"
-    provider: NASA / USFS LARSE / Google
+    provider: larse-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 25
@@ -657,7 +657,7 @@ datasets:
 
   LARSE/GEDI/GEDI02_B_002:
     title: GEDI L2B Vector Canopy Cover Vertical Profile Metrics (Version 2)
-    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    provider: larse-usfs
     ee_type: image_collection
     extent:
       start_date: "2019-03-25"
@@ -670,7 +670,7 @@ datasets:
 
   LARSE/GEDI/GEDI02_B_002_INDEX:
     title: GEDI L2B table index
-    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    provider: larse-usfs
     ee_type: table
     extent:
       start_date: "2026-05-15"
@@ -683,7 +683,7 @@ datasets:
 
   LARSE/GEDI/GEDI02_B_002_MONTHLY:
     title: "GEDI L2B v002: Monthly Raster Canopy-Cover + Vertical Profile Metrics (25m, ±51.6° lat)"
-    provider: NASA / USFS LARSE / Google
+    provider: larse-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 25
@@ -720,7 +720,7 @@ datasets:
 
   LARSE/GEDI/GEDI04_A_002:
     title: GEDI L4A Aboveground Biomass Density, Version 2.1
-    provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
+    provider: larse-usfs
     ee_type: image_collection
     extent:
       start_date: "2019-04-18"
@@ -733,7 +733,7 @@ datasets:
 
   LARSE/GEDI/GEDI04_A_002_INDEX:
     title: GEDI L4A table index
-    provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    provider: larse-usfs
     ee_type: table
     extent:
       start_date: "2026-05-15"
@@ -746,7 +746,7 @@ datasets:
 
   LARSE/GEDI/GEDI04_A_002_MONTHLY:
     title: "GEDI L4A v2.1: Monthly Aboveground Biomass Density (25m, ±51.6° lat)"
-    provider: NASA / USFS LARSE / Google
+    provider: larse-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 25
@@ -774,7 +774,7 @@ datasets:
 
   LARSE/GEDI/GEDI04_B_002:
     title: "GEDI L4B v2: Gridded Above-Ground Biomass Density (1km, 2019-present)"
-    provider: NASA / USFS LARSE
+    provider: larse-usfs
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -806,7 +806,7 @@ datasets:
 
   LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/12KM:
     title: Gridded GEDI Vegetation Structure Metrics and Biomass Density with COUNTS metrics,
-    provider: 'Rasterization: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
+    provider: larse-usfs
     ee_type: image_collection
     spatial_resolution: 12000
     extent:
@@ -829,7 +829,7 @@ datasets:
 
   LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/1KM:
     title: "GEDI GRIDDEDVEG v002 COUNTS: Shot/Orbit/Track Counts (1km grid)"
-    provider: NASA / USFS LARSE / Google
+    provider: larse-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 1000
@@ -852,7 +852,7 @@ datasets:
 
   LARSE/GEDI/GRIDDEDVEG_002/COUNTS/V1/6KM:
     title: "GEDI GRIDDEDVEG v002 COUNTS: Shot/Orbit/Track Counts (6km grid)"
-    provider: NASA / USFS LARSE / Google
+    provider: larse-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 6000
@@ -875,7 +875,7 @@ datasets:
 
   LARSE/GEDI/GRIDDEDVEG_002/V1/12KM:
     title: "GEDI GRIDDEDVEG v002: Vegetation Structure + Biomass Density (12km grid)"
-    provider: NASA / USFS LARSE / Google
+    provider: larse-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 12000
@@ -904,7 +904,7 @@ datasets:
 
   LARSE/GEDI/GRIDDEDVEG_002/V1/1KM:
     title: "GEDI GRIDDEDVEG v002: Vegetation Structure Metrics + Biomass Density (1km grid)"
-    provider: NASA / USFS LARSE / Google
+    provider: larse-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 1000
@@ -935,7 +935,7 @@ datasets:
 
   LARSE/GEDI/GRIDDEDVEG_002/V1/6KM:
     title: "GEDI GRIDDEDVEG v002: Vegetation Structure + Biomass Density (6km grid)"
-    provider: NASA / USFS LARSE / Google
+    provider: larse-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 6000
@@ -964,7 +964,7 @@ datasets:
 
   MERIT/DEM/v1_0_3:
     title: "MERIT DEM v1.0.3: Multi-Error-Removed Improved-Terrain DEM (90m)"
-    provider: Dai Yamazaki — University of Tokyo
+    provider: uni-tokyo
     ee_type: image
     spatial_resolution: 92.77
     extent:
@@ -982,7 +982,7 @@ datasets:
 
   MERIT/Hydro/v1_0_1:
     title: "MERIT Hydro v1.0.1: Global Hydrography (90m, derived from MERIT DEM)"
-    provider: Dai Yamazaki — University of Tokyo
+    provider: uni-tokyo
     ee_type: image
     spatial_resolution: 92.77
     extent:
@@ -1014,7 +1014,7 @@ datasets:
 
   MERIT/Hydro_reduced/v1_0_1:
     title: 'MERIT Hydro: Supplementary Visualization Layers'
-    provider: Dai Yamazaki (University of Tokyo)
+    provider: uni-tokyo
     ee_type: image
     spatial_resolution: 556.6
     extent:
@@ -1033,7 +1033,7 @@ datasets:
 
   NASA/ASTER_GED/AG100_003:
     title: "ASTER Global Emissivity Database AG100 v003 (100m, 2000-2008 baseline)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image
     spatial_resolution: 100
     extent:
@@ -1075,7 +1075,7 @@ datasets:
 
   NASA/JPL/global_forest_canopy_height_2005:
     title: Global Forest Canopy Height, 2005
-    provider: NASA/JPL
+    provider: nasa-jpl
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -1093,7 +1093,7 @@ datasets:
 
   NASA/MEASURES/GFCC/TC/v3:
     title: "Global Forest Cover Change (GFCC) Tree Cover v3 (multi-year 30m)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 30
@@ -1116,7 +1116,7 @@ datasets:
 
   NASA/NASADEM_HGT/001:
     title: "NASADEM: NASA Merged 30m Digital Elevation Model"
-    provider: NASA / USGS / JPL-Caltech
+    provider: nasa-jpl
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1143,7 +1143,7 @@ datasets:
 
   NOAA/NGDC/ETOPO1:
     title: "ETOPO1: Global 1 Arc-Minute Bedrock + Ice-Surface Elevation (NOAA NGDC)"
-    provider: NOAA NGDC
+    provider: noaa
     ee_type: image
     spatial_resolution: 1855
     extent:
@@ -1161,7 +1161,7 @@ datasets:
 
   NRCan/CDEM:
     title: Canadian Digital Elevation Model
-    provider: NRCan
+    provider: nrcan
     ee_type: image_collection
     spatial_resolution: 23.19
     extent:
@@ -1180,7 +1180,7 @@ datasets:
 
   OSU/GIMP/2000_ICE_OCEAN_MASK:
     title: "GIMP Greenland Ice + Ocean Mask 2000 (15m, OSU Greenland Mapping Project)"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image
     spatial_resolution: 15
     extent:
@@ -1198,7 +1198,7 @@ datasets:
 
   OSU/GIMP/2000_IMAGERY_MOSAIC:
     title: "GIMP 2000 Greenland Imagery Mosaic (Landsat-7 ETM+, 15m)"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image
     spatial_resolution: 15
     extent:
@@ -1222,7 +1222,7 @@ datasets:
 
   OSU/GIMP/DEM:
     title: "GIMP Greenland DEM (~30m, OSU Greenland Mapping Project)"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1239,7 +1239,7 @@ datasets:
 
   OSU/GIMP/ICE_VELOCITY_OPT:
     title: "MEaSUREs Greenland Ice Velocity from Optical Imagery (100m, 1985-)"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 100
@@ -1266,7 +1266,7 @@ datasets:
 
   UK/EA/ENGLAND_1M_TERRAIN/2022:
     title: England 1m Composite DTM/DSM (Environment Agency)
-    provider: UK Environment Agency
+    provider: uk-env-agency
     ee_type: image
     spatial_resolution: 1
     extent:
@@ -1288,7 +1288,7 @@ datasets:
 
   UMN/PGC/ArcticDEM/V2/2m:
     title: ArcticDEM Strips [deprecated]
-    provider: University of Minnesota Polar Geospatial Center
+    provider: umn-pgc
     ee_type: image_collection
     spatial_resolution: 2
     extent:
@@ -1307,7 +1307,7 @@ datasets:
 
   UMN/PGC/ArcticDEM/V2/5m:
     title: ArcticDEM Mosaic [deprecated]
-    provider: University of Minnesota Polar Geospatial Center
+    provider: umn-pgc
     ee_type: image
     spatial_resolution: 5
     extent:
@@ -1328,7 +1328,7 @@ datasets:
 
   UMN/PGC/ArcticDEM/V3/2m:
     title: ArcticDEM Strips
-    provider: University of Minnesota Polar Geospatial Center
+    provider: umn-pgc
     ee_type: image_collection
     spatial_resolution: 2
     extent:
@@ -1347,7 +1347,7 @@ datasets:
 
   UMN/PGC/ArcticDEM/V3/2m_mosaic:
     title: ArcticDEM V3 2m Mosaic [deprecated]
-    provider: University of Minnesota Polar Geospatial Center
+    provider: umn-pgc
     ee_type: image
     spatial_resolution: 2
     extent:
@@ -1366,7 +1366,7 @@ datasets:
 
   UMN/PGC/ArcticDEM/V4/2m_mosaic:
     title: ArcticDEM Mosaic V4.1
-    provider: University of Minnesota Polar Geospatial Center
+    provider: umn-pgc
     ee_type: image
     spatial_resolution: 2
     extent:
@@ -1396,7 +1396,7 @@ datasets:
 
   UMN/PGC/REMA/V1/2m:
     title: REMA Strips 2m
-    provider: University of Minnesota Polar Geospatial Center
+    provider: umn-pgc
     ee_type: image_collection
     spatial_resolution: 2
     extent:
@@ -1415,7 +1415,7 @@ datasets:
 
   UMN/PGC/REMA/V1/8m:
     title: REMA Strips 8m
-    provider: University of Minnesota Polar Geospatial Center
+    provider: umn-pgc
     ee_type: image_collection
     spatial_resolution: 8
     extent:
@@ -1434,7 +1434,7 @@ datasets:
 
   UMN/PGC/REMA/V1_1/8m:
     title: REMA Mosaic
-    provider: University of Minnesota Polar Geospatial Center
+    provider: umn-pgc
     ee_type: image
     spatial_resolution: 8
     extent:
@@ -1451,7 +1451,7 @@ datasets:
 
   USGS/3DEP/10m:
     title: "USGS 3DEP Seamless 10m DEM (1/3 arc-second, US coverage)"
-    provider: USGS
+    provider: usgs
     ee_type: image
     spatial_resolution: 10.2
     extent:
@@ -1468,7 +1468,7 @@ datasets:
 
   USGS/3DEP/10m_collection:
     title: USGS 3DEP 10m National Map Seamless (1/3 Arc-Second)
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: image_collection
     spatial_resolution: 10.2
     extent:
@@ -1486,7 +1486,7 @@ datasets:
 
   USGS/3DEP/10m_metadata:
     title: USGS 3DEP National Map Spatial Metadata 1/3 Arc-Second (10m)
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "1998-08-16"
@@ -1500,7 +1500,7 @@ datasets:
 
   USGS/3DEP/1m:
     title: USGS 3DEP 1m National Map
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: image_collection
     spatial_resolution: 1
     extent:
@@ -1517,7 +1517,7 @@ datasets:
 
   USGS/GMTED2010:
     title: "USGS GMTED2010 Breakline Emphasis: Global Multi-Resolution Terrain Elevation (~230m)"
-    provider: USGS
+    provider: usgs
     ee_type: image
     spatial_resolution: 231.92
     extent:
@@ -1533,7 +1533,7 @@ datasets:
 
   USGS/GMTED2010_FULL:
     title: "USGS GMTED2010 Full: Global Multi-Resolution Terrain Elevation, all aggregation methods"
-    provider: USGS
+    provider: usgs
     ee_type: image
     spatial_resolution: 231.92
     extent:
@@ -1567,7 +1567,7 @@ datasets:
 
   USGS/GTOPO30:
     title: "USGS GTOPO30: Global 30 Arc-Second Elevation (~1km, 1996)"
-    provider: USGS
+    provider: usgs
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -1582,7 +1582,7 @@ datasets:
 
   USGS/NED:
     title: USGS National Elevation Dataset 1/3 Arc-Second [deprecated]
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: image
     spatial_resolution: 10.2
     extent:
@@ -1601,7 +1601,7 @@ datasets:
 
   USGS/SRTMGL1_003:
     title: NASA SRTM Digital Elevation 30m
-    provider: NASA/USGS/JPL-Caltech
+    provider: nasa-jpl
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1619,7 +1619,7 @@ datasets:
 
   WWF/HydroSHEDS/15CONDEM:
     title: "WWF HydroSHEDS Hydrologically Conditioned DEM (15 arc-seconds, ~500m)"
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 463.83
     extent:
@@ -1636,7 +1636,7 @@ datasets:
 
   WWF/HydroSHEDS/30CONDEM:
     title: "WWF HydroSHEDS Hydrologically Conditioned DEM (30 arc-seconds, ~1km)"
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 927.67
     extent:

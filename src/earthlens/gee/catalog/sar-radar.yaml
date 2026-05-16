@@ -5,7 +5,7 @@
 datasets:
   COPERNICUS/S1_GRD:
     title: "Sentinel-1 SAR GRD: C-band Synthetic Aperture Radar Ground Range Detected"
-    provider: European Union / ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 6, unit: day }
     spatial_resolution: 10
@@ -47,7 +47,7 @@ datasets:
 
   Earth_Big_Data/GLOBAL_SEASONAL_S1/V2019/BACKSCATTER:
     title: Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter V2019 Backscatter
-    provider: Earth Big Data LLC
+    provider: earth-big-data
     ee_type: image_collection
     spatial_resolution: 92.7
     extent:
@@ -108,7 +108,7 @@ datasets:
 
   Earth_Big_Data/GLOBAL_SEASONAL_S1/V2019/COHERENCE:
     title: Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter V2019 Coherence
-    provider: Earth Big Data LLC
+    provider: earth-big-data
     ee_type: image_collection
     spatial_resolution: 92.7
     extent:
@@ -217,7 +217,7 @@ datasets:
 
   Earth_Big_Data/GLOBAL_SEASONAL_S1/V2019/DECAY_MODEL_PARAMETERS:
     title: Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter V2019 Decay Model
-    provider: Earth Big Data LLC
+    provider: earth-big-data
     ee_type: image_collection
     spatial_resolution: 92.7
     extent:
@@ -278,7 +278,7 @@ datasets:
 
   Earth_Big_Data/GLOBAL_SEASONAL_S1/V2019/INCIDENCE_LAYOVER_SHADOW:
     title: Global Seasonal Sentinel-1 Interferometric Coherence and Backscatter V2019 Incidence
-    provider: Earth Big Data LLC
+    provider: earth-big-data
     ee_type: image_collection
     spatial_resolution: 92.7
     extent:
@@ -296,7 +296,7 @@ datasets:
 
   JAXA/ALOS/PALSAR-2/Level2_1/StripMap_202401:
     title: ALOS-2 PALSAR-2 StripMap Level 2.1
-    provider: JAXA EORC
+    provider: jaxa
     ee_type: image_collection
     spatial_resolution: 3
     extent:
@@ -311,7 +311,7 @@ datasets:
 
   JAXA/ALOS/PALSAR-2/Level2_2/ScanSAR:
     title: "JAXA ALOS PALSAR-2 ScanSAR Level 2.2 (HH/HV terrain-flattened, 25m)"
-    provider: JAXA EORC
+    provider: jaxa
     ee_type: image_collection
     spatial_resolution: 25
     extent:
@@ -334,7 +334,7 @@ datasets:
 
   JAXA/ALOS/PALSAR/YEARLY/FNF:
     title: "ALOS PALSAR Yearly 3-Class Forest / Non-Forest Map (25m, 2007-)"
-    provider: JAXA EORC
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 25
@@ -352,7 +352,7 @@ datasets:
 
   JAXA/ALOS/PALSAR/YEARLY/FNF4:
     title: "ALOS PALSAR Yearly 4-Class Forest / Non-Forest Map (25m, 2017-)"
-    provider: JAXA EORC
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 25
@@ -370,7 +370,7 @@ datasets:
 
   JAXA/ALOS/PALSAR/YEARLY/SAR:
     title: "ALOS PALSAR-2 / PALSAR Global Yearly SAR Mosaic v1 (25m HH/HV)"
-    provider: JAXA EORC
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 25
@@ -395,7 +395,7 @@ datasets:
 
   JAXA/ALOS/PALSAR/YEARLY/SAR_EPOCH:
     title: "ALOS PALSAR-2 / PALSAR Global Yearly Mosaic v2.5.0 (with epoch timestamp)"
-    provider: JAXA EORC
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 25
@@ -420,7 +420,7 @@ datasets:
 
   OPERA/RTC/L2_V1/S1:
     title: OPERA Radiometric Terrain-Corrected SAR Backscatter from Sentinel-1 V1.0
-    provider: NASA JPL
+    provider: nasa-jpl
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 30
@@ -445,7 +445,7 @@ datasets:
 
   OPERA/RTC/L2_V1/S1_STATIC:
     title: OPERA Radiometric Terrain-Corrected SAR Backscatter from Sentinel-1 Static Layers
-    provider: NASA JPL
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 30
     extent:

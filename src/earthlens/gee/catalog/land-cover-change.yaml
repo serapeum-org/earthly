@@ -5,7 +5,7 @@
 datasets:
   AAFC/ACI:
     title: "AAFC ACI: Canada Annual Crop Inventory (30m, 2009-)"
-    provider: Agriculture and Agri-Food Canada
+    provider: aafc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -23,7 +23,7 @@ datasets:
 
   ACA/reef_habitat/v1_0:
     title: Allen Coral Atlas (ACA) - Geomorphic Zonation and Benthic Habitat - v1.0 [deprecated]
-    provider: Allen Coral Atlas Partnership (ACA)
+    provider: aca
     ee_type: image
     spatial_resolution: 5
     extent:
@@ -43,7 +43,7 @@ datasets:
 
   ACA/reef_habitat/v2_0:
     title: "Allen Coral Atlas v2.0: Geomorphic Zonation + Benthic Habitat (5m, tropical reefs)"
-    provider: Allen Coral Atlas Partnership
+    provider: aca
     ee_type: image
     spatial_resolution: 5
     extent:
@@ -63,7 +63,7 @@ datasets:
 
   BIOPAMA/GlobalOilPalm/v1:
     title: "BIOPAMA Global Oil Palm Plantations v1 (10m, 2019)"
-    provider: BIOPAMA programme
+    provider: biopama
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -79,7 +79,7 @@ datasets:
 
   BLM/AIM/v1/TerrADat/TerrestrialAIM:
     title: BLM AIM TerrADat TerrestrialAIM Point v1
-    provider: US Department of Interior Bureau of Land Management (BLM)
+    provider: blm
     ee_type: table
     extent:
       start_date: "2011-05-10"
@@ -90,7 +90,7 @@ datasets:
 
   BNETD/land_cover/v1:
     title: "BNETD-CIGN Côte d'Ivoire Land Cover v1 (10m, 2020)"
-    provider: BNETD-CIGN
+    provider: bnetd-cign
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -108,7 +108,7 @@ datasets:
 
   BNU/FGS/CCNL/v1:
     title: "BNU CCNL v1: Consistent + Corrected DMSP-OLS Nighttime Lights (1km, 1992-2013)"
-    provider: Beijing Normal University
+    provider: bnu
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 1000
@@ -125,7 +125,7 @@ datasets:
 
   CANADA/NFIS/NTEMS/CA_FOREST_AGE:
     title: "Canada NFIS NTEMS Landsat-Derived Forest Age (30m, 2019)"
-    provider: National Forest Information System (Canada)
+    provider: nfis-canada
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -141,7 +141,7 @@ datasets:
 
   COPERNICUS/CORINE/V18_5_1/100m:
     title: "Copernicus CORINE Land Cover v18.5.1 (100m, 1990/2000/2006/2012/2018)"
-    provider: EEA / Copernicus
+    provider: eea
     ee_type: image_collection
     cadence: { interval: 6, unit: year }
     spatial_resolution: 100
@@ -158,7 +158,7 @@ datasets:
 
   COPERNICUS/CORINE/V20/100m:
     title: "Copernicus CORINE Land Cover (100m, multi-epoch since 1986)"
-    provider: EEA / Copernicus
+    provider: eea
     ee_type: image_collection
     cadence: { interval: 6, unit: year }
     spatial_resolution: 100
@@ -175,7 +175,7 @@ datasets:
 
   COPERNICUS/Landcover/100m/Proba-V-C3/Global:
     title: "Copernicus Global Land Cover (CGLS-LC100 Collection 3, Proba-V, 100m, 2015-2019)"
-    provider: Copernicus / VITO
+    provider: vito
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 100
@@ -223,7 +223,7 @@ datasets:
 
   COPERNICUS/Landcover/100m/Proba-V/Global:
     title: "Copernicus CGLS-LC100 Collection 2 (Proba-V, 100m, legacy 2015 epoch)"
-    provider: Copernicus / VITO
+    provider: vito
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 100
@@ -271,7 +271,7 @@ datasets:
 
   CSP/HM/GlobalHumanModification:
     title: "CSP gHM: Global Human Modification (1km, 2016 epoch)"
-    provider: Conservation Science Partners
+    provider: ee-publisher
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 1000
@@ -289,7 +289,7 @@ datasets:
 
   DLR/WSF/WSF2015/v1:
     title: "DLR World Settlement Footprint 2015 v1 (10m, global)"
-    provider: German Aerospace Centre (DLR)
+    provider: dlr
     ee_type: image
     spatial_resolution: 10
     extent:
@@ -304,7 +304,7 @@ datasets:
 
   ESA/CCI/Above_Ground_Biomass/V6_0:
     title: "ESA CCI Above-Ground Biomass v6.0 (100m, 2007/2010/2015-2022)"
-    provider: ESA Biomass CCI
+    provider: esa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 100
@@ -324,7 +324,7 @@ datasets:
 
   ESA/CCI/FireCCI/5_1:
     title: "FireCCI v5.1: ESA CCI Burned Area Pixel Product (250m, MODIS-based)"
-    provider: ESA Climate Change Initiative — Fire ECV
+    provider: esa
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 250
@@ -352,7 +352,7 @@ datasets:
 
   ESA/GLOBCOVER_L4_200901_200912_V2_3:
     title: 'GlobCover: Global Land Cover Map'
-    provider: ESA
+    provider: esa
     ee_type: image
     spatial_resolution: 300
     extent:
@@ -369,7 +369,7 @@ datasets:
 
   ESA/WorldCereal/2021/MARKERS/v100:
     title: "ESA WorldCereal 2021 MARKERS v100: Active Cropland Markers (10m)"
-    provider: ESA WorldCereal Consortium
+    provider: esa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -387,7 +387,7 @@ datasets:
 
   ESA/WorldCereal/2021/MODELS/v100:
     title: "ESA WorldCereal 2021 v100: Global Cropland and Crop-Type Maps (10m)"
-    provider: ESA WorldCereal Consortium
+    provider: esa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -409,7 +409,7 @@ datasets:
 
   ESA/WorldCereal/AEZ/v100:
     title: ESA WorldCereal AEZ v100
-    provider: ESA WorldCereal Consortium
+    provider: esa
     ee_type: table
     extent:
       start_date: "2020-01-01"
@@ -421,7 +421,7 @@ datasets:
 
   ESA/WorldCover/v100:
     title: "ESA WorldCover v100 (10m global land cover, 2020 epoch)"
-    provider: ESA WorldCover Consortium
+    provider: esa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -439,7 +439,7 @@ datasets:
 
   ESA/WorldCover/v200:
     title: ESA WorldCover 10m v200 (2021)
-    provider: ESA WorldCover Consortium
+    provider: esa
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -457,7 +457,7 @@ datasets:
 
   FAO/GHG/1/DROSA_A:
     title: UN FAO Drained Organic Soils Area (Annual) 1.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 927.67
@@ -478,7 +478,7 @@ datasets:
 
   FAO/GHG/1/DROSE_A:
     title: Drained Organic Soils Emissions (Annual) 1.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 927.67
@@ -505,7 +505,7 @@ datasets:
 
   FAO/SOFO/1/FPP:
     title: Forest proximate people (FPP) 1.0
-    provider: FAO Forestry Division (FPP 1km)
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 0.0009
@@ -525,7 +525,7 @@ datasets:
 
   FAO/SOFO/1/TPP:
     title: Tree proximate people (TPP) 1.0
-    provider: FAO Forestry Division (TPP 500m cropland)
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 0.0009
@@ -551,7 +551,7 @@ datasets:
 
   FIRMS:
     title: 'FIRMS: Fire Information for Resource Management System'
-    provider: NASA / LANCE / EOSDIS
+    provider: nasa-lance
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -579,7 +579,7 @@ datasets:
 
   FORMA/FORMA_500m:
     title: FORMA Global Forest Watch Deforestation Alerts, 500m [deprecated]
-    provider: Global Forest Watch, World Resources Institute
+    provider: gfw
     ee_type: image
     spatial_resolution: 500
     extent:
@@ -597,7 +597,7 @@ datasets:
 
   GFW/GFF/V1/fishing_hours:
     title: GFW (Global Fishing Watch) Daily Fishing Hours
-    provider: Global Fishing Watch
+    provider: global-fishing-watch
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -630,7 +630,7 @@ datasets:
 
   GFW/GFF/V1/vessel_hours:
     title: GFW (Global Fishing Watch) Daily Vessel Hours
-    provider: Global Fishing Watch
+    provider: global-fishing-watch
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -663,7 +663,7 @@ datasets:
 
   GLCF/GLS_TCC:
     title: 'GLCF: Landsat Tree Cover Continuous Fields [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 30
@@ -686,7 +686,7 @@ datasets:
 
   GOOGLE/BRAZIL_FOREST_2008/V1/ANALYTIC:
     title: 'Brazil Forest Imagery Dataset 2008: Analytic Basemap'
-    provider: Google
+    provider: google
     ee_type: image
     spatial_resolution: 10
     extent:
@@ -728,7 +728,7 @@ datasets:
 
   GOOGLE/BRAZIL_FOREST_2008/V1/VISUAL:
     title: 'Brazil Forest Imagery Dataset 2008: Visual Basemap'
-    provider: Google
+    provider: google
     ee_type: image
     spatial_resolution: 5
     extent:
@@ -767,7 +767,7 @@ datasets:
 
   GOOGLE/DYNAMICWORLD/V1:
     title: Dynamic World V1
-    provider: World Resources Institute
+    provider: wri
     ee_type: image_collection
     spatial_resolution: 10
     extent:
@@ -819,7 +819,7 @@ datasets:
 
   GOOGLE/GLOBAL_CCDC/V1:
     title: Google Global Landsat-based CCDC Segments (1999-2019)
-    provider: Google
+    provider: google
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -885,7 +885,7 @@ datasets:
 
   HU_BERLIN/EPFD/V2/points:
     title: European Primary Forest Dataset - Points
-    provider: Geography Department, Humboldt University of Berlin, Berlin, Germany
+    provider: humboldt-berlin
     ee_type: table
     extent:
       start_date: "2000-01-01"
@@ -897,7 +897,7 @@ datasets:
 
   HU_BERLIN/EPFD/V2/polygons:
     title: European Primary Forest Dataset - Polygons
-    provider: Geography Department, Humboldt University of Berlin, Berlin, Germany
+    provider: humboldt-berlin
     ee_type: table
     extent:
       start_date: "2000-01-01"
@@ -909,7 +909,7 @@ datasets:
 
   IUCN/GlobalEcosystemTypology/current:
     title: 'IUCN Global Ecosystem Typology Level 3: 1.0'
-    provider: International Union for Conservation of Nature and Natural Resources
+    provider: iucn
     ee_type: table
     extent:
       start_date: "2019-10-23"
@@ -921,7 +921,7 @@ datasets:
 
   JRC/D5/EUCROPMAP/V1:
     title: "EUCROPMAP v1: JRC EU Annual Crop Map (10m, Sentinel-1/2 derived)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -938,7 +938,7 @@ datasets:
 
   JRC/GFC2020/V1:
     title: EC JRC global map of forest cover 2020, V1 [deprecated]
-    provider: Joint Research Centre, European Commission
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -955,7 +955,7 @@ datasets:
 
   JRC/GFC2020/V2:
     title: "JRC Global Forest Cover 2020 v2 (10m)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -972,7 +972,7 @@ datasets:
 
   JRC/GFC2020/V3:
     title: EC JRC global map of forest cover 2020, V3
-    provider: Joint Research Centre, European Commission
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 10
     extent:
@@ -987,7 +987,7 @@ datasets:
 
   JRC/GFC2020_subtypes/V0:
     title: Global map of forest types 2020 V0 [deprecated]
-    provider: Joint Research Centre, European Commission
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 10
@@ -1004,7 +1004,7 @@ datasets:
 
   JRC/GFC2020_subtypes/V1:
     title: EC JRC global map of forest types 2020, V1
-    provider: Joint Research Centre, European Commission
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 10
     extent:
@@ -1020,7 +1020,7 @@ datasets:
 
   JRC/GHSL/P2016/BUILT_LDSMT_GLOBE_V1:
     title: "GHSL P2016: Built-Up Multitemporal Grid 1975/1990/2000/2015 (~38m, legacy)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 38
     extent:
@@ -1040,7 +1040,7 @@ datasets:
 
   JRC/GHSL/P2016/POP_GPW_GLOBE_V1:
     title: "GHSL P2016: Population Grid 1975/1990/2000/2015 (250m, legacy)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 250
@@ -1057,7 +1057,7 @@ datasets:
 
   JRC/GHSL/P2016/SMOD_POP_GLOBE_V1:
     title: "GHSL P2016: Settlement Grid (degree of urbanisation) 1975/1990/2000/2014 (1km, legacy)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 1000
@@ -1074,7 +1074,7 @@ datasets:
 
   JRC/GHSL/P2023A/GHS_BUILT_C:
     title: "GHSL P2023A: Global Settlement Characteristics 2018 (10m, P2023A)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     spatial_resolution: 10
     extent:
@@ -1088,7 +1088,7 @@ datasets:
 
   JRC/GHSL/P2023A/GHS_BUILT_H:
     title: "GHSL P2023A: Global Building Height 2018 (100m)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     spatial_resolution: 100
     extent:
@@ -1103,7 +1103,7 @@ datasets:
 
   JRC/GHSL/P2023A/GHS_BUILT_S:
     title: "GHSL P2023A: Global Built-Up Surface 1975-2030 (100m)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 100
@@ -1122,7 +1122,7 @@ datasets:
 
   JRC/GHSL/P2023A/GHS_BUILT_S_10m:
     title: "GHSL P2023A: Global Built-Up Surface 2018 (10m)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     spatial_resolution: 10
     extent:
@@ -1140,7 +1140,7 @@ datasets:
 
   JRC/GHSL/P2023A/GHS_BUILT_V:
     title: "GHSL P2023A: Global Building Volume 1975-2030 (100m)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 100
@@ -1159,7 +1159,7 @@ datasets:
 
   JRC/GHSL/P2023A/GHS_POP:
     title: "GHSL P2023A: Global Population Surfaces 1975-2030 (100m)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 100
@@ -1174,7 +1174,7 @@ datasets:
 
   JRC/GHSL/P2023A/GHS_SMOD:
     title: "GHSL P2023A: Degree of Urbanisation (SMOD) 1975-2030 (1km)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 1000
@@ -1189,7 +1189,7 @@ datasets:
 
   JRC/GHSL/P2023A/GHS_SMOD_V2-0:
     title: "GHSL P2023A: Degree of Urbanisation v2-0 (1km, 1975-2030)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 1000
@@ -1204,7 +1204,7 @@ datasets:
 
   JRC/GWIS/GlobFire/v2/DailyPerimeters:
     title: GlobFire Daily Fire Event Detection Based on MCD64A1
-    provider: European Commission, Joint Research Centre, Global Wildfire Information System
+    provider: ec-jrc
     ee_type: image_collection
     extent:
       start_date: "2001-01-01"
@@ -1216,7 +1216,7 @@ datasets:
 
   JRC/GWIS/GlobFire/v2/FinalPerimeters:
     title: GlobFire Final Fire Event Detection Based on MCD64A1
-    provider: European Commission, Joint Research Centre, Global Wildfire Information System
+    provider: ec-jrc
     ee_type: table
     extent:
       start_date: "2001-01-01"
@@ -1228,7 +1228,7 @@ datasets:
 
   KNTU/LiDARLab/IranLandCover/V1:
     title: Iran Land Cover Map v1 13-class (2017)
-    provider: K. N. Toosi University of Technology LiDAR Lab
+    provider: k-n-toosi-uni
     ee_type: image
     spatial_resolution: 10
     extent:
@@ -1245,7 +1245,7 @@ datasets:
 
   LANDFIRE/Fire/FRG/v1_2_0:
     title: LANDFIRE FRG (Fire Regime Groups) v1.2.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1262,7 +1262,7 @@ datasets:
 
   LANDFIRE/Fire/MFRI/v1_2_0:
     title: LANDFIRE MFRI (Mean Fire Return Interval) v1.2.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1279,7 +1279,7 @@ datasets:
 
   LANDFIRE/Fire/PLS/v1_2_0:
     title: LANDFIRE PLS (Percent Low-severity Fire) v1.2.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1296,7 +1296,7 @@ datasets:
 
   LANDFIRE/Fire/PMS/v1_2_0:
     title: LANDFIRE PMS (Percent of Mixed-severity Fire) v1.2.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1313,7 +1313,7 @@ datasets:
 
   LANDFIRE/Fire/PRS/v1_2_0:
     title: LANDFIRE PRS (Percent of Replacement-severity Fire) v1.2.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1330,7 +1330,7 @@ datasets:
 
   LANDFIRE/Fire/SClass/v1_4_0:
     title: LANDFIRE SClass (Succession Classes) v1.4.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1347,7 +1347,7 @@ datasets:
 
   LANDFIRE/Fire/VCC/v1_4_0:
     title: LANDFIRE VCC (Vegetation Condition Class) v1.4.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1364,7 +1364,7 @@ datasets:
 
   LANDFIRE/Fire/VDep/v1_4_0:
     title: LANDFIRE VDep (Vegetation Departure) v1.4.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1381,7 +1381,7 @@ datasets:
 
   LANDFIRE/Vegetation/BPS/v1_4_0:
     title: LANDFIRE BPS (Biophysical Settings) v1.4.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1398,7 +1398,7 @@ datasets:
 
   LANDFIRE/Vegetation/ESP/v1_2_0/AK:
     title: LANDFIRE ESP AK (Environmental Site Potential) v1.2.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1415,7 +1415,7 @@ datasets:
 
   LANDFIRE/Vegetation/ESP/v1_2_0/CONUS:
     title: LANDFIRE ESP CONUS (Environmental Site Potential) v1.2.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1432,7 +1432,7 @@ datasets:
 
   LANDFIRE/Vegetation/ESP/v1_2_0/HI:
     title: LANDFIRE ESP HI (Environmental Site Potential) v1.2.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1449,7 +1449,7 @@ datasets:
 
   LANDFIRE/Vegetation/EVC/v1_4_0:
     title: LANDFIRE EVC (Existing Vegetation Cover) v1.4.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1466,7 +1466,7 @@ datasets:
 
   LANDFIRE/Vegetation/EVH/v1_4_0:
     title: LANDFIRE EVH (Existing Vegetation Height) v1.4.0
-    provider: 'U.S. Department of Agriculture''s (USDA), U.S. Forest Service (USFS), U.S.'
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1483,7 +1483,7 @@ datasets:
 
   LANDFIRE/Vegetation/EVT/v1_4_0:
     title: "LANDFIRE EVT v1.4.0: Existing Vegetation Type (US, 30m)"
-    provider: USDA Forest Service / DOI
+    provider: usda-usfs
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -1500,7 +1500,7 @@ datasets:
 
   LANDSAT/COMPOSITES/C02/T1_L2_32DAY_EVI:
     title: Landsat Collection 2 Tier 1 Level 2 32-Day EVI Composite
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 32, unit: day }
     spatial_resolution: 30
@@ -1516,7 +1516,7 @@ datasets:
 
   LANDSAT/COMPOSITES/C02/T1_L2_32DAY_NDVI:
     title: Landsat Collection 2 Tier 1 Level 2 32-Day NDVI Composite
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 32, unit: day }
     spatial_resolution: 30
@@ -1534,7 +1534,7 @@ datasets:
 
   LANDSAT/COMPOSITES/C02/T1_L2_8DAY_EVI:
     title: Landsat Collection 2 Tier 1 Level 2 8-Day EVI Composite
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 30
@@ -1550,7 +1550,7 @@ datasets:
 
   LANDSAT/COMPOSITES/C02/T1_L2_8DAY_NDVI:
     title: Landsat Collection 2 Tier 1 Level 2 8-Day NDVI Composite
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 30
@@ -1568,7 +1568,7 @@ datasets:
 
   LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL_EVI:
     title: Landsat Collection 2 Tier 1 Level 2 Annual EVI Composite
-    provider: USGS
+    provider: usgs
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -1584,7 +1584,7 @@ datasets:
 
   LANDSAT/COMPOSITES/C02/T1_L2_ANNUAL_NDVI:
     title: Landsat Collection 2 Tier 1 Level 2 Annual NDVI Composite
-    provider: USGS
+    provider: usgs
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -1602,7 +1602,7 @@ datasets:
 
   LANDSAT/MANGROVE_FORESTS:
     title: Global Mangrove Forests Distribution, v1 (2000)
-    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    provider: nasa-sedac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -1617,7 +1617,7 @@ datasets:
 
   MODIS/006/MCD12Q1:
     title: "MCD12Q1.006: MODIS Land Cover Type Yearly Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 500
@@ -1643,7 +1643,7 @@ datasets:
 
   MODIS/006/MCD12Q2:
     title: "MCD12Q2.006: MODIS Land Cover Dynamics (Phenology) Yearly Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 500
@@ -1674,7 +1674,7 @@ datasets:
 
   MODIS/006/MCD15A3H:
     title: "MCD15A3H.006: Combined Terra+Aqua LAI/FPAR 4-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 4, unit: day }
     spatial_resolution: 500
@@ -1708,7 +1708,7 @@ datasets:
 
   MODIS/006/MCD43A1:
     title: "MCD43A1.006: MODIS BRDF/Albedo Model Parameters Daily 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -1746,7 +1746,7 @@ datasets:
 
   MODIS/006/MCD43A2:
     title: MCD43A2.006 MODIS BRDF-Albedo Quality Daily 500m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -1804,7 +1804,7 @@ datasets:
 
   MODIS/006/MCD43A3:
     title: MCD43A3.006 MODIS Albedo Daily 500m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -1954,7 +1954,7 @@ datasets:
 
   MODIS/006/MCD43A4:
     title: "MCD43A4.006: MODIS Nadir BRDF-Adjusted Reflectance Daily 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -1992,7 +1992,7 @@ datasets:
 
   MODIS/006/MCD43C3:
     title: MCD43C3.006 BRDF/Albedo Daily L3 0.05 Deg CMG [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5600
@@ -2144,7 +2144,7 @@ datasets:
 
   MODIS/006/MCD64A1:
     title: "MCD64A1.006: MODIS Burned Area Monthly Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 500
@@ -2168,7 +2168,7 @@ datasets:
 
   MODIS/006/MOD13A1:
     title: "MOD13A1.006: Terra Vegetation Indices 16-Day Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 500
@@ -2202,7 +2202,7 @@ datasets:
 
   MODIS/006/MOD13A2:
     title: "MOD13A2.006: Terra Vegetation Indices 16-Day Global 1km (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 1000
@@ -2232,7 +2232,7 @@ datasets:
 
   MODIS/006/MOD13Q1:
     title: "MOD13Q1.006: Terra Vegetation Indices 16-Day Global 250m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 250
@@ -2262,7 +2262,7 @@ datasets:
 
   MODIS/006/MOD14A1:
     title: 'MOD14A1.006: Terra Thermal Anomalies & Fire Daily Global 1km [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -2290,7 +2290,7 @@ datasets:
 
   MODIS/006/MOD14A2:
     title: 'MOD14A2.006: Terra Thermal Anomalies & Fire 8-Day Global 1km [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 1000
@@ -2308,7 +2308,7 @@ datasets:
 
   MODIS/006/MOD15A2H:
     title: "MOD15A2H.006: Terra LAI/FPAR 8-Day Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -2338,7 +2338,7 @@ datasets:
 
   MODIS/006/MOD17A2H:
     title: "MOD17A2H.006: Terra Gross Primary Productivity 8-Day Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -2362,7 +2362,7 @@ datasets:
 
   MODIS/006/MOD17A3H:
     title: "MOD17A3H.006: Terra Net Primary Production Yearly Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 500
@@ -2382,7 +2382,7 @@ datasets:
 
   MODIS/006/MOD17A3HGF:
     title: "MOD17A3HGF.006: Terra Net Primary Production Gap-Filled Yearly Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 500
@@ -2409,7 +2409,7 @@ datasets:
 
   MODIS/006/MOD44B:
     title: MOD44B.006 Terra Vegetation Continuous Fields Yearly Global 250m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 250
@@ -2454,7 +2454,7 @@ datasets:
 
   MODIS/006/MOD44W:
     title: MOD44W.006 Terra Land Water Mask Derived From MODIS and SRTM Yearly Global 250m
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 250
@@ -2472,7 +2472,7 @@ datasets:
 
   MODIS/006/MYD13A1:
     title: MYD13A1.006 Aqua Vegetation Indices 16-Day Global 500m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 500
@@ -2546,7 +2546,7 @@ datasets:
 
   MODIS/006/MYD13A2:
     title: MYD13A2.006 Aqua Vegetation Indices 16-Day Global 1km [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 1000
@@ -2621,7 +2621,7 @@ datasets:
 
   MODIS/006/MYD13Q1:
     title: MYD13Q1.006 Aqua Vegetation Indices 16-Day Global 250m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 250
@@ -2695,7 +2695,7 @@ datasets:
 
   MODIS/006/MYD14A1:
     title: 'MYD14A1.006: Aqua Thermal Anomalies & Fire Daily Global 1km [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -2723,7 +2723,7 @@ datasets:
 
   MODIS/006/MYD14A2:
     title: 'MYD14A2.006: Aqua Thermal Anomalies & Fire 8-Day Global 1km [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 1000
@@ -2741,7 +2741,7 @@ datasets:
 
   MODIS/006/MYD15A2H:
     title: 'MYD15A2H.006: Aqua Leaf Area Index/FPAR 8-Day Global 500m [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -2787,7 +2787,7 @@ datasets:
 
   MODIS/061/MCD12C1:
     title: "MCD12C1.061: MODIS Land Cover Type Yearly Global 0.05° CMG"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 5600
@@ -2810,7 +2810,7 @@ datasets:
 
   MODIS/061/MCD12Q1:
     title: MCD12Q1.061 MODIS Land Cover Type Yearly Global 500m
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 500
@@ -2836,7 +2836,7 @@ datasets:
 
   MODIS/061/MCD12Q2:
     title: "MCD12Q2.061: MODIS Land Cover Dynamics (Phenology) Yearly Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 500
@@ -2872,7 +2872,7 @@ datasets:
 
   MODIS/061/MCD15A3H:
     title: MCD15A3H.061 MODIS Leaf Area Index/FPAR 4-Day Global 500m
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 4, unit: day }
     spatial_resolution: 500
@@ -2911,7 +2911,7 @@ datasets:
 
   MODIS/061/MCD43A1:
     title: "MCD43A1.061: MODIS BRDF/Albedo Model Parameters Daily 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -2953,7 +2953,7 @@ datasets:
 
   MODIS/061/MCD43A2:
     title: "MCD43A2.061: MODIS BRDF/Albedo Quality Daily 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -2980,7 +2980,7 @@ datasets:
 
   MODIS/061/MCD43A3:
     title: "MCD43A3.061: MODIS BRDF/Albedo Daily 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -3016,7 +3016,7 @@ datasets:
 
   MODIS/061/MCD43A4:
     title: MCD43A4.061 MODIS Nadir BRDF-Adjusted Reflectance Daily 500m
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -3066,7 +3066,7 @@ datasets:
 
   MODIS/061/MCD43C3:
     title: MCD43C3.061 BRDF/Albedo Daily L3 0.05 Deg CMG
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5600
@@ -3218,7 +3218,7 @@ datasets:
 
   MODIS/061/MCD64A1:
     title: MCD64A1.061 MODIS Burned Area Monthly Global 500m
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 500
@@ -3242,7 +3242,7 @@ datasets:
 
   MODIS/061/MOD13A1:
     title: "MOD13A1.061: Terra Vegetation Indices 16-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 500
@@ -3286,7 +3286,7 @@ datasets:
 
   MODIS/061/MOD13A2:
     title: "MOD13A2.061: Terra Vegetation Indices 16-Day Global 1km"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 1000
@@ -3320,7 +3320,7 @@ datasets:
 
   MODIS/061/MOD13A3:
     title: "MOD13A3.061: Terra Vegetation Indices Monthly L3 Global 1km SIN Grid"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 1000
@@ -3350,7 +3350,7 @@ datasets:
 
   MODIS/061/MOD13C1:
     title: "MOD13C1.061: Terra Vegetation Indices 16-Day L3 Global 0.05° CMG"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 5600
@@ -3380,7 +3380,7 @@ datasets:
 
   MODIS/061/MOD13Q1:
     title: MOD13Q1.061 Terra Vegetation Indices 16-Day Global 250m
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 250
@@ -3416,7 +3416,7 @@ datasets:
 
   MODIS/061/MOD14A1:
     title: "MOD14A1.061: Terra Thermal Anomalies & Active Fire Daily 1km"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -3440,7 +3440,7 @@ datasets:
 
   MODIS/061/MOD14A2:
     title: "MOD14A2.061: Terra Thermal Anomalies & Active Fire 8-Day Global 1km"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 1000
@@ -3458,7 +3458,7 @@ datasets:
 
   MODIS/061/MOD15A2H:
     title: "MOD15A2H.061: Terra Leaf Area Index/FPAR 8-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -3494,7 +3494,7 @@ datasets:
 
   MODIS/061/MOD17A2H:
     title: "MOD17A2H.061: Terra Gross Primary Productivity 8-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -3522,7 +3522,7 @@ datasets:
 
   MODIS/061/MOD17A2HGF:
     title: 'MOD17A2HGF.061: Terra Gross Primary Productivity 8-Day Global 500m'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -3550,7 +3550,7 @@ datasets:
 
   MODIS/061/MOD17A3HGF:
     title: "MOD17A3HGF.061: Terra Net Primary Production Gap-Filled Yearly Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 500
@@ -3577,7 +3577,7 @@ datasets:
 
   MODIS/061/MOD44B:
     title: "MOD44B.061: MODIS Vegetation Continuous Fields Yearly Global 250m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 250
@@ -3608,7 +3608,7 @@ datasets:
 
   MODIS/061/MYD13A1:
     title: "MYD13A1.061: Aqua Vegetation Indices 16-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 500
@@ -3652,7 +3652,7 @@ datasets:
 
   MODIS/061/MYD13A2:
     title: "MYD13A2.061: Aqua Vegetation Indices 16-Day Global 1km"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 1000
@@ -3686,7 +3686,7 @@ datasets:
 
   MODIS/061/MYD13A3:
     title: "MYD13A3.061: Aqua Vegetation Indices Monthly L3 Global 1km SIN Grid"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 1000
@@ -3716,7 +3716,7 @@ datasets:
 
   MODIS/061/MYD13C1:
     title: "MYD13C1.061: Aqua Vegetation Indices 16-Day L3 Global 0.05° CMG"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 5600
@@ -3746,7 +3746,7 @@ datasets:
 
   MODIS/061/MYD13Q1:
     title: MYD13Q1.061 Aqua Vegetation Indices 16-Day Global 250m
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 250
@@ -3782,7 +3782,7 @@ datasets:
 
   MODIS/061/MYD14A1:
     title: "MYD14A1.061: Aqua Thermal Anomalies & Active Fire Daily 1km"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -3806,7 +3806,7 @@ datasets:
 
   MODIS/061/MYD14A2:
     title: "MYD14A2.061: Aqua Thermal Anomalies & Active Fire 8-Day Global 1km"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 1000
@@ -3824,7 +3824,7 @@ datasets:
 
   MODIS/061/MYD15A2H:
     title: "MYD15A2H.061: Aqua Leaf Area Index/FPAR 8-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -3854,7 +3854,7 @@ datasets:
 
   MODIS/MCD43A1:
     title: MCD43A1.005 BRDF-Albedo Model Parameters 16-Day L3 Global 500m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     extent:
@@ -3900,7 +3900,7 @@ datasets:
       BRDF_Shape_Indicators_SSI:
   MODIS/MCD43A2:
     title: MCD43A2.005 BRDF-Albedo Quality 16-Day Global 500m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     extent:
@@ -3916,7 +3916,7 @@ datasets:
       BRDF_Albedo_Band_Quality:
   MODIS/MCD43A4_006_NDVI:
     title: MODIS Combined 16-Day NDVI
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 463.312716528
@@ -3934,7 +3934,7 @@ datasets:
 
   MODIS/MCD43A4_EVI:
     title: MODIS Combined 16-Day EVI [deprecated]
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 463.312716528
@@ -3950,7 +3950,7 @@ datasets:
 
   MODIS/MCD43A4_NDVI:
     title: MODIS Combined 16-Day NDVI [deprecated]
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 463.312716528
@@ -3968,7 +3968,7 @@ datasets:
 
   MODIS/MOD09GA_006_NDVI:
     title: MODIS Terra Daily NDVI
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 463.312716528
@@ -3986,7 +3986,7 @@ datasets:
 
   MODIS/MOD09GA_EVI:
     title: MODIS Terra Daily EVI [deprecated]
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 463.312716528
@@ -4002,7 +4002,7 @@ datasets:
 
   MODIS/MOD09GA_NDVI:
     title: MODIS Terra Daily NDVI [deprecated]
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 463.312716528
@@ -4020,7 +4020,7 @@ datasets:
 
   MODIS/MOD13A1:
     title: MOD13A1.005 Vegetation Indices 16-Day L3 Global 500m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     extent:
@@ -4044,7 +4044,7 @@ datasets:
       SummaryQA:
   MODIS/MOD13Q1:
     title: MOD13Q1.005 Vegetation Indices 16-Day Global 250m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     extent:
@@ -4068,7 +4068,7 @@ datasets:
       SummaryQA:
   MODIS/MYD09GA_006_NDVI:
     title: MODIS Aqua Daily NDVI
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 463.312716528
@@ -4086,7 +4086,7 @@ datasets:
 
   MODIS/MYD09GA_EVI:
     title: MODIS Aqua Daily EVI [deprecated]
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 463.312716528
@@ -4102,7 +4102,7 @@ datasets:
 
   MODIS/MYD09GA_NDVI:
     title: MODIS Aqua Daily NDVI [deprecated]
-    provider: Google
+    provider: google
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 463.312716528
@@ -4120,7 +4120,7 @@ datasets:
 
   MODIS/MYD13A1:
     title: MYD13A1.005 Vegetation Indices 16-Day L3 Global 500m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     extent:
@@ -4144,7 +4144,7 @@ datasets:
       SummaryQA:
   MODIS/MYD13Q1:
     title: MYD13Q1.005 Vegetation Indices 16-Day Global 250m [deprecated]
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     extent:
@@ -4168,7 +4168,7 @@ datasets:
       SummaryQA:
   NASA/GIMMS/3GV0:
     title: "GIMMS NDVI 3g v0: AVHRR-Derived NDVI Bimonthly (~9km, 1981-2015)"
-    provider: NASA / NOAA
+    provider: nasa
     ee_type: image_collection
     cadence: { interval: 15, unit: day }
     spatial_resolution: 9277
@@ -4187,7 +4187,7 @@ datasets:
 
   NASA/ORNL/biomass_carbon_density/v1:
     title: "Global Above- and Below-Ground Biomass Carbon Density (300m, 2010 epoch)"
-    provider: NASA ORNL DAAC
+    provider: nasa-ornl-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 300
@@ -4214,7 +4214,7 @@ datasets:
 
   NASA/ORNL/global_forest_classification_2020/V1:
     title: Global 2020 Forest Classification for IPCC Aboveground Biomass Tier 1 Estimates, V1
-    provider: NASA ORNL DAAC at Oak Ridge National Laboratory
+    provider: nasa-ornl-daac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -4229,7 +4229,7 @@ datasets:
 
   NASA/VIIRS/002/VNP13A1:
     title: 'VNP13A1.002: VIIRS Vegetation Indices 16-Day 500m'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -4286,7 +4286,7 @@ datasets:
 
   NASA/VIIRS/002/VNP14A1:
     title: 'VNP14A1.002: Thermal Anomalies/Fire Daily L3 Global 1km SIN Grid'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -4309,7 +4309,7 @@ datasets:
 
   NASA/VIIRS/002/VNP15A2H:
     title: 'VNP15A2H: LAI/FPAR 8-Day L4 Global 500m SIN Grid'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -4337,7 +4337,7 @@ datasets:
 
   NASA/VIIRS/002/VNP43IA4:
     title: 'VNP43IA4: BRDF/Albedo Quality Daily L3 Global 500m SIN Grid'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -4363,7 +4363,7 @@ datasets:
 
   NASA/VIIRS/002/VNP46A2:
     title: 'VNP46A2: VIIRS Lunar Gap-Filled BRDF Nighttime Lights Daily L3 Global 500m'
-    provider: NASA LAADS DAAC
+    provider: nasa-laads-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -4403,7 +4403,7 @@ datasets:
 
   NASA/VIIRS/002/VNP64A1:
     title: 'VNP64A1.002: Burned Area Monthly L4 Global 500m SIN Grid'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 500
@@ -4428,7 +4428,7 @@ datasets:
 
   NOAA/CDR/AVHRR/LAI_FAPAR/V4:
     title: "NOAA CDR AVHRR LAI/FAPAR v4 (Daily 5km, 1981-, legacy)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -4449,7 +4449,7 @@ datasets:
 
   NOAA/CDR/AVHRR/LAI_FAPAR/V5:
     title: "NOAA CDR AVHRR LAI/FAPAR v5 (Daily 5km, 1981-present)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -4470,7 +4470,7 @@ datasets:
 
   NOAA/CDR/AVHRR/NDVI/V4:
     title: "NOAA CDR AVHRR NDVI v4: Daily Global NDVI (legacy 5km, 1981-)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -4492,7 +4492,7 @@ datasets:
 
   NOAA/CDR/AVHRR/NDVI/V5:
     title: "NOAA CDR AVHRR NDVI v5: Daily Global NDVI (5km, 1981-present)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -4516,7 +4516,7 @@ datasets:
 
   NOAA/CDR/VIIRS/LAI_FAPAR/V1:
     title: 'NOAA CDR VIIRS LAI FAPAR: Leaf Area Index and Fraction of Absorbed Photosynthetically'
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -4542,7 +4542,7 @@ datasets:
 
   NOAA/CDR/VIIRS/NDVI/V1:
     title: 'NOAA CDR VIIRS NDVI: Normalized Difference Vegetation Index, Version 1'
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -4569,7 +4569,7 @@ datasets:
 
   NOAA/DMSP-OLS/CALIBRATED_LIGHTS_V4:
     title: "DMSP-OLS Radiance-Calibrated Nighttime Lights v4 (1996-2010 composites)"
-    provider: NOAA / Earth Observation Group, Colorado School of Mines
+    provider: csm-payne-institute
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 927.67
@@ -4587,7 +4587,7 @@ datasets:
 
   NOAA/DMSP-OLS/NIGHTTIME_LIGHTS:
     title: 'DMSP OLS: Nighttime Lights Time Series Version 4, Defense Meteorological Program'
-    provider: Earth Observation Group, Payne Institute for Public Policy, Colorado School of Mines
+    provider: csm-payne-institute
     ee_type: image_collection
     spatial_resolution: 927.67
     extent:
@@ -4617,7 +4617,7 @@ datasets:
 
   NOAA/VIIRS/001/VNP13A1:
     title: "VNP13A1.001: VIIRS Vegetation Indices 8-Day Global 500m (NDVI/EVI/EVI2)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -4648,7 +4648,7 @@ datasets:
 
   NOAA/VIIRS/001/VNP14A1:
     title: 'VNP14A1.001: Thermal Anomalies/Fire Daily L3 Global 1km SIN Grid [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -4671,7 +4671,7 @@ datasets:
 
   NOAA/VIIRS/001/VNP15A2H:
     title: 'VNP15A2H: LAI/FPAR 8-Day L4 Global 500m SIN Grid [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -4699,7 +4699,7 @@ datasets:
 
   NOAA/VIIRS/001/VNP22Q2:
     title: 'VNP22Q2: Land Surface Phenology Yearly L3 Global 500m SIN Grid'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -4789,7 +4789,7 @@ datasets:
 
   NOAA/VIIRS/001/VNP43IA1:
     title: 'VNP43IA1: BRDF/Albedo Model Parameters Daily L3 Global 500m SIN Grid'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -4827,7 +4827,7 @@ datasets:
 
   NOAA/VIIRS/001/VNP43IA2:
     title: 'VNP43IA2: BRDF/Albedo Quality Daily L3 Global 500m SIN Grid'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -4867,7 +4867,7 @@ datasets:
 
   NOAA/VIIRS/001/VNP64A1:
     title: 'VNP64A1: Burned Area Monthly L4 Global 500m SIN Grid'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 30, unit: day }
     spatial_resolution: 500
@@ -4892,7 +4892,7 @@ datasets:
 
   OpenLandMap/PNV/PNV_BIOME-TYPE_BIOME00K_C/v01:
     title: OpenLandMap Potential Distribution of Biomes
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -4907,7 +4907,7 @@ datasets:
 
   OpenLandMap/PNV/PNV_FAPAR_PROBA-V_D/v01:
     title: OpenLandMap Potential FAPAR Monthly
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -4990,7 +4990,7 @@ datasets:
 
   Oxford/MAP/EVI_5km_Monthly:
     title: "Oxford MAP EVI 5km Monthly: Gap-Filled Enhanced Vegetation Index (2001-)"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 5000
@@ -5012,7 +5012,7 @@ datasets:
 
   Oxford/MAP/IGBP_Fractional_Landcover_5km_Annual:
     title: "Oxford MAP: IGBP Fractional Landcover (5km Annual, 2001-)"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 5000
@@ -5049,7 +5049,7 @@ datasets:
 
   Oxford/MAP/LST_Day_5km_Monthly:
     title: "Oxford MAP LST Day 5km Monthly: Gap-Filled Daytime Land Surface Temperature"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 5000
@@ -5070,7 +5070,7 @@ datasets:
 
   Oxford/MAP/LST_Night_5km_Monthly:
     title: "Oxford MAP LST Night 5km Monthly: Gap-Filled Nighttime Land Surface Temperature"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 5000
@@ -5091,7 +5091,7 @@ datasets:
 
   Oxford/MAP/TCB_5km_Monthly:
     title: "Oxford MAP TCB 5km Monthly: Gap-Filled Tasselled Cap Brightness (2001-)"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 5000
@@ -5111,7 +5111,7 @@ datasets:
 
   Oxford/MAP/TCW_5km_Monthly:
     title: "Oxford MAP TCW 5km Monthly: Gap-Filled Tasselled Cap Wetness (2001-)"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 5000
@@ -5131,7 +5131,7 @@ datasets:
 
   Oxford/MAP/accessibility_to_cities_2015_v1_0:
     title: "Oxford MAP Accessibility to Cities 2015 v1.0 (1km global travel time)"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -5149,7 +5149,7 @@ datasets:
 
   Oxford/MAP/accessibility_to_healthcare_2019:
     title: "Oxford MAP Accessibility to Healthcare 2019 (1km global travel time)"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -5169,7 +5169,7 @@ datasets:
 
   Oxford/MAP/friction_surface_2015_v1_0:
     title: "Oxford MAP Global Friction Surface 2015 v1.0 (1km travel speed, legacy)"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -5186,7 +5186,7 @@ datasets:
 
   Oxford/MAP/friction_surface_2019:
     title: "Oxford MAP Global Friction Surface 2019 (1km travel speed)"
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -5206,7 +5206,7 @@ datasets:
 
   RESOLVE/ECOREGIONS/2017:
     title: RESOLVE Ecoregions 2017
-    provider: RESOLVE Biodiversity and Wildlife Solutions
+    provider: resolve
     ee_type: table
     extent:
       start_date: "2017-04-05"
@@ -5217,7 +5217,7 @@ datasets:
 
   RUB/RUBCLIM/LCZ/global_lcz_map/latest:
     title: Global map of Local Climate Zones, latest version
-    provider: Bochum Urban Climate Lab
+    provider: bochum-urban-climate
     ee_type: image_collection
     spatial_resolution: 100
     extent:
@@ -5237,7 +5237,7 @@ datasets:
 
   RUB/RUBCLIM/LCZ/global_lcz_map/v1:
     title: Global map of Local Climate Zones, v1 [deprecated]
-    provider: Bochum Urban Climate Lab
+    provider: bochum-urban-climate
     ee_type: image_collection
     spatial_resolution: 100
     extent:
@@ -5257,7 +5257,7 @@ datasets:
 
   Tsinghua/DESS/ChinaTerraceMap/v1:
     title: DESS China Terrace Map v1
-    provider: Department of Earth System Science, Tsinghua University (DESS, THU)
+    provider: tsinghua
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5273,7 +5273,7 @@ datasets:
 
   Tsinghua/FROM-GLC/GAIA/v10:
     title: "FROM-GLC GAIA v10: Year of Transition to Impervious Surface (30m, 1985-2018)"
-    provider: Tsinghua University
+    provider: tsinghua
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5289,7 +5289,7 @@ datasets:
 
   UMD/GLAD/PRIMARY_HUMID_TROPICAL_FORESTS/v1:
     title: "UMD GLAD: Primary Humid Tropical Forests (30m, 2001 baseline)"
-    provider: UMD GLAD
+    provider: umd-glad
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -5306,7 +5306,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2013:
     title: Hansen Global Forest Change v1.0 (2000-2012) [deprecated]
-    provider: Hansen/UMD/Google/USGS/NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5357,7 +5357,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2014:
     title: Hansen Global Forest Change v1.1 (2000-2013) [deprecated]
-    provider: Hansen/UMD/Google/USGS/NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5408,7 +5408,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2015:
     title: "Hansen Global Forest Change v1.2 (2000-2014, asset id `global_forest_change_2015`)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5435,7 +5435,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2015_v1_3:
     title: Hansen Global Forest Change v1.3 (2000-2015) [deprecated]
-    provider: Hansen/UMD/Google/USGS/NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5486,7 +5486,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2016_v1_4:
     title: "Hansen Global Forest Change v1.4 (2000-2016)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5514,7 +5514,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2017_v1_5:
     title: "Hansen Global Forest Change v1.5 (2000-2017)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5542,7 +5542,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2018_v1_6:
     title: "Hansen Global Forest Change v1.6 (2000-2018)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5570,7 +5570,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2019_v1_7:
     title: "Hansen Global Forest Change v1.7 (2000-2019)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5598,7 +5598,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2020_v1_8:
     title: "Hansen Global Forest Change v1.8 (2000-2020)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5626,7 +5626,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2021_v1_9:
     title: "Hansen Global Forest Change v1.9 (2000-2021)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5654,7 +5654,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2022_v1_10:
     title: "Hansen Global Forest Change v1.10 (2000-2022)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5682,7 +5682,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2023_v1_11:
     title: "Hansen Global Forest Change v1.11 (2000-2023)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5710,7 +5710,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2024_v1_12:
     title: "Hansen Global Forest Change v1.12 (2000-2024)"
-    provider: Hansen / UMD / Google / USGS / NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5738,7 +5738,7 @@ datasets:
 
   UMD/hansen/global_forest_change_2025_v1_13:
     title: Hansen Global Forest Change v1.13 (2000-2025)
-    provider: Hansen/UMD/Google/USGS/NASA
+    provider: hansen-umd-google
     ee_type: image
     spatial_resolution: 30.92
     extent:
@@ -5790,7 +5790,7 @@ datasets:
 
   UMT/Climate/IrrMapper_RF/v1_1:
     title: IrrMapper Irrigated Lands, Version 1.1 [deprecated]
-    provider: University of Montana / Montana Climate Office
+    provider: montana-climate-office
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -5806,7 +5806,7 @@ datasets:
 
   UMT/Climate/IrrMapper_RF/v1_2:
     title: IrrMapper Irrigated Lands, Version 1.2
-    provider: University of Montana / Montana Climate Office
+    provider: montana-climate-office
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -5822,7 +5822,7 @@ datasets:
 
   UMT/NTSG/v2/LANDSAT/GPP:
     title: Landsat Gross Primary Production CONUS
-    provider: University of Montana Numerical Terradynamic Simulation Group (NTSG)
+    provider: montana-ntsg
     ee_type: image_collection
     cadence: { interval: 16, unit: day }
     spatial_resolution: 30
@@ -5846,7 +5846,7 @@ datasets:
 
   UMT/NTSG/v2/LANDSAT/NPP:
     title: Landsat Net Primary Production CONUS
-    provider: University of Montana Numerical Terradynamic Simulation Group (NTSG)
+    provider: montana-ntsg
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -5873,7 +5873,7 @@ datasets:
 
   UMT/NTSG/v2/MODIS/GPP:
     title: MODIS Gross Primary Production CONUS
-    provider: University of Montana Numerical Terradynamic Simulation Group (NTSG)
+    provider: montana-ntsg
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 250
@@ -5899,7 +5899,7 @@ datasets:
 
   UMT/NTSG/v2/MODIS/NPP:
     title: MODIS Net Primary Production CONUS
-    provider: University of Montana Numerical Terradynamic Simulation Group (NTSG)
+    provider: montana-ntsg
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 250
@@ -5926,7 +5926,7 @@ datasets:
 
   USDA/NASS/CDL:
     title: USDA NASS Cropland Data Layer (annual US 30m crop classification)
-    provider: USDA National Agricultural Statistics Service
+    provider: usda-nass
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -5953,7 +5953,7 @@ datasets:
 
   USDA/WRC/v0:
     title: Wildfire Risk to Communities v0
-    provider: USDA Forest Service Research Data Archive
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -5999,7 +5999,7 @@ datasets:
 
   USFS/GTAC/LCMS/v2020-5:
     title: USFS Landscape Change Monitoring System v2020.5 (Conterminous United States and Southeastern
-    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    provider: usda-usfs-gtac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6066,7 +6066,7 @@ datasets:
 
   USFS/GTAC/LCMS/v2020-6:
     title: USFS Landscape Change Monitoring System v2020.6 (Puerto Rico - US Virgin Islands only)
-    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    provider: usda-usfs-gtac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6135,7 +6135,7 @@ datasets:
 
   USFS/GTAC/LCMS/v2021-7:
     title: USFS Landscape Change Monitoring System v2021.7 (Conterminous United States and Southeastern
-    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    provider: usda-usfs-gtac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6204,7 +6204,7 @@ datasets:
 
   USFS/GTAC/LCMS/v2022-8:
     title: USFS Landscape Change Monitoring System v2022.8 (CONUS and OCONUS) [deprecated]
-    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    provider: usda-usfs-gtac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6273,7 +6273,7 @@ datasets:
 
   USFS/GTAC/LCMS/v2023-9:
     title: USFS Landscape Change Monitoring System v2023.9 (CONUS and OCONUS) [deprecated]
-    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    provider: usda-usfs-gtac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6342,7 +6342,7 @@ datasets:
 
   USFS/GTAC/LCMS/v2024-10:
     title: "USFS LCMS v2024.10: Landscape Change Monitoring System (US, 30m, 1985-)"
-    provider: USDA Forest Service GTAC
+    provider: usda-usfs-gtac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -6363,7 +6363,7 @@ datasets:
 
   USFS/GTAC/MTBS/annual_burn_severity_mosaics/v1:
     title: Monitoring Trends in Burn Severity (MTBS) Burn Severity Images
-    provider: Monitoring Trends in Burn Severity (MTBS)
+    provider: mtbs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6380,7 +6380,7 @@ datasets:
 
   USFS/GTAC/MTBS/burned_area_boundaries/v1:
     title: MTBS Burned Area Boundaries
-    provider: Monitoring Trends in Burn Severity (MTBS)
+    provider: mtbs
     ee_type: table
     extent:
       start_date: "1984-01-01"
@@ -6394,7 +6394,7 @@ datasets:
 
   USFS/GTAC/TreeMap/v2016:
     title: USFS TreeMap v2016 (Conterminous United States)
-    provider: USDA Forest Service (USFS) Geospatial Technology and Applications Center (GTAC)
+    provider: usda-usfs-gtac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6470,7 +6470,7 @@ datasets:
 
   USFS/GTAC/TreeMap/v2020:
     title: USFS TreeMap v2020
-    provider: USDA Forest Service (USFS) Field Services and Innovation Center Geospatial Office
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6547,7 +6547,7 @@ datasets:
 
   USFS/GTAC/TreeMap/v2022:
     title: USFS TreeMap v2022
-    provider: USDA Forest Service (USFS) Field Services and Innovation Center Geospatial Office
+    provider: usda-usfs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6624,7 +6624,7 @@ datasets:
 
   USGS/GAP/AK/2001:
     title: USGS GAP Alaska 2001
-    provider: USGS
+    provider: usgs
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -6642,7 +6642,7 @@ datasets:
 
   USGS/GAP/CONUS/2011:
     title: USGS GAP CONUS 2011
-    provider: USGS
+    provider: usgs
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -6660,7 +6660,7 @@ datasets:
 
   USGS/GAP/HI/2001:
     title: USGS GAP Hawaii 2001
-    provider: USGS
+    provider: usgs
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -6678,7 +6678,7 @@ datasets:
 
   USGS/GAP/PAD-US/v20/designation:
     title: 'Designation: USGS GAP PAD-US v2.0'
-    provider: US Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2018-09-01"
@@ -6691,7 +6691,7 @@ datasets:
 
   USGS/GAP/PAD-US/v20/easement:
     title: 'Easement: USGS GAP PAD-US v2.0'
-    provider: US Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2018-09-01"
@@ -6704,7 +6704,7 @@ datasets:
 
   USGS/GAP/PAD-US/v20/fee:
     title: 'Fee: USGS GAP PAD-US v2.0'
-    provider: US Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2018-09-01"
@@ -6717,7 +6717,7 @@ datasets:
 
   USGS/GAP/PAD-US/v20/proclamation:
     title: 'Proclamation: USGS GAP PAD-US v2.0'
-    provider: US Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2018-09-01"
@@ -6730,7 +6730,7 @@ datasets:
 
   USGS/GAP/PR/2001:
     title: USGS GAP Puerto Rico 2001
-    provider: USGS
+    provider: usgs
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -6748,7 +6748,7 @@ datasets:
 
   USGS/GFSAD1000_V0:
     title: 'GFSAD1000: Cropland Extent 1km Crop Dominance, Global Food-Support Analysis Data'
-    provider: Global Food Security-support Analysis Data at 30m Project (GFSAD30)
+    provider: usgs
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -6765,7 +6765,7 @@ datasets:
 
   USGS/GFSAD1000_V1:
     title: "GFSAD1000 v1: Global Cropland Extent at 1km (NASA MEaSUREs)"
-    provider: USGS / NASA MEaSUREs
+    provider: usgs
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -6781,7 +6781,7 @@ datasets:
 
   USGS/NLCD:
     title: 'NLCD: USGS National Land Cover Database [deprecated]'
-    provider: USGS
+    provider: usgs
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -6861,7 +6861,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2016_REL:
     title: "NLCD 2016: USGS National Land Cover Database, 2016 release (legacy)"
-    provider: USGS
+    provider: usgs
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -6891,7 +6891,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2019_REL/NLCD:
     title: "NLCD 2019: USGS National Land Cover Database, 2019 release"
-    provider: USGS
+    provider: usgs
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -6917,7 +6917,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2020_REL/NALCMS:
     title: "NALCMS 2020: North American Land Cover Monitoring (30m, CEC)"
-    provider: Commission for Environmental Cooperation (CEC)
+    provider: cec
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -6935,7 +6935,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2021_REL/NLCD:
     title: "NLCD 2021: USGS National Land Cover Database (US, 30m)"
-    provider: USGS
+    provider: usgs
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -6962,7 +6962,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2021_REL/TCC/v2021-4:
     title: "USFS Tree Canopy Cover v2021-4 (US, 30m, 2008-2021)"
-    provider: USDA Forest Service GTAC
+    provider: usda-usfs-gtac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -6988,7 +6988,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2023_REL/RCMAP/V6/COVER:
     title: "RCMAP v6: Rangeland Component Fractional Cover (CONUS, 30m, 1985-2023)"
-    provider: USGS / Bureau of Land Management
+    provider: usgs
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -7043,7 +7043,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2023_REL/RCMAP/V6/TRENDS:
     title: RCMAP Rangeland Trends for Component Timeseries (1985-2023), v06
-    provider: United States Geological Survey and Bureau of Land Management
+    provider: usgs
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -7283,7 +7283,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2023_REL/RCMAP/V6/TRENDS_YEAR:
     title: RCMAP Rangeland Trends Year for Component Timeseries  (1985-2023), v06
-    provider: United States Geological Survey and Bureau of Land Management
+    provider: usgs
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -7469,7 +7469,7 @@ datasets:
 
   USGS/NLCD_RELEASES/2023_REL/TCC/v2023-5:
     title: "USFS Tree Canopy Cover v2023-5 (US, 30m, 1985-2023)"
-    provider: USDA Forest Service GTAC
+    provider: usda-usfs-gtac
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -7495,7 +7495,7 @@ datasets:
 
   WCMC/biomass_carbon_density/v1_0:
     title: "WCMC Above- and Below-Ground Biomass Carbon Density v1.0 (300m, 2010 epoch)"
-    provider: UNEP-WCMC
+    provider: unep-wcmc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 300
@@ -7514,7 +7514,7 @@ datasets:
 
   WHRC/biomass/tropical:
     title: "WHRC Pantropical Above-Ground Biomass (500m, 2000 baseline)"
-    provider: Woods Hole Research Center
+    provider: whrc
     ee_type: image
     spatial_resolution: 500
     extent:
@@ -7533,7 +7533,7 @@ datasets:
 
   WRI/GFW/FORMA/alerts:
     title: FORMA Alerts
-    provider: World Resources Institute / Global Forest Watch
+    provider: gfw
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -7556,7 +7556,7 @@ datasets:
 
   WRI/GFW/FORMA/raw_output_firms:
     title: FORMA Raw Output FIRMS
-    provider: World Resources Institute / Global Forest Watch
+    provider: gfw
     ee_type: image_collection
     spatial_resolution: 250
     extent:
@@ -7586,7 +7586,7 @@ datasets:
 
   WRI/GFW/FORMA/raw_output_ndvi:
     title: FORMA Raw Output NDVI
-    provider: World Resources Institute / Global Forest Watch
+    provider: gfw
     ee_type: image_collection
     spatial_resolution: 250
     extent:
@@ -7621,7 +7621,7 @@ datasets:
 
   WRI/GFW/FORMA/thresholds:
     title: FORMA Alert Thresholds
-    provider: World Resources Institute / Global Forest Watch
+    provider: gfw
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -7641,7 +7641,7 @@ datasets:
 
   WRI/GFW/FORMA/vegetation_tstats:
     title: FORMA Vegetation T-Statistics
-    provider: World Resources Institute / Global Forest Watch
+    provider: gfw
     ee_type: image_collection
     spatial_resolution: 250
     extent:
@@ -7660,7 +7660,7 @@ datasets:
 
   WRI/SBTN/naturalLands/v1/2020:
     title: SBTN Natural Lands Map v1
-    provider: WRI
+    provider: wri
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -7681,7 +7681,7 @@ datasets:
 
   WRI/SBTN/naturalLands/v1_1/2020:
     title: SBTN Natural Lands Map v1.1
-    provider: WRI
+    provider: wri
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -7702,7 +7702,7 @@ datasets:
 
   YALE/YCEO/UHI/Summer_UHI_yearly_pixel/v4:
     title: 'YCEO Surface Urban Heat Islands: Pixel-Level Composites of Yearly Summertime Daytime'
-    provider: Yale Center for Earth Observation (YCEO)
+    provider: yceo-yale
     ee_type: image_collection
     spatial_resolution: 300
     extent:
@@ -7722,7 +7722,7 @@ datasets:
 
   YALE/YCEO/UHI/UHI_all_averaged/v4:
     title: 'YCEO Surface Urban Heat Islands: Spatially-Averaged Daytime and Nighttime Intensity'
-    provider: Yale Center for Earth Observation (YCEO)
+    provider: yceo-yale
     ee_type: image
     spatial_resolution: 300
     extent:
@@ -7754,7 +7754,7 @@ datasets:
 
   YALE/YCEO/UHI/UHI_monthly_averaged/v4:
     title: 'YCEO Surface Urban Heat Islands: Spatially-Averaged Monthly Composites of Daytime'
-    provider: Yale Center for Earth Observation (YCEO)
+    provider: yceo-yale
     ee_type: image
     spatial_resolution: 300
     extent:
@@ -7840,7 +7840,7 @@ datasets:
 
   YALE/YCEO/UHI/UHI_yearly_averaged/v4:
     title: 'YCEO Surface Urban Heat Islands: Spatially-Averaged Yearly Composites of Annual Daytime'
-    provider: Yale Center for Earth Observation (YCEO)
+    provider: yceo-yale
     ee_type: image_collection
     spatial_resolution: 300
     extent:
@@ -7860,7 +7860,7 @@ datasets:
 
   YALE/YCEO/UHI/UHI_yearly_pixel/v4:
     title: 'YCEO Surface Urban Heat Islands: Pixel-Level Annual Daytime and Nighttime Intensity'
-    provider: Yale Center for Earth Observation (YCEO)
+    provider: yceo-yale
     ee_type: image_collection
     spatial_resolution: 300
     extent:
@@ -7880,7 +7880,7 @@ datasets:
 
   YALE/YCEO/UHI/Winter_UHI_yearly_pixel/v4:
     title: 'YCEO Surface Urban Heat Islands: Pixel-Level Yearly Composites of Wintertime Daytime'
-    provider: Yale Center for Earth Observation (YCEO)
+    provider: yceo-yale
     ee_type: image_collection
     spatial_resolution: 300
     extent:

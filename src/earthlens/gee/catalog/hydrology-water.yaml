@@ -5,7 +5,7 @@
 datasets:
   CAS/IGSNRR/PML/V2:
     title: "PML v2 (CAS): Coupled Evapotranspiration + GPP (8-day 500m, 2002-)"
-    provider: CAS IGSNRR / PML_V2 team
+    provider: cas-igsnrr
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -36,7 +36,7 @@ datasets:
 
   CAS/IGSNRR/PML/V2_v017:
     title: 'PML_V2.1.7: Coupled Evapotranspiration and Gross Primary Product (GPP) [deprecated]'
-    provider: PML_V2
+    provider: pml-v2
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -77,7 +77,7 @@ datasets:
 
   CAS/IGSNRR/PML/V2_v018:
     title: 'PML_V2.1.8: Coupled Evapotranspiration and Gross Primary Product (GPP) [deprecated]'
-    provider: PML_V2
+    provider: pml-v2
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -118,7 +118,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/BIO:
     title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - BIO
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27750
@@ -632,7 +632,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/CAR:
     title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - CAR
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27750
@@ -1146,7 +1146,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/CO2:
     title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - CO2
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27750
@@ -1165,7 +1165,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/NUT:
     title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - NUT
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27750
@@ -2179,7 +2179,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/OPTICS:
     title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - OPTICS
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27750
@@ -2443,7 +2443,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/PFT:
     title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - PFT
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27750
@@ -2957,7 +2957,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_BGC_001_028/PLANKTON:
     title: Copernicus Global Ocean Bio-Geo-Chemical Forecast - PLANKTON
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27750
@@ -3221,7 +3221,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_ANALYSISFORECAST_PHY_DAILY:
     title: "Copernicus Marine Global Ocean Physics Analysis + Forecast (Daily ~9km)"
-    provider: Copernicus Marine Service
+    provider: copernicus-marine
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 9276.62
@@ -3252,7 +3252,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_SEA_SURFACE/NRT_DAILY:
     title: "Copernicus Marine Global Sea-Surface Salinity + Density NRT (Daily ~14km)"
-    provider: Copernicus Marine Service
+    provider: copernicus-marine
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 14000
@@ -3281,7 +3281,7 @@ datasets:
 
   COPERNICUS/MARINE/GLOBAL_SEA_SURFACE/REP_DAILY:
     title: "Copernicus Marine Global Sea-Surface Salinity + Density REP (Daily ~14km, 1993-)"
-    provider: Copernicus Marine Service
+    provider: copernicus-marine
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 14000
@@ -3310,7 +3310,7 @@ datasets:
 
   COPERNICUS/MARINE/INSITU_MULTI_4KM/ARGO:
     title: Copernicus Global In-situ Observations of Ocean Currents - Argo
-    provider: Copernicus
+    provider: copernicus
     ee_type: bigquery_table
     extent:
       start_date: "2025-03-28"
@@ -3322,7 +3322,7 @@ datasets:
 
   COPERNICUS/MARINE/INSITU_MULTI_4KM/DRIFTER:
     title: Copernicus Global In-situ Observations of Ocean Currents - Drifter
-    provider: Copernicus
+    provider: copernicus
     ee_type: bigquery_table
     extent:
       start_date: "2025-03-28"
@@ -3334,7 +3334,7 @@ datasets:
 
   COPERNICUS/MARINE/INSITU_MULTI_4KM/RADAR_RADIAL:
     title: Copernicus Global In-situ Observations of Ocean Currents - Radar Radial
-    provider: Copernicus
+    provider: copernicus
     ee_type: bigquery_table
     extent:
       start_date: "2025-03-28"
@@ -3346,7 +3346,7 @@ datasets:
 
   COPERNICUS/MARINE/INSITU_MULTI_4KM/RADAR_TOTAL:
     title: Copernicus Global In-situ Observations of Ocean Currents - Radar Total
-    provider: Copernicus
+    provider: copernicus
     ee_type: bigquery_table
     extent:
       start_date: "2025-03-28"
@@ -3358,7 +3358,7 @@ datasets:
 
   COPERNICUS/MARINE/OC_GLO_BGC/OPTICS_MULTI_4KM:
     title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Optics, Multi-Sensor'
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4000
@@ -3386,7 +3386,7 @@ datasets:
 
   COPERNICUS/MARINE/OC_GLO_BGC/PLANKTON_MULTI_4KM:
     title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Plankton,'
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4000
@@ -3408,7 +3408,7 @@ datasets:
 
   COPERNICUS/MARINE/OC_GLO_BGC/PLANKTON_OLCI_300M:
     title: "Copernicus Marine OC GLO BGC: Plankton Chlorophyll-a (Sentinel-3 OLCI, 300m monthly)"
-    provider: Copernicus Marine Service
+    provider: copernicus-marine
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 300
@@ -3430,7 +3430,7 @@ datasets:
 
   COPERNICUS/MARINE/OC_GLO_BGC/PRIMARY_PRODUCTION_MULTI_4KM:
     title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Primary Production,'
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4000
@@ -3452,7 +3452,7 @@ datasets:
 
   COPERNICUS/MARINE/OC_GLO_BGC/REFLECTANCE_MULTI_4KM:
     title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Reflectance,'
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4000
@@ -3498,7 +3498,7 @@ datasets:
 
   COPERNICUS/MARINE/OC_GLO_BGC/REFLECTANCE_OLCI_300M:
     title: "Copernicus Marine OC GLO BGC: Reflectance (Sentinel-3 OLCI, 300m monthly)"
-    provider: Copernicus Marine Service
+    provider: copernicus-marine
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 300
@@ -3538,7 +3538,7 @@ datasets:
 
   COPERNICUS/MARINE/OC_GLO_BGC/TRANSPARENCY_MULTI_4KM:
     title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Transparency,'
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4000
@@ -3566,7 +3566,7 @@ datasets:
 
   COPERNICUS/MARINE/OC_GLO_BGC/TRANSPARENCY_OLCI_4KM:
     title: 'Global Ocean Colour: Bio-Geo-Chemical, L4, from Satellite Observations, Transparency,'
-    provider: Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4000
@@ -3588,7 +3588,7 @@ datasets:
 
   COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6:
     title: "Copernicus Marine Satellite Ocean Colour v6 (Daily 4km, 1997-, multi-sensor)"
-    provider: Copernicus Marine Service
+    provider: copernicus-marine
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4000
@@ -3627,7 +3627,7 @@ datasets:
 
   COPERNICUS/MARINE/WAV/ANFC_0_083DEG_PT3H:
     title: Global Ocean Waves Analysis and Forecast
-    provider: Copernicus Marine Service Global Ocean Waves and Forecasts
+    provider: copernicus-marine
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 9276.62
@@ -3698,7 +3698,7 @@ datasets:
 
   COPERNICUS/MARINE/WAV/ANFC_0_083DEG_STATIC:
     title: Global Ocean Waves Static Bathymetry
-    provider: Copernicus Marine Service Global Ocean Waves and Forecasts
+    provider: copernicus-marine
     ee_type: image_collection
     spatial_resolution: 9276.62
     extent:
@@ -3714,7 +3714,7 @@ datasets:
 
   FAO/WAPOR/2/L1_AETI_D:
     title: WAPOR Actual Evapotranspiration and Interception 2.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 248.2
@@ -3734,7 +3734,7 @@ datasets:
 
   FAO/WAPOR/2/L1_E_D:
     title: WAPOR Dekadal Evaporation 2.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 248.2
@@ -3754,7 +3754,7 @@ datasets:
 
   FAO/WAPOR/2/L1_I_D:
     title: WAPOR Dekadal Interception 2.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 248.2
@@ -3774,7 +3774,7 @@ datasets:
 
   FAO/WAPOR/2/L1_NPP_D:
     title: WAPOR Dekadal Net Primary Production 2.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 248.2
@@ -3794,7 +3794,7 @@ datasets:
 
   FAO/WAPOR/2/L1_RET_D:
     title: WAPOR Dekadal Reference Evapotranspiration 2.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 18924
@@ -3814,7 +3814,7 @@ datasets:
 
   FAO/WAPOR/2/L1_RET_E:
     title: WAPOR Daily Reference Evapotranspiration 2.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 18924
@@ -3834,7 +3834,7 @@ datasets:
 
   FAO/WAPOR/2/L1_T_D:
     title: WAPOR Dekadal Transpiration 2.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 248.2
@@ -3854,7 +3854,7 @@ datasets:
 
   FAO/WAPOR/3/L1_AETI_D:
     title: "FAO WAPOR v3 L1 AETI Dekadal: Actual Evapotranspiration + Interception (~250m, Africa+ME)"
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     # Dekads are nominal 10-day windows (the last dekad of a month can be 8-11 days);
     # 10/day is the most accurate cadence the catalog can express.
@@ -3875,7 +3875,7 @@ datasets:
 
   FAO/WAPOR/3/L1_E_D:
     title: "FAO WAPOR v3 L1 E Dekadal: Soil Evaporation (~250m, Africa+ME, 2018-)"
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 248.2
@@ -3894,7 +3894,7 @@ datasets:
 
   FAO/WAPOR/3/L1_I_D:
     title: WAPOR Dekadal Interception 3.0
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 248.2
@@ -3914,7 +3914,7 @@ datasets:
 
   FAO/WAPOR/3/L1_RET_D:
     title: "FAO WAPOR v3 L1 RET Dekadal: Reference Evapotranspiration (~20km, global, 2018-)"
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 18924
@@ -3933,7 +3933,7 @@ datasets:
 
   FAO/WAPOR/3/L1_RET_E:
     title: "FAO WAPOR v3 L1 RET Daily: Reference Evapotranspiration (~20km, global, 2018-)"
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 18924
@@ -3952,7 +3952,7 @@ datasets:
 
   FAO/WAPOR/3/L1_T_D:
     title: "FAO WAPOR v3 L1 T Dekadal: Transpiration (~250m, Africa+ME, 2009-)"
-    provider: FAO UN
+    provider: fao
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 248.2
@@ -3972,7 +3972,7 @@ datasets:
 
   GLCF/GLS_WATER:
     title: 'GLCF: Landsat Global Inland Water'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -3987,7 +3987,7 @@ datasets:
 
   GLIMS/2016:
     title: 'GLIMS 2016: Global Land Ice Measurements From Space [deprecated]'
-    provider: National Snow and Ice Data Center (NSDIC)
+    provider: nasa-nsidc-daac
     ee_type: table
     extent:
       start_date: "2015-06-15"
@@ -3999,7 +3999,7 @@ datasets:
 
   GLIMS/20171027:
     title: 'GLIMS 2017: Global Land Ice Measurements From Space [deprecated]'
-    provider: National Snow and Ice Data Center (NSDIC)
+    provider: nasa-nsidc-daac
     ee_type: table
     extent:
       start_date: "1992-06-01"
@@ -4011,7 +4011,7 @@ datasets:
 
   GLIMS/20210914:
     title: 'GLIMS 2021: Global Land Ice Measurements From Space [deprecated]'
-    provider: National Snow and Ice Data Center (NSDIC)
+    provider: nasa-nsidc-daac
     ee_type: table
     extent:
       start_date: "1992-06-01"
@@ -4023,7 +4023,7 @@ datasets:
 
   GLIMS/20230607:
     title: 'GLIMS 2023: Global Land Ice Measurements From Space'
-    provider: National Snow and Ice Data Center (NSDIC)
+    provider: nasa-nsidc-daac
     ee_type: table
     extent:
       start_date: "1992-06-01"
@@ -4035,7 +4035,7 @@ datasets:
 
   GLIMS/current:
     title: 'GLIMS Current: Global Land Ice Measurements From Space'
-    provider: National Snow and Ice Data Center (NSDIC)
+    provider: nasa-nsidc-daac
     ee_type: table
     extent:
       start_date: "1992-06-01"
@@ -4047,7 +4047,7 @@ datasets:
 
   GLOBAL_FLOOD_DB/MODIS_EVENTS/V1:
     title: Global Flood Database v1 (2000-2018)
-    provider: Cloud to Street (C2S) / Dartmouth Flood Observatory (DFO)
+    provider: c2s-dfo
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -4084,7 +4084,7 @@ datasets:
 
   HYCOM/GLBu0_08/sea_surface_elevation:
     title: 'HYCOM: Hybrid Coordinate Ocean Model, Sea Surface Elevation [deprecated]'
-    provider: NOPP
+    provider: nopp
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 8905.6
@@ -4105,7 +4105,7 @@ datasets:
 
   HYCOM/GLBu0_08/sea_temp_salinity:
     title: 'HYCOM: Hybrid Coordinate Ocean Model, Water Temperature and Salinity [deprecated]'
-    provider: NOPP
+    provider: nopp
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 8905.6
@@ -4680,7 +4680,7 @@ datasets:
 
   HYCOM/GLBu0_08/sea_water_velocity:
     title: 'HYCOM: Hybrid Coordinate Ocean Model, Water Velocity [deprecated]'
-    provider: NOPP
+    provider: nopp
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 8905.6
@@ -5175,7 +5175,7 @@ datasets:
 
   HYCOM/sea_surface_elevation:
     title: "HYCOM Hybrid Coordinate Ocean Model — Daily Sea-Surface Elevation"
-    provider: HYCOM Consortium / NOPP
+    provider: hycom-consortium
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 8905.6
@@ -5194,7 +5194,7 @@ datasets:
 
   HYCOM/sea_temp_salinity:
     title: "HYCOM Hybrid Coordinate Ocean Model — Daily Water Temperature and Salinity"
-    provider: HYCOM Consortium / NOPP
+    provider: hycom-consortium
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 8905.6
@@ -5239,7 +5239,7 @@ datasets:
 
   HYCOM/sea_water_velocity:
     title: "HYCOM Hybrid Coordinate Ocean Model — Daily Sea-Water Velocity"
-    provider: HYCOM Consortium / NOPP
+    provider: hycom-consortium
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 8905.6
@@ -5278,7 +5278,7 @@ datasets:
 
   IAHS/GFPLAIN250/v0:
     title: 'GFPLAIN250m: Global 250m Floodplain Dataset'
-    provider: IAHS
+    provider: iahs
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -5296,7 +5296,7 @@ datasets:
 
   JAXA/GCOM-C/L3/OCEAN/CHLA/V1:
     title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v1 (Daily ~5km, legacy)"
-    provider: JAXA GCOM Project
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4638.3
@@ -5315,7 +5315,7 @@ datasets:
 
   JAXA/GCOM-C/L3/OCEAN/CHLA/V2:
     title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v2 (Daily ~5km, legacy)"
-    provider: JAXA GCOM Project
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4638.3
@@ -5334,7 +5334,7 @@ datasets:
 
   JAXA/GCOM-C/L3/OCEAN/CHLA/V3:
     title: "GCOM-C/SGLI L3 Ocean Chlorophyll-a v3 (Daily ~5km)"
-    provider: JAXA GCOM Project
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4638.3
@@ -5353,7 +5353,7 @@ datasets:
 
   JCU/Murray/GIC/global_tidal_wetland_change/2019:
     title: Murray Global Tidal Wetland Change v1.0 (1999-2019)
-    provider: Murray/JCU
+    provider: jcu-murray
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5382,7 +5382,7 @@ datasets:
 
   JRC/CEMS_GLOFAS/FloodHazard/v1:
     title: "JRC CEMS GloFAS Global River Flood Hazard Maps v1 (90m, legacy)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 90
@@ -5399,7 +5399,7 @@ datasets:
 
   JRC/CEMS_GLOFAS/FloodHazard/v2_1:
     title: "JRC CEMS GloFAS Global River Flood Hazard Maps v2.1 (90m, RP10-500)"
-    provider: EC JRC
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 90
@@ -5435,7 +5435,7 @@ datasets:
 
   JRC/GSW1_0/GlobalSurfaceWater:
     title: JRC Global Surface Water Mapping Layers, v1.0 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5477,7 +5477,7 @@ datasets:
 
   JRC/GSW1_0/Metadata:
     title: JRC Global Surface Water Metadata, v1.0 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5503,7 +5503,7 @@ datasets:
 
   JRC/GSW1_0/MonthlyHistory:
     title: JRC Monthly Water History, v1.0 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -5521,7 +5521,7 @@ datasets:
 
   JRC/GSW1_0/MonthlyRecurrence:
     title: JRC Monthly Water Recurrence, v1.0 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -5543,7 +5543,7 @@ datasets:
 
   JRC/GSW1_0/YearlyHistory:
     title: JRC Yearly Water Classification History, v1.0 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -5561,7 +5561,7 @@ datasets:
 
   JRC/GSW1_1/GlobalSurfaceWater:
     title: JRC Global Surface Water Mapping Layers, v1.1 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5603,7 +5603,7 @@ datasets:
 
   JRC/GSW1_1/Metadata:
     title: JRC Global Surface Water Metadata, v1.1 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5629,7 +5629,7 @@ datasets:
 
   JRC/GSW1_1/MonthlyHistory:
     title: JRC Monthly Water History, v1.1 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -5647,7 +5647,7 @@ datasets:
 
   JRC/GSW1_1/MonthlyRecurrence:
     title: JRC Monthly Water Recurrence, v1.1 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -5669,7 +5669,7 @@ datasets:
 
   JRC/GSW1_1/YearlyHistory:
     title: JRC Yearly Water Classification History, v1.1 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -5687,7 +5687,7 @@ datasets:
 
   JRC/GSW1_2/GlobalSurfaceWater:
     title: JRC Global Surface Water Mapping Layers, v1.2 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5729,7 +5729,7 @@ datasets:
 
   JRC/GSW1_2/Metadata:
     title: JRC Global Surface Water Metadata, v1.2 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5755,7 +5755,7 @@ datasets:
 
   JRC/GSW1_2/MonthlyHistory:
     title: JRC Monthly Water History, v1.2 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -5773,7 +5773,7 @@ datasets:
 
   JRC/GSW1_2/MonthlyRecurrence:
     title: JRC Monthly Water Recurrence, v1.2 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -5795,7 +5795,7 @@ datasets:
 
   JRC/GSW1_2/YearlyHistory:
     title: JRC Yearly Water Classification History, v1.2 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -5813,7 +5813,7 @@ datasets:
 
   JRC/GSW1_3/GlobalSurfaceWater:
     title: JRC Global Surface Water Mapping Layers, v1.3 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5855,7 +5855,7 @@ datasets:
 
   JRC/GSW1_3/Metadata:
     title: JRC Global Surface Water Metadata, v1.3 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5881,7 +5881,7 @@ datasets:
 
   JRC/GSW1_3/MonthlyHistory:
     title: JRC Monthly Water History, v1.3 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -5899,7 +5899,7 @@ datasets:
 
   JRC/GSW1_3/MonthlyRecurrence:
     title: JRC Monthly Water Recurrence, v1.3 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -5921,7 +5921,7 @@ datasets:
 
   JRC/GSW1_3/YearlyHistory:
     title: JRC Yearly Water Classification History, v1.3 [deprecated]
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -5939,7 +5939,7 @@ datasets:
 
   JRC/GSW1_4/GlobalSurfaceWater:
     title: "JRC Global Surface Water Mapping Layers v1.4 (1984-2021)"
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5970,7 +5970,7 @@ datasets:
 
   JRC/GSW1_4/Metadata:
     title: JRC Global Surface Water Metadata, v1.4
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -5996,7 +5996,7 @@ datasets:
 
   JRC/GSW1_4/MonthlyHistory:
     title: "JRC Global Surface Water — Monthly Water History v1.4 (1984-2021)"
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -6015,7 +6015,7 @@ datasets:
 
   JRC/GSW1_4/MonthlyRecurrence:
     title: JRC Monthly Water Recurrence, v1.4
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -6037,7 +6037,7 @@ datasets:
 
   JRC/GSW1_4/YearlyHistory:
     title: "JRC Global Surface Water — Yearly Water Classification History v1.4 (1984-2021)"
-    provider: EC JRC / Google
+    provider: ec-jrc
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 30
@@ -6056,7 +6056,7 @@ datasets:
 
   MODIS/006/MOD10A1:
     title: MOD10A1.006 Terra Snow Cover Daily Global 500m [deprecated]
-    provider: NASA NSIDC DAAC at CIRES
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -6095,7 +6095,7 @@ datasets:
 
   MODIS/006/MOD16A2:
     title: "MOD16A2.006: Terra Net Evapotranspiration 8-Day Global 500m (legacy)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -6127,7 +6127,7 @@ datasets:
 
   MODIS/006/MYD10A1:
     title: MYD10A1.006 Aqua Snow Cover Daily Global 500m [deprecated]
-    provider: NASA NSIDC DAAC at CIRES
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -6166,7 +6166,7 @@ datasets:
 
   MODIS/061/MOD10A1:
     title: MOD10A1.061 Terra Snow Cover Daily Global 500m
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -6196,7 +6196,7 @@ datasets:
 
   MODIS/061/MOD10A2:
     title: "MOD10A2.061: Terra Snow Cover 8-Day L3 Global 500m"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -6213,7 +6213,7 @@ datasets:
 
   MODIS/061/MOD16A2:
     title: "MOD16A2.061: Terra Net Evapotranspiration 8-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -6245,7 +6245,7 @@ datasets:
 
   MODIS/061/MOD16A2GF:
     title: "MOD16A2GF.061: Terra Net Evapotranspiration Gap-Filled 8-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -6277,7 +6277,7 @@ datasets:
 
   MODIS/061/MYD10A1:
     title: "MYD10A1.061: Aqua Snow Cover Daily Global 500m"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -6305,7 +6305,7 @@ datasets:
 
   MODIS/061/MYD16A2:
     title: "MYD16A2.061: Aqua Net Evapotranspiration 8-Day Global 500m"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 500
@@ -6337,7 +6337,7 @@ datasets:
 
   MODIS/MOD10A1:
     title: MOD10A1.005 Terra Snow Cover Daily Global 500m [deprecated]
-    provider: NSIDC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -6363,7 +6363,7 @@ datasets:
 
   MODIS/MYD10A1:
     title: MYD10A1.005 Aqua Snow Cover Daily Global 500m [deprecated]
-    provider: NSIDC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 500
@@ -6389,7 +6389,7 @@ datasets:
 
   MODIS/NTSG/MOD16A2/105:
     title: 'MOD16A2: MODIS Global Terrestrial Evapotranspiration 8-Day Global 1km'
-    provider: Numerical Terradynamic Simulation Group, The University of Montana
+    provider: montana-ntsg
     ee_type: image_collection
     cadence: { interval: 8, unit: day }
     spatial_resolution: 1000
@@ -6429,7 +6429,7 @@ datasets:
 
   NASA/FLDAS/NOAH01/C/GL/M/V001:
     title: "FLDAS NOAH01 v001: FEWS NET Land Data Assimilation System (Global Monthly 0.1°)"
-    provider: NASA GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 11132
@@ -6475,7 +6475,7 @@ datasets:
 
   NASA/GLDAS/V021/NOAH/G025/T3H:
     title: "GLDAS-2.1 Noah Land Surface Model 3-hourly 0.25° (V021)"
-    provider: NASA GES DISC at Goddard Space Flight Center
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 27830
@@ -6524,7 +6524,7 @@ datasets:
 
   NASA/GLDAS/V022/CLSM/G025/DA1D:
     title: "GLDAS-2.2 CLSM Daily 0.25° (Catchment Land Surface Model with DA, 2003-present)"
-    provider: NASA GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27830
@@ -6567,7 +6567,7 @@ datasets:
 
   NASA/GLDAS/V20/NOAH/G025/T3H:
     title: "GLDAS-2.0 NOAH 3-hourly 0.25° (reprocessed 1948-2014 historical)"
-    provider: NASA GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 27830
@@ -6613,7 +6613,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS/LAND:
     title: "GRACE Tellus Monthly Mass Grids — Land Water Storage Anomalies"
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 111320
@@ -6635,7 +6635,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS/MASCON:
     title: GRACE Monthly Mass Grids - Global Mascons [deprecated]
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 55660
     extent:
@@ -6657,7 +6657,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS/MASCON_CRI:
     title: GRACE Monthly Mass Grids - Global Mascon (CRI Filtered) [deprecated]
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 55660
     extent:
@@ -6679,7 +6679,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS/OCEAN:
     title: GRACE Monthly Mass Grids - Ocean [deprecated]
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 111320
     extent:
@@ -6707,7 +6707,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS/OCEAN_EOFR:
     title: GRACE Monthly Mass Grids - Ocean EOFR
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 111320
     extent:
@@ -6735,7 +6735,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS_V03/MASCON:
     title: GRACE Monthly Mass Grids Release 6.1 Version 3 - Global Mascons [deprecated]
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 55660
     extent:
@@ -6753,7 +6753,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS_V03/MASCON_CRI:
     title: GRACE Monthly Mass Grids Version 03 - Global Mascon (CRI Filtered) [deprecated]
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 55660
     extent:
@@ -6771,7 +6771,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS_V04/LAND:
     title: GRACE Monthly Mass Grids Release 06 Version 04 - Land
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 111320
     extent:
@@ -6799,7 +6799,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS_V04/MASCON:
     title: GRACE Monthly Mass Grids Release 6.3 Version 4 - Global Mascons
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 55660
     extent:
@@ -6817,7 +6817,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS_V04/MASCON_CRI:
     title: GRACE Monthly Mass Grids Version 04 - Global Mascon (CRI Filtered)
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 55660
     extent:
@@ -6835,7 +6835,7 @@ datasets:
 
   NASA/GRACE/MASS_GRIDS_V04/OCEAN:
     title: GRACE Monthly Mass Grids Release 06 Version 04 - Ocean
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 111320
     extent:
@@ -6857,7 +6857,7 @@ datasets:
 
   NASA/NLDAS/FORA0125_H002:
     title: "NLDAS-2 FORA: North American Land Data Assimilation System Hourly Forcing (0.125°)"
-    provider: NASA GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 13915
@@ -6894,7 +6894,7 @@ datasets:
 
   NASA/OCEANDATA/MODIS-Aqua/L3SMI:
     title: "MODIS-Aqua Ocean Color SMI: Standard Mapped Image (chlorophyll, Rrs, POC)"
-    provider: NASA OB.DAAC
+    provider: nasa-ob-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4616
@@ -6932,7 +6932,7 @@ datasets:
 
   NASA/OCEANDATA/MODIS-Terra/L3SMI:
     title: 'Ocean Color SMI: Standard Mapped Image MODIS Terra Data'
-    provider: NASA OB.DAAC at NASA Goddard Space Flight Center
+    provider: nasa-ob-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4616
@@ -7026,7 +7026,7 @@ datasets:
 
   NASA/OCEANDATA/SeaWiFS/L3SMI:
     title: 'Ocean Color SMI: Standard Mapped Image SeaWiFS Data'
-    provider: NASA OB.DAAC at NASA Goddard Space Flight Center
+    provider: nasa-ob-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 9200
@@ -7084,7 +7084,7 @@ datasets:
 
   NASA/SMAP/SPL3SMP_E/005:
     title: "SMAP L3 Enhanced Daily 9km Soil Moisture (SPL3SMP_E.005, legacy)"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 9000
@@ -7115,7 +7115,7 @@ datasets:
 
   NASA/SMAP/SPL3SMP_E/006:
     title: "SMAP L3 Enhanced Daily 9km Soil Moisture (SPL3SMP_E.006)"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 9000
@@ -7146,7 +7146,7 @@ datasets:
 
   NASA/SMAP/SPL4SMGP/007:
     title: "SMAP L4 Global 3-hourly 9km Surface and Root-Zone Soil Moisture (SPL4SMGP.007, legacy)"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 11000
@@ -7179,7 +7179,7 @@ datasets:
 
   NASA/SMAP/SPL4SMGP/008:
     title: "SMAP L4 Global 3-hourly 9km Surface and Root-Zone Soil Moisture (SPL4SMGP.008)"
-    provider: NASA NSIDC DAAC
+    provider: nasa-nsidc-daac
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 11000
@@ -7215,7 +7215,7 @@ datasets:
 
   NASA_USDA/HSL/SMAP10KM_soil_moisture:
     title: NASA-USDA Enhanced SMAP Global Soil Moisture Data [deprecated]
-    provider: NASA GSFC
+    provider: nasa-gsfc
     ee_type: image_collection
     cadence: { interval: 3, unit: day }
     spatial_resolution: 10000
@@ -7256,7 +7256,7 @@ datasets:
 
   NASA_USDA/HSL/SMAP_soil_moisture:
     title: NASA-USDA SMAP Global Soil Moisture Data [deprecated]
-    provider: NASA GSFC
+    provider: nasa-gsfc
     ee_type: image_collection
     cadence: { interval: 3, unit: day }
     spatial_resolution: 27830
@@ -7297,7 +7297,7 @@ datasets:
 
   NASA_USDA/HSL/soil_moisture:
     title: NASA-USDA Global Soil Moisture Data [deprecated]
-    provider: NASA GSFC
+    provider: nasa-gsfc
     ee_type: image_collection
     cadence: { interval: 3, unit: day }
     spatial_resolution: 27830
@@ -7338,7 +7338,7 @@ datasets:
 
   NOAA/CDR/OISST/V2:
     title: 'NOAA CDR OISST v2: Optimum Interpolation Sea Surface Temperature [deprecated]'
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27830
@@ -7376,7 +7376,7 @@ datasets:
 
   NOAA/CDR/OISST/V2_1:
     title: "NOAA CDR OISST v02r01: Optimum Interpolation SST (Daily 0.25°)"
-    provider: NOAA CDR Program
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27830
@@ -7407,7 +7407,7 @@ datasets:
 
   NOAA/CDR/SST_PATHFINDER/V53:
     title: "NOAA AVHRR Pathfinder v5.3: Global 4km Sea-Surface Temperature (12-hourly)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 12, unit: hour }
     spatial_resolution: 4000
@@ -7435,7 +7435,7 @@ datasets:
 
   NOAA/CDR/SST_WHOI/V2:
     title: "NOAA CDR WHOI Sea-Surface Temperature v2 (3-hourly ~28km, 1988-)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 27830
@@ -7453,7 +7453,7 @@ datasets:
 
   NOAA/NWS/RTMA:
     title: "NOAA NWS RTMA: Real-Time Mesoscale Analysis (CONUS, hourly 2.5km)"
-    provider: NOAA NWS
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 2500
@@ -7499,7 +7499,7 @@ datasets:
 
   OPERA/DSWX/L3_V1/HLS:
     title: Dynamic Surface Water Extent from Harmonized Landsat Sentinel-2 (DSWx-HLS) V1
-    provider: NASA JPL
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -7531,7 +7531,7 @@ datasets:
 
   OPERA/DSWX/L3_V1/S1:
     title: Dynamic Surface Water Extent from Sentinel-1 (DSWx-S1) V1
-    provider: NASA JPL
+    provider: nasa-jpl
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -7553,7 +7553,7 @@ datasets:
 
   OpenET/DISALEXI/CONUS/GRIDMET/MONTHLY/v2_0:
     title: "OpenET DisALEXI Monthly ET v2.0 (CONUS, 30m, 2001-)"
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -7573,7 +7573,7 @@ datasets:
 
   OpenET/EEMETRIC/CONUS/GRIDMET/MONTHLY/v2_0:
     title: "OpenET eeMETRIC Monthly ET v2.0 (CONUS, 30m, 1999-)"
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -7593,7 +7593,7 @@ datasets:
 
   OpenET/ENSEMBLE/CONUS/GRIDMET/MONTHLY/v2_0:
     title: "OpenET Ensemble Monthly ET v2.0 (CONUS, 30m, 1999-)"
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -7622,7 +7622,7 @@ datasets:
 
   OpenET/GEESEBAL/CONUS/GRIDMET/MONTHLY/v2_0:
     title: "OpenET geeSEBAL Monthly ET v2.0 (CONUS, 30m, 1999-)"
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -7642,7 +7642,7 @@ datasets:
 
   OpenET/PTJPL/CONUS/GRIDMET/MONTHLY/v2_0:
     title: "OpenET PT-JPL Monthly ET v2.0 (CONUS, 30m, 1999-)"
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -7662,7 +7662,7 @@ datasets:
 
   OpenET/SIMS/CONUS/GRIDMET/MONTHLY/v2_0:
     title: "OpenET SIMS Monthly ET v2.0 (CONUS, 30m, 1999-)"
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -7682,7 +7682,7 @@ datasets:
 
   OpenET/SSEBOP/CONUS/GRIDMET/MONTHLY/v2_0:
     title: "OpenET SSEBop Monthly ET v2.0 (CONUS, 30m, 1999-)"
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 30
@@ -7702,7 +7702,7 @@ datasets:
 
   TERN/AET/CMRSET_LANDSAT_V2_1:
     title: Actual Evapotranspiration for Australia (CMRSET Landsat V2.1) [deprecated]
-    provider: TERN Landscapes / CSIRO Land and Water
+    provider: tern-csiro
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -7721,7 +7721,7 @@ datasets:
 
   TERN/AET/CMRSET_LANDSAT_V2_2:
     title: Actual Evapotranspiration for Australia (CMRSET Landsat V2.2)
-    provider: TERN Landscapes / CSIRO Land and Water
+    provider: tern-csiro
     ee_type: image_collection
     spatial_resolution: 30
     extent:
@@ -7740,7 +7740,7 @@ datasets:
 
   UQ/murray/Intertidal/v1_1/data_mask:
     title: Murray Global Intertidal Change Data Mask
-    provider: Murray/UQ/Google/USGS/NASA
+    provider: uq-murray
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -7757,7 +7757,7 @@ datasets:
 
   UQ/murray/Intertidal/v1_1/global_intertidal:
     title: Murray Global Intertidal Change Classification
-    provider: Murray/UQ/Google/USGS/NASA
+    provider: uq-murray
     ee_type: image_collection
     cadence: { interval: 3, unit: year }
     spatial_resolution: 30
@@ -7775,7 +7775,7 @@ datasets:
 
   UQ/murray/Intertidal/v1_1/qa_pixel_count:
     title: Murray Global Intertidal Change QA Pixel Count
-    provider: Murray/UQ/Google/USGS/NASA
+    provider: uq-murray
     ee_type: image_collection
     cadence: { interval: 3, unit: year }
     spatial_resolution: 30
@@ -7796,7 +7796,7 @@ datasets:
 
   USGS/WBD/2017/HUC02:
     title: 'HUC02: USGS Watershed Boundary Dataset of Regions'
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2017-04-22"
@@ -7809,7 +7809,7 @@ datasets:
 
   USGS/WBD/2017/HUC04:
     title: 'HUC04: USGS Watershed Boundary Dataset of Subregions'
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2017-04-22"
@@ -7822,7 +7822,7 @@ datasets:
 
   USGS/WBD/2017/HUC06:
     title: 'HUC06: USGS Watershed Boundary Dataset of Basins'
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2017-04-22"
@@ -7835,7 +7835,7 @@ datasets:
 
   USGS/WBD/2017/HUC08:
     title: 'HUC08: USGS Watershed Boundary Dataset of Subbasins'
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2017-04-22"
@@ -7848,7 +7848,7 @@ datasets:
 
   USGS/WBD/2017/HUC10:
     title: 'HUC10: USGS Watershed Boundary Dataset of Watersheds'
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2017-04-22"
@@ -7861,7 +7861,7 @@ datasets:
 
   USGS/WBD/2017/HUC12:
     title: 'HUC12: USGS Watershed Boundary Dataset of Subwatersheds'
-    provider: United States Geological Survey
+    provider: usgs
     ee_type: table
     extent:
       start_date: "2017-04-22"
@@ -7874,7 +7874,7 @@ datasets:
 
   WRI/Aqueduct_Flood_Hazard_Maps/V2:
     title: WRI Aqueduct Floods Hazard Maps Version 2
-    provider: World Resources Institute
+    provider: wri
     ee_type: image_collection
     spatial_resolution: 1000
     extent:
@@ -7892,7 +7892,7 @@ datasets:
 
   WRI/Aqueduct_Water_Risk/V4/baseline_annual:
     title: WRI Aqueduct Baseline Annual Version 4.0
-    provider: World Resources Institute
+    provider: wri
     ee_type: table
     extent:
       start_date: "2010-01-01"
@@ -7904,7 +7904,7 @@ datasets:
 
   WRI/Aqueduct_Water_Risk/V4/baseline_monthly:
     title: WRI Aqueduct Baseline Monthly Version 4.0
-    provider: World Resources Institute
+    provider: wri
     ee_type: table
     extent:
       start_date: "2010-01-01"
@@ -7916,7 +7916,7 @@ datasets:
 
   WRI/Aqueduct_Water_Risk/V4/future_annual:
     title: WRI Aqueduct Future Annual Version 4.0
-    provider: World Resources Institute
+    provider: wri
     ee_type: table
     extent:
       start_date: "2010-01-01"
@@ -7928,7 +7928,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level03:
     title: WWF HydroATLAS Basins Level 03
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -7940,7 +7940,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level04:
     title: WWF HydroATLAS Basins Level 04
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -7952,7 +7952,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level05:
     title: WWF HydroATLAS Basins Level 05
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -7964,7 +7964,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level06:
     title: WWF HydroATLAS Basins Level 06
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -7976,7 +7976,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level07:
     title: WWF HydroATLAS Basins Level 07
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -7988,7 +7988,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level08:
     title: WWF HydroATLAS Basins Level 08
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -8000,7 +8000,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level09:
     title: WWF HydroATLAS Basins Level 09
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -8012,7 +8012,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level10:
     title: WWF HydroATLAS Basins Level 10
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -8024,7 +8024,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level11:
     title: WWF HydroATLAS Basins Level 11
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -8036,7 +8036,7 @@ datasets:
 
   WWF/HydroATLAS/v1/Basins/level12:
     title: WWF HydroATLAS Basins Level 12
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-22"
@@ -8048,7 +8048,7 @@ datasets:
 
   WWF/HydroSHEDS/03CONDEM:
     title: WWF HydroSHEDS Hydrologically Conditioned DEM, 3 Arc-Seconds
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 92.77
     extent:
@@ -8067,7 +8067,7 @@ datasets:
 
   WWF/HydroSHEDS/03DIR:
     title: "WWF HydroSHEDS Drainage Direction (3 arc-seconds)"
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 92.77
     extent:
@@ -8085,7 +8085,7 @@ datasets:
 
   WWF/HydroSHEDS/03VFDEM:
     title: WWF HydroSHEDS Void-Filled DEM, 3 Arc-Seconds
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 92.77
     extent:
@@ -8104,7 +8104,7 @@ datasets:
 
   WWF/HydroSHEDS/15ACC:
     title: "WWF HydroSHEDS Flow Accumulation (15 arc-seconds, ~500m)"
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 463.83
     extent:
@@ -8120,7 +8120,7 @@ datasets:
 
   WWF/HydroSHEDS/15DIR:
     title: WWF HydroSHEDS Drainage Direction, 15 Arc-Seconds
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 463.83
     extent:
@@ -8138,7 +8138,7 @@ datasets:
 
   WWF/HydroSHEDS/30ACC:
     title: WWF HydroSHEDS Flow Accumulation, 30 Arc-Seconds
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -8156,7 +8156,7 @@ datasets:
 
   WWF/HydroSHEDS/30DIR:
     title: "WWF HydroSHEDS Drainage Direction (30 arc-seconds, ~1km)"
-    provider: WWF
+    provider: wwf
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -8174,7 +8174,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_1:
     title: WWF HydroSHEDS Basins Level 1
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8187,7 +8187,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_10:
     title: WWF HydroSHEDS Basins Level 10
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8200,7 +8200,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_11:
     title: WWF HydroSHEDS Basins Level 11
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8213,7 +8213,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_12:
     title: WWF HydroSHEDS Basins Level 12
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8226,7 +8226,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_2:
     title: WWF HydroSHEDS Basins Level 2
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8239,7 +8239,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_3:
     title: WWF HydroSHEDS Basins Level 3
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8252,7 +8252,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_4:
     title: WWF HydroSHEDS Basins Level 4
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8265,7 +8265,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_5:
     title: WWF HydroSHEDS Basins Level 5
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8278,7 +8278,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_6:
     title: WWF HydroSHEDS Basins Level 6
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8291,7 +8291,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_7:
     title: WWF HydroSHEDS Basins Level 7
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8304,7 +8304,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_8:
     title: WWF HydroSHEDS Basins Level 8
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8317,7 +8317,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/Basins/hybas_9:
     title: WWF HydroSHEDS Basins Level 9
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"
@@ -8330,7 +8330,7 @@ datasets:
 
   WWF/HydroSHEDS/v1/FreeFlowingRivers:
     title: WWF HydroSHEDS Free Flowing Rivers Network v1
-    provider: WWF
+    provider: wwf
     ee_type: table
     extent:
       start_date: "2000-02-11"

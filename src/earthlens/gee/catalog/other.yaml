@@ -5,7 +5,7 @@
 datasets:
   CIESIN/GPWv4/ancillary-data-grids:
     title: 'GPWv4: Gridded Population of the World Version 4, Ancillary Data Grids [deprecated]'
-    provider: CIESIN
+    provider: ciesin
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -40,7 +40,7 @@ datasets:
 
   CIESIN/GPWv4/population-count:
     title: "GPWv4 Population Count (legacy, 1km, 5-yearly 2000-2020)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -56,7 +56,7 @@ datasets:
 
   CIESIN/GPWv4/population-density:
     title: "GPWv4 Population Density (legacy, 1km, 5-yearly 2000-2020)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -72,7 +72,7 @@ datasets:
 
   CIESIN/GPWv4/unwpp-adjusted-population-count:
     title: "GPWv4 UN WPP-Adjusted Population Count (legacy, 1km, 5-yearly)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -88,7 +88,7 @@ datasets:
 
   CIESIN/GPWv4/unwpp-adjusted-population-density:
     title: "GPWv4 UN WPP-Adjusted Population Density (legacy, 1km, 5-yearly)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -104,7 +104,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_Basic_Demographic_Characteristics:
     title: "GPWv4.11 Basic Demographic Characteristics (1km, age + sex per cell, 5-yearly)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -121,7 +121,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_Data_Context:
     title: 'GPWv411: Data Context (Gridded Population of the World Version 4.11)'
-    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    provider: nasa-sedac
     ee_type: image_collection
     spatial_resolution: 927.67
     extent:
@@ -138,7 +138,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_Land_Area:
     title: "GPWv4.11 Land Area (1km, 30 arc-second pixel land fraction)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     spatial_resolution: 927.67
     extent:
@@ -154,7 +154,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_Mean_Administrative_Unit_Area:
     title: 'GPWv411: Mean Administrative Unit Area (Gridded Population of the World Version 4.11)'
-    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    provider: nasa-sedac
     ee_type: image_collection
     spatial_resolution: 927.67
     extent:
@@ -171,7 +171,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_National_Identifier_Grid:
     title: 'GPWv411: National Identifier Grid (Gridded Population of the World Version 4.11)'
-    provider: NASA SEDAC at the Center for International Earth Science Information Network
+    provider: nasa-sedac
     ee_type: image_collection
     spatial_resolution: 927.67
     extent:
@@ -188,7 +188,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_Population_Count:
     title: "GPWv4.11 Population Count (Gridded Population of the World, 5-yearly 1km)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -206,7 +206,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_Population_Density:
     title: "GPWv4.11 Population Density (Gridded Population of the World, 5-yearly 1km)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -223,7 +223,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_UNWPP-Adjusted_Population_Count:
     title: "GPWv4.11 UN WPP-Adjusted Population Count (5-yearly 1km, 2000-2020)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -241,7 +241,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_UNWPP-Adjusted_Population_Density:
     title: "GPWv4.11 UN WPP-Adjusted Population Density (5-yearly 1km, 2000-2020)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     cadence: { interval: 5, unit: year }
     spatial_resolution: 927.67
@@ -259,7 +259,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_Water_Area:
     title: "GPWv4.11 Water Area (1km, 30 arc-second pixel water fraction)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     spatial_resolution: 927.67
     extent:
@@ -275,7 +275,7 @@ datasets:
 
   CIESIN/GPWv411/GPW_Water_Mask:
     title: "GPWv4.11 Water Mask (1km, water-class enum)"
-    provider: NASA SEDAC / CIESIN
+    provider: nasa-sedac
     ee_type: image_collection
     spatial_resolution: 927.67
     extent:
@@ -292,7 +292,7 @@ datasets:
 
   CSIRO/SLGA:
     title: "CSIRO SLGA: Soil and Landscape Grid of Australia (Soil Attributes, ~90m)"
-    provider: CSIRO / SLGA
+    provider: csiro
     ee_type: image_collection
     spatial_resolution: 92.77
     extent:
@@ -331,7 +331,7 @@ datasets:
 
   DOE/ORNL/LandScan_HD/Ukraine_202201:
     title: "ORNL LandScan HD: Ukraine 24-hour Population Count (100m, January 2022)"
-    provider: Oak Ridge National Laboratory
+    provider: ornl
     ee_type: image
     spatial_resolution: 100
     extent:
@@ -348,7 +348,7 @@ datasets:
 
   EDF/OGIM/OGIM_v2-4_RF06_RF08:
     title: 'OGIM: Oil and Gas Infrastructure Mapping Database v2.4_RF06_RF08 [deprecated]'
-    provider: Environmental Defense Fund - MethaneSAT
+    provider: edf-methanesat
     ee_type: table
     extent:
       start_date: "2023-11-14"
@@ -361,7 +361,7 @@ datasets:
 
   EDF/OGIM/current:
     title: 'OGIM: Oil and Gas Infrastructure Mapping Database v2.5.1'
-    provider: Environmental Defense Fund - MethaneSAT
+    provider: edf-methanesat
     ee_type: table
     extent:
       start_date: "2024-05-15"
@@ -373,7 +373,7 @@ datasets:
 
   EPA/Ecoregions/2013/L3:
     title: US EPA Ecoregions (Level III)
-    provider: United States Environmental Protection Agency
+    provider: us-epa
     ee_type: table
     extent:
       start_date: "2013-04-16"
@@ -385,7 +385,7 @@ datasets:
 
   EPA/Ecoregions/2013/L4:
     title: US EPA Ecoregions (Level IV)
-    provider: United States Environmental Protection Agency
+    provider: us-epa
     ee_type: table
     extent:
       start_date: "2013-04-16"
@@ -397,7 +397,7 @@ datasets:
 
   FAO/GAUL/2015/level0:
     title: 'FAO GAUL: Global Administrative Unit Layers 2015, Country Boundaries'
-    provider: FAO UN
+    provider: fao
     ee_type: table
     extent:
       start_date: "2014-12-19"
@@ -409,7 +409,7 @@ datasets:
 
   FAO/GAUL/2015/level1:
     title: 'FAO GAUL: Global Administrative Unit Layers 2015, First-Level Administrative Units'
-    provider: FAO UN
+    provider: fao
     ee_type: table
     extent:
       start_date: "2014-12-19"
@@ -421,7 +421,7 @@ datasets:
 
   FAO/GAUL/2015/level2:
     title: 'FAO GAUL: Global Administrative Unit Layers 2015, Second-Level Administrative Units'
-    provider: FAO UN
+    provider: fao
     ee_type: table
     extent:
       start_date: "2014-12-19"
@@ -433,7 +433,7 @@ datasets:
 
   FAO/GAUL_SIMPLIFIED_500m/2015/level0:
     title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, Country Boundaries'
-    provider: FAO UN
+    provider: fao
     ee_type: table
     extent:
       start_date: "2014-12-19"
@@ -445,7 +445,7 @@ datasets:
 
   FAO/GAUL_SIMPLIFIED_500m/2015/level1:
     title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, First-Level Administrative'
-    provider: FAO UN
+    provider: fao
     ee_type: table
     extent:
       start_date: "2014-12-19"
@@ -457,7 +457,7 @@ datasets:
 
   FAO/GAUL_SIMPLIFIED_500m/2015/level2:
     title: 'FAO GAUL 500m Simplified: Global Administrative Unit Layers 2015, Second-Level Administrative'
-    provider: FAO UN
+    provider: fao
     ee_type: table
     extent:
       start_date: "2014-12-19"
@@ -469,7 +469,7 @@ datasets:
 
   GOOGLE/AirView/California_Unified_2015_2019:
     title: 'Google Street View Air Quality: High Resolution Air Pollution Mapping in California'
-    provider: Google / Aclima
+    provider: google
     ee_type: table
     extent:
       start_date: "2015-05-28"
@@ -481,7 +481,7 @@ datasets:
 
   GOOGLE/Research/open-buildings-temporal/v1:
     title: Open Buildings Temporal V1
-    provider: Google Research - Open Buildings
+    provider: google-research
     ee_type: image_collection
     spatial_resolution: 4
     extent:
@@ -507,7 +507,7 @@ datasets:
 
   GOOGLE/Research/open-buildings/v1/polygons:
     title: Open Buildings V1 Polygons [deprecated]
-    provider: Google Research - Open Buildings
+    provider: google-research
     ee_type: table
     extent:
       start_date: "2021-04-30"
@@ -519,7 +519,7 @@ datasets:
 
   GOOGLE/Research/open-buildings/v2/polygons:
     title: Open Buildings V2 Polygons [deprecated]
-    provider: Google Research - Open Buildings
+    provider: google-research
     ee_type: table
     extent:
       start_date: "2022-08-30"
@@ -531,7 +531,7 @@ datasets:
 
   GOOGLE/Research/open-buildings/v3/polygons:
     title: Open Buildings V3 Polygons
-    provider: Google Research - Open Buildings
+    provider: google-research
     ee_type: table
     extent:
       start_date: "2023-05-30"
@@ -543,7 +543,7 @@ datasets:
 
   GOOGLE/SATELLITE_EMBEDDING/V1/ANNUAL:
     title: Satellite Embedding V1
-    provider: Google Earth Engine
+    provider: google
     ee_type: image_collection
     spatial_resolution: 10
     extent:
@@ -875,7 +875,7 @@ datasets:
 
   ISDASOIL/Africa/v1/aluminium_extractable:
     title: iSDAsoil extractable Aluminium
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -909,7 +909,7 @@ datasets:
 
   ISDASOIL/Africa/v1/bedrock_depth:
     title: iSDAsoil Depth to Bedrock
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -933,7 +933,7 @@ datasets:
 
   ISDASOIL/Africa/v1/bulk_density:
     title: iSDAsoil Bulk Density, <2mm Fraction
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -967,7 +967,7 @@ datasets:
 
   ISDASOIL/Africa/v1/calcium_extractable:
     title: iSDAsoil Extractable Calcium
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1001,7 +1001,7 @@ datasets:
 
   ISDASOIL/Africa/v1/carbon_organic:
     title: iSDAsoil Organic Carbon
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1035,7 +1035,7 @@ datasets:
 
   ISDASOIL/Africa/v1/carbon_total:
     title: iSDAsoil Total Carbon
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1069,7 +1069,7 @@ datasets:
 
   ISDASOIL/Africa/v1/cation_exchange_capacity:
     title: iSDAsoil Effective Cation Exchange Capacity
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1103,7 +1103,7 @@ datasets:
 
   ISDASOIL/Africa/v1/clay_content:
     title: iSDAsoil Clay Content
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1137,7 +1137,7 @@ datasets:
 
   ISDASOIL/Africa/v1/fcc:
     title: iSDAsoil Fertility Capability Classification
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1155,7 +1155,7 @@ datasets:
 
   ISDASOIL/Africa/v1/iron_extractable:
     title: iSDAsoil Extractable Iron
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1189,7 +1189,7 @@ datasets:
 
   ISDASOIL/Africa/v1/magnesium_extractable:
     title: iSDAsoil Extractable Magnesium
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1223,7 +1223,7 @@ datasets:
 
   ISDASOIL/Africa/v1/nitrogen_total:
     title: iSDAsoil Total Nitrogen
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1257,7 +1257,7 @@ datasets:
 
   ISDASOIL/Africa/v1/ph:
     title: iSDAsoil pH
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1287,7 +1287,7 @@ datasets:
 
   ISDASOIL/Africa/v1/phosphorus_extractable:
     title: iSDAsoil Extractable Phosphorus
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1321,7 +1321,7 @@ datasets:
 
   ISDASOIL/Africa/v1/potassium_extractable:
     title: iSDAsoil Extractable Potassium
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1355,7 +1355,7 @@ datasets:
 
   ISDASOIL/Africa/v1/sand_content:
     title: iSDAsoil Sand Content
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1389,7 +1389,7 @@ datasets:
 
   ISDASOIL/Africa/v1/silt_content:
     title: iSDAsoil Silt Content
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1423,7 +1423,7 @@ datasets:
 
   ISDASOIL/Africa/v1/stone_content:
     title: iSDAsoil Stone Content
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1457,7 +1457,7 @@ datasets:
 
   ISDASOIL/Africa/v1/sulphur_extractable:
     title: iSDAsoil Extractable Sulfur
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1491,7 +1491,7 @@ datasets:
 
   ISDASOIL/Africa/v1/texture_class:
     title: iSDAsoil USDA Texture Class
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1509,7 +1509,7 @@ datasets:
 
   ISDASOIL/Africa/v1/zinc_extractable:
     title: iSDAsoil Extractable Zinc
-    provider: iSDA
+    provider: isda
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -1543,7 +1543,7 @@ datasets:
 
   ISRIC/SoilGrids250m/v2_0:
     title: "ISRIC SoilGrids 250m v2.0 — Volumetric Water Content (multiple depths)"
-    provider: ISRIC — World Soil Information
+    provider: isric
     ee_type: image_collection
     spatial_resolution: 250
     extent:
@@ -1574,7 +1574,7 @@ datasets:
 
   JRC/LUCAS/THLOC/V1/2022:
     title: LUCAS THLOC (Points with attributes, 2022) V1
-    provider: Joint Research Center, Unit D5
+    provider: ec-jrc
     ee_type: table
     extent:
       start_date: "2022-01-01"
@@ -1586,7 +1586,7 @@ datasets:
 
   JRC/LUCAS_HARMO/COPERNICUS_POLYGONS/V1/2018:
     title: LUCAS Copernicus (Polygons with attributes, 2018) V1
-    provider: Joint Research Center, Unit D5
+    provider: ec-jrc
     ee_type: table
     extent:
       start_date: "2006-02-05"
@@ -1599,7 +1599,7 @@ datasets:
 
   JRC/LUCAS_HARMO/THLOC/V1:
     title: LUCAS Harmonized (Theoretical Location, 2006-2018) V1
-    provider: Joint Research Center, Unit D5
+    provider: ec-jrc
     ee_type: table
     extent:
       start_date: "2006-02-05"
@@ -1612,7 +1612,7 @@ datasets:
 
   NOAA/IBTrACS/v4:
     title: International Best Track Archive for Climate Stewardship Project
-    provider: NOAA NCEI
+    provider: noaa
     ee_type: table
     extent:
       start_date: "1842-10-25"
@@ -1625,7 +1625,7 @@ datasets:
 
   NOAA/NHC/HURDAT2/atlantic:
     title: NOAA NHC HURDAT2 Atlantic Hurricane Catalog
-    provider: NOAA NHC
+    provider: noaa-nhc
     ee_type: table
     extent:
       start_date: "1851-06-25"
@@ -1638,7 +1638,7 @@ datasets:
 
   NOAA/NHC/HURDAT2/pacific:
     title: NOAA NHC HURDAT2 Pacific Hurricane Catalog
-    provider: NOAA NHC
+    provider: noaa-nhc
     ee_type: table
     extent:
       start_date: "1949-06-11"
@@ -1651,7 +1651,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_BULKDENS-FINEEARTH_USDA-4A1H_M/v02:
     title: "OpenLandMap Soil Bulk Density (fine earth, 250m, 6 depths)"
-    provider: EnvirometriX / OpenLandMap
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1688,7 +1688,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_CLAY-WFRACTION_USDA-3A1A1A_M/v02:
     title: OpenLandMap Clay Content
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1731,7 +1731,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_GRTGROUP_USDA-SOILTAX-HAPLUDALFS_P/v01:
     title: OpenLandMap Predicted Hapludalfs Probability
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1749,7 +1749,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_GRTGROUP_USDA-SOILTAX_C/v01:
     title: OpenLandMap USDA Soil Taxonomy Great Groups
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1764,7 +1764,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_ORGANIC-CARBON_USDA-6A1C_M/v02:
     title: "OpenLandMap Soil Organic Carbon Content (250m, 6 depths)"
-    provider: EnvirometriX / OpenLandMap
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1801,7 +1801,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_PH-H2O_USDA-4C1A2A_M/v02:
     title: OpenLandMap Soil pH in H2O
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1844,7 +1844,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_SAND-WFRACTION_USDA-3A1A1A_M/v02:
     title: OpenLandMap Sand Content
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1887,7 +1887,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02:
     title: "OpenLandMap Soil Texture Class (USDA system, 250m, 6 depths)"
-    provider: EnvirometriX / OpenLandMap
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1912,7 +1912,7 @@ datasets:
 
   OpenLandMap/SOL/SOL_WATERCONTENT-33KPA_USDA-4B1C_M/v01:
     title: OpenLandMap Soil Water Content at 33kPa (Field Capacity)
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 250
     extent:
@@ -1955,7 +1955,7 @@ datasets:
 
   TIGER/2010/BG:
     title: 'TIGER: US Census Block Groups (BG) 2010'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2010-01-01"
@@ -1968,7 +1968,7 @@ datasets:
 
   TIGER/2010/Blocks:
     title: 'TIGER: US Census Blocks'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2010-01-01"
@@ -1981,7 +1981,7 @@ datasets:
 
   TIGER/2010/Tracts_DP1:
     title: 'TIGER: US Census Tracts Demographic - Profile 1'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2010-01-01"
@@ -1994,7 +1994,7 @@ datasets:
 
   TIGER/2010/ZCTA5:
     title: 'TIGER: US Census 5-digit ZIP Code Tabulation Areas 2010 [deprecated]'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2010-01-01"
@@ -2007,7 +2007,7 @@ datasets:
 
   TIGER/2016/Counties:
     title: 'TIGER: US Census Counties 2016'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2016-01-01"
@@ -2020,7 +2020,7 @@ datasets:
 
   TIGER/2016/Roads:
     title: 'TIGER: US Census Roads'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2016-01-01"
@@ -2033,7 +2033,7 @@ datasets:
 
   TIGER/2016/States:
     title: 'TIGER: US Census States 2016'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2016-01-01"
@@ -2046,7 +2046,7 @@ datasets:
 
   TIGER/2018/Counties:
     title: 'TIGER: US Census Counties 2018'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2018-01-01"
@@ -2059,7 +2059,7 @@ datasets:
 
   TIGER/2018/States:
     title: 'TIGER: US Census States 2018'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2018-01-01"
@@ -2072,7 +2072,7 @@ datasets:
 
   TIGER/2020/BG:
     title: 'TIGER: US Census Block Groups (BG) 2020'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2020-01-01"
@@ -2085,7 +2085,7 @@ datasets:
 
   TIGER/2020/TABBLOCK20:
     title: 'TIGER: 2020 Tabulation (Census) Block'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2020-01-01"
@@ -2098,7 +2098,7 @@ datasets:
 
   TIGER/2020/TRACT:
     title: 'TIGER: US Census Tracts'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2020-01-01"
@@ -2111,7 +2111,7 @@ datasets:
 
   TIGER/2020/ZCTA5:
     title: 'TIGER: US Census 5-digit ZIP Code Tabulation Areas 2020'
-    provider: United States Census Bureau
+    provider: us-census-bureau
     ee_type: table
     extent:
       start_date: "2020-01-01"
@@ -2124,7 +2124,7 @@ datasets:
 
   UN/Geodata/BNDA_simplified/current:
     title: 'United Nations Geospatial Data: BNDA_simplified'
-    provider: United Nations Geospatial
+    provider: un-geodata
     ee_type: table
     extent:
       start_date: "2023-02-11"
@@ -2136,7 +2136,7 @@ datasets:
 
   USDA/SOLUS100/V0:
     title: 'SOLUS: Soil properties of the conterminous United States at 100-m resolution'
-    provider: USDA-ARS
+    provider: usda-ars
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 100
@@ -2218,7 +2218,7 @@ datasets:
 
   USDOS/LSIB/2013:
     title: 'LSIB 2013: Large Scale International Boundary Polygons, Detailed [deprecated]'
-    provider: United States Department of State, Office of the Geographer
+    provider: us-state-dept
     ee_type: table
     extent:
       start_date: "2013-03-08"
@@ -2229,7 +2229,7 @@ datasets:
 
   USDOS/LSIB/2017:
     title: 'LSIB 2017: Large Scale International Boundary Polygons, Detailed'
-    provider: United States Department of State, Office of the Geographer
+    provider: us-state-dept
     ee_type: table
     extent:
       start_date: "2017-12-29"
@@ -2240,7 +2240,7 @@ datasets:
 
   USDOS/LSIB_SIMPLE/2017:
     title: 'LSIB 2017: Large Scale International Boundary Polygons, Simplified'
-    provider: United States Department of State, Office of the Geographer
+    provider: us-state-dept
     ee_type: table
     extent:
       start_date: "2017-03-30"
@@ -2251,7 +2251,7 @@ datasets:
 
   WCMC/WDOECM/current/points:
     title: 'WDOECM: Other Effective Area-based Conservation Measures (points)'
-    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    provider: unep-wcmc
     ee_type: table
     extent:
       start_date: "2026-03-01"
@@ -2263,7 +2263,7 @@ datasets:
 
   WCMC/WDOECM/current/polygons:
     title: 'WDOECM: Other Effective Area-based Conservation Measures (polygons)'
-    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    provider: unep-wcmc
     ee_type: table
     extent:
       start_date: "2026-03-01"
@@ -2275,7 +2275,7 @@ datasets:
 
   WCMC/WDPA/current/points:
     title: 'WDPA: World Database on Protected Areas (points)'
-    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    provider: unep-wcmc
     ee_type: table
     extent:
       start_date: "2026-01-01"
@@ -2287,7 +2287,7 @@ datasets:
 
   WCMC/WDPA/current/polygons:
     title: 'WDPA: World Database on Protected Areas (polygons)'
-    provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
+    provider: unep-wcmc
     ee_type: table
     extent:
       start_date: "2026-01-01"
@@ -2299,7 +2299,7 @@ datasets:
 
   WM/geoLab/geoBoundaries/600/ADM0:
     title: 'geoBoundaries: Political administrative boundaries at Country level (ADM0), v6.0.0'
-    provider: William and Mary geoLab
+    provider: wm-geolab
     ee_type: table
     extent:
       start_date: "2023-09-14"
@@ -2311,7 +2311,7 @@ datasets:
 
   WM/geoLab/geoBoundaries/600/ADM1:
     title: 'geoBoundaries: Political administrative boundaries at District level (ADM1), v6.0.0'
-    provider: William and Mary geoLab
+    provider: wm-geolab
     ee_type: table
     extent:
       start_date: "2023-09-14"
@@ -2323,7 +2323,7 @@ datasets:
 
   WM/geoLab/geoBoundaries/600/ADM2:
     title: 'geoBoundaries: Political administrative boundaries at Municipality level (ADM2),'
-    provider: William and Mary geoLab
+    provider: wm-geolab
     ee_type: table
     extent:
       start_date: "2023-09-14"
@@ -2335,7 +2335,7 @@ datasets:
 
   WRI/GPPD/power_plants:
     title: Global Power Plant Database
-    provider: World Resources Institute
+    provider: wri
     ee_type: table
     extent:
       start_date: "2018-06-11"
@@ -2346,7 +2346,7 @@ datasets:
 
   WorldPop/GP/100m/pop:
     title: "WorldPop GP 100m Population (annual estimated residents per grid cell)"
-    provider: WorldPop
+    provider: worldpop
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 92.77
@@ -2361,7 +2361,7 @@ datasets:
 
   WorldPop/GP/100m/pop_age_sex:
     title: "WorldPop GP 100m Population Age + Sex Structure (annual)"
-    provider: WorldPop
+    provider: worldpop
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 92.77
@@ -2393,7 +2393,7 @@ datasets:
 
   WorldPop/GP/100m/pop_age_sex_cons_unadj:
     title: "WorldPop GP 100m Constrained Population Age + Sex (unadjusted, annual)"
-    provider: WorldPop
+    provider: worldpop
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 92.77
@@ -2421,7 +2421,7 @@ datasets:
 
   WorldPop/POP:
     title: "WorldPop Global Project Population (legacy, 100m, 2000-)"
-    provider: WorldPop
+    provider: worldpop
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 92.77
@@ -2437,7 +2437,7 @@ datasets:
 
   iNaturalist/MULTI_SPECIES/LATEST:
     title: iNaturalist Multispecies Open Range Maps
-    provider: iNaturalist
+    provider: inaturalist
     ee_type: bigquery_table
     extent:
       start_date: "2025-02-25"
@@ -2448,7 +2448,7 @@ datasets:
 
   overture-maps/places_place:
     title: 'Overture Maps - Places: Place'
-    provider: Overture Maps Foundation
+    provider: overture-maps
     ee_type: bigquery_table
     extent:
       start_date: "2023-07-01"

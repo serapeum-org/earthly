@@ -5,7 +5,7 @@
 datasets:
   CSIC/SPEI/2_8:
     title: "CSIC SPEIbase v2.8 (legacy SPEI ~50km monthly, 1901-)"
-    provider: CSIC
+    provider: csic
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 55660
@@ -25,7 +25,7 @@ datasets:
 
   CSIC/SPEI/2_9:
     title: "CSIC SPEIbase v2.9 (legacy SPEI ~50km monthly, 1901-)"
-    provider: CSIC
+    provider: csic
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 55660
@@ -45,7 +45,7 @@ datasets:
 
   ECMWF/ERA5/DAILY:
     title: "ERA5 Daily Aggregates — ECMWF Climate Reanalysis (~28km, 1979-present)"
-    provider: ECMWF / Copernicus C3S
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27830
@@ -86,7 +86,7 @@ datasets:
 
   ECMWF/ERA5/HOURLY:
     title: "ERA5 Hourly — ECMWF Climate Reanalysis (~28km, 1940-present)"
-    provider: ECMWF / Copernicus C3S
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 27830
@@ -127,7 +127,7 @@ datasets:
 
   ECMWF/ERA5/MONTHLY:
     title: ERA5 Monthly Aggregates — ECMWF Climate Reanalysis
-    provider: ECMWF / Copernicus C3S
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 27830
@@ -171,7 +171,7 @@ datasets:
 
   ECMWF/ERA5_LAND/DAILY_AGGR:
     title: ERA5-Land Daily Aggregated — ECMWF Climate Reanalysis
-    provider: ECMWF / Copernicus Climate Change Service (C3S)
+    provider: ecmwf
     ee_type: image_collection
     # STAC reports {interval: 1, unit: month} for this collection but it is a
     # *daily* product — hand-corrected here.
@@ -214,7 +214,7 @@ datasets:
 
   ECMWF/ERA5_LAND/HOURLY:
     title: "ERA5-Land Hourly — ECMWF Climate Reanalysis (~9km, 1950-present)"
-    provider: ECMWF / Copernicus C3S
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 11132
@@ -267,7 +267,7 @@ datasets:
 
   ECMWF/ERA5_LAND/MONTHLY:
     title: "ERA5-Land Monthly Averaged — ECMWF Climate Reanalysis (legacy, ~9km)"
-    provider: ECMWF / Copernicus C3S
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 11132
@@ -299,7 +299,7 @@ datasets:
 
   ECMWF/ERA5_LAND/MONTHLY_AGGR:
     title: "ERA5-Land Monthly Aggregated — ECMWF Climate Reanalysis (~9km, 1950-present)"
-    provider: ECMWF / Copernicus C3S
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 11132
@@ -346,7 +346,7 @@ datasets:
 
   ECMWF/ERA5_LAND/MONTHLY_BY_HOUR:
     title: "ERA5-Land Monthly Averaged by Hour of Day — ECMWF Climate Reanalysis (~9km)"
-    provider: ECMWF / Copernicus C3S
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 11132
@@ -378,7 +378,7 @@ datasets:
 
   ECMWF/NRT_FORECAST/IFS/OPER:
     title: ECMWF Near-Realtime IFS Atmospheric Forecasts
-    provider: ECMWF
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 12, unit: hour }
     spatial_resolution: 28000
@@ -1190,7 +1190,7 @@ datasets:
 
   ECMWF/NRT_FORECAST/IFS/SCWV:
     title: ECMWF Near-Realtime IFS Wave (Short-Cutoff) Forecasts
-    provider: ECMWF
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 12, unit: hour }
     spatial_resolution: 28000
@@ -1228,7 +1228,7 @@ datasets:
 
   ECMWF/NRT_FORECAST/IFS/WAVE:
     title: ECMWF Near-Realtime IFS Wave Forecasts
-    provider: ECMWF
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 12, unit: hour }
     spatial_resolution: 28000
@@ -1266,7 +1266,7 @@ datasets:
 
   GRIDMET/DROUGHT:
     title: 'GRIDMET DROUGHT: CONUS Drought Indices'
-    provider: University of California Merced
+    provider: uc-merced
     ee_type: image_collection
     cadence: { interval: 5, unit: day }
     spatial_resolution: 4638.3
@@ -1385,7 +1385,7 @@ datasets:
 
   IDAHO_EPSCOR/GRIDMET:
     title: "GRIDMET: University of Idaho Gridded Surface Meteorological Dataset"
-    provider: University of California Merced
+    provider: uc-merced
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4638.3
@@ -1435,7 +1435,7 @@ datasets:
 
   IDAHO_EPSCOR/MACAv2_METDATA:
     title: "MACAv2-METDATA: Daily CMIP5 Bias-Corrected Climate (CONUS, 4km, 1900-2099)"
-    provider: University of California Merced
+    provider: uc-merced
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4638.3
@@ -1475,7 +1475,7 @@ datasets:
 
   IDAHO_EPSCOR/MACAv2_METDATA_MONTHLY:
     title: 'MACAv2-METDATA Monthly Summaries: University of Idaho, Multivariate Adaptive Constructed'
-    provider: University of California Merced
+    provider: uc-merced
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4638.3
@@ -1520,7 +1520,7 @@ datasets:
 
   IDAHO_EPSCOR/PDSI:
     title: "PDSI: Palmer Drought Severity Index (CONUS, 4km, 10-day)"
-    provider: University of California Merced
+    provider: uc-merced
     ee_type: image_collection
     cadence: { interval: 10, unit: day }
     spatial_resolution: 4638.3
@@ -1536,7 +1536,7 @@ datasets:
 
   IDAHO_EPSCOR/TERRACLIMATE:
     title: "TerraClimate: Monthly Climate and Climatic Water Balance"
-    provider: University of California Merced
+    provider: uc-merced
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4638.3
@@ -1601,7 +1601,7 @@ datasets:
 
   IPCC/AR6/SLP:
     title: IPCC AR6 Sea Level Projections Regional (Medium Confidence)
-    provider: IPCC
+    provider: ipcc
     ee_type: image_collection
     cadence: { interval: 10, unit: year }
     spatial_resolution: 111.32
@@ -6109,7 +6109,7 @@ datasets:
 
   NASA/ECOSTRESS/L2T_LSTE/V2:
     title: ECOSTRESS Land Surface Temperature and Emissivity L2 Global 70 m V002
-    provider: Land Processes Distributed Active Archive Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 70
@@ -6143,7 +6143,7 @@ datasets:
 
   NASA/ECOSTRESS/L2T_STARS/V2:
     title: ECOSTRESS Tiled Ancillary NDVI and Albedo L2 Global 70 m V002
-    provider: Land Processes Distributed Active Archive Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 70
@@ -6165,7 +6165,7 @@ datasets:
 
   NASA/GDDP-CMIP6:
     title: "NEX-GDDP-CMIP6: NASA Global Daily Downscaled CMIP6 Climate Projections"
-    provider: NASA / Climate Analytics Group
+    provider: nasa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27830
@@ -6205,7 +6205,7 @@ datasets:
 
   NASA/GSFC/MERRA/flx/2:
     title: "MERRA-2 M2T1NXFLX: Hourly Surface Flux Diagnostics V5.12.4"
-    provider: NASA GSFC
+    provider: nasa-gsfc
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 55000
@@ -6245,7 +6245,7 @@ datasets:
 
   NASA/GSFC/MERRA/lnd/2:
     title: "MERRA-2 M2T1NXLND: Hourly Land Surface Diagnostics V5.12.4"
-    provider: NASA GSFC
+    provider: nasa-gsfc
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 55000
@@ -6290,7 +6290,7 @@ datasets:
 
   NASA/GSFC/MERRA/rad/2:
     title: "MERRA-2 M2T1NXRAD: Hourly Radiation Diagnostics V5.12.4"
-    provider: NASA GSFC
+    provider: nasa-gsfc
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 55000
@@ -6326,7 +6326,7 @@ datasets:
 
   NASA/GSFC/MERRA/slv/2:
     title: "MERRA-2 M2T1NXSLV: Hourly Single-Level Diagnostics V5.12.4"
-    provider: NASA GSFC
+    provider: nasa-gsfc
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 55000
@@ -6366,7 +6366,7 @@ datasets:
 
   NASA/NEX-DCP30:
     title: 'NEX-DCP30: NASA Earth Exchange Downscaled Climate Projections'
-    provider: NASA / Climate Analytics Group
+    provider: nasa
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 927.67
@@ -6396,7 +6396,7 @@ datasets:
 
   NASA/NEX-DCP30_ENSEMBLE_STATS:
     title: 'NEX-DCP30: Ensemble Stats for NASA Earth Exchange Downscaled Climate Projections'
-    provider: NASA / Climate Analytics Group
+    provider: nasa
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 927.67
@@ -6471,7 +6471,7 @@ datasets:
 
   NASA/NEX-GDDP:
     title: 'NEX-GDDP: NASA Earth Exchange Global Daily Downscaled Climate Projections'
-    provider: NASA /  Climate Analytics Group
+    provider: nasa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27830
@@ -6500,7 +6500,7 @@ datasets:
 
   NASA/ORNL/DAYMET_V3:
     title: "Daymet v3: Daily Surface Weather (1km, North America, 1980-2020 legacy)"
-    provider: NASA ORNL DAAC
+    provider: nasa-ornl-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -6535,7 +6535,7 @@ datasets:
 
   NASA/ORNL/DAYMET_V4:
     title: "Daymet v4: Daily Surface Weather (1km, North America)"
-    provider: NASA ORNL DAAC
+    provider: nasa-ornl-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -6570,7 +6570,7 @@ datasets:
 
   NCEP_RE/sea_level_pressure:
     title: "NCEP/NCAR Reanalysis 1: Sea-Level Pressure (6-hourly 2.5°)"
-    provider: NOAA / NCEP / NCAR
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 6, unit: hour }
     spatial_resolution: 278300
@@ -6587,7 +6587,7 @@ datasets:
 
   NCEP_RE/surface_temp:
     title: "NCEP/NCAR Reanalysis 1: Surface Temperature (6-hourly 2.5°)"
-    provider: NOAA / NCEP / NCAR
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 6, unit: hour }
     spatial_resolution: 278300
@@ -6603,7 +6603,7 @@ datasets:
 
   NCEP_RE/surface_wv:
     title: "NCEP/NCAR Reanalysis 1: Total-Column Water Vapour (6-hourly 2.5°)"
-    provider: NOAA / NCEP / NCAR
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 6, unit: hour }
     spatial_resolution: 278300
@@ -6619,7 +6619,7 @@ datasets:
 
   NOAA/CDR/ATMOS_NEAR_SURFACE/V2:
     title: 'NOAA CDR: Ocean Near-Surface Atmospheric Properties, Version 2'
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 27830
@@ -6650,7 +6650,7 @@ datasets:
 
   NOAA/CDR/GRIDSAT-B1/V2:
     title: "NOAA CDR GRIDSAT-B1 v2: Geostationary IR Brightness Temperature (3-hourly ~8km)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 7792
@@ -6680,7 +6680,7 @@ datasets:
 
   NOAA/CDR/HEAT_FLUXES/V2:
     title: "NOAA CDR Ocean Surface Bundle: Heat Fluxes v2 (3-hourly 0.25°)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 27830
@@ -6701,7 +6701,7 @@ datasets:
 
   NOAA/CFSR:
     title: "NOAA NCEP CFSR: Climate Forecast System Reanalysis (6-hourly ~55km, 2018-)"
-    provider: NOAA / NCEP
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 6, unit: hour }
     spatial_resolution: 55660
@@ -6734,7 +6734,7 @@ datasets:
 
   NOAA/CFSV2/FOR6H:
     title: "NOAA NCEP CFSv2: Climate Forecast System Version 2, 6-Hourly Forecast Products"
-    provider: NOAA / NCEP
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 6, unit: hour }
     spatial_resolution: 22264
@@ -6786,7 +6786,7 @@ datasets:
 
   NOAA/CFSV2/FOR6H_HARMONIZED:
     title: 'CFSV2: NCEP Climate Forecast System Version 2, 6-Hourly Products Harmonized'
-    provider: NOAA NWS National Centers for Environmental Prediction (NCEP)
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 6, unit: hour }
     spatial_resolution: 22264
@@ -6910,7 +6910,7 @@ datasets:
 
   NOAA/GFS0P25:
     title: "NOAA GFS 0.25°: Global Forecast System (384-hour atmospheric forecast)"
-    provider: NOAA / NCEP / EMC
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 6, unit: hour }
     spatial_resolution: 27830
@@ -6946,7 +6946,7 @@ datasets:
 
   NOAA/GOES/16/MCMIPF:
     title: GOES-16 MCMIPF Series ABI Level 2 Cloud and Moisture Imagery Full Disk
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -7120,7 +7120,7 @@ datasets:
 
   NOAA/GOES/16/MCMIPM:
     title: GOES-16 MCMIPM Series ABI Level 2 Cloud and Moisture Imagery Mesoscale
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -7294,7 +7294,7 @@ datasets:
 
   NOAA/GOES/17/MCMIPF:
     title: GOES-17 MCMIPF Series ABI Level 2 Cloud and Moisture Imagery Full Disk
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -7468,7 +7468,7 @@ datasets:
 
   NOAA/GOES/17/MCMIPM:
     title: GOES-17 MCMIPM Series ABI Level 2 Cloud and Moisture Imagery Mesoscale
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -7642,7 +7642,7 @@ datasets:
 
   NOAA/GOES/18/MCMIPC:
     title: GOES-18 MCMIPC Series ABI Level 2 Cloud and Moisture Imagery CONUS
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -7817,7 +7817,7 @@ datasets:
 
   NOAA/GOES/18/MCMIPF:
     title: GOES-18 MCMIPF Series ABI Level 2 Cloud and Moisture Imagery Full Disk
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -7991,7 +7991,7 @@ datasets:
 
   NOAA/GOES/18/MCMIPM:
     title: GOES-18 MCMIPM Series ABI Level 2 Cloud and Moisture Imagery Mesoscale
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -8165,7 +8165,7 @@ datasets:
 
   NOAA/GOES/19/MCMIPC:
     title: GOES-19 MCMIPC Series ABI Level 2 Cloud and Moisture Imagery CONUS
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -8340,7 +8340,7 @@ datasets:
 
   NOAA/GOES/19/MCMIPF:
     title: GOES-19 MCMIPF Series ABI Level 2 Cloud and Moisture Imagery Full Disk
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -8514,7 +8514,7 @@ datasets:
 
   NOAA/GOES/19/MCMIPM:
     title: GOES-19 MCMIPM Series ABI Level 2 Cloud and Moisture Imagery Mesoscale
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 10, unit: minute }
     spatial_resolution: 2000
@@ -8688,7 +8688,7 @@ datasets:
 
   NOAA/NCEP_DOE_RE2/total_cloud_coverage:
     title: "NCEP-DOE Reanalysis 2: Total Cloud Coverage (Gaussian grid, 6-hourly)"
-    provider: NOAA NCEP-DOE
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 6, unit: hour }
     spatial_resolution: 278300
@@ -8706,7 +8706,7 @@ datasets:
 
   OREGONSTATE/PRISM/AN81d:
     title: PRISM Daily Spatial Climate Dataset AN81d [deprecated]
-    provider: PRISM / OREGONSTATE
+    provider: oregonstate-prism
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4638.3
@@ -8756,7 +8756,7 @@ datasets:
 
   OREGONSTATE/PRISM/AN81m:
     title: "PRISM AN81m: US Monthly Climate Dataset (4km, 1895-present)"
-    provider: PRISM Climate Group, Oregon State University
+    provider: oregonstate-prism
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4638.3
@@ -8792,7 +8792,7 @@ datasets:
 
   OREGONSTATE/PRISM/ANd:
     title: "PRISM ANd: US Daily Climate (4km, 1981-)"
-    provider: PRISM Climate Group, Oregon State University
+    provider: oregonstate-prism
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4638.3
@@ -8828,7 +8828,7 @@ datasets:
 
   OREGONSTATE/PRISM/ANm:
     title: "PRISM ANm: US Monthly Climate (4km, 1895-, alternate AN81m)"
-    provider: PRISM Climate Group, Oregon State University
+    provider: oregonstate-prism
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4638.3
@@ -8864,7 +8864,7 @@ datasets:
 
   OREGONSTATE/PRISM/Norm81m:
     title: "PRISM Norm81m: US 30-Year Monthly Climate Normals (1981-2010, 4km)"
-    provider: PRISM Climate Group, Oregon State University
+    provider: oregonstate-prism
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4638.3
@@ -8894,7 +8894,7 @@ datasets:
 
   OREGONSTATE/PRISM/Norm91m:
     title: "PRISM Norm91m: US 30-Year Monthly Climate Normals (1991-2020, 4km)"
-    provider: PRISM Climate Group, Oregon State University
+    provider: oregonstate-prism
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4638.3
@@ -8924,7 +8924,7 @@ datasets:
 
   OpenLandMap/CLM/CLM_LST_MOD11A2-DAYNIGHT_M/v01:
     title: OpenLandMap Long-term Land Surface Temperature Monthly Day-Night Difference
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -9009,7 +9009,7 @@ datasets:
 
   OpenLandMap/CLM/CLM_LST_MOD11A2-DAY_M/v01:
     title: OpenLandMap Long-term Land Surface Temperature Daytime Monthly Median
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -9094,7 +9094,7 @@ datasets:
 
   OpenLandMap/CLM/CLM_LST_MOD11A2-DAY_SD/v01:
     title: OpenLandMap Long-term Land Surface Temperature Daytime Monthly Standard Deviation
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -9179,7 +9179,7 @@ datasets:
 
   SNU/ESL/BESS/Rad/v1:
     title: Breathing Earth System Simulator (BESS) Radiation v1
-    provider: Seoul National University (SNU)
+    provider: snu
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5500
@@ -9202,7 +9202,7 @@ datasets:
 
   UCSB-CHG/CHIRTS/DAILY:
     title: "CHIRTS Daily Temperature: UCSB CHC InfraRed Temperature with Stations (5km, 1983-)"
-    provider: UCSB / CHG
+    provider: ucsb-chc
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -9234,7 +9234,7 @@ datasets:
 
   UCSB/CHC/CMIP6/v1:
     title: The Climate Hazards Center (CHC) Coupled Model Intercomparison Project Phase 6 (CHC-CMIP6)
-    provider: UCSB
+    provider: ucsb-chc
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -9299,7 +9299,7 @@ datasets:
 
   UTOKYO/WTLAB/KBDI/v1:
     title: 'KBDI: Keetch-Byram Drought Index'
-    provider: Institute of Industrial Science, The University of Tokyo, Japan
+    provider: uni-tokyo
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 4000
@@ -9317,7 +9317,7 @@ datasets:
 
   WORLDCLIM/V1/BIO:
     title: "WorldClim BIO v1: 19 Bioclimatic Variables (1km, 1960-1990 climatology)"
-    provider: WorldClim — University of California, Berkeley
+    provider: uc-berkeley-worldclim
     ee_type: image
     spatial_resolution: 927.67
     extent:
@@ -9395,7 +9395,7 @@ datasets:
 
   WORLDCLIM/V1/MONTHLY:
     title: "WorldClim v1: Global Climate Normals (1960-1990, monthly 1km)"
-    provider: WorldClim — University of California, Berkeley
+    provider: uc-berkeley-worldclim
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 927.67

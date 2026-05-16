@@ -21,7 +21,8 @@ from earthlens.gee import (
 
 _EXPECTED_EXPORTS = {
     "GEE", "AuthenticationError", "Catalog", "Dataset", "Band", "Cadence",
-    "Extent", "CATALOG_PATH", "EarthEngineAuth", "createGeometry", "createFeature",
+    "Extent", "Provider", "CATALOG_PATH", "PROVIDERS_PATH", "EarthEngineAuth",
+    "createGeometry", "createFeature",
 }
 
 

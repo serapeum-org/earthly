@@ -5,7 +5,7 @@
 datasets:
   CSIC/SPEI/2_10:
     title: "CSIC SPEIbase v2.10: Standardised Precipitation-Evapotranspiration Index (~50km monthly, 1901-)"
-    provider: CSIC
+    provider: csic
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 55660
@@ -39,7 +39,7 @@ datasets:
 
   JAXA/GPM_L3/GSMaP/v6/operational:
     title: "GSMaP Operational v6: Global Satellite Mapping of Precipitation (legacy)"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 11132
@@ -62,7 +62,7 @@ datasets:
 
   JAXA/GPM_L3/GSMaP/v6/reanalysis:
     title: "GSMaP Reanalysis v6: Global Satellite Mapping of Precipitation (2000-)"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 11132
@@ -82,7 +82,7 @@ datasets:
 
   JAXA/GPM_L3/GSMaP/v7/operational:
     title: "GSMaP Operational v7: Global Satellite Mapping of Precipitation (legacy)"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 11132
@@ -103,7 +103,7 @@ datasets:
 
   JAXA/GPM_L3/GSMaP/v8/operational:
     title: "GSMaP Operational v8: Global Satellite Mapping of Precipitation"
-    provider: JAXA Earth Observation Research Center
+    provider: jaxa
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 11132
@@ -129,7 +129,7 @@ datasets:
 
   NASA/GPM_L3/IMERG_MONTHLY_V06:
     title: "GPM IMERG Monthly v06 (Final Run, 0.1°, 2000-2021)"
-    provider: NASA GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 11132
@@ -156,7 +156,7 @@ datasets:
 
   NASA/GPM_L3/IMERG_MONTHLY_V07:
     title: "GPM IMERG Monthly v07 (Final Run, 0.1°)"
-    provider: NASA GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 11132
@@ -183,7 +183,7 @@ datasets:
 
   NASA/GPM_L3/IMERG_V06:
     title: "GPM IMERG v06 Half-Hourly Precipitation (legacy 0.1°, 2000-)"
-    provider: NASA GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 30, unit: minute }
     spatial_resolution: 11132
@@ -214,7 +214,7 @@ datasets:
 
   NASA/GPM_L3/IMERG_V07:
     title: "GPM IMERG v07: Global Precipitation Measurement (half-hourly)"
-    provider: NASA GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 30, unit: minute }
     spatial_resolution: 11132
@@ -244,7 +244,7 @@ datasets:
 
   NOAA/CPC/Precipitation:
     title: CPC Global Unified Gauge-Based Analysis of Daily Precipitation
-    provider: NOAA Physical Sciences Laboratory
+    provider: noaa-psl
     ee_type: image_collection
     spatial_resolution: 55500
     extent:
@@ -266,7 +266,7 @@ datasets:
 
   NOAA/CPC/Temperature:
     title: CPC Global Unified Temperature
-    provider: NOAA Physical Sciences Laboratory
+    provider: noaa-psl
     ee_type: image_collection
     spatial_resolution: 55500
     extent:
@@ -297,7 +297,7 @@ datasets:
 
   NOAA/PERSIANN-CDR:
     title: "PERSIANN-CDR: Daily Precipitation Climate Data Record (0.25°, 1983-present)"
-    provider: NOAA NCDC
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 27830
@@ -314,7 +314,7 @@ datasets:
 
   OpenLandMap/CLM/CLM_PRECIPITATION_SM2RAIN_M/v01:
     title: OpenLandMap Precipitation Monthly
-    provider: EnvirometriX Ltd
+    provider: envirometrix-openlandmap
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -387,7 +387,7 @@ datasets:
 
   TRMM/3B42:
     title: 'TRMM 3B42: 3-Hourly Precipitation Estimates'
-    provider: NASA GES DISC at NASA Goddard Space Flight Center
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 27830
@@ -429,7 +429,7 @@ datasets:
 
   TRMM/3B43V7:
     title: 'TRMM 3B43: Monthly Precipitation Estimates'
-    provider: NASA GES DISC at NASA Goddard Space Flight Center
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 27830
@@ -459,7 +459,7 @@ datasets:
 
   UCSB-CHC/CHIRPS/V3/DAILY_RNL:
     title: "CHIRPS v3 Daily Reanalysis-Blended Precipitation (UCSB CHC, 1981-present)"
-    provider: UCSB / CHC
+    provider: ucsb-chc
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -476,7 +476,7 @@ datasets:
 
   UCSB-CHC/CHIRPS/V3/DAILY_SAT:
     title: "CHIRPS v3 Daily Satellite-Only Near-Real-Time Precipitation (UCSB CHC)"
-    provider: UCSB / CHC
+    provider: ucsb-chc
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -493,7 +493,7 @@ datasets:
 
   UCSB-CHC/CHIRPS/V3/PENTAD:
     title: "CHIRPS v3 Pentad Precipitation (UCSB CHC, 1981-present)"
-    provider: UCSB / CHC
+    provider: ucsb-chc
     ee_type: image_collection
     # Pentad = nominal 5-day window; recorded as `interval: 5, unit: day`
     # because the Cadence model has no `pentad` unit.
@@ -512,7 +512,7 @@ datasets:
 
   UCSB-CHG/CHIRPS/DAILY:
     title: "CHIRPS Daily: Climate Hazards Center InfraRed Precipitation with Station data"
-    provider: UCSB / CHG
+    provider: ucsb-chc
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 5566
@@ -532,7 +532,7 @@ datasets:
 
   UCSB-CHG/CHIRPS/PENTAD:
     title: "CHIRPS Pentad: 5-day rainfall (UCSB Climate Hazards Center)"
-    provider: UCSB / CHG
+    provider: ucsb-chc
     ee_type: image_collection
     # Pentads are nominal 5-day windows (the last pentad of a month can be 3-6 days);
     # 5/day is the most accurate cadence the catalog can express.

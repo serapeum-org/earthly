@@ -5,7 +5,7 @@
 datasets:
   projects/edf-methanesat-ee/assets/mair/L3concentration:
     title: 'projects/edf-methanesat-ee/assets/mair/L3concentration (community-published catalog reference)'
-    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    provider: edf-methanesat
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -21,7 +21,7 @@ datasets:
       terrain_height:
   projects/edf-methanesat-ee/assets/mair/L4point:
     title: 'projects/edf-methanesat-ee/assets/mair/L4point (community-published catalog reference)'
-    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    provider: edf-methanesat
     ee_type: table
     extent:
       start_date: "2020-01-01"
@@ -34,7 +34,7 @@ datasets:
 
   projects/edf-methanesat-ee/assets/public-preview/L3concentration:
     title: 'projects/edf-methanesat-ee/assets/public-preview/L3concentration (community-published catalog reference)'
-    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    provider: edf-methanesat
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -47,7 +47,7 @@ datasets:
 
   projects/edf-methanesat-ee/assets/public-preview/L4area:
     title: 'projects/edf-methanesat-ee/assets/public-preview/L4area (community-published catalog reference)'
-    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    provider: edf-methanesat
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -60,7 +60,7 @@ datasets:
 
   projects/edf-methanesat-ee/assets/public-preview/L4area_v2:
     title: 'projects/edf-methanesat-ee/assets/public-preview/L4area_v2 (community-published catalog reference)'
-    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    provider: edf-methanesat
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -73,7 +73,7 @@ datasets:
 
   projects/edf-methanesat-ee/assets/public-preview/L4point:
     title: 'projects/edf-methanesat-ee/assets/public-preview/L4point (community-published catalog reference)'
-    provider: Environmental Defense Fund (EDF) — MethaneSAT
+    provider: edf-methanesat
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -86,7 +86,7 @@ datasets:
 
   projects/ee-kbas-in-gee/assets/current:
     title: 'projects/ee-kbas-in-gee/assets/current (community-published catalog reference)'
-    provider: Key Biodiversity Areas (KBAs) republication
+    provider: kbas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -99,7 +99,7 @@ datasets:
 
   projects/ee-pkurelab/assets/LHScat:
     title: 'projects/ee-pkurelab/assets/LHScat (community-published catalog reference)'
-    provider: Peking University Remote Sensing Lab (PKU REL)
+    provider: pku-rel
     ee_type: image_collection
     extent:
       start_date: "1992-04-01"
@@ -112,7 +112,7 @@ datasets:
       radar_signals:
   projects/ee-pkurelab/assets/LHScatQC:
     title: 'projects/ee-pkurelab/assets/LHScatQC (community-published catalog reference)'
-    provider: Peking University Remote Sensing Lab (PKU REL)
+    provider: pku-rel
     ee_type: image
     extent:
       start_date: "2020-01-01"
@@ -126,7 +126,7 @@ datasets:
       RMSE:
   projects/forestdatapartnership/assets/cocoa/model_2024a:
     title: 'projects/forestdatapartnership/assets/cocoa/model_2024a (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -139,7 +139,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/cocoa/model_2025a:
     title: 'projects/forestdatapartnership/assets/cocoa/model_2025a (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -152,7 +152,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/cocoa/model_2025b:
     title: 'projects/forestdatapartnership/assets/cocoa/model_2025b (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -165,7 +165,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/coffee/model_2025a:
     title: 'projects/forestdatapartnership/assets/coffee/model_2025a (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -178,7 +178,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/coffee/model_2025b:
     title: 'projects/forestdatapartnership/assets/coffee/model_2025b (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -191,7 +191,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/community_forests/ForestPersistence_2020:
     title: 'projects/forestdatapartnership/assets/community_forests/ForestPersistence_2020 (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image
     extent:
       start_date: "2020-01-01"
@@ -204,7 +204,7 @@ datasets:
       value:
   projects/forestdatapartnership/assets/community_palm/20240312:
     title: 'projects/forestdatapartnership/assets/community_palm/20240312 (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -217,7 +217,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/palm/model_2024a:
     title: 'projects/forestdatapartnership/assets/palm/model_2024a (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -230,7 +230,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/palm/model_2025a:
     title: 'projects/forestdatapartnership/assets/palm/model_2025a (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -243,7 +243,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/palm/model_2025b:
     title: 'projects/forestdatapartnership/assets/palm/model_2025b (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -256,7 +256,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/rubber/model_2024a:
     title: 'projects/forestdatapartnership/assets/rubber/model_2024a (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -269,7 +269,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/rubber/model_2025a:
     title: 'projects/forestdatapartnership/assets/rubber/model_2025a (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -282,7 +282,7 @@ datasets:
       probability:
   projects/forestdatapartnership/assets/rubber/model_2025b:
     title: 'projects/forestdatapartnership/assets/rubber/model_2025b (community-published catalog reference)'
-    provider: Forest Data Partnership
+    provider: forest-data-partnership
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -295,7 +295,7 @@ datasets:
       probability:
   projects/gcp-public-data-weathernext/assets/126478713_1_0:
     title: 'projects/gcp-public-data-weathernext/assets/126478713_1_0 (community-published catalog reference)'
-    provider: Google WeatherNext / GCP Public Data
+    provider: google-cloud-publicdata
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -308,7 +308,7 @@ datasets:
 
   projects/gcp-public-data-weathernext/assets/59572747_4_0:
     title: 'projects/gcp-public-data-weathernext/assets/59572747_4_0 (community-published catalog reference)'
-    provider: Google WeatherNext / GCP Public Data
+    provider: google-cloud-publicdata
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -321,7 +321,7 @@ datasets:
 
   projects/gcp-public-data-weathernext/assets/weathernext_2_0_0:
     title: 'projects/gcp-public-data-weathernext/assets/weathernext_2_0_0 (community-published catalog reference)'
-    provider: Google WeatherNext / GCP Public Data
+    provider: google-cloud-publicdata
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -334,7 +334,7 @@ datasets:
 
   projects/gcp-public-data-weathernext/assets/weathernext_2_0_0_mean:
     title: 'projects/gcp-public-data-weathernext/assets/weathernext_2_0_0_mean (community-published catalog reference)'
-    provider: Google WeatherNext / GCP Public Data
+    provider: google-cloud-publicdata
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -347,7 +347,7 @@ datasets:
 
   projects/gcpm041u-lemur/assets/scanfi_v12/SCANFI_v1_2:
     title: 'projects/gcpm041u-lemur/assets/scanfi_v12/SCANFI_v1_2 (community-published catalog reference)'
-    provider: Lemur Forest Inventory (gcpm041u)
+    provider: ee-publisher
     ee_type: image
     extent:
       start_date: "2020-07-01"
@@ -374,7 +374,7 @@ datasets:
       articExtrapolationArea:
   projects/global-pasture-watch/assets/ggc-30m/v1/cultiv-grassland_p:
     title: 'projects/global-pasture-watch/assets/ggc-30m/v1/cultiv-grassland_p (community-published catalog reference)'
-    provider: Global Pasture Watch
+    provider: global-pasture-watch
     ee_type: image_collection
     extent:
       start_date: "2000-01-01"
@@ -387,7 +387,7 @@ datasets:
       probability:
   projects/global-pasture-watch/assets/ggc-30m/v1/grassland_c:
     title: 'projects/global-pasture-watch/assets/ggc-30m/v1/grassland_c (community-published catalog reference)'
-    provider: Global Pasture Watch
+    provider: global-pasture-watch
     ee_type: image_collection
     extent:
       start_date: "2000-01-01"
@@ -400,7 +400,7 @@ datasets:
       dominant_class:
   projects/global-pasture-watch/assets/ggc-30m/v1/nat-semi-grassland_p:
     title: 'projects/global-pasture-watch/assets/ggc-30m/v1/nat-semi-grassland_p (community-published catalog reference)'
-    provider: Global Pasture Watch
+    provider: global-pasture-watch
     ee_type: image_collection
     extent:
       start_date: "2000-01-01"
@@ -413,7 +413,7 @@ datasets:
       probability:
   projects/global-pasture-watch/assets/ggpp-30m/v1/ugpp_m:
     title: 'projects/global-pasture-watch/assets/ggpp-30m/v1/ugpp_m (community-published catalog reference)'
-    provider: Global Pasture Watch
+    provider: global-pasture-watch
     ee_type: image_collection
     extent:
       start_date: "2000-01-01"
@@ -426,7 +426,7 @@ datasets:
       gc_m2:
   projects/global-pasture-watch/assets/gsvh-30m/v1/short-veg-height_m:
     title: 'projects/global-pasture-watch/assets/gsvh-30m/v1/short-veg-height_m (community-published catalog reference)'
-    provider: Global Pasture Watch
+    provider: global-pasture-watch
     ee_type: image_collection
     extent:
       start_date: "2000-01-01"
@@ -439,7 +439,7 @@ datasets:
       height:
   projects/global-precipitation-nowcast/assets/global_estimation:
     title: 'projects/global-precipitation-nowcast/assets/global_estimation (community-published catalog reference)'
-    provider: Google Global Precipitation Nowcast
+    provider: google-cloud-publicdata
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -452,7 +452,7 @@ datasets:
       precipitation:
   projects/gtac-data-publish/assets/LCMS/Product_Version/2025-11:
     title: 'projects/gtac-data-publish/assets/LCMS/Product_Version/2025-11 (community-published catalog reference)'
-    provider: USDA Forest Service GTAC
+    provider: usda-usfs-gtac
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -489,7 +489,7 @@ datasets:
       QA_Bits:
   projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_1_2001_2023:
     title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_1_2001_2023 (community-published catalog reference)'
-    provider: WRI Land and Carbon
+    provider: wri
     ee_type: image
     extent:
       start_date: "2001-01-01"
@@ -508,7 +508,7 @@ datasets:
       probability_7:
   projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2001_2022:
     title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2001_2022 (community-published catalog reference)'
-    provider: WRI Land and Carbon
+    provider: wri
     ee_type: image
     extent:
       start_date: "2001-01-01"
@@ -527,7 +527,7 @@ datasets:
       probability_7:
   projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2_2001_2024:
     title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2_2001_2024 (community-published catalog reference)'
-    provider: WRI Land and Carbon
+    provider: wri
     ee_type: image
     extent:
       start_date: "2001-01-01"
@@ -546,7 +546,7 @@ datasets:
       probability_7:
   projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_3_2001_2025:
     title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_3_2001_2025 (community-published catalog reference)'
-    provider: WRI Land and Carbon
+    provider: wri
     ee_type: image
     extent:
       start_date: "2001-01-01"
@@ -565,7 +565,7 @@ datasets:
       probability_7:
   projects/malariaatlasproject/assets/EVI_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/EVI_v061/1km/8-Daily (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -577,7 +577,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/EVI_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/EVI_v061/1km/Annual (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -589,7 +589,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/EVI_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/EVI_v061/1km/Monthly (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -601,7 +601,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/LST_Day_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/8-Daily (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -613,7 +613,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/LST_Day_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/Annual (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -625,7 +625,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/LST_Day_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/Monthly (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -637,7 +637,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/LST_Night_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/8-Daily (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -649,7 +649,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/LST_Night_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/Annual (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -661,7 +661,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/LST_Night_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/Monthly (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -673,7 +673,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/TCB_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/TCB_v061/1km/8-Daily (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -685,7 +685,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/TCB_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/TCB_v061/1km/Annual (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -697,7 +697,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/TCB_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/TCB_v061/1km/Monthly (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -709,7 +709,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/TCW_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/TCW_v061/1km/8-Daily (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -721,7 +721,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/TCW_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/TCW_v061/1km/Annual (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -733,7 +733,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/TCW_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/TCW_v061/1km/Monthly (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -745,7 +745,7 @@ datasets:
       Mean:
   projects/malariaatlasproject/assets/accessibility/accessibility_to_cities/2015_v1_0:
     title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_cities/2015_v1_0 (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     extent:
       start_date: "2015-01-01"
@@ -757,7 +757,7 @@ datasets:
       accessibility:
   projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019:
     title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019 (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     extent:
       start_date: "2019-01-01"
@@ -769,7 +769,7 @@ datasets:
       accessibility:
   projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019_walking_only:
     title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019_walking_only (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     extent:
       start_date: "2019-01-01"
@@ -781,7 +781,7 @@ datasets:
       accessibility_walking_only:
   projects/malariaatlasproject/assets/accessibility/friction_surface/2015_v1_0:
     title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2015_v1_0 (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     extent:
       start_date: "2015-01-01"
@@ -793,7 +793,7 @@ datasets:
       friction:
   projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1:
     title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1 (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     extent:
       start_date: "2019-01-01"
@@ -805,7 +805,7 @@ datasets:
       friction:
   projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1_walking_only:
     title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1_walking_only (community-published catalog reference)'
-    provider: Oxford Malaria Atlas Project
+    provider: oxford-malaria-atlas
     ee_type: image
     extent:
       start_date: "2019-01-01"
@@ -817,7 +817,7 @@ datasets:
       friction:
   projects/mapbiomas-public/assets/bolivia/lulc/v1:
     title: 'projects/mapbiomas-public/assets/bolivia/lulc/v1 (community-published catalog reference)'
-    provider: MapBiomas
+    provider: mapbiomas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -829,7 +829,7 @@ datasets:
       classification:
   projects/mapbiomas-public/assets/brazil/lulc/v1:
     title: 'projects/mapbiomas-public/assets/brazil/lulc/v1 (community-published catalog reference)'
-    provider: MapBiomas
+    provider: mapbiomas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -841,7 +841,7 @@ datasets:
       classification:
   projects/mapbiomas-public/assets/ecuador/lulc/v1:
     title: 'projects/mapbiomas-public/assets/ecuador/lulc/v1 (community-published catalog reference)'
-    provider: MapBiomas
+    provider: mapbiomas
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -853,7 +853,7 @@ datasets:
       classification:
   projects/nature-trace/assets/farmscapes/england_v1_0:
     title: 'projects/nature-trace/assets/farmscapes/england_v1_0 (community-published catalog reference)'
-    provider: Nature Trace
+    provider: nature-trace
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -868,7 +868,7 @@ datasets:
       B2:
   projects/nature-trace/assets/forest_typology/natural_forest_2020_v1_0_collection:
     title: 'projects/nature-trace/assets/forest_typology/natural_forest_2020_v1_0_collection (community-published catalog reference)'
-    provider: Nature Trace
+    provider: nature-trace
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -881,7 +881,7 @@ datasets:
       B0:
   projects/nature-trace/assets/species_distribution_models/australia_mammals/v0:
     title: 'projects/nature-trace/assets/species_distribution_models/australia_mammals/v0 (community-published catalog reference)'
-    provider: Nature Trace
+    provider: nature-trace
     ee_type: image
     extent:
       start_date: "2020-01-01"
@@ -918,7 +918,7 @@ datasets:
       Yellow-FootedAntechinus:
   projects/neon-prod-earthengine/assets/CHM/001:
     title: 'projects/neon-prod-earthengine/assets/CHM/001 (community-published catalog reference)'
-    provider: National Ecological Observatory Network (NEON)
+    provider: neon
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -930,7 +930,7 @@ datasets:
       CHM:
   projects/neon-prod-earthengine/assets/CNC/002:
     title: 'projects/neon-prod-earthengine/assets/CNC/002 (community-published catalog reference)'
-    provider: National Ecological Observatory Network (NEON)
+    provider: neon
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -945,7 +945,7 @@ datasets:
       Valid_Pixel_Classification:
   projects/neon-prod-earthengine/assets/DEM/001:
     title: 'projects/neon-prod-earthengine/assets/DEM/001 (community-published catalog reference)'
-    provider: National Ecological Observatory Network (NEON)
+    provider: neon
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -958,7 +958,7 @@ datasets:
       DTM:
   projects/neon-prod-earthengine/assets/HSI_REFL/001:
     title: 'projects/neon-prod-earthengine/assets/HSI_REFL/001 (community-published catalog reference)'
-    provider: National Ecological Observatory Network (NEON)
+    provider: neon
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1411,7 +1411,7 @@ datasets:
       Acquisition_Date:
   projects/neon-prod-earthengine/assets/HSI_REFL/002:
     title: 'projects/neon-prod-earthengine/assets/HSI_REFL/002 (community-published catalog reference)'
-    provider: National Ecological Observatory Network (NEON)
+    provider: neon
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1864,7 +1864,7 @@ datasets:
       Acquisition_Date:
   projects/neon-prod-earthengine/assets/RGB/001:
     title: 'projects/neon-prod-earthengine/assets/RGB/001 (community-published catalog reference)'
-    provider: National Ecological Observatory Network (NEON)
+    provider: neon
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1878,7 +1878,7 @@ datasets:
       B:
   projects/ngis-cat/assets/DEA/NIDEM:
     title: 'projects/ngis-cat/assets/DEA/NIDEM (community-published catalog reference)'
-    provider: Geoscience Australia / DEA (NGIS catalogue)
+    provider: geoscience-australia
     ee_type: image
     extent:
       start_date: "2020-01-01"
@@ -1893,7 +1893,7 @@ datasets:
       nidem_unfiltered:
   projects/openet/assets/disalexi/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/disalexi/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1906,7 +1906,7 @@ datasets:
       count:
   projects/openet/assets/disalexi/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/disalexi/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1919,7 +1919,7 @@ datasets:
       count:
   projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1932,7 +1932,7 @@ datasets:
       count:
   projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1945,7 +1945,7 @@ datasets:
       count:
   projects/openet/assets/eemetric/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1958,7 +1958,7 @@ datasets:
       count:
   projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1975,7 +1975,7 @@ datasets:
       et_ensemble_sam:
   projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -1992,7 +1992,7 @@ datasets:
       et_ensemble_sam:
   projects/openet/assets/ensemble/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2009,7 +2009,7 @@ datasets:
       et_ensemble_sam:
   projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2022,7 +2022,7 @@ datasets:
       count:
   projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2035,7 +2035,7 @@ datasets:
       count:
   projects/openet/assets/geesebal/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2048,7 +2048,7 @@ datasets:
       count:
   projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2061,7 +2061,7 @@ datasets:
       count:
   projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2074,7 +2074,7 @@ datasets:
       count:
   projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2087,7 +2087,7 @@ datasets:
       count:
   projects/openet/assets/sims/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2100,7 +2100,7 @@ datasets:
       count:
   projects/openet/assets/sims/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2113,7 +2113,7 @@ datasets:
       count:
   projects/openet/assets/sims/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2126,7 +2126,7 @@ datasets:
       count:
   projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2139,7 +2139,7 @@ datasets:
       count:
   projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2152,7 +2152,7 @@ datasets:
       count:
   projects/openet/assets/ssebop/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
-    provider: OpenET, Inc.
+    provider: openet
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2165,7 +2165,7 @@ datasets:
       count:
   projects/planet-nicfi/assets/basemaps/africa:
     title: "Planet NICFI Tropical Africa Basemap (~4.77m, monthly, 2020-)"
-    provider: Planet Labs (NICFI programme)
+    provider: planet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4.77
@@ -2191,7 +2191,7 @@ datasets:
 
   projects/planet-nicfi/assets/basemaps/americas:
     title: "Planet NICFI Tropical Americas Basemap (~4.77m, monthly, 2020-)"
-    provider: Planet Labs (NICFI programme)
+    provider: planet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4.77
@@ -2217,7 +2217,7 @@ datasets:
 
   projects/planet-nicfi/assets/basemaps/asia:
     title: "Planet NICFI Tropical Asia Basemap (~4.77m, monthly, 2020-)"
-    provider: Planet Labs (NICFI programme)
+    provider: planet
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 4.77
@@ -2243,7 +2243,7 @@ datasets:
 
   projects/pml_evapotranspiration/PML/OUTPUT/PML_V22a:
     title: 'projects/pml_evapotranspiration/PML/OUTPUT/PML_V22a (community-published catalog reference)'
-    provider: PML_V2 Evapotranspiration team
+    provider: pml-v2
     ee_type: image_collection
     extent:
       start_date: "2020-01-01"
@@ -2262,7 +2262,7 @@ datasets:
       Ew:
   projects/sat-io/open-datasets/GLOBathy/GLOBathy_bathymetry:
     title: "GLOBathy: Global Lakes Bathymetry (~30m, derived from HydroLAKES)"
-    provider: GLOBathy / Sat-IO open-datasets
+    provider: sat-io
     ee_type: image
     spatial_resolution: 30
     extent:
@@ -2278,7 +2278,7 @@ datasets:
 
   projects/sat-io/open-datasets/ORNL/LANDSCAN_GLOBAL:
     title: "ORNL LandScan Global: 24-hour Population Count (~1km, annual, 2000-)"
-    provider: Oak Ridge National Laboratory (republished via sat-io)
+    provider: ornl
     ee_type: image_collection
     cadence: { interval: 1, unit: year }
     spatial_resolution: 927.67
@@ -2296,7 +2296,7 @@ datasets:
 
   projects/sat-io/open-datasets/us-drought-monitor:
     title: "US Drought Monitor (weekly raster, ~5km, 2000-)"
-    provider: NDMC / USDA / NOAA (republished via sat-io)
+    provider: ndmc
     ee_type: image_collection
     cadence: { interval: 7, unit: day }
     spatial_resolution: 5000

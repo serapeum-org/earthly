@@ -52,6 +52,7 @@ from earthlens.base import AbstractCatalog
 from earthlens.base.yaml_loader import load_yaml_strict
 
 CATALOG_PATH: Path = Path(__file__).parent / "catalog"
+PROVIDERS_PATH: Path = Path(__file__).parent / "providers.yaml"
 
 # Module-level cache of parsed catalog data. Keyed on the resolved path
 # plus a tuple of `(file, mtime_ns)` for every YAML the load touched (so
@@ -169,14 +170,15 @@ def _load_catalog_data(path: Path) -> tuple[list[str], dict[str, "Dataset"]]:
 
 
 def clear_catalog_cache() -> None:
-    """Empty the module-level catalog cache.
+    """Empty the module-level catalog + providers caches.
 
     Useful in tests that rewrite the catalog on disk and want to force a
-    re-parse. Production callers do not need this — the cache key
-    includes `st_mtime_ns`, so any real file mutation invalidates the
+    re-parse. Production callers do not need this — the cache keys
+    include `st_mtime_ns`, so any real file mutation invalidates the
     entry on its own.
     """
     _CATALOG_CACHE.clear()
+    _PROVIDERS_CACHE.clear()
 
 
 class Cadence(BaseModel):
@@ -331,7 +333,10 @@ class Dataset(BaseModel):
     Attributes:
         id: The Earth Engine asset id (e.g. `"COPERNICUS/S2_SR_HARMONIZED"`).
         title: Human title.
-        provider: Primary data provider, or `None`.
+        provider: Canonical provider slug (e.g. `"nasa-lp-daac"`,
+            `"copernicus"`), or `None`. The catalog validates that
+            every non-`None` slug is registered in `providers.yaml`;
+            resolve to a display name via `Catalog.get_provider(slug)`.
         ee_type: `"image"` (a single static raster), `"image_collection"`
             (a time series), `"table"` (a `FeatureCollection` — out of
             scope for the raster backend), `"table_collection"` (a
@@ -441,21 +446,85 @@ class Dataset(BaseModel):
             ) from None
 
 
+class Provider(BaseModel):
+    """One canonical data provider — a slug-id with a display name and parent.
+
+    Frozen value object loaded from `providers.yaml` (M1). Datasets in
+    `catalog/*.yaml` reference providers by slug via the `provider:`
+    field; the loader validates that every referenced slug is registered.
+
+    Attributes:
+        slug: Stable kebab-case identifier (e.g. `"nasa-lp-daac"`,
+            `"copernicus-marine"`); injected from the YAML mapping key.
+        display_name: Human-readable name to render in docs and UIs.
+        parent: Slug of the parent provider, or `None` for top-level
+            organisations. Used to group e.g. all NASA DAACs under the
+            `"nasa"` umbrella.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    slug: str
+    display_name: str
+    parent: str | None = None
+
+
+_PROVIDERS_CACHE: dict[tuple[str, int], dict[str, "Provider"]] = {}
+
+
+def _load_providers(path: Path) -> dict[str, "Provider"]:
+    """Parse + cache `providers.yaml`, keyed on `(path, mtime_ns)`."""
+    resolved = str(path.resolve())
+    try:
+        mtime_ns = path.stat().st_mtime_ns
+    except FileNotFoundError as exc:
+        raise ValueError(
+            f"providers registry not found at {path}; M1 (provider normalisation) "
+            "expects this file alongside the catalog directory."
+        ) from exc
+    key = (resolved, mtime_ns)
+    cached = _PROVIDERS_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    data = load_yaml_strict(path) or {}
+    raw = data.get("providers") or {}
+    out: dict[str, Provider] = {}
+    for slug, body in raw.items():
+        try:
+            out[slug] = Provider(slug=slug, **dict(body or {}))
+        except ValidationError as exc:
+            raise ValueError(f"invalid provider {slug!r} in {path}: {exc}") from exc
+    # Sanity-check parent references.
+    for slug, p in out.items():
+        if p.parent is not None and p.parent not in out:
+            raise ValueError(
+                f"provider {slug!r} declares parent={p.parent!r}, "
+                f"which is not a known provider slug in {path}"
+            )
+    _PROVIDERS_CACHE[key] = out
+    return out
+
+
 class Catalog(AbstractCatalog):
     """YAML-backed catalog of Earth Engine datasets for the GEE backend.
 
     Reads every `*.yaml` file under :data:`CATALOG_PATH` (the
     per-category `catalog/` directory shipped with the package) on
-    construction, merging them into one logical catalog and validating
-    every entry into typed :class:`Dataset` / :class:`Band` models. A
-    duplicate dataset/band key in the YAML (within a file or across
-    files), an unknown band field, or a curated dataset not listed in
-    `available_datasets` is a load-time error.
+    construction plus the canonical provider registry at
+    :data:`PROVIDERS_PATH`, merging them into one logical catalog and
+    validating every entry into typed :class:`Dataset` / :class:`Band`
+    / :class:`Provider` models. A duplicate dataset/band key in the
+    YAML (within a file or across files), an unknown band field, a
+    curated dataset not listed in `available_datasets`, or a
+    `provider:` slug that is missing from `providers.yaml` is a
+    load-time error.
 
     Attributes:
         available_datasets: Informational list of every Earth Engine
             asset id the package knows about.
         datasets: Curated asset id → :class:`Dataset`.
+        providers: Canonical provider slug → :class:`Provider`.
 
     Examples:
         - Construct the catalog and look at what it holds:
@@ -481,24 +550,61 @@ class Catalog(AbstractCatalog):
 
     available_datasets: list[str] = Field(default_factory=list)
     datasets: dict[str, Dataset] = Field(default_factory=dict)
+    providers: dict[str, Provider] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Populate :attr:`available_datasets` / :attr:`datasets` from the YAML cache.
+        """Populate :attr:`available_datasets` / :attr:`datasets` / :attr:`providers`.
 
-        Delegates to :func:`_load_catalog_data`, which parses, validates
-        and caches the YAML on `(path, mtime_ns)`. Repeated construction
-        on an unchanged file is ~1 ms.
+        Delegates dataset parsing to :func:`_load_catalog_data` and
+        provider parsing to :func:`_load_providers`, both cached on
+        `(path, mtime_ns)`. Validates that every `Dataset.provider`
+        slug is present in the registry.
 
         Raises:
             ValueError: If the YAML is missing, has no `datasets:`
                 block, declares the same key twice, contains an unknown
-                band field, or lists a curated dataset that is absent
-                from `available_datasets`.
+                band field, lists a curated dataset that is absent from
+                `available_datasets`, or references an unregistered
+                provider slug.
         """
         available_datasets, datasets = _load_catalog_data(CATALOG_PATH)
+        providers = _load_providers(PROVIDERS_PATH)
+        unknown = sorted(
+            {d.provider for d in datasets.values() if d.provider and d.provider not in providers}
+        )
+        if unknown:
+            raise ValueError(
+                f"the following provider slugs are referenced by "
+                f"`catalog/*.yaml` but missing from {PROVIDERS_PATH}: {unknown}. "
+                "Add them to providers.yaml or fix the typo."
+            )
         self.available_datasets = list(available_datasets)
         self.datasets = dict(datasets)
+        self.providers = dict(providers)
         super().model_post_init(__context)
+
+    def get_provider(self, slug: str) -> Provider:
+        """Return the :class:`Provider` for `slug`.
+
+        Args:
+            slug: A registered provider slug (e.g. `"nasa-lp-daac"`).
+
+        Returns:
+            The matching :class:`Provider`.
+
+        Raises:
+            ValueError: If `slug` is not a registered provider; the
+                message suggests the closest known slug.
+        """
+        try:
+            return self.providers[slug]
+        except KeyError:
+            close = difflib.get_close_matches(slug, self.providers, n=1)
+            hint = f" Did you mean {close[0]!r}?" if close else ""
+            raise ValueError(
+                f"{slug!r} is not a registered provider. "
+                f"Known providers: {sorted(self.providers)}.{hint}"
+            ) from None
 
     def get_catalog(self) -> dict[str, Dataset]:
         """Return the curated dataset map (asset id → :class:`Dataset`).

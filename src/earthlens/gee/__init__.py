@@ -59,7 +59,16 @@ from __future__ import annotations
 
 from earthlens.gee.auth import AuthenticationError, EarthEngineAuth
 from earthlens.gee.backend import GEE
-from earthlens.gee.catalog import CATALOG_PATH, Band, Cadence, Catalog, Dataset, Extent
+from earthlens.gee.catalog import (
+    CATALOG_PATH,
+    PROVIDERS_PATH,
+    Band,
+    Cadence,
+    Catalog,
+    Dataset,
+    Extent,
+    Provider,
+)
 from earthlens.gee.features import createFeature, createGeometry
 
 __all__ = [
@@ -70,7 +79,9 @@ __all__ = [
     "Band",
     "Cadence",
     "Extent",
+    "Provider",
     "CATALOG_PATH",
+    "PROVIDERS_PATH",
     "EarthEngineAuth",
     "createGeometry",
     "createFeature",

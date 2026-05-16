@@ -1,0 +1,279 @@
+# Canonical providers for the GEE catalog (M1).
+# Each entry maps a stable slug-id to a display name and optional
+# parent slug. Datasets in `catalog/*.yaml` reference providers by
+# slug via the `provider:` field; the loader validates that every
+# referenced slug is defined here.
+
+providers:
+  nasa:
+    display_name: "NASA"
+  nasa-asdc:
+    display_name: "NASA ASDC"
+    parent: nasa
+  nasa-ges-disc:
+    display_name: "NASA GES DISC"
+    parent: nasa
+  nasa-gmao:
+    display_name: "NASA GMAO"
+    parent: nasa
+  nasa-gsfc:
+    display_name: "NASA Goddard Space Flight Center"
+    parent: nasa
+  nasa-jpl:
+    display_name: "NASA Jet Propulsion Laboratory"
+    parent: nasa
+  nasa-laads-daac:
+    display_name: "NASA LAADS DAAC"
+    parent: nasa
+  nasa-lance:
+    display_name: "NASA LANCE"
+    parent: nasa
+  nasa-lp-daac:
+    display_name: "NASA Land Processes DAAC"
+    parent: nasa
+  nasa-nsidc-daac:
+    display_name: "NASA NSIDC DAAC"
+    parent: nasa
+  nasa-ob-daac:
+    display_name: "NASA OB.DAAC"
+    parent: nasa
+  nasa-ornl-daac:
+    display_name: "NASA ORNL DAAC"
+    parent: nasa
+  nasa-sedac:
+    display_name: "NASA SEDAC (CIESIN)"
+    parent: nasa
+  usda:
+    display_name: "USDA"
+  usda-ars:
+    display_name: "USDA ARS"
+    parent: usda
+  usda-fsa:
+    display_name: "USDA FSA"
+    parent: usda
+  usda-nass:
+    display_name: "USDA National Agricultural Statistics Service"
+    parent: usda
+  usda-usfs:
+    display_name: "USDA Forest Service"
+    parent: usda
+  usda-usfs-gtac:
+    display_name: "USDA Forest Service GTAC"
+    parent: usda-usfs
+  usgs:
+    display_name: "USGS"
+  usgs-google:
+    display_name: "USGS / Google (Landsat publication)"
+    parent: usgs
+  blm:
+    display_name: "US Bureau of Land Management"
+  us-census-bureau:
+    display_name: "US Census Bureau"
+  us-epa:
+    display_name: "US Environmental Protection Agency"
+  us-state-dept:
+    display_name: "US Department of State (Office of the Geographer)"
+  noaa:
+    display_name: "NOAA"
+  noaa-nhc:
+    display_name: "NOAA National Hurricane Center"
+    parent: noaa
+  noaa-psl:
+    display_name: "NOAA Physical Sciences Laboratory"
+    parent: noaa
+  nopp:
+    display_name: "US Naval Oceanographic Partnership Program (NOPP)"
+  hycom-consortium:
+    display_name: "HYCOM Consortium"
+  copernicus:
+    display_name: "Copernicus"
+  copernicus-marine:
+    display_name: "Copernicus Marine Service"
+    parent: copernicus
+  ecmwf:
+    display_name: "ECMWF"
+  esa:
+    display_name: "European Space Agency"
+  ec-jrc:
+    display_name: "EC Joint Research Centre"
+  eea:
+    display_name: "European Environment Agency"
+  vito:
+    display_name: "VITO"
+  cnes:
+    display_name: "CNES"
+  dlr:
+    display_name: "DLR — German Aerospace Centre"
+  ign:
+    display_name: "IGN — French National Geographic Institute"
+  uk-env-agency:
+    display_name: "UK Environment Agency"
+  ahn:
+    display_name: "AHN — Actueel Hoogtebestand Nederland"
+  swisstopo:
+    display_name: "swisstopo"
+  beeldmateriaal-nl:
+    display_name: "Beeldmateriaal Nederland"
+  national-orthophotos:
+    display_name: "European national orthophoto programmes"
+  fao:
+    display_name: "FAO UN"
+  unep-wcmc:
+    display_name: "UNEP-WCMC / Protected Planet"
+  un-geodata:
+    display_name: "United Nations Geospatial"
+  iucn:
+    display_name: "IUCN"
+  ipcc:
+    display_name: "IPCC"
+  iahs:
+    display_name: "IAHS"
+  jaxa:
+    display_name: "JAXA"
+  aafc:
+    display_name: "Agriculture and Agri-Food Canada"
+  nrcan:
+    display_name: "Natural Resources Canada"
+  nfis-canada:
+    display_name: "National Forest Information System (Canada)"
+  cec:
+    display_name: "Commission for Environmental Cooperation"
+  geoscience-australia:
+    display_name: "Geoscience Australia"
+  tern-csiro:
+    display_name: "TERN Landscapes / CSIRO Land and Water"
+  csiro:
+    display_name: "CSIRO"
+  bnetd-cign:
+    display_name: "BNETD-CIGN (Côte d'Ivoire)"
+  boston-university:
+    display_name: "Boston University"
+  bnu:
+    display_name: "Beijing Normal University"
+  bochum-urban-climate:
+    display_name: "Bochum Urban Climate Lab"
+  cas-igsnrr:
+    display_name: "CAS IGSNRR"
+  cpom:
+    display_name: "Centre for Polar Observation and Modelling"
+  csic:
+    display_name: "CSIC"
+  csm-payne-institute:
+    display_name: "Colorado School of Mines (Payne Institute)"
+  humboldt-berlin:
+    display_name: "Humboldt University of Berlin"
+  k-n-toosi-uni:
+    display_name: "K. N. Toosi University of Technology"
+  larse-usfs:
+    display_name: "USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)"
+    parent: usda-usfs
+  montana-ntsg:
+    display_name: "University of Montana NTSG"
+  montana-climate-office:
+    display_name: "Montana Climate Office"
+  neon:
+    display_name: "National Ecological Observatory Network (NEON)"
+  oxford-malaria-atlas:
+    display_name: "Oxford Malaria Atlas Project"
+  oregonstate-prism:
+    display_name: "PRISM Climate Group, Oregon State University"
+  pku-rel:
+    display_name: "Peking University Remote Sensing Lab (PKU REL)"
+  snu:
+    display_name: "Seoul National University"
+  tsinghua:
+    display_name: "Tsinghua University"
+  tu-berlin:
+    display_name: "TU Berlin"
+  uc-berkeley-worldclim:
+    display_name: "WorldClim — UC Berkeley"
+  uc-merced:
+    display_name: "University of California Merced"
+  umd-glad:
+    display_name: "UMD GLAD"
+  umn-pgc:
+    display_name: "University of Minnesota Polar Geospatial Center"
+  uni-tokyo:
+    display_name: "University of Tokyo"
+  uq-murray:
+    display_name: "University of Queensland (Murray group)"
+  jcu-murray:
+    display_name: "James Cook University (Murray group)"
+  wm-geolab:
+    display_name: "William and Mary geoLab (geoBoundaries)"
+  whrc:
+    display_name: "Woods Hole Research Center"
+  yceo-yale:
+    display_name: "Yale Center for Earth Observation (YCEO)"
+  aca:
+    display_name: "Allen Coral Atlas Partnership"
+  biopama:
+    display_name: "BIOPAMA programme"
+  c2s-dfo:
+    display_name: "Cloud to Street / Dartmouth Flood Observatory"
+  ciesin:
+    display_name: "CIESIN"
+  earth-big-data:
+    display_name: "Earth Big Data LLC"
+  edf-methanesat:
+    display_name: "Environmental Defense Fund — MethaneSAT"
+  envirometrix-openlandmap:
+    display_name: "EnvirometriX (OpenLandMap)"
+  forest-data-partnership:
+    display_name: "Forest Data Partnership"
+  global-fishing-watch:
+    display_name: "Global Fishing Watch"
+  global-pasture-watch:
+    display_name: "Global Pasture Watch"
+  google:
+    display_name: "Google"
+  google-research:
+    display_name: "Google Research"
+    parent: google
+  google-cloud-publicdata:
+    display_name: "Google Cloud Public Data"
+    parent: google
+  gfw:
+    display_name: "Global Forest Watch (WRI)"
+  hansen-umd-google:
+    display_name: "Hansen / UMD / Google / USGS / NASA (forest change)"
+  inaturalist:
+    display_name: "iNaturalist"
+  isda:
+    display_name: "iSDA"
+  isric:
+    display_name: "ISRIC — World Soil Information"
+  kbas:
+    display_name: "Key Biodiversity Areas (KBAs)"
+  mapbiomas:
+    display_name: "MapBiomas"
+  mtbs:
+    display_name: "Monitoring Trends in Burn Severity (MTBS)"
+  nature-trace:
+    display_name: "Nature Trace"
+  ndmc:
+    display_name: "US National Drought Mitigation Center"
+  openet:
+    display_name: "OpenET, Inc."
+  ornl:
+    display_name: "Oak Ridge National Laboratory"
+  overture-maps:
+    display_name: "Overture Maps Foundation"
+  planet:
+    display_name: "Planet Labs"
+  pml-v2:
+    display_name: "PML_V2 team"
+  resolve:
+    display_name: "RESOLVE Biodiversity and Wildlife Solutions"
+  sat-io:
+    display_name: "Sat-IO open-datasets republication"
+  ucsb-chc:
+    display_name: "UCSB Climate Hazards Center"
+  worldpop:
+    display_name: "WorldPop"
+  wri:
+    display_name: "World Resources Institute"
+  wwf:
+    display_name: "WWF"
+  ee-publisher:
+    display_name: "Earth Engine catalog publisher (unspecified)"

@@ -5,7 +5,7 @@
 datasets:
   COPERNICUS/S5P/NRTI/L3_AER_AI:
     title: "Sentinel-5P NRTI AER_AI: Near-Real-Time UV Aerosol Index"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -21,7 +21,7 @@ datasets:
 
   COPERNICUS/S5P/NRTI/L3_AER_LH:
     title: 'Sentinel-5P NRTI AER LH: Near Real-Time UV Aerosol Layer Height'
-    provider: European Union/ESA/Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 2, unit: day }
     spatial_resolution: 1113.2
@@ -70,7 +70,7 @@ datasets:
 
   COPERNICUS/S5P/NRTI/L3_CLOUD:
     title: "Sentinel-5P NRTI CLOUD: Near-Real-Time Cloud Properties"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -104,7 +104,7 @@ datasets:
 
   COPERNICUS/S5P/NRTI/L3_CO:
     title: "Sentinel-5P NRTI CO: Near-Real-Time Carbon Monoxide Total Column"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -127,7 +127,7 @@ datasets:
 
   COPERNICUS/S5P/NRTI/L3_HCHO:
     title: "Sentinel-5P NRTI HCHO: Near-Real-Time Tropospheric Formaldehyde"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -153,7 +153,7 @@ datasets:
 
   COPERNICUS/S5P/NRTI/L3_NO2:
     title: "Sentinel-5P NRTI NO2: Near-Real-Time Tropospheric Nitrogen Dioxide"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -180,7 +180,7 @@ datasets:
 
   COPERNICUS/S5P/NRTI/L3_O3:
     title: "Sentinel-5P NRTI O3: Near-Real-Time Total Column Ozone"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -204,7 +204,7 @@ datasets:
 
   COPERNICUS/S5P/NRTI/L3_SO2:
     title: "Sentinel-5P NRTI SO2: Near-Real-Time Total Column Sulfur Dioxide"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -230,7 +230,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_AER_AI:
     title: "Sentinel-5P OFFL AER_AI: UV Aerosol Index (354/388 nm)"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -246,7 +246,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_AER_LH:
     title: "Sentinel-5P OFFL AER_LH: UV Aerosol Layer Height"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -266,7 +266,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_CH4:
     title: "Sentinel-5P OFFL CH4: Column-Averaged Methane Mixing Ratio"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -288,7 +288,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_CLOUD:
     title: "Sentinel-5P OFFL CLOUD: Cloud Top / Base Properties"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -322,7 +322,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_CO:
     title: "Sentinel-5P OFFL CO: Carbon Monoxide Total Column"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -345,7 +345,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_HCHO:
     title: "Sentinel-5P OFFL HCHO: Tropospheric Formaldehyde Column"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -371,7 +371,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_NO2:
     title: "Sentinel-5P OFFL NO2: Tropospheric Nitrogen Dioxide"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -403,7 +403,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_O3:
     title: "Sentinel-5P OFFL O3: Total Column Ozone"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -427,7 +427,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_O3_TCL:
     title: "Sentinel-5P OFFL O3_TCL: Tropospheric Ozone Column (CCD algorithm)"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 55660
@@ -455,7 +455,7 @@ datasets:
 
   COPERNICUS/S5P/OFFL/L3_SO2:
     title: "Sentinel-5P OFFL SO2: Total Column Sulfur Dioxide"
-    provider: ESA / Copernicus
+    provider: copernicus
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1113.2
@@ -481,7 +481,7 @@ datasets:
 
   ECMWF/CAMS/NRT:
     title: "Copernicus CAMS Global Near-Real-Time Atmospheric Composition Forecast"
-    provider: ECMWF / Copernicus C3S
+    provider: ecmwf
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 44528
@@ -518,7 +518,7 @@ datasets:
 
   EDF/MethaneSAT/MethaneAIR/L3concentration:
     title: MethaneAIR L3 Concentration v1
-    provider: Environmental Defense Fund - MethaneSAT
+    provider: edf-methanesat
     ee_type: image_collection
     spatial_resolution: 10.2
     extent:
@@ -552,7 +552,7 @@ datasets:
 
   EDF/MethaneSAT/MethaneAIR/L4area:
     title: MethaneAIR L4 Area Sources v1
-    provider: Environmental Defense Fund - MethaneSAT
+    provider: edf-methanesat
     ee_type: image_collection
     spatial_resolution: 1000
     extent:
@@ -572,7 +572,7 @@ datasets:
 
   EDF/MethaneSAT/MethaneAIR/L4point:
     title: MethaneAIR L4 Point Sources v1
-    provider: Environmental Defense Fund - MethaneSAT
+    provider: edf-methanesat
     ee_type: table
     extent:
       start_date: "2021-07-30"
@@ -586,7 +586,7 @@ datasets:
 
   EDF/MethaneSAT/MethaneAIR/methaneair-L4area-2021:
     title: MethaneAIR L4 Area Sources 2021 [deprecated]
-    provider: Environmental Defense Fund - MethaneSAT
+    provider: edf-methanesat
     ee_type: image
     spatial_resolution: 1000
     extent:
@@ -606,7 +606,7 @@ datasets:
 
   EDF/MethaneSAT/MethaneAIR/methaneair-L4point-2021:
     title: MethaneAIR L4 Point Sources 2021 [deprecated]
-    provider: Environmental Defense Fund - MethaneSAT
+    provider: edf-methanesat
     ee_type: table
     extent:
       start_date: "2021-08-07"
@@ -620,7 +620,7 @@ datasets:
 
   MODIS/006/MCD19A2_GRANULES:
     title: 'MCD19A2.006: Terra & Aqua MAIAC Land Aerosol Optical Depth Daily 1km [deprecated]'
-    provider: NASA LP DAAC at the USGS EROS Center
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -696,7 +696,7 @@ datasets:
 
   MODIS/006/MOD08_M3:
     title: MOD08_M3.006 Terra Aerosol Cloud Water Vapor Ozone Monthly Global Product 1Deg CMG
-    provider: NASA LAADS DAAC at NASA Goddard Space Flight Center
+    provider: nasa-laads-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 111320
@@ -760,7 +760,7 @@ datasets:
 
   MODIS/006/MYD08_M3:
     title: MYD08_M3.006 Aqua Aerosol Cloud Water Vapor Ozone Monthly Global Product 1Deg CMG
-    provider: NASA LAADS DAAC at NASA Goddard Space Flight Center
+    provider: nasa-laads-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 111320
@@ -824,7 +824,7 @@ datasets:
 
   MODIS/061/MCD19A2_GRANULES:
     title: "MCD19A2.061: MAIAC Land Aerosol Optical Depth Daily 1km (Terra+Aqua)"
-    provider: NASA LP DAAC
+    provider: nasa-lp-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 1000
@@ -852,7 +852,7 @@ datasets:
 
   MODIS/061/MOD08_M3:
     title: "MOD08_M3.061: Terra Atmosphere Monthly Global 1° (Aerosols, Cloud, Water Vapor)"
-    provider: NASA LAADS DAAC
+    provider: nasa-laads-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 111320
@@ -887,7 +887,7 @@ datasets:
 
   MODIS/061/MYD08_M3:
     title: "MYD08_M3.061: Aqua Atmosphere Monthly Global 1° (Aerosols, Cloud, Water Vapor)"
-    provider: NASA LAADS DAAC
+    provider: nasa-laads-daac
     ee_type: image_collection
     cadence: { interval: 1, unit: month }
     spatial_resolution: 111320
@@ -922,7 +922,7 @@ datasets:
 
   NASA/EMIT/L1B/RAD:
     title: EMIT L1B At-Sensor Calibrated Radiance and Geolocation Data 60 m
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 60
@@ -1826,7 +1826,7 @@ datasets:
 
   NASA/EMIT/L2A/RFL:
     title: EMIT L2A Estimated Surface Reflectance and Uncertainty and Masks 60 m
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 60
@@ -3570,7 +3570,7 @@ datasets:
 
   NASA/EMIT/L2B/CH4ENH:
     title: Earth Surface Mineral Dust Source Investigation- Methane Enhancement
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 72000
@@ -3587,7 +3587,7 @@ datasets:
 
   NASA/EMIT/L2B/CH4PLM:
     title: Earth Surface Mineral Dust Source Investigation- Methane Plume Complexes
-    provider: NASA Jet Propulsion Laboratory
+    provider: nasa-jpl
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 72000
@@ -3604,7 +3604,7 @@ datasets:
 
   NASA/GEOS-CF/v1/fcst/htf:
     title: 'GEOS-CF fcst htf v1: Goddard Earth Observing System Composition Forecast'
-    provider: NASA / GMAO
+    provider: nasa-gmao
     ee_type: image_collection
     spatial_resolution: 27750
     extent:
@@ -3652,7 +3652,7 @@ datasets:
 
   NASA/GEOS-CF/v1/fcst/tavg1hr:
     title: 'GEOS-CF fcst tavg1hr v1: Goddard Earth Observing System Composition Forecast'
-    provider: NASA / GMAO
+    provider: nasa-gmao
     ee_type: image_collection
     spatial_resolution: 27750
     extent:
@@ -4057,7 +4057,7 @@ datasets:
 
   NASA/GEOS-CF/v1/rpl/htf:
     title: 'GEOS-CF rpl htf v1: Goddard Earth Observing System Composition Forecast'
-    provider: NASA / GMAO
+    provider: nasa-gmao
     ee_type: image_collection
     spatial_resolution: 27750
     extent:
@@ -4105,7 +4105,7 @@ datasets:
 
   NASA/GEOS-CF/v1/rpl/tavg1hr:
     title: 'GEOS-CF rpl tavg1hr v1: Goddard Earth Observing System Composition Forecast'
-    provider: NASA / GMAO
+    provider: nasa-gmao
     ee_type: image_collection
     spatial_resolution: 27750
     extent:
@@ -4510,7 +4510,7 @@ datasets:
 
   NASA/GSFC/MERRA/aer/2:
     title: "MERRA-2 M2T1NXAER: Hourly Aerosol Diagnostics V5.12.4"
-    provider: NASA GSFC
+    provider: nasa-gsfc
     ee_type: image_collection
     cadence: { interval: 1, unit: hour }
     spatial_resolution: 55000
@@ -4541,7 +4541,7 @@ datasets:
 
   NASA/GSFC/MERRA/aer_nv/2:
     title: 'MERRA-2 M2I3NVAER: Aerosol Mixing Ratio V5.12.4'
-    provider: NASA/MERRA
+    provider: nasa-gmao
     ee_type: image_collection
     cadence: { interval: 3, unit: hour }
     spatial_resolution: 55000
@@ -9095,7 +9095,7 @@ datasets:
 
   NASA/TEMPO/HCHO_L3:
     title: TEMPO gridded HCHO vertical columns V03
-    provider: NASA ASDC
+    provider: nasa-asdc
     ee_type: image_collection
     spatial_resolution: 2226
     extent:
@@ -9168,7 +9168,7 @@ datasets:
 
   NASA/TEMPO/HCHO_L3_QA:
     title: TEMPO gridded HCHO (QA filtered) vertical columns V03
-    provider: 'QA Filtered: Google and NASA ASDC'
+    provider: nasa-asdc
     ee_type: image_collection
     spatial_resolution: 2226
     extent:
@@ -9241,7 +9241,7 @@ datasets:
 
   NASA/TEMPO/NO2_L3:
     title: TEMPO gridded NO2 tropospheric and stratospheric columns V03
-    provider: NASA ASDC
+    provider: nasa-asdc
     ee_type: image_collection
     spatial_resolution: 2226
     extent:
@@ -9359,7 +9359,7 @@ datasets:
 
   NASA/TEMPO/NO2_L3_QA:
     title: TEMPO gridded NO2 (QA filtered) tropospheric and stratospheric columns V03
-    provider: 'QA Filtered: Google and NASA ASDC'
+    provider: nasa-asdc
     ee_type: image_collection
     spatial_resolution: 2226
     extent:
@@ -9477,7 +9477,7 @@ datasets:
 
   NASA/TEMPO/O3_L3_QA:
     title: TEMPO gridded ozone total column V03 (PROVISIONAL)
-    provider: NASA ASDC
+    provider: nasa-asdc
     ee_type: image_collection
     spatial_resolution: 2226
     extent:
@@ -9539,7 +9539,7 @@ datasets:
 
   NOAA/CDR/AVHRR/AOT/V3:
     title: "NOAA CDR AVHRR AOT v3: Daily Global Ocean Aerosol Optical Thickness (legacy)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 11132
@@ -9557,7 +9557,7 @@ datasets:
 
   NOAA/CDR/AVHRR/AOT/V4:
     title: "NOAA CDR AVHRR AOT v4: Daily Global Ocean Aerosol Optical Thickness (~10km)"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 11132
@@ -9575,7 +9575,7 @@ datasets:
 
   NOAA/CDR/PATMOSX/V53:
     title: "NOAA CDR PATMOS-x v5.3: AVHRR Cloud Properties + Reflectance + Brightness Temperature"
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 11132
@@ -9608,7 +9608,7 @@ datasets:
 
   NOAA/VIIRS/AOD_EDR/V3:
     title: VIIRS Aerosol Optical Depth and Aerosol Particle Size EDRs V3
-    provider: NOAA
+    provider: noaa
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 750
@@ -9761,7 +9761,7 @@ datasets:
 
   TOMS/MERGED:
     title: TOMS and OMI Merged Ozone Data v3 [deprecated]
-    provider: NASA / GES DISC
+    provider: nasa-ges-disc
     ee_type: image_collection
     cadence: { interval: 1, unit: day }
     spatial_resolution: 111000
