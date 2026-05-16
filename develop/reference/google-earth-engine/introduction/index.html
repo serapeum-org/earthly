@@ -64,7 +64,7 @@
     
     
   <meta name="panzoom-theme" content="material">
-<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+<meta name="panzoom-data" content='{"selectors": [".d2", ".mermaid"], "initial_zoom_level": 1.0}'> </head>
   
   
     
@@ -2015,8 +2015,13 @@ cadence, and a valid date range — all browsable in the
 and machine-readable via its
 <a href="https://storage.googleapis.com/earthengine-stac/catalog/catalog.json">STAC catalog</a>.</p>
 <p>earthlens ships a curated subset of this in
-<code>src/earthlens/gee/gee_data_catalog.yaml</code> (the GEE analogue of the
-ECMWF <code>cds_data_catalog.yaml</code>), mapping asset IDs to the band and
+<code>src/earthlens/gee/catalog/</code> — a directory of per-category YAML files
+(<code>optical-multispectral.yaml</code>, <code>climate-reanalysis.yaml</code>,
+<code>land-cover-change.yaml</code>, <code>hydrology-water.yaml</code>, <code>community.yaml</code> for
+<code>projects/...</code> assets, …) plus <code>_index.yaml</code> carrying the merged
+<code>available_datasets:</code> list. The loader (<code>earthlens.gee.Catalog</code>)
+parses every file and merges them. This is the GEE analogue of the
+ECMWF <code>cds_data_catalog.yaml</code>, mapping asset IDs to the band and
 aggregation metadata the backend needs.</p>
 <h2 id="authentication"><a class="toclink" href="#authentication">Authentication</a><a class="headerlink" href="#authentication" title="Permanent link">#</a></h2>
 <p>Earth Engine requires authenticated access tied to a registered Google

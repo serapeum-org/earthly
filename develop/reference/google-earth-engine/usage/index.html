@@ -64,7 +64,7 @@
     
     
   <meta name="panzoom-theme" content="material">
-<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+<meta name="panzoom-data" content='{"selectors": [".d2", ".mermaid"], "initial_zoom_level": 1.0}'> </head>
   
   
     
@@ -1939,8 +1939,9 @@ on the <a href="../../gee/">Reference</a> page.</p>
 <code>EarthLens</code> facade imports without it; <code>import earthlens.gee</code> requires it.</p>
 </blockquote>
 <h2 id="1-find-a-dataset-and-its-bands"><a class="toclink" href="#1-find-a-dataset-and-its-bands">1. Find a dataset and its bands</a><a class="headerlink" href="#1-find-a-dataset-and-its-bands" title="Permanent link">#</a></h2>
-<p>The catalog (<code>gee_data_catalog.yaml</code>, loaded by <code>earthlens.gee.Catalog</code>)
-maps Earth Engine asset ids to their band and aggregation metadata —
+<p>The catalog (per-category <code>src/earthlens/gee/catalog/*.yaml</code> files,
+loaded and merged by <code>earthlens.gee.Catalog</code>) maps Earth Engine asset
+ids to their band and aggregation metadata —
 shaped by Earth Engine's own model (a dataset is an <code>image</code>,
 <code>image_collection</code>, or <code>table</code>; its addressable units are <em>bands</em>; each
 band may carry a <code>scale</code>/<code>offset</code>, <code>units</code>, <code>wavelength</code>, value range):</p>
