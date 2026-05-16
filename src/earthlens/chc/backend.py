@@ -318,7 +318,7 @@ class CHIRPS(AbstractDataSource):
                         progress_bar=progress_bar,
                         cores=cores,
                     )
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001 - log + continue so one bad variable doesn't kill the batch
                     logger.error(
                         f"CHIRPS download for {ds_key}/{var_name} failed: "
                         f"{type(exc).__name__}: {exc}"
@@ -500,7 +500,7 @@ class CHIRPS(AbstractDataSource):
         local_compressed = self.root_dir / remote_filename
         try:
             self._fetch_ftp(remote_dir, remote_filename, local_compressed)
-        except Exception:
+        except Exception:  # noqa: BLE001 - clean up the partial download on any FTP-stack failure, then re-raise unchanged
             if local_compressed.exists():
                 try:
                     local_compressed.unlink()
