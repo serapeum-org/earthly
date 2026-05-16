@@ -16,14 +16,13 @@ import pandas as pd
 from ee.featurecollection import FeatureCollection
 from ee.geometry import Geometry
 from geopandas.geodataframe import GeoDataFrame
-from loguru import logger
 from shapely.geometry import LineString, Point, Polygon
 
 
 def createGeometry(  # noqa: N802 - established public name
     shapely_geometry: Polygon | Point | LineString,
     epsg: int = 4326,
-) -> Geometry | None:
+) -> Geometry:
     """Convert a Shapely `Polygon` or `Point` to an `ee.Geometry`.
 
     The geometry's GeoJSON coordinates are passed straight to
@@ -31,19 +30,19 @@ def createGeometry(  # noqa: N802 - established public name
     `"epsg:<epsg>"` projection string.
 
     Args:
-        shapely_geometry: A Shapely `Polygon` or `Point` (a `LineString`
-            is accepted by the type but raises — see below).
+        shapely_geometry: A Shapely `Polygon` or `Point`.
         epsg: EPSG code of the geometry's coordinates. Defaults to
             `4326` (WGS84 lon/lat).
 
     Returns:
-        The corresponding `ee.Geometry` (`Polygon` or `Point`), or
-        `None` if `shapely_geometry` is some other geometry type (e.g.
-        `MultiPolygon`) — in which case a debug message is logged.
+        The corresponding `ee.Geometry` (`Polygon` or `Point`).
 
     Raises:
-        ValueError: If `shapely_geometry` is a `LineString` (not yet
-            implemented).
+        NotImplementedError: If `shapely_geometry` is any geometry type
+            other than `Polygon` or `Point` (e.g. `LineString`,
+            `MultiPoint`, `GeometryCollection`). Use
+            :func:`createFeature` for `MultiPolygon` inputs — it
+            explodes them into per-polygon rows before calling this.
 
     Examples:
         - Convert a unit-square polygon (needs the `ee` SDK initialised):
@@ -68,7 +67,7 @@ def createGeometry(  # noqa: N802 - established public name
             >>> createGeometry(LineString([(0, 0), (1, 1)]))
             Traceback (most recent call last):
                 ...
-            ValueError: LineStrings not yet implemented.
+            NotImplementedError: LineString geometries are not yet supported by the GEE backend.
 
             ```
 
@@ -77,21 +76,20 @@ def createGeometry(  # noqa: N802 - established public name
             `GeoDataFrame`, calling this for each row's geometry.
     """
     coords = shapely_geometry.__geo_interface__["coordinates"]
-    if shapely_geometry.geom_type == "Polygon":
+    geom_type = shapely_geometry.geom_type
+    if geom_type == "Polygon":
         return ee.Geometry.Polygon(coords, f"epsg:{epsg}")
-
-    elif shapely_geometry.geom_type in ["Point", "LineString"]:
-        if shapely_geometry.geom_type == "LineString":
-            raise ValueError("LineStrings not yet implemented.")
-        else:
-            return ee.Geometry.Point(coords, f"epsg:{epsg}")
-
-    else:
-        logger.debug(
-            f"The given geometry is neither of type LineString, Point nor Polygon, "
-            f"but {shapely_geometry.geom_type}."
+    if geom_type == "Point":
+        return ee.Geometry.Point(coords, f"epsg:{epsg}")
+    if geom_type == "LineString":
+        raise NotImplementedError(
+            "LineString geometries are not yet supported by the GEE backend."
         )
-        return None
+    raise NotImplementedError(
+        f"{geom_type} geometries are not supported by the GEE backend; "
+        "only Polygon and Point are accepted (MultiPolygon is auto-exploded "
+        "by createFeature)."
+    )
 
 
 def createFeature(  # noqa: N802 - established public name
@@ -166,25 +164,18 @@ def createFeature(  # noqa: N802 - established public name
     if "MultiPolygon" in geotype:
         gdf = gdf.explode(index_parts=True)
 
-    ee_geom_list = gdf.geometry.apply(lambda geom: createGeometry(geom)).to_list()
-    # `createGeometry` returns `None` for any geometry that isn't a Polygon
-    # or Point (after the MultiPolygon-explode above) — fail here with the
-    # offending row indices and types instead of handing `None` to
-    # `ee.Feature(...)`, which the SDK only surfaces as an opaque
-    # `EEException` at request time (M2 in pr-diff-review).
-    bad = [
-        (i, t)
-        for i, (geom, t) in enumerate(zip(ee_geom_list, geotype))
-        if geom is None
-    ]
-    if bad:
-        summary = ", ".join(f"row {i} ({t})" for i, t in bad[:5])
-        more = "" if len(bad) <= 5 else f" (and {len(bad) - 5} more)"
-        raise ValueError(
-            f"createFeature cannot convert {len(bad)} row geometr{'y' if len(bad) == 1 else 'ies'} "
-            f"to an `ee.Geometry`: {summary}{more}. Only Polygon and Point "
-            "(and MultiPolygon, which is auto-exploded) are supported."
-        )
+    # Convert per-row; on the first failure raise a `ValueError` naming
+    # the offending row index so the user can spot it in a large frame
+    # (M2 in pr-diff-review: don't hand `None` / opaque errors to EE).
+    ee_geom_list: list[Geometry] = []
+    for i, geom in enumerate(gdf.geometry):
+        try:
+            ee_geom_list.append(createGeometry(geom))
+        except NotImplementedError as exc:
+            raise ValueError(
+                f"createFeature cannot convert row {i} "
+                f"({geom.geom_type}): {exc}"
+            ) from exc
     records_df = pd.DataFrame(gdf.drop("geometry", axis=1))
     if columns:
         records_df = records_df[columns]

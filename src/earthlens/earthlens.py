@@ -393,4 +393,4 @@ class EarthLens:
         """
         if aggregate is not None:
             kwargs["aggregate"] = aggregate
-        return self.datasource.download(progress_bar=progress_bar, *args, **kwargs)
+        return self.datasource.download(*args, progress_bar=progress_bar, **kwargs)

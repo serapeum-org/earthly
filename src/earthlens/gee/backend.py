@@ -46,7 +46,7 @@ from __future__ import annotations
 
 import datetime as dt
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Iterable
+from typing import TYPE_CHECKING, Any, Iterable, Literal
 
 import ee
 import pandas as pd
@@ -173,7 +173,7 @@ class GEE(AbstractDataSource):
         scale: float | None = None,
         crs: str = "EPSG:4326",
         reducer: str | None = None,
-        export_via: str = "url",
+        export_via: Literal["url", "drive", "gcs"] = "url",
         drive_folder: str | None = None,
         gcs_bucket: str | None = None,
         region: GeoDataFrame | None = None,
@@ -601,7 +601,7 @@ class GEE(AbstractDataSource):
         else:
             ds = PyramidsDataset.from_bytes(body, suffix=".tif")
             ds.to_file(str(target))
-        logger.info(f"Wrote {target} ({target.stat().st_size} bytes)")
+        logger.info(f"Wrote {target} ({len(body)} bytes)")
         return target
 
     def _export_via_batch(self, image, scale: float, region, prefix: str) -> str:

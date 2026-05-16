@@ -86,13 +86,14 @@ class TestCreateGeometry:
         assert geom.coords == Point(3, 4).__geo_interface__["coordinates"]
 
     def test_linestring_not_implemented(self, fake_ee):
-        """A `LineString` raises `ValueError` (not yet supported)."""
-        with pytest.raises(ValueError, match="LineStrings not yet implemented"):
+        """A `LineString` raises `NotImplementedError` (not yet supported)."""
+        with pytest.raises(NotImplementedError, match="LineString geometries"):
             createGeometry(LineString([(0, 0), (1, 1)]))
 
-    def test_unsupported_type_returns_none(self, fake_ee):
-        """An unsupported geometry type yields `None` (logged at debug)."""
-        assert createGeometry(MultiPolygon([_SQUARE, _SQUARE_2])) is None
+    def test_unsupported_type_raises_not_implemented(self, fake_ee):
+        """An unsupported geometry type (e.g. `MultiPolygon`) raises `NotImplementedError`."""
+        with pytest.raises(NotImplementedError, match="MultiPolygon geometries"):
+            createGeometry(MultiPolygon([_SQUARE, _SQUARE_2]))
 
 
 class TestCreateFeature:

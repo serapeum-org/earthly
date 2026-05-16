@@ -58,10 +58,12 @@ PROVIDERS_PATH: Path = Path(__file__).parent / "providers.yaml"
 
 # Module-level cache of parsed catalog data. Keyed on the resolved path
 # plus a tuple of `(file, mtime_ns)` for every YAML the load touched (so
-# editing any per-provider file invalidates the cache without us having
+# editing any per-category file invalidates the cache without us having
 # to inspect every entry). The full parse + pydantic validation across
 # 11k+ band entries is ~5 s on the bundled catalog; a second `Catalog()`
-# call on an unchanged tree should be ~1 ms.
+# call on an unchanged tree should be ~1 ms. `_PROVIDERS_CACHE` below
+# applies the same pattern to `providers.yaml`; both are cleared
+# together by :func:`clear_catalog_cache`.
 _CATALOG_CACHE: dict[Any, tuple[list[str], dict[str, "Dataset"]]] = {}
 
 

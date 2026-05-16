@@ -62,9 +62,9 @@ class TestLoadKeyDict:
         """A non-path, non-JSON string yields `None`."""
         assert _load_key_dict("not json and not a file") is None
 
-    def test_non_dict_json_returned_as_is(self):
-        """Valid JSON that isn't an object is still returned (caller handles it)."""
-        assert _load_key_dict("[1, 2]") == [1, 2]
+    def test_non_object_json_returns_none(self):
+        """Valid JSON that doesn't start with `{` is treated as a (missing) path → None."""
+        assert _load_key_dict("[1, 2]") is None
 
 
 class TestAuthenticationError:

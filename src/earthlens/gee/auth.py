@@ -51,7 +51,11 @@ def _load_key_dict(service_key: str) -> dict[str, Any] | None:
     Accepts either a filesystem path to the key file or the raw JSON
     string itself; returns `None` when `service_key` is neither (so the
     caller can still proceed with whatever `ee` accepts and only error
-    if `ee` itself rejects it).
+    if `ee` itself rejects it). Distinguishes the two shapes by leading
+    character — a value that starts with `{` is treated as inline JSON,
+    everything else as a path (more robust than calling
+    `Path(...).is_file()` on what may be multi-line JSON content,
+    L2 in pr-diff-review).
 
     Args:
         service_key: Path to the service-account JSON file, or the JSON
@@ -61,15 +65,16 @@ def _load_key_dict(service_key: str) -> dict[str, Any] | None:
         The decoded key mapping, or `None` if it could not be read or
         parsed.
     """
+    if not isinstance(service_key, str):
+        return None
+    if service_key.lstrip().startswith("{"):
+        try:
+            return json.loads(service_key)
+        except ValueError:
+            return None
     try:
-        path = Path(service_key)
-        if path.is_file():
-            return json.loads(path.read_text())
+        return json.loads(Path(service_key).read_text())
     except (OSError, ValueError):
-        pass
-    try:
-        return json.loads(service_key)
-    except (ValueError, TypeError):
         return None
 
 
