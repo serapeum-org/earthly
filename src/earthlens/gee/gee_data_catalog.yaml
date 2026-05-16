@@ -17131,7 +17131,7 @@ datasets:
     ee_type: table
     extent:
       start_date: "2021-07-30"
-      end_date: null
+      end_date: "2023-10-13"
       bbox: [-112.5, 27.9, -74, 47.6]
     default_reducer: mosaic
     terms: Use of this data is subject to [MethaneSAT's Content License Terms of
@@ -17471,7 +17471,7 @@ datasets:
     ee_type: table
     extent:
       start_date: "2021-08-07"
-      end_date: null
+      end_date: "2021-08-11"
       bbox: [-110.3, 31.4, -103.1, 40.6]
     default_reducer: mean
     terms: Use of this data is subject to [MethaneSAT's Content License Terms of
@@ -25067,8 +25067,8 @@ datasets:
     provider: International Union for Conservation of Nature and Natural Resources
     ee_type: table
     extent:
-      start_date: "2023-09-14"
-      end_date: null
+      start_date: "2019-10-23"
+      end_date: "2023-11-08"
     default_reducer: mosaic
     terms: Global Ecosystem Typology datasets are provided under the CC BY 4.0 license,
     bands:
@@ -30281,6 +30281,74 @@ datasets:
     default_reducer: mosaic
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      BRDF_Albedo_Parameters_Band1_iso:
+        description: Band BRDF_Albedo_Parameters_Band1_iso
+      BRDF_Albedo_Parameters_Band1_vol:
+        description: Band BRDF_Albedo_Parameters_Band1_vol
+      BRDF_Albedo_Parameters_Band1_geo:
+        description: Band BRDF_Albedo_Parameters_Band1_geo
+      BRDF_Albedo_Parameters_Band2_iso:
+        description: Band BRDF_Albedo_Parameters_Band2_iso
+      BRDF_Albedo_Parameters_Band2_vol:
+        description: Band BRDF_Albedo_Parameters_Band2_vol
+      BRDF_Albedo_Parameters_Band2_geo:
+        description: Band BRDF_Albedo_Parameters_Band2_geo
+      BRDF_Albedo_Parameters_Band3_iso:
+        description: Band BRDF_Albedo_Parameters_Band3_iso
+      BRDF_Albedo_Parameters_Band3_vol:
+        description: Band BRDF_Albedo_Parameters_Band3_vol
+      BRDF_Albedo_Parameters_Band3_geo:
+        description: Band BRDF_Albedo_Parameters_Band3_geo
+      BRDF_Albedo_Parameters_Band4_iso:
+        description: Band BRDF_Albedo_Parameters_Band4_iso
+      BRDF_Albedo_Parameters_Band4_vol:
+        description: Band BRDF_Albedo_Parameters_Band4_vol
+      BRDF_Albedo_Parameters_Band4_geo:
+        description: Band BRDF_Albedo_Parameters_Band4_geo
+      BRDF_Albedo_Parameters_Band5_iso:
+        description: Band BRDF_Albedo_Parameters_Band5_iso
+      BRDF_Albedo_Parameters_Band5_vol:
+        description: Band BRDF_Albedo_Parameters_Band5_vol
+      BRDF_Albedo_Parameters_Band5_geo:
+        description: Band BRDF_Albedo_Parameters_Band5_geo
+      BRDF_Albedo_Parameters_Band6_iso:
+        description: Band BRDF_Albedo_Parameters_Band6_iso
+      BRDF_Albedo_Parameters_Band6_vol:
+        description: Band BRDF_Albedo_Parameters_Band6_vol
+      BRDF_Albedo_Parameters_Band6_geo:
+        description: Band BRDF_Albedo_Parameters_Band6_geo
+      BRDF_Albedo_Parameters_Band7_iso:
+        description: Band BRDF_Albedo_Parameters_Band7_iso
+      BRDF_Albedo_Parameters_Band7_vol:
+        description: Band BRDF_Albedo_Parameters_Band7_vol
+      BRDF_Albedo_Parameters_Band7_geo:
+        description: Band BRDF_Albedo_Parameters_Band7_geo
+      BRDF_Albedo_Parameters_vis_iso:
+        description: Band BRDF_Albedo_Parameters_vis_iso
+      BRDF_Albedo_Parameters_vis_vol:
+        description: Band BRDF_Albedo_Parameters_vis_vol
+      BRDF_Albedo_Parameters_vis_geo:
+        description: Band BRDF_Albedo_Parameters_vis_geo
+      BRDF_Albedo_Parameters_nir_iso:
+        description: Band BRDF_Albedo_Parameters_nir_iso
+      BRDF_Albedo_Parameters_nir_vol:
+        description: Band BRDF_Albedo_Parameters_nir_vol
+      BRDF_Albedo_Parameters_nir_geo:
+        description: Band BRDF_Albedo_Parameters_nir_geo
+      BRDF_Albedo_Parameters_shortwave_iso:
+        description: Band BRDF_Albedo_Parameters_shortwave_iso
+      BRDF_Albedo_Parameters_shortwave_vol:
+        description: Band BRDF_Albedo_Parameters_shortwave_vol
+      BRDF_Albedo_Parameters_shortwave_geo:
+        description: Band BRDF_Albedo_Parameters_shortwave_geo
+      BRDF_Shape_Indicators_ANIF:
+        description: Band BRDF_Shape_Indicators_ANIF
+      BRDF_Shape_Indicators_AFX:
+        description: Band BRDF_Shape_Indicators_AFX
+      BRDF_Shape_Indicators_NDAX:
+        description: Band BRDF_Shape_Indicators_NDAX
+      BRDF_Shape_Indicators_SSI:
+        description: Band BRDF_Shape_Indicators_SSI
 
   MODIS/MCD43A2:
     title: MCD43A2.005 BRDF-Albedo Quality 16-Day Global 500m [deprecated]
@@ -30293,6 +30361,14 @@ datasets:
     default_reducer: mosaic
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      BRDF_Albedo_Quality:
+        description: Band BRDF_Albedo_Quality
+      Snow_BRDF_Albedo:
+        description: Band Snow_BRDF_Albedo
+      BRDF_Albedo_Ancillary:
+        description: Band BRDF_Albedo_Ancillary
+      BRDF_Albedo_Band_Quality:
+        description: Band BRDF_Albedo_Band_Quality
 
   MODIS/MCD43A4:
     title: MCD43A4.005 BRDF-Adjusted Reflectance 16-Day Global 500m [deprecated]
@@ -30305,6 +30381,20 @@ datasets:
     default_reducer: mosaic
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      Nadir_Reflectance_Band1:
+        description: Band Nadir_Reflectance_Band1
+      Nadir_Reflectance_Band2:
+        description: Band Nadir_Reflectance_Band2
+      Nadir_Reflectance_Band3:
+        description: Band Nadir_Reflectance_Band3
+      Nadir_Reflectance_Band4:
+        description: Band Nadir_Reflectance_Band4
+      Nadir_Reflectance_Band5:
+        description: Band Nadir_Reflectance_Band5
+      Nadir_Reflectance_Band6:
+        description: Band Nadir_Reflectance_Band6
+      Nadir_Reflectance_Band7:
+        description: Band Nadir_Reflectance_Band7
 
   MODIS/MCD43A4_006_BAI:
     title: MODIS Combined 16-Day BAI
@@ -30471,6 +30561,32 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      sur_refl_b03:
+        description: Band sur_refl_b03
+      sur_refl_b04:
+        description: Band sur_refl_b04
+      sur_refl_b05:
+        description: Band sur_refl_b05
+      sur_refl_b06:
+        description: Band sur_refl_b06
+      sur_refl_b07:
+        description: Band sur_refl_b07
+      QA:
+        description: Band QA
+      SolarZenith:
+        description: Band SolarZenith
+      ViewZenith:
+        description: Band ViewZenith
+      RelativeAzimuth:
+        description: Band RelativeAzimuth
+      StateQA:
+        description: Band StateQA
+      DayOfYear:
+        description: Band DayOfYear
 
   MODIS/MOD09GA:
     title: MOD09GA.005 Terra Surface Reflectance Daily L2G Global 1km and 500m [deprecated]
@@ -30483,6 +30599,48 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      num_observations_1km:
+        description: Band num_observations_1km
+      state_1km:
+        description: Band state_1km
+      SensorZenith:
+        description: Band SensorZenith
+      SensorAzimuth:
+        description: Band SensorAzimuth
+      Range:
+        description: Band Range
+      SolarZenith:
+        description: Band SolarZenith
+      SolarAzimuth:
+        description: Band SolarAzimuth
+      gflags:
+        description: Band gflags
+      orbit_pnt:
+        description: Band orbit_pnt
+      num_observations_500m:
+        description: Band num_observations_500m
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      sur_refl_b03:
+        description: Band sur_refl_b03
+      sur_refl_b04:
+        description: Band sur_refl_b04
+      sur_refl_b05:
+        description: Band sur_refl_b05
+      sur_refl_b06:
+        description: Band sur_refl_b06
+      sur_refl_b07:
+        description: Band sur_refl_b07
+      QC_500m:
+        description: Band QC_500m
+      obscov_500m:
+        description: Band obscov_500m
+      iobs_res:
+        description: Band iobs_res
+      q_scan:
+        description: Band q_scan
 
   MODIS/MOD09GA_006_BAI:
     title: MODIS Terra Daily BAI
@@ -30649,6 +30807,16 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      num_observations:
+        description: Band num_observations
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      QC_250m:
+        description: Band QC_250m
+      obscov:
+        description: Band obscov
 
   MODIS/MOD09Q1:
     title: MOD09Q1.005 Surface Reflectance 8-Day Global 250m [deprecated]
@@ -30661,6 +30829,12 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      QA:
+        description: Band QA
 
   MODIS/MOD10A1:
     title: MOD10A1.005 Terra Snow Cover Daily Global 500m [deprecated]
@@ -30698,6 +30872,30 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      LST_Day_1km:
+        description: Band LST_Day_1km
+      QC_Day:
+        description: Band QC_Day
+      Day_view_time:
+        description: Band Day_view_time
+      Day_view_angle:
+        description: Band Day_view_angle
+      LST_Night_1km:
+        description: Band LST_Night_1km
+      QC_Night:
+        description: Band QC_Night
+      Night_view_time:
+        description: Band Night_view_time
+      Night_view_angle:
+        description: Band Night_view_angle
+      Emis_31:
+        description: Band Emis_31
+      Emis_32:
+        description: Band Emis_32
+      Clear_day_cov:
+        description: Band Clear_day_cov
+      Clear_night_cov:
+        description: Band Clear_night_cov
 
   MODIS/MOD11A2:
     title: MOD11A2.005 Land Surface Temperature and Emissivity 8-Day Global 1km [deprecated]
@@ -30710,6 +30908,30 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      LST_Day_1km:
+        description: Band LST_Day_1km
+      QC_Day:
+        description: Band QC_Day
+      Day_view_time:
+        description: Band Day_view_time
+      Day_view_angl:
+        description: Band Day_view_angl
+      LST_Night_1km:
+        description: Band LST_Night_1km
+      QC_Night:
+        description: Band QC_Night
+      Night_view_time:
+        description: Band Night_view_time
+      Night_view_angl:
+        description: Band Night_view_angl
+      Emis_31:
+        description: Band Emis_31
+      Emis_32:
+        description: Band Emis_32
+      Clear_sky_days:
+        description: Band Clear_sky_days
+      Clear_sky_nights:
+        description: Band Clear_sky_nights
 
   MODIS/MOD13A1:
     title: MOD13A1.005 Vegetation Indices 16-Day L3 Global 500m [deprecated]
@@ -30722,6 +30944,30 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      NDVI:
+        description: Band NDVI
+      EVI:
+        description: Band EVI
+      DetailedQA:
+        description: Band DetailedQA
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      sur_refl_b03:
+        description: Band sur_refl_b03
+      sur_refl_b07:
+        description: Band sur_refl_b07
+      ViewZenith:
+        description: Band ViewZenith
+      SolarZenith:
+        description: Band SolarZenith
+      RelativeAzimuth:
+        description: Band RelativeAzimuth
+      DayOfYear:
+        description: Band DayOfYear
+      SummaryQA:
+        description: Band SummaryQA
 
   MODIS/MOD13Q1:
     title: MOD13Q1.005 Vegetation Indices 16-Day Global 250m [deprecated]
@@ -30734,6 +30980,30 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      NDVI:
+        description: Band NDVI
+      EVI:
+        description: Band EVI
+      DetailedQA:
+        description: Band DetailedQA
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      sur_refl_b03:
+        description: Band sur_refl_b03
+      sur_refl_b07:
+        description: Band sur_refl_b07
+      ViewZenith:
+        description: Band ViewZenith
+      SolarZenith:
+        description: Band SolarZenith
+      RelativeAzimuth:
+        description: Band RelativeAzimuth
+      DayOfYear:
+        description: Band DayOfYear
+      SummaryQA:
+        description: Band SummaryQA
 
   MODIS/MOD44W/MOD44W_005_2000_02_24:
     title: MOD44W.005 Land Water Mask Derived From MODIS and SRTM
@@ -30762,6 +31032,32 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      sur_refl_b03:
+        description: Band sur_refl_b03
+      sur_refl_b04:
+        description: Band sur_refl_b04
+      sur_refl_b05:
+        description: Band sur_refl_b05
+      sur_refl_b06:
+        description: Band sur_refl_b06
+      sur_refl_b07:
+        description: Band sur_refl_b07
+      QA:
+        description: Band QA
+      SolarZenith:
+        description: Band SolarZenith
+      ViewZenith:
+        description: Band ViewZenith
+      RelativeAzimuth:
+        description: Band RelativeAzimuth
+      StateQA:
+        description: Band StateQA
+      DayOfYear:
+        description: Band DayOfYear
 
   MODIS/MYD09GA:
     title: MYD09GA.005 Aqua Surface Reflectance Daily L2G Global 1km and 500m [deprecated]
@@ -30774,6 +31070,48 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      num_observations_1km:
+        description: Band num_observations_1km
+      state_1km:
+        description: Band state_1km
+      SensorZenith:
+        description: Band SensorZenith
+      SensorAzimuth:
+        description: Band SensorAzimuth
+      Range:
+        description: Band Range
+      SolarZenith:
+        description: Band SolarZenith
+      SolarAzimuth:
+        description: Band SolarAzimuth
+      gflags:
+        description: Band gflags
+      orbit_pnt:
+        description: Band orbit_pnt
+      num_observations_500m:
+        description: Band num_observations_500m
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      sur_refl_b03:
+        description: Band sur_refl_b03
+      sur_refl_b04:
+        description: Band sur_refl_b04
+      sur_refl_b05:
+        description: Band sur_refl_b05
+      sur_refl_b06:
+        description: Band sur_refl_b06
+      sur_refl_b07:
+        description: Band sur_refl_b07
+      QC_500m:
+        description: Band QC_500m
+      obscov_500m:
+        description: Band obscov_500m
+      iobs_res:
+        description: Band iobs_res
+      q_scan:
+        description: Band q_scan
 
   MODIS/MYD09GA_006_BAI:
     title: MODIS Aqua Daily BAI
@@ -30940,6 +31278,16 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      num_observations:
+        description: Band num_observations
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      QC_250m:
+        description: Band QC_250m
+      obscov:
+        description: Band obscov
 
   MODIS/MYD09Q1:
     title: MYD09Q1.005 Surface Reflectance 8-Day L3 Global 250m [deprecated]
@@ -30952,6 +31300,12 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      QA:
+        description: Band QA
 
   MODIS/MYD10A1:
     title: MYD10A1.005 Aqua Snow Cover Daily Global 500m [deprecated]
@@ -30989,6 +31343,30 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      LST_Day_1km:
+        description: Band LST_Day_1km
+      QC_Day:
+        description: Band QC_Day
+      Day_view_time:
+        description: Band Day_view_time
+      Day_view_angle:
+        description: Band Day_view_angle
+      LST_Night_1km:
+        description: Band LST_Night_1km
+      QC_Night:
+        description: Band QC_Night
+      Night_view_time:
+        description: Band Night_view_time
+      Night_view_angle:
+        description: Band Night_view_angle
+      Emis_31:
+        description: Band Emis_31
+      Emis_32:
+        description: Band Emis_32
+      Clear_day_cov:
+        description: Band Clear_day_cov
+      Clear_night_cov:
+        description: Band Clear_night_cov
 
   MODIS/MYD11A2:
     title: MYD11A2.005 Land Surface Temperature and Emissivity 8-Day L3 Global 1km [deprecated]
@@ -31001,6 +31379,30 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      LST_Day_1km:
+        description: Band LST_Day_1km
+      QC_Day:
+        description: Band QC_Day
+      Day_view_time:
+        description: Band Day_view_time
+      Day_view_angl:
+        description: Band Day_view_angl
+      LST_Night_1km:
+        description: Band LST_Night_1km
+      QC_Night:
+        description: Band QC_Night
+      Night_view_time:
+        description: Band Night_view_time
+      Night_view_angl:
+        description: Band Night_view_angl
+      Emis_31:
+        description: Band Emis_31
+      Emis_32:
+        description: Band Emis_32
+      Clear_sky_days:
+        description: Band Clear_sky_days
+      Clear_sky_nights:
+        description: Band Clear_sky_nights
 
   MODIS/MYD13A1:
     title: MYD13A1.005 Vegetation Indices 16-Day L3 Global 500m [deprecated]
@@ -31013,6 +31415,30 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      NDVI:
+        description: Band NDVI
+      EVI:
+        description: Band EVI
+      DetailedQA:
+        description: Band DetailedQA
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      sur_refl_b03:
+        description: Band sur_refl_b03
+      sur_refl_b07:
+        description: Band sur_refl_b07
+      ViewZenith:
+        description: Band ViewZenith
+      SolarZenith:
+        description: Band SolarZenith
+      RelativeAzimuth:
+        description: Band RelativeAzimuth
+      DayOfYear:
+        description: Band DayOfYear
+      SummaryQA:
+        description: Band SummaryQA
 
   MODIS/MYD13Q1:
     title: MYD13Q1.005 Vegetation Indices 16-Day Global 250m [deprecated]
@@ -31025,6 +31451,30 @@ datasets:
     default_reducer: median
     terms: MODIS data and products acquired through the LP DAAC have no restrictions on subsequent
     bands:
+      NDVI:
+        description: Band NDVI
+      EVI:
+        description: Band EVI
+      DetailedQA:
+        description: Band DetailedQA
+      sur_refl_b01:
+        description: Band sur_refl_b01
+      sur_refl_b02:
+        description: Band sur_refl_b02
+      sur_refl_b03:
+        description: Band sur_refl_b03
+      sur_refl_b07:
+        description: Band sur_refl_b07
+      ViewZenith:
+        description: Band ViewZenith
+      SolarZenith:
+        description: Band SolarZenith
+      RelativeAzimuth:
+        description: Band RelativeAzimuth
+      DayOfYear:
+        description: Band DayOfYear
+      SummaryQA:
+        description: Band SummaryQA
 
   MODIS/NTSG/MOD16A2/105:
     title: 'MOD16A2: MODIS Global Terrestrial Evapotranspiration 8-Day Global 1km'
@@ -49056,7 +49506,7 @@ datasets:
     ee_type: table
     extent:
       start_date: "2023-11-14"
-      end_date: null
+      end_date: "2023-11-14"
       bbox: [-110.3, 31.4, -103.1, 40.6]
     default_reducer: mean
     terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
@@ -49069,7 +49519,7 @@ datasets:
     ee_type: table
     extent:
       start_date: "2024-05-15"
-      end_date: null
+      end_date: "2024-05-15"
     default_reducer: mean
     terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
     user_uploaded: true
@@ -49158,8 +49608,8 @@ datasets:
     provider: National Snow and Ice Data Center (NSDIC)
     ee_type: table
     extent:
-      start_date: "1870-01-01"
-      end_date: null
+      start_date: "2015-06-15"
+      end_date: "2015-06-16"
     default_reducer: mosaic
     terms: For the creation of any reports, publications, new
     bands:
@@ -49169,8 +49619,8 @@ datasets:
     provider: National Snow and Ice Data Center (NSDIC)
     ee_type: table
     extent:
-      start_date: "1850-01-01"
-      end_date: null
+      start_date: "1992-06-01"
+      end_date: "2017-10-27"
     default_reducer: mosaic
     terms: For the creation of any reports, publications, new
     bands:
@@ -49180,8 +49630,8 @@ datasets:
     provider: National Snow and Ice Data Center (NSDIC)
     ee_type: table
     extent:
-      start_date: "1750-01-01"
-      end_date: null
+      start_date: "1992-06-01"
+      end_date: "2021-09-14"
     default_reducer: mosaic
     terms: For the creation of any reports, publications, new
     bands:
@@ -49191,8 +49641,8 @@ datasets:
     provider: National Snow and Ice Data Center (NSDIC)
     ee_type: table
     extent:
-      start_date: "1750-01-01"
-      end_date: null
+      start_date: "1992-06-01"
+      end_date: "2023-06-07"
     default_reducer: mosaic
     terms: For the creation of any reports, publications, new
     bands:
@@ -49202,8 +49652,8 @@ datasets:
     provider: National Snow and Ice Data Center (NSDIC)
     ee_type: table
     extent:
-      start_date: "1750-01-01"
-      end_date: null
+      start_date: "1992-06-01"
+      end_date: "2026-05-05"
     default_reducer: mosaic
     terms: For the creation of any reports, publications, new
     bands:
@@ -49420,7 +49870,7 @@ datasets:
   JRC/GWIS/GlobFire/v2/DailyPerimeters:
     title: GlobFire Daily Fire Event Detection Based on MCD64A1
     provider: European Commission, Joint Research Centre, Global Wildfire Information System
-    ee_type: table_collection
+    ee_type: image_collection
     extent:
       start_date: "2001-01-01"
       end_date: null
@@ -49447,7 +49897,7 @@ datasets:
     ee_type: table
     extent:
       start_date: "2022-01-01"
-      end_date: null
+      end_date: "2022-12-31"
       bbox: [-13.359375, 34.307144, 34.804688, 71.187754]
     default_reducer: mosaic
     terms: '[CC-BY-4.0](https://spdx.org/licenses/CC-BY-4.0.html)'
@@ -49482,7 +49932,7 @@ datasets:
   LARSE/GEDI/GEDI02_A_002:
     title: GEDI L2A Vector Canopy Top Height (Version 2)
     provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
-    ee_type: table_collection
+    ee_type: image_collection
     extent:
       start_date: "2019-03-25"
       end_date: null
@@ -49496,8 +49946,8 @@ datasets:
     provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
     ee_type: table
     extent:
-      start_date: "2019-03-25"
-      end_date: null
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
       bbox: [-180, -51.6, 180, 51.6]
     default_reducer: mosaic
     terms: This dataset is in the public domain and is available
@@ -49506,7 +49956,7 @@ datasets:
   LARSE/GEDI/GEDI02_B_002:
     title: GEDI L2B Vector Canopy Cover Vertical Profile Metrics (Version 2)
     provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
-    ee_type: table_collection
+    ee_type: image_collection
     extent:
       start_date: "2019-03-25"
       end_date: null
@@ -49520,8 +49970,8 @@ datasets:
     provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
     ee_type: table
     extent:
-      start_date: "2019-03-25"
-      end_date: null
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
       bbox: [-180, -51.6, 180, 51.6]
     default_reducer: mosaic
     terms: This dataset is in the public domain and is available
@@ -49530,7 +49980,7 @@ datasets:
   LARSE/GEDI/GEDI04_A_002:
     title: GEDI L4A Aboveground Biomass Density, Version 2.1
     provider: USFS Laboratory for Applications of Remote Sensing in Ecology (LARSE)
-    ee_type: table_collection
+    ee_type: image_collection
     extent:
       start_date: "2019-04-18"
       end_date: null
@@ -49544,8 +49994,8 @@ datasets:
     provider: 'Indexing: Google and USFS Laboratory for Applications of Remote Sensing in Ecology'
     ee_type: table
     extent:
-      start_date: "2019-04-18"
-      end_date: null
+      start_date: "2026-05-15"
+      end_date: "2026-05-16"
       bbox: [-180, -51.6, 180, 51.6]
     default_reducer: mosaic
     terms: This dataset is in the public domain and is available
@@ -49950,8 +50400,8 @@ datasets:
     provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
     ee_type: table
     extent:
-      start_date: "2024-05-01"
-      end_date: null
+      start_date: "2026-03-01"
+      end_date: "2026-04-01"
     default_reducer: mosaic
     terms: Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)
     bands:
@@ -49961,8 +50411,8 @@ datasets:
     provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
     ee_type: table
     extent:
-      start_date: "2024-05-01"
-      end_date: null
+      start_date: "2026-03-01"
+      end_date: "2026-04-01"
     default_reducer: mosaic
     terms: Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)
     bands:
@@ -49972,8 +50422,8 @@ datasets:
     provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
     ee_type: table
     extent:
-      start_date: "2017-07-01"
-      end_date: null
+      start_date: "2026-01-01"
+      end_date: "2026-02-01"
     default_reducer: mosaic
     terms: Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)
     bands:
@@ -49983,8 +50433,8 @@ datasets:
     provider: UN Environment World Conservation Monitoring Centre (UNEP-WCMC) / Protected Planet
     ee_type: table
     extent:
-      start_date: "2017-07-01"
-      end_date: null
+      start_date: "2026-01-01"
+      end_date: "2026-02-01"
     default_reducer: mosaic
     terms: Please visit the [full terms and conditions page](https://www.protectedplanet.net/c/terms-and-conditions)
     bands:
@@ -50371,12 +50821,19 @@ datasets:
     default_reducer: mean
     terms: Free for use under EDF MethaneSAT terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      XCH4:
+        description: Band XCH4
+      albedo:
+        description: Band albedo
+      surface_pressure:
+        description: Band surface_pressure
+      terrain_height:
+        description: Band terrain_height
   projects/edf-methanesat-ee/assets/mair/L4point:
     title: 'projects/edf-methanesat-ee/assets/mair/L4point (community-published catalog reference)'
     provider: Environmental Defense Fund (EDF) — MethaneSAT
-    ee_type: image_collection
+    ee_type: table
     extent:
       start_date: "2020-01-01"
       end_date: null
@@ -50450,25 +50907,29 @@ datasets:
     provider: Peking University Remote Sensing Lab (PKU REL)
     ee_type: image_collection
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "1992-04-01"
+      end_date: "2021-08-31"
     default_reducer: mosaic
     terms: Free for use with citation (PKU REL).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      radar_signals:
+        description: Band radar_signals
   projects/ee-pkurelab/assets/LHScatQC:
     title: 'projects/ee-pkurelab/assets/LHScatQC (community-published catalog reference)'
     provider: Peking University Remote Sensing Lab (PKU REL)
-    ee_type: image_collection
+    ee_type: image
     extent:
       start_date: "2020-01-01"
       end_date: null
     default_reducer: mosaic
     terms: Free for use with citation (PKU REL).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Pearsonr:
+        description: Band Pearsonr
+      RMSE:
+        description: Band RMSE
   projects/forestdatapartnership/assets/cocoa/model_2024a:
     title: 'projects/forestdatapartnership/assets/cocoa/model_2024a (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50479,8 +50940,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/cocoa/model_2025a:
     title: 'projects/forestdatapartnership/assets/cocoa/model_2025a (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50491,8 +50953,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/cocoa/model_2025b:
     title: 'projects/forestdatapartnership/assets/cocoa/model_2025b (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50503,8 +50966,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/coffee/model_2025a:
     title: 'projects/forestdatapartnership/assets/coffee/model_2025a (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50515,8 +50979,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/coffee/model_2025b:
     title: 'projects/forestdatapartnership/assets/coffee/model_2025b (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50527,20 +50992,22 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/community_forests/ForestPersistence_2020:
     title: 'projects/forestdatapartnership/assets/community_forests/ForestPersistence_2020 (community-published catalog reference)'
     provider: Forest Data Partnership
-    ee_type: image_collection
+    ee_type: image
     extent:
       start_date: "2020-01-01"
-      end_date: null
+      end_date: "2020-12-31"
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      value:
+        description: Band value
   projects/forestdatapartnership/assets/community_palm/20240312:
     title: 'projects/forestdatapartnership/assets/community_palm/20240312 (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50551,8 +51018,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/palm/model_2024a:
     title: 'projects/forestdatapartnership/assets/palm/model_2024a (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50563,8 +51031,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/palm/model_2025a:
     title: 'projects/forestdatapartnership/assets/palm/model_2025a (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50575,8 +51044,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/palm/model_2025b:
     title: 'projects/forestdatapartnership/assets/palm/model_2025b (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50587,8 +51057,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/rubber/model_2024a:
     title: 'projects/forestdatapartnership/assets/rubber/model_2024a (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50599,8 +51070,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/rubber/model_2025a:
     title: 'projects/forestdatapartnership/assets/rubber/model_2025a (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50611,8 +51083,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/forestdatapartnership/assets/rubber/model_2025b:
     title: 'projects/forestdatapartnership/assets/rubber/model_2025b (community-published catalog reference)'
     provider: Forest Data Partnership
@@ -50623,8 +51096,9 @@ datasets:
     default_reducer: mosaic
     terms: Free for use under the Forest Data Partnership terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/gcp-public-data-weathernext/assets/126478713_1_0:
     title: 'projects/gcp-public-data-weathernext/assets/126478713_1_0 (community-published catalog reference)'
     provider: Google WeatherNext / GCP Public Data
@@ -50676,75 +51150,109 @@ datasets:
   projects/gcpm041u-lemur/assets/scanfi_v12/SCANFI_v1_2:
     title: 'projects/gcpm041u-lemur/assets/scanfi_v12/SCANFI_v1_2 (community-published catalog reference)'
     provider: Lemur Forest Inventory (gcpm041u)
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2020-07-01"
+      end_date: "2020-08-31"
     default_reducer: mosaic
     terms: Free for use with citation.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      biomass:
+        description: Band biomass
+      closure:
+        description: Band closure
+      height:
+        description: Band height
+      nfiLandCover:
+        description: Band nfiLandCover
+      balsamFir:
+        description: Band balsamFir
+      blackSpruce:
+        description: Band blackSpruce
+      douglasFir:
+        description: Band douglasFir
+      jackPine:
+        description: Band jackPine
+      lodgepolePine:
+        description: Band lodgepolePine
+      ponderosaPine:
+        description: Band ponderosaPine
+      prcB:
+        description: Band prcB
+      prcC:
+        description: Band prcC
+      tamarack:
+        description: Band tamarack
+      whiteRedPine:
+        description: Band whiteRedPine
+      articExtrapolationArea:
+        description: Band articExtrapolationArea
   projects/global-pasture-watch/assets/ggc-30m/v1/cultiv-grassland_p:
     title: 'projects/global-pasture-watch/assets/ggc-30m/v1/cultiv-grassland_p (community-published catalog reference)'
     provider: Global Pasture Watch
     ee_type: image_collection
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2000-01-01"
+      end_date: "2022-12-31"
     default_reducer: mosaic
     terms: Free for use (Global Pasture Watch).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/global-pasture-watch/assets/ggc-30m/v1/grassland_c:
     title: 'projects/global-pasture-watch/assets/ggc-30m/v1/grassland_c (community-published catalog reference)'
     provider: Global Pasture Watch
     ee_type: image_collection
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2000-01-01"
+      end_date: "2022-12-31"
     default_reducer: mosaic
     terms: Free for use (Global Pasture Watch).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      dominant_class:
+        description: Band dominant_class
   projects/global-pasture-watch/assets/ggc-30m/v1/nat-semi-grassland_p:
     title: 'projects/global-pasture-watch/assets/ggc-30m/v1/nat-semi-grassland_p (community-published catalog reference)'
     provider: Global Pasture Watch
     ee_type: image_collection
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2000-01-01"
+      end_date: "2022-12-31"
     default_reducer: mosaic
     terms: Free for use (Global Pasture Watch).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      probability:
+        description: Band probability
   projects/global-pasture-watch/assets/ggpp-30m/v1/ugpp_m:
     title: 'projects/global-pasture-watch/assets/ggpp-30m/v1/ugpp_m (community-published catalog reference)'
     provider: Global Pasture Watch
     ee_type: image_collection
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2000-01-01"
+      end_date: "2024-12-31"
     default_reducer: mean
     terms: Free for use (Global Pasture Watch).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      gc_m2:
+        description: Band gc_m2
   projects/global-pasture-watch/assets/gsvh-30m/v1/short-veg-height_m:
     title: 'projects/global-pasture-watch/assets/gsvh-30m/v1/short-veg-height_m (community-published catalog reference)'
     provider: Global Pasture Watch
     ee_type: image_collection
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2000-01-01"
+      end_date: "2022-12-31"
     default_reducer: mosaic
     terms: Free for use (Global Pasture Watch).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      height:
+        description: Band height
   projects/global-precipitation-nowcast/assets/global_estimation:
     title: 'projects/global-precipitation-nowcast/assets/global_estimation (community-published catalog reference)'
     provider: Google Global Precipitation Nowcast
@@ -50755,8 +51263,9 @@ datasets:
     default_reducer: mean
     terms: Free for use under Google Cloud public-data terms.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      precipitation:
+        description: Band precipitation
   projects/gtac-data-publish/assets/LCMS/Product_Version/2025-11:
     title: 'projects/gtac-data-publish/assets/LCMS/Product_Version/2025-11 (community-published catalog reference)'
     provider: USDA Forest Service GTAC
@@ -50767,56 +51276,167 @@ datasets:
     default_reducer: mosaic
     terms: Public domain (USDA Forest Service).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Change:
+        description: Band Change
+      Change_Raw_Probability_Slow_Loss:
+        description: Band Change_Raw_Probability_Slow_Loss
+      Change_Raw_Probability_Fast_Loss:
+        description: Band Change_Raw_Probability_Fast_Loss
+      Change_Raw_Probability_Gain:
+        description: Band Change_Raw_Probability_Gain
+      Land_Cover:
+        description: Band Land_Cover
+      Land_Cover_Raw_Probability_Trees:
+        description: Band Land_Cover_Raw_Probability_Trees
+      Land_Cover_Raw_Probability_Tall-Shrubs-and-Trees-Mix:
+        description: Band Land_Cover_Raw_Probability_Tall-Shrubs-and-Trees-Mix
+      Land_Cover_Raw_Probability_Shrubs-and-Trees-Mix:
+        description: Band Land_Cover_Raw_Probability_Shrubs-and-Trees-Mix
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Trees-Mix:
+        description: Band Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Trees-Mix
+      Land_Cover_Raw_Probability_Barren-and-Trees-Mix:
+        description: Band Land_Cover_Raw_Probability_Barren-and-Trees-Mix
+      Land_Cover_Raw_Probability_Tall-Shrubs:
+        description: Band Land_Cover_Raw_Probability_Tall-Shrubs
+      Land_Cover_Raw_Probability_Shrubs:
+        description: Band Land_Cover_Raw_Probability_Shrubs
+      Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Shrubs-Mix:
+        description: Band Land_Cover_Raw_Probability_Grass-Forb-Herb-and-Shrubs-Mix
+      Land_Cover_Raw_Probability_Barren-and-Shrubs-Mix:
+        description: Band Land_Cover_Raw_Probability_Barren-and-Shrubs-Mix
+      Land_Cover_Raw_Probability_Grass-Forb-Herb:
+        description: Band Land_Cover_Raw_Probability_Grass-Forb-Herb
+      Land_Cover_Raw_Probability_Barren-and-Grass-Forb-Herb-Mix:
+        description: Band Land_Cover_Raw_Probability_Barren-and-Grass-Forb-Herb-Mix
+      Land_Cover_Raw_Probability_Barren-or-Impervious:
+        description: Band Land_Cover_Raw_Probability_Barren-or-Impervious
+      Land_Cover_Raw_Probability_Snow-or-Ice:
+        description: Band Land_Cover_Raw_Probability_Snow-or-Ice
+      Land_Cover_Raw_Probability_Water:
+        description: Band Land_Cover_Raw_Probability_Water
+      Land_Use:
+        description: Band Land_Use
+      Land_Use_Raw_Probability_Agriculture:
+        description: Band Land_Use_Raw_Probability_Agriculture
+      Land_Use_Raw_Probability_Developed:
+        description: Band Land_Use_Raw_Probability_Developed
+      Land_Use_Raw_Probability_Forest:
+        description: Band Land_Use_Raw_Probability_Forest
+      Land_Use_Raw_Probability_Other:
+        description: Band Land_Use_Raw_Probability_Other
+      Land_Use_Raw_Probability_Rangeland-or-Pasture:
+        description: Band Land_Use_Raw_Probability_Rangeland-or-Pasture
+      QA_Bits:
+        description: Band QA_Bits
   projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_1_2001_2023:
     title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_1_2001_2023 (community-published catalog reference)'
     provider: WRI Land and Carbon
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2001-01-01"
+      end_date: "2024-01-01"
     default_reducer: mosaic
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      classification:
+        description: Band classification
+      probability_1:
+        description: Band probability_1
+      probability_2:
+        description: Band probability_2
+      probability_3:
+        description: Band probability_3
+      probability_4:
+        description: Band probability_4
+      probability_5:
+        description: Band probability_5
+      probability_6:
+        description: Band probability_6
+      probability_7:
+        description: Band probability_7
   projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2001_2022:
     title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2001_2022 (community-published catalog reference)'
     provider: WRI Land and Carbon
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2001-01-01"
+      end_date: "2023-01-01"
     default_reducer: mosaic
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      classification:
+        description: Band classification
+      probability_1:
+        description: Band probability_1
+      probability_2:
+        description: Band probability_2
+      probability_3:
+        description: Band probability_3
+      probability_4:
+        description: Band probability_4
+      probability_5:
+        description: Band probability_5
+      probability_6:
+        description: Band probability_6
+      probability_7:
+        description: Band probability_7
   projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2_2001_2024:
     title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_2_2001_2024 (community-published catalog reference)'
     provider: WRI Land and Carbon
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2001-01-01"
+      end_date: "2025-01-01"
     default_reducer: mosaic
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      classification:
+        description: Band classification
+      probability_1:
+        description: Band probability_1
+      probability_2:
+        description: Band probability_2
+      probability_3:
+        description: Band probability_3
+      probability_4:
+        description: Band probability_4
+      probability_5:
+        description: Band probability_5
+      probability_6:
+        description: Band probability_6
+      probability_7:
+        description: Band probability_7
   projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_3_2001_2025:
     title: 'projects/landandcarbon/assets/wri_gdm_drivers_forest_loss_1km/v1_3_2001_2025 (community-published catalog reference)'
     provider: WRI Land and Carbon
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2001-01-01"
+      end_date: "2026-01-01"
     default_reducer: mosaic
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      classification:
+        description: Band classification
+      probability_1:
+        description: Band probability_1
+      probability_2:
+        description: Band probability_2
+      probability_3:
+        description: Band probability_3
+      probability_4:
+        description: Band probability_4
+      probability_5:
+        description: Band probability_5
+      probability_6:
+        description: Band probability_6
+      probability_7:
+        description: Band probability_7
   projects/malariaatlasproject/assets/EVI_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/EVI_v061/1km/8-Daily (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50827,8 +51447,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/EVI_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/EVI_v061/1km/Annual (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50839,8 +51460,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/EVI_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/EVI_v061/1km/Monthly (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50851,8 +51473,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/LST_Day_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/8-Daily (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50863,8 +51486,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/LST_Day_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/Annual (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50875,8 +51499,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/LST_Day_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/LST_Day_v061/1km/Monthly (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50887,8 +51512,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/LST_Night_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/8-Daily (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50899,8 +51525,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/LST_Night_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/Annual (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50911,8 +51538,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/LST_Night_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/LST_Night_v061/1km/Monthly (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50923,8 +51551,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/TCB_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/TCB_v061/1km/8-Daily (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50935,8 +51564,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/TCB_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/TCB_v061/1km/Annual (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50947,8 +51577,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/TCB_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/TCB_v061/1km/Monthly (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50959,8 +51590,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/TCW_v061/1km/8-Daily:
     title: 'projects/malariaatlasproject/assets/TCW_v061/1km/8-Daily (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50971,8 +51603,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/TCW_v061/1km/Annual:
     title: 'projects/malariaatlasproject/assets/TCW_v061/1km/Annual (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50983,8 +51616,9 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/TCW_v061/1km/Monthly:
     title: 'projects/malariaatlasproject/assets/TCW_v061/1km/Monthly (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
@@ -50995,80 +51629,87 @@ datasets:
     default_reducer: mean
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Mean:
+        description: Band Mean
   projects/malariaatlasproject/assets/accessibility/accessibility_to_cities/2015_v1_0:
     title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_cities/2015_v1_0 (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
     default_reducer: mosaic
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      accessibility:
+        description: Band accessibility
   projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019:
     title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019 (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
     default_reducer: mosaic
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      accessibility:
+        description: Band accessibility
   projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019_walking_only:
     title: 'projects/malariaatlasproject/assets/accessibility/accessibility_to_healthcare/2019_walking_only (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
     default_reducer: mosaic
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      accessibility_walking_only:
+        description: Band accessibility_walking_only
   projects/malariaatlasproject/assets/accessibility/friction_surface/2015_v1_0:
     title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2015_v1_0 (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2015-01-01"
+      end_date: "2015-12-31"
     default_reducer: mosaic
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      friction:
+        description: Band friction
   projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1:
     title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1 (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
     default_reducer: mosaic
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      friction:
+        description: Band friction
   projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1_walking_only:
     title: 'projects/malariaatlasproject/assets/accessibility/friction_surface/2019_v5_1_walking_only (community-published catalog reference)'
     provider: Oxford Malaria Atlas Project
-    ee_type: image_collection
+    ee_type: image
     extent:
-      start_date: "2020-01-01"
-      end_date: null
+      start_date: "2019-01-01"
+      end_date: "2019-12-31"
     default_reducer: mosaic
     terms: CC-BY-NC-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      friction:
+        description: Band friction
   projects/mapbiomas-public/assets/bolivia/lulc/v1:
     title: 'projects/mapbiomas-public/assets/bolivia/lulc/v1 (community-published catalog reference)'
     provider: MapBiomas
@@ -51079,8 +51720,9 @@ datasets:
     default_reducer: mosaic
     terms: CC-BY-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      classification:
+        description: Band classification
   projects/mapbiomas-public/assets/brazil/lulc/v1:
     title: 'projects/mapbiomas-public/assets/brazil/lulc/v1 (community-published catalog reference)'
     provider: MapBiomas
@@ -51091,8 +51733,9 @@ datasets:
     default_reducer: mosaic
     terms: CC-BY-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      classification:
+        description: Band classification
   projects/mapbiomas-public/assets/ecuador/lulc/v1:
     title: 'projects/mapbiomas-public/assets/ecuador/lulc/v1 (community-published catalog reference)'
     provider: MapBiomas
@@ -51103,8 +51746,9 @@ datasets:
     default_reducer: mosaic
     terms: CC-BY-SA-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      classification:
+        description: Band classification
   projects/nature-trace/assets/farmscapes/england_v1_0:
     title: 'projects/nature-trace/assets/farmscapes/england_v1_0 (community-published catalog reference)'
     provider: Nature Trace
@@ -51115,8 +51759,13 @@ datasets:
     default_reducer: mosaic
     terms: Free for use (Nature Trace).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      B0:
+        description: Band B0
+      B1:
+        description: Band B1
+      B2:
+        description: Band B2
   projects/nature-trace/assets/forest_typology/natural_forest_2020_v1_0_collection:
     title: 'projects/nature-trace/assets/forest_typology/natural_forest_2020_v1_0_collection (community-published catalog reference)'
     provider: Nature Trace
@@ -51127,20 +51776,70 @@ datasets:
     default_reducer: mosaic
     terms: Free for use (Nature Trace).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      B0:
+        description: Band B0
   projects/nature-trace/assets/species_distribution_models/australia_mammals/v0:
     title: 'projects/nature-trace/assets/species_distribution_models/australia_mammals/v0 (community-published catalog reference)'
     provider: Nature Trace
-    ee_type: image_collection
+    ee_type: image
     extent:
       start_date: "2020-01-01"
       end_date: null
     default_reducer: mosaic
     terms: Free for use (Nature Trace).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      AgileAntechinus:
+        description: Band AgileAntechinus
+      AustralianSwampRat:
+        description: Band AustralianSwampRat
+      BlackFlyingFox:
+        description: Band BlackFlyingFox
+      BrownAntechinus:
+        description: Band BrownAntechinus
+      Brush-TailedPhascogale:
+        description: Band Brush-TailedPhascogale
+      Brush-TailedRock-Wallaby:
+        description: Band Brush-TailedRock-Wallaby
+      BushRat:
+        description: Band BushRat
+      CommonRingtailPossum:
+        description: Band CommonRingtailPossum
+      CommonWombat:
+        description: Band CommonWombat
+      EasternGreyKangaroo:
+        description: Band EasternGreyKangaroo
+      GreaterGlider:
+        description: Band GreaterGlider
+      HastingsRiverMouse:
+        description: Band HastingsRiverMouse
+      LeadbeatersPossum:
+        description: Band LeadbeatersPossum
+      Long-NosedBandicoot:
+        description: Band Long-NosedBandicoot
+      Long-NosedPotoroo:
+        description: Band Long-NosedPotoroo
+      LumholtzsTree-Kangaroo:
+        description: Band LumholtzsTree-Kangaroo
+      MountainBrushtailPossum:
+        description: Band MountainBrushtailPossum
+      NorthernBrownBandicoot:
+        description: Band NorthernBrownBandicoot
+      Platypus:
+        description: Band Platypus
+      Short-EaredPossum:
+        description: Band Short-EaredPossum
+      SouthernBrownBandicoot:
+        description: Band SouthernBrownBandicoot
+      SquirrelGlider:
+        description: Band SquirrelGlider
+      SwampWallaby:
+        description: Band SwampWallaby
+      WesternGreyKangaroo:
+        description: Band WesternGreyKangaroo
+      Yellow-FootedAntechinus:
+        description: Band Yellow-FootedAntechinus
   projects/neon-prod-earthengine/assets/CHM/001:
     title: 'projects/neon-prod-earthengine/assets/CHM/001 (community-published catalog reference)'
     provider: National Ecological Observatory Network (NEON)
@@ -51151,8 +51850,9 @@ datasets:
     default_reducer: mosaic
     terms: Public domain (NEON Science).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      CHM:
+        description: Band CHM
   projects/neon-prod-earthengine/assets/CNC/002:
     title: 'projects/neon-prod-earthengine/assets/CNC/002 (community-published catalog reference)'
     provider: National Ecological Observatory Network (NEON)
@@ -51163,8 +51863,15 @@ datasets:
     default_reducer: mosaic
     terms: Public domain (NEON Science).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      Nitrogen_Percent:
+        description: Band Nitrogen_Percent
+      Nitrogen_Uncertainty:
+        description: Band Nitrogen_Uncertainty
+      Needle_Non-needle_Classification:
+        description: Band Needle_Non-needle_Classification
+      Valid_Pixel_Classification:
+        description: Band Valid_Pixel_Classification
   projects/neon-prod-earthengine/assets/DEM/001:
     title: 'projects/neon-prod-earthengine/assets/DEM/001 (community-published catalog reference)'
     provider: National Ecological Observatory Network (NEON)
@@ -51175,8 +51882,11 @@ datasets:
     default_reducer: mosaic
     terms: Public domain (NEON Science).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      DSM:
+        description: Band DSM
+      DTM:
+        description: Band DTM
   projects/neon-prod-earthengine/assets/HSI_REFL/001:
     title: 'projects/neon-prod-earthengine/assets/HSI_REFL/001 (community-published catalog reference)'
     provider: National Ecological Observatory Network (NEON)
@@ -51187,8 +51897,891 @@ datasets:
     default_reducer: mosaic
     terms: Public domain (NEON Science).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      B001:
+        description: Band B001
+      B002:
+        description: Band B002
+      B003:
+        description: Band B003
+      B004:
+        description: Band B004
+      B005:
+        description: Band B005
+      B006:
+        description: Band B006
+      B007:
+        description: Band B007
+      B008:
+        description: Band B008
+      B009:
+        description: Band B009
+      B010:
+        description: Band B010
+      B011:
+        description: Band B011
+      B012:
+        description: Band B012
+      B013:
+        description: Band B013
+      B014:
+        description: Band B014
+      B015:
+        description: Band B015
+      B016:
+        description: Band B016
+      B017:
+        description: Band B017
+      B018:
+        description: Band B018
+      B019:
+        description: Band B019
+      B020:
+        description: Band B020
+      B021:
+        description: Band B021
+      B022:
+        description: Band B022
+      B023:
+        description: Band B023
+      B024:
+        description: Band B024
+      B025:
+        description: Band B025
+      B026:
+        description: Band B026
+      B027:
+        description: Band B027
+      B028:
+        description: Band B028
+      B029:
+        description: Band B029
+      B030:
+        description: Band B030
+      B031:
+        description: Band B031
+      B032:
+        description: Band B032
+      B033:
+        description: Band B033
+      B034:
+        description: Band B034
+      B035:
+        description: Band B035
+      B036:
+        description: Band B036
+      B037:
+        description: Band B037
+      B038:
+        description: Band B038
+      B039:
+        description: Band B039
+      B040:
+        description: Band B040
+      B041:
+        description: Band B041
+      B042:
+        description: Band B042
+      B043:
+        description: Band B043
+      B044:
+        description: Band B044
+      B045:
+        description: Band B045
+      B046:
+        description: Band B046
+      B047:
+        description: Band B047
+      B048:
+        description: Band B048
+      B049:
+        description: Band B049
+      B050:
+        description: Band B050
+      B051:
+        description: Band B051
+      B052:
+        description: Band B052
+      B053:
+        description: Band B053
+      B054:
+        description: Band B054
+      B055:
+        description: Band B055
+      B056:
+        description: Band B056
+      B057:
+        description: Band B057
+      B058:
+        description: Band B058
+      B059:
+        description: Band B059
+      B060:
+        description: Band B060
+      B061:
+        description: Band B061
+      B062:
+        description: Band B062
+      B063:
+        description: Band B063
+      B064:
+        description: Band B064
+      B065:
+        description: Band B065
+      B066:
+        description: Band B066
+      B067:
+        description: Band B067
+      B068:
+        description: Band B068
+      B069:
+        description: Band B069
+      B070:
+        description: Band B070
+      B071:
+        description: Band B071
+      B072:
+        description: Band B072
+      B073:
+        description: Band B073
+      B074:
+        description: Band B074
+      B075:
+        description: Band B075
+      B076:
+        description: Band B076
+      B077:
+        description: Band B077
+      B078:
+        description: Band B078
+      B079:
+        description: Band B079
+      B080:
+        description: Band B080
+      B081:
+        description: Band B081
+      B082:
+        description: Band B082
+      B083:
+        description: Band B083
+      B084:
+        description: Band B084
+      B085:
+        description: Band B085
+      B086:
+        description: Band B086
+      B087:
+        description: Band B087
+      B088:
+        description: Band B088
+      B089:
+        description: Band B089
+      B090:
+        description: Band B090
+      B091:
+        description: Band B091
+      B092:
+        description: Band B092
+      B093:
+        description: Band B093
+      B094:
+        description: Band B094
+      B095:
+        description: Band B095
+      B096:
+        description: Band B096
+      B097:
+        description: Band B097
+      B098:
+        description: Band B098
+      B099:
+        description: Band B099
+      B100:
+        description: Band B100
+      B101:
+        description: Band B101
+      B102:
+        description: Band B102
+      B103:
+        description: Band B103
+      B104:
+        description: Band B104
+      B105:
+        description: Band B105
+      B106:
+        description: Band B106
+      B107:
+        description: Band B107
+      B108:
+        description: Band B108
+      B109:
+        description: Band B109
+      B110:
+        description: Band B110
+      B111:
+        description: Band B111
+      B112:
+        description: Band B112
+      B113:
+        description: Band B113
+      B114:
+        description: Band B114
+      B115:
+        description: Band B115
+      B116:
+        description: Band B116
+      B117:
+        description: Band B117
+      B118:
+        description: Band B118
+      B119:
+        description: Band B119
+      B120:
+        description: Band B120
+      B121:
+        description: Band B121
+      B122:
+        description: Band B122
+      B123:
+        description: Band B123
+      B124:
+        description: Band B124
+      B125:
+        description: Band B125
+      B126:
+        description: Band B126
+      B127:
+        description: Band B127
+      B128:
+        description: Band B128
+      B129:
+        description: Band B129
+      B130:
+        description: Band B130
+      B131:
+        description: Band B131
+      B132:
+        description: Band B132
+      B133:
+        description: Band B133
+      B134:
+        description: Band B134
+      B135:
+        description: Band B135
+      B136:
+        description: Band B136
+      B137:
+        description: Band B137
+      B138:
+        description: Band B138
+      B139:
+        description: Band B139
+      B140:
+        description: Band B140
+      B141:
+        description: Band B141
+      B142:
+        description: Band B142
+      B143:
+        description: Band B143
+      B144:
+        description: Band B144
+      B145:
+        description: Band B145
+      B146:
+        description: Band B146
+      B147:
+        description: Band B147
+      B148:
+        description: Band B148
+      B149:
+        description: Band B149
+      B150:
+        description: Band B150
+      B151:
+        description: Band B151
+      B152:
+        description: Band B152
+      B153:
+        description: Band B153
+      B154:
+        description: Band B154
+      B155:
+        description: Band B155
+      B156:
+        description: Band B156
+      B157:
+        description: Band B157
+      B158:
+        description: Band B158
+      B159:
+        description: Band B159
+      B160:
+        description: Band B160
+      B161:
+        description: Band B161
+      B162:
+        description: Band B162
+      B163:
+        description: Band B163
+      B164:
+        description: Band B164
+      B165:
+        description: Band B165
+      B166:
+        description: Band B166
+      B167:
+        description: Band B167
+      B168:
+        description: Band B168
+      B169:
+        description: Band B169
+      B170:
+        description: Band B170
+      B171:
+        description: Band B171
+      B172:
+        description: Band B172
+      B173:
+        description: Band B173
+      B174:
+        description: Band B174
+      B175:
+        description: Band B175
+      B176:
+        description: Band B176
+      B177:
+        description: Band B177
+      B178:
+        description: Band B178
+      B179:
+        description: Band B179
+      B180:
+        description: Band B180
+      B181:
+        description: Band B181
+      B182:
+        description: Band B182
+      B183:
+        description: Band B183
+      B184:
+        description: Band B184
+      B185:
+        description: Band B185
+      B186:
+        description: Band B186
+      B187:
+        description: Band B187
+      B188:
+        description: Band B188
+      B189:
+        description: Band B189
+      B190:
+        description: Band B190
+      B191:
+        description: Band B191
+      B192:
+        description: Band B192
+      B193:
+        description: Band B193
+      B194:
+        description: Band B194
+      B195:
+        description: Band B195
+      B196:
+        description: Band B196
+      B197:
+        description: Band B197
+      B198:
+        description: Band B198
+      B199:
+        description: Band B199
+      B200:
+        description: Band B200
+      B201:
+        description: Band B201
+      B202:
+        description: Band B202
+      B203:
+        description: Band B203
+      B204:
+        description: Band B204
+      B205:
+        description: Band B205
+      B206:
+        description: Band B206
+      B207:
+        description: Band B207
+      B208:
+        description: Band B208
+      B209:
+        description: Band B209
+      B210:
+        description: Band B210
+      B211:
+        description: Band B211
+      B212:
+        description: Band B212
+      B213:
+        description: Band B213
+      B214:
+        description: Band B214
+      B215:
+        description: Band B215
+      B216:
+        description: Band B216
+      B217:
+        description: Band B217
+      B218:
+        description: Band B218
+      B219:
+        description: Band B219
+      B220:
+        description: Band B220
+      B221:
+        description: Band B221
+      B222:
+        description: Band B222
+      B223:
+        description: Band B223
+      B224:
+        description: Band B224
+      B225:
+        description: Band B225
+      B226:
+        description: Band B226
+      B227:
+        description: Band B227
+      B228:
+        description: Band B228
+      B229:
+        description: Band B229
+      B230:
+        description: Band B230
+      B231:
+        description: Band B231
+      B232:
+        description: Band B232
+      B233:
+        description: Band B233
+      B234:
+        description: Band B234
+      B235:
+        description: Band B235
+      B236:
+        description: Band B236
+      B237:
+        description: Band B237
+      B238:
+        description: Band B238
+      B239:
+        description: Band B239
+      B240:
+        description: Band B240
+      B241:
+        description: Band B241
+      B242:
+        description: Band B242
+      B243:
+        description: Band B243
+      B244:
+        description: Band B244
+      B245:
+        description: Band B245
+      B246:
+        description: Band B246
+      B247:
+        description: Band B247
+      B248:
+        description: Band B248
+      B249:
+        description: Band B249
+      B250:
+        description: Band B250
+      B251:
+        description: Band B251
+      B252:
+        description: Band B252
+      B253:
+        description: Band B253
+      B254:
+        description: Band B254
+      B255:
+        description: Band B255
+      B256:
+        description: Band B256
+      B257:
+        description: Band B257
+      B258:
+        description: Band B258
+      B259:
+        description: Band B259
+      B260:
+        description: Band B260
+      B261:
+        description: Band B261
+      B262:
+        description: Band B262
+      B263:
+        description: Band B263
+      B264:
+        description: Band B264
+      B265:
+        description: Band B265
+      B266:
+        description: Band B266
+      B267:
+        description: Band B267
+      B268:
+        description: Band B268
+      B269:
+        description: Band B269
+      B270:
+        description: Band B270
+      B271:
+        description: Band B271
+      B272:
+        description: Band B272
+      B273:
+        description: Band B273
+      B274:
+        description: Band B274
+      B275:
+        description: Band B275
+      B276:
+        description: Band B276
+      B277:
+        description: Band B277
+      B278:
+        description: Band B278
+      B279:
+        description: Band B279
+      B280:
+        description: Band B280
+      B281:
+        description: Band B281
+      B282:
+        description: Band B282
+      B283:
+        description: Band B283
+      B284:
+        description: Band B284
+      B285:
+        description: Band B285
+      B286:
+        description: Band B286
+      B287:
+        description: Band B287
+      B288:
+        description: Band B288
+      B289:
+        description: Band B289
+      B290:
+        description: Band B290
+      B291:
+        description: Band B291
+      B292:
+        description: Band B292
+      B293:
+        description: Band B293
+      B294:
+        description: Band B294
+      B295:
+        description: Band B295
+      B296:
+        description: Band B296
+      B297:
+        description: Band B297
+      B298:
+        description: Band B298
+      B299:
+        description: Band B299
+      B300:
+        description: Band B300
+      B301:
+        description: Band B301
+      B302:
+        description: Band B302
+      B303:
+        description: Band B303
+      B304:
+        description: Band B304
+      B305:
+        description: Band B305
+      B306:
+        description: Band B306
+      B307:
+        description: Band B307
+      B308:
+        description: Band B308
+      B309:
+        description: Band B309
+      B310:
+        description: Band B310
+      B311:
+        description: Band B311
+      B312:
+        description: Band B312
+      B313:
+        description: Band B313
+      B314:
+        description: Band B314
+      B315:
+        description: Band B315
+      B316:
+        description: Band B316
+      B317:
+        description: Band B317
+      B318:
+        description: Band B318
+      B319:
+        description: Band B319
+      B320:
+        description: Band B320
+      B321:
+        description: Band B321
+      B322:
+        description: Band B322
+      B323:
+        description: Band B323
+      B324:
+        description: Band B324
+      B325:
+        description: Band B325
+      B326:
+        description: Band B326
+      B327:
+        description: Band B327
+      B328:
+        description: Band B328
+      B329:
+        description: Band B329
+      B330:
+        description: Band B330
+      B331:
+        description: Band B331
+      B332:
+        description: Band B332
+      B333:
+        description: Band B333
+      B334:
+        description: Band B334
+      B335:
+        description: Band B335
+      B336:
+        description: Band B336
+      B337:
+        description: Band B337
+      B338:
+        description: Band B338
+      B339:
+        description: Band B339
+      B340:
+        description: Band B340
+      B341:
+        description: Band B341
+      B342:
+        description: Band B342
+      B343:
+        description: Band B343
+      B344:
+        description: Band B344
+      B345:
+        description: Band B345
+      B346:
+        description: Band B346
+      B347:
+        description: Band B347
+      B348:
+        description: Band B348
+      B349:
+        description: Band B349
+      B350:
+        description: Band B350
+      B351:
+        description: Band B351
+      B352:
+        description: Band B352
+      B353:
+        description: Band B353
+      B354:
+        description: Band B354
+      B355:
+        description: Band B355
+      B356:
+        description: Band B356
+      B357:
+        description: Band B357
+      B358:
+        description: Band B358
+      B359:
+        description: Band B359
+      B360:
+        description: Band B360
+      B361:
+        description: Band B361
+      B362:
+        description: Band B362
+      B363:
+        description: Band B363
+      B364:
+        description: Band B364
+      B365:
+        description: Band B365
+      B366:
+        description: Band B366
+      B367:
+        description: Band B367
+      B368:
+        description: Band B368
+      B369:
+        description: Band B369
+      B370:
+        description: Band B370
+      B371:
+        description: Band B371
+      B372:
+        description: Band B372
+      B373:
+        description: Band B373
+      B374:
+        description: Band B374
+      B375:
+        description: Band B375
+      B376:
+        description: Band B376
+      B377:
+        description: Band B377
+      B378:
+        description: Band B378
+      B379:
+        description: Band B379
+      B380:
+        description: Band B380
+      B381:
+        description: Band B381
+      B382:
+        description: Band B382
+      B383:
+        description: Band B383
+      B384:
+        description: Band B384
+      B385:
+        description: Band B385
+      B386:
+        description: Band B386
+      B387:
+        description: Band B387
+      B388:
+        description: Band B388
+      B389:
+        description: Band B389
+      B390:
+        description: Band B390
+      B391:
+        description: Band B391
+      B392:
+        description: Band B392
+      B393:
+        description: Band B393
+      B394:
+        description: Band B394
+      B395:
+        description: Band B395
+      B396:
+        description: Band B396
+      B397:
+        description: Band B397
+      B398:
+        description: Band B398
+      B399:
+        description: Band B399
+      B400:
+        description: Band B400
+      B401:
+        description: Band B401
+      B402:
+        description: Band B402
+      B403:
+        description: Band B403
+      B404:
+        description: Band B404
+      B405:
+        description: Band B405
+      B406:
+        description: Band B406
+      B407:
+        description: Band B407
+      B408:
+        description: Band B408
+      B409:
+        description: Band B409
+      B410:
+        description: Band B410
+      B411:
+        description: Band B411
+      B412:
+        description: Band B412
+      B413:
+        description: Band B413
+      B414:
+        description: Band B414
+      B415:
+        description: Band B415
+      B416:
+        description: Band B416
+      B417:
+        description: Band B417
+      B418:
+        description: Band B418
+      B419:
+        description: Band B419
+      B420:
+        description: Band B420
+      B421:
+        description: Band B421
+      B422:
+        description: Band B422
+      B423:
+        description: Band B423
+      B424:
+        description: Band B424
+      B425:
+        description: Band B425
+      B426:
+        description: Band B426
+      Aerosol_Optical_Depth:
+        description: Band Aerosol_Optical_Depth
+      Aspect:
+        description: Band Aspect
+      Cast_Shadow:
+        description: Band Cast_Shadow
+      Dark_Dense_Vegetation_Classification:
+        description: Band Dark_Dense_Vegetation_Classification
+      Haze_Cloud_Water_Map:
+        description: Band Haze_Cloud_Water_Map
+      Illumination_Factor:
+        description: Band Illumination_Factor
+      Path_Length:
+        description: Band Path_Length
+      Sky_View_Factor:
+        description: Band Sky_View_Factor
+      Slope:
+        description: Band Slope
+      Smooth_Surface_Elevation:
+        description: Band Smooth_Surface_Elevation
+      Visibility_Index_Map:
+        description: Band Visibility_Index_Map
+      Water_Vapor_Column:
+        description: Band Water_Vapor_Column
+      to-sensor_Azimuth_Angle:
+        description: Band to-sensor_Azimuth_Angle
+      to-sensor_Zenith_Angle:
+        description: Band to-sensor_Zenith_Angle
+      Weather_Quality_Indicator:
+        description: Band Weather_Quality_Indicator
+      Acquisition_Date:
+        description: Band Acquisition_Date
   projects/neon-prod-earthengine/assets/HSI_REFL/002:
     title: 'projects/neon-prod-earthengine/assets/HSI_REFL/002 (community-published catalog reference)'
     provider: National Ecological Observatory Network (NEON)
@@ -51199,8 +52792,891 @@ datasets:
     default_reducer: mosaic
     terms: Public domain (NEON Science).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      B001:
+        description: Band B001
+      B002:
+        description: Band B002
+      B003:
+        description: Band B003
+      B004:
+        description: Band B004
+      B005:
+        description: Band B005
+      B006:
+        description: Band B006
+      B007:
+        description: Band B007
+      B008:
+        description: Band B008
+      B009:
+        description: Band B009
+      B010:
+        description: Band B010
+      B011:
+        description: Band B011
+      B012:
+        description: Band B012
+      B013:
+        description: Band B013
+      B014:
+        description: Band B014
+      B015:
+        description: Band B015
+      B016:
+        description: Band B016
+      B017:
+        description: Band B017
+      B018:
+        description: Band B018
+      B019:
+        description: Band B019
+      B020:
+        description: Band B020
+      B021:
+        description: Band B021
+      B022:
+        description: Band B022
+      B023:
+        description: Band B023
+      B024:
+        description: Band B024
+      B025:
+        description: Band B025
+      B026:
+        description: Band B026
+      B027:
+        description: Band B027
+      B028:
+        description: Band B028
+      B029:
+        description: Band B029
+      B030:
+        description: Band B030
+      B031:
+        description: Band B031
+      B032:
+        description: Band B032
+      B033:
+        description: Band B033
+      B034:
+        description: Band B034
+      B035:
+        description: Band B035
+      B036:
+        description: Band B036
+      B037:
+        description: Band B037
+      B038:
+        description: Band B038
+      B039:
+        description: Band B039
+      B040:
+        description: Band B040
+      B041:
+        description: Band B041
+      B042:
+        description: Band B042
+      B043:
+        description: Band B043
+      B044:
+        description: Band B044
+      B045:
+        description: Band B045
+      B046:
+        description: Band B046
+      B047:
+        description: Band B047
+      B048:
+        description: Band B048
+      B049:
+        description: Band B049
+      B050:
+        description: Band B050
+      B051:
+        description: Band B051
+      B052:
+        description: Band B052
+      B053:
+        description: Band B053
+      B054:
+        description: Band B054
+      B055:
+        description: Band B055
+      B056:
+        description: Band B056
+      B057:
+        description: Band B057
+      B058:
+        description: Band B058
+      B059:
+        description: Band B059
+      B060:
+        description: Band B060
+      B061:
+        description: Band B061
+      B062:
+        description: Band B062
+      B063:
+        description: Band B063
+      B064:
+        description: Band B064
+      B065:
+        description: Band B065
+      B066:
+        description: Band B066
+      B067:
+        description: Band B067
+      B068:
+        description: Band B068
+      B069:
+        description: Band B069
+      B070:
+        description: Band B070
+      B071:
+        description: Band B071
+      B072:
+        description: Band B072
+      B073:
+        description: Band B073
+      B074:
+        description: Band B074
+      B075:
+        description: Band B075
+      B076:
+        description: Band B076
+      B077:
+        description: Band B077
+      B078:
+        description: Band B078
+      B079:
+        description: Band B079
+      B080:
+        description: Band B080
+      B081:
+        description: Band B081
+      B082:
+        description: Band B082
+      B083:
+        description: Band B083
+      B084:
+        description: Band B084
+      B085:
+        description: Band B085
+      B086:
+        description: Band B086
+      B087:
+        description: Band B087
+      B088:
+        description: Band B088
+      B089:
+        description: Band B089
+      B090:
+        description: Band B090
+      B091:
+        description: Band B091
+      B092:
+        description: Band B092
+      B093:
+        description: Band B093
+      B094:
+        description: Band B094
+      B095:
+        description: Band B095
+      B096:
+        description: Band B096
+      B097:
+        description: Band B097
+      B098:
+        description: Band B098
+      B099:
+        description: Band B099
+      B100:
+        description: Band B100
+      B101:
+        description: Band B101
+      B102:
+        description: Band B102
+      B103:
+        description: Band B103
+      B104:
+        description: Band B104
+      B105:
+        description: Band B105
+      B106:
+        description: Band B106
+      B107:
+        description: Band B107
+      B108:
+        description: Band B108
+      B109:
+        description: Band B109
+      B110:
+        description: Band B110
+      B111:
+        description: Band B111
+      B112:
+        description: Band B112
+      B113:
+        description: Band B113
+      B114:
+        description: Band B114
+      B115:
+        description: Band B115
+      B116:
+        description: Band B116
+      B117:
+        description: Band B117
+      B118:
+        description: Band B118
+      B119:
+        description: Band B119
+      B120:
+        description: Band B120
+      B121:
+        description: Band B121
+      B122:
+        description: Band B122
+      B123:
+        description: Band B123
+      B124:
+        description: Band B124
+      B125:
+        description: Band B125
+      B126:
+        description: Band B126
+      B127:
+        description: Band B127
+      B128:
+        description: Band B128
+      B129:
+        description: Band B129
+      B130:
+        description: Band B130
+      B131:
+        description: Band B131
+      B132:
+        description: Band B132
+      B133:
+        description: Band B133
+      B134:
+        description: Band B134
+      B135:
+        description: Band B135
+      B136:
+        description: Band B136
+      B137:
+        description: Band B137
+      B138:
+        description: Band B138
+      B139:
+        description: Band B139
+      B140:
+        description: Band B140
+      B141:
+        description: Band B141
+      B142:
+        description: Band B142
+      B143:
+        description: Band B143
+      B144:
+        description: Band B144
+      B145:
+        description: Band B145
+      B146:
+        description: Band B146
+      B147:
+        description: Band B147
+      B148:
+        description: Band B148
+      B149:
+        description: Band B149
+      B150:
+        description: Band B150
+      B151:
+        description: Band B151
+      B152:
+        description: Band B152
+      B153:
+        description: Band B153
+      B154:
+        description: Band B154
+      B155:
+        description: Band B155
+      B156:
+        description: Band B156
+      B157:
+        description: Band B157
+      B158:
+        description: Band B158
+      B159:
+        description: Band B159
+      B160:
+        description: Band B160
+      B161:
+        description: Band B161
+      B162:
+        description: Band B162
+      B163:
+        description: Band B163
+      B164:
+        description: Band B164
+      B165:
+        description: Band B165
+      B166:
+        description: Band B166
+      B167:
+        description: Band B167
+      B168:
+        description: Band B168
+      B169:
+        description: Band B169
+      B170:
+        description: Band B170
+      B171:
+        description: Band B171
+      B172:
+        description: Band B172
+      B173:
+        description: Band B173
+      B174:
+        description: Band B174
+      B175:
+        description: Band B175
+      B176:
+        description: Band B176
+      B177:
+        description: Band B177
+      B178:
+        description: Band B178
+      B179:
+        description: Band B179
+      B180:
+        description: Band B180
+      B181:
+        description: Band B181
+      B182:
+        description: Band B182
+      B183:
+        description: Band B183
+      B184:
+        description: Band B184
+      B185:
+        description: Band B185
+      B186:
+        description: Band B186
+      B187:
+        description: Band B187
+      B188:
+        description: Band B188
+      B189:
+        description: Band B189
+      B190:
+        description: Band B190
+      B191:
+        description: Band B191
+      B192:
+        description: Band B192
+      B193:
+        description: Band B193
+      B194:
+        description: Band B194
+      B195:
+        description: Band B195
+      B196:
+        description: Band B196
+      B197:
+        description: Band B197
+      B198:
+        description: Band B198
+      B199:
+        description: Band B199
+      B200:
+        description: Band B200
+      B201:
+        description: Band B201
+      B202:
+        description: Band B202
+      B203:
+        description: Band B203
+      B204:
+        description: Band B204
+      B205:
+        description: Band B205
+      B206:
+        description: Band B206
+      B207:
+        description: Band B207
+      B208:
+        description: Band B208
+      B209:
+        description: Band B209
+      B210:
+        description: Band B210
+      B211:
+        description: Band B211
+      B212:
+        description: Band B212
+      B213:
+        description: Band B213
+      B214:
+        description: Band B214
+      B215:
+        description: Band B215
+      B216:
+        description: Band B216
+      B217:
+        description: Band B217
+      B218:
+        description: Band B218
+      B219:
+        description: Band B219
+      B220:
+        description: Band B220
+      B221:
+        description: Band B221
+      B222:
+        description: Band B222
+      B223:
+        description: Band B223
+      B224:
+        description: Band B224
+      B225:
+        description: Band B225
+      B226:
+        description: Band B226
+      B227:
+        description: Band B227
+      B228:
+        description: Band B228
+      B229:
+        description: Band B229
+      B230:
+        description: Band B230
+      B231:
+        description: Band B231
+      B232:
+        description: Band B232
+      B233:
+        description: Band B233
+      B234:
+        description: Band B234
+      B235:
+        description: Band B235
+      B236:
+        description: Band B236
+      B237:
+        description: Band B237
+      B238:
+        description: Band B238
+      B239:
+        description: Band B239
+      B240:
+        description: Band B240
+      B241:
+        description: Band B241
+      B242:
+        description: Band B242
+      B243:
+        description: Band B243
+      B244:
+        description: Band B244
+      B245:
+        description: Band B245
+      B246:
+        description: Band B246
+      B247:
+        description: Band B247
+      B248:
+        description: Band B248
+      B249:
+        description: Band B249
+      B250:
+        description: Band B250
+      B251:
+        description: Band B251
+      B252:
+        description: Band B252
+      B253:
+        description: Band B253
+      B254:
+        description: Band B254
+      B255:
+        description: Band B255
+      B256:
+        description: Band B256
+      B257:
+        description: Band B257
+      B258:
+        description: Band B258
+      B259:
+        description: Band B259
+      B260:
+        description: Band B260
+      B261:
+        description: Band B261
+      B262:
+        description: Band B262
+      B263:
+        description: Band B263
+      B264:
+        description: Band B264
+      B265:
+        description: Band B265
+      B266:
+        description: Band B266
+      B267:
+        description: Band B267
+      B268:
+        description: Band B268
+      B269:
+        description: Band B269
+      B270:
+        description: Band B270
+      B271:
+        description: Band B271
+      B272:
+        description: Band B272
+      B273:
+        description: Band B273
+      B274:
+        description: Band B274
+      B275:
+        description: Band B275
+      B276:
+        description: Band B276
+      B277:
+        description: Band B277
+      B278:
+        description: Band B278
+      B279:
+        description: Band B279
+      B280:
+        description: Band B280
+      B281:
+        description: Band B281
+      B282:
+        description: Band B282
+      B283:
+        description: Band B283
+      B284:
+        description: Band B284
+      B285:
+        description: Band B285
+      B286:
+        description: Band B286
+      B287:
+        description: Band B287
+      B288:
+        description: Band B288
+      B289:
+        description: Band B289
+      B290:
+        description: Band B290
+      B291:
+        description: Band B291
+      B292:
+        description: Band B292
+      B293:
+        description: Band B293
+      B294:
+        description: Band B294
+      B295:
+        description: Band B295
+      B296:
+        description: Band B296
+      B297:
+        description: Band B297
+      B298:
+        description: Band B298
+      B299:
+        description: Band B299
+      B300:
+        description: Band B300
+      B301:
+        description: Band B301
+      B302:
+        description: Band B302
+      B303:
+        description: Band B303
+      B304:
+        description: Band B304
+      B305:
+        description: Band B305
+      B306:
+        description: Band B306
+      B307:
+        description: Band B307
+      B308:
+        description: Band B308
+      B309:
+        description: Band B309
+      B310:
+        description: Band B310
+      B311:
+        description: Band B311
+      B312:
+        description: Band B312
+      B313:
+        description: Band B313
+      B314:
+        description: Band B314
+      B315:
+        description: Band B315
+      B316:
+        description: Band B316
+      B317:
+        description: Band B317
+      B318:
+        description: Band B318
+      B319:
+        description: Band B319
+      B320:
+        description: Band B320
+      B321:
+        description: Band B321
+      B322:
+        description: Band B322
+      B323:
+        description: Band B323
+      B324:
+        description: Band B324
+      B325:
+        description: Band B325
+      B326:
+        description: Band B326
+      B327:
+        description: Band B327
+      B328:
+        description: Band B328
+      B329:
+        description: Band B329
+      B330:
+        description: Band B330
+      B331:
+        description: Band B331
+      B332:
+        description: Band B332
+      B333:
+        description: Band B333
+      B334:
+        description: Band B334
+      B335:
+        description: Band B335
+      B336:
+        description: Band B336
+      B337:
+        description: Band B337
+      B338:
+        description: Band B338
+      B339:
+        description: Band B339
+      B340:
+        description: Band B340
+      B341:
+        description: Band B341
+      B342:
+        description: Band B342
+      B343:
+        description: Band B343
+      B344:
+        description: Band B344
+      B345:
+        description: Band B345
+      B346:
+        description: Band B346
+      B347:
+        description: Band B347
+      B348:
+        description: Band B348
+      B349:
+        description: Band B349
+      B350:
+        description: Band B350
+      B351:
+        description: Band B351
+      B352:
+        description: Band B352
+      B353:
+        description: Band B353
+      B354:
+        description: Band B354
+      B355:
+        description: Band B355
+      B356:
+        description: Band B356
+      B357:
+        description: Band B357
+      B358:
+        description: Band B358
+      B359:
+        description: Band B359
+      B360:
+        description: Band B360
+      B361:
+        description: Band B361
+      B362:
+        description: Band B362
+      B363:
+        description: Band B363
+      B364:
+        description: Band B364
+      B365:
+        description: Band B365
+      B366:
+        description: Band B366
+      B367:
+        description: Band B367
+      B368:
+        description: Band B368
+      B369:
+        description: Band B369
+      B370:
+        description: Band B370
+      B371:
+        description: Band B371
+      B372:
+        description: Band B372
+      B373:
+        description: Band B373
+      B374:
+        description: Band B374
+      B375:
+        description: Band B375
+      B376:
+        description: Band B376
+      B377:
+        description: Band B377
+      B378:
+        description: Band B378
+      B379:
+        description: Band B379
+      B380:
+        description: Band B380
+      B381:
+        description: Band B381
+      B382:
+        description: Band B382
+      B383:
+        description: Band B383
+      B384:
+        description: Band B384
+      B385:
+        description: Band B385
+      B386:
+        description: Band B386
+      B387:
+        description: Band B387
+      B388:
+        description: Band B388
+      B389:
+        description: Band B389
+      B390:
+        description: Band B390
+      B391:
+        description: Band B391
+      B392:
+        description: Band B392
+      B393:
+        description: Band B393
+      B394:
+        description: Band B394
+      B395:
+        description: Band B395
+      B396:
+        description: Band B396
+      B397:
+        description: Band B397
+      B398:
+        description: Band B398
+      B399:
+        description: Band B399
+      B400:
+        description: Band B400
+      B401:
+        description: Band B401
+      B402:
+        description: Band B402
+      B403:
+        description: Band B403
+      B404:
+        description: Band B404
+      B405:
+        description: Band B405
+      B406:
+        description: Band B406
+      B407:
+        description: Band B407
+      B408:
+        description: Band B408
+      B409:
+        description: Band B409
+      B410:
+        description: Band B410
+      B411:
+        description: Band B411
+      B412:
+        description: Band B412
+      B413:
+        description: Band B413
+      B414:
+        description: Band B414
+      B415:
+        description: Band B415
+      B416:
+        description: Band B416
+      B417:
+        description: Band B417
+      B418:
+        description: Band B418
+      B419:
+        description: Band B419
+      B420:
+        description: Band B420
+      B421:
+        description: Band B421
+      B422:
+        description: Band B422
+      B423:
+        description: Band B423
+      B424:
+        description: Band B424
+      B425:
+        description: Band B425
+      B426:
+        description: Band B426
+      Aerosol_Optical_Depth:
+        description: Band Aerosol_Optical_Depth
+      Aspect:
+        description: Band Aspect
+      Cast_Shadow:
+        description: Band Cast_Shadow
+      Dark_Dense_Vegetation_Classification:
+        description: Band Dark_Dense_Vegetation_Classification
+      Haze_Cloud_Water_Map:
+        description: Band Haze_Cloud_Water_Map
+      Illumination_Factor:
+        description: Band Illumination_Factor
+      Path_Length:
+        description: Band Path_Length
+      Sky_View_Factor:
+        description: Band Sky_View_Factor
+      Slope:
+        description: Band Slope
+      Smooth_Surface_Elevation:
+        description: Band Smooth_Surface_Elevation
+      Visibility_Index_Map:
+        description: Band Visibility_Index_Map
+      Water_Vapor_Column:
+        description: Band Water_Vapor_Column
+      to-sensor_Azimuth_Angle:
+        description: Band to-sensor_Azimuth_Angle
+      to-sensor_Zenith_Angle:
+        description: Band to-sensor_Zenith_Angle
+      Weather_Quality_Indicator:
+        description: Band Weather_Quality_Indicator
+      Acquisition_Date:
+        description: Band Acquisition_Date
   projects/neon-prod-earthengine/assets/RGB/001:
     title: 'projects/neon-prod-earthengine/assets/RGB/001 (community-published catalog reference)'
     provider: National Ecological Observatory Network (NEON)
@@ -51211,20 +53687,32 @@ datasets:
     default_reducer: mosaic
     terms: Public domain (NEON Science).
     user_uploaded: true
-    bands: {}
-
+    bands:
+      R:
+        description: Band R
+      G:
+        description: Band G
+      B:
+        description: Band B
   projects/ngis-cat/assets/DEA/NIDEM:
     title: 'projects/ngis-cat/assets/DEA/NIDEM (community-published catalog reference)'
     provider: Geoscience Australia / DEA (NGIS catalogue)
-    ee_type: image_collection
+    ee_type: image
     extent:
       start_date: "2020-01-01"
       end_date: null
     default_reducer: mosaic
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      nidem:
+        description: Band nidem
+      nidem_mask:
+        description: Band nidem_mask
+      nidem_uncertainty:
+        description: Band nidem_uncertainty
+      nidem_unfiltered:
+        description: Band nidem_unfiltered
   projects/openet/assets/disalexi/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/disalexi/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51235,8 +53723,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/disalexi/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/disalexi/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51247,8 +53738,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51259,8 +53753,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51271,8 +53768,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/eemetric/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/eemetric/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51283,8 +53783,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51295,8 +53798,19 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et_ensemble_mad:
+        description: Band et_ensemble_mad
+      et_ensemble_mad_min:
+        description: Band et_ensemble_mad_min
+      et_ensemble_mad_max:
+        description: Band et_ensemble_mad_max
+      et_ensemble_mad_count:
+        description: Band et_ensemble_mad_count
+      et_ensemble_mad_index:
+        description: Band et_ensemble_mad_index
+      et_ensemble_sam:
+        description: Band et_ensemble_sam
   projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51307,8 +53821,19 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et_ensemble_mad:
+        description: Band et_ensemble_mad
+      et_ensemble_mad_min:
+        description: Band et_ensemble_mad_min
+      et_ensemble_mad_max:
+        description: Band et_ensemble_mad_max
+      et_ensemble_mad_count:
+        description: Band et_ensemble_mad_count
+      et_ensemble_mad_index:
+        description: Band et_ensemble_mad_index
+      et_ensemble_sam:
+        description: Band et_ensemble_sam
   projects/openet/assets/ensemble/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/ensemble/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51319,8 +53844,19 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et_ensemble_mad:
+        description: Band et_ensemble_mad
+      et_ensemble_mad_min:
+        description: Band et_ensemble_mad_min
+      et_ensemble_mad_max:
+        description: Band et_ensemble_mad_max
+      et_ensemble_mad_count:
+        description: Band et_ensemble_mad_count
+      et_ensemble_mad_index:
+        description: Band et_ensemble_mad_index
+      et_ensemble_sam:
+        description: Band et_ensemble_sam
   projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51331,8 +53867,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51343,8 +53882,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/geesebal/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/geesebal/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51355,8 +53897,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51367,8 +53912,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51379,8 +53927,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/ptjpl/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51391,8 +53942,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/sims/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51403,8 +53957,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/sims/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51415,8 +53972,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/sims/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/sims/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51427,8 +53987,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0:
     title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51439,8 +54002,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0_pre2000:
     title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_0_pre2000 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51451,8 +54017,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/openet/assets/ssebop/conus/gridmet/monthly/v2_1:
     title: 'projects/openet/assets/ssebop/conus/gridmet/monthly/v2_1 (community-published catalog reference)'
     provider: OpenET, Inc.
@@ -51463,8 +54032,11 @@ datasets:
     default_reducer: mean
     terms: CC-BY-4.0.
     user_uploaded: true
-    bands: {}
-
+    bands:
+      et:
+        description: Band et
+      count:
+        description: Band count
   projects/pml_evapotranspiration/PML/OUTPUT/PML_V22a:
     title: 'projects/pml_evapotranspiration/PML/OUTPUT/PML_V22a (community-published catalog reference)'
     provider: PML_V2 Evapotranspiration team
@@ -51475,4 +54047,18 @@ datasets:
     default_reducer: mean
     terms: Free for use with citation (PML_V2).
     user_uploaded: true
-    bands: {}
+    bands:
+      GPP:
+        description: Band GPP
+      ET:
+        description: Band ET
+      Ec:
+        description: Band Ec
+      Es:
+        description: Band Es
+      Ei:
+        description: Band Ei
+      PET:
+        description: Band PET
+      Ew:
+        description: Band Ew
