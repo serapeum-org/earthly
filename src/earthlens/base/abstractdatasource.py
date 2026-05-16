@@ -174,6 +174,35 @@ class SpatialExtent(BaseModel):
         """Western edge of the bbox (== `longitude_min`)."""
         return self.longitude_min
 
+    def estimate_pixel_dims(self, scale_m: float) -> tuple[int, int]:
+        """Return `(width_px, height_px)` of this bbox sampled at `scale_m` metres.
+
+        Thin wrapper over :func:`earthlens.base.spatial.estimate_pixel_dims`
+        so every backend can pre-flight a request size without reaching
+        into another subpackage. Useful e.g. for GEE's 32768-px
+        synchronous-export cap or for any "will this download blow up?"
+        check before queuing a job.
+
+        Args:
+            scale_m: Output pixel size in metres.
+
+        Returns:
+            `(width_px, height_px)` — both rounded up, each at least 1.
+
+        Raises:
+            ValueError: If `scale_m` is not positive.
+        """
+        # Local import to keep the existing import order untouched.
+        from earthlens.base.spatial import estimate_pixel_dims
+
+        return estimate_pixel_dims(
+            self.longitude_min,
+            self.latitude_min,
+            self.longitude_max,
+            self.latitude_max,
+            scale_m,
+        )
+
 
 class AbstractDataSource(ABC):
     """Bluebrint for all class for different datasources."""

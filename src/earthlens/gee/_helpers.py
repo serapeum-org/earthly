@@ -3,29 +3,23 @@
 Small, side-effect-free utilities used by :mod:`earthlens.gee.backend`,
 kept out of the backend module so there are no nested function
 definitions and so they are independently testable.
+
+Backend-agnostic spatial helpers (e.g. :func:`estimate_pixel_dims`)
+live in :mod:`earthlens.base.spatial` so the CHC / ECMWF / S3 backends
+can use them too.
 """
 
 from __future__ import annotations
 
-import math
 import time
-from typing import TYPE_CHECKING, Callable
+from typing import Callable
 
 from tqdm import tqdm
-
-if TYPE_CHECKING:  # pragma: no cover - typing only
-    from earthlens.base import SpatialExtent
 
 # `getDownloadURL` / synchronous-export pixel-grid limit: each axis of
 # the requested raster must be <= this many pixels (Earth Engine raises
 # "Pixel grid dimensions (WxH) must be less than or equal to 32768.").
 EE_MAX_DIMENSION: int = 32768
-
-# Approximate metres per degree of latitude at the equator. Used only
-# to estimate a request's pixel dimensions for the size guard; it
-# slightly overcounts longitude pixels away from the equator (which is
-# the safe direction for a guard).
-_METRES_PER_DEGREE: float = 111_320.0
 
 # Earth Engine `ee.ImageCollection` reducers exposed as convenience
 # methods that preserve the original band names (unlike
@@ -66,51 +60,6 @@ def slug_asset_id(asset_id: str) -> str:
             ```
     """
     return asset_id.replace("/", "_")
-
-
-def estimate_pixel_dims(space: SpatialExtent, scale_m: float) -> tuple[int, int]:
-    """Estimate the (width, height) in pixels of a bbox sampled at `scale_m`.
-
-    A rough estimate for the synchronous-download size guard: degrees are
-    converted to metres with a constant equatorial factor, so the width
-    is over-counted away from the equator — the safe direction for a
-    guard.
-
-    Args:
-        space: The request bounding box (degrees).
-        scale_m: The output pixel size in metres.
-
-    Returns:
-        ``(width_px, height_px)`` — both rounded up to the next integer,
-        each at least 1.
-
-    Raises:
-        ValueError: If `scale_m` is not positive.
-
-    Examples:
-        - A 0.1° × 0.1° box at 90 m is tiny:
-            ```python
-            >>> from earthlens.base import SpatialExtent
-            >>> box = SpatialExtent.from_pairs([30.0, 30.1], [31.0, 31.1])
-            >>> estimate_pixel_dims(box, 90.0)
-            (124, 124)
-
-            ```
-        - The same box at 10 m is ~9× larger per axis:
-            ```python
-            >>> from earthlens.base import SpatialExtent
-            >>> box = SpatialExtent.from_pairs([30.0, 30.1], [31.0, 31.1])
-            >>> estimate_pixel_dims(box, 10.0)
-            (1114, 1114)
-
-            ```
-    """
-    if scale_m <= 0:
-        raise ValueError(f"scale_m must be positive, got {scale_m}")
-    deg_per_px = scale_m / _METRES_PER_DEGREE
-    width_px = math.ceil((space.longitude_max - space.longitude_min) / deg_per_px)
-    height_px = math.ceil((space.latitude_max - space.latitude_min) / deg_per_px)
-    return max(width_px, 1), max(height_px, 1)
 
 
 def reduce_collection(collection, reducer: str):

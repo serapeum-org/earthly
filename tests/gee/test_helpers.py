@@ -7,7 +7,6 @@ import pytest
 from earthlens.base import SpatialExtent
 from earthlens.gee._helpers import (
     EE_MAX_DIMENSION,
-    estimate_pixel_dims,
     reduce_collection,
     slug_asset_id,
     task_state_name,
@@ -80,38 +79,20 @@ class TestSlugAssetId:
         assert slug_asset_id(asset_id) == expected
 
 
-class TestEstimatePixelDims:
-    """Tests for `estimate_pixel_dims`."""
+class TestEeSizeGuard:
+    """Cross-check that the bbox/scale sizing trips the GEE 32768-px cap when expected.
 
-    def test_small_box_at_90m(self):
-        """A 0.1°×0.1° box at 90 m is ~124×124 px (matches the docstring)."""
-        box = SpatialExtent.from_pairs([30.0, 30.1], [31.0, 31.1])
-        assert estimate_pixel_dims(box, 90.0) == (124, 124)
-
-    def test_finer_scale_more_pixels(self):
-        """A finer `scale` yields a larger pixel grid."""
-        box = SpatialExtent.from_pairs([30.0, 30.1], [31.0, 31.1])
-        w90, _ = estimate_pixel_dims(box, 90.0)
-        w10, _ = estimate_pixel_dims(box, 10.0)
-        assert w10 > w90 * 8
-
-    def test_minimum_one_pixel(self):
-        """A sub-pixel bbox still reports at least 1×1."""
-        box = SpatialExtent.from_pairs([0.0, 0.0001], [0.0, 0.0001])
-        assert estimate_pixel_dims(box, 5000.0) == (1, 1)
+    The general `estimate_pixel_dims` tests live in
+    `tests/test_base/test_spatial.py`; this class only verifies the
+    EE-specific interplay between the bbox sizing and
+    :data:`EE_MAX_DIMENSION`.
+    """
 
     def test_oversized_box_exceeds_ee_limit(self):
         """A 40°×40° box at 30 m blows past `EE_MAX_DIMENSION` per axis."""
         box = SpatialExtent.from_pairs([0.0, 40.0], [0.0, 40.0])
-        width_px, height_px = estimate_pixel_dims(box, 30.0)
+        width_px, height_px = box.estimate_pixel_dims(30.0)
         assert max(width_px, height_px) > EE_MAX_DIMENSION
-
-    @pytest.mark.parametrize("bad_scale", [0.0, -1.0, -90.0])
-    def test_non_positive_scale_raises(self, bad_scale):
-        """A non-positive `scale_m` raises `ValueError`."""
-        box = SpatialExtent.from_pairs([0.0, 1.0], [0.0, 1.0])
-        with pytest.raises(ValueError, match="scale_m must be positive"):
-            estimate_pixel_dims(box, bad_scale)
 
 
 class TestReduceCollection:

@@ -13,10 +13,13 @@ from earthlens.base.abstractdatasource import (
     SpatialExtent,
     TemporalExtent,
 )
+from earthlens.base.spatial import METRES_PER_DEGREE, estimate_pixel_dims
 
 __all__ = [
     "AbstractCatalog",
     "AbstractDataSource",
+    "METRES_PER_DEGREE",
     "SpatialExtent",
     "TemporalExtent",
+    "estimate_pixel_dims",
 ]

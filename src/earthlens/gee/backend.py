@@ -58,7 +58,6 @@ from tqdm import tqdm
 from earthlens.base import AbstractDataSource, SpatialExtent, TemporalExtent
 from earthlens.gee._helpers import (
     EE_MAX_DIMENSION,
-    estimate_pixel_dims,
     reduce_collection,
     slug_asset_id,
     wait_for_task,
@@ -571,7 +570,7 @@ class GEE(AbstractDataSource):
         on disk), zips via :meth:`Dataset.from_archive` (chained `/vsizip/`,
         merging members into one multi-band tif).
         """
-        width_px, height_px = estimate_pixel_dims(self.space, scale)
+        width_px, height_px = self.space.estimate_pixel_dims(scale)
         if max(width_px, height_px) > EE_MAX_DIMENSION:
             raise ValueError(
                 f"{var_info.id}: the requested AOI at scale={scale} m is about "
