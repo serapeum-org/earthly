@@ -823,12 +823,24 @@ class Catalog(AbstractCatalog):
         * `datasets_missing_in_index` — the reverse: keys under
           `datasets:` that the index doesn't advertise. Less severe
           but still surfaces a stale `_index.yaml`.
+        * `variable_metadata_drift` — `(variable_name, temporal_resolution)`
+          groups where the constituent rows disagree on `(units, types)`.
+          Reported as `"<variable>/<temporal_resolution>"` strings. The
+          description field is **not** considered (CMIP6 scenario rows
+          legitimately vary by SSP/target year). Catches H3-style drift
+          where a maintainer edits one row's units but forgets the
+          siblings.
         """
         empty_dataset: list[str] = []
         bad_window: list[str] = []
         unregistered_provider: list[str] = []
         used_regions: set[str] = set()
         used_providers: set[str] = set()
+        # Track `(units, types)` tuples per `(variable_name, temporal_resolution)`
+        # so the drift check can flag heterogeneous groups in one pass.
+        variable_metadata: dict[
+            tuple[str, str], set[tuple[str, str | None]]
+        ] = {}
         for ds_key, ds in self.datasets.items():
             if not ds.variables:
                 empty_dataset.append(ds_key)
@@ -840,12 +852,22 @@ class Catalog(AbstractCatalog):
                 used_providers.add(ds.provider)
                 if ds.provider not in self.providers:
                     unregistered_provider.append(ds_key)
+            for var_name, var in ds.variables.items():
+                bucket = variable_metadata.setdefault(
+                    (var_name, ds.temporal_resolution), set()
+                )
+                bucket.add((var.units, var.types))
         unreferenced_region = sorted(set(self.available_regions) - used_regions)
         unused_provider = sorted(set(self.providers) - used_providers)
         index_set = set(self.available_datasets)
         datasets_set = set(self.datasets)
         index_missing_in_datasets = sorted(index_set - datasets_set)
         datasets_missing_in_index = sorted(datasets_set - index_set)
+        variable_metadata_drift = sorted(
+            f"{var_name}/{tres}"
+            for (var_name, tres), tuples in variable_metadata.items()
+            if len(tuples) > 1
+        )
         return {
             "dataset_without_variables": sorted(empty_dataset),
             "end_date_before_start_date": sorted(bad_window),
@@ -854,6 +876,7 @@ class Catalog(AbstractCatalog):
             "unused_provider": unused_provider,
             "index_missing_in_datasets": index_missing_in_datasets,
             "datasets_missing_in_index": datasets_missing_in_index,
+            "variable_metadata_drift": variable_metadata_drift,
         }
 
     def describe_region(self, region: str) -> dict[str, list[float]]:
