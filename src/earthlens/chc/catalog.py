@@ -60,7 +60,7 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
-from earthlens.base import AbstractCatalog, Provider
+from earthlens.base import AbstractCatalog, FluxableLeaf, Provider
 from earthlens.base.providers import (
     clear_providers_cache as _clear_providers_cache_base,
     load_providers,
@@ -118,41 +118,32 @@ _StrictSafeLoader.add_constructor(
 )
 
 
-class Variable(BaseModel):
+class Variable(FluxableLeaf):
     """Per-variable catalog entry for CHIRPS datasets.
 
     A frozen pydantic model carrying the metadata for one variable
     row in `chc_data_catalog.yaml`. CHIRPS currently only provides
     precipitation, but the typed model keeps the interface symmetric
-    with the ECMWF catalog.
+    with the ECMWF catalog. Inherits `types` + `is_flux` from
+    :class:`earthlens.base.FluxableLeaf`.
 
     Attributes:
         dataset_key: CHIRPS dataset identifier (e.g. `"global-daily"`).
         name: Variable short code (e.g. `"precipitation"`).
         description: Human-readable description of the variable.
         units: Unit string (e.g. `"mm/day"`, `"mm/month"`).
-        types: `"flux"` for accumulated quantities like precipitation.
-            `None` for instantaneous / state variables (not currently
-            used by CHIRPS but kept for interface symmetry).
     """
 
-    model_config = ConfigDict(frozen=True, extra="forbid")
+    # `model_config` (frozen=True, extra="forbid") + `types` field +
+    # `is_flux` property are inherited from `FluxableLeaf`.
 
     dataset_key: str
     name: str
     description: str
     units: str
-    types: str | None = None
 
-    @property
-    def is_flux(self) -> bool:
-        """Whether this variable is a flux (accumulated quantity).
-
-        Returns:
-            bool: `True` when `types == "flux"`. Precipitation is
-            always a flux in CHIRPS.
-        """
-        return self.types == "flux"
+    # `is_flux` property inherited from `FluxableLeaf` (N1 in
+    # planning/catalog-cross-backend-comparison.md).
 
 
 class Dataset(BaseModel):

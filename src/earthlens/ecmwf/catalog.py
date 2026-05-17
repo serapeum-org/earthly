@@ -44,15 +44,12 @@ Examples:
 
 from __future__ import annotations
 
-import datetime
-import urllib.request
 from pathlib import Path
 from typing import Any
 
-import requests
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
-from earthlens.base import AbstractCatalog, Provider
+from earthlens.base import AbstractCatalog, FluxableLeaf, Provider
 from earthlens.base.providers import (
     clear_providers_cache as _clear_providers_cache_base,
     load_providers,
@@ -282,22 +279,19 @@ def _synthesize_monthly_entries(
         )
 
 
-def _read_cdsapirc() -> dict[str, str]:
-    """Parse `~/.cdsapirc` into a {url, key} dict.
-
-    Used by :meth:`Catalog.list_recent_jobs` and
-    :meth:`Catalog.download_job` to authenticate the bare HTTP
-    calls without spinning up a full :class:`cdsapi.Client`.
-    """
-    cfg: dict[str, str] = {}
-    for line in (Path.home() / ".cdsapirc").read_text().splitlines():
-        if ":" in line:
-            key, _, value = line.partition(":")
-            cfg[key.strip()] = value.strip()
-    return cfg
+# `_read_cdsapirc`, `list_recent_jobs`, `download_job` moved to
+# `earthlens.ecmwf.jobs` (N3 in
+# planning/catalog-cross-backend-comparison.md). Re-imported below as
+# `_read_cdsapirc` so any external caller using `from
+# earthlens.ecmwf.catalog import _read_cdsapirc` keeps working.
+from earthlens.ecmwf.jobs import (  # noqa: E402 — re-export for back-compat
+    download_job as _download_job_impl,
+    list_recent_jobs as _list_recent_jobs_impl,
+    read_cdsapirc as _read_cdsapirc,
+)
 
 
-class Variable(BaseModel):
+class Variable(FluxableLeaf):
     """Per-variable catalog entry consumed by :class:`ECMWF`.
 
     A frozen pydantic model carrying the metadata for one row in
@@ -305,6 +299,8 @@ class Variable(BaseModel):
     rewraps any :class:`pydantic.ValidationError` with the offending
     row's catalog key so a typo in the file (e.g. `cd_dataset` vs
     `cds_dataset`) surfaces at import time, not mid-download.
+    Inherits `types` + `is_flux` from
+    :class:`earthlens.base.FluxableLeaf`.
 
     Attributes:
         cds_dataset: CDS dataset short name used for daily / sub-daily
@@ -344,7 +340,8 @@ class Variable(BaseModel):
             silently dropped: they live here and reach the server.
     """
 
-    model_config = ConfigDict(frozen=True, extra="forbid")
+    # `model_config` (frozen=True, extra="forbid") and the `types` field
+    # + `is_flux` property are inherited from `FluxableLeaf`.
 
     cds_dataset: str
     cds_variable: str
@@ -352,7 +349,6 @@ class Variable(BaseModel):
     units: str
     product_type: list[str]
     cds_pressure_level: list[str] | None = None
-    types: str | None = None
     extras: dict[str, Any] = Field(default_factory=dict)
     request_kind: str = "form"
 
@@ -377,18 +373,8 @@ class Variable(BaseModel):
             )
         return value
 
-    @property
-    def is_flux(self) -> bool:
-        """Whether this variable is a flux (drives monthly accumulation scaling).
-
-        Returns:
-            bool: `True` when `types == "flux"` — flux values are
-            accumulated per timestep on CDS, so monthly aggregation
-            multiplies by the number of days in the month. `False`
-            for state variables (instantaneous samples) and when
-            `types` is unset.
-        """
-        return self.types == "flux"
+    # `is_flux` property is inherited from `FluxableLeaf` (N1 in
+    # planning/catalog-cross-backend-comparison.md).
 
 
 class Dataset(BaseModel):
@@ -873,68 +859,14 @@ class Catalog(AbstractCatalog):
     ) -> list[dict[str, Any]]:
         """Return the user's recent CDS retrieval jobs.
 
-        Wraps `GET /retrieve/v1/jobs` with the same Personal
-        Access Token cdsapi uses (read from `~/.cdsapirc`).
-        Useful for resuming downloads after a script crash, or
-        inspecting which probes have completed without rerunning
-        them.
-
-        Args:
-            status: Optional filter — one of `"accepted"`,
-                `"running"`, `"successful"`, `"failed"`,
-                `"rejected"`. `None` returns every status.
-            max_age_min: Drop entries older than this many minutes
-                (CDS retains job records for a few weeks). Defaults
-                to `60`.
-            limit: Hard cap on returned entries, sent as the
-                `limit` query param. Defaults to `50`.
-
-        Returns:
-            list[dict[str, Any]]: Each entry has at least
-            `jobID` / `processID` (= dataset name) / `status` /
-            `created`. See the CDS OGC API processes spec for the
-            full schema.
-
-        Examples:
-            - List successful retrievals from the last hour
-              (`# doctest: +SKIP` — needs a configured
-              `~/.cdsapirc`):
-
-                ```python
-                >>> from earthlens.ecmwf import Catalog
-                >>> cat = Catalog()
-                >>> jobs = cat.list_recent_jobs(  # doctest: +SKIP
-                ...     status="successful", max_age_min=60,
-                ... )
-                >>> for j in jobs:  # doctest: +SKIP
-                ...     print(j["processID"], j["jobID"][:8])
-
-                ```
+        Thin wrapper that delegates to
+        :func:`earthlens.ecmwf.jobs.list_recent_jobs` (N3); see that
+        for the full docstring. Kept on `Catalog` as a convenience so
+        `Catalog().list_recent_jobs(...)` keeps working.
         """
-        cfg = _read_cdsapirc()
-        url = cfg["url"].rstrip("/") + "/retrieve/v1/jobs"
-        params: dict[str, Any] = {"limit": limit}
-        if status:
-            params["status"] = status
-        resp = requests.get(
-            url,
-            headers={"PRIVATE-TOKEN": cfg["key"]},
-            params=params,
-            timeout=30,
+        return _list_recent_jobs_impl(
+            status=status, max_age_min=max_age_min, limit=limit
         )
-        resp.raise_for_status()
-        now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
-        out: list[dict[str, Any]] = []
-        for job in resp.json().get("jobs", []):
-            created = job.get("created", "")
-            if not created:
-                continue
-            ago = (
-                now - datetime.datetime.fromisoformat(created.replace("Z", ""))
-            ).total_seconds() / 60
-            if ago <= max_age_min:
-                out.append(job)
-        return out
 
     def download_job(
         self,
@@ -944,51 +876,8 @@ class Catalog(AbstractCatalog):
     ) -> Path:
         """Download the result asset of a successful CDS job.
 
-        Looks up `job_id` via `GET /retrieve/v1/jobs/<id>/results`,
-        follows the asset's `href`, and streams the body into
-        `target`. Idempotent — if `target` already exists with a
-        non-zero size the download is skipped.
-
-        Args:
-            job_id: CDS job identifier (e.g. as returned by
-                :meth:`list_recent_jobs`).
-            target: Destination path. Parents are created.
-            chunk_size: Streaming chunk size in bytes. Defaults to
-                1 MiB.
-
-        Returns:
-            pathlib.Path: `target`, after the download completes.
-
-        Raises:
-            requests.HTTPError: If the job does not exist or its
-                result has expired.
-            ValueError: If the job's results record contains no
-                downloadable asset href.
+        Thin wrapper that delegates to
+        :func:`earthlens.ecmwf.jobs.download_job` (N3); see that for
+        the full docstring.
         """
-        cfg = _read_cdsapirc()
-        target_path = Path(target)
-        if target_path.exists() and target_path.stat().st_size > 0:
-            return target_path
-        rurl = cfg["url"].rstrip("/") + f"/retrieve/v1/jobs/{job_id}/results"
-        resp = requests.get(rurl, headers={"PRIVATE-TOKEN": cfg["key"]}, timeout=30)
-        resp.raise_for_status()
-        href = resp.json().get("asset", {}).get("value", {}).get("href")
-        if not href:
-            raise ValueError(
-                f"job {job_id!r} has no downloadable asset href in its "
-                "results record"
-            )
-        target_path.parent.mkdir(parents=True, exist_ok=True)
-        # `href` comes from CDS server JSON; reject anything that
-        # is not http(s) so a malicious / corrupted response can't
-        # coerce us into reading a local file via `file://`.
-        if not href.startswith(("https://", "http://")):
-            raise ValueError(f"refusing to download from non-http(s) href: {href!r}")
-        with (
-            # Scheme validated above — bandit B310 does not apply.
-            urllib.request.urlopen(href, timeout=60) as src,  # nosec B310
-            open(target_path, "wb") as out,
-        ):
-            while chunk := src.read(chunk_size):
-                out.write(chunk)
-        return target_path
+        return _download_job_impl(job_id, target, chunk_size=chunk_size)
