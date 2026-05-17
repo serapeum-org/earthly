@@ -422,16 +422,56 @@ class CHIRPS(AbstractDataSource):
         dates = pd.date_range(
             window_start, window_end, freq=dataset.pandas_freq
         )
+        # M1: catch per-date failures so a single transient (TCP reset,
+        # FTP 550, a one-off bad raster) doesn't abort the rest of the
+        # batch for this `(ds, var)`. The outer `download()` loop kept
+        # its (ds, var)-level try/except as defence in depth for
+        # catalog-resolution / never-reach-the-network failures.
         if not cores:
+            failed: list[tuple[pd.Timestamp, BaseException]] = []
             for date in tqdm(
                 dates, desc=f"CHIRPS {ds_key}", disable=not progress_bar
             ):
-                self._api(ds_key, dataset, var, date)
+                try:
+                    self._api(ds_key, dataset, var, date)
+                except Exception as exc:  # noqa: BLE001 - log + continue per date
+                    failed.append((date, exc))
         else:
-            Parallel(n_jobs=cores)(
-                delayed(self._api)(ds_key, dataset, var, date)
+            results = Parallel(n_jobs=cores)(
+                delayed(self._api_or_capture)(ds_key, dataset, var, date)
                 for date in dates
             )
+            failed = [r for r in results if r is not None]
+        if failed:
+            sample = ", ".join(
+                f"{d.date()} ({type(exc).__name__})" for d, exc in failed[:3]
+            )
+            tail = "" if len(failed) <= 3 else f" (+{len(failed) - 3} more)"
+            logger.warning(
+                f"{ds_key}/{var.name}: {len(failed)}/{len(dates)} dates "
+                f"failed; first 3: {sample}{tail}"
+            )
+
+    def _api_or_capture(
+        self,
+        ds_key: str,
+        dataset: ChcDataset,
+        var: Variable,
+        date: pd.Timestamp,
+    ) -> tuple[pd.Timestamp, BaseException] | None:
+        """Run `_api` and return the exception instead of raising (M1 helper).
+
+        Used by the joblib-parallel branch of `_download_dataset` so a
+        single bad date doesn't take down the rest of the batch.
+        Returns `None` on success, `(date, exc)` on failure. The
+        sequential branch handles its own try/except inline and does
+        not call this.
+        """
+        try:
+            self._api(ds_key, dataset, var, date)
+            return None
+        except Exception as exc:  # noqa: BLE001 - log + continue per date
+            return (date, exc)
 
     def _download_discrete(
         self,
