@@ -167,4 +167,4 @@ tools/chc/_discovered_paths.json
 # .nc, GEE export tifs) are reproduced on demand by running the
 # notebooks against live services. They must NOT enter git.
 docs/examples/cds/data/
-docs/examples/gee/out/
+docs/examples/google-earth-engine/out/
