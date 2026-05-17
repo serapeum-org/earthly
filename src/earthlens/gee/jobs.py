@@ -42,9 +42,12 @@ Examples:
 from __future__ import annotations
 
 import datetime as dt
+import re
 import time
 from collections.abc import Callable, Iterable
+from pathlib import Path
 from typing import Any, Literal
+from urllib.parse import unquote, urlparse
 
 import ee
 from loguru import logger
@@ -446,52 +449,155 @@ def wait_for_task_id(
     return info
 
 
+#: Recognised destination-URI shapes. Each entry is a
+#: `(predicate, downloader)` pair; `resolve_destination(download_to=...)`
+#: walks the list in order and dispatches the first match.
+_DRIVE_FILE_URL_RE = re.compile(
+    r"^https?://drive\.google\.com/(?:open\?id=|file/d/|uc\?(?:[^#]*&)?id=)"
+    r"(?P<file_id>[A-Za-z0-9_-]+)"
+)
+_DRIVE_FOLDER_URL_RE = re.compile(
+    r"^https?://drive\.google\.com/(?:drive/)?(?:#?folders/|drive/folders/)"
+    r"(?P<folder_id>[A-Za-z0-9_-]+)"
+)
+_GCS_HTTPS_RE = re.compile(
+    r"^https?://(?:storage\.googleapis\.com|storage\.cloud\.google\.com)/"
+    r"(?P<bucket>[^/]+)/(?P<key>.+?)(?:[?#].*)?$"
+)
+_GCS_GS_RE = re.compile(r"^gs://(?P<bucket>[^/]+)/(?P<key>.+)$")
+_EE_ASSET_RE = re.compile(r"^projects/[^/]+/assets/.+")
+
+
+def _pull_gcs(bucket: str, key: str, dest_dir: Path) -> Path:
+    """Download `gs://<bucket>/<key>` to `dest_dir / <basename>` and return the path."""
+    from google.cloud import storage as _gcs
+
+    client = _gcs.Client()
+    blob = client.bucket(bucket).blob(unquote(key))
+    target = dest_dir / Path(unquote(key)).name
+    blob.download_to_filename(str(target))
+    return target
+
+
+def _pull_drive_file(file_id: str, dest_dir: Path) -> Path:
+    """Download a Drive file by id to `dest_dir / <drive-name>` and return the path.
+
+    Uses the Drive v3 API with the existing earthengine-api / EE-auth
+    credentials. Requires the service account (or whichever identity
+    initialised `ee`) to have either ownership of the file or a Drive
+    share that includes it.
+    """
+    from googleapiclient.discovery import build  # type: ignore[import-untyped]
+    from googleapiclient.http import MediaIoBaseDownload  # type: ignore[import-untyped]
+
+    creds = ee.data.get_persistent_credentials()
+    drive = build("drive", "v3", credentials=creds, cache_discovery=False)
+    meta = drive.files().get(fileId=file_id, fields="name").execute()
+    target = dest_dir / meta["name"]
+    request = drive.files().get_media(fileId=file_id)
+    with target.open("wb") as out:
+        downloader = MediaIoBaseDownload(out, request)
+        done = False
+        while not done:
+            _, done = downloader.next_chunk()
+    return target
+
+
 def resolve_destination(
     task_info: TaskInfo,
     *,
-    download_to: object | None = None,
-) -> list[str]:
-    """Return the destination URIs of a completed task.
+    download_to: Path | str | None = None,
+) -> list[str | Path]:
+    """Return — and optionally download — a completed task's destinations.
 
     For Drive / GCS / asset exports, EE populates
     `Operation.response.destination_uris` once the task reaches
-    `COMPLETED`. This helper surfaces them as a plain list so a
-    follow-up script can pull the files (Drive / GCS) or reference
-    the asset (`projects/.../assets/<...>`).
+    `COMPLETED`. This helper surfaces them as a plain list and, when
+    `download_to=` is given, dispatches each URI to the appropriate
+    transport:
 
-    Auto-download of Drive / GCS payloads is intentionally **not**
-    in this Phase A — that's `L2` in
-    `planning/gee-jobs-tracking-plan.md`. Passing `download_to=`
-    today raises `NotImplementedError` to keep the contract honest.
+    * `https://drive.google.com/file/d/<id>/...` (single-file Drive
+      URL) → Drive v3 `files().get_media(fileId=<id>)`. Requires the
+      identity initialised on `ee` to have access to the file (either
+      ownership or a share). Folder-form URLs
+      (`https://drive.google.com/#folders/<id>`) are surfaced
+      verbatim with a warning — list-the-folder + download-children
+      is intentionally out of scope (the typical service-account
+      pattern shares per-file, not per-folder).
+    * `gs://<bucket>/<key>` / `https://storage.googleapis.com/<bucket>/<key>`
+      → google-cloud-storage `Blob.download_to_filename`.
+    * `projects/<proj>/assets/<...>` → returned verbatim (no-op; the
+      asset already lives on EE and is consumable via
+      `ee.Image(asset_id)` / `ee.FeatureCollection(asset_id)`).
+
+    Any URI that matches none of the above is surfaced as-is and
+    logged at WARNING so the caller can decide what to do with it.
 
     Args:
         task_info: A terminal-state :class:`TaskInfo` (typically from
             :func:`get_task_status` after :func:`wait_for_task_id`).
-        download_to: Reserved for the L2 follow-up. Pass `None` (the
-            default) — any other value raises `NotImplementedError`.
+        download_to: When given, a directory path; downloaded files
+            land under it (created on demand). When `None` (the
+            default), the helper only returns the URIs verbatim — no
+            downloads.
 
     Returns:
-        The list of destination URIs (`drive://...`, `gs://...`, or
-        `projects/.../assets/<...>`). Empty for non-terminal or
-        non-`COMPLETED` tasks.
+        A list whose entries are either local
+        :class:`pathlib.Path`s (for downloaded files) or URI strings
+        (for the no-op asset path / unrecognised URIs / when
+        `download_to is None`). Ordering matches
+        `task_info.destination_uris`.
 
     Raises:
-        NotImplementedError: If `download_to` is not `None` (deferred
-            to `L2`).
+        Exceptions from the underlying GCS / Drive client calls
+        propagate verbatim. Missing optional deps surface as
+        `ImportError`.
     """
-    if download_to is not None:
-        raise NotImplementedError(
-            "auto-download of destination URIs is deferred to L2 in "
-            "planning/gee-jobs-tracking-plan.md; for now, pull Drive / GCS "
-            "files yourself with the gauth / gsutil tools, or reference EE "
-            "asset destinations directly via `ee.Image(asset_id)`."
-        )
     if task_info.state != "COMPLETED":
         logger.warning(
             f"resolve_destination: task {task_info.id} is "
             f"{task_info.state}, not COMPLETED — destination_uris is empty."
         )
-    return list(task_info.destination_uris)
+        return list(task_info.destination_uris)
+
+    if download_to is None:
+        return list(task_info.destination_uris)
+
+    dest_dir = Path(download_to)
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
+    out: list[str | Path] = []
+    for uri in task_info.destination_uris:
+        m = _DRIVE_FILE_URL_RE.match(uri)
+        if m:
+            out.append(_pull_drive_file(m.group("file_id"), dest_dir))
+            continue
+        if _DRIVE_FOLDER_URL_RE.match(uri):
+            logger.warning(
+                f"resolve_destination: Drive folder URL surfaced verbatim "
+                f"({uri}); list-and-download of folder children is out of "
+                "scope — share individual files with the SA instead, or "
+                "pull from the Drive UI."
+            )
+            out.append(uri)
+            continue
+        m = _GCS_HTTPS_RE.match(uri) or _GCS_GS_RE.match(uri)
+        if m:
+            out.append(_pull_gcs(m.group("bucket"), m.group("key"), dest_dir))
+            continue
+        if _EE_ASSET_RE.match(uri):
+            logger.info(
+                f"resolve_destination: EE asset {uri} stays on EE "
+                "(no local file produced); use ee.Image(asset_id) to read."
+            )
+            out.append(uri)
+            continue
+        logger.warning(
+            f"resolve_destination: unrecognised destination URI shape "
+            f"{uri!r}; surfaced verbatim without download."
+        )
+        out.append(uri)
+    return out
 
 
 # -- CLI (M4 in gee-jobs-tracking-plan) -------------------------------------

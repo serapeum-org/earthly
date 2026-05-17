@@ -808,6 +808,55 @@ class Catalog(AbstractCatalog):
 
         return get_task_status(task_id, **kwargs)
 
+    def audit_recent_tasks(
+        self, max_age_min: int = 7 * 24 * 60, **kwargs: Any,
+    ) -> dict[str, list[Any]]:
+        """Group recent batch tasks by state — the task-side `health()` (L3).
+
+        Walks :func:`earthlens.gee.jobs.list_recent_tasks` with the
+        given `max_age_min` (default: 7 days) and any extra filters
+        from `**kwargs`, then groups the results by `TaskInfo.state`.
+        Useful for "are any of yesterday's exports stuck or failed?"
+        eyeballing.
+
+        Args:
+            max_age_min: Window length in minutes. Defaults to 7 days
+                — long enough to cover a typical weekly batch.
+            **kwargs: Forwarded to
+                :func:`earthlens.gee.jobs.list_recent_tasks` —
+                `task_type` / `description_prefix` / `project` / `limit`.
+                Do not pass `state` here (the helper groups by state
+                itself); a `state` kwarg would silently narrow the
+                report.
+
+        Returns:
+            `{state_name: [TaskInfo, ...], ...}` for every state that
+            appears in the window. Empty dict if no tasks match.
+
+        Examples:
+            - Eyeball this week's exports for the SRTM asset:
+                ```python
+                >>> report = Catalog().audit_recent_tasks(  # doctest: +SKIP
+                ...     description_prefix="USGS_SRTMGL1_003",
+                ... )
+                >>> for failed in report.get("FAILED", []):  # doctest: +SKIP
+                ...     print(failed.id, failed.error_message)
+
+                ```
+        """
+        from earthlens.gee.jobs import list_recent_tasks
+
+        if "state" in kwargs:
+            raise ValueError(
+                "audit_recent_tasks groups by state — don't pass `state=`; "
+                "filter on the returned dict instead."
+            )
+        tasks = list_recent_tasks(max_age_min=max_age_min, **kwargs)
+        report: dict[str, list[Any]] = {}
+        for t in tasks:
+            report.setdefault(t.state, []).append(t)
+        return report
+
     # dict-like surface (`__repr__` / `__str__` / `__getitem__` / `__contains__`
     # / `__iter__` / `__len__`) and the `get_dataset(name)`-with-hint helper
     # are inherited from :class:`earthlens.base.AbstractCatalog` (M1 in

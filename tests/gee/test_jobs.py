@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import datetime as dt
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -413,10 +414,85 @@ class TestResolveDestination:
         info = self._completed_info([uri])
         assert resolve_destination(info) == [uri]
 
-    def test_download_to_raises_pending_l2(self):
-        info = self._completed_info(["drive://x.tif"])
-        with pytest.raises(NotImplementedError, match="L2"):
-            resolve_destination(info, download_to="/tmp/x")
+    def test_download_to_recognises_gs_uri_and_calls_pull_gcs(
+        self, monkeypatch, tmp_path,
+    ):
+        """A `gs://bucket/key` URI dispatches to `_pull_gcs(bucket, key, dest_dir)`."""
+        captured: dict = {}
+
+        def _stub(bucket, key, dest_dir):
+            captured.update({"bucket": bucket, "key": key, "dest_dir": dest_dir})
+            return dest_dir / Path(key).name
+
+        monkeypatch.setattr(jobs_module, "_pull_gcs", _stub)
+        info = self._completed_info(["gs://my-bucket/subdir/scene.tif"])
+        out = resolve_destination(info, download_to=tmp_path)
+        assert captured == {
+            "bucket": "my-bucket",
+            "key": "subdir/scene.tif",
+            "dest_dir": tmp_path,
+        }
+        assert out == [tmp_path / "scene.tif"]
+
+    def test_download_to_recognises_https_storage_url(self, monkeypatch, tmp_path):
+        """`https://storage.googleapis.com/<bucket>/<key>` also routes to GCS."""
+        captured: dict = {}
+
+        def _stub(bucket, key, dest_dir):
+            captured.update({"bucket": bucket, "key": key})
+            return dest_dir / "scene.tif"
+
+        monkeypatch.setattr(jobs_module, "_pull_gcs", _stub)
+        info = self._completed_info(
+            ["https://storage.googleapis.com/my-bucket/subdir/scene.tif"]
+        )
+        resolve_destination(info, download_to=tmp_path)
+        assert captured == {"bucket": "my-bucket", "key": "subdir/scene.tif"}
+
+    def test_download_to_recognises_drive_file_url(self, monkeypatch, tmp_path):
+        """`https://drive.google.com/file/d/<id>/view` dispatches to `_pull_drive_file`."""
+        captured: dict = {}
+
+        def _stub(file_id, dest_dir):
+            captured["file_id"] = file_id
+            return dest_dir / "scene.tif"
+
+        monkeypatch.setattr(jobs_module, "_pull_drive_file", _stub)
+        info = self._completed_info([
+            "https://drive.google.com/file/d/1abcDEF_xYz/view?usp=drive_web"
+        ])
+        resolve_destination(info, download_to=tmp_path)
+        assert captured == {"file_id": "1abcDEF_xYz"}
+
+    def test_download_to_passes_drive_folder_url_through_with_warning(
+        self, tmp_path,
+    ):
+        """Drive folder URLs are surfaced verbatim (no list+download)."""
+        info = self._completed_info([
+            "https://drive.google.com/#folders/1zzzFolderId"
+        ])
+        out = resolve_destination(info, download_to=tmp_path)
+        assert out == ["https://drive.google.com/#folders/1zzzFolderId"]
+
+    def test_download_to_passes_ee_asset_path_through(self, tmp_path):
+        """An EE-asset destination stays on EE — surfaced verbatim."""
+        info = self._completed_info(["projects/p/assets/folder/scene"])
+        out = resolve_destination(info, download_to=tmp_path)
+        assert out == ["projects/p/assets/folder/scene"]
+
+    def test_download_to_creates_target_dir(self, monkeypatch, tmp_path):
+        """`download_to` is created if missing."""
+        monkeypatch.setattr(jobs_module, "_pull_gcs", lambda b, k, d: d / "x.tif")
+        info = self._completed_info(["gs://b/x.tif"])
+        target = tmp_path / "newly-made"
+        resolve_destination(info, download_to=target)
+        assert target.is_dir()
+
+    def test_unrecognised_uri_surfaced_with_warning(self, tmp_path):
+        """An unrecognised URI shape is surfaced verbatim without download."""
+        info = self._completed_info(["s3://other-cloud/scene.tif"])
+        out = resolve_destination(info, download_to=tmp_path)
+        assert out == ["s3://other-cloud/scene.tif"]
 
 
 # -- terminal-state constant ------------------------------------------------
@@ -471,6 +547,42 @@ class TestCatalogShortcuts:
         result = cat.get_task_status("ID0001", project="my-project")
         assert result == "sentinel"
         assert captured == {"task_id": "ID0001", "project": "my-project"}
+
+    def test_audit_recent_tasks_groups_by_state(self, monkeypatch):
+        """`Catalog.audit_recent_tasks()` groups list_recent_tasks output by state (L3)."""
+        from earthlens.gee import Catalog
+
+        def _stub(max_age_min=None, **kw):
+            assert max_age_min == 7 * 24 * 60
+            return [
+                _op_to_taskinfo(_op(state="RUNNING", task_id="R1")),
+                _op_to_taskinfo(_op(state="COMPLETED", task_id="C1", done=True)),
+                _op_to_taskinfo(_op(state="FAILED", task_id="F1", done=True,
+                                    error_message="oops")),
+                _op_to_taskinfo(_op(state="COMPLETED", task_id="C2", done=True)),
+            ]
+
+        monkeypatch.setattr(jobs_module, "list_recent_tasks", _stub)
+        cat = Catalog.model_construct(available_datasets=[], datasets={}, providers={})
+        report = cat.audit_recent_tasks()
+        assert set(report) == {"RUNNING", "COMPLETED", "FAILED"}
+        assert [t.id for t in report["COMPLETED"]] == ["C1", "C2"]
+        assert report["FAILED"][0].error_message == "oops"
+
+    def test_audit_recent_tasks_rejects_state_kwarg(self, monkeypatch):
+        """`state=` would silently narrow the report — reject it explicitly."""
+        from earthlens.gee import Catalog
+        monkeypatch.setattr(jobs_module, "list_recent_tasks", lambda **kw: [])
+        cat = Catalog.model_construct(available_datasets=[], datasets={}, providers={})
+        with pytest.raises(ValueError, match="don't pass `state=`"):
+            cat.audit_recent_tasks(state="RUNNING")
+
+    def test_audit_recent_tasks_empty_window_returns_empty_dict(self, monkeypatch):
+        """No matching tasks → empty dict."""
+        from earthlens.gee import Catalog
+        monkeypatch.setattr(jobs_module, "list_recent_tasks", lambda **kw: [])
+        cat = Catalog.model_construct(available_datasets=[], datasets={}, providers={})
+        assert cat.audit_recent_tasks() == {}
 
 
 # -- M4: CLI parsing --------------------------------------------------------
