@@ -60,9 +60,30 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
-from earthlens.base import AbstractCatalog
+from earthlens.base import AbstractCatalog, Provider
+from earthlens.base.providers import (
+    clear_providers_cache as _clear_providers_cache_base,
+    load_providers,
+)
 
 CATALOG_PATH: Path = Path(__file__).parent / "chc_data_catalog.yaml"
+PROVIDERS_PATH: Path = Path(__file__).parent / "providers.yaml"
+
+# Module-level cache of parsed catalog data, keyed on
+# `(resolved_path, mtime_ns)` so any real file mutation invalidates
+# the entry naturally. Mirrors the GEE / ECMWF pattern (M2) so
+# repeated `Catalog()` construction is ~1 ms instead of paying the
+# YAML parse + pydantic validation each time.
+_CATALOG_CACHE: dict[
+    tuple[str, int],
+    tuple[list[str], dict[str, dict[str, list[float]]], dict[str, "Dataset"]],
+] = {}
+
+
+def clear_catalog_cache() -> None:
+    """Empty the module-level catalog + providers parse caches (test helper)."""
+    _CATALOG_CACHE.clear()
+    _clear_providers_cache_base()
 
 
 class _StrictSafeLoader(yaml.SafeLoader):
@@ -225,6 +246,7 @@ class Dataset(BaseModel):
     start_date: str
     end_date: str | None = None
     preliminary: bool = False
+    provider: str | None = None
     variables: dict[str, Variable] = Field(default_factory=dict)
 
     @model_validator(mode="after")
@@ -367,6 +389,7 @@ def _build_chc_dataset(
             start_date=ds_body["start_date"],
             end_date=ds_body.get("end_date"),
             preliminary=ds_body.get("preliminary", False),
+            provider="ucsb-chc",
             variables=ds_vars,
         )
     except (ValidationError, KeyError) as exc:
@@ -375,6 +398,62 @@ def _build_chc_dataset(
             f"failed validation:\n{exc}"
         ) from exc
     return ds, len(ds_vars)
+
+
+def _load_catalog_data(
+    path: Path,
+) -> tuple[list[str], dict[str, dict[str, list[float]]], dict[str, "Dataset"]]:
+    """Parse, validate, and cache the CHC catalog at `path` (M2).
+
+    Returns a `(available_datasets, regions_map, datasets)` triple of
+    the same shape :class:`Catalog` exposes. Cached on
+    `(resolved-path, mtime_ns)` so repeated `Catalog()` construction
+    on an unchanged file skips YAML parsing and pydantic validation.
+
+    Raises:
+        ValueError: If the YAML is missing, has no `datasets:` block,
+            has no variables under any dataset, or any region key /
+            field validation fails.
+    """
+    resolved = str(path.resolve())
+    try:
+        mtime_ns = path.stat().st_mtime_ns
+    except FileNotFoundError:
+        mtime_ns = 0
+    key = (resolved, mtime_ns)
+    cached = _CATALOG_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    with open(path, encoding="utf-8") as stream:
+        data = yaml.load(stream, Loader=_StrictSafeLoader) or {}  # nosec B506
+
+    datasets_yaml = data.get("datasets")
+    if not datasets_yaml:
+        raise ValueError(
+            f"{path} is missing or has an empty "
+            "'datasets' key. The catalog must contain at least "
+            "one dataset with one variable."
+        )
+
+    regions_map: dict[str, dict[str, list[float]]] = data.get("regions") or {}
+
+    structural: dict[str, Dataset] = {}
+    total_vars = 0
+    for ds_key, ds_body in datasets_yaml.items():
+        ds, n_vars = _build_chc_dataset(ds_key, ds_body, regions_map, path)
+        structural[ds_key] = ds
+        total_vars += n_vars
+
+    if total_vars == 0:
+        raise ValueError(
+            f"{path} has no variables under any dataset. "
+            "The catalog must contain at least one variable."
+        )
+
+    available = list(data.get("available_datasets") or [])
+    _CATALOG_CACHE[key] = (available, regions_map, structural)
+    return _CATALOG_CACHE[key]
 
 
 class Catalog(AbstractCatalog):
@@ -438,63 +517,81 @@ class Catalog(AbstractCatalog):
             ```
     """
 
+    _catalog_kind: str = "CHC catalog"
+
     available_datasets: list[str] = Field(default_factory=list)
     available_regions: dict[str, dict[str, list[float]]] = Field(default_factory=dict)
     datasets: dict[str, Dataset] = Field(default_factory=dict)
+    providers: dict[str, Provider] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Parse `chc_data_catalog.yaml` into the exposed fields.
+        """Auto-load `chc_data_catalog.yaml` when the user didn't supply one.
 
-        Overrides :func:`AbstractCatalog.model_post_init` to populate
-        :attr:`available_datasets`, :attr:`available_regions`, and
-        :attr:`datasets` directly, bypassing the flat `get_catalog` path
-        the base class assumes. Per-dataset construction is delegated to
-        :func:`_build_chc_dataset`.
-
-        Since catalog v2 the YAML omits `lat_boundaries` / `lon_boundaries`
-        from individual dataset entries; the helper expands them from the
-        top-level `regions:` block keyed by the dataset's `region:` field.
-        Per-dataset explicit overrides (if present) still win so the
-        format is backward-compatible with v1 files.
+        `Catalog()` with no args is sugar for `Catalog.load()` — it
+        reads the bundled YAML through the `(path, mtime_ns)`-keyed
+        cache so repeated construction is ~1 ms. If the caller passed
+        `datasets=...`, the disk read is skipped (test path).
 
         Raises:
-            ValueError: If the YAML is missing, has an empty `datasets:`
-                block, if no variables appear under any dataset, or if a
-                dataset's `region:` key is not found in the `regions:` block
-                and the dataset omits explicit `lat_boundaries` /
-                `lon_boundaries`.
+            ValueError: When auto-loading, propagates the same errors
+                as :meth:`load`.
         """
-        catalog_path = CATALOG_PATH
-        with open(catalog_path, encoding="utf-8") as stream:
-            data = yaml.load(stream, Loader=_StrictSafeLoader) or {}  # nosec B506
+        if self.datasets:
+            return
+        loaded = Catalog.load()
+        self.available_datasets = loaded.available_datasets
+        self.available_regions = loaded.available_regions
+        self.datasets = loaded.datasets
+        self.providers = loaded.providers
 
-        datasets_yaml = data.get("datasets")
-        if not datasets_yaml:
+    @classmethod
+    def load(
+        cls,
+        catalog_path: Path | None = None,
+        providers_path: Path | None = None,
+    ) -> Catalog:
+        """Read the CHC catalog + providers registry from disk (cached).
+
+        Mirrors :meth:`earthlens.gee.Catalog.load` and
+        :meth:`earthlens.ecmwf.Catalog.load`. Default args resolve
+        `CATALOG_PATH` / `PROVIDERS_PATH` at *call* time so test
+        monkey-patches take effect. Validates every `Dataset.provider`
+        slug against the registry.
+
+        Args:
+            catalog_path: Path to a `chc_data_catalog.yaml`-shaped
+                file. Defaults to module-level :data:`CATALOG_PATH`.
+            providers_path: Path to `providers.yaml`. Defaults to
+                module-level :data:`PROVIDERS_PATH`.
+
+        Returns:
+            A fully-populated :class:`Catalog`.
+
+        Raises:
+            ValueError: Propagated from :func:`_load_catalog_data` or
+                :func:`earthlens.base.providers.load_providers`, plus
+                an unregistered-slug error if any dataset references
+                a provider not in the registry.
+        """
+        catalog_path = catalog_path if catalog_path is not None else CATALOG_PATH
+        providers_path = providers_path if providers_path is not None else PROVIDERS_PATH
+        available_datasets, regions_map, datasets = _load_catalog_data(catalog_path)
+        providers = load_providers(providers_path)
+        unknown = sorted(
+            {d.provider for d in datasets.values() if d.provider and d.provider not in providers}
+        )
+        if unknown:
             raise ValueError(
-                f"{catalog_path} is missing or has an empty "
-                "'datasets' key. The catalog must contain at least "
-                "one dataset with one variable."
+                f"the following provider slugs are referenced by "
+                f"`{catalog_path.name}` but missing from {providers_path}: "
+                f"{unknown}. Add them to providers.yaml or fix the typo."
             )
-
-        # Regions block (optional for v1 back-compat; required for v2).
-        regions_map: dict[str, dict[str, list[float]]] = data.get("regions") or {}
-
-        structural: dict[str, Dataset] = {}
-        total_vars = 0
-        for ds_key, ds_body in datasets_yaml.items():
-            ds, n_vars = _build_chc_dataset(ds_key, ds_body, regions_map, catalog_path)
-            structural[ds_key] = ds
-            total_vars += n_vars
-
-        if total_vars == 0:
-            raise ValueError(
-                f"{catalog_path} has no variables under any dataset. "
-                "The catalog must contain at least one variable."
-            )
-
-        self.available_datasets = list(data.get("available_datasets") or [])
-        self.available_regions = regions_map
-        self.datasets = structural
+        return cls(
+            available_datasets=list(available_datasets),
+            available_regions=dict(regions_map),
+            datasets=dict(datasets),
+            providers=dict(providers),
+        )
 
     def get_catalog(self) -> dict[str, Dataset]:
         """Return the structural per-dataset map.
@@ -562,34 +659,55 @@ class Catalog(AbstractCatalog):
         """
         return self.datasets[dataset_key].variables[variable_name]
 
-    def get_dataset(self, name: str) -> Dataset:
-        """Return the :class:`Dataset` record for a CHIRPS dataset key.
+    # `get_dataset(name)` (with the did-you-mean hint) and the dict-like
+    # dunders are inherited from
+    # :class:`earthlens.base.AbstractCatalog` (M1 in
+    # planning/catalog-cross-backend-comparison.md).
 
-        Args:
-            name: CHIRPS dataset identifier (e.g. `"global-daily"`,
-                `"africa-monthly"`).
+    def health(self) -> dict[str, list[str]]:
+        """Report structural hygiene issues across the loaded catalog (L1).
 
-        Returns:
-            Dataset: Structural record carrying the dataset's
-            spatial / temporal metadata and per-variable map.
+        Returns a mapping `check_name -> [offending_keys]`. Most
+        schema-level invariants (missing required fields, duplicate
+        keys, unresolved `region:` keys) are already caught at load
+        time — this method covers the residual quality checks that
+        can't be expressed in the pydantic schema.
 
-        Raises:
-            KeyError: If `name` is not a curated dataset.
+        Checks reported:
 
-        Examples:
-            - Read a dataset's temporal resolution and FTP base:
-
-                ```python
-                >>> from earthlens.chc import Catalog
-                >>> ds = Catalog().get_dataset("global-daily")
-                >>> ds.temporal_resolution
-                'daily'
-                >>> ds.pandas_freq
-                'D'
-
-                ```
+        * `dataset_without_variables` — datasets carrying zero
+          curated variables (should always be `[]`; defence in depth).
+        * `end_date_before_start_date` — datasets whose `end_date` is
+          earlier than `start_date` (would yield an empty download
+          window for every request).
+        * `unreferenced_region` — region keys in `available_regions:`
+          that no dataset's `region:` field points at — registry rot.
         """
-        return self.datasets[name]
+        empty_dataset: list[str] = []
+        bad_window: list[str] = []
+        unregistered_provider: list[str] = []
+        used_regions: set[str] = set()
+        used_providers: set[str] = set()
+        for ds_key, ds in self.datasets.items():
+            if not ds.variables:
+                empty_dataset.append(ds_key)
+            if ds.region:
+                used_regions.add(ds.region)
+            if ds.end_date and ds.end_date < ds.start_date:
+                bad_window.append(ds_key)
+            if ds.provider:
+                used_providers.add(ds.provider)
+                if ds.provider not in self.providers:
+                    unregistered_provider.append(ds_key)
+        unreferenced_region = sorted(set(self.available_regions) - used_regions)
+        unused_provider = sorted(set(self.providers) - used_providers)
+        return {
+            "dataset_without_variables": sorted(empty_dataset),
+            "end_date_before_start_date": sorted(bad_window),
+            "unreferenced_region": unreferenced_region,
+            "unregistered_provider": sorted(unregistered_provider),
+            "unused_provider": unused_provider,
+        }
 
     def describe_region(self, region: str) -> dict[str, list[float]]:
         """Return the spatial bounds for a region name.
@@ -607,12 +725,13 @@ class Catalog(AbstractCatalog):
             KeyError: If `region` is not defined in `available_regions`.
 
         Examples:
-            - Read the standard global extent:
+            - Read the standard global extent (pydantic coerces YAML
+              ints to floats per the `list[float]` field annotation):
 
                 ```python
                 >>> from earthlens.chc import Catalog
                 >>> Catalog().describe_region("global")
-                {'lat_boundaries': [-50, 50], 'lon_boundaries': [-180, 180]}
+                {'lat_boundaries': [-50.0, 50.0], 'lon_boundaries': [-180.0, 180.0]}
 
                 ```
             - CHIRTSdaily uses a wider land-surface extent:
@@ -620,7 +739,7 @@ class Catalog(AbstractCatalog):
                 ```python
                 >>> from earthlens.chc import Catalog
                 >>> Catalog().describe_region("global-land")
-                {'lat_boundaries': [-60, 70], 'lon_boundaries': [-180, 180]}
+                {'lat_boundaries': [-60.0, 70.0], 'lon_boundaries': [-180.0, 180.0]}
 
                 ```
         """

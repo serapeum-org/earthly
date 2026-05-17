@@ -1,0 +1,10 @@
+# Canonical providers for the CHC catalog (L2).
+# Every CHC dataset comes from the UCSB Climate Hazards Center (CHIRPS,
+# CHIRP, CHIRTS, WBGT, SPI, SPEI, CHPclim, CHC_CMIP6 deltas, …) so the
+# registry is currently a single entry. Datasets reference providers by
+# slug via the `provider:` field (assigned at load time by
+# `_build_chc_dataset`); the loader validates the slug.
+
+providers:
+  ucsb-chc:
+    display_name: "UCSB Climate Hazards Center"

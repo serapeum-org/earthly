@@ -47,10 +47,14 @@ import re
 from pathlib import Path
 from typing import Any, Literal
 
-import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from earthlens.base import AbstractCatalog
+from earthlens.base.providers import (
+    Provider,
+    clear_providers_cache as _clear_providers_cache_base,
+    load_providers as _load_providers_base,
+)
 from earthlens.base.yaml_loader import load_yaml_strict
 
 CATALOG_PATH: Path = Path(__file__).parent / "catalog"
@@ -182,7 +186,7 @@ def clear_catalog_cache() -> None:
     entry on its own.
     """
     _CATALOG_CACHE.clear()
-    _PROVIDERS_CACHE.clear()
+    _clear_providers_cache_base()
 
 
 class Cadence(BaseModel):
@@ -508,64 +512,12 @@ class Dataset(BaseModel):
             ) from None
 
 
-class Provider(BaseModel):
-    """One canonical data provider — a slug-id with a display name and parent.
-
-    Frozen value object loaded from `providers.yaml` (M1). Datasets in
-    `catalog/*.yaml` reference providers by slug via the `provider:`
-    field; the loader validates that every referenced slug is registered.
-
-    Attributes:
-        slug: Stable kebab-case identifier (e.g. `"nasa-lp-daac"`,
-            `"copernicus-marine"`); injected from the YAML mapping key.
-        display_name: Human-readable name to render in docs and UIs.
-        parent: Slug of the parent provider, or `None` for top-level
-            organisations. Used to group e.g. all NASA DAACs under the
-            `"nasa"` umbrella.
-    """
-
-    model_config = ConfigDict(frozen=True, extra="forbid")
-
-    slug: str
-    display_name: str
-    parent: str | None = None
-
-
-_PROVIDERS_CACHE: dict[tuple[str, int], dict[str, "Provider"]] = {}
-
-
-def _load_providers(path: Path) -> dict[str, "Provider"]:
-    """Parse + cache `providers.yaml`, keyed on `(path, mtime_ns)`."""
-    resolved = str(path.resolve())
-    try:
-        mtime_ns = path.stat().st_mtime_ns
-    except FileNotFoundError as exc:
-        raise ValueError(
-            f"providers registry not found at {path}; M1 (provider normalisation) "
-            "expects this file alongside the catalog directory."
-        ) from exc
-    key = (resolved, mtime_ns)
-    cached = _PROVIDERS_CACHE.get(key)
-    if cached is not None:
-        return cached
-
-    data = load_yaml_strict(path) or {}
-    raw = data.get("providers") or {}
-    out: dict[str, Provider] = {}
-    for slug, body in raw.items():
-        try:
-            out[slug] = Provider(slug=slug, **dict(body or {}))
-        except ValidationError as exc:
-            raise ValueError(f"invalid provider {slug!r} in {path}: {exc}") from exc
-    # Sanity-check parent references.
-    for slug, p in out.items():
-        if p.parent is not None and p.parent not in out:
-            raise ValueError(
-                f"provider {slug!r} declares parent={p.parent!r}, "
-                f"which is not a known provider slug in {path}"
-            )
-    _PROVIDERS_CACHE[key] = out
-    return out
+# `Provider`, `_load_providers` and the providers parse cache live in
+# `earthlens.base.providers` (L2 in
+# planning/catalog-cross-backend-comparison.md). Aliased here so the
+# GEE-local symbols `_load_providers` / `_PROVIDERS_CACHE.clear` keep
+# working for `clear_catalog_cache()` and `Catalog.load()` below.
+_load_providers = _load_providers_base
 
 
 class Catalog(AbstractCatalog):
@@ -609,6 +561,8 @@ class Catalog(AbstractCatalog):
     """
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    _catalog_kind: str = "GEE catalog"
 
     available_datasets: list[str] = Field(default_factory=list)
     datasets: dict[str, Dataset] = Field(default_factory=dict)
@@ -741,28 +695,9 @@ class Catalog(AbstractCatalog):
             "unused_provider": unused_provider,
         }
 
-    def get_provider(self, slug: str) -> Provider:
-        """Return the :class:`Provider` for `slug`.
-
-        Args:
-            slug: A registered provider slug (e.g. `"nasa-lp-daac"`).
-
-        Returns:
-            The matching :class:`Provider`.
-
-        Raises:
-            ValueError: If `slug` is not a registered provider; the
-                message suggests the closest known slug.
-        """
-        try:
-            return self.providers[slug]
-        except KeyError:
-            close = difflib.get_close_matches(slug, self.providers, n=1)
-            hint = f" Did you mean {close[0]!r}?" if close else ""
-            raise ValueError(
-                f"{slug!r} is not a registered provider. "
-                f"Known providers: {sorted(self.providers)}.{hint}"
-            ) from None
+    # `get_provider(slug)` (with did-you-mean hint) lifted to
+    # :class:`earthlens.base.AbstractCatalog` (L2 in
+    # planning/catalog-cross-backend-comparison.md).
 
     def get_catalog(self) -> dict[str, Dataset]:
         """Return the curated dataset map (asset id → :class:`Dataset`).
@@ -782,50 +717,6 @@ class Catalog(AbstractCatalog):
                 ```
         """
         return self.datasets
-
-    def get_dataset(self, dataset_id: str) -> Dataset:
-        """Return the :class:`Dataset` for `dataset_id`.
-
-        Args:
-            dataset_id: The Earth Engine asset id.
-
-        Returns:
-            The matching :class:`Dataset`.
-
-        Raises:
-            ValueError: If `dataset_id` is not in the curated catalog;
-                the message suggests the closest known asset id.
-
-        Examples:
-            - Fetch a dataset and read its metadata:
-                ```python
-                >>> ds = Catalog().get_dataset("USGS/SRTMGL1_003")
-                >>> ds.title
-                'NASA SRTM Digital Elevation 30m'
-                >>> ds.ee_type
-                'image'
-                >>> ds.spatial_resolution
-                30.0
-
-                ```
-            - An unknown id raises with a suggestion:
-                ```python
-                >>> Catalog().get_dataset("USGS/SRTMGL1_004")  # doctest: +ELLIPSIS
-                Traceback (most recent call last):
-                    ...
-                ValueError: 'USGS/SRTMGL1_004' is not in the GEE catalog. ...
-
-                ```
-        """
-        try:
-            return self.datasets[dataset_id]
-        except KeyError:
-            close = difflib.get_close_matches(dataset_id, self.datasets, n=1)
-            hint = f" Did you mean {close[0]!r}?" if close else ""
-            raise ValueError(
-                f"{dataset_id!r} is not in the GEE catalog. "
-                f"Known datasets: {sorted(self.datasets)}.{hint}"
-            ) from None
 
     def get_band(self, dataset_id: str, band_id: str) -> Band:
         """Return the :class:`Band` for `(dataset_id, band_id)`.
@@ -880,88 +771,10 @@ class Catalog(AbstractCatalog):
         """
         return self.get_band(dataset_id, band_id)
 
-    # -- dict-like access over the curated `datasets:` map ---------------------
-
-    def __getitem__(self, dataset_id: str) -> Dataset:
-        """Dict-style lookup of a curated dataset (raises `KeyError` on miss).
-
-        Equivalent to :meth:`get_dataset` but follows Python's mapping
-        protocol — an unknown id yields `KeyError` (with the close-match
-        hint from `get_dataset` preserved as the cause).
-
-        Examples:
-            - Look up a dataset by id:
-                ```python
-                >>> Catalog()["USGS/SRTMGL1_003"].title
-                'NASA SRTM Digital Elevation 30m'
-
-                ```
-        """
-        try:
-            return self.get_dataset(dataset_id)
-        except ValueError as exc:
-            raise KeyError(dataset_id) from exc
-
-    def __contains__(self, dataset_id: object) -> bool:
-        """`asset_id in cat` — True when `asset_id` is a curated dataset."""
-        return dataset_id in self.datasets
-
-    def __iter__(self):
-        """Iterate over the curated dataset asset ids."""
-        return iter(self.datasets)
-
-    def __len__(self) -> int:
-        """Number of curated datasets in the catalog."""
-        return len(self.datasets)
-
-    def __repr__(self) -> str:
-        """Compact developer repr — counts, not contents.
-
-        Use `str(cat)` for the human-readable YAML dump of the curated
-        datasets.
-
-        Examples:
-            - The repr summarises the catalog's size:
-                ```python
-                >>> repr(Catalog()).startswith("Catalog(datasets=")
-                True
-
-                ```
-        """
-        return (
-            f"Catalog(datasets={len(self.datasets)}, "
-            f"available_datasets={len(self.available_datasets)})"
-        )
-
-    def __str__(self) -> str:
-        """Pretty-print the curated `datasets:` map as YAML.
-
-        `None`-valued fields are omitted so the output stays readable;
-        the ordering of `datasets:` keys follows insertion (which mirrors
-        the YAML file).
-
-        Cost note (N2): with the shipped 1104-dataset catalog this
-        serialises ~2.3 MB of YAML and takes ~3 s. Fine for one-off
-        interactive use (`print(Catalog())`), but don't drop a
-        `str(cat)` into a hot path, an error-message f-string, or a
-        log line — render the specific `Dataset` you care about
-        instead. The `Catalog()` parse cache (H1) does not memoise
-        `__str__`; repeat calls re-serialise.
-
-        Examples:
-            - The YAML dump's first line is the first curated dataset's id
-              followed by a colon (the exact id depends on the alphabetical
-              order of the merged per-category catalog files):
-                ```python
-                >>> str(Catalog()).splitlines()[0].endswith(":")
-                True
-
-                ```
-        """
-        body = {
-            asset_id: dataset.model_dump(exclude_none=True)
-            for asset_id, dataset in self.datasets.items()
-        }
-        return yaml.safe_dump(
-            body, default_flow_style=False, sort_keys=False, allow_unicode=True
-        )
+    # dict-like surface (`__repr__` / `__str__` / `__getitem__` / `__contains__`
+    # / `__iter__` / `__len__`) and the `get_dataset(name)`-with-hint helper
+    # are inherited from :class:`earthlens.base.AbstractCatalog` (M1 in
+    # planning/catalog-cross-backend-comparison.md). Cost note for `__str__`:
+    # with the shipped 1104-dataset catalog the YAML round-trip serialises
+    # ~2.3 MB and takes ~3 s — fine for one-off `print(cat)` but don't drop
+    # it into a hot path or an error-message f-string.

@@ -52,7 +52,11 @@ from typing import Any
 import requests
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
-from earthlens.base import AbstractCatalog
+from earthlens.base import AbstractCatalog, Provider
+from earthlens.base.providers import (
+    clear_providers_cache as _clear_providers_cache_base,
+    load_providers,
+)
 from earthlens.base.yaml_loader import load_yaml_strict
 from earthlens.ecmwf.constraints import fetch_constraints
 
@@ -61,6 +65,93 @@ _LEGACY_MARS_KEYS: frozenset[str] = frozenset(
 )
 
 CATALOG_PATH: Path = Path(__file__).parent / "cds_data_catalog.yaml"
+PROVIDERS_PATH: Path = Path(__file__).parent / "providers.yaml"
+
+# Module-level cache of parsed catalog data, keyed on
+# `(resolved_path, mtime_ns)` so any real file mutation (`vim`-save,
+# script append) invalidates the entry naturally. Mirrors the GEE
+# pattern (H1 / M2) so repeated `Catalog()` construction is ~1 ms
+# instead of paying the YAML parse + pydantic validation each time.
+_CATALOG_CACHE: dict[tuple[str, int], tuple[list[str], dict[str, "Dataset"]]] = {}
+
+
+def clear_catalog_cache() -> None:
+    """Empty the module-level catalog + providers parse caches.
+
+    Useful in tests that rewrite the catalog on disk and want to
+    force a re-parse. Production callers do not need this — the
+    cache keys include `st_mtime_ns`, so any real file mutation
+    invalidates the entry on its own.
+    """
+    _CATALOG_CACHE.clear()
+    _clear_providers_cache_base()
+
+
+def _load_catalog_data(path: Path) -> tuple[list[str], dict[str, "Dataset"]]:
+    """Parse, validate, and cache the CDS catalog at `path`.
+
+    Returns a `(available_datasets, datasets)` tuple of the same
+    shape :class:`Catalog` exposes. Cached on
+    `(resolved-path, mtime_ns)` so a second `Catalog()` on an
+    unchanged file skips both YAML parsing and pydantic validation.
+
+    Raises:
+        ValueError: If the YAML is missing, has no `datasets:` block,
+            has no variables under any dataset, or declares the same
+            key twice anywhere.
+    """
+    resolved = str(path.resolve())
+    try:
+        mtime_ns = path.stat().st_mtime_ns
+    except FileNotFoundError:
+        mtime_ns = 0
+    key = (resolved, mtime_ns)
+    cached = _CATALOG_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    data = load_yaml_strict(path) or {}
+    datasets_yaml = data.get("datasets")
+    if not datasets_yaml:
+        raise ValueError(
+            f"{path} is missing or has an empty "
+            "'datasets' key. The catalog must contain at least "
+            "one dataset with one variable. See the schema header "
+            "at the top of the file."
+        )
+
+    structural, total_vars = _build_dataset_map(datasets_yaml, path)
+    _synthesize_monthly_entries(structural, datasets_yaml)
+
+    if total_vars == 0:
+        raise ValueError(
+            f"{path} has no variables under any dataset. "
+            "The catalog must contain at least one variable. "
+            "See the schema header at the top of the file."
+        )
+
+    available = list(data.get("available_datasets") or [])
+    _CATALOG_CACHE[key] = (available, structural)
+    return _CATALOG_CACHE[key]
+
+
+def _provider_for_dataset(ds_name: str) -> str:
+    """Map a CDS dataset name to its canonical provider slug (L2).
+
+    Pattern-matched at load time rather than carried in the YAML —
+    CDS dataset names already encode their provider through their
+    name prefixes (`reanalysis-carra-*`, `projections-cmip5-*`,
+    `projections-cordex-*`, etc.).
+    """
+    if ds_name.startswith(("reanalysis-carra", "reanalysis-pan-carra")):
+        return "carra-consortium"
+    if ds_name.startswith("reanalysis-cerra"):
+        return "cerra-consortium"
+    if ds_name.startswith("projections-cmip5"):
+        return "cmip5-modelling-centres"
+    if ds_name.startswith("projections-cordex"):
+        return "cordex-consortium"
+    return "ecmwf"
 
 
 def _build_dataset_map(
@@ -135,6 +226,7 @@ def _build_dataset_map(
             product_type=ds_product_type,
             extras=ds_extras,
             request_kind=ds_request_kind,
+            provider=_provider_for_dataset(ds_name),
             variables=ds_vars,
         )
     return structural, total_vars
@@ -185,6 +277,7 @@ def _synthesize_monthly_entries(
             product_type=monthly_pt,
             extras=dict(ds.extras),
             request_kind=ds.request_kind,
+            provider=_provider_for_dataset(ds.monthly),
             variables=rebranded,
         )
 
@@ -361,6 +454,7 @@ class Dataset(BaseModel):
     product_type: list[str] | None = None
     extras: dict[str, Any] = Field(default_factory=dict)
     request_kind: str = "form"
+    provider: str | None = None
     variables: dict[str, Variable] = Field(default_factory=dict)
 
 
@@ -435,49 +529,77 @@ class Catalog(AbstractCatalog):
             ```
     """
 
+    _catalog_kind: str = "CDS catalog"
+
     available_datasets: list[str] = Field(default_factory=list)
     datasets: dict[str, Dataset] = Field(default_factory=dict)
+    providers: dict[str, Provider] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Parse `cds_data_catalog.yaml` into the exposed fields.
+        """Auto-load `cds_data_catalog.yaml` when the user didn't supply one.
 
-        Overrides :func:`AbstractCatalog.model_post_init` to populate
-        :attr:`available_datasets` and :attr:`datasets` directly,
-        bypassing the flat-`get_catalog` path the base class assumes.
-        Delegates the per-dataset variable construction to
-        :func:`_build_dataset_map` and the monthly-cross-reference
-        synthesis to :func:`_synthesize_monthly_entries`.
+        `Catalog()` with no args is sugar for `Catalog.load()` — it
+        reads the bundled YAML through the `(path, mtime_ns)`-keyed
+        cache so repeated construction is ~1 ms. If the caller passed
+        `datasets=...`, the disk read is skipped (test path; see
+        :meth:`load` for the heavy-lifting classmethod).
 
         Raises:
-            ValueError: If the YAML is missing or has an empty
-                `datasets:` block, if no variables appear under any
-                dataset, or if any YAML mapping (dataset block,
-                `variables:` map, `extras:` map, ...) declares the
-                same key twice.
+            ValueError: When auto-loading, propagates the same errors
+                as :meth:`load`.
         """
-        catalog_path = CATALOG_PATH
-        data = load_yaml_strict(catalog_path) or {}
-        datasets_yaml = data.get("datasets")
-        if not datasets_yaml:
+        if self.datasets:
+            return
+        loaded = Catalog.load()
+        self.available_datasets = loaded.available_datasets
+        self.datasets = loaded.datasets
+        self.providers = loaded.providers
+
+    @classmethod
+    def load(
+        cls,
+        catalog_path: Path | None = None,
+        providers_path: Path | None = None,
+    ) -> Catalog:
+        """Read the CDS catalog + providers registry from disk (cached).
+
+        Mirrors :meth:`earthlens.gee.Catalog.load` so the two backends
+        feel identical. Validates that every `Dataset.provider` slug
+        is in the registry; an unregistered slug is a load-time error.
+
+        Args:
+            catalog_path: Path to a `cds_data_catalog.yaml`-shaped
+                file. Defaults to module-level :data:`CATALOG_PATH`.
+            providers_path: Path to `providers.yaml`. Defaults to
+                module-level :data:`PROVIDERS_PATH`.
+
+        Returns:
+            A fully-populated :class:`Catalog`.
+
+        Raises:
+            ValueError: Propagated from :func:`_load_catalog_data` or
+                :func:`earthlens.base.providers.load_providers`, plus
+                an unregistered-slug error if the YAML references a
+                provider not in the registry.
+        """
+        catalog_path = catalog_path if catalog_path is not None else CATALOG_PATH
+        providers_path = providers_path if providers_path is not None else PROVIDERS_PATH
+        available_datasets, datasets = _load_catalog_data(catalog_path)
+        providers = load_providers(providers_path)
+        unknown = sorted(
+            {d.provider for d in datasets.values() if d.provider and d.provider not in providers}
+        )
+        if unknown:
             raise ValueError(
-                f"{catalog_path} is missing or has an empty "
-                "'datasets' key. The catalog must contain at least "
-                "one dataset with one variable. See the schema header "
-                "at the top of the file."
+                f"the following provider slugs are referenced by "
+                f"`{catalog_path.name}` but missing from {providers_path}: "
+                f"{unknown}. Add them to providers.yaml or fix the typo."
             )
-
-        structural, total_vars = _build_dataset_map(datasets_yaml, catalog_path)
-        _synthesize_monthly_entries(structural, datasets_yaml)
-
-        if total_vars == 0:
-            raise ValueError(
-                f"{catalog_path} has no variables under any dataset. "
-                "The catalog must contain at least one variable. "
-                "See the schema header at the top of the file."
-            )
-
-        self.available_datasets = list(data.get("available_datasets") or [])
-        self.datasets = structural
+        return cls(
+            available_datasets=list(available_datasets),
+            datasets=dict(datasets),
+            providers=dict(providers),
+        )
 
     def get_catalog(self) -> dict[str, Dataset]:
         """Return the structural per-dataset map.
@@ -575,35 +697,54 @@ class Catalog(AbstractCatalog):
         """
         return self.datasets[dataset_name].variables[variable_name]
 
-    def get_dataset(self, name: str) -> Dataset:
-        """Return the :class:`Dataset` record for a CDS dataset short name.
+    # `get_dataset(name)` (with the did-you-mean hint) and the dict-like
+    # `__getitem__` / `__contains__` / `__iter__` / `__len__` / `__repr__`
+    # / `__str__` dunders are inherited from
+    # :class:`earthlens.base.AbstractCatalog` (M1 in
+    # planning/catalog-cross-backend-comparison.md).
 
-        Args:
-            name: CDS dataset short name as it appears as a key in
-                :attr:`datasets` (e.g. `"reanalysis-era5-land"`).
+    def health(self) -> dict[str, list[str]]:
+        """Report structural hygiene issues across the loaded catalog (L1).
 
-        Returns:
-            Dataset: Structural record carrying the dataset's
-            monthly-aggregate variant, default pressure levels,
-            parent-level extras, request kind, and per-variable map.
+        Returns a mapping `check_name -> list of "<dataset>/<variable>"
+        offenders`. An empty list means the check is currently passing;
+        an empty dict means the catalog is clean. Most schema-level
+        invariants (duplicate keys, unknown fields, missing required
+        fields, legacy MARS keys in `extras`) are already enforced at
+        load time — this method covers the residual data-quality checks
+        that can't be expressed in the pydantic schema.
 
-        Raises:
-            KeyError: If `name` is not a curated dataset.
+        Checks reported:
 
-        Examples:
-            - Read a dataset's monthly variant and variable count:
-
-                ```python
-                >>> from earthlens.ecmwf import Catalog
-                >>> ds = Catalog().get_dataset("reanalysis-era5-pressure-levels")
-                >>> ds.monthly
-                'reanalysis-era5-pressure-levels-monthly-means'
-                >>> sorted(ds.variables)[:3]
-                ['divergence', 'fraction-of-cloud-cover', 'geopotential']
-
-                ```
+        * `variable_missing_nc_variable` — variables whose
+          `nc_variable` is empty or whitespace-only (would break
+          downstream NetCDF reads).
+        * `dataset_without_variables` — datasets carrying zero
+          curated variables. Should always be `[]` since the loader
+          rejects these; included for defence in depth.
         """
-        return self.datasets[name]
+        missing_nc: list[str] = []
+        empty_dataset: list[str] = []
+        unregistered_provider: list[str] = []
+        used_providers: set[str] = set()
+        for ds_name, ds in self.datasets.items():
+            if not ds.variables:
+                empty_dataset.append(ds_name)
+                continue
+            for var_code, var in ds.variables.items():
+                if not var.nc_variable or not var.nc_variable.strip():
+                    missing_nc.append(f"{ds_name}/{var_code}")
+            if ds.provider:
+                used_providers.add(ds.provider)
+                if ds.provider not in self.providers:
+                    unregistered_provider.append(ds_name)
+        unused_provider = sorted(set(self.providers) - used_providers)
+        return {
+            "variable_missing_nc_variable": sorted(missing_nc),
+            "dataset_without_variables": sorted(empty_dataset),
+            "unregistered_provider": sorted(unregistered_provider),
+            "unused_provider": unused_provider,
+        }
 
     def describe(self, dataset_name: str) -> dict[str, Any]:
         """Return a structured introspection record for a CDS dataset.
