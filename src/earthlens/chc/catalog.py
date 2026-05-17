@@ -741,16 +741,23 @@ class Catalog(AbstractCatalog):
         cache so repeated construction is ~1 ms. If the caller passed
         `datasets=...`, the disk read is skipped (test path).
 
+        After either path, `super().model_post_init(__context)` runs
+        so :attr:`catalog` is populated from :meth:`get_catalog` per
+        the `AbstractCatalog` contract (M7 in
+        `planning/chirps/subpackage-and-tools-review.md`). Pre-M7
+        this override silently left `self.catalog == {}` even though
+        `self.datasets` was fully populated.
+
         Raises:
             ValueError: When auto-loading, propagates the same errors
                 as :meth:`load`.
         """
-        if self.datasets:
-            return
-        loaded = Catalog.load()
-        self.available_datasets = loaded.available_datasets
-        self.available_regions = loaded.available_regions
-        self.datasets = loaded.datasets
+        if not self.datasets:
+            loaded = Catalog.load()
+            self.available_datasets = loaded.available_datasets
+            self.available_regions = loaded.available_regions
+            self.datasets = loaded.datasets
+        super().model_post_init(__context)
 
     @classmethod
     def load(
