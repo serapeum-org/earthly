@@ -985,7 +985,7 @@ class Catalog(AbstractCatalog):
 
         Args:
             region: Region key as it appears in the `regions:` block of
-                `chc_data_catalog.yaml` (e.g. `"global"`, `"africa"`,
+                `_index.yaml` (e.g. `"global"`, `"africa"`,
                 `"global-land"`).
 
         Returns:
