@@ -71,7 +71,7 @@ exposes a small set of helpers re-exported from this package:
 
 Mirrors :mod:`earthlens.ecmwf.jobs` — see also the
 "`Tracking async exports`" notebook under
-`examples/notebooks/gee/`.
+`docs/examples/gee/`.
 
 The Earth Engine SDK (`earthengine-api`, the `[gee]` extra) is imported
 when this package is imported — install `earthlens[gee]` to use it; the

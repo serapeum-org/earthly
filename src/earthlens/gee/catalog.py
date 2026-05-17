@@ -45,9 +45,20 @@ from __future__ import annotations
 import difflib
 import re
 from pathlib import Path
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
+
+if TYPE_CHECKING:
+    # `TaskInfo` is only referenced in type annotations on the
+    # `list_recent_tasks` / `get_task_status` / `audit_recent_tasks`
+    # convenience methods. Importing it under `TYPE_CHECKING` keeps the
+    # types precise for IDEs and `mypy` without forcing the (heavyweight)
+    # `earthlens.gee.jobs` module — and through it `ee.data` — to be
+    # imported just because someone constructed a `Catalog()`. PEP 563
+    # (`from __future__ import annotations`) makes all annotations
+    # strings at runtime, so the forward reference is free.
+    from earthlens.gee.jobs import TaskInfo
 
 from earthlens.base import AbstractCatalog
 from earthlens.base.providers import (
@@ -776,7 +787,7 @@ class Catalog(AbstractCatalog):
     # catalog object instead of importing the jobs module separately —
     # parity with `earthlens.ecmwf.Catalog.list_recent_jobs`.
 
-    def list_recent_tasks(self, **kwargs: Any) -> list[Any]:
+    def list_recent_tasks(self, **kwargs: Any) -> list[TaskInfo]:
         """List recent Earth Engine batch tasks (delegates to `gee.jobs`).
 
         Args:
@@ -792,7 +803,7 @@ class Catalog(AbstractCatalog):
 
         return list_recent_tasks(**kwargs)
 
-    def get_task_status(self, task_id: str, **kwargs: Any) -> Any:
+    def get_task_status(self, task_id: str, **kwargs: Any) -> TaskInfo:
         """Fetch one task's status by id (delegates to `gee.jobs`).
 
         Args:
@@ -810,7 +821,7 @@ class Catalog(AbstractCatalog):
 
     def audit_recent_tasks(
         self, max_age_min: int = 7 * 24 * 60, **kwargs: Any,
-    ) -> dict[str, list[Any]]:
+    ) -> dict[str, list[TaskInfo]]:
         """Group recent batch tasks by state — the task-side `health()` (L3).
 
         Walks :func:`earthlens.gee.jobs.list_recent_tasks` with the
@@ -852,7 +863,7 @@ class Catalog(AbstractCatalog):
                 "filter on the returned dict instead."
             )
         tasks = list_recent_tasks(max_age_min=max_age_min, **kwargs)
-        report: dict[str, list[Any]] = {}
+        report: dict[str, list[TaskInfo]] = {}
         for t in tasks:
             report.setdefault(t.state, []).append(t)
         return report

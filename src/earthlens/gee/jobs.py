@@ -47,7 +47,7 @@ import time
 from collections.abc import Callable, Iterable
 from pathlib import Path
 from typing import Any, Literal
-from urllib.parse import unquote, urlparse
+from urllib.parse import unquote
 
 import ee
 from loguru import logger
@@ -55,8 +55,15 @@ from pydantic import BaseModel, ConfigDict
 from tqdm import tqdm
 
 #: Terminal task states — `wait_for_task_id` returns / raises when one is reached.
+#:
+#: `CANCEL_REQUESTED` is intentionally **not** terminal: it's a
+#: transient state (the cancel has been accepted, but the worker
+#: hasn't fully torn down yet). Treating it as terminal would
+#: short-circuit `wait_for_task_id` before the real `CANCELLED`
+#: arrives, leaving callers unable to tell "cancel completed"
+#: apart from "cancel still in flight".
 TERMINAL_TASK_STATES: frozenset[str] = frozenset(
-    {"COMPLETED", "FAILED", "CANCELLED", "CANCEL_REQUESTED"}
+    {"COMPLETED", "FAILED", "CANCELLED"}
 )
 
 #: Every state earthlens may report on a normalised `TaskInfo`. Earth
@@ -155,11 +162,46 @@ class TaskInfo(BaseModel):
 
 
 def _resolve_project(project: str | None) -> str:
-    """Return `project` or fall back to the project the SDK was initialised with."""
+    """Return `project` or fall back to the project the SDK was initialised with.
+
+    Reads from `ee.data._get_projects_path()` — a **private** EE SDK
+    helper. The leading underscore is the EE devs reserving the right
+    to rename or remove it; if they do, we fall back to
+    `ee.data._cloud_api_user_project` (also private but the actual
+    state behind the helper) and finally raise with a clear remediation
+    rather than letting an `AttributeError` bubble out of every call
+    site. Callers that want to bypass this resolution can always pass
+    `project=` explicitly.
+    """
     if project is not None:
         return project
-    # `_get_projects_path()` returns `projects/<id>` — strip the prefix.
-    raw = ee.data._get_projects_path()
+
+    raw: str | None = None
+    # Primary: the documented-but-private accessor used by the EE SDK
+    # itself in `ee.data.listOperations` etc.
+    getter = getattr(ee.data, "_get_projects_path", None)
+    if getter is not None:
+        try:
+            raw = getter()
+        except Exception:  # noqa: BLE001 - any failure → try the fallback
+            raw = None
+
+    # Fallback: read the underlying module-level state. As of
+    # `earthengine-api` 1.x this is the variable `_get_projects_path`
+    # itself returns after wrapping.
+    if not raw:
+        raw = getattr(ee.data, "_cloud_api_user_project", None)
+
+    if not raw:
+        raise RuntimeError(
+            "Could not resolve the current EE project. Pass an explicit "
+            "`project=` argument, or call `ee.Initialize(project=...)` "
+            "before invoking the jobs API. (Internally we rely on "
+            "`ee.data._get_projects_path()` / `_cloud_api_user_project`; "
+            "if you're on a recent `earthengine-api` release that "
+            "renamed those, please open an issue.)"
+        )
+
     if raw.startswith("projects/"):
         return raw[len("projects/"):]
     return raw
@@ -301,6 +343,20 @@ def list_recent_tasks(
     client-side (EE's `listOperations` endpoint doesn't accept query
     parameters). Results are sorted newest-first by `create_time`.
 
+    Note:
+        **Network cost.** Because every filter is client-side, this call
+        fetches *all* operations the EE backend still has on file for
+        the project — which paginates internally inside the SDK. For a
+        hobby project with a dozen tasks the cost is one HTTP round
+        trip; for a CI / orchestration project with hundreds of tasks
+        it is several. If you're polling on a tight loop (e.g. every
+        minute from a worker), pass a small `limit=` (e.g. `50`) plus a
+        tight `max_age_min=` to bound the worst case. The `limit` is
+        applied *after* the fetch + sort, so it caps memory and printed
+        output, not the number of HTTP round trips — for the latter
+        you'll want a tight `max_age_min` so the SDK can stop paginating
+        once it's seen enough old entries.
+
     Args:
         state: One state name or an iterable of names — e.g.
             `"RUNNING"` or `{"FAILED", "CANCELLED"}`. `None` (the
@@ -315,7 +371,8 @@ def list_recent_tasks(
         project: Cloud project id to scope to; defaults to whichever
             project the EE SDK was initialised with.
         limit: Hard cap on returned entries (applied after sort);
-            `None` for no cap.
+            `None` for no cap. See the network-cost note above — this
+            caps the returned list, not the underlying pagination.
 
     Returns:
         A list of :class:`TaskInfo` sorted newest first.
@@ -384,9 +441,12 @@ def get_task_status(task_id: str, project: str | None = None) -> TaskInfo:
 def cancel_task(task_id: str, project: str | None = None) -> None:
     """Cancel a queued or running task by id.
 
-    A no-op (silently completes) when the task is already in a
-    terminal state — Earth Engine accepts the cancel and reports
-    the existing state on the next status poll.
+    A no-op (logs at INFO + returns) when the task is already in a
+    terminal state. Google Cloud's Long-Running-Operations API
+    returns `FAILED_PRECONDITION` (HTTP 400) when asked to cancel an
+    already-finished operation; the wrapper catches that path so a
+    cleanup loop over `list_recent_tasks` can call `cancel_task` on
+    every match without special-casing the terminal ones.
 
     Args:
         task_id: The bare task id or full operation name (see
@@ -395,9 +455,25 @@ def cancel_task(task_id: str, project: str | None = None) -> None:
 
     Raises:
         Exceptions from the underlying `ee.data.cancelOperation`
-        propagate verbatim.
+        propagate verbatim **except** the already-terminal
+        `FAILED_PRECONDITION` HttpError, which is downgraded to an
+        INFO log.
     """
-    ee.data.cancelOperation(_operation_name(task_id, project))
+    op_name = _operation_name(task_id, project)
+    try:
+        ee.data.cancelOperation(op_name)
+    except Exception as exc:  # noqa: BLE001 - inspect the HTTP status below
+        # `googleapiclient.errors.HttpError` carries `.resp.status`; on
+        # an already-terminal op we get a 400. Anything else is the
+        # user's problem.
+        status = getattr(getattr(exc, "resp", None), "status", None)
+        if status == 400 or "FAILED_PRECONDITION" in str(exc):
+            logger.info(
+                f"cancel_task({task_id!r}): already terminal "
+                f"({type(exc).__name__}: {exc}); treating as no-op."
+            )
+            return
+        raise
 
 
 def wait_for_task_id(
@@ -472,10 +548,19 @@ _EE_ASSET_RE = re.compile(r"^projects/[^/]+/assets/.+")
 
 
 def _pull_gcs(bucket: str, key: str, dest_dir: Path) -> Path:
-    """Download `gs://<bucket>/<key>` to `dest_dir / <basename>` and return the path."""
+    """Download `gs://<bucket>/<key>` to `dest_dir / <basename>` and return the path.
+
+    Threads the EE persistent credentials through to the GCS client
+    so the download uses the same identity that authored the export
+    — not whatever Application Default Credentials happen to be on
+    the box. Requires the EE service account (or whichever identity
+    initialised `ee`) to have the `devstorage.full_control` scope;
+    :class:`earthlens.gee.auth.EarthEngineAuth` requests it by
+    default.
+    """
     from google.cloud import storage as _gcs
 
-    client = _gcs.Client()
+    client = _gcs.Client(credentials=ee.data.get_persistent_credentials())
     blob = client.bucket(bucket).blob(unquote(key))
     target = dest_dir / Path(unquote(key)).name
     blob.download_to_filename(str(target))
@@ -641,8 +726,13 @@ def _maybe_initialize_ee() -> None:
 
 
 def _print_task_oneline(t: TaskInfo) -> None:
-    """Render a single :class:`TaskInfo` as one terminal-friendly line."""
-    started = t.start_time.strftime("%Y-%m-%d %H:%M:%S") if t.start_time else "—"
+    """Render a single :class:`TaskInfo` as one terminal-friendly line.
+
+    Uses ASCII `-` for the unstarted-task placeholder so the line
+    renders cleanly on Windows `cmd.exe` (cp437 / cp1252), which
+    otherwise turns `—` (U+2014) into `?`.
+    """
+    started = t.start_time.strftime("%Y-%m-%d %H:%M:%S") if t.start_time else "-"
     print(
         f"{t.id:26} {t.state:18} {t.task_type:14} "
         f"created={t.create_time:%Y-%m-%d %H:%M:%S} started={started:<19} "
@@ -680,12 +770,26 @@ def _cmd_cancel(args) -> int:
 
 
 def _cmd_wait(args) -> int:
-    t = wait_for_task_id(
-        args.task_id,
-        poll_seconds=args.poll_seconds,
-        progress_bar=not args.no_progress_bar,
-        project=args.project,
-    )
+    """Block until a task terminates; print result; exit 1 on FAILED / CANCELLED.
+
+    `wait_for_task_id` raises `RuntimeError` when the task ends in any
+    non-COMPLETED state (FAILED / CANCELLED). The CLI catches that and
+    prints a one-line message to stderr — letting it propagate would
+    surface a Python traceback to the user, which isn't what a polished
+    CLI should do for a known failure mode.
+    """
+    import sys
+
+    try:
+        t = wait_for_task_id(
+            args.task_id,
+            poll_seconds=args.poll_seconds,
+            progress_bar=not args.no_progress_bar,
+            project=args.project,
+        )
+    except RuntimeError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
     print(f"task {t.id} COMPLETED")
     for uri in t.destination_uris:
         print(f"  -> {uri}")
@@ -706,8 +810,14 @@ def _build_argparser():
     sub = p.add_subparsers(dest="cmd", required=True)
 
     list_p = sub.add_parser("list", help="list recent tasks (one per line)")
-    list_p.add_argument("--state", default=None,
-                       help='filter by state (e.g. "RUNNING", "FAILED")')
+    list_p.add_argument(
+        "--state", default=None, nargs="+", metavar="STATE",
+        help=(
+            'filter by one or more states (e.g. "--state RUNNING READY" '
+            'or "--state FAILED"). Mirrors the iterable form of '
+            "list_recent_tasks(state=...)."
+        ),
+    )
     list_p.add_argument("--max-age-min", type=int, default=None,
                        help="drop tasks older than this many minutes")
     list_p.add_argument("--task-type", default=None,

@@ -117,6 +117,57 @@ class TestResolveProject:
         full = "projects/foo/operations/BAR"
         assert _operation_name(full) == full
 
+    def test_falls_back_to_cloud_api_user_project_when_getter_missing(
+        self, monkeypatch,
+    ):
+        """If a future EE SDK removes `_get_projects_path`, fall back (L3)."""
+        monkeypatch.delattr(jobs_module.ee.data, "_get_projects_path", raising=False)
+        monkeypatch.setattr(
+            jobs_module.ee.data, "_cloud_api_user_project",
+            "fallback-project", raising=False,
+        )
+        assert _resolve_project(None) == "fallback-project"
+
+    def test_falls_back_when_getter_raises(self, monkeypatch):
+        """A raising `_get_projects_path` still resolves via the module-level state."""
+        def _boom():
+            raise RuntimeError("EE SDK internals changed under us")
+
+        monkeypatch.setattr(
+            jobs_module.ee.data, "_get_projects_path", _boom, raising=False,
+        )
+        monkeypatch.setattr(
+            jobs_module.ee.data, "_cloud_api_user_project",
+            "projects/recovered-project", raising=False,
+        )
+        # `projects/` prefix is stripped just like the primary path.
+        assert _resolve_project(None) == "recovered-project"
+
+    def test_raises_clear_error_when_neither_path_works(self, monkeypatch):
+        """Both EE internals gone → clear remediation message, not AttributeError."""
+        monkeypatch.delattr(jobs_module.ee.data, "_get_projects_path", raising=False)
+        monkeypatch.setattr(
+            jobs_module.ee.data, "_cloud_api_user_project", None, raising=False,
+        )
+        with pytest.raises(RuntimeError, match="Could not resolve the current EE project"):
+            _resolve_project(None)
+
+    def test_ee_sdk_still_exposes_the_private_helper(self):
+        """Smoke test: `ee.data._get_projects_path` still exists on the SDK.
+
+        This is the canary for L3. If a future `earthengine-api`
+        release renames or removes the helper, this assertion fires —
+        before users see runtime crashes. Update the fallback chain in
+        `_resolve_project` accordingly.
+        """
+        import ee
+        assert hasattr(ee.data, "_get_projects_path"), (
+            "`ee.data._get_projects_path` is gone on this SDK release — "
+            "`_resolve_project` in `earthlens.gee.jobs` needs to drop "
+            "the primary path and rely solely on the fallback (or a "
+            "replacement public API if one has appeared)."
+        )
+
 
 # -- _op_to_taskinfo --------------------------------------------------------
 
@@ -343,6 +394,65 @@ class TestCancelTask:
         cancel_task("ID0042", project="my-project")
         assert captured["op_name"] == "projects/my-project/operations/ID0042"
 
+    def test_already_terminal_http_400_is_swallowed(self, monkeypatch):
+        """Cancel against a terminal op returns silently and logs at INFO (M1).
+
+        `loguru` writes through its own handler set, which is bound to
+        the original `sys.__stderr__` at registration time — that's why
+        pytest's `capsys` / `caplog` don't see anything. Register a
+        dedicated sink that appends to a buffer instead.
+        """
+        from loguru import logger as _loguru
+
+        class _Resp(SimpleNamespace):
+            pass
+
+        class _FakeHttpError(Exception):
+            def __init__(self):
+                super().__init__("cannot cancel: operation already terminal")
+                self.resp = _Resp(status=400)
+
+        def _stub(_op_name):
+            raise _FakeHttpError()
+
+        monkeypatch.setattr(jobs_module.ee.data, "cancelOperation", _stub)
+        buffer: list[str] = []
+        sink_id = _loguru.add(buffer.append, level="INFO")
+        try:
+            assert cancel_task("ID0042", project="my-project") is None
+        finally:
+            _loguru.remove(sink_id)
+        joined = "".join(buffer)
+        assert "already terminal" in joined, (
+            f"expected an INFO log mentioning 'already terminal'; got {joined!r}"
+        )
+
+    def test_failed_precondition_in_message_is_swallowed(self, monkeypatch):
+        """A non-HttpError carrying `FAILED_PRECONDITION` text is also swallowed."""
+        def _stub(_op_name):
+            raise RuntimeError("FAILED_PRECONDITION: operation is done")
+
+        monkeypatch.setattr(jobs_module.ee.data, "cancelOperation", _stub)
+        assert cancel_task("ID0042", project="my-project") is None
+
+    def test_other_errors_propagate(self, monkeypatch):
+        """Non-terminal errors (e.g. 403 PermissionDenied) re-raise verbatim."""
+
+        class _Resp(SimpleNamespace):
+            pass
+
+        class _Forbidden(Exception):
+            def __init__(self):
+                super().__init__("permission denied")
+                self.resp = _Resp(status=403)
+
+        def _stub(_op_name):
+            raise _Forbidden()
+
+        monkeypatch.setattr(jobs_module.ee.data, "cancelOperation", _stub)
+        with pytest.raises(_Forbidden):
+            cancel_task("ID0042", project="my-project")
+
 
 # -- wait_for_task_id -------------------------------------------------------
 
@@ -385,6 +495,28 @@ class TestWaitForTaskId:
         )
         with pytest.raises(RuntimeError, match="ended CANCELLED"):
             wait_for_task_id("ID0001", progress_bar=False, sleep=lambda s: None)
+
+    def test_cancel_requested_keeps_polling_until_cancelled(self, monkeypatch):
+        """`CANCEL_REQUESTED` is transient — must not short-circuit the loop (M2).
+
+        The worker needs a beat to tear down between accepting the cancel
+        and reporting `CANCELLED`. Treating `CANCEL_REQUESTED` as
+        terminal would race: the caller would see "cancel still in
+        flight" indistinguishably from "cancel completed".
+        """
+        states = iter(["CANCEL_REQUESTED", "CANCEL_REQUESTED", "CANCELLED"])
+        slept: list[float] = []
+        monkeypatch.setattr(
+            jobs_module.ee.data, "getOperation",
+            lambda n: _op(state=next(states), done=False),
+        )
+        with pytest.raises(RuntimeError, match="ended CANCELLED"):
+            wait_for_task_id(
+                "ID0001", poll_seconds=1, progress_bar=False, sleep=slept.append,
+            )
+        # Three polls means two sleeps between them — proves we did NOT
+        # exit on the first CANCEL_REQUESTED.
+        assert slept == [1, 1]
 
 
 # -- resolve_destination ----------------------------------------------------
@@ -495,6 +627,57 @@ class TestResolveDestination:
         out = resolve_destination(info, download_to=tmp_path)
         assert out == ["s3://other-cloud/scene.tif"]
 
+    def test_pull_gcs_uses_ee_persistent_credentials(self, monkeypatch, tmp_path):
+        """`_pull_gcs` threads EE credentials through to `storage.Client` (M3).
+
+        Application Default Credentials would silently pick up whatever
+        identity happens to be on the box (gcloud user, GCE service
+        account, …) — that's almost never the SA that authored the
+        export. Pull must use the same identity that EE was initialised
+        with.
+        """
+        import sys
+
+        captured: dict = {}
+        sentinel_creds = object()
+        monkeypatch.setattr(
+            jobs_module.ee.data, "get_persistent_credentials",
+            lambda: sentinel_creds, raising=False,
+        )
+
+        class _FakeBlob:
+            def download_to_filename(self, target):
+                captured["target"] = target
+
+        class _FakeBucket:
+            def blob(self, key):
+                captured["blob_key"] = key
+                return _FakeBlob()
+
+        class _FakeClient:
+            def __init__(self, *args, **kwargs):
+                captured["client_kwargs"] = kwargs
+
+            def bucket(self, name):
+                captured["bucket_name"] = name
+                return _FakeBucket()
+
+        fake_storage = SimpleNamespace(Client=_FakeClient)
+        # `_pull_gcs` does `from google.cloud import storage as _gcs`, so
+        # we patch the leaf module — `from-import` reads
+        # `sys.modules["google.cloud.storage"]` directly.
+        monkeypatch.setitem(sys.modules, "google.cloud.storage", fake_storage)
+
+        result = jobs_module._pull_gcs("my-bucket", "sub/scene.tif", tmp_path)
+
+        assert captured["client_kwargs"]["credentials"] is sentinel_creds, (
+            "storage.Client must be built with the EE persistent credentials; "
+            f"got kwargs={captured['client_kwargs']!r}"
+        )
+        assert captured["bucket_name"] == "my-bucket"
+        assert captured["blob_key"] == "sub/scene.tif"
+        assert result == tmp_path / "scene.tif"
+
 
 # -- terminal-state constant ------------------------------------------------
 
@@ -502,10 +685,16 @@ class TestResolveDestination:
 class TestTerminalStates:
     """Anchor test for the exported terminal-state set."""
 
-    def test_terminal_states_are_the_documented_four(self):
-        assert TERMINAL_TASK_STATES == frozenset(
-            {"COMPLETED", "FAILED", "CANCELLED", "CANCEL_REQUESTED"}
-        )
+    def test_terminal_states_are_the_documented_three(self):
+        """`TERMINAL_TASK_STATES` is exactly `COMPLETED / FAILED / CANCELLED`.
+
+        `CANCEL_REQUESTED` is deliberately excluded — see M2 in
+        `planning/gee/pr-diff-review-feat-gee-2026-05-17-3.md`. Treating
+        it as terminal would short-circuit `wait_for_task_id` before
+        the real `CANCELLED` arrives.
+        """
+        assert TERMINAL_TASK_STATES == frozenset({"COMPLETED", "FAILED", "CANCELLED"})
+        assert "CANCEL_REQUESTED" not in TERMINAL_TASK_STATES
 
 
 # -- M2: Catalog convenience methods ----------------------------------------
@@ -608,8 +797,25 @@ class TestCli:
         out = capsys.readouterr().out
         assert rc == 0
         assert "LCMD1" in out
-        assert captured["state"] == "RUNNING"
+        # `--state` now uses `nargs="+"` so a single value still arrives
+        # as a one-element list (N3). `list_recent_tasks` accepts any
+        # iterable so this passes through verbatim.
+        assert captured["state"] == ["RUNNING"]
         assert captured["max_age_min"] == 30
+
+    def test_list_command_accepts_multiple_states(self, monkeypatch, capsys):
+        """N3: `--state RUNNING READY` reaches `list_recent_tasks` as an iterable."""
+        captured: dict = {}
+
+        def _stub_list(**kw):
+            captured.update(kw)
+            return []
+
+        monkeypatch.setattr(jobs_module, "list_recent_tasks", _stub_list)
+        monkeypatch.setattr(jobs_module, "_maybe_initialize_ee", lambda: None)
+        rc = jobs_module.main(["list", "--state", "RUNNING", "READY"])
+        assert rc == 0
+        assert captured["state"] == ["RUNNING", "READY"]
 
     def test_list_command_prints_no_match_marker_when_empty(self, monkeypatch, capsys):
         monkeypatch.setattr(jobs_module, "list_recent_tasks", lambda **kw: [])
@@ -651,3 +857,22 @@ class TestCli:
         assert rc == 0
         assert "COMPLETED" in out
         assert "drive://x.tif" in out
+
+    def test_wait_command_clean_exit_on_failed_task(self, monkeypatch, capsys):
+        """N4: a RuntimeError from `wait_for_task_id` becomes a clean exit-1.
+
+        Without the catch, argparse would print the full Python
+        traceback for a known failure mode (task ended FAILED / CANCELLED).
+        The CLI should report the error to stderr and exit non-zero.
+        """
+        def _stub(*_a, **_k):
+            raise RuntimeError("Earth Engine task ID0001 ended FAILED: quota exceeded")
+
+        monkeypatch.setattr(jobs_module, "wait_for_task_id", _stub)
+        monkeypatch.setattr(jobs_module, "_maybe_initialize_ee", lambda: None)
+        rc = jobs_module.main(["wait", "ID0001", "--no-progress-bar"])
+        captured = capsys.readouterr()
+        assert rc == 1
+        assert "ended FAILED" in captured.err
+        assert "quota exceeded" in captured.err
+        assert "Traceback" not in captured.err
