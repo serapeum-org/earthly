@@ -70,6 +70,11 @@ from earthlens.gee.catalog import (
     Provider,
 )
 from earthlens.gee.features import create_feature, create_geometry
+from earthlens.gee.io import (
+    feature_collection_to_dataframe,
+    feature_collection_to_gdf,
+    feature_collections_to_dataframe,
+)
 from earthlens.gee.sampling import sample_points
 
 __all__ = [
@@ -86,5 +91,8 @@ __all__ = [
     "EarthEngineAuth",
     "create_geometry",
     "create_feature",
+    "feature_collection_to_dataframe",
+    "feature_collection_to_gdf",
+    "feature_collections_to_dataframe",
     "sample_points",
 ]

@@ -23,6 +23,8 @@ _EXPECTED_EXPORTS = {
     "GEE", "AuthenticationError", "Catalog", "Dataset", "Band", "Cadence",
     "Extent", "Provider", "CATALOG_PATH", "PROVIDERS_PATH", "EarthEngineAuth",
     "create_geometry", "create_feature", "sample_points",
+    "feature_collection_to_dataframe", "feature_collection_to_gdf",
+    "feature_collections_to_dataframe",
 }
 
 
