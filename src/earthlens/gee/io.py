@@ -130,16 +130,22 @@ def feature_collection_to_dataframe(
     """Download an `ee.FeatureCollection` to a `pandas.DataFrame` via CSV.
 
     Calls `fc.getDownloadURL(filetype="CSV", selectors=selectors)` and
-    reads the resulting CSV with `pandas.read_csv`. When `selectors` is
-    omitted, the synthetic `system:index` and `.geo` columns Earth
-    Engine adds are stripped.
+    reads the resulting CSV with `pandas.read_csv`.
+
+    The two `selectors` cases use a single `selectors is None`
+    predicate (so an explicit `selectors=[]` is honoured verbatim,
+    not collapsed into the default):
+
+    * `selectors is None` — ask EE for everything, then drop the
+      synthetic `system:index` and `.geo` columns.
+    * `selectors is not None` (incl. `[]`) — forward verbatim to
+      `getDownloadURL` and return whatever EE returns; no columns
+      are dropped on the client side.
 
     Args:
         fc: The Earth Engine `FeatureCollection` to download.
-        selectors: Optional iterable of property names to include. Maps
-            to `fc.getDownloadURL(selectors=...)`. Defaults to `None`
-            (all properties; the `system:index`/`.geo` columns are then
-            dropped from the result).
+        selectors: Optional iterable of property names to include.
+            See semantic note above. Defaults to `None`.
 
     Returns:
         A `DataFrame` of the FC's features.
@@ -148,13 +154,12 @@ def feature_collection_to_dataframe(
         Exceptions from the underlying Earth Engine / HTTP / CSV-parsing
         calls propagate verbatim.
     """
-    url = fc.getDownloadURL(
-        filetype="CSV", selectors=list(selectors) if selectors is not None else None,
-    )
-    df = pd.read_csv(url)
-    if not selectors:
-        df = df.drop(columns=["system:index", ".geo"], errors="ignore")
-    return df
+    if selectors is None:
+        url = fc.getDownloadURL(filetype="CSV", selectors=None)
+        df = pd.read_csv(url)
+        return df.drop(columns=["system:index", ".geo"], errors="ignore")
+    url = fc.getDownloadURL(filetype="CSV", selectors=list(selectors))
+    return pd.read_csv(url)
 
 
 def feature_collections_to_dataframe(

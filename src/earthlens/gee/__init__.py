@@ -21,17 +21,35 @@ Public surface (re-exported from this package):
   initialised (missing/invalid key, unregistered project, missing IAM role).
 * :class:`Catalog` — pydantic-backed loader for the bundled per-category
   catalog under `src/earthlens/gee/catalog/`, exposing
-  `available_datasets`, `datasets`, and
-  `get_dataset` / `get_band` / `get_variable`.
+  `available_datasets`, `datasets`, `providers`, and
+  `get_dataset` / `get_band` / `get_variable` / `get_provider`.
 * :class:`Dataset` / :class:`Band` / :class:`Cadence` / :class:`Extent`
-  — the frozen value objects the catalog is built from.
-* :data:`CATALOG_PATH` — absolute path to the bundled catalog directory;
-  monkey-patchable to redirect the loader at a temp directory or single
-  YAML file.
+  / :class:`Provider` — the frozen value objects the catalog is built
+  from.
+* :data:`CATALOG_PATH` / :data:`PROVIDERS_PATH` — absolute paths to
+  the bundled catalog directory and `providers.yaml`; monkey-patchable
+  to redirect the loader at a temp directory.
 * :class:`EarthEngineAuth` — the low-level service-account auth helper
   (`ee.Initialize` against a registered project; base64 key encode/decode).
 * :func:`create_geometry` / :func:`create_feature` — Shapely /
   `GeoDataFrame` → `ee.Geometry` / `ee.FeatureCollection` converters.
+* :func:`sample_points` / :func:`sample_points_to_gdf` — sample a
+  raster at point locations via leaf-batched `reduceRegions`; the
+  `_to_gdf` variant returns a `GeoDataFrame` via `getInfo()`.
+* :func:`feature_collection_to_dataframe` /
+  :func:`feature_collections_to_dataframe` /
+  :func:`feature_collection_to_gdf` — download
+  `ee.FeatureCollection`s to pandas / GeoPandas (sync + parallel +
+  small-FC `getInfo()` paths).
+
+Two submodules ship more specialised helpers and are intentionally
+**not** re-exported at this top level — import them directly:
+
+* `earthlens.gee.cloud_masks` — `landsat_sr(image, sensor=...)` for
+  Landsat C2-L2 QA_PIXEL Clear-bit masking.
+* `earthlens.gee.filters` — `by_year` / `by_bounds` /
+  `by_property_in` / `by_cloud_cover_lte` / `by_year_and_bounds`
+  for `ee.ImageCollection.filter*` composition.
 
 The Earth Engine SDK (`earthengine-api`, the `[gee]` extra) is imported
 when this package is imported — install `earthlens[gee]` to use it; the

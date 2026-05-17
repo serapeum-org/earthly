@@ -184,6 +184,23 @@ class TestFeatureCollectionToDataframe:
         feature_collection_to_dataframe(fc)
         assert fc.get_download_calls[0]["filetype"] == "CSV"
 
+    def test_explicit_empty_selectors_forwards_empty_list_and_keeps_columns(
+        self, fake_read_csv,
+    ):
+        """`selectors=[]` is honoured verbatim — neither collapsed to None nor stripped (L3)."""
+        fc = _FakeFC()
+        df = feature_collection_to_dataframe(fc, selectors=[])
+        assert fc.get_download_calls == [{"filetype": "CSV", "selectors": []}]
+        # No synthetic-column stripping when selectors is explicitly provided.
+        assert set(df.columns) == {"system:index", ".geo", "val"}
+
+    def test_none_selectors_strips_synthetic_columns(self, fake_read_csv):
+        """`selectors=None` (default) hits the request with `None` and strips the synthetic cols."""
+        fc = _FakeFC()
+        df = feature_collection_to_dataframe(fc, selectors=None)
+        assert fc.get_download_calls == [{"filetype": "CSV", "selectors": None}]
+        assert list(df.columns) == ["val"]
+
 
 class TestFeatureCollectionsToDataframe:
     """Tests for `feature_collections_to_dataframe`."""

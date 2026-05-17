@@ -45,6 +45,8 @@ _REDUCER_WHITELIST: frozenset[str] = frozenset(
     }
 )
 
+_POINT_GEOM_TYPES: frozenset[str] = frozenset({"Point", "MultiPoint"})
+
 
 def _resolve_reducer(name: str):
     """Resolve a reducer name to an `ee.Reducer` instance via the whitelist.
@@ -97,10 +99,24 @@ def sample_points(
 
     Raises:
         ValueError: If `reducer` is not in :data:`_REDUCER_WHITELIST`,
-            or if `gdf` is empty.
+            if `gdf` is empty, or if any geometry is not a `Point` /
+            `MultiPoint` (sampling at a polygon would silently
+            change the semantic from "sample one pixel per point" to
+            "reduce each polygon's interior" — caller probably meant
+            to call `image.reduceRegions` directly).
     """
     if len(gdf) == 0:
         raise ValueError("sample_points requires a non-empty GeoDataFrame")
+    non_point = [
+        (i, g.geom_type) for i, g in enumerate(gdf.geometry)
+        if g.geom_type not in _POINT_GEOM_TYPES
+    ]
+    if non_point:
+        i, gt = non_point[0]
+        raise ValueError(
+            f"sample_points expects Point / MultiPoint geometries; row {i} "
+            f"is a {gt}. Use `image.reduceRegions` directly for polygons."
+        )
     ee_reducer = _resolve_reducer(reducer)
 
     rtree_idx = index.Index()

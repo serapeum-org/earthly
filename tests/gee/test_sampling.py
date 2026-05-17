@@ -112,6 +112,31 @@ class TestSamplePoints:
         with pytest.raises(ValueError, match="non-empty GeoDataFrame"):
             sample_points(_FakeImage(), empty, scale_m=30)
 
+    def test_polygon_geometry_rejected(self, fake_ee):
+        """Non-point geometries raise `ValueError` naming the offending row (L4)."""
+        from shapely.geometry import Polygon
+        gdf = gpd.GeoDataFrame(
+            {"id": [0, 1]},
+            geometry=[
+                Point(0, 0),
+                Polygon([(1, 1), (2, 1), (2, 2), (1, 2)]),
+            ],
+            crs="EPSG:4326",
+        )
+        with pytest.raises(ValueError, match="row 1 is a Polygon"):
+            sample_points(_FakeImage(), gdf, scale_m=30)
+
+    def test_multipoint_accepted(self, fake_ee):
+        """`MultiPoint` rows pass the type guard (they have `.bounds`)."""
+        from shapely.geometry import MultiPoint
+        gdf = gpd.GeoDataFrame(
+            {"id": [0]},
+            geometry=[MultiPoint([(0, 0), (1, 1)])],
+            crs="EPSG:4326",
+        )
+        # Should not raise.
+        sample_points(_FakeImage(), gdf, scale_m=30)
+
     def test_rejects_unknown_reducer_before_ee_calls(self, fake_ee):
         """The reducer is validated up-front; no `clip` is issued on rejection."""
         gdf = _points_gdf(3)
