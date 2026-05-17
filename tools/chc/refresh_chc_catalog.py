@@ -5,7 +5,7 @@ The CHC analogue of `tools/gee/refresh_gee_catalog.py` and
 `pub/org/chc/products/` on `data.chc.ucsb.edu`, identifies every
 *product directory* (a directory whose children are data files or
 year-named subdirs), and produces a coverage report against the
-current `chc_data_catalog.yaml`:
+per-family YAMLs under `src/earthlens/chc/catalog/`:
 
 * **discovered**: product paths the FTP walk found.
 * **in-yaml**: distinct `ftp_bases` paths declared in the catalog.

@@ -1,6 +1,6 @@
 """FTP probe for the CHIRPS-GEFS v3 datasets.
 
-The CHIRPS-GEFS v3 entries in `chc_data_catalog.yaml`
+The CHIRPS-GEFS v3 entries in `catalog/gefs.yaml`
 (`chirps-gefs-v3-daily`, `chirps-gefs-v3-dekad-lead0`,
 `chirps-gefs-v3-pentad-lead0`) carry an explicit comment:
 *"Provisional pattern; verify against FTP listing before use."* This
@@ -160,8 +160,8 @@ def main() -> int:
     print(
         "\nNote: catalog file_patterns for these datasets are flagged "
         "as provisional. Compare the listings above against the "
-        "`file_patterns:` entries in `chc_data_catalog.yaml` and "
-        "correct as needed."
+        "`file_patterns:` entries in `src/earthlens/chc/catalog/gefs.yaml` "
+        "and correct as needed."
     )
     return 0
 

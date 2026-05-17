@@ -157,3 +157,7 @@ planning/
 
 # GEE STAC catalog tool cache (tools/gee/audit_gee_datasets.py)
 tools/gee/_gee_stac_cache/
+
+# CHC tool runtime caches (audit + refresh probes)
+tools/chc/_audit_cache.json
+tools/chc/_discovered_paths.json
