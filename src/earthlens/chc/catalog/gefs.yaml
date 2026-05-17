@@ -3,6 +3,18 @@
 # *.yaml file in this directory into one Catalog at import time.
 
 datasets:
+
+  # ===================================================================
+  #  CHIRPS-GEFS v3
+  #
+  #  Provisional patterns -- verify against the FTP listing before use.
+  #  tools/chc/probe_chirps_gefs.py walks the live FTP and surfaces the
+  #  actual filename shape. A 2026-05-15 probe found the v3-daily dir
+  #  is partitioned as year/month/, not just year/; the v3-dekad-lead0
+  #  and v3-pentad-lead0 dirs each split into anom/data/zscore subdirs.
+  #  See H4 in planning/chirps/subpackage-and-tools-review.md.
+  # ===================================================================
+
   chirps-gefs-v3-daily:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS/v3/daily/global/
@@ -12,6 +24,7 @@ datasets:
     spatial_resolution: [0.05]
     formats: [tif]
     start_date: '2001-01-01'
+    # Provisional pattern; verify against the FTP listing before use.
     file_patterns:
       tif: "{year}/chirps-gefs.{year}.{month}.{day}.tif"
     variables:
@@ -28,6 +41,7 @@ datasets:
     spatial_resolution: [0.05]
     formats: [tif]
     start_date: '2001-01-01'
+    # Provisional pattern; verify against the FTP listing before use.
     file_patterns:
       tif: chirps-gefs.{year}.{month}.{dekad}.tif
     variables:
@@ -44,6 +58,7 @@ datasets:
     spatial_resolution: [0.05]
     formats: [tif]
     start_date: '2001-01-01'
+    # Provisional pattern; verify against the FTP listing before use.
     file_patterns:
       tif: chirps-gefs.{year}.{month}.{pentad}.tif
     variables:

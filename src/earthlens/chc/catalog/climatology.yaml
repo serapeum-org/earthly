@@ -1,6 +1,12 @@
 # CHC catalog slice: CHPclim v2 (12-file monthly precipitation climatology).
 # 1 dataset(s). Edit in place; the loader merges every
 # *.yaml file in this directory into one Catalog at import time.
+#
+# CHPclim v2 is a 12-file static climatology, not a repeating time
+# series: one TIF per calendar month (Jan-Dec) of 1981-2010 mean
+# precipitation. Modelled as `discrete_files:` so the backend fetches
+# each TIF once instead of expanding `pandas_freq: MS` over the 30-
+# year window (which would download the same 12 files ~30x).
 
 datasets:
   chpclim-v2-monthly:

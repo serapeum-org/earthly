@@ -1,6 +1,15 @@
 # CHC catalog slice: CentennialTrends v1 (East-African rainfall, 1900-2014).
 # 2 dataset(s). Edit in place; the loader merges every
 # *.yaml file in this directory into one Catalog at import time.
+#
+# CenTrends v1 is a fixed archive of multi-year NetCDFs (Funk et al.
+# 2015), not a per-date partition. The monthly variant ships one
+# `(time, lat, lon)` NetCDF covering the whole 1900-2014 series; the
+# seasonal variant ships four files, one per climatological window.
+# Both are modelled as `discrete_files:` so the backend fetches each
+# file once instead of expanding `pandas_freq` over the 115-year
+# window. Per-date GeoTIFF bbox clipping is not applied; users open
+# the saved NetCDFs with xarray for time/region subsetting.
 
 datasets:
   centennial-trends-v1-monthly:
