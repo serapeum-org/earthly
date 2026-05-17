@@ -74,39 +74,28 @@ def _write_single_file_catalog(tmp_path: Path) -> Path:
     return catalog_yaml
 
 
-def _write_providers(tmp_path: Path) -> Path:
-    path = tmp_path / "providers.yaml"
-    path.write_text(
-        "providers:\n  ucsb-chc:\n    display_name: 'UCSB CHC'\n",
-        encoding="utf-8",
-    )
-    return path
-
-
 class TestCatalogCache:
     """The `_load_catalog_data` cache invalidates on real changes only."""
 
     def test_directory_identical_bytes_reuses_cached_datasets(self, tmp_path: Path):
         """Two loads with no file changes reuse the same Dataset instances."""
         catalog_dir = _write_split_catalog(tmp_path)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat1 = Catalog.load(catalog_path=catalog_dir, providers_path=providers_yaml)
-        cat2 = Catalog.load(catalog_path=catalog_dir, providers_path=providers_yaml)
+        cat1 = Catalog.load(catalog_path=catalog_dir)
+        cat2 = Catalog.load(catalog_path=catalog_dir)
         assert cat1.datasets["alpha"] is cat2.datasets["alpha"]
         assert cat1.datasets["beta"] is cat2.datasets["beta"]
 
     def test_directory_single_file_touch_invalidates_cache(self, tmp_path: Path):
         """Bumping one per-family file's mtime invalidates the cache."""
         catalog_dir = _write_split_catalog(tmp_path)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat1 = Catalog.load(catalog_path=catalog_dir, providers_path=providers_yaml)
+        cat1 = Catalog.load(catalog_path=catalog_dir)
         # Bump alpha.yaml mtime; beta.yaml and _index.yaml untouched.
         alpha = catalog_dir / "alpha.yaml"
         bumped = alpha.stat().st_mtime + 60.0
         os.utime(alpha, (bumped, bumped))
-        cat2 = Catalog.load(catalog_path=catalog_dir, providers_path=providers_yaml)
+        cat2 = Catalog.load(catalog_path=catalog_dir)
         assert cat1.datasets["alpha"] is not cat2.datasets["alpha"], (
             "cache failed to invalidate after one file mtime changed"
         )
@@ -114,20 +103,18 @@ class TestCatalogCache:
     def test_single_file_cache_hits_and_misses(self, tmp_path: Path):
         """The legacy single-file branch caches and invalidates on touch."""
         catalog_yaml = _write_single_file_catalog(tmp_path)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat1 = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
-        cat2 = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat1 = Catalog.load(catalog_path=catalog_yaml)
+        cat2 = Catalog.load(catalog_path=catalog_yaml)
         assert cat1.datasets["alpha"] is cat2.datasets["alpha"]
         bumped = catalog_yaml.stat().st_mtime + 60.0
         os.utime(catalog_yaml, (bumped, bumped))
-        cat3 = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat3 = Catalog.load(catalog_path=catalog_yaml)
         assert cat1.datasets["alpha"] is not cat3.datasets["alpha"]
 
     def test_directory_mtime_permutation_invalidates_cache(self, tmp_path: Path):
         """The H4 regression: permuting mtimes (sum unchanged) still triggers a cache miss."""
         catalog_dir = _write_split_catalog(tmp_path)
-        providers_yaml = _write_providers(tmp_path)
         # Set deterministic mtimes so the swap below has a definite "sum unchanged" outcome.
         alpha = catalog_dir / "alpha.yaml"
         beta = catalog_dir / "beta.yaml"
@@ -135,11 +122,11 @@ class TestCatalogCache:
         os.utime(alpha, (base + 10.0, base + 10.0))
         os.utime(beta, (base + 20.0, base + 20.0))
         clear_catalog_cache()
-        cat1 = Catalog.load(catalog_path=catalog_dir, providers_path=providers_yaml)
+        cat1 = Catalog.load(catalog_path=catalog_dir)
         # Swap mtimes: alpha gets beta's old value, beta gets alpha's. Sum is identical.
         os.utime(alpha, (base + 20.0, base + 20.0))
         os.utime(beta, (base + 10.0, base + 10.0))
-        cat2 = Catalog.load(catalog_path=catalog_dir, providers_path=providers_yaml)
+        cat2 = Catalog.load(catalog_path=catalog_dir)
         assert cat1.datasets["alpha"] is not cat2.datasets["alpha"], (
             "permuted-mtime collision (H4 regression) -- "
             "fingerprint must include per-file (name, mtime), not the sum"

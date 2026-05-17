@@ -65,16 +65,6 @@ def _write_catalog(tmp_path: Path, dataset_block: str) -> Path:
     return catalog_yaml
 
 
-def _write_providers(tmp_path: Path) -> Path:
-    """Write a providers.yaml with the single ucsb-chc slug."""
-    path = tmp_path / "providers.yaml"
-    path.write_text(
-        "providers:\n  ucsb-chc:\n    display_name: 'UCSB CHC'\n",
-        encoding="utf-8",
-    )
-    return path
-
-
 @pytest.fixture(scope="module")
 def bundled_catalog() -> Catalog:
     """Bundled catalog, loaded once per module."""
@@ -103,10 +93,9 @@ class TestTemporalResolutionVocabulary:
         """A YAML temporal_resolution outside the vocabulary raises at Dataset construction."""
         block = _dataset_block("synth", temporal_resolution="not-a-resolution")
         catalog_yaml = _write_catalog(tmp_path, block)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
         with pytest.raises(ValueError, match=r"not-a-resolution|temporal_resolution") as exc:
-            Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+            Catalog.load(catalog_path=catalog_yaml)
         message = str(exc.value)
         # Either the raw pydantic ValidationError mentions the literal options,
         # or `_build_chc_dataset`'s error wrap names the failing dataset key.
@@ -119,19 +108,17 @@ class TestTemporalResolutionVocabulary:
         """Every value in `_TEMPORAL_RESOLUTIONS` is accepted on a synthetic dataset."""
         block = _dataset_block("synth", temporal_resolution=temporal_resolution)
         catalog_yaml = _write_catalog(tmp_path, block)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         assert cat.datasets["synth"].temporal_resolution == temporal_resolution
 
     def test_pydantic_validation_error_inside_load(self, tmp_path: Path):
         """The wrapper raises ValueError but the underlying cause is a pydantic ValidationError."""
         block = _dataset_block("synth", temporal_resolution="weekly")
         catalog_yaml = _write_catalog(tmp_path, block)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
         with pytest.raises(ValueError) as exc:
-            Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+            Catalog.load(catalog_path=catalog_yaml)
         # `_build_chc_dataset` wraps the pydantic ValidationError as ValueError;
         # `__cause__` should point at the original pydantic exception.
         assert isinstance(exc.value.__cause__, ValidationError) or "weekly" in str(exc.value)

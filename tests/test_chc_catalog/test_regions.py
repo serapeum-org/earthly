@@ -62,16 +62,6 @@ def _write_catalog(
     return catalog_yaml
 
 
-def _write_providers(tmp_path: Path) -> Path:
-    """Write a providers.yaml with the single ucsb-chc slug."""
-    path = tmp_path / "providers.yaml"
-    path.write_text(
-        "providers:\n  ucsb-chc:\n    display_name: 'UCSB CHC'\n",
-        encoding="utf-8",
-    )
-    return path
-
-
 @pytest.fixture(scope="module")
 def bundled_catalog() -> Catalog:
     """Bundled catalog, loaded once per module."""
@@ -123,10 +113,9 @@ class TestLoaderRejections:
             extra_lines=("lat_boundaries: [-10, 10]",),
         )
         catalog_yaml = _write_catalog(tmp_path, body)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
         with pytest.raises(ValueError, match=r"H1|regions:") as exc:
-            Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+            Catalog.load(catalog_path=catalog_yaml)
         assert "synth-daily" in str(exc.value)
         assert "lat_boundaries" in str(exc.value) or "lon_boundaries" in str(exc.value)
 
@@ -138,19 +127,17 @@ class TestLoaderRejections:
             extra_lines=("lon_boundaries: [-100, 100]",),
         )
         catalog_yaml = _write_catalog(tmp_path, body)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
         with pytest.raises(ValueError, match=r"H1|regions:"):
-            Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+            Catalog.load(catalog_path=catalog_yaml)
 
     def test_unknown_region_raises_value_error_listing_known_regions(self, tmp_path: Path):
         """A dataset with a region not defined in `regions:` raises with the available list."""
         body = _dataset_block("synth-daily", region="not-a-region")
         catalog_yaml = _write_catalog(tmp_path, body)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
         with pytest.raises(ValueError, match=r"not defined in") as exc:
-            Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+            Catalog.load(catalog_path=catalog_yaml)
         message = str(exc.value)
         assert "not-a-region" in message
         assert "global" in message
@@ -163,9 +150,8 @@ class TestLoaderHappyPath:
         """A dataset with `region: global` and no inline bounds resolves to [-50, 50]."""
         body = _dataset_block("synth-daily", region="global")
         catalog_yaml = _write_catalog(tmp_path, body)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         ds = cat.datasets["synth-daily"]
         assert ds.region == "global"
         assert ds.lat_boundaries == [-50.0, 50.0]

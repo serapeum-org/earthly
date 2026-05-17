@@ -90,14 +90,9 @@ import pandas as pd
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
-from earthlens.base import AbstractCatalog, FluxableLeaf, Provider
-from earthlens.base.providers import (
-    clear_providers_cache as _clear_providers_cache_base,
-    load_providers,
-)
+from earthlens.base import AbstractCatalog, FluxableLeaf
 
 CATALOG_PATH: Path = Path(__file__).parent / "catalog"
-PROVIDERS_PATH: Path = Path(__file__).parent / "providers.yaml"
 
 # Module-level cache of parsed catalog data. The cache key is
 # `(resolved_path, fingerprint)`, where the fingerprint is:
@@ -124,9 +119,8 @@ _CATALOG_CACHE: dict[
 
 
 def clear_catalog_cache() -> None:
-    """Empty the module-level catalog + providers parse caches (test helper)."""
+    """Empty the module-level catalog parse cache (test helper)."""
     _CATALOG_CACHE.clear()
-    _clear_providers_cache_base()
 
 
 class _StrictSafeLoader(yaml.SafeLoader):
@@ -298,7 +292,6 @@ class Dataset(BaseModel):
     start_date: str
     end_date: str | None = None
     preliminary: bool = False
-    provider: str | None = None
     variables: dict[str, Variable] = Field(default_factory=dict)
 
     @model_validator(mode="after")
@@ -504,15 +497,6 @@ def _build_chc_dataset(
             start_date=ds_body["start_date"],
             end_date=ds_body.get("end_date"),
             preliminary=ds_body.get("preliminary", False),
-            # Read the publisher slug from the YAML when set; default to
-            # `"ucsb-chc"` because UCSB's Climate Hazards Center is the
-            # de-facto publisher of every dataset shipped today. Future
-            # YAML entries can override per-dataset (e.g. a CHIRPS-GEFS
-            # row that wants to attribute NCEP, or an SPEI row that
-            # wants to attribute MERRA-2 for the PET term); the
-            # `providers.yaml` registry must carry the slug for the
-            # load-time validator to accept it.
-            provider=ds_body.get("provider", "ucsb-chc"),
             variables=ds_vars,
         )
     except (ValidationError, KeyError) as exc:
@@ -742,7 +726,6 @@ class Catalog(AbstractCatalog):
     available_datasets: list[str] = Field(default_factory=list)
     available_regions: dict[str, dict[str, list[float]]] = Field(default_factory=dict)
     datasets: dict[str, Dataset] = Field(default_factory=dict)
-    providers: dict[str, Provider] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
         """Auto-load the bundled CHC catalog when the user didn't supply one.
@@ -762,21 +745,18 @@ class Catalog(AbstractCatalog):
         self.available_datasets = loaded.available_datasets
         self.available_regions = loaded.available_regions
         self.datasets = loaded.datasets
-        self.providers = loaded.providers
 
     @classmethod
     def load(
         cls,
         catalog_path: Path | None = None,
-        providers_path: Path | None = None,
     ) -> Catalog:
-        """Read the CHC catalog + providers registry from disk (cached).
+        """Read the CHC catalog from disk (cached).
 
         Mirrors :meth:`earthlens.gee.Catalog.load` and
-        :meth:`earthlens.ecmwf.Catalog.load`. Default args resolve
-        `CATALOG_PATH` / `PROVIDERS_PATH` at *call* time so test
-        monkey-patches take effect. Validates every `Dataset.provider`
-        slug against the registry.
+        :meth:`earthlens.ecmwf.Catalog.load`. The default resolves
+        :data:`CATALOG_PATH` at *call* time so test monkey-patches
+        take effect.
 
         Args:
             catalog_path: Path to a CHC catalog. Two shapes are
@@ -786,36 +766,19 @@ class Catalog(AbstractCatalog):
                 `available_datasets:` / `regions:` / `datasets:` at
                 top level (legacy back-compat). Defaults to
                 module-level :data:`CATALOG_PATH` (the directory).
-            providers_path: Path to `providers.yaml`. Defaults to
-                module-level :data:`PROVIDERS_PATH`.
 
         Returns:
             A fully-populated :class:`Catalog`.
 
         Raises:
-            ValueError: Propagated from :func:`_load_catalog_data` or
-                :func:`earthlens.base.providers.load_providers`, plus
-                an unregistered-slug error if any dataset references
-                a provider not in the registry.
+            ValueError: Propagated from :func:`_load_catalog_data`.
         """
         catalog_path = catalog_path if catalog_path is not None else CATALOG_PATH
-        providers_path = providers_path if providers_path is not None else PROVIDERS_PATH
         available_datasets, regions_map, datasets = _load_catalog_data(catalog_path)
-        providers = load_providers(providers_path)
-        unknown = sorted(
-            {d.provider for d in datasets.values() if d.provider and d.provider not in providers}
-        )
-        if unknown:
-            raise ValueError(
-                f"the following provider slugs are referenced by "
-                f"`{catalog_path.name}` but missing from {providers_path}: "
-                f"{unknown}. Add them to providers.yaml or fix the typo."
-            )
         return cls(
             available_datasets=list(available_datasets),
             available_regions=dict(regions_map),
             datasets=dict(datasets),
-            providers=dict(providers),
         )
 
     def get_catalog(self) -> dict[str, Dataset]:
@@ -909,13 +872,6 @@ class Catalog(AbstractCatalog):
           window for every request).
         * `unreferenced_region` — region keys in `available_regions:`
           that no dataset's `region:` field points at — registry rot.
-        * `unregistered_provider` — datasets whose `provider:` slug is
-          missing from `providers.yaml`. Mirrors the load-time check
-          but kept here so a Catalog built without `Catalog.load` can
-          still self-report.
-        * `unused_provider` — providers in the registry that no dataset
-          references. Pure registry rot, same shape as
-          `unreferenced_region`.
         * `index_missing_in_datasets` — keys in `available_datasets:`
           that have no entry under `datasets:` (consumer iterating the
           index would `KeyError` on `get_dataset(key)`). This is the
@@ -934,9 +890,7 @@ class Catalog(AbstractCatalog):
         """
         empty_dataset: list[str] = []
         bad_window: list[str] = []
-        unregistered_provider: list[str] = []
         used_regions: set[str] = set()
-        used_providers: set[str] = set()
         # Track `(units, types)` tuples per `(variable_name, temporal_resolution)`
         # so the drift check can flag heterogeneous groups in one pass.
         variable_metadata: dict[
@@ -949,17 +903,12 @@ class Catalog(AbstractCatalog):
                 used_regions.add(ds.region)
             if ds.end_date and ds.end_date < ds.start_date:
                 bad_window.append(ds_key)
-            if ds.provider:
-                used_providers.add(ds.provider)
-                if ds.provider not in self.providers:
-                    unregistered_provider.append(ds_key)
             for var_name, var in ds.variables.items():
                 bucket = variable_metadata.setdefault(
                     (var_name, ds.temporal_resolution), set()
                 )
                 bucket.add((var.units, var.types))
         unreferenced_region = sorted(set(self.available_regions) - used_regions)
-        unused_provider = sorted(set(self.providers) - used_providers)
         index_set = set(self.available_datasets)
         datasets_set = set(self.datasets)
         index_missing_in_datasets = sorted(index_set - datasets_set)
@@ -973,8 +922,6 @@ class Catalog(AbstractCatalog):
             "dataset_without_variables": sorted(empty_dataset),
             "end_date_before_start_date": sorted(bad_window),
             "unreferenced_region": unreferenced_region,
-            "unregistered_provider": sorted(unregistered_provider),
-            "unused_provider": unused_provider,
             "index_missing_in_datasets": index_missing_in_datasets,
             "datasets_missing_in_index": datasets_missing_in_index,
             "variable_metadata_drift": variable_metadata_drift,

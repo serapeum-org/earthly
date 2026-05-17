@@ -48,16 +48,6 @@ def _write_catalog(tmp_path: Path, dataset_block: str) -> Path:
     return catalog_yaml
 
 
-def _write_providers(tmp_path: Path) -> Path:
-    """Write a minimal providers.yaml."""
-    path = tmp_path / "providers.yaml"
-    path.write_text(
-        "providers:\n  ucsb-chc:\n    display_name: 'UCSB CHC'\n",
-        encoding="utf-8",
-    )
-    return path
-
-
 @pytest.fixture(scope="module")
 def bundled_catalog() -> Catalog:
     """Bundled catalog, loaded once per module."""
@@ -86,10 +76,9 @@ class TestPandasFreqValidation:
         """Each bad alias is rejected during Catalog.load."""
         block = _dataset_block("synth", pandas_freq=freq)
         catalog_yaml = _write_catalog(tmp_path, block)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
         with pytest.raises(ValueError, match=r"pandas_freq") as exc:
-            Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+            Catalog.load(catalog_path=catalog_yaml)
         assert freq in str(exc.value) or "to_offset" in str(exc.value).lower() or "synth" in str(exc.value)
 
     @pytest.mark.parametrize(
@@ -100,7 +89,6 @@ class TestPandasFreqValidation:
         """Standard pandas offset aliases pass the validation."""
         block = _dataset_block("synth", pandas_freq=freq)
         catalog_yaml = _write_catalog(tmp_path, block)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         assert cat.datasets["synth"].pandas_freq == freq

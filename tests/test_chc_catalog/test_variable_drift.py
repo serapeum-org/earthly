@@ -65,16 +65,6 @@ def _write_catalog(tmp_path: Path, dataset_blocks: list[str]) -> Path:
     return catalog_yaml
 
 
-def _write_providers(tmp_path: Path) -> Path:
-    """Write a providers.yaml with the single ucsb-chc slug."""
-    path = tmp_path / "providers.yaml"
-    path.write_text(
-        "providers:\n  ucsb-chc:\n    display_name: 'UCSB CHC'\n",
-        encoding="utf-8",
-    )
-    return path
-
-
 @pytest.fixture(scope="module")
 def bundled_catalog() -> Catalog:
     """Bundled catalog, loaded once per module."""
@@ -96,9 +86,8 @@ class TestVariableMetadataDrift:
             _dataset_block("beta-daily"),
         ]
         catalog_yaml = _write_catalog(tmp_path, blocks)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         assert cat.health()["variable_metadata_drift"] == []
 
     def test_mismatched_units_surface_as_drift(self, tmp_path: Path):
@@ -108,9 +97,8 @@ class TestVariableMetadataDrift:
             _dataset_block("beta-daily", var_units="mm"),  # outlier
         ]
         catalog_yaml = _write_catalog(tmp_path, blocks)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         assert cat.health()["variable_metadata_drift"] == ["precipitation/daily"]
 
     def test_mismatched_types_surface_as_drift(self, tmp_path: Path):
@@ -120,9 +108,8 @@ class TestVariableMetadataDrift:
             _dataset_block("beta-daily", var_types="state"),
         ]
         catalog_yaml = _write_catalog(tmp_path, blocks)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         assert cat.health()["variable_metadata_drift"] == ["precipitation/daily"]
 
     def test_mismatched_description_alone_does_not_count(self, tmp_path: Path):
@@ -138,9 +125,8 @@ class TestVariableMetadataDrift:
             ),
         ]
         catalog_yaml = _write_catalog(tmp_path, blocks)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         assert cat.health()["variable_metadata_drift"] == []
 
     def test_two_independent_drifts_are_reported_sorted(self, tmp_path: Path):
@@ -164,9 +150,8 @@ class TestVariableMetadataDrift:
             ),
         ]
         catalog_yaml = _write_catalog(tmp_path, blocks)
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         assert cat.health()["variable_metadata_drift"] == [
             "precipitation/daily",
             "precipitation/monthly",

@@ -55,16 +55,6 @@ def _write_catalog(
     return catalog_yaml
 
 
-def _write_providers(tmp_path: Path) -> Path:
-    """Write a providers.yaml with the single ucsb-chc slug."""
-    path = tmp_path / "providers.yaml"
-    path.write_text(
-        "providers:\n  ucsb-chc:\n    display_name: 'UCSB CHC'\n",
-        encoding="utf-8",
-    )
-    return path
-
-
 @pytest.fixture(scope="module")
 def bundled_catalog() -> Catalog:
     """Bundled catalog, loaded once per module."""
@@ -87,9 +77,8 @@ class TestHealthIndexConsistency:
             available=["alpha", "beta"],
             dataset_keys=["alpha"],
         )
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         report = cat.health()
         assert report["index_missing_in_datasets"] == ["beta"]
         assert report["datasets_missing_in_index"] == []
@@ -101,9 +90,8 @@ class TestHealthIndexConsistency:
             available=["alpha"],
             dataset_keys=["alpha", "beta"],
         )
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         report = cat.health()
         assert report["index_missing_in_datasets"] == []
         assert report["datasets_missing_in_index"] == ["beta"]
@@ -115,9 +103,8 @@ class TestHealthIndexConsistency:
             available=["alpha", "only-in-index"],
             dataset_keys=["alpha", "only-in-datasets"],
         )
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         report = cat.health()
         assert report["index_missing_in_datasets"] == ["only-in-index"]
         assert report["datasets_missing_in_index"] == ["only-in-datasets"]
@@ -129,9 +116,8 @@ class TestHealthIndexConsistency:
             available=["alpha", "beta"],
             dataset_keys=["alpha", "beta"],
         )
-        providers_yaml = _write_providers(tmp_path)
         clear_catalog_cache()
-        cat = Catalog.load(catalog_path=catalog_yaml, providers_path=providers_yaml)
+        cat = Catalog.load(catalog_path=catalog_yaml)
         report = cat.health()
         assert report["index_missing_in_datasets"] == []
         assert report["datasets_missing_in_index"] == []
