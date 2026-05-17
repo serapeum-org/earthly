@@ -52,10 +52,10 @@ Then open any notebook in JupyterLab / VS Code and run all cells, or
 execute the whole batch from the command line:
 
 ```bash
-python examples/notebooks/gee/_execute.py
+python docs/examples/gee/_execute.py
 ```
 
-(or just one: `python examples/notebooks/gee/_execute.py elevation-terrain`).
+(or just one: `python docs/examples/gee/_execute.py elevation-terrain`).
 
 The script re-writes each notebook in place with the new outputs.
 
@@ -66,7 +66,7 @@ so a catalog rename / new representative dataset only needs the table
 edited, then:
 
 ```bash
-python examples/notebooks/gee/_generate.py
+python docs/examples/gee/_generate.py
 ```
 
 ## Output directory

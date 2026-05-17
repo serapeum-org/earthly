@@ -203,7 +203,7 @@ test-s3 = { cmd = "pytest -vvv -m 's3 and not e2e' --cov=src/earthlens --cov-rep
 test-ecmwf = { cmd = "pytest -vvv -m 'ecmwf and not e2e' --cov=src/earthlens --cov-report=xml --cov-report=term-missing", description = "Run ECMWF/CDS-backend tests (requires the `ecmwf` extra: cdsapi)" }
 test-gee = { cmd = "pytest -vvv -m 'gee and not e2e' --cov=src/earthlens --cov-report=xml --cov-report=term-missing", description = "Run GEE-backend tests (requires the `gee` extra: earthengine-api)" }
 test-doctests = { cmd = "pytest --doctest-modules src/earthlens/gee src/earthlens/chc src/earthlens/ecmwf src/earthlens/base", description = "Run docstring examples across the 4 backend packages (catches drift in catalog / API docstrings)" }
-notebooks = { cmd = "pytest --nbval --nbval-lax --verbose examples/notebooks", description = "check notebooks" }
+notebooks = { cmd = "pytest --nbval --nbval-lax --verbose docs/examples", description = "check notebooks" }
 jupyter = { cmd = "jupyter lab --no-browser --IdentityProvider.token='' --ServerApp.password='' --port=8889", description = "check notebooks" }
 build-dist = { cmd = "python -m build", description = "Build sdist and wheel for PyPI" }
 publish-pypi = { cmd = "twine upload --non-interactive --repository pypi dist/*", depends-on = ["build-dist"], description = "Build and upload package to PyPI" }
