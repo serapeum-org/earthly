@@ -58,7 +58,33 @@ Examples:
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
+
+
+#: Canonical `temporal_resolution` vocabulary for CHC datasets (M1).
+#:
+#: Every value here is currently used by at least one bundled dataset.
+#: New cadences must be added here AND to `Dataset.temporal_resolution`
+#: (the `Literal[...]` annotation in step with this tuple). Pydantic
+#: rejects any string outside this list at load time, so a typo
+#: (e.g. `"daly"` instead of `"daily"`) raises ValidationError instead
+#: of silently loading.
+_TEMPORAL_RESOLUTIONS: tuple[str, ...] = (
+    "10-day",
+    "15-day",
+    "2-monthly",
+    "3-monthly",
+    "5-day",
+    "6-hourly",
+    "annual",
+    "daily",
+    "daily-delta",
+    "dekadal",
+    "monthly",
+    "monthly-climatology",
+    "pentadal",
+    "seasonal",
+)
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
@@ -247,7 +273,22 @@ class Dataset(BaseModel):
     file_patterns: dict[str, str] | None = None
     discrete_files: dict[str, list[str]] | None = None
     region: str
-    temporal_resolution: str
+    temporal_resolution: Literal[
+        "10-day",
+        "15-day",
+        "2-monthly",
+        "3-monthly",
+        "5-day",
+        "6-hourly",
+        "annual",
+        "daily",
+        "daily-delta",
+        "dekadal",
+        "monthly",
+        "monthly-climatology",
+        "pentadal",
+        "seasonal",
+    ]
     pandas_freq: str
     spatial_resolution: list[float]
     formats: list[str]
@@ -1064,6 +1105,15 @@ class Catalog(AbstractCatalog):
                 f"region {region!r} is not declared in `_index.yaml`'s "
                 f"`regions:` block. Known regions: "
                 f"{sorted(self.available_regions)}."
+            )
+        if (
+            temporal_resolution is not None
+            and temporal_resolution not in _TEMPORAL_RESOLUTIONS
+        ):
+            raise ValueError(
+                f"temporal_resolution {temporal_resolution!r} is not in "
+                f"the catalog's vocabulary. Known values: "
+                f"{list(_TEMPORAL_RESOLUTIONS)}."
             )
         result: list[str] = []
         for key, ds in self.datasets.items():

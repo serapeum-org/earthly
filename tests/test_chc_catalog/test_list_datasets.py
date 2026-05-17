@@ -67,7 +67,7 @@ class TestListDatasets:
         result = catalog.list_datasets(region="africa", temporal_resolution="daily")
         assert result == ["africa-daily"]
 
-    def test_unknown_temporal_resolution_returns_empty_silently(self, catalog: Catalog):
-        """temporal_resolution filtering is not (yet) validated; unknown value returns []."""
-        result = catalog.list_datasets(temporal_resolution="not-a-resolution")
-        assert result == []
+    def test_unknown_temporal_resolution_raises_value_error(self, catalog: Catalog):
+        """M1 tightened temporal_resolution to a known vocabulary; typos now raise."""
+        with pytest.raises(ValueError, match=r"not-a-resolution"):
+            catalog.list_datasets(temporal_resolution="not-a-resolution")
