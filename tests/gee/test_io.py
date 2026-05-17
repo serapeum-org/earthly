@@ -129,6 +129,28 @@ class TestRetryOnTransientErrors:
         """The module-level default `tries` is 5 (N2 trimmed it down from 100)."""
         assert _DEFAULT_RETRIES == 5
 
+    @pytest.mark.parametrize("tries", [0, -1, -100])
+    def test_rejects_non_positive_tries(self, tries):
+        """`tries < 1` is rejected up-front so the wrapper can't fall through silently."""
+        with pytest.raises(ValueError, match="tries must be >= 1"):
+            _retry_on_transient_errors(lambda: None, tries=tries)
+
+    def test_resolves_time_sleep_lazily(self, monkeypatch):
+        """The wrapper resolves `time.sleep` at call time, not at wrap time."""
+        sleeps: list[float] = []
+        monkeypatch.setattr(io_module.time, "sleep", sleeps.append)
+        calls: list[int] = []
+
+        def _fn():
+            calls.append(1)
+            if len(calls) < 2:
+                raise ConnectionResetError("flake")
+            return "ok"
+
+        wrapped = _retry_on_transient_errors(_fn, tries=3)
+        assert wrapped() == "ok"
+        assert sleeps == [1.0]
+
     def test_transient_whitelist_includes_expected_classes(self):
         """The transient-error tuple covers SSL / URL / EE / reset classes."""
         for cls in (

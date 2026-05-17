@@ -790,57 +790,47 @@ class GEE(AbstractDataSource):
     ) -> tuple[dt.datetime, dt.datetime]:
         """Resolve a dataset's effective `(start, end_exclusive)` extent.
 
-        Combines the catalog entry's curated `start_date` / `end_date`
-        with — when `discover_extent=True` and either is missing — an
-        EE-side `reduceColumns(minMax)` query (cached per asset).
+        The catalog's `start_date` is always a curated string (the
+        `Extent` pydantic field is required); the upper bound comes
+        from the curated `end_date` if present, else — when
+        `discover_extent=True` — an EE-side `reduceColumns(minMax)`
+        query (cached per asset), falling back to `now() + 1 day` if
+        the query fails or the catalog has no `end_date` and
+        discovery is disabled.
 
         Args:
             var_info: The catalog entry.
 
         Returns:
-            `(start, end_exclusive)` as naive UTC datetimes; the
-            upper bound is `dataset_end_date + 1 day`, or
-            `now() + 1 day` if the dataset is open-ended and no
-            EE-side discovery is available.
+            `(start, end_exclusive)` as naive UTC datetimes.
         """
-        catalog_start_str = var_info.extent.start_date
+        ds_start = dt.datetime.strptime(var_info.extent.start_date, "%Y-%m-%d")
         catalog_end_str = var_info.extent.end_date
 
-        ee_start, ee_end = self._maybe_discover_ee_extent(
-            var_info, need_start=catalog_start_str is None, need_end=catalog_end_str is None,
-        )
-
-        ds_start = (
-            dt.datetime.strptime(catalog_start_str, "%Y-%m-%d")
-            if catalog_start_str is not None
-            else ee_start
-        )
         if catalog_end_str is not None:
             ds_end_excl = (
                 dt.datetime.strptime(catalog_end_str, "%Y-%m-%d")
                 + dt.timedelta(days=1)
             )
-        elif ee_end is not None:
-            ds_end_excl = ee_end + dt.timedelta(days=1)
-        else:
-            # `now()` would be local-naive; the rest of the path is naive
-            # UTC, so use a naive UTC value.
-            ds_end_excl = (
-                dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
-                + dt.timedelta(days=1)
-            )
+            return ds_start, ds_end_excl
 
-        if ds_start is None:
-            # No curated start_date AND no EE-discovered one — fall back
-            # to the request start so the call still issues somewhere.
-            ds_start = self.time.start_date
+        _, ee_end = self._maybe_discover_ee_extent(var_info)
+        if ee_end is not None:
+            return ds_start, ee_end + dt.timedelta(days=1)
+
+        # `now()` would be local-naive; the rest of the path is naive
+        # UTC, so use a naive UTC value.
+        ds_end_excl = (
+            dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+            + dt.timedelta(days=1)
+        )
         return ds_start, ds_end_excl
 
     def _maybe_discover_ee_extent(
-        self, var_info: Dataset, *, need_start: bool, need_end: bool
+        self, var_info: Dataset
     ) -> tuple[dt.datetime | None, dt.datetime | None]:
         """Cached entry point for `_discover_ee_extent` (L3)."""
-        if not (self.discover_extent and (need_start or need_end)):
+        if not self.discover_extent:
             return None, None
         if var_info.id in self._extent_cache:
             return self._extent_cache[var_info.id]

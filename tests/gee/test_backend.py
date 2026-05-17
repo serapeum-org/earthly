@@ -551,6 +551,49 @@ class TestDiscoverExtent:
         ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
         assert gee._discover_ee_extent(ds) == (None, None)
 
+    def test_real_discover_returns_none_on_empty_minmax(self, make_gee, monkeypatch):
+        """An empty collection (no `min`/`max` keys) yields `(None, None)`."""
+
+        class _EmptyReducedFC:
+            def getInfo(self):  # noqa: N802
+                return {}
+
+        class _EmptyCollection:
+            def __init__(self, asset_id):
+                pass
+
+            def reduceColumns(self, reducer, properties):  # noqa: N802
+                return _EmptyReducedFC()
+
+        gee = make_gee(discover_extent=True)
+        monkeypatch.setattr(backend_module.ee, "ImageCollection", _EmptyCollection, raising=False)
+        monkeypatch.setattr(
+            backend_module.ee, "Reducer",
+            SimpleNamespace(minMax=lambda: "REDUCER:minMax"),
+            raising=False,
+        )
+        ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        assert gee._discover_ee_extent(ds) == (None, None)
+
+    def test_extent_cache_survives_a_none_result(self, make_gee, monkeypatch):
+        """A `(None, None)` result still populates the cache (no repeat queries)."""
+        calls: list[str] = []
+
+        def _fake_discover(self, var_info):
+            calls.append(var_info.id)
+            return None, None
+
+        monkeypatch.setattr(GEE, "_discover_ee_extent", _fake_discover)
+        gee = make_gee(
+            variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+            scale=5566.0, start="2020-01-01", end="2099-01-01",
+            discover_extent=True,
+        )
+        ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        gee._maybe_discover_ee_extent(ds)
+        gee._maybe_discover_ee_extent(ds)
+        assert calls == ["UCSB-CHG/CHIRPS/DAILY"]
+
 
 class TestDownloadRejections:
     """Tests for invalid / not-yet-supported configurations."""

@@ -98,7 +98,12 @@ def _retry_on_transient_errors(
     Returns:
         A function with the same signature as `fn` whose call pattern
         is `attempt → sleep → attempt → sleep → ... → final attempt`.
+
+    Raises:
+        ValueError: If `tries < 1` (then no attempt would be made).
     """
+    if tries < 1:
+        raise ValueError(f"tries must be >= 1, got {tries}")
 
     def wrapper(*args, **kwargs):
         delay = initial_delay
