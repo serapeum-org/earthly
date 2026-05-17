@@ -129,18 +129,19 @@ nav:
     - Data Sources: examples/data-sources.md
     - Data Catalog: examples/catalog.md
     - CDS / ECMWF:
-      - Quickstart: examples/cds/cds_quickstart.ipynb
-      - Hydrology — water balance: examples/cds/hydrology_water_balance.ipynb
-      - Oceanography — SST & sea ice: examples/cds/oceanography_sst_sea_ice.ipynb
-      - Atmosphere — pressure levels: examples/cds/atmosphere_pressure_levels.ipynb
-      - Agriculture — crop water demand: examples/cds/agriculture_crop_water.ipynb
-      - Solar — PV resource assessment: examples/cds/solar_resource_assessment.ipynb
-      - Wind — hub-height resource: examples/cds/wind_energy_resource.ipynb
-      - Snow & cryosphere — winter snowpack: examples/cds/snow_cryosphere_winter.ipynb
-      - Heat waves — public health: examples/cds/heat_waves_public_health.ipynb
-      - Climate change — temperature anomalies: examples/cds/climate_change_anomalies.ipynb
-      - Drought — SPI from precipitation: examples/cds/drought_precipitation_deficit.ipynb
+      - Quickstart: examples/ecmwf/cds_quickstart.ipynb
+      - Hydrology — water balance: examples/ecmwf/hydrology_water_balance.ipynb
+      - Oceanography — SST & sea ice: examples/ecmwf/oceanography_sst_sea_ice.ipynb
+      - Atmosphere — pressure levels: examples/ecmwf/atmosphere_pressure_levels.ipynb
+      - Agriculture — crop water demand: examples/ecmwf/agriculture_crop_water.ipynb
+      - Solar — PV resource assessment: examples/ecmwf/solar_resource_assessment.ipynb
+      - Wind — hub-height resource: examples/ecmwf/wind_energy_resource.ipynb
+      - Snow & cryosphere — winter snowpack: examples/ecmwf/snow_cryosphere_winter.ipynb
+      - Heat waves — public health: examples/ecmwf/heat_waves_public_health.ipynb
+      - Climate change — temperature anomalies: examples/ecmwf/climate_change_anomalies.ipynb
+      - Drought — SPI from precipitation: examples/ecmwf/drought_precipitation_deficit.ipynb
     - Google Earth Engine:
+      - Quickstart — EarthLens facade: examples/gee/quickstart.ipynb
       - Atmosphere & chemistry — TROPOMI NO2: examples/gee/atmosphere-chemistry.ipynb
       - Climate reanalysis — ERA5-Land monthly: examples/gee/climate-reanalysis.ipynb
       - Community — Planet NICFI: examples/gee/community.ipynb

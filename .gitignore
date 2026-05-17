@@ -166,5 +166,5 @@ tools/chc/_discovered_paths.json
 # notebooks reference these but the actual binary blobs (era5 .tif /
 # .nc, GEE export tifs) are reproduced on demand by running the
 # notebooks against live services. They must NOT enter git.
-docs/examples/cds/data/
-docs/examples/google-earth-engine/out/
+docs/examples/ecmwf/data/
+docs/examples/gee/out/
