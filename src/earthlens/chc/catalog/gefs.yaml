@@ -1,71 +1,26 @@
-# CHC catalog slice: CHIRPS-GEFS v3 + v12 (ensemble precipitation forecasts).
-# 12 dataset(s). Edit in place; the loader merges every
+# CHC catalog slice: CHIRPS-GEFS v12 (ensemble precipitation forecasts).
+# 9 dataset(s). Edit in place; the loader merges every
 # *.yaml file in this directory into one Catalog at import time.
+#
+# CHIRPS-GEFS v3 rows are NOT shipped today. Three rows
+# (`chirps-gefs-v3-daily`, `chirps-gefs-v3-dekad-lead0`,
+# `chirps-gefs-v3-pentad-lead0`) previously lived here with
+# file_patterns marked "Provisional". A 2026-05-15 probe via
+# `tools/chc/probe_chirps_gefs.py` found that:
+#   * the v3-daily dir is partitioned as `year/month/`, not `year/`;
+#   * the v3-dekad-lead0 and v3-pentad-lead0 dirs each split into
+#     `anom/`, `data/`, and `zscore/` subdirs.
+# Neither shape matches the placeholders the backend wires up today
+# (`{year}` / `{month}` / `{day}` / `{dekad}` / `{pentad}` / `{hour}`
+# / `{doy}` only -- see `backend.py:_placeholders`). Rather than
+# shipping rows whose download path is known-broken, the v3 entries
+# are withheld until both the YAML patterns are verified live and
+# the backend grows the placeholder vocabulary to address the
+# subdir split. Re-run the probe to confirm the layout and resurrect
+# the rows in `_index.yaml`'s `available_datasets:` once verified.
 
 datasets:
 
-  # ===================================================================
-  #  CHIRPS-GEFS v3
-  #
-  #  Provisional patterns -- verify against the FTP listing before use.
-  #  tools/chc/probe_chirps_gefs.py walks the live FTP and surfaces the
-  #  actual filename shape. A 2026-05-15 probe found the v3-daily dir
-  #  is partitioned as year/month/, not just year/; the v3-dekad-lead0
-  #  and v3-pentad-lead0 dirs each split into anom/data/zscore subdirs.
-  #  See H4 in planning/chirps/subpackage-and-tools-review.md.
-  # ===================================================================
-
-  chirps-gefs-v3-daily:
-    ftp_bases:
-      tif: pub/org/chc/products/CHIRPS-GEFS/v3/daily/global/
-    region: global
-    temporal_resolution: daily
-    pandas_freq: D
-    spatial_resolution: [0.05]
-    formats: [tif]
-    start_date: '2001-01-01'
-    # Provisional pattern; verify against the FTP listing before use.
-    file_patterns:
-      tif: "{year}/chirps-gefs.{year}.{month}.{day}.tif"
-    variables:
-      precipitation:
-        description: Daily rainfall estimate
-        units: mm/day
-        types: flux
-  chirps-gefs-v3-dekad-lead0:
-    ftp_bases:
-      tif: pub/org/chc/products/CHIRPS-GEFS/v3/dekad_lead_0/global/
-    region: global
-    temporal_resolution: dekadal
-    pandas_freq: 10D
-    spatial_resolution: [0.05]
-    formats: [tif]
-    start_date: '2001-01-01'
-    # Provisional pattern; verify against the FTP listing before use.
-    file_patterns:
-      tif: chirps-gefs.{year}.{month}.{dekad}.tif
-    variables:
-      precipitation:
-        description: Dekadal (10-day) accumulated rainfall estimate
-        units: mm/dekad
-        types: flux
-  chirps-gefs-v3-pentad-lead0:
-    ftp_bases:
-      tif: pub/org/chc/products/CHIRPS-GEFS/v3/pentad_lead_0/global/
-    region: global
-    temporal_resolution: pentadal
-    pandas_freq: 5D
-    spatial_resolution: [0.05]
-    formats: [tif]
-    start_date: '2001-01-01'
-    # Provisional pattern; verify against the FTP listing before use.
-    file_patterns:
-      tif: chirps-gefs.{year}.{month}.{pentad}.tif
-    variables:
-      precipitation:
-        description: Pentadal (5-day) accumulated rainfall estimate
-        units: mm/pentad
-        types: flux
   chirps-gefs-v12-daily-16day:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/daily_16day/

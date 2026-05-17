@@ -30,10 +30,10 @@ class TestListDatasets:
     """`Catalog.list_datasets` filters by region / temporal_resolution and validates region."""
 
     def test_no_args_returns_every_dataset_sorted(self, catalog: Catalog):
-        """list_datasets() with no filter returns all 100 dataset keys, sorted."""
+        """list_datasets() with no filter returns all 97 dataset keys, sorted."""
         result = catalog.list_datasets()
         assert result == sorted(catalog.datasets)
-        assert len(result) == 100
+        assert len(result) == 97
 
     def test_region_africa_returns_known_africa_entries(self, catalog: Catalog):
         """The seven africa-* entries are returned for region='africa'."""

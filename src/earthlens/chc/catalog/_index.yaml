@@ -63,9 +63,6 @@ available_datasets:
 - chirtsdaily-svp
 - chirtsdaily-vpd
 - chirtsmonthly-tmax
-- chirps-gefs-v3-daily
-- chirps-gefs-v3-dekad-lead0
-- chirps-gefs-v3-pentad-lead0
 - chirps-gefs-v12-daily-16day
 - chirps-gefs-v12-05day
 - chirps-gefs-v12-10day
