@@ -667,6 +667,41 @@ class TestExportViaBatch:
         assert task.started is True and task.poll_count >= 1
 
 
+class TestWaitForExport:
+    """Tests for the `wait_for_export=False` non-blocking path (jobs-plan M1)."""
+
+    def test_default_blocks_and_returns_destination_string(self, make_gee):
+        """`wait_for_export=True` (the default) returns a `drive://...` string."""
+        gee = make_gee(export_via="drive", drive_folder="ee_out")
+        results = gee.download(progress_bar=False)
+        assert results == ["drive://ee_out/USGS_SRTMGL1_003_elevation_20000211"]
+
+    def test_non_blocking_returns_task_info_and_starts_task(self, make_gee):
+        """`wait_for_export=False` starts the task and returns a `TaskInfo`."""
+        from earthlens.gee import TaskInfo
+
+        gee = make_gee(export_via="drive", drive_folder="ee_out", wait_for_export=False)
+        results = gee.download(progress_bar=False)
+        assert len(results) == 1
+        info = results[0]
+        assert isinstance(info, TaskInfo)
+        # The fake task starts immediately + reports its default `COMPLETED`
+        # state in `task.status()` even before any polling, so the adapter
+        # captures a fully-populated TaskInfo.
+        task = gee.client.export_image.tasks[0]
+        assert task.started is True
+
+    def test_non_blocking_does_not_poll(self, make_gee):
+        """In `wait_for_export=False`, the backend does not call `wait_for_task`."""
+        gee = make_gee(export_via="drive", drive_folder="ee_out", wait_for_export=False)
+        gee.download(progress_bar=False)
+        task = gee.client.export_image.tasks[0]
+        # `wait_for_task` would have polled `task.status()` at least once;
+        # the non-blocking path also calls `task.status()` once (to build
+        # the `TaskInfo`), so `poll_count == 1` is correct.
+        assert task.poll_count == 1
+
+
 class TestExportViaAsset:
     """Tests for the `export_via="asset"` path (M1)."""
 

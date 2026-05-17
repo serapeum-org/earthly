@@ -69,6 +69,7 @@ from earthlens.gee._helpers import (
 from earthlens.gee.auth import AuthenticationError, EarthEngineAuth
 from earthlens.gee.catalog import Catalog, Dataset
 from earthlens.gee.features import create_feature
+from earthlens.gee.jobs import TaskInfo, _op_to_taskinfo
 
 if TYPE_CHECKING:  # pragma: no cover - typing only
     from geopandas import GeoDataFrame
@@ -173,6 +174,15 @@ class GEE(AbstractDataSource):
             lifetime of the `GEE` instance. Defaults to `False` — the
             previous behaviour, which uses `now() + 1 day` as the upper
             bound for open-ended catalog entries.
+        wait_for_export: For asynchronous sinks (`export_via="drive"` /
+            `"gcs"` / `"asset"`), whether `download()` blocks until
+            each task reaches a terminal state. Defaults to `True`
+            (the historical behaviour — returns the destination
+            string). When `False`, each task is started and
+            `download()` returns a list of :class:`TaskInfo` objects
+            so the caller can track them asynchronously via
+            :mod:`earthlens.gee.jobs`. Ignored for `export_via="url"`,
+            which is always synchronous.
 
     Raises:
         AuthenticationError: If Earth Engine cannot be initialised
@@ -230,6 +240,7 @@ class GEE(AbstractDataSource):
         http_timeout: float | None = None,
         auto_split: bool = False,
         discover_extent: bool = False,
+        wait_for_export: bool = True,
     ):
         # Validate the pure (no-I/O) config first so a bad `export_via`
         # fails fast, before paying for the ~3.3 s cold-cache catalog
@@ -270,6 +281,7 @@ class GEE(AbstractDataSource):
         )
         self.auto_split = bool(auto_split)
         self.discover_extent = bool(discover_extent)
+        self.wait_for_export = bool(wait_for_export)
         self._extent_cache: dict[str, tuple[dt.datetime | None, dt.datetime | None]] = {}
         self._ee_geometry = None  # lazily built in `_ee_region`
 
@@ -410,7 +422,7 @@ class GEE(AbstractDataSource):
 
     def download(
         self, progress_bar: bool = True, aggregate: Any = None
-    ) -> list[Path | str]:
+    ) -> list[Path | str | TaskInfo]:
         """Download every requested band-set of every requested dataset.
 
         Args:
@@ -420,19 +432,30 @@ class GEE(AbstractDataSource):
                 raises `NotImplementedError` (see plan task `M3`).
 
         Returns:
-            One entry per `(dataset, band-set, time-bucket)`: a
-            :class:`pathlib.Path` to the written GeoTIFF for
-            `export_via="url"`, or a destination string
-            (`"drive://<folder>/<prefix>"` / `"gs://<bucket>/<prefix>"` /
-            `"ee://<asset_id>/<prefix>"`) for the asynchronous
-            `"drive"` / `"gcs"` / `"asset"` exports.
+            One entry per `(dataset, band-set, time-bucket)`. The
+            shape depends on the sink:
+
+            * `export_via="url"` — :class:`pathlib.Path` to the
+              written GeoTIFF (always synchronous).
+            * `export_via="drive"` / `"gcs"` / `"asset"` with the
+              default `wait_for_export=True` — destination string
+              (`"drive://<folder>/<prefix>"` / `"gs://<bucket>/<prefix>"` /
+              `"ee://<asset_id>/<prefix>"`), populated only once
+              the task reaches `COMPLETED`.
+            * `export_via="drive"` / `"gcs"` / `"asset"` with
+              `wait_for_export=False` — :class:`TaskInfo` captured
+              at submission time; follow up via
+              :mod:`earthlens.gee.jobs` (`get_task_status`,
+              `wait_for_task_id`, etc.).
 
         Raises:
             NotImplementedError: If `aggregate` is not `None`.
             ValueError: On an unknown asset id, an unknown band, or an
                 oversized `"url"` request (see :meth:`_api`).
             RuntimeError: If a `"drive"` / `"gcs"` / `"asset"` export
-                task fails.
+                task fails. Only raised when `wait_for_export=True`;
+                in the non-blocking mode the caller handles failures
+                themselves via `wait_for_task_id`.
 
         Examples:
             - Download one band, one image (needs network + credentials):
@@ -477,14 +500,14 @@ class GEE(AbstractDataSource):
                 "aggregate= is not yet supported by the GEE backend "
                 "(planned — see the GEE plan task M3)."
             )
-        outputs: list[Path | str] = []
+        outputs: list[Path | str | TaskInfo] = []
         for asset_id, bands in self.vars.items():
             outputs.extend(self._download_dataset(asset_id, list(bands), progress_bar))
         return outputs
 
     def _download_dataset(
         self, asset_id: str, bands: list[str], progress_bar: bool = True
-    ) -> list[Path | str]:
+    ) -> list[Path | str | TaskInfo]:
         """Download one dataset's requested bands across the time buckets.
 
         Validates `asset_id` and every band against the catalog, clamps
@@ -594,7 +617,7 @@ class GEE(AbstractDataSource):
 
     def _api(
         self, image, var_info: Dataset, bands: list[str], when: dt.datetime
-    ) -> Path | str:
+    ) -> Path | str | TaskInfo:
         """Export one composited `ee.Image` via the configured `export_via`.
 
         For `export_via="url"`: estimate the request's pixel dimensions
@@ -747,8 +770,16 @@ class GEE(AbstractDataSource):
         )
         return target
 
-    def _export_via_batch(self, image, scale: float, region, prefix: str) -> str:
-        """Queue an `ee.batch.Export.image.to{Drive,CloudStorage,Asset}` task and wait for it."""
+    def _export_via_batch(self, image, scale: float, region, prefix: str) -> str | TaskInfo:
+        """Queue an `ee.batch.Export.image.to{Drive,CloudStorage,Asset}` task.
+
+        When `wait_for_export=True` (the default) blocks until the task
+        reaches a terminal state via `wait_for_task` and returns the
+        destination URL (`drive://...` / `gs://...` / `ee://...`).
+        When `wait_for_export=False` returns a :class:`TaskInfo`
+        immediately so the caller can track the task asynchronously via
+        :mod:`earthlens.gee.jobs`.
+        """
         common = {
             "image": image,
             "description": prefix[:100],
@@ -773,6 +804,14 @@ class GEE(AbstractDataSource):
             target_asset = f"{self.asset_id.rstrip('/')}/{prefix}"
             task = ee.batch.Export.image.toAsset(assetId=target_asset, **common)
             destination = f"ee://{target_asset}"
+        if not self.wait_for_export:
+            task.start()
+            info = _op_to_taskinfo(task.status())
+            logger.info(
+                f"Submitted {self.export_via} export {info.id} "
+                f"({info.description}); track via earthlens.gee.jobs."
+            )
+            return info
         wait_for_task(task, progress_bar=True)
         logger.info(f"Exported {destination} (pull it from the {self.export_via} destination)")
         return destination

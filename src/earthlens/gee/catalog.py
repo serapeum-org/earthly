@@ -771,6 +771,43 @@ class Catalog(AbstractCatalog):
         """
         return self.get_band(dataset_id, band_id)
 
+    # -- job / task tracking shortcuts (M2 in gee-jobs-tracking-plan) ----
+    # Thin delegations to `earthlens.gee.jobs` so callers can stay on the
+    # catalog object instead of importing the jobs module separately —
+    # parity with `earthlens.ecmwf.Catalog.list_recent_jobs`.
+
+    def list_recent_tasks(self, **kwargs: Any) -> list[Any]:
+        """List recent Earth Engine batch tasks (delegates to `gee.jobs`).
+
+        Args:
+            **kwargs: Forwarded verbatim to
+                :func:`earthlens.gee.jobs.list_recent_tasks` —
+                `state` / `max_age_min` / `task_type` /
+                `description_prefix` / `project` / `limit`.
+
+        Returns:
+            A list of :class:`earthlens.gee.jobs.TaskInfo`, newest first.
+        """
+        from earthlens.gee.jobs import list_recent_tasks
+
+        return list_recent_tasks(**kwargs)
+
+    def get_task_status(self, task_id: str, **kwargs: Any) -> Any:
+        """Fetch one task's status by id (delegates to `gee.jobs`).
+
+        Args:
+            task_id: Bare task id or full operation name.
+            **kwargs: Forwarded to
+                :func:`earthlens.gee.jobs.get_task_status` —
+                currently just `project`.
+
+        Returns:
+            A :class:`earthlens.gee.jobs.TaskInfo`.
+        """
+        from earthlens.gee.jobs import get_task_status
+
+        return get_task_status(task_id, **kwargs)
+
     # dict-like surface (`__repr__` / `__str__` / `__getitem__` / `__contains__`
     # / `__iter__` / `__len__`) and the `get_dataset(name)`-with-hint helper
     # are inherited from :class:`earthlens.base.AbstractCatalog` (M1 in

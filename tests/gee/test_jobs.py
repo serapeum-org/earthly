@@ -165,6 +165,15 @@ class TestOpAdapter:
         with pytest.raises(ValueError, match="unknown EE task state 'GARGLE'"):
             _op_to_taskinfo(_op(state="GARGLE"))
 
+    @pytest.mark.parametrize("lro, normalised", [
+        ("PENDING", "READY"),
+        ("SUCCEEDED", "COMPLETED"),
+    ])
+    def test_lro_state_aliases_are_normalised(self, lro, normalised):
+        """The Operations LRO vocabulary (`PENDING` / `SUCCEEDED`) folds into Task.State."""
+        info = _op_to_taskinfo(_op(state=lro))
+        assert info.state == normalised
+
     def test_missing_create_and_update_time_falls_back_to_now(self):
         """Both timestamps missing → create_time defaults to now(); update follows."""
         op = _op()
@@ -420,3 +429,112 @@ class TestTerminalStates:
         assert TERMINAL_TASK_STATES == frozenset(
             {"COMPLETED", "FAILED", "CANCELLED", "CANCEL_REQUESTED"}
         )
+
+
+# -- M2: Catalog convenience methods ----------------------------------------
+
+
+class TestCatalogShortcuts:
+    """Tests for `Catalog.list_recent_tasks` / `Catalog.get_task_status` (M2)."""
+
+    def test_catalog_list_recent_tasks_delegates(self, monkeypatch):
+        """`Catalog.list_recent_tasks(**kw)` forwards verbatim to the jobs module."""
+        from earthlens.gee import Catalog
+        captured: dict = {}
+
+        def _stub(**kw):
+            captured.update(kw)
+            return ["sentinel"]
+
+        monkeypatch.setattr(jobs_module, "list_recent_tasks", _stub)
+        cat = Catalog.model_construct(
+            available_datasets=[], datasets={}, providers={},
+        )
+        result = cat.list_recent_tasks(state="RUNNING", max_age_min=120)
+        assert result == ["sentinel"]
+        assert captured == {"state": "RUNNING", "max_age_min": 120}
+
+    def test_catalog_get_task_status_delegates(self, monkeypatch):
+        """`Catalog.get_task_status(id, **kw)` forwards verbatim."""
+        from earthlens.gee import Catalog
+        captured: dict = {}
+
+        def _stub(task_id, **kw):
+            captured["task_id"] = task_id
+            captured.update(kw)
+            return "sentinel"
+
+        monkeypatch.setattr(jobs_module, "get_task_status", _stub)
+        cat = Catalog.model_construct(
+            available_datasets=[], datasets={}, providers={},
+        )
+        result = cat.get_task_status("ID0001", project="my-project")
+        assert result == "sentinel"
+        assert captured == {"task_id": "ID0001", "project": "my-project"}
+
+
+# -- M4: CLI parsing --------------------------------------------------------
+
+
+class TestCli:
+    """Tests for the `python -m earthlens.gee.jobs` argparse surface."""
+
+    def test_list_command_invokes_list_recent_tasks(self, monkeypatch, capsys):
+        captured: dict = {"calls": 0}
+
+        def _stub_list(**kw):
+            captured["calls"] += 1
+            captured.update(kw)
+            return [_op_to_taskinfo(_op(state="RUNNING", task_id="LCMD1"))]
+
+        monkeypatch.setattr(jobs_module, "list_recent_tasks", _stub_list)
+        monkeypatch.setattr(jobs_module, "_maybe_initialize_ee", lambda: None)
+        rc = jobs_module.main([
+            "list", "--state", "RUNNING", "--max-age-min", "30",
+        ])
+        out = capsys.readouterr().out
+        assert rc == 0
+        assert "LCMD1" in out
+        assert captured["state"] == "RUNNING"
+        assert captured["max_age_min"] == 30
+
+    def test_list_command_prints_no_match_marker_when_empty(self, monkeypatch, capsys):
+        monkeypatch.setattr(jobs_module, "list_recent_tasks", lambda **kw: [])
+        monkeypatch.setattr(jobs_module, "_maybe_initialize_ee", lambda: None)
+        rc = jobs_module.main(["list", "--state", "RUNNING"])
+        assert rc == 0
+        assert "(no tasks match)" in capsys.readouterr().out
+
+    def test_status_command_dumps_pydantic_json(self, monkeypatch, capsys):
+        info = _op_to_taskinfo(_op(state="COMPLETED", done=True,
+                                   destination_uris=["drive://x.tif"]))
+        monkeypatch.setattr(jobs_module, "get_task_status", lambda *a, **k: info)
+        monkeypatch.setattr(jobs_module, "_maybe_initialize_ee", lambda: None)
+        rc = jobs_module.main(["status", "ID0001"])
+        out = capsys.readouterr().out
+        assert rc == 0
+        assert '"state": "COMPLETED"' in out
+        assert "drive://x.tif" in out
+
+    def test_cancel_command_calls_cancel_task(self, monkeypatch, capsys):
+        captured: dict = {}
+        monkeypatch.setattr(
+            jobs_module, "cancel_task",
+            lambda task_id, **kw: captured.update({"task_id": task_id, **kw}),
+        )
+        monkeypatch.setattr(jobs_module, "_maybe_initialize_ee", lambda: None)
+        rc = jobs_module.main(["cancel", "ID0001"])
+        assert rc == 0
+        assert captured == {"task_id": "ID0001", "project": None}
+        assert "cancel requested for ID0001" in capsys.readouterr().out
+
+    def test_wait_command_invokes_wait_for_task_id(self, monkeypatch, capsys):
+        info = _op_to_taskinfo(_op(state="COMPLETED", done=True,
+                                   destination_uris=["drive://x.tif"]))
+        monkeypatch.setattr(jobs_module, "wait_for_task_id", lambda *a, **k: info)
+        monkeypatch.setattr(jobs_module, "_maybe_initialize_ee", lambda: None)
+        rc = jobs_module.main(["wait", "ID0001", "--no-progress-bar"])
+        out = capsys.readouterr().out
+        assert rc == 0
+        assert "COMPLETED" in out
+        assert "drive://x.tif" in out

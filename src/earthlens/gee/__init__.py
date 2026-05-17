@@ -51,6 +51,28 @@ Two submodules ship more specialised helpers and are intentionally
   `by_property_in` / `by_cloud_cover_lte` / `by_year_and_bounds`
   for `ee.ImageCollection.filter*` composition.
 
+Job / task tracking — for asynchronous `export_via="drive"` /
+`"gcs"` / `"asset"` sinks, the :mod:`earthlens.gee.jobs` module
+exposes a small set of helpers re-exported from this package:
+
+* Pass `wait_for_export=False` to `GEE(...)` so `download()` returns
+  :class:`TaskInfo` value objects at submission time instead of
+  blocking until each task reaches a terminal state.
+* :func:`list_recent_tasks` (also as `Catalog.list_recent_tasks`)
+  lists every Earth Engine batch task on the current project, with
+  filters by `state` / age / `task_type` / `description_prefix`.
+* :func:`get_task_status` (also as `Catalog.get_task_status`),
+  :func:`cancel_task`, :func:`wait_for_task_id` operate by task id —
+  no live `ee.batch.Task` handle required, so they work across
+  process / session boundaries.
+* :func:`resolve_destination` surfaces a completed task's
+  destination URIs (Drive / GCS / asset paths) for follow-up
+  pulls.
+
+Mirrors :mod:`earthlens.ecmwf.jobs` — see also the
+"`Tracking async exports`" notebook under
+`examples/notebooks/gee/`.
+
 The Earth Engine SDK (`earthengine-api`, the `[gee]` extra) is imported
 when this package is imported — install `earthlens[gee]` to use it; the
 `EarthLens` facade still imports without it (it loads each backend

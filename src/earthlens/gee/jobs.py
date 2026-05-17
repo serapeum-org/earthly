@@ -56,7 +56,16 @@ TERMINAL_TASK_STATES: frozenset[str] = frozenset(
     {"COMPLETED", "FAILED", "CANCELLED", "CANCEL_REQUESTED"}
 )
 
-#: Every state EE may report (verified against `ee.batch.Task.State`).
+#: Every state earthlens may report on a normalised `TaskInfo`. Earth
+#: Engine has two overlapping vocabularies: the high-level
+#: `ee.batch.Task.State` (`UNSUBMITTED` / `READY` / `RUNNING` /
+#: `CANCEL_REQUESTED` / `CANCELLED` / `COMPLETED` / `FAILED`) and the
+#: underlying Google Long-Running-Operations names that
+#: `ee.data.listOperations()` returns (`PENDING` for queued,
+#: `SUCCEEDED` for completed). The adapter folds the LRO names into
+#: their `Task.State` equivalents via :data:`_STATE_ALIASES` so
+#: downstream code sees the single :data:`_VALID_TASK_STATES`
+#: vocabulary.
 _VALID_TASK_STATES: frozenset[str] = frozenset(
     {
         "UNSUBMITTED",
@@ -68,6 +77,12 @@ _VALID_TASK_STATES: frozenset[str] = frozenset(
         "FAILED",
     }
 )
+
+#: LRO -> Task.State aliases applied at adapter time.
+_STATE_ALIASES: dict[str, str] = {
+    "PENDING": "READY",       # queued, awaiting a worker
+    "SUCCEEDED": "COMPLETED",
+}
 
 TaskState = Literal[
     "UNSUBMITTED",
@@ -232,10 +247,12 @@ def _op_to_taskinfo(payload: dict[str, Any]) -> TaskInfo:
         destination_uris = tuple(payload.get("destination_uris") or ())
         error_message = payload.get("error_message")
 
+    state = _STATE_ALIASES.get(state, state)
     if state not in _VALID_TASK_STATES:
         raise ValueError(
             f"unknown EE task state {state!r}; expected one of "
-            f"{sorted(_VALID_TASK_STATES)}"
+            f"{sorted(_VALID_TASK_STATES)} (or LRO aliases "
+            f"{sorted(_STATE_ALIASES)})"
         )
     if create_time is None:
         # Both shapes should always carry a create-time; fall back to
@@ -475,3 +492,150 @@ def resolve_destination(
             f"{task_info.state}, not COMPLETED — destination_uris is empty."
         )
     return list(task_info.destination_uris)
+
+
+# -- CLI (M4 in gee-jobs-tracking-plan) -------------------------------------
+
+
+def _maybe_initialize_ee() -> None:
+    """Authenticate `ee` from env vars when not already initialised.
+
+    Probes the current EE state with `ee.data._get_projects_path()`
+    (which raises `EEException` if `ee.Initialize` hasn't run). When
+    EE is uninitialised, prefers `GEE_SERVICE_ACCOUNT` +
+    `GEE_SERVICE_KEY`, else falls back to `GEE_PROJECT` for the
+    interactive `ee.Initialize(project=...)` path.
+    """
+    import os
+
+    try:
+        ee.data._get_projects_path()
+        return
+    except ee.EEException:
+        pass
+    sa = os.environ.get("GEE_SERVICE_ACCOUNT")
+    key = os.environ.get("GEE_SERVICE_KEY")
+    if sa and key:
+        from earthlens.gee.auth import EarthEngineAuth
+
+        EarthEngineAuth.initialize(sa, key)
+        return
+    project = os.environ.get("GEE_PROJECT")
+    if project:
+        ee.Initialize(project=project)
+        return
+    raise SystemExit(
+        "Earth Engine is not initialised. Set GEE_SERVICE_ACCOUNT + "
+        "GEE_SERVICE_KEY (preferred) or GEE_PROJECT, or call "
+        "`ee.Initialize(...)` in a Python session before invoking this CLI."
+    )
+
+
+def _print_task_oneline(t: TaskInfo) -> None:
+    """Render a single :class:`TaskInfo` as one terminal-friendly line."""
+    started = t.start_time.strftime("%Y-%m-%d %H:%M:%S") if t.start_time else "—"
+    print(
+        f"{t.id:26} {t.state:18} {t.task_type:14} "
+        f"created={t.create_time:%Y-%m-%d %H:%M:%S} started={started:<19} "
+        f"{t.description}"
+    )
+
+
+def _cmd_list(args) -> int:
+    tasks = list_recent_tasks(
+        state=args.state,
+        max_age_min=args.max_age_min,
+        task_type=args.task_type,
+        description_prefix=args.description_prefix,
+        project=args.project,
+        limit=args.limit,
+    )
+    if not tasks:
+        print("(no tasks match)")
+        return 0
+    for t in tasks:
+        _print_task_oneline(t)
+    return 0
+
+
+def _cmd_status(args) -> int:
+    t = get_task_status(args.task_id, project=args.project)
+    print(t.model_dump_json(indent=2))
+    return 0
+
+
+def _cmd_cancel(args) -> int:
+    cancel_task(args.task_id, project=args.project)
+    print(f"cancel requested for {args.task_id}")
+    return 0
+
+
+def _cmd_wait(args) -> int:
+    t = wait_for_task_id(
+        args.task_id,
+        poll_seconds=args.poll_seconds,
+        progress_bar=not args.no_progress_bar,
+        project=args.project,
+    )
+    print(f"task {t.id} COMPLETED")
+    for uri in t.destination_uris:
+        print(f"  -> {uri}")
+    return 0
+
+
+def _build_argparser():
+    import argparse
+
+    p = argparse.ArgumentParser(
+        prog="python -m earthlens.gee.jobs",
+        description=(
+            "Track Earth Engine batch tasks (Drive / GCS / asset sinks). "
+            "Reads GEE_SERVICE_ACCOUNT + GEE_SERVICE_KEY from the "
+            "environment when ee is not already initialised."
+        ),
+    )
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    list_p = sub.add_parser("list", help="list recent tasks (one per line)")
+    list_p.add_argument("--state", default=None,
+                       help='filter by state (e.g. "RUNNING", "FAILED")')
+    list_p.add_argument("--max-age-min", type=int, default=None,
+                       help="drop tasks older than this many minutes")
+    list_p.add_argument("--task-type", default=None,
+                       help='filter by Task.Type (e.g. "EXPORT_IMAGE")')
+    list_p.add_argument("--description-prefix", default=None,
+                       help="substring match against task description")
+    list_p.add_argument("--limit", type=int, default=None)
+    list_p.add_argument("--project", default=None)
+    list_p.set_defaults(func=_cmd_list)
+
+    status_p = sub.add_parser("status", help="dump one task as pydantic JSON")
+    status_p.add_argument("task_id")
+    status_p.add_argument("--project", default=None)
+    status_p.set_defaults(func=_cmd_status)
+
+    cancel_p = sub.add_parser("cancel", help="cancel a queued / running task")
+    cancel_p.add_argument("task_id")
+    cancel_p.add_argument("--project", default=None)
+    cancel_p.set_defaults(func=_cmd_cancel)
+
+    wait_p = sub.add_parser("wait", help="block until a task reaches a terminal state")
+    wait_p.add_argument("task_id")
+    wait_p.add_argument("--poll-seconds", type=float, default=15.0)
+    wait_p.add_argument("--no-progress-bar", action="store_true")
+    wait_p.add_argument("--project", default=None)
+    wait_p.set_defaults(func=_cmd_wait)
+
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Entry point for `python -m earthlens.gee.jobs`."""
+    parser = _build_argparser()
+    args = parser.parse_args(argv)
+    _maybe_initialize_ee()
+    return args.func(args)
+
+
+if __name__ == "__main__":  # pragma: no cover - exercised via subprocess in M5 tests
+    raise SystemExit(main())
