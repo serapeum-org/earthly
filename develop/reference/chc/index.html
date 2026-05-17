@@ -1752,14 +1752,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/atmosphere-chemistry/" class="md-nav__link">
+      <a href="../../examples/gee/atmosphere-chemistry.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Atmosphere &amp; chemistry — Sentinel-5P NO2
+    Atmosphere & chemistry — TROPOMI NO2
   
 
     
@@ -1780,14 +1780,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/climate-reanalysis/" class="md-nav__link">
+      <a href="../../examples/gee/climate-reanalysis.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Climate reanalysis — ERA5-Land monthly 2 m temperature
+    Climate reanalysis — ERA5-Land monthly
   
 
     
@@ -1808,14 +1808,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/community/" class="md-nav__link">
+      <a href="../../examples/gee/community.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Community — Planet NICFI 2024 basemap
+    Community — Planet NICFI
   
 
     
@@ -1836,14 +1836,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/elevation-terrain/" class="md-nav__link">
+      <a href="../../examples/gee/elevation-terrain.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Elevation &amp; terrain — SRTM 30 m
+    Elevation & terrain — SRTM 30 m
   
 
     
@@ -1864,14 +1864,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/hydrology-water/" class="md-nav__link">
+      <a href="../../examples/gee/hydrology-water.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Hydrology &amp; water — JRC Global Surface Water (v1.4)
+    Hydrology & water — JRC Global Surface Water
   
 
     
@@ -1892,14 +1892,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/land-cover-change/" class="md-nav__link">
+      <a href="../../examples/gee/land-cover-change.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Land cover &amp; change — ESA WorldCover v200 (2021)
+    Land cover & change — ESA WorldCover
   
 
     
@@ -1920,14 +1920,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/optical-multispectral/" class="md-nav__link">
+      <a href="../../examples/gee/optical-multispectral.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Optical / multispectral — Sentinel-2 SR Harmonized
+    Optical / multispectral — Sentinel-2 SR
   
 
     
@@ -1948,14 +1948,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/other/" class="md-nav__link">
+      <a href="../../examples/gee/other.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Other — CIESIN GPWv4 population density
+    Other — CIESIN GPWv4 population
   
 
     
@@ -1976,14 +1976,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/precipitation/" class="md-nav__link">
+      <a href="../../examples/gee/precipitation.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Precipitation — CHIRPS daily rainfall
+    Precipitation — CHIRPS daily
   
 
     
@@ -2004,14 +2004,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/sar-radar/" class="md-nav__link">
+      <a href="../../examples/gee/sar-radar.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    SAR / radar — Sentinel-1 GRD VV backscatter
+    SAR / radar — Sentinel-1 GRD VV
   
 
     
@@ -2032,14 +2032,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/gee/track-batch-exports/" class="md-nav__link">
+      <a href="../../examples/gee/track-batch-exports.ipynb" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Tracking asynchronous Earth Engine exports
+    Tracking batch exports (end-to-end demo)
   
 
     
@@ -3310,7 +3310,16 @@ once at construction; resolves dataset keys to metadata.</p>
 <span class="normal"><a href="#__codelineno-0-900">900</a></span>
 <span class="normal"><a href="#__codelineno-0-901">901</a></span>
 <span class="normal"><a href="#__codelineno-0-902">902</a></span>
-<span class="normal"><a href="#__codelineno-0-903">903</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-144" name="__codelineno-0-144"></a><span class="k">class</span><span class="w"> </span><span class="nc">CHIRPS</span><span class="p">(</span><span class="n">AbstractDataSource</span><span class="p">):</span>
+<span class="normal"><a href="#__codelineno-0-903">903</a></span>
+<span class="normal"><a href="#__codelineno-0-904">904</a></span>
+<span class="normal"><a href="#__codelineno-0-905">905</a></span>
+<span class="normal"><a href="#__codelineno-0-906">906</a></span>
+<span class="normal"><a href="#__codelineno-0-907">907</a></span>
+<span class="normal"><a href="#__codelineno-0-908">908</a></span>
+<span class="normal"><a href="#__codelineno-0-909">909</a></span>
+<span class="normal"><a href="#__codelineno-0-910">910</a></span>
+<span class="normal"><a href="#__codelineno-0-911">911</a></span>
+<span class="normal"><a href="#__codelineno-0-912">912</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-144" name="__codelineno-0-144"></a><span class="k">class</span><span class="w"> </span><span class="nc">CHIRPS</span><span class="p">(</span><span class="n">AbstractDataSource</span><span class="p">):</span>
 <a id="__codelineno-0-145" name="__codelineno-0-145"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;CHIRPS catalog-driven FTP backend.</span>
 <a id="__codelineno-0-146" name="__codelineno-0-146"></a>
 <a id="__codelineno-0-147" name="__codelineno-0-147"></a><span class="sd">    Public surface: construct with a date range, a bbox, and</span>
@@ -3919,157 +3928,166 @@ once at construction; resolves dataset keys to metadata.</p>
 <a id="__codelineno-0-750" name="__codelineno-0-750"></a>
 <a id="__codelineno-0-751" name="__codelineno-0-751"></a><span class="sd">        Args:</span>
 <a id="__codelineno-0-752" name="__codelineno-0-752"></a><span class="sd">            remote_dir: Remote directory the file lives under (absolute</span>
-<a id="__codelineno-0-753" name="__codelineno-0-753"></a><span class="sd">                path on `data.chc.ucsb.edu`).</span>
-<a id="__codelineno-0-754" name="__codelineno-0-754"></a><span class="sd">            remote_filename: File name within `remote_dir`.</span>
-<a id="__codelineno-0-755" name="__codelineno-0-755"></a><span class="sd">            local_path: Local path to write the downloaded bytes to.</span>
-<a id="__codelineno-0-756" name="__codelineno-0-756"></a><span class="sd">            ftp: Optional shared FTP session (L5). When provided, this</span>
-<a id="__codelineno-0-757" name="__codelineno-0-757"></a><span class="sd">                method reuses the caller&#39;s already-logged-in session</span>
-<a id="__codelineno-0-758" name="__codelineno-0-758"></a><span class="sd">                (one login per batch instead of one login per file).</span>
-<a id="__codelineno-0-759" name="__codelineno-0-759"></a><span class="sd">                When `None`, opens a fresh anonymous login, runs the</span>
-<a id="__codelineno-0-760" name="__codelineno-0-760"></a><span class="sd">                fetch, and closes the session before returning.</span>
-<a id="__codelineno-0-761" name="__codelineno-0-761"></a><span class="sd">        &quot;&quot;&quot;</span>
-<a id="__codelineno-0-762" name="__codelineno-0-762"></a>        <span class="k">if</span> <span class="n">ftp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-763" name="__codelineno-0-763"></a>            <span class="n">ftp</span><span class="o">.</span><span class="n">cwd</span><span class="p">(</span><span class="n">remote_dir</span><span class="p">)</span>
-<a id="__codelineno-0-764" name="__codelineno-0-764"></a>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-<a id="__codelineno-0-765" name="__codelineno-0-765"></a>                <span class="n">ftp</span><span class="o">.</span><span class="n">retrbinary</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RETR </span><span class="si">{</span><span class="n">remote_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>
-<a id="__codelineno-0-766" name="__codelineno-0-766"></a>            <span class="k">return</span>
-<a id="__codelineno-0-767" name="__codelineno-0-767"></a>        <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">_open_ftp</span><span class="p">())</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-<a id="__codelineno-0-768" name="__codelineno-0-768"></a>            <span class="n">session</span><span class="o">.</span><span class="n">cwd</span><span class="p">(</span><span class="n">remote_dir</span><span class="p">)</span>
-<a id="__codelineno-0-769" name="__codelineno-0-769"></a>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-<a id="__codelineno-0-770" name="__codelineno-0-770"></a>                <span class="n">session</span><span class="o">.</span><span class="n">retrbinary</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RETR </span><span class="si">{</span><span class="n">remote_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>
-<a id="__codelineno-0-771" name="__codelineno-0-771"></a>
-<a id="__codelineno-0-772" name="__codelineno-0-772"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_post_process</span><span class="p">(</span>
-<a id="__codelineno-0-773" name="__codelineno-0-773"></a>        <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-774" name="__codelineno-0-774"></a>        <span class="n">compressed_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
-<a id="__codelineno-0-775" name="__codelineno-0-775"></a>        <span class="n">ds_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<a id="__codelineno-0-776" name="__codelineno-0-776"></a>        <span class="n">dataset</span><span class="p">:</span> <span class="n">ChcDataset</span><span class="p">,</span>
-<a id="__codelineno-0-777" name="__codelineno-0-777"></a>        <span class="n">var</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span>
-<a id="__codelineno-0-778" name="__codelineno-0-778"></a>        <span class="n">date</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">,</span>
-<a id="__codelineno-0-779" name="__codelineno-0-779"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<a id="__codelineno-0-780" name="__codelineno-0-780"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decompress (if `.gz`), clip to the user bbox, write a GeoTIFF.&quot;&quot;&quot;</span>
-<a id="__codelineno-0-781" name="__codelineno-0-781"></a>        <span class="n">local_path</span> <span class="o">=</span> <span class="n">compressed_path</span>
-<a id="__codelineno-0-782" name="__codelineno-0-782"></a>        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">compressed_path</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.gz&quot;</span><span class="p">):</span>
-<a id="__codelineno-0-783" name="__codelineno-0-783"></a>            <span class="n">extracted</span> <span class="o">=</span> <span class="n">compressed_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-784" name="__codelineno-0-784"></a>            <span class="n">extract_from_gz</span><span class="p">(</span>
-<a id="__codelineno-0-785" name="__codelineno-0-785"></a>                <span class="nb">str</span><span class="p">(</span><span class="n">compressed_path</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">extracted</span><span class="p">),</span> <span class="n">delete</span><span class="o">=</span><span class="kc">True</span>
-<a id="__codelineno-0-786" name="__codelineno-0-786"></a>            <span class="p">)</span>
-<a id="__codelineno-0-787" name="__codelineno-0-787"></a>            <span class="n">local_path</span> <span class="o">=</span> <span class="n">extracted</span>
-<a id="__codelineno-0-788" name="__codelineno-0-788"></a>
-<a id="__codelineno-0-789" name="__codelineno-0-789"></a>        <span class="n">raster</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">local_path</span><span class="p">))</span>
-<a id="__codelineno-0-790" name="__codelineno-0-790"></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">raster</span><span class="o">.</span><span class="n">read_array</span><span class="p">()</span>
-<a id="__codelineno-0-791" name="__codelineno-0-791"></a>        <span class="n">_reject_unsigned_for_nodata_sentinel</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-<a id="__codelineno-0-792" name="__codelineno-0-792"></a>        <span class="n">clipped</span><span class="p">,</span> <span class="n">new_geo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clip_to_bbox</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">raster</span><span class="o">.</span><span class="n">geotransform</span><span class="p">)</span>
-<a id="__codelineno-0-793" name="__codelineno-0-793"></a>
-<a id="__codelineno-0-794" name="__codelineno-0-794"></a>        <span class="c1"># CHIRPS encodes &quot;missing&quot; with -9999; some rasters do not</span>
-<a id="__codelineno-0-795" name="__codelineno-0-795"></a>        <span class="c1"># declare a no-data value at all (`raster.no_data_value[0]`</span>
-<a id="__codelineno-0-796" name="__codelineno-0-796"></a>        <span class="c1"># is `None`). Normalise: every negative pixel becomes -9999,</span>
-<a id="__codelineno-0-797" name="__codelineno-0-797"></a>        <span class="c1"># and the output band carries -9999 as its declared no-data.</span>
-<a id="__codelineno-0-798" name="__codelineno-0-798"></a>        <span class="n">nodata_sentinel</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9999.0</span>
-<a id="__codelineno-0-799" name="__codelineno-0-799"></a>        <span class="n">clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">clipped</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nodata_sentinel</span><span class="p">,</span> <span class="n">clipped</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
-<a id="__codelineno-0-800" name="__codelineno-0-800"></a>            <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span>
-<a id="__codelineno-0-801" name="__codelineno-0-801"></a>        <span class="p">)</span>
+<a id="__codelineno-0-753" name="__codelineno-0-753"></a><span class="sd">                path on `data.chc.ucsb.edu`). Always interpreted as an</span>
+<a id="__codelineno-0-754" name="__codelineno-0-754"></a><span class="sd">                absolute path regardless of leading `/` -- the helper</span>
+<a id="__codelineno-0-755" name="__codelineno-0-755"></a><span class="sd">                normalises to `&quot;/&lt;dir&gt;&quot;` before calling `ftp.cwd`. This</span>
+<a id="__codelineno-0-756" name="__codelineno-0-756"></a><span class="sd">                matters for the shared-session path (L5): the session</span>
+<a id="__codelineno-0-757" name="__codelineno-0-757"></a><span class="sd">                retains its working directory across calls, so a</span>
+<a id="__codelineno-0-758" name="__codelineno-0-758"></a><span class="sd">                relative `cwd(&quot;pub/...&quot;)` after a successful fetch into</span>
+<a id="__codelineno-0-759" name="__codelineno-0-759"></a><span class="sd">                `pub/.../2009/` would resolve to</span>
+<a id="__codelineno-0-760" name="__codelineno-0-760"></a><span class="sd">                `pub/.../2009/pub/...` and 550. Forcing absolute paths</span>
+<a id="__codelineno-0-761" name="__codelineno-0-761"></a><span class="sd">                makes every call independent of the previous one.</span>
+<a id="__codelineno-0-762" name="__codelineno-0-762"></a><span class="sd">            remote_filename: File name within `remote_dir`.</span>
+<a id="__codelineno-0-763" name="__codelineno-0-763"></a><span class="sd">            local_path: Local path to write the downloaded bytes to.</span>
+<a id="__codelineno-0-764" name="__codelineno-0-764"></a><span class="sd">            ftp: Optional shared FTP session (L5). When provided, this</span>
+<a id="__codelineno-0-765" name="__codelineno-0-765"></a><span class="sd">                method reuses the caller&#39;s already-logged-in session</span>
+<a id="__codelineno-0-766" name="__codelineno-0-766"></a><span class="sd">                (one login per batch instead of one login per file).</span>
+<a id="__codelineno-0-767" name="__codelineno-0-767"></a><span class="sd">                When `None`, opens a fresh anonymous login, runs the</span>
+<a id="__codelineno-0-768" name="__codelineno-0-768"></a><span class="sd">                fetch, and closes the session before returning.</span>
+<a id="__codelineno-0-769" name="__codelineno-0-769"></a><span class="sd">        &quot;&quot;&quot;</span>
+<a id="__codelineno-0-770" name="__codelineno-0-770"></a>        <span class="n">absolute_dir</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">remote_dir</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-771" name="__codelineno-0-771"></a>        <span class="k">if</span> <span class="n">ftp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-772" name="__codelineno-0-772"></a>            <span class="n">ftp</span><span class="o">.</span><span class="n">cwd</span><span class="p">(</span><span class="n">absolute_dir</span><span class="p">)</span>
+<a id="__codelineno-0-773" name="__codelineno-0-773"></a>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+<a id="__codelineno-0-774" name="__codelineno-0-774"></a>                <span class="n">ftp</span><span class="o">.</span><span class="n">retrbinary</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RETR </span><span class="si">{</span><span class="n">remote_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>
+<a id="__codelineno-0-775" name="__codelineno-0-775"></a>            <span class="k">return</span>
+<a id="__codelineno-0-776" name="__codelineno-0-776"></a>        <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">_open_ftp</span><span class="p">())</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+<a id="__codelineno-0-777" name="__codelineno-0-777"></a>            <span class="n">session</span><span class="o">.</span><span class="n">cwd</span><span class="p">(</span><span class="n">absolute_dir</span><span class="p">)</span>
+<a id="__codelineno-0-778" name="__codelineno-0-778"></a>            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+<a id="__codelineno-0-779" name="__codelineno-0-779"></a>                <span class="n">session</span><span class="o">.</span><span class="n">retrbinary</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RETR </span><span class="si">{</span><span class="n">remote_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">)</span>
+<a id="__codelineno-0-780" name="__codelineno-0-780"></a>
+<a id="__codelineno-0-781" name="__codelineno-0-781"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_post_process</span><span class="p">(</span>
+<a id="__codelineno-0-782" name="__codelineno-0-782"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-783" name="__codelineno-0-783"></a>        <span class="n">compressed_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+<a id="__codelineno-0-784" name="__codelineno-0-784"></a>        <span class="n">ds_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-0-785" name="__codelineno-0-785"></a>        <span class="n">dataset</span><span class="p">:</span> <span class="n">ChcDataset</span><span class="p">,</span>
+<a id="__codelineno-0-786" name="__codelineno-0-786"></a>        <span class="n">var</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span>
+<a id="__codelineno-0-787" name="__codelineno-0-787"></a>        <span class="n">date</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">,</span>
+<a id="__codelineno-0-788" name="__codelineno-0-788"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<a id="__codelineno-0-789" name="__codelineno-0-789"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Decompress (if `.gz`), clip to the user bbox, write a GeoTIFF.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-790" name="__codelineno-0-790"></a>        <span class="n">local_path</span> <span class="o">=</span> <span class="n">compressed_path</span>
+<a id="__codelineno-0-791" name="__codelineno-0-791"></a>        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">compressed_path</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.gz&quot;</span><span class="p">):</span>
+<a id="__codelineno-0-792" name="__codelineno-0-792"></a>            <span class="n">extracted</span> <span class="o">=</span> <span class="n">compressed_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-793" name="__codelineno-0-793"></a>            <span class="n">extract_from_gz</span><span class="p">(</span>
+<a id="__codelineno-0-794" name="__codelineno-0-794"></a>                <span class="nb">str</span><span class="p">(</span><span class="n">compressed_path</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">extracted</span><span class="p">),</span> <span class="n">delete</span><span class="o">=</span><span class="kc">True</span>
+<a id="__codelineno-0-795" name="__codelineno-0-795"></a>            <span class="p">)</span>
+<a id="__codelineno-0-796" name="__codelineno-0-796"></a>            <span class="n">local_path</span> <span class="o">=</span> <span class="n">extracted</span>
+<a id="__codelineno-0-797" name="__codelineno-0-797"></a>
+<a id="__codelineno-0-798" name="__codelineno-0-798"></a>        <span class="n">raster</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">local_path</span><span class="p">))</span>
+<a id="__codelineno-0-799" name="__codelineno-0-799"></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">raster</span><span class="o">.</span><span class="n">read_array</span><span class="p">()</span>
+<a id="__codelineno-0-800" name="__codelineno-0-800"></a>        <span class="n">_reject_unsigned_for_nodata_sentinel</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<a id="__codelineno-0-801" name="__codelineno-0-801"></a>        <span class="n">clipped</span><span class="p">,</span> <span class="n">new_geo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clip_to_bbox</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">raster</span><span class="o">.</span><span class="n">geotransform</span><span class="p">)</span>
 <a id="__codelineno-0-802" name="__codelineno-0-802"></a>
-<a id="__codelineno-0-803" name="__codelineno-0-803"></a>        <span class="n">out_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_filename</span><span class="p">(</span>
-<a id="__codelineno-0-804" name="__codelineno-0-804"></a>            <span class="n">ds_key</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">date</span>
-<a id="__codelineno-0-805" name="__codelineno-0-805"></a>        <span class="p">)</span>
-<a id="__codelineno-0-806" name="__codelineno-0-806"></a>        <span class="n">new_raster</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">create_from_array</span><span class="p">(</span>
-<a id="__codelineno-0-807" name="__codelineno-0-807"></a>            <span class="n">clipped</span><span class="p">,</span>
-<a id="__codelineno-0-808" name="__codelineno-0-808"></a>            <span class="n">geo</span><span class="o">=</span><span class="n">new_geo</span><span class="p">,</span>
-<a id="__codelineno-0-809" name="__codelineno-0-809"></a>            <span class="n">epsg</span><span class="o">=</span><span class="n">raster</span><span class="o">.</span><span class="n">epsg</span><span class="p">,</span>
-<a id="__codelineno-0-810" name="__codelineno-0-810"></a>            <span class="n">no_data_value</span><span class="o">=</span><span class="n">nodata_sentinel</span><span class="p">,</span>
-<a id="__codelineno-0-811" name="__codelineno-0-811"></a>        <span class="p">)</span>
-<a id="__codelineno-0-812" name="__codelineno-0-812"></a>        <span class="n">new_raster</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">out_path</span><span class="p">))</span>
-<a id="__codelineno-0-813" name="__codelineno-0-813"></a>
-<a id="__codelineno-0-814" name="__codelineno-0-814"></a>        <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-0-815" name="__codelineno-0-815"></a>            <span class="n">local_path</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-816" name="__codelineno-0-816"></a>        <span class="k">except</span> <span class="p">(</span><span class="ne">PermissionError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">):</span>
-<a id="__codelineno-0-817" name="__codelineno-0-817"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-<a id="__codelineno-0-818" name="__codelineno-0-818"></a>                <span class="sa">f</span><span class="s2">&quot;could not delete intermediate </span><span class="si">{</span><span class="n">local_path</span><span class="si">}</span><span class="s2">; safe to &quot;</span>
-<a id="__codelineno-0-819" name="__codelineno-0-819"></a>                <span class="s2">&quot;remove after the download finishes&quot;</span>
-<a id="__codelineno-0-820" name="__codelineno-0-820"></a>            <span class="p">)</span>
-<a id="__codelineno-0-821" name="__codelineno-0-821"></a>        <span class="k">return</span> <span class="n">out_path</span>
+<a id="__codelineno-0-803" name="__codelineno-0-803"></a>        <span class="c1"># CHIRPS encodes &quot;missing&quot; with -9999; some rasters do not</span>
+<a id="__codelineno-0-804" name="__codelineno-0-804"></a>        <span class="c1"># declare a no-data value at all (`raster.no_data_value[0]`</span>
+<a id="__codelineno-0-805" name="__codelineno-0-805"></a>        <span class="c1"># is `None`). Normalise: every negative pixel becomes -9999,</span>
+<a id="__codelineno-0-806" name="__codelineno-0-806"></a>        <span class="c1"># and the output band carries -9999 as its declared no-data.</span>
+<a id="__codelineno-0-807" name="__codelineno-0-807"></a>        <span class="n">nodata_sentinel</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9999.0</span>
+<a id="__codelineno-0-808" name="__codelineno-0-808"></a>        <span class="n">clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">clipped</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nodata_sentinel</span><span class="p">,</span> <span class="n">clipped</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+<a id="__codelineno-0-809" name="__codelineno-0-809"></a>            <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span>
+<a id="__codelineno-0-810" name="__codelineno-0-810"></a>        <span class="p">)</span>
+<a id="__codelineno-0-811" name="__codelineno-0-811"></a>
+<a id="__codelineno-0-812" name="__codelineno-0-812"></a>        <span class="n">out_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_filename</span><span class="p">(</span>
+<a id="__codelineno-0-813" name="__codelineno-0-813"></a>            <span class="n">ds_key</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">date</span>
+<a id="__codelineno-0-814" name="__codelineno-0-814"></a>        <span class="p">)</span>
+<a id="__codelineno-0-815" name="__codelineno-0-815"></a>        <span class="n">new_raster</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">create_from_array</span><span class="p">(</span>
+<a id="__codelineno-0-816" name="__codelineno-0-816"></a>            <span class="n">clipped</span><span class="p">,</span>
+<a id="__codelineno-0-817" name="__codelineno-0-817"></a>            <span class="n">geo</span><span class="o">=</span><span class="n">new_geo</span><span class="p">,</span>
+<a id="__codelineno-0-818" name="__codelineno-0-818"></a>            <span class="n">epsg</span><span class="o">=</span><span class="n">raster</span><span class="o">.</span><span class="n">epsg</span><span class="p">,</span>
+<a id="__codelineno-0-819" name="__codelineno-0-819"></a>            <span class="n">no_data_value</span><span class="o">=</span><span class="n">nodata_sentinel</span><span class="p">,</span>
+<a id="__codelineno-0-820" name="__codelineno-0-820"></a>        <span class="p">)</span>
+<a id="__codelineno-0-821" name="__codelineno-0-821"></a>        <span class="n">new_raster</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">out_path</span><span class="p">))</span>
 <a id="__codelineno-0-822" name="__codelineno-0-822"></a>
-<a id="__codelineno-0-823" name="__codelineno-0-823"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_clip_to_bbox</span><span class="p">(</span>
-<a id="__codelineno-0-824" name="__codelineno-0-824"></a>        <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-825" name="__codelineno-0-825"></a>        <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-<a id="__codelineno-0-826" name="__codelineno-0-826"></a>        <span class="n">geo</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
-<a id="__codelineno-0-827" name="__codelineno-0-827"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
-<a id="__codelineno-0-828" name="__codelineno-0-828"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Clip a raster array to `self.space` using its own geo-affine.</span>
-<a id="__codelineno-0-829" name="__codelineno-0-829"></a>
-<a id="__codelineno-0-830" name="__codelineno-0-830"></a><span class="sd">        Works for any pixel size and any extent — no hardcoded 0.05°</span>
-<a id="__codelineno-0-831" name="__codelineno-0-831"></a><span class="sd">        or ±50° assumption. The returned geo-affine is updated so the</span>
-<a id="__codelineno-0-832" name="__codelineno-0-832"></a><span class="sd">        output GeoTIFF has the correct origin.</span>
-<a id="__codelineno-0-833" name="__codelineno-0-833"></a>
-<a id="__codelineno-0-834" name="__codelineno-0-834"></a><span class="sd">        Raises:</span>
-<a id="__codelineno-0-835" name="__codelineno-0-835"></a><span class="sd">            ValueError: If the requested bbox does not overlap the</span>
-<a id="__codelineno-0-836" name="__codelineno-0-836"></a><span class="sd">                raster — without the check, the slice math would</span>
-<a id="__codelineno-0-837" name="__codelineno-0-837"></a><span class="sd">                collapse to a `(0, 0)`-shape array and the caller</span>
-<a id="__codelineno-0-838" name="__codelineno-0-838"></a><span class="sd">                would write an empty GeoTIFF. The error message</span>
-<a id="__codelineno-0-839" name="__codelineno-0-839"></a><span class="sd">                names the user&#39;s bbox and the raster&#39;s geographic</span>
-<a id="__codelineno-0-840" name="__codelineno-0-840"></a><span class="sd">                extent so the typo (swapped lat/lon, off-globe</span>
-<a id="__codelineno-0-841" name="__codelineno-0-841"></a><span class="sd">                coords, dataset region mismatch) is easy to spot.</span>
-<a id="__codelineno-0-842" name="__codelineno-0-842"></a><span class="sd">                Per-date `_download_dataset` failures are now caught</span>
-<a id="__codelineno-0-843" name="__codelineno-0-843"></a><span class="sd">                and logged per the M1 fix, so this never aborts a</span>
-<a id="__codelineno-0-844" name="__codelineno-0-844"></a><span class="sd">                full batch.</span>
-<a id="__codelineno-0-845" name="__codelineno-0-845"></a><span class="sd">        &quot;&quot;&quot;</span>
-<a id="__codelineno-0-846" name="__codelineno-0-846"></a>        <span class="n">origin_x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">geo</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<a id="__codelineno-0-847" name="__codelineno-0-847"></a>        <span class="n">pix_x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">geo</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<a id="__codelineno-0-848" name="__codelineno-0-848"></a>        <span class="n">origin_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">geo</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<a id="__codelineno-0-849" name="__codelineno-0-849"></a>        <span class="n">pix_y</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">geo</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># positive</span>
-<a id="__codelineno-0-850" name="__codelineno-0-850"></a>
-<a id="__codelineno-0-851" name="__codelineno-0-851"></a>        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
-<a id="__codelineno-0-852" name="__codelineno-0-852"></a>        <span class="n">raster_east</span> <span class="o">=</span> <span class="n">origin_x</span> <span class="o">+</span> <span class="n">cols</span> <span class="o">*</span> <span class="n">pix_x</span>
-<a id="__codelineno-0-853" name="__codelineno-0-853"></a>        <span class="n">raster_south</span> <span class="o">=</span> <span class="n">origin_y</span> <span class="o">-</span> <span class="n">rows</span> <span class="o">*</span> <span class="n">pix_y</span>
-<a id="__codelineno-0-854" name="__codelineno-0-854"></a>        <span class="n">col_left_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">west</span> <span class="o">-</span> <span class="n">origin_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">pix_x</span><span class="p">))</span>
-<a id="__codelineno-0-855" name="__codelineno-0-855"></a>        <span class="n">col_right_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">east</span> <span class="o">-</span> <span class="n">origin_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">pix_x</span><span class="p">))</span>
-<a id="__codelineno-0-856" name="__codelineno-0-856"></a>        <span class="n">row_top_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">origin_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">north</span><span class="p">)</span> <span class="o">/</span> <span class="n">pix_y</span><span class="p">))</span>
-<a id="__codelineno-0-857" name="__codelineno-0-857"></a>        <span class="n">row_bot_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">origin_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">south</span><span class="p">)</span> <span class="o">/</span> <span class="n">pix_y</span><span class="p">))</span>
-<a id="__codelineno-0-858" name="__codelineno-0-858"></a>
-<a id="__codelineno-0-859" name="__codelineno-0-859"></a>        <span class="n">col_left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col_left_raw</span><span class="p">)</span>
-<a id="__codelineno-0-860" name="__codelineno-0-860"></a>        <span class="n">col_right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">col_right_raw</span><span class="p">)</span>
-<a id="__codelineno-0-861" name="__codelineno-0-861"></a>        <span class="n">row_top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row_top_raw</span><span class="p">)</span>
-<a id="__codelineno-0-862" name="__codelineno-0-862"></a>        <span class="n">row_bot</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">row_bot_raw</span><span class="p">)</span>
-<a id="__codelineno-0-863" name="__codelineno-0-863"></a>
-<a id="__codelineno-0-864" name="__codelineno-0-864"></a>        <span class="k">if</span> <span class="n">col_right</span> <span class="o">&lt;=</span> <span class="n">col_left</span> <span class="ow">or</span> <span class="n">row_bot</span> <span class="o">&lt;=</span> <span class="n">row_top</span><span class="p">:</span>
-<a id="__codelineno-0-865" name="__codelineno-0-865"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-866" name="__codelineno-0-866"></a>                <span class="sa">f</span><span class="s2">&quot;requested bbox lat=[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">south</span><span class="si">}</span><span class="s2">, &quot;</span>
-<a id="__codelineno-0-867" name="__codelineno-0-867"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">north</span><span class="si">}</span><span class="s2">] lon=[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">west</span><span class="si">}</span><span class="s2">, &quot;</span>
-<a id="__codelineno-0-868" name="__codelineno-0-868"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">east</span><span class="si">}</span><span class="s2">] does not overlap the source &quot;</span>
-<a id="__codelineno-0-869" name="__codelineno-0-869"></a>                <span class="sa">f</span><span class="s2">&quot;raster (extent lat=[</span><span class="si">{</span><span class="n">raster_south</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">origin_y</span><span class="si">}</span><span class="s2">] &quot;</span>
-<a id="__codelineno-0-870" name="__codelineno-0-870"></a>                <span class="sa">f</span><span class="s2">&quot;lon=[</span><span class="si">{</span><span class="n">origin_x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">raster_east</span><span class="si">}</span><span class="s2">]). Check the bbox &quot;</span>
-<a id="__codelineno-0-871" name="__codelineno-0-871"></a>                <span class="s2">&quot;for swapped lat/lon, off-globe coordinates, or a &quot;</span>
-<a id="__codelineno-0-872" name="__codelineno-0-872"></a>                <span class="s2">&quot;dataset whose region doesn&#39;t cover the bbox.&quot;</span>
-<a id="__codelineno-0-873" name="__codelineno-0-873"></a>            <span class="p">)</span>
-<a id="__codelineno-0-874" name="__codelineno-0-874"></a>
-<a id="__codelineno-0-875" name="__codelineno-0-875"></a>        <span class="n">clipped</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">row_top</span><span class="p">:</span><span class="n">row_bot</span><span class="p">,</span> <span class="n">col_left</span><span class="p">:</span><span class="n">col_right</span><span class="p">]</span>
-<a id="__codelineno-0-876" name="__codelineno-0-876"></a>        <span class="n">new_origin_x</span> <span class="o">=</span> <span class="n">origin_x</span> <span class="o">+</span> <span class="n">col_left</span> <span class="o">*</span> <span class="n">pix_x</span>
-<a id="__codelineno-0-877" name="__codelineno-0-877"></a>        <span class="n">new_origin_y</span> <span class="o">=</span> <span class="n">origin_y</span> <span class="o">-</span> <span class="n">row_top</span> <span class="o">*</span> <span class="n">pix_y</span>
-<a id="__codelineno-0-878" name="__codelineno-0-878"></a>        <span class="n">new_geo</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_origin_x</span><span class="p">,</span> <span class="n">pix_x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">new_origin_y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">pix_y</span><span class="p">]</span>
-<a id="__codelineno-0-879" name="__codelineno-0-879"></a>        <span class="k">return</span> <span class="n">clipped</span><span class="p">,</span> <span class="n">new_geo</span>
-<a id="__codelineno-0-880" name="__codelineno-0-880"></a>
-<a id="__codelineno-0-881" name="__codelineno-0-881"></a>    <span class="nd">@staticmethod</span>
-<a id="__codelineno-0-882" name="__codelineno-0-882"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_output_filename</span><span class="p">(</span>
-<a id="__codelineno-0-883" name="__codelineno-0-883"></a>        <span class="n">ds_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<a id="__codelineno-0-884" name="__codelineno-0-884"></a>        <span class="n">dataset</span><span class="p">:</span> <span class="n">ChcDataset</span><span class="p">,</span>
-<a id="__codelineno-0-885" name="__codelineno-0-885"></a>        <span class="n">var</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span>
-<a id="__codelineno-0-886" name="__codelineno-0-886"></a>        <span class="n">date</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">,</span>
-<a id="__codelineno-0-887" name="__codelineno-0-887"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<a id="__codelineno-0-888" name="__codelineno-0-888"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the canonical output filename for one clipped raster.&quot;&quot;&quot;</span>
-<a id="__codelineno-0-889" name="__codelineno-0-889"></a>        <span class="n">granularity</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">temporal_resolution</span>
-<a id="__codelineno-0-890" name="__codelineno-0-890"></a>        <span class="k">if</span> <span class="n">granularity</span> <span class="o">==</span> <span class="s2">&quot;annual&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-891" name="__codelineno-0-891"></a>            <span class="n">date_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span>
-<a id="__codelineno-0-892" name="__codelineno-0-892"></a>        <span class="k">elif</span> <span class="n">granularity</span> <span class="ow">in</span> <span class="p">{</span>
-<a id="__codelineno-0-893" name="__codelineno-0-893"></a>            <span class="s2">&quot;monthly&quot;</span><span class="p">,</span> <span class="s2">&quot;monthly-climatology&quot;</span><span class="p">,</span> <span class="s2">&quot;2-monthly&quot;</span><span class="p">,</span> <span class="s2">&quot;3-monthly&quot;</span>
-<a id="__codelineno-0-894" name="__codelineno-0-894"></a>        <span class="p">}:</span>
-<a id="__codelineno-0-895" name="__codelineno-0-895"></a>            <span class="n">date_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
-<a id="__codelineno-0-896" name="__codelineno-0-896"></a>        <span class="k">elif</span> <span class="n">granularity</span> <span class="o">==</span> <span class="s2">&quot;6-hourly&quot;</span><span class="p">:</span>
-<a id="__codelineno-0-897" name="__codelineno-0-897"></a>            <span class="n">date_str</span> <span class="o">=</span> <span class="p">(</span>
-<a id="__codelineno-0-898" name="__codelineno-0-898"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">day</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.&quot;</span>
-<a id="__codelineno-0-899" name="__codelineno-0-899"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">hour</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
-<a id="__codelineno-0-900" name="__codelineno-0-900"></a>            <span class="p">)</span>
-<a id="__codelineno-0-901" name="__codelineno-0-901"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-902" name="__codelineno-0-902"></a>            <span class="n">date_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">day</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
-<a id="__codelineno-0-903" name="__codelineno-0-903"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ds_key</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s2">.tif&quot;</span>
+<a id="__codelineno-0-823" name="__codelineno-0-823"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-824" name="__codelineno-0-824"></a>            <span class="n">local_path</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-825" name="__codelineno-0-825"></a>        <span class="k">except</span> <span class="p">(</span><span class="ne">PermissionError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">):</span>
+<a id="__codelineno-0-826" name="__codelineno-0-826"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+<a id="__codelineno-0-827" name="__codelineno-0-827"></a>                <span class="sa">f</span><span class="s2">&quot;could not delete intermediate </span><span class="si">{</span><span class="n">local_path</span><span class="si">}</span><span class="s2">; safe to &quot;</span>
+<a id="__codelineno-0-828" name="__codelineno-0-828"></a>                <span class="s2">&quot;remove after the download finishes&quot;</span>
+<a id="__codelineno-0-829" name="__codelineno-0-829"></a>            <span class="p">)</span>
+<a id="__codelineno-0-830" name="__codelineno-0-830"></a>        <span class="k">return</span> <span class="n">out_path</span>
+<a id="__codelineno-0-831" name="__codelineno-0-831"></a>
+<a id="__codelineno-0-832" name="__codelineno-0-832"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_clip_to_bbox</span><span class="p">(</span>
+<a id="__codelineno-0-833" name="__codelineno-0-833"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-834" name="__codelineno-0-834"></a>        <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<a id="__codelineno-0-835" name="__codelineno-0-835"></a>        <span class="n">geo</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+<a id="__codelineno-0-836" name="__codelineno-0-836"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+<a id="__codelineno-0-837" name="__codelineno-0-837"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Clip a raster array to `self.space` using its own geo-affine.</span>
+<a id="__codelineno-0-838" name="__codelineno-0-838"></a>
+<a id="__codelineno-0-839" name="__codelineno-0-839"></a><span class="sd">        Works for any pixel size and any extent — no hardcoded 0.05°</span>
+<a id="__codelineno-0-840" name="__codelineno-0-840"></a><span class="sd">        or ±50° assumption. The returned geo-affine is updated so the</span>
+<a id="__codelineno-0-841" name="__codelineno-0-841"></a><span class="sd">        output GeoTIFF has the correct origin.</span>
+<a id="__codelineno-0-842" name="__codelineno-0-842"></a>
+<a id="__codelineno-0-843" name="__codelineno-0-843"></a><span class="sd">        Raises:</span>
+<a id="__codelineno-0-844" name="__codelineno-0-844"></a><span class="sd">            ValueError: If the requested bbox does not overlap the</span>
+<a id="__codelineno-0-845" name="__codelineno-0-845"></a><span class="sd">                raster — without the check, the slice math would</span>
+<a id="__codelineno-0-846" name="__codelineno-0-846"></a><span class="sd">                collapse to a `(0, 0)`-shape array and the caller</span>
+<a id="__codelineno-0-847" name="__codelineno-0-847"></a><span class="sd">                would write an empty GeoTIFF. The error message</span>
+<a id="__codelineno-0-848" name="__codelineno-0-848"></a><span class="sd">                names the user&#39;s bbox and the raster&#39;s geographic</span>
+<a id="__codelineno-0-849" name="__codelineno-0-849"></a><span class="sd">                extent so the typo (swapped lat/lon, off-globe</span>
+<a id="__codelineno-0-850" name="__codelineno-0-850"></a><span class="sd">                coords, dataset region mismatch) is easy to spot.</span>
+<a id="__codelineno-0-851" name="__codelineno-0-851"></a><span class="sd">                Per-date `_download_dataset` failures are now caught</span>
+<a id="__codelineno-0-852" name="__codelineno-0-852"></a><span class="sd">                and logged per the M1 fix, so this never aborts a</span>
+<a id="__codelineno-0-853" name="__codelineno-0-853"></a><span class="sd">                full batch.</span>
+<a id="__codelineno-0-854" name="__codelineno-0-854"></a><span class="sd">        &quot;&quot;&quot;</span>
+<a id="__codelineno-0-855" name="__codelineno-0-855"></a>        <span class="n">origin_x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">geo</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-856" name="__codelineno-0-856"></a>        <span class="n">pix_x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">geo</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-0-857" name="__codelineno-0-857"></a>        <span class="n">origin_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">geo</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<a id="__codelineno-0-858" name="__codelineno-0-858"></a>        <span class="n">pix_y</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">geo</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># positive</span>
+<a id="__codelineno-0-859" name="__codelineno-0-859"></a>
+<a id="__codelineno-0-860" name="__codelineno-0-860"></a>        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+<a id="__codelineno-0-861" name="__codelineno-0-861"></a>        <span class="n">raster_east</span> <span class="o">=</span> <span class="n">origin_x</span> <span class="o">+</span> <span class="n">cols</span> <span class="o">*</span> <span class="n">pix_x</span>
+<a id="__codelineno-0-862" name="__codelineno-0-862"></a>        <span class="n">raster_south</span> <span class="o">=</span> <span class="n">origin_y</span> <span class="o">-</span> <span class="n">rows</span> <span class="o">*</span> <span class="n">pix_y</span>
+<a id="__codelineno-0-863" name="__codelineno-0-863"></a>        <span class="n">col_left_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">west</span> <span class="o">-</span> <span class="n">origin_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">pix_x</span><span class="p">))</span>
+<a id="__codelineno-0-864" name="__codelineno-0-864"></a>        <span class="n">col_right_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">east</span> <span class="o">-</span> <span class="n">origin_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">pix_x</span><span class="p">))</span>
+<a id="__codelineno-0-865" name="__codelineno-0-865"></a>        <span class="n">row_top_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">origin_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">north</span><span class="p">)</span> <span class="o">/</span> <span class="n">pix_y</span><span class="p">))</span>
+<a id="__codelineno-0-866" name="__codelineno-0-866"></a>        <span class="n">row_bot_raw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">origin_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">south</span><span class="p">)</span> <span class="o">/</span> <span class="n">pix_y</span><span class="p">))</span>
+<a id="__codelineno-0-867" name="__codelineno-0-867"></a>
+<a id="__codelineno-0-868" name="__codelineno-0-868"></a>        <span class="n">col_left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col_left_raw</span><span class="p">)</span>
+<a id="__codelineno-0-869" name="__codelineno-0-869"></a>        <span class="n">col_right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">col_right_raw</span><span class="p">)</span>
+<a id="__codelineno-0-870" name="__codelineno-0-870"></a>        <span class="n">row_top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">row_top_raw</span><span class="p">)</span>
+<a id="__codelineno-0-871" name="__codelineno-0-871"></a>        <span class="n">row_bot</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">row_bot_raw</span><span class="p">)</span>
+<a id="__codelineno-0-872" name="__codelineno-0-872"></a>
+<a id="__codelineno-0-873" name="__codelineno-0-873"></a>        <span class="k">if</span> <span class="n">col_right</span> <span class="o">&lt;=</span> <span class="n">col_left</span> <span class="ow">or</span> <span class="n">row_bot</span> <span class="o">&lt;=</span> <span class="n">row_top</span><span class="p">:</span>
+<a id="__codelineno-0-874" name="__codelineno-0-874"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-875" name="__codelineno-0-875"></a>                <span class="sa">f</span><span class="s2">&quot;requested bbox lat=[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">south</span><span class="si">}</span><span class="s2">, &quot;</span>
+<a id="__codelineno-0-876" name="__codelineno-0-876"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">north</span><span class="si">}</span><span class="s2">] lon=[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">west</span><span class="si">}</span><span class="s2">, &quot;</span>
+<a id="__codelineno-0-877" name="__codelineno-0-877"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">east</span><span class="si">}</span><span class="s2">] does not overlap the source &quot;</span>
+<a id="__codelineno-0-878" name="__codelineno-0-878"></a>                <span class="sa">f</span><span class="s2">&quot;raster (extent lat=[</span><span class="si">{</span><span class="n">raster_south</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">origin_y</span><span class="si">}</span><span class="s2">] &quot;</span>
+<a id="__codelineno-0-879" name="__codelineno-0-879"></a>                <span class="sa">f</span><span class="s2">&quot;lon=[</span><span class="si">{</span><span class="n">origin_x</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">raster_east</span><span class="si">}</span><span class="s2">]). Check the bbox &quot;</span>
+<a id="__codelineno-0-880" name="__codelineno-0-880"></a>                <span class="s2">&quot;for swapped lat/lon, off-globe coordinates, or a &quot;</span>
+<a id="__codelineno-0-881" name="__codelineno-0-881"></a>                <span class="s2">&quot;dataset whose region doesn&#39;t cover the bbox.&quot;</span>
+<a id="__codelineno-0-882" name="__codelineno-0-882"></a>            <span class="p">)</span>
+<a id="__codelineno-0-883" name="__codelineno-0-883"></a>
+<a id="__codelineno-0-884" name="__codelineno-0-884"></a>        <span class="n">clipped</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">row_top</span><span class="p">:</span><span class="n">row_bot</span><span class="p">,</span> <span class="n">col_left</span><span class="p">:</span><span class="n">col_right</span><span class="p">]</span>
+<a id="__codelineno-0-885" name="__codelineno-0-885"></a>        <span class="n">new_origin_x</span> <span class="o">=</span> <span class="n">origin_x</span> <span class="o">+</span> <span class="n">col_left</span> <span class="o">*</span> <span class="n">pix_x</span>
+<a id="__codelineno-0-886" name="__codelineno-0-886"></a>        <span class="n">new_origin_y</span> <span class="o">=</span> <span class="n">origin_y</span> <span class="o">-</span> <span class="n">row_top</span> <span class="o">*</span> <span class="n">pix_y</span>
+<a id="__codelineno-0-887" name="__codelineno-0-887"></a>        <span class="n">new_geo</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_origin_x</span><span class="p">,</span> <span class="n">pix_x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">new_origin_y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">pix_y</span><span class="p">]</span>
+<a id="__codelineno-0-888" name="__codelineno-0-888"></a>        <span class="k">return</span> <span class="n">clipped</span><span class="p">,</span> <span class="n">new_geo</span>
+<a id="__codelineno-0-889" name="__codelineno-0-889"></a>
+<a id="__codelineno-0-890" name="__codelineno-0-890"></a>    <span class="nd">@staticmethod</span>
+<a id="__codelineno-0-891" name="__codelineno-0-891"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_output_filename</span><span class="p">(</span>
+<a id="__codelineno-0-892" name="__codelineno-0-892"></a>        <span class="n">ds_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-0-893" name="__codelineno-0-893"></a>        <span class="n">dataset</span><span class="p">:</span> <span class="n">ChcDataset</span><span class="p">,</span>
+<a id="__codelineno-0-894" name="__codelineno-0-894"></a>        <span class="n">var</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span>
+<a id="__codelineno-0-895" name="__codelineno-0-895"></a>        <span class="n">date</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">,</span>
+<a id="__codelineno-0-896" name="__codelineno-0-896"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-0-897" name="__codelineno-0-897"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the canonical output filename for one clipped raster.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-898" name="__codelineno-0-898"></a>        <span class="n">granularity</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">temporal_resolution</span>
+<a id="__codelineno-0-899" name="__codelineno-0-899"></a>        <span class="k">if</span> <span class="n">granularity</span> <span class="o">==</span> <span class="s2">&quot;annual&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-900" name="__codelineno-0-900"></a>            <span class="n">date_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-901" name="__codelineno-0-901"></a>        <span class="k">elif</span> <span class="n">granularity</span> <span class="ow">in</span> <span class="p">{</span>
+<a id="__codelineno-0-902" name="__codelineno-0-902"></a>            <span class="s2">&quot;monthly&quot;</span><span class="p">,</span> <span class="s2">&quot;monthly-climatology&quot;</span><span class="p">,</span> <span class="s2">&quot;2-monthly&quot;</span><span class="p">,</span> <span class="s2">&quot;3-monthly&quot;</span>
+<a id="__codelineno-0-903" name="__codelineno-0-903"></a>        <span class="p">}:</span>
+<a id="__codelineno-0-904" name="__codelineno-0-904"></a>            <span class="n">date_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-905" name="__codelineno-0-905"></a>        <span class="k">elif</span> <span class="n">granularity</span> <span class="o">==</span> <span class="s2">&quot;6-hourly&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-906" name="__codelineno-0-906"></a>            <span class="n">date_str</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-0-907" name="__codelineno-0-907"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">day</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.&quot;</span>
+<a id="__codelineno-0-908" name="__codelineno-0-908"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">hour</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-909" name="__codelineno-0-909"></a>            <span class="p">)</span>
+<a id="__codelineno-0-910" name="__codelineno-0-910"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-911" name="__codelineno-0-911"></a>            <span class="n">date_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">date</span><span class="o">.</span><span class="n">day</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-912" name="__codelineno-0-912"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ds_key</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s2">.tif&quot;</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
