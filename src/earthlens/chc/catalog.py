@@ -841,22 +841,28 @@ class Catalog(AbstractCatalog):
         return self.available_regions[region]
 
     def describe(self, dataset_key: str) -> dict[str, Any]:
-        """Return a structured introspection record for a CHIRPS dataset.
+        """Return a structured introspection record for a CHC dataset.
 
         Useful for "what metadata does dataset X expose?" questions at
         runtime — the caller can dump the result without needing to
         walk the YAML themselves.
 
+        For per-date datasets the record carries `file_patterns`;
+        for discrete-files datasets (CenTrends, CHPclim v2) it
+        carries `discrete_files` instead. The unused slot is `None`
+        so consumers can branch on which is set without `KeyError`.
+
         Args:
-            dataset_key: CHIRPS dataset identifier as it appears as a
+            dataset_key: CHC dataset identifier as it appears as a
                 key in :attr:`datasets`.
 
         Returns:
             dict with keys `dataset`, `region`,
             `temporal_resolution`, `pandas_freq`,
             `spatial_resolution`, `formats`, `lat_boundaries`,
-            `lon_boundaries`, `start_date`, `file_pattern`,
-            `preliminary`, and `variables`.
+            `lon_boundaries`, `start_date`, `end_date`,
+            `ftp_bases`, `file_patterns`, `discrete_files`,
+            `is_discrete`, `preliminary`, and `variables`.
 
         Raises:
             KeyError: If `dataset_key` is not a curated dataset.
@@ -871,8 +877,25 @@ class Catalog(AbstractCatalog):
                 'global'
                 >>> info["temporal_resolution"]
                 'daily'
+                >>> info["is_discrete"]
+                False
                 >>> "precipitation" in info["variables"]
                 True
+
+                ```
+            - Discrete-files datasets carry `discrete_files` instead
+              of `file_patterns`; both keys exist so the caller can
+              branch on `is_discrete` without a `KeyError`:
+
+                ```python
+                >>> from earthlens.chc import Catalog
+                >>> info = Catalog().describe("centennial-trends-v1-monthly")
+                >>> info["is_discrete"]
+                True
+                >>> info["file_patterns"] is None
+                True
+                >>> info["discrete_files"]["netcdf"]
+                ['CenTrends_v1_monthly.nc']
 
                 ```
         """
@@ -885,7 +908,15 @@ class Catalog(AbstractCatalog):
             "spatial_resolution": ds.spatial_resolution,
             "formats": ds.formats,
             "ftp_bases": dict(ds.ftp_bases),
-            "file_patterns": dict(ds.file_patterns),
+            "file_patterns": (
+                dict(ds.file_patterns) if ds.file_patterns is not None else None
+            ),
+            "discrete_files": (
+                {k: list(v) for k, v in ds.discrete_files.items()}
+                if ds.discrete_files is not None
+                else None
+            ),
+            "is_discrete": ds.is_discrete,
             "lat_boundaries": ds.lat_boundaries,
             "lon_boundaries": ds.lon_boundaries,
             "start_date": ds.start_date,
