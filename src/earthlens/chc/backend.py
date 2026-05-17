@@ -647,6 +647,18 @@ class CHIRPS(AbstractDataSource):
         Works for any pixel size and any extent — no hardcoded 0.05°
         or ±50° assumption. The returned geo-affine is updated so the
         output GeoTIFF has the correct origin.
+
+        Raises:
+            ValueError: If the requested bbox does not overlap the
+                raster — without the check, the slice math would
+                collapse to a `(0, 0)`-shape array and the caller
+                would write an empty GeoTIFF. The error message
+                names the user's bbox and the raster's geographic
+                extent so the typo (swapped lat/lon, off-globe
+                coords, dataset region mismatch) is easy to spot.
+                Per-date `_download_dataset` failures are now caught
+                and logged per the M1 fix, so this never aborts a
+                full batch.
         """
         origin_x = float(geo[0])
         pix_x = float(geo[1])
@@ -654,20 +666,28 @@ class CHIRPS(AbstractDataSource):
         pix_y = -float(geo[5])  # positive
 
         rows, cols = data.shape[-2:]
-        col_left = max(
-            0, int(np.floor((self.space.west - origin_x) / pix_x))
-        )
-        col_right = min(
-            cols, int(np.ceil((self.space.east - origin_x) / pix_x))
-        )
-        row_top = max(
-            0, int(np.floor((origin_y - self.space.north) / pix_y))
-        )
-        row_bot = min(
-            rows, int(np.ceil((origin_y - self.space.south) / pix_y))
-        )
-        col_right = max(col_left, col_right)
-        row_bot = max(row_top, row_bot)
+        raster_east = origin_x + cols * pix_x
+        raster_south = origin_y - rows * pix_y
+        col_left_raw = int(np.floor((self.space.west - origin_x) / pix_x))
+        col_right_raw = int(np.ceil((self.space.east - origin_x) / pix_x))
+        row_top_raw = int(np.floor((origin_y - self.space.north) / pix_y))
+        row_bot_raw = int(np.ceil((origin_y - self.space.south) / pix_y))
+
+        col_left = max(0, col_left_raw)
+        col_right = min(cols, col_right_raw)
+        row_top = max(0, row_top_raw)
+        row_bot = min(rows, row_bot_raw)
+
+        if col_right <= col_left or row_bot <= row_top:
+            raise ValueError(
+                f"requested bbox lat=[{self.space.south}, "
+                f"{self.space.north}] lon=[{self.space.west}, "
+                f"{self.space.east}] does not overlap the source "
+                f"raster (extent lat=[{raster_south}, {origin_y}] "
+                f"lon=[{origin_x}, {raster_east}]). Check the bbox "
+                "for swapped lat/lon, off-globe coordinates, or a "
+                "dataset whose region doesn't cover the bbox."
+            )
 
         clipped = data[..., row_top:row_bot, col_left:col_right]
         new_origin_x = origin_x + col_left * pix_x
