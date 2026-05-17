@@ -17,14 +17,6 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/agriculture_crop_water/</loc>
-         <lastmod>2026-05-17</lastmod>
-    </url>
-    <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/atmosphere_pressure_levels/</loc>
-         <lastmod>2026-05-17</lastmod>
-    </url>
-    <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/authentication/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
@@ -33,43 +25,107 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds_quickstart/</loc>
-         <lastmod>2026-05-17</lastmod>
-    </url>
-    <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/climate_change_anomalies/</loc>
-         <lastmod>2026-05-17</lastmod>
-    </url>
-    <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/data-sources/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/drought_precipitation_deficit/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/agriculture_crop_water/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/heat_waves_public_health/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/atmosphere_pressure_levels/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/hydrology_water_balance/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/cds_quickstart/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/oceanography_sst_sea_ice/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/climate_change_anomalies/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/snow_cryosphere_winter/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/drought_precipitation_deficit/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/solar_resource_assessment/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/heat_waves_public_health/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/wind_energy_resource/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/hydrology_water_balance/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/oceanography_sst_sea_ice/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/snow_cryosphere_winter/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/solar_resource_assessment/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/cds/wind_energy_resource/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/_execute/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/_generate/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/atmosphere-chemistry/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/climate-reanalysis/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/community/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/elevation-terrain/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/hydrology-water/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/land-cover-change/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/optical-multispectral/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/other/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/precipitation/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/sar-radar/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/track-batch-exports/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
