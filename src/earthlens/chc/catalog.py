@@ -72,13 +72,26 @@ from earthlens.base.providers import (
 CATALOG_PATH: Path = Path(__file__).parent / "catalog"
 PROVIDERS_PATH: Path = Path(__file__).parent / "providers.yaml"
 
-# Module-level cache of parsed catalog data, keyed on
-# `(resolved_path, mtime_ns)` so any real file mutation invalidates
-# the entry naturally. Mirrors the GEE / ECMWF pattern (M2) so
-# repeated `Catalog()` construction is ~1 ms instead of paying the
-# YAML parse + pydantic validation each time.
+# Module-level cache of parsed catalog data. The cache key is
+# `(resolved_path, fingerprint)`, where the fingerprint is:
+#
+#   * For a single-file catalog (legacy back-compat): the file's
+#     `stat().st_mtime_ns`.
+#   * For the directory layout: a tuple of `(filename, mtime_ns)`
+#     pairs sorted by filename. This is collision-free under
+#     permutations of mtimes -- if file A's mtime increases by N
+#     and file B's decreases by N (rare but legitimate, e.g.
+#     after a manual `touch -r ...`), the tuple still differs
+#     because both names are pinned. The previous sum-of-mtimes
+#     fingerprint (pre-H4) collapsed those cases to a collision.
+#
+# Any real file mutation invalidates the entry naturally. Mirrors
+# the GEE / ECMWF pattern so repeated `Catalog()` construction is
+# ~1 ms instead of paying YAML parse + pydantic validation each
+# time.
+_CacheKey = tuple[str, int | tuple[tuple[str, int], ...]]
 _CATALOG_CACHE: dict[
-    tuple[str, int],
+    _CacheKey,
     tuple[list[str], dict[str, dict[str, list[float]]], dict[str, "Dataset"]],
 ] = {}
 
@@ -457,16 +470,20 @@ def _load_catalog_data(
             fails.
     """
     resolved = str(path.resolve())
+    fingerprint: int | tuple[tuple[str, int], ...]
     try:
         if path.is_dir():
-            mtime_ns = sum(
-                child.stat().st_mtime_ns for child in path.glob("*.yaml")
+            # Tuple of (name, mtime) pairs sorted by name. Collision-
+            # free under mtime permutations (see _CATALOG_CACHE comment).
+            fingerprint = tuple(
+                (child.name, child.stat().st_mtime_ns)
+                for child in sorted(path.glob("*.yaml"))
             )
         else:
-            mtime_ns = path.stat().st_mtime_ns
+            fingerprint = path.stat().st_mtime_ns
     except FileNotFoundError:
-        mtime_ns = 0
-    key = (resolved, mtime_ns)
+        fingerprint = 0
+    key: _CacheKey = (resolved, fingerprint)
     cached = _CATALOG_CACHE.get(key)
     if cached is not None:
         return cached
