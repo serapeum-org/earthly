@@ -986,12 +986,20 @@ class Catalog(AbstractCatalog):
 
         Args:
             region: Filter by geographic coverage (e.g. `"global"`,
-                `"africa"`). `None` returns all datasets.
+                `"africa"`). `None` returns all datasets. An unknown
+                region name (one not declared in `available_regions`)
+                raises `ValueError` rather than silently returning an
+                empty list (H2).
             temporal_resolution: Filter by temporal resolution (e.g.
                 `"daily"`, `"monthly"`). `None` returns all datasets.
 
         Returns:
             list[str]: Sorted list of matching dataset keys.
+
+        Raises:
+            ValueError: If `region` is provided but not in
+                `available_regions`. The message lists every valid
+                region key so the caller can correct the typo.
 
         Examples:
             - List all Africa datasets:
@@ -1011,6 +1019,12 @@ class Catalog(AbstractCatalog):
 
                 ```
         """
+        if region is not None and region not in self.available_regions:
+            raise ValueError(
+                f"region {region!r} is not declared in `_index.yaml`'s "
+                f"`regions:` block. Known regions: "
+                f"{sorted(self.available_regions)}."
+            )
         result: list[str] = []
         for key, ds in self.datasets.items():
             if region is not None and ds.region != region:
