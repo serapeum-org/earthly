@@ -32,5 +32,3 @@ datasets:
         description: Monthly mean climatological precipitation (CHPclim v2, 1981-2010 baseline)
         units: mm/month
         types: flux
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]

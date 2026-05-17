@@ -19,8 +19,6 @@ datasets:
         description: Wet Bulb Globe Temperature (WBGT)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   wbgt-dekad:
     ftp_bases:
       tif: pub/org/chc/products/WBGT/wbgt_global_dekad_data/
@@ -37,5 +35,3 @@ datasets:
         description: Wet Bulb Globe Temperature (WBGT)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]

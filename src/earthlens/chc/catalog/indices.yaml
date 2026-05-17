@@ -19,8 +19,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spi-chirps3-02-pentad:
     ftp_bases:
       tif: pub/org/chc/products/SPI/CHIRPS3/02_pentad/
@@ -37,8 +35,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spi-chirps3-05-pentad:
     ftp_bases:
       tif: pub/org/chc/products/SPI/CHIRPS3/05_pentad/
@@ -55,8 +51,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spi-chirps3-06-pentad:
     ftp_bases:
       tif: pub/org/chc/products/SPI/CHIRPS3/06_pentad/
@@ -73,8 +67,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spi-chirps3-09-pentad:
     ftp_bases:
       tif: pub/org/chc/products/SPI/CHIRPS3/09_pentad/
@@ -91,8 +83,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spi-chirps3-12-pentad:
     ftp_bases:
       tif: pub/org/chc/products/SPI/CHIRPS3/12_pentad/
@@ -109,8 +99,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spi-chirps3-15-pentad:
     ftp_bases:
       tif: pub/org/chc/products/SPI/CHIRPS3/15_pentad/
@@ -127,8 +115,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spi-chirps3-18-pentad:
     ftp_bases:
       tif: pub/org/chc/products/SPI/CHIRPS3/18_pentad/
@@ -145,8 +131,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spi-chirps3-21-pentad:
     ftp_bases:
       tif: pub/org/chc/products/SPI/CHIRPS3/21_pentad/
@@ -163,8 +147,6 @@ datasets:
         description: Standardized Precipitation Index (SPI) based on CHIRPS3
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spei-v1-01-month:
     ftp_bases:
       netcdf: pub/org/chc/products/SPEI/v1/01_month/
@@ -181,8 +163,6 @@ datasets:
         description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spei-v1-02-month:
     ftp_bases:
       netcdf: pub/org/chc/products/SPEI/v1/02_month/
@@ -199,8 +179,6 @@ datasets:
         description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spei-v1-03-month:
     ftp_bases:
       netcdf: pub/org/chc/products/SPEI/v1/03_month/
@@ -217,8 +195,6 @@ datasets:
         description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spei-v1-06-month:
     ftp_bases:
       netcdf: pub/org/chc/products/SPEI/v1/06_month/
@@ -235,8 +211,6 @@ datasets:
         description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spei-v1-09-month:
     ftp_bases:
       netcdf: pub/org/chc/products/SPEI/v1/09_month/
@@ -253,8 +227,6 @@ datasets:
         description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   spei-v1-12-month:
     ftp_bases:
       netcdf: pub/org/chc/products/SPEI/v1/12_month/
@@ -271,5 +243,3 @@ datasets:
         description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
         units: dimensionless
         types: index
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]

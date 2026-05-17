@@ -19,8 +19,6 @@ datasets:
         description: Daily rainfall estimate
         units: mm/day
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirp-monthly:
     ftp_bases:
       tif: pub/org/chc/products/CHIRP/monthly/
@@ -37,8 +35,6 @@ datasets:
         description: Monthly accumulated rainfall estimate
         units: mm/month
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirp-dekad:
     ftp_bases:
       tif: pub/org/chc/products/CHIRP/dekads/
@@ -55,8 +51,6 @@ datasets:
         description: Dekadal (10-day) accumulated rainfall estimate
         units: mm/dekad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirp-pentad:
     ftp_bases:
       tif: pub/org/chc/products/CHIRP/pentads/
@@ -73,8 +67,6 @@ datasets:
         description: Pentadal (5-day) accumulated rainfall estimate
         units: mm/pentad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirp-v3-global-daily:
     ftp_bases:
       tif: pub/org/chc/products/CHIRP-v3.0/daily/global/tifs/
@@ -91,8 +83,6 @@ datasets:
         description: Daily rainfall estimate
         units: mm/day
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirp-v3-global-monthly:
     ftp_bases:
       tif: pub/org/chc/products/CHIRP-v3.0/monthly/global/tifs/
@@ -109,8 +99,6 @@ datasets:
         description: Monthly accumulated rainfall estimate
         units: mm/month
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirp-v3-global-dekad:
     ftp_bases:
       tif: pub/org/chc/products/CHIRP-v3.0/dekads/global/tifs/
@@ -127,5 +115,3 @@ datasets:
         description: Dekadal (10-day) accumulated rainfall estimate
         units: mm/dekad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]

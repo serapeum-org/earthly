@@ -6,9 +6,7 @@ datasets:
   centennial-trends-v1-monthly:
     ftp_bases:
       netcdf: pub/org/chc/products/CentennialTrends/
-    region: east-africa
-    lat_boundaries: [-12.25, 22.25]
-    lon_boundaries: [21.25, 51.25]
+    region: east-africa-centennial
     temporal_resolution: monthly
     pandas_freq: MS
     spatial_resolution: [0.1]
@@ -25,9 +23,7 @@ datasets:
   centennial-trends-v1-seasonal:
     ftp_bases:
       netcdf: pub/org/chc/products/CentennialTrends/
-    region: east-africa
-    lat_boundaries: [-12.25, 22.25]
-    lon_boundaries: [21.25, 51.25]
+    region: east-africa-centennial
     temporal_resolution: seasonal
     pandas_freq: QS
     spatial_resolution: [0.1]

@@ -19,8 +19,6 @@ datasets:
         description: Daily rainfall estimate
         units: mm/day
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v3-dekad-lead0:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS/v3/dekad_lead_0/global/
@@ -37,8 +35,6 @@ datasets:
         description: Dekadal (10-day) accumulated rainfall estimate
         units: mm/dekad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v3-pentad-lead0:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS/v3/pentad_lead_0/global/
@@ -55,8 +51,6 @@ datasets:
         description: Pentadal (5-day) accumulated rainfall estimate
         units: mm/pentad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-daily-16day:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/daily_16day/
@@ -73,8 +67,6 @@ datasets:
         description: 16-day daily CHIRPS-GEFS accumulated precipitation (v12)
         units: mm
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-05day:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/05day/
@@ -91,8 +83,6 @@ datasets:
         description: 5-day accumulated CHIRPS-GEFS precipitation forecast (v12)
         units: mm/5-days
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-10day:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/10day/
@@ -109,8 +99,6 @@ datasets:
         description: 10-day accumulated CHIRPS-GEFS precipitation forecast (v12)
         units: mm/10-days
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-15day:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/15day/
@@ -127,8 +115,6 @@ datasets:
         description: 15-day accumulated CHIRPS-GEFS precipitation forecast (v12)
         units: mm/15-days
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-pentad-first:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_first/
@@ -145,8 +131,6 @@ datasets:
         description: First-pentad CHIRPS-GEFS accumulated precipitation (v12)
         units: mm/pentad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-pentad-second:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_second/
@@ -163,8 +147,6 @@ datasets:
         description: Second-pentad CHIRPS-GEFS accumulated precipitation (v12)
         units: mm/pentad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-pentad-last:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_last/
@@ -181,8 +163,6 @@ datasets:
         description: Last-pentad CHIRPS-GEFS accumulated precipitation (v12)
         units: mm/pentad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-dekad-first:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/dekad_first/
@@ -199,8 +179,6 @@ datasets:
         description: First-dekad CHIRPS-GEFS precipitation anomaly (v12)
         units: mm/dekad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]
   chirps-gefs-v12-dekad-last:
     ftp_bases:
       tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/dekad_last/
@@ -217,5 +195,3 @@ datasets:
         description: Last-dekad CHIRPS-GEFS precipitation anomaly (v12)
         units: mm/dekad
         types: flux
-    lat_boundaries: [-50, 50]
-    lon_boundaries: [-180, 180]

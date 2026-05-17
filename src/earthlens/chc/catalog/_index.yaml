@@ -130,6 +130,13 @@ regions:
   east-africa:
     lat_boundaries: [-12, 6]
     lon_boundaries: [28, 42]
+  # Wider east-African extent used by CenTrends v1 (Funk et al. 2015):
+  # spans 12.25 S - 22.25 N x 21.25 - 51.25 E, covering eastern Africa,
+  # the Horn, and the western Arabian Peninsula. Currently only the
+  # centennial-trends-v1-* datasets use it.
+  east-africa-centennial:
+    lat_boundaries: [-12.25, 22.25]
+    lon_boundaries: [21.25, 51.25]
   indonesia:
     lat_boundaries: [-11, 6]
     lon_boundaries: [95, 141]

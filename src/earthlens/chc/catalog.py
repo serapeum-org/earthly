@@ -359,16 +359,39 @@ def _build_chc_dataset(
                 f"under dataset {ds_key!r} failed validation:\n{exc}"
             ) from exc
 
+    # Per H1: `regions:` is the single source of truth for spatial bounds.
+    # The loader no longer accepts inline `lat_boundaries`/`lon_boundaries`
+    # on a dataset — reject them with a clear pointer at the regions block
+    # so the maintainer either deletes the inline copy or, for a genuinely
+    # custom extent, defines a new named region.
+    inline_lat = ds_body.get("lat_boundaries")
+    inline_lon = ds_body.get("lon_boundaries")
+    if inline_lat is not None or inline_lon is not None:
+        raise ValueError(
+            f"{catalog_path.name} dataset {ds_key!r} carries inline "
+            "`lat_boundaries` / `lon_boundaries`, which is no longer "
+            "accepted (H1). Spatial bounds come from the `regions:` "
+            "block. To use a non-standard extent, add a new entry to "
+            "`_index.yaml`'s `regions:` block and point `region:` at "
+            "it (see `east-africa-centennial` for the CenTrends "
+            "precedent)."
+        )
     region_key = ds_body.get("region", "")
-    region_def = regions_map.get(region_key, {})
-    lat_boundaries = ds_body.get("lat_boundaries") or region_def.get("lat_boundaries")
-    lon_boundaries = ds_body.get("lon_boundaries") or region_def.get("lon_boundaries")
+    region_def = regions_map.get(region_key)
+    if region_def is None:
+        raise ValueError(
+            f"{catalog_path.name} dataset {ds_key!r} has region "
+            f"{region_key!r} which is not defined in `_index.yaml`'s "
+            "`regions:` block. Add it there or pick an existing "
+            f"region from {sorted(regions_map)}."
+        )
+    lat_boundaries = region_def.get("lat_boundaries")
+    lon_boundaries = region_def.get("lon_boundaries")
     if lat_boundaries is None or lon_boundaries is None:
         raise ValueError(
-            f"{catalog_path.name} dataset {ds_key!r} has no "
-            "`lat_boundaries` / `lon_boundaries` and its region "
-            f"{region_key!r} is not defined in the top-level "
-            "`regions:` block."
+            f"{catalog_path.name} dataset {ds_key!r} resolved to "
+            f"region {region_key!r} but that region is missing "
+            "`lat_boundaries` or `lon_boundaries`."
         )
 
     try:

@@ -20,8 +20,6 @@ datasets:
         description: Daily precipitation delta relative to historical baseline (SSP2-4.5, target 2030)
         units: mm/day
         types: flux
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-precip-daily-delta-2030-ssp585:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2030_SSP585/
@@ -39,8 +37,6 @@ datasets:
         description: Daily precipitation delta relative to historical baseline (SSP5-8.5, target 2030)
         units: mm/day
         types: flux
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-precip-daily-delta-2050-ssp245:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2050_SSP245/
@@ -58,8 +54,6 @@ datasets:
         description: Daily precipitation delta relative to historical baseline (SSP2-4.5, target 2050)
         units: mm/day
         types: flux
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-precip-daily-delta-2050-ssp585:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2050_SSP585/
@@ -77,8 +71,6 @@ datasets:
         description: Daily precipitation delta relative to historical baseline (SSP5-8.5, target 2050)
         units: mm/day
         types: flux
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-rh-daily-delta-2030-ssp245:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2030_SSP245/
@@ -96,8 +88,6 @@ datasets:
         description: Daily relative-humidity delta relative to historical baseline (SSP2-4.5, target 2030)
         units: '%'
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-rh-daily-delta-2030-ssp585:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2030_SSP585/
@@ -115,8 +105,6 @@ datasets:
         description: Daily relative-humidity delta relative to historical baseline (SSP5-8.5, target 2030)
         units: '%'
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-rh-daily-delta-2050-ssp245:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2050_SSP245/
@@ -134,8 +122,6 @@ datasets:
         description: Daily relative-humidity delta relative to historical baseline (SSP2-4.5, target 2050)
         units: '%'
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-rh-daily-delta-2050-ssp585:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2050_SSP585/
@@ -153,8 +139,6 @@ datasets:
         description: Daily relative-humidity delta relative to historical baseline (SSP5-8.5, target 2050)
         units: '%'
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-tmax-daily-delta-2030-ssp245:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2030_SSP245/
@@ -172,8 +156,6 @@ datasets:
         description: Daily maximum temperature delta relative to historical baseline (SSP2-4.5, target 2030)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-tmax-daily-delta-2030-ssp585:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2030_SSP585/
@@ -191,8 +173,6 @@ datasets:
         description: Daily maximum temperature delta relative to historical baseline (SSP5-8.5, target 2030)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-tmax-daily-delta-2050-ssp245:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2050_SSP245/
@@ -210,8 +190,6 @@ datasets:
         description: Daily maximum temperature delta relative to historical baseline (SSP2-4.5, target 2050)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-tmax-daily-delta-2050-ssp585:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2050_SSP585/
@@ -229,8 +207,6 @@ datasets:
         description: Daily maximum temperature delta relative to historical baseline (SSP5-8.5, target 2050)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-tmin-daily-delta-2030-ssp245:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2030_SSP245/
@@ -248,8 +224,6 @@ datasets:
         description: Daily minimum temperature delta relative to historical baseline (SSP2-4.5, target 2030)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-tmin-daily-delta-2030-ssp585:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2030_SSP585/
@@ -267,8 +241,6 @@ datasets:
         description: Daily minimum temperature delta relative to historical baseline (SSP5-8.5, target 2030)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-tmin-daily-delta-2050-ssp245:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2050_SSP245/
@@ -286,8 +258,6 @@ datasets:
         description: Daily minimum temperature delta relative to historical baseline (SSP2-4.5, target 2050)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]
   chc-cmip6-tmin-daily-delta-2050-ssp585:
     ftp_bases:
       tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2050_SSP585/
@@ -305,5 +275,3 @@ datasets:
         description: Daily minimum temperature delta relative to historical baseline (SSP5-8.5, target 2050)
         units: degC
         types: state
-    lat_boundaries: [-90, 90]
-    lon_boundaries: [-180, 180]

@@ -20,8 +20,6 @@ datasets:
         description: Daily maximum 2-metre air temperature
         units: degC
         types: state
-    lat_boundaries: [-60, 70]
-    lon_boundaries: [-180, 180]
   chirtsdaily-tmin:
     ftp_bases:
       tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/Tmin/
@@ -39,8 +37,6 @@ datasets:
         description: Daily minimum 2-metre air temperature
         units: degC
         types: state
-    lat_boundaries: [-60, 70]
-    lon_boundaries: [-180, 180]
   chirtsdaily-heat-index:
     ftp_bases:
       tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/HeatIndex/
@@ -58,8 +54,6 @@ datasets:
         description: Daily heat index (apparent temperature)
         units: degC
         types: state
-    lat_boundaries: [-60, 70]
-    lon_boundaries: [-180, 180]
   chirtsdaily-relative-humidity:
     ftp_bases:
       tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/RHum/
@@ -77,8 +71,6 @@ datasets:
         description: Daily relative humidity
         units: '%'
         types: state
-    lat_boundaries: [-60, 70]
-    lon_boundaries: [-180, 180]
   chirtsdaily-svp:
     ftp_bases:
       tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/svp/
@@ -96,8 +88,6 @@ datasets:
         description: Daily saturation vapour pressure
         units: kPa
         types: state
-    lat_boundaries: [-60, 70]
-    lon_boundaries: [-180, 180]
   chirtsdaily-vpd:
     ftp_bases:
       tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/vpd/
@@ -115,8 +105,6 @@ datasets:
         description: Daily vapour pressure deficit
         units: kPa
         types: state
-    lat_boundaries: [-60, 70]
-    lon_boundaries: [-180, 180]
   chirtsmonthly-tmax:
     ftp_bases:
       tif: pub/org/chc/products/CHIRTSmonthly/CHIRTSmax.CDR/
@@ -134,5 +122,3 @@ datasets:
         description: Daily maximum 2-metre air temperature
         units: degC
         types: state
-    lat_boundaries: [-60, 70]
-    lon_boundaries: [-180, 180]
