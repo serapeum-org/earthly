@@ -31,7 +31,7 @@ graph LR
 from earthlens.earthlens import EarthLens
 
 earthlens = EarthLens(
-    data_source="chirps",
+    data_source="chc",
     temporal_resolution="daily",
     start="2009-01-01",
     end="2009-01-10",

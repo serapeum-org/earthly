@@ -1,0 +1,117 @@
+# CHC catalog slice: CHIRP and CHIRP v3.0 (satellite-only, no gauges).
+# 7 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  chirp-daily:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRP/daily/
+    region: global
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: "{year}/chirp.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation:
+        description: Daily rainfall estimate
+        units: mm/day
+        types: flux
+  chirp-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRP/monthly/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: CHIRP.{year}.{month}.tif
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+  chirp-dekad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRP/dekads/
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: CHIRP.{year}.{month}.{dekad}.tif
+    variables:
+      precipitation:
+        description: Dekadal (10-day) accumulated rainfall estimate
+        units: mm/dekad
+        types: flux
+  chirp-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRP/pentads/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: CHIRP.{year}.{month}.{pentad}.tif
+    variables:
+      precipitation:
+        description: Pentadal (5-day) accumulated rainfall estimate
+        units: mm/pentad
+        types: flux
+  chirp-v3-global-daily:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRP-v3.0/daily/global/tifs/
+    region: global
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1998-01-01'
+    file_patterns:
+      tif: "{year}/chirp-v3.0.{year}.{month}.{day}.tif"
+    variables:
+      precipitation:
+        description: Daily rainfall estimate
+        units: mm/day
+        types: flux
+  chirp-v3-global-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRP-v3.0/monthly/global/tifs/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirp-v3.0.{year}.{month}.tif
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+  chirp-v3-global-dekad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRP-v3.0/dekads/global/tifs/
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirp-v3.0.{year}.{month}.{dekad}.tif
+    variables:
+      precipitation:
+        description: Dekadal (10-day) accumulated rainfall estimate
+        units: mm/dekad
+        types: flux

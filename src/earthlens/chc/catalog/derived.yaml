@@ -1,0 +1,138 @@
+# CHC catalog slice: small derived / auxiliary product families.
+# 5 dataset(s). Edit in place; the loader merges every *.yaml file
+# in this directory into one Catalog at import time.
+#
+# This file holds the CHC product families that are too small to
+# justify their own per-family YAML (one or two datasets each).
+# All five entries are derived/auxiliary products that sit outside
+# the main per-date precipitation / temperature series.
+#
+# CHPclim v2 (`chpclim-v2-monthly`):
+# CHPclim v2 is a 12-file static climatology, not a repeating time
+# series: one TIF per calendar month (Jan-Dec) of 1981-2010 mean
+# precipitation. Modelled as `discrete_files:` so the backend fetches
+# each TIF once instead of expanding `pandas_freq: MS` over the 30-
+# year window (which would download the same 12 files ~30x).
+#
+# WBGT (`wbgt-monthly`, `wbgt-dekad`):
+# Wet Bulb Globe Temperature, derived from temperature and humidity
+# inputs. WBGT is per-date (not discrete): each timestep is a
+# separate TIF named after its `(start_yyyymmdd, end_yyyymmdd)`
+# window.
+#
+# CentennialTrends v1 (`centennial-trends-v1-monthly`,
+# `centennial-trends-v1-seasonal`):
+# CenTrends v1 is a fixed archive of multi-year NetCDFs (Funk et al.
+# 2015), not a per-date partition. The monthly variant ships one
+# `(time, lat, lon)` NetCDF covering the whole 1900-2014 series; the
+# seasonal variant ships four files, one per climatological window.
+# Both are modelled as `discrete_files:` so the backend fetches each
+# file once instead of expanding `pandas_freq` over the 115-year
+# window. Per-date GeoTIFF bbox clipping is not applied; users open
+# the saved NetCDFs with xarray for time/region subsetting.
+
+datasets:
+  chpclim-v2-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHPclim/v2/monthly_9090/
+    region: global-extended
+    temporal_resolution: monthly-climatology
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    end_date: '2010-12-31'
+    discrete_files:
+      tif:
+      - CHPclim2.90-90.01.tif
+      - CHPclim2.90-90.02.tif
+      - CHPclim2.90-90.03.tif
+      - CHPclim2.90-90.04.tif
+      - CHPclim2.90-90.05.tif
+      - CHPclim2.90-90.06.tif
+      - CHPclim2.90-90.07.tif
+      - CHPclim2.90-90.08.tif
+      - CHPclim2.90-90.09.tif
+      - CHPclim2.90-90.10.tif
+      - CHPclim2.90-90.11.tif
+      - CHPclim2.90-90.12.tif
+    variables:
+      precipitation:
+        description: Monthly mean climatological precipitation (CHPclim v2, 1981-2010 baseline)
+        units: mm/month
+        types: flux
+
+  wbgt-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/WBGT/wbgt_global_1_monthly_data/
+    region: global-extended
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [1.0]
+    formats: [tif]
+    start_date: '1980-01-01'
+    file_patterns:
+      tif: data_{start_yyyymmdd}_{end_yyyymmdd}.tif
+    variables:
+      wbgt:
+        description: Wet Bulb Globe Temperature (WBGT)
+        units: degC
+        types: state
+
+  wbgt-dekad:
+    ftp_bases:
+      tif: pub/org/chc/products/WBGT/wbgt_global_dekad_data/
+    region: global-extended
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [1.0]
+    formats: [tif]
+    start_date: '1980-01-01'
+    file_patterns:
+      tif: data_{start_yyyymmdd}_{end_yyyymmdd}.tif
+    variables:
+      wbgt:
+        description: Wet Bulb Globe Temperature (WBGT)
+        units: degC
+        types: state
+
+  centennial-trends-v1-monthly:
+    ftp_bases:
+      netcdf: pub/org/chc/products/CentennialTrends/
+    region: east-africa-centennial
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.1]
+    formats: [netcdf]
+    start_date: '1900-01-01'
+    end_date: '2014-12-31'
+    discrete_files:
+      netcdf: [CenTrends_v1_monthly.nc]
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+
+  centennial-trends-v1-seasonal:
+    ftp_bases:
+      netcdf: pub/org/chc/products/CentennialTrends/
+    region: east-africa-centennial
+    temporal_resolution: seasonal
+    pandas_freq: QS
+    spatial_resolution: [0.1]
+    formats: [netcdf]
+    start_date: '1900-01-01'
+    end_date: '2014-12-31'
+    discrete_files:
+      netcdf:
+      - CenTrends_v1_MarJun.nc
+      - CenTrends_v1_JunSep.nc
+      - CenTrends_v1_OctFeb.nc
+      - CenTrends_v1_OctSep.nc
+    variables:
+      precipitation:
+        description: Seasonal accumulated rainfall over four climatological windows (Mar-Jun long rains, Jun-Sep Sahel rains,
+          Oct-Feb short rains, Oct-Sep full annual cycle)
+        units: mm/season
+        types: flux

@@ -11,7 +11,7 @@ common cases:
   temporal aggregation feature. Pure pyramids/numpy/pandas, no
   backend SDK.
 
-The concrete backends (`earthlens.ecmwf.ECMWF`, `earthlens.chirps.CHIRPS`,
+The concrete backends (`earthlens.ecmwf.ECMWF`, `earthlens.chc.CHIRPS`,
 `earthlens.s3.S3`) are intentionally **not** re-exported here. Each
 requires its own optional SDK (`pip install earthlens[ecmwf]`, etc.),
 so a top-level re-export would crash at import time on installations

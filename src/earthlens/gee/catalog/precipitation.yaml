@@ -1,0 +1,554 @@
+# Auto-grouped slice of the GEE catalog: precipitation.
+# 20 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  CSIC/SPEI/2_10:
+    title: "CSIC SPEIbase v2.10: Standardised Precipitation-Evapotranspiration Index (~50km monthly, 1901-)"
+    provider: csic
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 55660
+    extent:
+      start_date: "1901-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-4.0
+    source: republished
+    bands:
+      SPEI_01_month:
+        description: SPEI accumulated over 1 month
+        min: -2.33
+        max: 2.33
+      SPEI_03_month:
+        description: SPEI accumulated over 3 months
+        min: -2.33
+        max: 2.33
+      SPEI_06_month:
+        description: SPEI accumulated over 6 months
+        min: -2.33
+        max: 2.33
+      SPEI_12_month:
+        description: SPEI accumulated over 12 months
+        min: -2.33
+        max: 2.33
+      SPEI_24_month:
+        description: SPEI accumulated over 24 months
+        min: -2.33
+        max: 2.33
+
+  JAXA/GPM_L3/GSMaP/v6/operational:
+    title: "GSMaP Operational v6: Global Satellite Mapping of Precipitation (legacy)"
+    provider: jaxa
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2014-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA GSMaP terms).'
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      hourlyPrecipRateGC:
+        description: Hourly precipitation rate, gauge-adjusted
+        units: mm/hr
+      satelliteInfoFlag:
+        description: Satellite/sensor used in the retrieval
+
+  JAXA/GPM_L3/GSMaP/v6/reanalysis:
+    title: "GSMaP Reanalysis v6: Global Satellite Mapping of Precipitation (2000-)"
+    provider: jaxa
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2000-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA GSMaP terms).'
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      satelliteInfoFlag:
+        description: Satellite/sensor used in the retrieval
+
+  JAXA/GPM_L3/GSMaP/v7/operational:
+    title: "GSMaP Operational v7: Global Satellite Mapping of Precipitation (legacy)"
+    provider: jaxa
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2014-03-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA GSMaP terms).'
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      hourlyPrecipRateGC:
+        description: Hourly precipitation rate, gauge-adjusted
+        units: mm/hr
+
+  JAXA/GPM_L3/GSMaP/v8/operational:
+    title: "GSMaP Operational v8: Global Satellite Mapping of Precipitation"
+    provider: jaxa
+    ee_type: image_collection
+    cadence: { interval: 1, unit: hour }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: proprietary
+    terms_note: 'Free with attribution (JAXA GSMaP terms).'
+    bands:
+      hourlyPrecipRate:
+        description: Hourly precipitation rate (snapshot)
+        units: mm/hr
+      hourlyPrecipRateGC:
+        description: Hourly precipitation rate, gauge-adjusted
+        units: mm/hr
+      satelliteInfoFlag:
+        description: Satellite/sensor used in the retrieval
+      gaugeQualityInfo:
+        description: Existence of gauge adjustment
+        units: count/d
+
+  NASA/GPM_L3/IMERG_MONTHLY_V06:
+    title: "GPM IMERG Monthly v06 (Final Run, 0.1°, 2000-2021)"
+    provider: nasa-ges-disc
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2000-06-01"
+      end_date: "2021-09-30"
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Merged satellite-gauge precipitation estimate
+        units: mm/hr
+      precipitationQualityIndex:
+        description: Quality index for the precipitation field
+      gaugeRelativeWeighting:
+        description: Weighting of gauge precipitation vs satellite estimate
+        units: "%"
+      probabilityLiquidPrecipitation:
+        description: Accumulation-weighted probability of liquid phase
+        units: "%"
+      randomError:
+        description: Random error of the merged precipitation estimate
+        units: mm/hr
+
+  NASA/GPM_L3/IMERG_MONTHLY_V07:
+    title: "GPM IMERG Monthly v07 (Final Run, 0.1°)"
+    provider: nasa-ges-disc
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Merged satellite-gauge precipitation estimate
+        units: mm/hr
+      precipitationQualityIndex:
+        description: Quality index for the precipitation field
+      gaugeRelativeWeighting:
+        description: Weighting of gauge precipitation vs satellite estimate
+        units: "%"
+      probabilityLiquidPrecipitation:
+        description: Accumulation-weighted probability of liquid phase
+        units: "%"
+      randomError:
+        description: Random error of the merged precipitation estimate
+        units: mm/hr
+
+  NASA/GPM_L3/IMERG_V06:
+    title: "GPM IMERG v06 Half-Hourly Precipitation (legacy 0.1°, 2000-)"
+    provider: nasa-ges-disc
+    ee_type: image_collection
+    cadence: { interval: 30, unit: minute }
+    spatial_resolution: 11132
+    extent:
+      start_date: "2000-06-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitationCal:
+        description: Final calibrated precipitation estimate
+        units: mm/hr
+      precipitationUncal:
+        description: Uncalibrated multi-satellite precipitation estimate
+        units: mm/hr
+      HQprecipitation:
+        description: Merged passive-microwave precipitation (high quality)
+        units: mm/hr
+      IRprecipitation:
+        description: IR-only precipitation (geostationary)
+        units: mm/hr
+      randomError:
+        description: Random error of the calibrated precipitation
+        units: mm/hr
+      probabilityLiquidPrecipitation:
+        description: Probability of liquid precipitation phase
+        units: "%"
+
+  NASA/GPM_L3/IMERG_V07:
+    title: "GPM IMERG v07: Global Precipitation Measurement (half-hourly)"
+    provider: nasa-ges-disc
+    ee_type: image_collection
+    cadence: { interval: 30, unit: minute }
+    spatial_resolution: 11132
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Snapshot precipitation, calibrated
+        units: mm/hr
+        min: 0
+        max: 120
+        estimated_range: true
+      precipitationUncal:
+        description: Snapshot precipitation, uncalibrated
+        units: mm/hr
+      probabilityLiquidPrecipitation:
+        description: Probability of liquid precipitation phase
+        units: "%"
+        min: 0
+        max: 100
+      randomError:
+        description: Random error estimate for snapshot precipitation
+        units: mm/hr
+
+  NOAA/CPC/Precipitation:
+    title: CPC Global Unified Gauge-Based Analysis of Daily Precipitation
+    provider: noaa-psl
+    ee_type: image_collection
+    spatial_resolution: 55500
+    extent:
+      start_date: "2006-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CPC datasets are available without restriction'
+    bands:
+      precipitation:
+        description: Daily total precipitation estimate in 0.1 mm
+        units: mm
+        min: 0
+        max: 10671.53
+      num_gauges:
+        description: Number of rain gauges contributing to the precipitation estimate
+        min: 0
+        max: 121
+
+  NOAA/CPC/Temperature:
+    title: CPC Global Unified Temperature
+    provider: noaa-psl
+    ee_type: image_collection
+    spatial_resolution: 55500
+    extent:
+      start_date: "1979-01-01"
+      end_date: null
+    default_reducer: mean
+    license: public-domain
+    terms_note: 'The NOAA CPC datasets are available without restriction'
+    bands:
+      tmax:
+        description: daily maximum temperature
+        units: 'deg_C'
+        min: -89.84
+        max: 66.03
+      tmin:
+        description: daily minimum temperature
+        units: 'deg_C'
+        min: -97.92
+        max: 54.26
+      nmax:
+        description: number of reports for maximum temperature
+        min: 0
+        max: 7
+      nmin:
+        description: number of reports for minimum temperature
+        min: 0
+        max: 7
+
+  NOAA/PERSIANN-CDR:
+    title: "PERSIANN-CDR: Daily Precipitation Climate Data Record (0.25°, 1983-present)"
+    provider: noaa
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1983-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Daily precipitation total
+        units: mm
+
+  OpenLandMap/CLM/CLM_PRECIPITATION_SM2RAIN_M/v01:
+    title: OpenLandMap Precipitation Monthly
+    provider: envirometrix-openlandmap
+    ee_type: image
+    spatial_resolution: 1000
+    extent:
+      start_date: "2007-01-01"
+      end_date: null
+    default_reducer: mean
+    license: CC-BY-SA-4.0
+    source: republished
+    bands:
+      jan:
+        description: Jan Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      feb:
+        description: Feb Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      mar:
+        description: Mar Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      apr:
+        description: Apr Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      may:
+        description: May Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      jun:
+        description: Jun Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      jul:
+        description: Jul Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      aug:
+        description: Aug Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      sep:
+        description: Sep Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      oct:
+        description: Oct Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      nov:
+        description: Nov Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+      dec:
+        description: Dec Precipitation monthly
+        units: mm
+        min: 0
+        max: 380
+
+  TRMM/3B42:
+    title: 'TRMM 3B42: 3-Hourly Precipitation Estimates'
+    provider: nasa-ges-disc
+    ee_type: image_collection
+    cadence: { interval: 3, unit: hour }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+      bbox: [-180, -50, 180, 50]
+    default_reducer: median
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+      precipitation:
+        description: Merged microwave/IR precipitation estimate
+        units: mm/hr
+        min: 0
+        max: 100
+      relativeError:
+        description: Merged microwave/IR precipitation random error estimate
+        units: mm/hr
+        min: 0
+        max: 100
+      satPrecipitationSource:
+        description: Flag to show source of data
+      HQprecipitation:
+        description: Pre-gauge-adjusted microwave precipitation estimate
+        units: mm/hr
+        min: 0
+        max: 100
+      IRprecipitation:
+        description: Pre-gauge-adjusted infrared precipitation estimate
+        units: mm/hr
+        min: 0
+        max: 100
+      satObservationTime:
+        description: Satellite observation time minus the time of the granule.
+        units: min
+        min: -90
+        max: 90
+
+  TRMM/3B43V7:
+    title: 'TRMM 3B43: Monthly Precipitation Estimates'
+    provider: nasa-ges-disc
+    ee_type: image_collection
+    cadence: { interval: 1, unit: month }
+    spatial_resolution: 27830
+    extent:
+      start_date: "1998-01-01"
+      end_date: null
+      bbox: [-180, -50, 180, 50]
+    default_reducer: median
+    license: public-domain
+    terms_note: 'This dataset is in the public domain and is available'
+    bands:
+      precipitation:
+        description: Merged microwave/IR precipitation estimate
+        units: mm/hr
+        min: 0
+        max: 6.73
+      relativeError:
+        description: Merged microwave/IR precipitation random error estimate
+        units: mm/hr
+        min: 0.001
+        max: 16.36
+      gaugeRelativeWeighting:
+        description: Relative weighting of the rain gauges used in calibration
+        units: '%'
+        min: 0
+        max: 100
+
+  UCSB-CHC/CHIRPS/V3/DAILY_RNL:
+    title: "CHIRPS v3 Daily Reanalysis-Blended Precipitation (UCSB CHC, 1981-present)"
+    provider: ucsb-chc
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Daily precipitation (reanalysis-blended)
+        units: mm/d
+
+  UCSB-CHC/CHIRPS/V3/DAILY_SAT:
+    title: "CHIRPS v3 Daily Satellite-Only Near-Real-Time Precipitation (UCSB CHC)"
+    provider: ucsb-chc
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Daily precipitation (satellite-only NRT, no gauge merging)
+        units: mm/d
+
+  UCSB-CHC/CHIRPS/V3/PENTAD:
+    title: "CHIRPS v3 Pentad Precipitation (UCSB CHC, 1981-present)"
+    provider: ucsb-chc
+    ee_type: image_collection
+    # Pentad = nominal 5-day window; recorded as `interval: 5, unit: day`
+    # because the Cadence model has no `pentad` unit.
+    cadence: { interval: 1, unit: pentad }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -60, 180, 60]
+    default_reducer: sum
+    license: public-domain
+    bands:
+      precipitation:
+        description: Pentad precipitation total
+        units: mm/pentad
+
+  UCSB-CHG/CHIRPS/DAILY:
+    title: "CHIRPS Daily: Climate Hazards Center InfraRed Precipitation with Station data"
+    provider: ucsb-chc
+    ee_type: image_collection
+    cadence: { interval: 1, unit: day }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -50, 180, 50]
+    default_reducer: mean
+    license: public-domain
+    bands:
+      precipitation:
+        description: Daily precipitation
+        units: mm/d
+        min: 0
+        max: 1444.34
+        estimated_range: true
+
+  UCSB-CHG/CHIRPS/PENTAD:
+    title: "CHIRPS Pentad: 5-day rainfall (UCSB Climate Hazards Center)"
+    provider: ucsb-chc
+    ee_type: image_collection
+    # Pentads are nominal 5-day windows (the last pentad of a month can be 3-6 days);
+    # 5/day is the most accurate cadence the catalog can express.
+    cadence: { interval: 1, unit: pentad }
+    spatial_resolution: 5566
+    extent:
+      start_date: "1981-01-01"
+      end_date: null
+      bbox: [-180, -50, 180, 50]
+    default_reducer: sum
+    license: public-domain
+    bands:
+      precipitation:
+        description: Pentad precipitation total
+        units: mm/pentad
+        min: 0
+        max: 1072.43
+        estimated_range: true
+

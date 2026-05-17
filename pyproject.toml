@@ -1,6 +1,6 @@
 [project]
 name = "earthlens"
-version = "0.4.0"
+version = "0.5.0"
 description = "remote sensing package"
 readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
@@ -27,6 +27,9 @@ classifiers = [
 requires-python = ">= 3.11, <4"
 
 dependencies = [
+    # NOTE: the GEE backend uses Dataset.from_bytes / Dataset.from_archive,
+    # currently only on the pyramids `feat/dataset-from-bytes` branch. Bump
+    # this floor to the next pyramids release once those APIs ship.
     "pyramids-gis >=0.17.0",
     "joblib >=1.2.0",
     "loguru >=0.7.2",
@@ -41,11 +44,12 @@ dependencies = [
 [project.optional-dependencies]
 s3 = ["boto3 >=1.26.50"]
 ecmwf = ["cdsapi >=0.7.7"]
-gee = ["earthengine-api >=0.1.324"]
+gee = ["earthengine-api >=0.1.324", "Rtree >=1.0.0"]
 all = [
     "boto3 >=1.26.50",
     "cdsapi >=0.7.7",
     "earthengine-api >=0.1.324",
+    "Rtree >=1.0.0",
 ]
 
 [dependency-groups]
@@ -105,8 +109,9 @@ where = ["src"]
 include = ["earthlens", "earthlens.*"]
 
 [tool.setuptools.package-data]
+"earthlens.chc" = ["*.yaml", "catalog/*.yaml"]
 "earthlens.ecmwf" = ["*.yaml"]
-"earthlens.gee" = ["*.yaml", "*.json"]
+"earthlens.gee" = ["*.yaml", "catalog/*.yaml"]
 
 [tool.flake8]
 ignore = ["E203", "E266", "E501", "W503", "E722", "C901", "E741", "E731"]
@@ -165,7 +170,7 @@ markers = [
     "unit: in-process unit test, no network or filesystem outside tmp_path.",
     "integration: exercises multiple modules together with mocked I/O.",
     "e2e: end-to-end test against a live external service (e.g. CDS); select with `-m e2e`.",
-    "chirps: tests for the CHIRPS backend (FTP, no extra SDK).",
+    "chc: tests for the Climate Hazards Center (CHC) FTP backend (no extra SDK; covers CHIRPS / CHIRP / CHIRTS / WBGT / SPI / SPEI / CHC_CMIP6 etc.).",
     "s3: tests for the S3 backend (requires the `s3` extra: boto3).",
     "ecmwf: tests for the ECMWF/CDS backend (requires the `ecmwf` extra: cdsapi).",
     "gee: tests for the Google Earth Engine backend (requires the `gee` extra: earthengine-api).",
@@ -180,16 +185,25 @@ platforms = ["win-64", "linux-64", "osx-arm64"]
 # Production users do `pip install earthlens[ecmwf]` (or whichever
 # subset they need) per the [project.optional-dependencies] above.
 earthlens = { path = ".", editable = true, extras = ["all"] }
+# NOTE: the GEE backend uses Dataset.from_bytes / Dataset.from_archive,
+# currently only on the pyramids `feat/dataset-from-bytes` branch. Until
+# that ships in a pyramids release, overlay the branch on top of the
+# conda-installed pyramids in this env with:
+#   pixi run -e dev pip install --no-deps -e <path-to-pyramids-checkout>
+# (--no-deps so pip does not try to rebuild GDAL on Windows). Once a
+# pyramids release ships those APIs, bump the floor in [project.dependencies]
+# to that release and drop this overlay step.
 
 [tool.pixi.tasks]
 test-all = { cmd = "pytest -vvv --cov=src/earthlens -sv --cov-report=xml --cov-report=term-missing", description = "Run all testsuite" }
 test-no-e2e = { cmd = "pytest -vvv -m 'not e2e' --cov=src/earthlens -sv --cov-report=xml --cov-report=term-missing", description = "Run unit + integration suite (skips live e2e)" }
 test-e2e = { cmd = "pytest -m e2e -v", description = "Run live CDS end-to-end suite (requires CDSAPI_URL / CDSAPI_KEY)" }
-test-chirps = { cmd = "pytest -vvv -m 'chirps and not e2e' --cov=src/earthlens --cov-report=xml --cov-report=term-missing", description = "Run CHIRPS-backend tests (skips live e2e)" }
+test-chc = { cmd = "pytest -vvv -m 'chc and not e2e' --cov=src/earthlens --cov-report=xml --cov-report=term-missing", description = "Run CHC-backend tests (CHIRPS / CHIRP / CHIRTS / WBGT / SPI / SPEI; skips live e2e)" }
 test-s3 = { cmd = "pytest -vvv -m 's3 and not e2e' --cov=src/earthlens --cov-report=xml --cov-report=term-missing", description = "Run S3-backend tests (requires the `s3` extra: boto3)" }
 test-ecmwf = { cmd = "pytest -vvv -m 'ecmwf and not e2e' --cov=src/earthlens --cov-report=xml --cov-report=term-missing", description = "Run ECMWF/CDS-backend tests (requires the `ecmwf` extra: cdsapi)" }
 test-gee = { cmd = "pytest -vvv -m 'gee and not e2e' --cov=src/earthlens --cov-report=xml --cov-report=term-missing", description = "Run GEE-backend tests (requires the `gee` extra: earthengine-api)" }
-notebooks = { cmd = "pytest --nbval --nbval-lax --verbose examples/notebooks", description = "check notebooks" }
+test-doctests = { cmd = "pytest --doctest-modules src/earthlens/gee src/earthlens/chc src/earthlens/ecmwf src/earthlens/base", description = "Run docstring examples across the 4 backend packages (catches drift in catalog / API docstrings)" }
+notebooks = { cmd = "pytest --nbval --nbval-lax --verbose docs/examples", description = "check notebooks" }
 jupyter = { cmd = "jupyter lab --no-browser --IdentityProvider.token='' --ServerApp.password='' --port=8889", description = "check notebooks" }
 build-dist = { cmd = "python -m build", description = "Build sdist and wheel for PyPI" }
 publish-pypi = { cmd = "twine upload --non-interactive --repository pypi dist/*", depends-on = ["build-dist"], description = "Build and upload package to PyPI" }

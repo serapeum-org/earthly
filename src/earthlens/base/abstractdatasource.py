@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import difflib
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
@@ -174,6 +175,35 @@ class SpatialExtent(BaseModel):
         """Western edge of the bbox (== `longitude_min`)."""
         return self.longitude_min
 
+    def estimate_pixel_dims(self, scale_m: float) -> tuple[int, int]:
+        """Return `(width_px, height_px)` of this bbox sampled at `scale_m` metres.
+
+        Thin wrapper over :func:`earthlens.base.spatial.estimate_pixel_dims`
+        so every backend can pre-flight a request size without reaching
+        into another subpackage. Useful e.g. for GEE's 32768-px
+        synchronous-export cap or for any "will this download blow up?"
+        check before queuing a job.
+
+        Args:
+            scale_m: Output pixel size in metres.
+
+        Returns:
+            `(width_px, height_px)` — both rounded up, each at least 1.
+
+        Raises:
+            ValueError: If `scale_m` is not positive.
+        """
+        # Local import to keep the existing import order untouched.
+        from earthlens.base.spatial import estimate_pixel_dims
+
+        return estimate_pixel_dims(
+            self.longitude_min,
+            self.latitude_min,
+            self.longitude_max,
+            self.latitude_max,
+            scale_m,
+        )
+
 
 class AbstractDataSource(ABC):
     """Bluebrint for all class for different datasources."""
@@ -329,7 +359,16 @@ class AbstractCatalog(BaseModel):
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
+    #: Short label used by :meth:`get_dataset`'s did-you-mean error
+    #: message — concrete subclasses override (e.g. `"GEE catalog"`,
+    #: `"CDS catalog"`, `"CHC catalog"`) so the user sees which
+    #: catalog they failed against.
+    _catalog_kind: str = "catalog"
+
     catalog: dict[str, Any] = Field(default_factory=dict)
+    available_datasets: list[str] = Field(default_factory=list)
+    datasets: dict[str, Any] = Field(default_factory=dict)
+    providers: dict[str, Any] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
         """Populate :attr:`catalog` after pydantic validation runs.
@@ -342,9 +381,116 @@ class AbstractCatalog(BaseModel):
         self.catalog = self.get_catalog()
 
     def get_catalog(self) -> Any:
-        """read the catalog of the datasource from disk or retrieve it from server."""
+        """Read the catalog of the datasource from disk or retrieve it from server.
+
+        Abstract; concrete subclasses must override and return their
+        backend-specific catalog object (e.g. a pydantic `Catalog`
+        instance, a `dict`, or whatever shape the backend uses).
+
+        Raises:
+            NotImplementedError: Always, until overridden by a subclass.
+        """
         raise NotImplementedError
 
     def get_variable(self, var_name: str) -> Any:
         """get the details of a specific variable."""
         return self.catalog.get(var_name)
+
+    # -- shared dict-like surface over `datasets` (M1 from catalog-cross-backend-comparison)
+
+    def get_dataset(self, name: str) -> Any:
+        """Return the dataset record for `name`, with a did-you-mean hint on miss.
+
+        Backend-generic: looks up `name` in :attr:`datasets` and raises
+        `ValueError` (not `KeyError`) with the closest known name when
+        absent. Concrete subclasses can override to narrow the return
+        type or customise the error message.
+
+        Args:
+            name: Catalog key (e.g. CDS dataset short name, EE asset id,
+                CHC dataset key).
+
+        Returns:
+            The matching dataset record (type depends on the subclass).
+
+        Raises:
+            ValueError: If `name` is not a key of :attr:`datasets`.
+        """
+        try:
+            return self.datasets[name]
+        except KeyError:
+            close = difflib.get_close_matches(name, self.datasets, n=1)
+            hint = f" Did you mean {close[0]!r}?" if close else ""
+            raise ValueError(
+                f"{name!r} is not in the {self._catalog_kind}. "
+                f"Known datasets: {sorted(self.datasets)}.{hint}"
+            ) from None
+
+    def __getitem__(self, name: str) -> Any:
+        """`cat[name]` — dict-style lookup; raises `KeyError` on miss."""
+        try:
+            return self.get_dataset(name)
+        except ValueError as exc:
+            raise KeyError(name) from exc
+
+    def __contains__(self, name: object) -> bool:
+        """`name in cat` — True when `name` is a curated dataset."""
+        return name in self.datasets
+
+    def __iter__(self):
+        """Iterate over the curated dataset keys."""
+        return iter(self.datasets)
+
+    def __len__(self) -> int:
+        """Number of curated datasets in the catalog."""
+        return len(self.datasets)
+
+    def __repr__(self) -> str:
+        """Compact developer repr — counts, not contents."""
+        return (
+            f"{type(self).__name__}(datasets={len(self.datasets)}, "
+            f"available_datasets={len(self.available_datasets)})"
+        )
+
+    def get_provider(self, slug: str) -> Any:
+        """Return the :class:`Provider` for `slug` (with a did-you-mean hint on miss).
+
+        Args:
+            slug: A registered provider slug (e.g. `"nasa-lp-daac"`,
+                `"ucsb-chc"`, `"copernicus"`).
+
+        Returns:
+            The matching :class:`earthlens.base.Provider`.
+
+        Raises:
+            ValueError: If `slug` is not a registered provider.
+        """
+        try:
+            return self.providers[slug]
+        except KeyError:
+            close = difflib.get_close_matches(slug, self.providers, n=1)
+            hint = f" Did you mean {close[0]!r}?" if close else ""
+            raise ValueError(
+                f"{slug!r} is not a registered provider. "
+                f"Known providers: {sorted(self.providers)}.{hint}"
+            ) from None
+
+    def __str__(self) -> str:
+        """Pretty-print the curated `datasets` map as YAML.
+
+        `None`-valued fields are omitted so the output stays readable;
+        the ordering of keys follows insertion. Concrete subclasses
+        whose dataset values aren't pydantic `BaseModel`s (rare) must
+        override.
+        """
+        import yaml
+
+        body = {}
+        for key, dataset in self.datasets.items():
+            if isinstance(dataset, BaseModel):
+                body[key] = dataset.model_dump(exclude_none=True)
+            else:
+                body[key] = dataset
+        return yaml.safe_dump(
+            body, default_flow_style=False, sort_keys=False, allow_unicode=True
+        )

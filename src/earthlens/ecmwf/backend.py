@@ -356,7 +356,7 @@ class ECMWF(AbstractDataSource):
         """
         try:
             client = cdsapi.Client()
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - cdsapi raises a variety of types; classify here and re-raise as AuthenticationError
             if _looks_like_missing_credentials(exc):
                 raise AuthenticationError(
                     "cdsapi could not authenticate against the Climate "
@@ -563,7 +563,7 @@ class ECMWF(AbstractDataSource):
                     nc_path = self._download_dataset(
                         var_info, progress_bar=progress_bar
                     )
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001 - log + continue so one bad variable doesn't kill the batch
                     logger.error(
                         f"ECMWF download for {dataset_name}/{var} failed: "
                         f"{type(exc).__name__}: {exc}"
@@ -574,7 +574,7 @@ class ECMWF(AbstractDataSource):
                 if effective_aggregate is not None:
                     try:
                         aggregate_netcdf(nc_path, var_info, effective_aggregate)
-                    except Exception as exc:
+                    except Exception as exc:  # noqa: BLE001 - log + continue so one bad aggregate doesn't kill the batch
                         logger.error(
                             f"ECMWF aggregate for {dataset_name}/{var} failed: "
                             f"{type(exc).__name__}: {exc}"
@@ -745,7 +745,7 @@ class ECMWF(AbstractDataSource):
         logger.info(f"Requesting {dataset} from CDS; this may take several minutes")
         try:
             self.client.retrieve(dataset, request, str(target))
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - cdsapi raises a variety of types; classify here and re-raise as PermissionError when licence-related
             if _looks_like_licence_not_accepted(exc):
                 raise PermissionError(
                     f"CDS rejected the request for {dataset!r}: licence "

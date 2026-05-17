@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from pathlib import Path
-from typing import List
 
 import pytest
 
@@ -23,19 +24,19 @@ def pytest_collection_modifyitems(items):
             continue
 
 
-@pytest.fixture(scope="module")
-def catalog_columns() -> List[str]:
-    return [
-        "dataset",
-        "name",
-        "provider",
-        "url",
-        "bands",
-        "band_describtion",
-        "spatial_resolution",
-        "temporal_resolution",
-        "start_date",
-        "end_date",
-        "min",
-        "max",
-    ]
+@pytest.fixture(autouse=True)
+def _clear_gee_module_caches():
+    """Reset every process-wide GEE cache between tests.
+
+    `_EXTENT_CACHE` (in `earthlens.gee.backend`) is module-level so
+    repeated `GEE(...)` constructions against the same asset don't
+    re-issue the 2-5 s `reduceColumns(minMax)` round trip — see L5 in
+    `planning/pr-diff-review-feat-gee-2026-05-17-2.md`. Without this
+    clear, a test that mocks `_discover_ee_extent` and counts calls
+    would see a stale hit from a previous test. We clear *before* the
+    test runs (so any caller seeing the cache sees an empty one).
+    """
+    from earthlens.gee.backend import clear_extent_cache
+
+    clear_extent_cache()
+    yield

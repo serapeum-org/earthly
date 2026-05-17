@@ -1,0 +1,21 @@
+# Canonical providers for the ECMWF/CDS catalog (L2).
+# Each entry maps a stable slug-id to a display name and optional
+# parent slug. Datasets in `cds_data_catalog.yaml` reference providers
+# by slug via the `provider:` field (assigned at load time by
+# `_build_dataset_map`); the loader validates that every referenced
+# slug is defined here.
+
+providers:
+  ecmwf:
+    display_name: "ECMWF (European Centre for Medium-Range Weather Forecasts)"
+  copernicus-c3s:
+    display_name: "Copernicus Climate Change Service (C3S, operated by ECMWF)"
+    parent: ecmwf
+  cmip5-modelling-centres:
+    display_name: "CMIP5 modelling centres (multi-institution ensemble)"
+  cordex-consortium:
+    display_name: "CORDEX consortium (regional downscaling, multi-institution)"
+  carra-consortium:
+    display_name: "CARRA consortium (MET Norway / DMI / SMHI / FMI Arctic reanalysis)"
+  cerra-consortium:
+    display_name: "CERRA consortium (Meteo-France / SMHI / MET Norway European reanalysis)"

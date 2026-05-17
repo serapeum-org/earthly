@@ -95,6 +95,11 @@ def fetch_constraints(dataset: str) -> list[dict[str, Any]]:
         when the endpoint is missing, returns 404, or transport
         fails — callers should treat that as "skip validation".
 
+    Raises:
+        ValueError: If the constraints URL template resolves to a
+            non-`https://` URL (defence against plaintext / `file://`
+            / `ftp://` fetch vectors).
+
     Examples:
         - First call hits the network; second call returns the
           cached value (`# doctest: +SKIP` because it requires

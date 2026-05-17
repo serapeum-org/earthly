@@ -23,13 +23,7 @@ class TestApiE2E:
     """End-to-end tests against the live Copernicus Climate Data Store."""
 
     def test_live_single_level_download(self, tmp_path):
-        """Daily 2m_temperature on reanalysis-era5-single-levels.
-
-        Test scenario:
-            Exercise the daily single-level path end-to-end. `_api()`
-            must call cdsapi.Client.retrieve, write a non-empty
-            NetCDF, and return its absolute path.
-        """
+        """Daily 2m_temperature on reanalysis-era5-single-levels."""
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
@@ -50,14 +44,7 @@ class TestApiE2E:
         assert target.stat().st_size > 0, f"NetCDF file is empty: {target}"
 
     def test_live_pressure_level_download(self, tmp_path):
-        """Daily temperature on reanalysis-era5-pressure-levels at 1000 hPa.
-
-        Test scenario:
-            Exercise the pressure-level branch of `_api()`. The
-            catalog entry for `T` carries
-            `cds_pressure_level=['1000']`; the request must
-            include that key and the retrieve must succeed.
-        """
+        """Daily temperature on reanalysis-era5-pressure-levels at 1000 hPa."""
         ecmwf = ECMWF(
             start="2022-01-01",
             end="2022-01-01",
@@ -116,16 +103,7 @@ class TestFacadeE2E:
     """End-to-end tests for the `EarthLens` facade."""
 
     def test_live_multi_variable_download_through_facade(self, tmp_path):
-        """`EarthLens(...).download()` chains every stage end-to-end.
-
-        Test scenario:
-            Exercise C1+C3+H1+H2+H3+M3 together: facade dispatch,
-            `self.vars` iteration, two retrieves (one per
-            variable), no spurious `data_interim.nc` deletion,
-            and partial-success aggregation. `2T` and `TP` are
-            both single-level so the request shape is uniform but
-            distinct dataset+variable pairs go to CDS.
-        """
+        """`EarthLens(...).download()` chains every stage end-to-end."""
         earthlens = EarthLens(
             data_source="ecmwf",
             temporal_resolution="daily",

@@ -1,0 +1,277 @@
+# CHC catalog slice: CHC_CMIP6 (daily climatological deltas, scenario projections).
+# 16 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  chc-cmip6-precip-daily-delta-2030-ssp245:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2030_SSP245/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2030-01-01'
+    end_date: '2030-12-31'
+    file_patterns:
+      tif: 2030_SSP245_delta_precip.{month}.{day}.tif
+    variables:
+      precipitation_delta:
+        description: Daily precipitation delta relative to historical baseline (SSP2-4.5, target 2030)
+        units: mm/day
+        types: flux
+  chc-cmip6-precip-daily-delta-2030-ssp585:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2030_SSP585/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2030-01-01'
+    end_date: '2030-12-31'
+    file_patterns:
+      tif: 2030_SSP585_delta_precip.{month}.{day}.tif
+    variables:
+      precipitation_delta:
+        description: Daily precipitation delta relative to historical baseline (SSP5-8.5, target 2030)
+        units: mm/day
+        types: flux
+  chc-cmip6-precip-daily-delta-2050-ssp245:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2050_SSP245/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2050-01-01'
+    end_date: '2050-12-31'
+    file_patterns:
+      tif: 2050_SSP245_delta_precip.{month}.{day}.tif
+    variables:
+      precipitation_delta:
+        description: Daily precipitation delta relative to historical baseline (SSP2-4.5, target 2050)
+        units: mm/day
+        types: flux
+  chc-cmip6-precip-daily-delta-2050-ssp585:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/precip/2050_SSP585/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2050-01-01'
+    end_date: '2050-12-31'
+    file_patterns:
+      tif: 2050_SSP585_delta_precip.{month}.{day}.tif
+    variables:
+      precipitation_delta:
+        description: Daily precipitation delta relative to historical baseline (SSP5-8.5, target 2050)
+        units: mm/day
+        types: flux
+  chc-cmip6-rh-daily-delta-2030-ssp245:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2030_SSP245/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2030-01-01'
+    end_date: '2030-12-31'
+    file_patterns:
+      tif: 2030_SSP245_delta_rh.{month}.{day}.tif
+    variables:
+      rh_delta:
+        description: Daily relative-humidity delta relative to historical baseline (SSP2-4.5, target 2030)
+        units: '%'
+        types: state
+  chc-cmip6-rh-daily-delta-2030-ssp585:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2030_SSP585/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2030-01-01'
+    end_date: '2030-12-31'
+    file_patterns:
+      tif: 2030_SSP585_delta_rh.{month}.{day}.tif
+    variables:
+      rh_delta:
+        description: Daily relative-humidity delta relative to historical baseline (SSP5-8.5, target 2030)
+        units: '%'
+        types: state
+  chc-cmip6-rh-daily-delta-2050-ssp245:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2050_SSP245/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2050-01-01'
+    end_date: '2050-12-31'
+    file_patterns:
+      tif: 2050_SSP245_delta_rh.{month}.{day}.tif
+    variables:
+      rh_delta:
+        description: Daily relative-humidity delta relative to historical baseline (SSP2-4.5, target 2050)
+        units: '%'
+        types: state
+  chc-cmip6-rh-daily-delta-2050-ssp585:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/rh/2050_SSP585/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2050-01-01'
+    end_date: '2050-12-31'
+    file_patterns:
+      tif: 2050_SSP585_delta_rh.{month}.{day}.tif
+    variables:
+      rh_delta:
+        description: Daily relative-humidity delta relative to historical baseline (SSP5-8.5, target 2050)
+        units: '%'
+        types: state
+  chc-cmip6-tmax-daily-delta-2030-ssp245:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2030_SSP245/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2030-01-01'
+    end_date: '2030-12-31'
+    file_patterns:
+      tif: 2030_SSP245_delta_tmax.{month}.{day}.tif
+    variables:
+      tmax_delta:
+        description: Daily maximum temperature delta relative to historical baseline (SSP2-4.5, target 2030)
+        units: degC
+        types: state
+  chc-cmip6-tmax-daily-delta-2030-ssp585:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2030_SSP585/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2030-01-01'
+    end_date: '2030-12-31'
+    file_patterns:
+      tif: 2030_SSP585_delta_tmax.{month}.{day}.tif
+    variables:
+      tmax_delta:
+        description: Daily maximum temperature delta relative to historical baseline (SSP5-8.5, target 2030)
+        units: degC
+        types: state
+  chc-cmip6-tmax-daily-delta-2050-ssp245:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2050_SSP245/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2050-01-01'
+    end_date: '2050-12-31'
+    file_patterns:
+      tif: 2050_SSP245_delta_tmax.{month}.{day}.tif
+    variables:
+      tmax_delta:
+        description: Daily maximum temperature delta relative to historical baseline (SSP2-4.5, target 2050)
+        units: degC
+        types: state
+  chc-cmip6-tmax-daily-delta-2050-ssp585:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmax/2050_SSP585/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2050-01-01'
+    end_date: '2050-12-31'
+    file_patterns:
+      tif: 2050_SSP585_delta_tmax.{month}.{day}.tif
+    variables:
+      tmax_delta:
+        description: Daily maximum temperature delta relative to historical baseline (SSP5-8.5, target 2050)
+        units: degC
+        types: state
+  chc-cmip6-tmin-daily-delta-2030-ssp245:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2030_SSP245/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2030-01-01'
+    end_date: '2030-12-31'
+    file_patterns:
+      tif: 2030_SSP245_delta_tmin.{month}.{day}.tif
+    variables:
+      tmin_delta:
+        description: Daily minimum temperature delta relative to historical baseline (SSP2-4.5, target 2030)
+        units: degC
+        types: state
+  chc-cmip6-tmin-daily-delta-2030-ssp585:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2030_SSP585/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2030-01-01'
+    end_date: '2030-12-31'
+    file_patterns:
+      tif: 2030_SSP585_delta_tmin.{month}.{day}.tif
+    variables:
+      tmin_delta:
+        description: Daily minimum temperature delta relative to historical baseline (SSP5-8.5, target 2030)
+        units: degC
+        types: state
+  chc-cmip6-tmin-daily-delta-2050-ssp245:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2050_SSP245/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2050-01-01'
+    end_date: '2050-12-31'
+    file_patterns:
+      tif: 2050_SSP245_delta_tmin.{month}.{day}.tif
+    variables:
+      tmin_delta:
+        description: Daily minimum temperature delta relative to historical baseline (SSP2-4.5, target 2050)
+        units: degC
+        types: state
+  chc-cmip6-tmin-daily-delta-2050-ssp585:
+    ftp_bases:
+      tif: pub/org/chc/products/CHC_CMIP6/daily_deltas/tmin/2050_SSP585/
+    region: global-extended
+    temporal_resolution: daily-delta
+    pandas_freq: D
+    spatial_resolution: [0.1]
+    formats: [tif]
+    start_date: '2050-01-01'
+    end_date: '2050-12-31'
+    file_patterns:
+      tif: 2050_SSP585_delta_tmin.{month}.{day}.tif
+    variables:
+      tmin_delta:
+        description: Daily minimum temperature delta relative to historical baseline (SSP5-8.5, target 2050)
+        units: degC
+        types: state

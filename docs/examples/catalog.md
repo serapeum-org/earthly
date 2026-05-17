@@ -4,25 +4,34 @@ Each data source provides some datasets/climate variables, and the `Catalog` cla
 
 The data catalog is a dictionary with the available datasets as keys and the attributes that describe each dataset stored in a nested dictionary.
 
-## CHIRPS
+## Climate Hazards Center (CHC)
+
+The `earthlens.chc` package covers every CHC product on `data.chc.ucsb.edu`
+— CHIRPS / CHIRP precipitation, CHIRTS temperature & humidity, CHIRPS-GEFS
+forecasts, CHPclim climatology, WBGT, SPI / SPEI, and CHC_CMIP6 scenario
+deltas. The catalog is pydantic-backed; `datasets` is a map of dataset key
+→ :class:`Dataset` carrying FTP path, spatial / temporal extent, available
+formats, and a per-variable map.
 
 ```python
-from earthlens.chirps import Catalog
+from earthlens.chc import Catalog
 
-chirps_catalog = Catalog()
-print(chirps_catalog.catalog)
+cat = Catalog()
+print(f"{len(cat.datasets)} datasets")
+print(cat.list_datasets(region="global", temporal_resolution="daily"))
 ```
 
+To look up a single variable:
+
 ```python
-{
-    'Precipitation': {
-        'descriptions': 'rainfall [mm/temporal_resolution]',
-        'units': 'mm/temporal_resolution',
-        'temporal resolution': ['daily', 'monthly'],
-        'file name': 'rainfall',
-        'var_name': 'R'
-    }
-}
+spec = cat.get_variable("global-daily", "precipitation")
+print(spec.units, spec.is_flux)        # mm/day  True
+```
+
+To inspect a dataset's full record:
+
+```python
+cat.describe("chirps-v3-global-monthly")
 ```
 
 ## ECMWF (Copernicus Climate Data Store)
@@ -475,7 +484,7 @@ CDS adds and retires datasets a few times a year; the
 the package's pinned snapshot. Refresh it before each release with:
 
 ```bash
-pixi run -e dev python tools/refresh_available_datasets.py
+pixi run -e dev python tools/ecmwf/refresh_available_datasets.py
 ```
 
 The script pulls the live STAC catalogue from

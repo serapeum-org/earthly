@@ -45,7 +45,7 @@ flattens that into one call:
 from earthlens import EarthLens
 
 earthlens = EarthLens(
-    data_source="ecmwf",          # or "chirps", "amazon-s3", "gee"
+    data_source="ecmwf",          # or "chc" (alias "chirps"), "amazon-s3", "gee"
     temporal_resolution="monthly",
     start="2022-01-01",
     end="2022-12-01",
@@ -154,7 +154,7 @@ Quick examples per backend
 from earthlens import EarthLens
 
 EarthLens(
-    data_source="chirps",
+    data_source="chc",
     temporal_resolution="daily",
     start="2009-01-01",
     end="2009-01-10",

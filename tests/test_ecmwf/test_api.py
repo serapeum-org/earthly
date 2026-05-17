@@ -37,12 +37,7 @@ class TestApi:
         assert target == expected, f"Expected {expected}, got {target}"
 
     def test_calls_retrieve_exactly_once(self, ecmwf_stub, single_level_var_info):
-        """`api()` triggers a single `client.retrieve` call.
-
-        Test scenario:
-            One invocation of `api()` must result in exactly one CDS
-            retrieve request (idempotent dispatch, not a retry loop).
-        """
+        """`api()` triggers a single `client.retrieve` call."""
         ecmwf_stub._api(single_level_var_info)
         assert ecmwf_stub.client.retrieve.call_count == 1, (
             f"Expected exactly 1 retrieve call, got "
@@ -52,14 +47,7 @@ class TestApi:
     def test_retrieve_called_positionally_with_three_args(
         self, ecmwf_stub, single_level_var_info
     ):
-        """`client.retrieve` is called with three positional args.
-
-        Test scenario:
-            The cdsapi signature is `retrieve(name, request, target)`;
-            the C1 fix must pass the dataset name first, the request
-            dict second, and the stringified target path third — never
-            via keyword arguments.
-        """
+        """`client.retrieve` is called with three positional args."""
         target = ecmwf_stub._api(single_level_var_info)
         args, kwargs = ecmwf_stub.client.retrieve.call_args
         assert (
@@ -79,13 +67,7 @@ class TestApi:
     def test_request_carries_required_default_keys(
         self, ecmwf_stub, single_level_var_info
     ):
-        """The request dict carries every key CDS requires for ERA5.
-
-        Test scenario:
-            For a daily ERA5 single-levels request the dict must include
-            `product_type`, `variable`, `year`/`month`/`day`,
-            `time`, `data_format`, and `area`.
-        """
+        """The request dict carries every key CDS requires for ERA5."""
         ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         for key in (
@@ -103,32 +85,17 @@ class TestApi:
     def test_product_type_defaults_to_reanalysis(
         self, ecmwf_stub, single_level_var_info
     ):
-        """`product_type` is the literal list `['reanalysis']`.
-
-        Test scenario:
-            Daily ERA5 requests use `product_type=['reanalysis']`.
-        """
+        """`product_type` is the literal list `['reanalysis']`."""
         ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["product_type"] == ["reanalysis"]
 
     def test_variable_taken_from_var_info(self, ecmwf_stub, single_level_var_info):
-        """`variable` mirrors `var_info.cds_variable`.
-
-        Test scenario:
-            For `cds_variable='2m_temperature'` the request must have
-            `variable=['2m_temperature']`.
-        """
+        """`variable` mirrors `var_info.cds_variable`."""
         ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["variable"] == ["2m_temperature"]
 
     def test_dates_are_zero_padded_and_sorted(self, ecmwf_stub, single_level_var_info):
-        """`year`/`month`/`day` are zero-padded, deduplicated, sorted.
-
-        Test scenario:
-            For dates `2022-01-01` to `2022-01-03` (daily), the
-            request must carry `year=['2022']`, `month=['01']`, and
-            `day=['01','02','03']`.
-        """
+        """`year`/`month`/`day` are zero-padded, deduplicated, sorted."""
         ecmwf_stub._api(single_level_var_info)
         request = captured_request(ecmwf_stub)
         assert request["year"] == ["2022"]
@@ -136,13 +103,7 @@ class TestApi:
         assert request["day"] == ["01", "02", "03"]
 
     def test_dates_handle_multi_year_range(self, ecmwf_stub, single_level_var_info):
-        """Multi-year ranges deduplicate across year/month/day boundaries.
-
-        Test scenario:
-            For dates `2021-12-30` to `2022-01-02` (daily), the
-            request must contain `year=['2021','2022']`,
-            `month=['01','12']` and `day=['01','02','30','31']`.
-        """
+        """Multi-year ranges deduplicate across year/month/day boundaries."""
         ecmwf_stub.time = ecmwf_stub.time.model_copy(
             update={
                 "dates": pd.date_range("2021-12-30", "2022-01-02", freq="D"),
@@ -155,13 +116,7 @@ class TestApi:
         assert request["day"] == ["01", "02", "30", "31"]
 
     def test_time_defaults_to_six_hourly_slots(self, ecmwf_stub, single_level_var_info):
-        """`time` defaults to `['00:00','06:00','12:00','18:00']`.
-
-        Test scenario:
-            Daily resolution requests cover four six-hourly snapshots
-            so downstream post-processing can aggregate to a daily
-            value.
-        """
+        """`time` defaults to `['00:00','06:00','12:00','18:00']`."""
         ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["time"] == [
             "00:00",
@@ -178,13 +133,7 @@ class TestApi:
     def test_area_uses_north_west_south_east_order(
         self, ecmwf_stub, single_level_var_info
     ):
-        """`area` follows CDS convention `[N, W, S, E]`.
-
-        Test scenario:
-            Given `lat_lim=[4.19, 4.64]` and
-            `lon_lim=[-75.65, -74.73]` the `area` field must be
-            `[4.64, -75.65, 4.19, -74.73]`.
-        """
+        """`area` follows CDS convention `[N, W, S, E]`."""
         ecmwf_stub._api(single_level_var_info)
         assert captured_request(ecmwf_stub)["area"] == [
             4.64,
@@ -196,37 +145,21 @@ class TestApi:
     def test_no_pressure_level_for_single_level_var(
         self, ecmwf_stub, single_level_var_info
     ):
-        """`pressure_level` is omitted for single-level datasets.
-
-        Test scenario:
-            `var_info` without `cds_pressure_level` must not
-            produce a `pressure_level` key — sending one to a
-            single-level dataset is rejected by CDS.
-        """
+        """`pressure_level` is omitted for single-level datasets."""
         ecmwf_stub._api(single_level_var_info)
         assert "pressure_level" not in captured_request(ecmwf_stub)
 
     def test_pressure_level_forwarded_when_present(
         self, ecmwf_stub, pressure_level_var_info
     ):
-        """`pressure_level` is forwarded from `var_info`.
-
-        Test scenario:
-            `var_info.cds_pressure_level=['1000']` must surface as
-            `request['pressure_level']=['1000']`.
-        """
+        """`pressure_level` is forwarded from `var_info`."""
         ecmwf_stub._api(pressure_level_var_info)
         assert captured_request(ecmwf_stub)["pressure_level"] == ["1000"]
 
     def test_single_date_produces_singleton_arrays(
         self, ecmwf_stub, single_level_var_info
     ):
-        """A one-day range produces length-1 `year`/`month`/`day`.
-
-        Test scenario:
-            For dates `[2022-06-15]` the request fields collapse to
-            `year=['2022']`, `month=['06']`, `day=['15']`.
-        """
+        """A one-day range produces length-1 `year`/`month`/`day`."""
         ecmwf_stub.time = ecmwf_stub.time.model_copy(
             update={
                 "dates": pd.date_range("2022-06-15", "2022-06-15", freq="D"),
@@ -268,14 +201,7 @@ class TestApi:
     def test_licence_not_accepted_is_translated(
         self, ecmwf_stub, single_level_var_info
     ):
-        """A 403 'Required licences not accepted' is rewritten with a URL.
-
-        Test scenario:
-            cdsapi raises a generic exception whose message contains
-            'licence' / 'license' for licence-acceptance failures.
-            `api()` must translate that into a `PermissionError`
-            naming the dataset's CDS page.
-        """
+        """A 403 'Required licences not accepted' is rewritten with a URL."""
         original = RuntimeError(
             "the request you have submitted is not valid. "
             "Required licences not accepted; please accept the "
@@ -499,14 +425,7 @@ class TestApi:
     def test_non_licence_retrieve_errors_propagate_untouched(
         self, ecmwf_stub, single_level_var_info
     ):
-        """Non-licence retrieve errors propagate as-is.
-
-        Test scenario:
-            A 5xx CDS server error or a transient connection drop
-            during `retrieve()` must surface unmodified — the
-            licence translation only applies when the error message
-            actually mentions a licence.
-        """
+        """Non-licence retrieve errors propagate as-is."""
         original = RuntimeError("HTTP 503 Service Unavailable")
 
         def boom(*_args, **_kwargs):

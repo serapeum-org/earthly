@@ -50,7 +50,8 @@ theme:
 
 plugins:
   - search
-  - mkdocs-jupyter
+  - mkdocs-jupyter:
+      include: ["*.ipynb"]
   - panzoom:
       hint_location: "top"
       key: "ctrl"
@@ -107,28 +108,51 @@ nav:
     - Installation: installation.md
     - Architecture: overview/architecture.md
   - Data Sources:
-    - CHIRPS: reference/chirps.md
+    - CHC (CHIRPS / CHIRTS / SPI / SPEI / …):
+      - Introduction: reference/chc/introduction.md
+      - Usage: reference/chc/usage.md
+      - Catalog & Tooling: reference/chc/catalog.md
+      - Reference: reference/chc/chc.md
     - Amazon S3: reference/s3.md
     - ECMWF:
       - Reference: reference/ecmwf.md
       - Catalog & Probes: reference/ecmwf/catalog.md
       - Aggregation: reference/aggregation.md
-    - GEE: reference/gee.md
+    - GEE:
+      - Introduction: reference/gee/introduction.md
+      - Registering a project: reference/gee/registering-a-project.md
+      - Service account setup: reference/gee/service-account-setup.md
+      - Usage: reference/gee/usage.md
+      - Reference: reference/gee/gee.md
   - Examples:
     - Authentication: examples/authentication.md
     - Data Sources: examples/data-sources.md
     - Data Catalog: examples/catalog.md
-    - CDS Quickstart: examples/cds_quickstart.ipynb
-    - Hydrology — water balance: examples/hydrology_water_balance.ipynb
-    - Oceanography — SST & sea ice: examples/oceanography_sst_sea_ice.ipynb
-    - Atmosphere — pressure levels: examples/atmosphere_pressure_levels.ipynb
-    - Agriculture — crop water demand: examples/agriculture_crop_water.ipynb
-    - Solar — PV resource assessment: examples/solar_resource_assessment.ipynb
-    - Wind — hub-height resource: examples/wind_energy_resource.ipynb
-    - Snow & cryosphere — winter snowpack: examples/snow_cryosphere_winter.ipynb
-    - Heat waves — public health: examples/heat_waves_public_health.ipynb
-    - Climate change — temperature anomalies: examples/climate_change_anomalies.ipynb
-    - Drought — SPI from precipitation: examples/drought_precipitation_deficit.ipynb
+    - CDS / ECMWF:
+      - Quickstart: examples/ecmwf/cds_quickstart.ipynb
+      - Hydrology — water balance: examples/ecmwf/hydrology_water_balance.ipynb
+      - Oceanography — SST & sea ice: examples/ecmwf/oceanography_sst_sea_ice.ipynb
+      - Atmosphere — pressure levels: examples/ecmwf/atmosphere_pressure_levels.ipynb
+      - Agriculture — crop water demand: examples/ecmwf/agriculture_crop_water.ipynb
+      - Solar — PV resource assessment: examples/ecmwf/solar_resource_assessment.ipynb
+      - Wind — hub-height resource: examples/ecmwf/wind_energy_resource.ipynb
+      - Snow & cryosphere — winter snowpack: examples/ecmwf/snow_cryosphere_winter.ipynb
+      - Heat waves — public health: examples/ecmwf/heat_waves_public_health.ipynb
+      - Climate change — temperature anomalies: examples/ecmwf/climate_change_anomalies.ipynb
+      - Drought — SPI from precipitation: examples/ecmwf/drought_precipitation_deficit.ipynb
+    - Google Earth Engine:
+      - Quickstart — EarthLens facade: examples/gee/quickstart.ipynb
+      - Atmosphere & chemistry — TROPOMI NO2: examples/gee/atmosphere-chemistry.ipynb
+      - Climate reanalysis — ERA5-Land monthly: examples/gee/climate-reanalysis.ipynb
+      - Community — Planet NICFI: examples/gee/community.ipynb
+      - Elevation & terrain — SRTM 30 m: examples/gee/elevation-terrain.ipynb
+      - Hydrology & water — JRC Global Surface Water: examples/gee/hydrology-water.ipynb
+      - Land cover & change — ESA WorldCover: examples/gee/land-cover-change.ipynb
+      - Optical / multispectral — Sentinel-2 SR: examples/gee/optical-multispectral.ipynb
+      - Other — CIESIN GPWv4 population: examples/gee/other.ipynb
+      - Precipitation — CHIRPS daily: examples/gee/precipitation.ipynb
+      - SAR / radar — Sentinel-1 GRD VV: examples/gee/sar-radar.ipynb
+      - Tracking batch exports (end-to-end demo): examples/gee/track-batch-exports.ipynb
   - API Reference:
     - EarthLens Facade: reference/earthlens.md
     - AbstractDataSource: reference/abstract-datasource.md

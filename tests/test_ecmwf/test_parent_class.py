@@ -28,13 +28,7 @@ class TestParentClassWiring:
     def test_full_construction_populates_all_expected_attributes(
         self, tmp_path, monkeypatch
     ):
-        """Constructing ECMWF wires up client/space/time/root_dir.
-
-        Test scenario:
-            With cdsapi.Client patched out, instantiating ECMWF must
-            populate every attribute the `_api()` method consumes —
-            without the fixture having to set them by hand.
-        """
+        """Constructing ECMWF wires up client/space/time/root_dir."""
         sentinel = _SentinelClient()
         monkeypatch.setattr(cdsapi, "Client", lambda: sentinel)
 
@@ -54,13 +48,7 @@ class TestParentClassWiring:
         assert ecmwf.root_dir == tmp_path.resolve()
 
     def test_root_dir_and_path_are_aliases(self, tmp_path, monkeypatch):
-        """`self.path` is preserved as an alias of `self.root_dir`.
-
-        Test scenario:
-            CHIRPS and S3 both still reference `self.path`. The H1
-            change must keep that name working alongside the new
-            `self.root_dir`.
-        """
+        """`self.path` is preserved as an alias of `self.root_dir`."""
         monkeypatch.setattr(cdsapi, "Client", lambda: _SentinelClient())
         ecmwf = ECMWF(
             start="2022-01-01",
@@ -75,20 +63,7 @@ class TestParentClassWiring:
     def test_api_works_directly_off_a_real_constructed_instance(
         self, tmp_path, monkeypatch
     ):
-        """End-to-end: ECMWF()._api(var_info) submits a real request.
-
-        Test scenario:
-            With cdsapi mocked, building an ECMWF instance and calling
-            `_api(var_info)` must:
-
-            * route to client.retrieve(dataset, request, target)
-            * write the target path under self.root_dir
-            * return the target
-
-            This is the H1 acceptance check — the `_api()` rewrite
-            from C1 actually runs against a normally-constructed
-            instance, not a hand-stubbed one.
-        """
+        """End-to-end: ECMWF()._api(var_info) submits a real request."""
         retrieved = []
 
         class FakeClient:

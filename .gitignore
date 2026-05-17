@@ -154,3 +154,17 @@ tests/mo/*
 # Local-only files (kept in worktree, not in git)
 CLAUDE.md
 planning/
+
+# GEE STAC catalog tool cache (tools/gee/audit_gee_datasets.py)
+tools/gee/_gee_stac_cache/
+
+# CHC tool runtime caches (audit + refresh probes)
+tools/chc/_audit_cache.json
+tools/chc/_discovered_paths.json
+
+# Per-notebook data + outputs under docs/examples/* — checked-in
+# notebooks reference these but the actual binary blobs (era5 .tif /
+# .nc, GEE export tifs) are reproduced on demand by running the
+# notebooks against live services. They must NOT enter git.
+docs/examples/ecmwf/data/
+docs/examples/gee/out/

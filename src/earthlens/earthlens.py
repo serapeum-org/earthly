@@ -2,8 +2,9 @@
 
 The :class:`EarthLens` class is the user-facing entry point of the
 package. It keeps the choice of backend (CHIRPS, ERA5 on AWS S3, ECMWF
-on the Copernicus Climate Data Store) behind a single string key so
-callers do not have to import each backend module directly.
+on the Copernicus Climate Data Store, Google Earth Engine) behind a
+single string key so callers do not have to import each backend module
+directly.
 
 Each backend's runtime SDK is an optional dependency
 (`pip install earthlens[ecmwf]`, `[s3]`, `[gee]`); the registry below
@@ -16,7 +17,7 @@ from __future__ import annotations
 import importlib
 from collections.abc import Mapping
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from earthlens.aggregate import AggregationConfig
@@ -76,7 +77,8 @@ class EarthLens:
     """Facade that routes a download to the requested backend.
 
     The class-level :attr:`DataSources` mapping resolves a string key
-    (`"chirps"`, `"amazon-s3"`, or `"ecmwf"`) to the concrete
+    (`"chc"`, `"amazon-s3"`, `"ecmwf"`, or `"gee"` / its alias
+    `"google-earth-engine"`) to the concrete
     :class:`AbstractDataSource` subclass that owns the request shape,
     authentication, and post-processing for that provider. Each
     backend's SDK is an optional dependency, so :attr:`DataSources`
@@ -100,14 +102,14 @@ class EarthLens:
             ```python
             >>> from earthlens.earthlens import EarthLens
             >>> sorted(EarthLens.DataSources)
-            ['amazon-s3', 'chirps', 'ecmwf']
+            ['amazon-s3', 'chc', 'chirps', 'ecmwf', 'gee', 'google-earth-engine']
 
             ```
         - Asking for an unknown backend raises `ValueError`:
 
             ```python
             >>> from earthlens.earthlens import EarthLens
-            >>> EarthLens(data_source="not-a-real-source")
+            >>> EarthLens(variables=[], data_source="not-a-real-source")
             Traceback (most recent call last):
                 ...
             ValueError: not-a-real-source not supported
@@ -115,24 +117,33 @@ class EarthLens:
             ```
 
     See Also:
-        :class:`earthlens.chirps.CHIRPS`: CHIRPS rainfall over FTP.
+        :class:`earthlens.chc.CHIRPS`: CHIRPS rainfall over FTP.
         :class:`earthlens.s3.S3`: ERA5 on AWS public S3 bucket.
         :class:`earthlens.ecmwf.ECMWF`: ERA5 via the Copernicus
             Climate Data Store (cdsapi).
+        :class:`earthlens.gee.GEE`: imagery from Google Earth Engine
+            (`earthengine-api`); keys `"gee"` / `"google-earth-engine"`.
     """
 
     DataSources = _LazyRegistry(
         {
-            "chirps": ("earthlens.chirps", "CHIRPS", ""),
+            "chc": ("earthlens.chc", "CHIRPS", ""),
+            # Back-compat alias: the package was originally named after
+            # its best-known dataset (CHIRPS), then generalised to cover
+            # the full Climate Hazards Center catalog. The `"chirps"`
+            # key is kept for callers that still use it.
+            "chirps": ("earthlens.chc", "CHIRPS", ""),
             "amazon-s3": ("earthlens.s3", "S3", "s3"),
             "ecmwf": ("earthlens.ecmwf", "ECMWF", "ecmwf"),
+            "gee": ("earthlens.gee", "GEE", "gee"),
+            "google-earth-engine": ("earthlens.gee", "GEE", "gee"),
         }
     )
 
     def __init__(
         self,
         variables: dict[str, list[str]] | list[str],
-        data_source: str = "chirps",
+        data_source: str = "chc",
         temporal_resolution: str = "daily",
         start: str | None = None,
         end: str | None = None,
@@ -140,6 +151,7 @@ class EarthLens:
         lat_lim: list[float] | None = None,
         lon_lim: list[float] | None = None,
         fmt: str = "%Y-%m-%d",
+        **backend_kwargs: object,
     ):
         """Resolve the backend and construct it with the user's parameters.
 
@@ -148,13 +160,15 @@ class EarthLens:
         instantiates the concrete backend bound to `self.datasource`.
 
         Args:
-            data_source: Backend key — one of `"chirps"`,
-                `"amazon-s3"`, or `"ecmwf"`. Defaults to
-                `"chirps"`.
-            temporal_resolution: `"daily"` or `"monthly"`. The
-                concrete backend may accept a narrower set; check its
-                `temporal_resolution` class attribute. Defaults to
-                `"daily"`.
+            data_source: Backend key — one of `"chc"` (alias
+                `"chirps"`), `"amazon-s3"`, `"ecmwf"`, or `"gee"`
+                (alias `"google-earth-engine"`). Defaults to
+                `"chc"`.
+            temporal_resolution: `"daily"` or `"monthly"` for most
+                backends; the GEE backend also accepts `"raw"` and
+                `"yearly"`. The concrete backend may accept a narrower
+                set; check its `temporal_resolution` handling.
+                Defaults to `"daily"`.
             start: Inclusive start date as a string (parsed with
                 `fmt`). Defaults to `None`.
             end: Inclusive end date as a string. Defaults to `None`.
@@ -167,8 +181,19 @@ class EarthLens:
                   short name to a list of variable codes drawn from
                   that dataset, e.g.
                   `{"reanalysis-era5-single-levels": ["2m-temperature"]}`.
-                * CHIRPS: `list[str]` of variable codes
-                  (e.g. `["precipitation"]`).
+                * GEE: `dict[str, list[str]]` mapping an Earth Engine
+                  asset id to a list of band ids, e.g.
+                  `{"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]}`.
+                * CHIRPS: either `list[str]` of variable codes
+                  (legacy — auto-routed to the `"global-daily"` /
+                  `"global-monthly"` dataset key via
+                  `temporal_resolution`), or `dict[str, list[str]]`
+                  mapping a CHIRPS catalog dataset key (e.g.
+                  `"africa-pentad"`, `"chirps-v3-global-monthly"`)
+                  to a list of variable codes drawn from that
+                  dataset, e.g. `{"africa-monthly": ["precipitation"]}`.
+                  See `Catalog().list_datasets()` for the curated
+                  dataset keys.
                 * S3 / ERA5: `list[str]` of variable codes from the
                   S3 backend's catalog.
 
@@ -179,14 +204,26 @@ class EarthLens:
                 :data:`DEFAULT_LONGITUDE_LIMIT` (whole Earth).
             fmt: `strptime` format for `start` and `end`.
                 Defaults to `"%Y-%m-%d"`.
+            **backend_kwargs: Extra keyword arguments forwarded
+                verbatim to the chosen backend's constructor — for
+                backend-specific options the facade does not name
+                explicitly (e.g. ECMWF's `skip_constraints`, or GEE's
+                `service_account` / `service_key` / `project` / `scale` /
+                `crs` / `reducer` / `export_via` / `drive_folder` /
+                `gcs_bucket` / `region`). A kwarg the backend does not
+                accept is its `TypeError`, not the facade's.
 
         Raises:
             ValueError: If `data_source` is not a key of
                 :attr:`DataSources`.
-            AuthenticationError: If `data_source="ecmwf"` and cdsapi
-                cannot authenticate (typically a missing
-                `~/.cdsapirc`). See
-                :class:`earthlens.ecmwf.AuthenticationError`.
+            AuthenticationError: If the backend cannot authenticate —
+                ECMWF (missing `~/.cdsapirc`; see
+                :class:`earthlens.ecmwf.AuthenticationError`) or GEE
+                (missing/invalid service key, unregistered project; see
+                :class:`earthlens.gee.AuthenticationError`).
+            ImportError: If the chosen backend's optional SDK is not
+                installed (e.g. `data_source="gee"` without
+                `pip install earthlens[gee]`).
 
         Examples:
             - The DataSources registry resolves the backend class
@@ -194,10 +231,14 @@ class EarthLens:
 
                 ```python
                 >>> from earthlens.earthlens import EarthLens
-                >>> EarthLens.DataSources["chirps"].__name__
+                >>> EarthLens.DataSources["chc"].__name__
+                'CHIRPS'
+                >>> EarthLens.DataSources["chirps"].__name__  # alias
                 'CHIRPS'
                 >>> EarthLens.DataSources["ecmwf"].__name__
                 'ECMWF'
+                >>> EarthLens.DataSources["gee"].__name__
+                'GEE'
 
                 ```
             - An unknown `data_source` is rejected before any backend
@@ -205,7 +246,7 @@ class EarthLens:
 
                 ```python
                 >>> from earthlens.earthlens import EarthLens
-                >>> EarthLens(data_source="bogus")
+                >>> EarthLens(variables=[], data_source="bogus")
                 Traceback (most recent call last):
                     ...
                 ValueError: bogus not supported
@@ -253,6 +294,7 @@ class EarthLens:
             temporal_resolution=temporal_resolution,
             path=path,
             fmt=fmt,
+            **backend_kwargs,
         )
 
     def download(
@@ -261,7 +303,7 @@ class EarthLens:
         aggregate: AggregationConfig | None = None,
         *args: object,
         **kwargs: object,
-    ) -> None:
+    ) -> Any:
         """Delegate the download to the bound backend.
 
         Forwards every argument verbatim to `self.datasource.download`.
@@ -275,15 +317,19 @@ class EarthLens:
                 progress bar during the loop. Defaults to `True`.
             aggregate: Optional :class:`earthlens.aggregate.AggregationConfig`.
                 Forwarded to backends that support it (currently
-                ECMWF). Other backends accept `**kwargs` and ignore
-                an unused `aggregate` payload, so passing it against
-                a non-ECMWF backend is a no-op rather than an error.
+                ECMWF). CHIRPS / S3 accept `**kwargs` and ignore an
+                unused `aggregate` payload, so passing it there is a
+                no-op; the GEE backend explicitly rejects a non-`None`
+                `aggregate` with `NotImplementedError` (planned — see
+                the GEE plan task M3).
             *args: Forwarded positionally to `backend.download`.
             **kwargs: Forwarded as keywords to `backend.download`.
 
         Returns:
-            None: Backends return `None` today and write files to
-            `path` as a side effect.
+            Whatever the bound backend's `download` returns: `None` for
+            CHIRPS / S3 / ECMWF (they write files to `path` as a side
+            effect), or the list of written GeoTIFF paths / export
+            destination strings for the GEE backend.
 
         Raises:
             AuthenticationError: When the ECMWF backend cannot
@@ -300,7 +346,7 @@ class EarthLens:
                 ```python
                 >>> from earthlens.earthlens import EarthLens
                 >>> earthlens = EarthLens(  # doctest: +SKIP
-                ...     data_source="chirps",
+                ...     data_source="chc",
                 ...     start="2009-01-01",
                 ...     end="2009-01-02",
                 ...     variables=["precipitation"],
@@ -334,14 +380,17 @@ class EarthLens:
                 ```
 
         See Also:
-            :meth:`earthlens.chirps.CHIRPS.download`: CHIRPS
+            :meth:`earthlens.chc.CHIRPS.download`: CHIRPS
                 backend implementation, including the `cores=`
                 keyword for parallel retrieval.
             :meth:`earthlens.s3.S3.download`: S3/ERA5 backend
                 implementation.
             :meth:`earthlens.ecmwf.ECMWF.download`: ECMWF/CDS
                 backend implementation.
+            :meth:`earthlens.gee.GEE.download`: Google Earth Engine
+                backend implementation (`export_via`, the 32768-px
+                synchronous cap).
         """
         if aggregate is not None:
             kwargs["aggregate"] = aggregate
-        self.datasource.download(progress_bar=progress_bar, *args, **kwargs)
+        return self.datasource.download(*args, progress_bar=progress_bar, **kwargs)

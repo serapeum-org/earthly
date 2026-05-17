@@ -10,6 +10,7 @@ import boto3
 import botocore
 import pandas as pd
 from botocore import exceptions
+from loguru import logger
 from tqdm import tqdm
 
 from earthlens.base import AbstractCatalog, AbstractDataSource
@@ -185,15 +186,15 @@ class S3(AbstractDataSource):
         Download the file to your local drive.
         """
         if not os.path.isfile(local_dir_fname):  # check if file already exists
-            print(f"Downloading {s3_file_path} from S3...")
+            logger.info(f"Downloading {s3_file_path} from S3...")
             try:
                 self.client.download_file(bucket, s3_file_path, local_dir_fname)
             except exceptions.ClientError:
-                print(
+                logger.error(
                     f"Error while downloading the {s3_file_path} please check the file name"
                 )
         else:
-            print(f"The file {local_dir_fname} already in your local directory")
+            logger.info(f"The file {local_dir_fname} already in your local directory")
 
     @staticmethod
     def parse_response_metadata(response: dict[str, str]):
@@ -224,17 +225,16 @@ class S3(AbstractDataSource):
         if response_meta.get("HTTPStatusCode") == 200:
             contents_list = response.get("Contents")
             if contents_list is None:
-                print("No objects are available")  # {date.strftime('%B, %Y')}
+                logger.info("No objects are available")  # {date.strftime('%B, %Y')}
             else:
                 for obj in contents_list:
                     keys.append(obj.get("Key"))
-                print(
-                    f"There are {len(keys)} objects available for\n--"
-                )  # {date.strftime('%B, %Y')}
-                for k in keys:
-                    print(k)
+                logger.info(
+                    f"There are {len(keys)} objects available; first 10: "
+                    f"{keys[:10]}"
+                )
         else:
-            print("There was an error with your request.")
+            logger.error("There was an error with your request.")
 
         return keys
 

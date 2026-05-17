@@ -1,0 +1,142 @@
+# Informational index for the CHC catalog.
+#
+#   available_datasets:    Every CHC dataset key in walk order. The
+#                          curated subset lives in the per-family *.yaml
+#                          files in this directory; edit those, not this
+#                          list (tools/chc/refresh_chc_catalog.py rewrites
+#                          it from the FTP walk).
+#   regions:               Geographic-coverage profiles keyed by region
+#                          name. Datasets carry inline lat/lon_boundaries;
+#                          this block remains for `Catalog.describe_region`
+#                          and `list_datasets(region=...)`.
+
+available_datasets:
+- global-daily
+- global-monthly
+- global-annual
+- global-dekad
+- global-pentad
+- global-2-monthly
+- global-3-monthly
+- africa-daily
+- africa-monthly
+- africa-dekad
+- africa-pentad
+- africa-6-hourly
+- africa-2-monthly
+- africa-3-monthly
+- central-america-caribbean-dekad
+- central-america-caribbean-monthly
+- central-america-caribbean-pentad
+- east-africa-monthly
+- indonesia-dekad
+- indonesia-monthly
+- western-hemisphere-daily
+- prelim-global-daily
+- prelim-global-monthly
+- prelim-global-dekad
+- prelim-global-pentad
+- prelim-global-2-monthly
+- prelim-global-3-monthly
+- chirps-v3-global-daily-rnl
+- chirps-v3-global-daily-sat
+- chirps-v3-global-daily-prelim
+- chirps-v3-global-monthly
+- chirps-v3-global-dekad
+- chirps-v3-global-pentad
+- chirps-v3-global-annual
+- chirps-v3-global-2-monthly
+- chirps-v3-prelim-monthly
+- chirps-v3-prelim-dekad
+- chirps-v3-prelim-pentad
+- chirp-daily
+- chirp-monthly
+- chirp-dekad
+- chirp-pentad
+- chirp-v3-global-daily
+- chirp-v3-global-monthly
+- chirp-v3-global-dekad
+- chirtsdaily-tmax
+- chirtsdaily-tmin
+- chirtsdaily-heat-index
+- chirtsdaily-relative-humidity
+- chirtsdaily-svp
+- chirtsdaily-vpd
+- chirtsmonthly-tmax
+- chirps-gefs-v12-daily-16day
+- chirps-gefs-v12-05day
+- chirps-gefs-v12-10day
+- chirps-gefs-v12-15day
+- chirps-gefs-v12-pentad-first
+- chirps-gefs-v12-pentad-second
+- chirps-gefs-v12-pentad-last
+- chirps-gefs-v12-dekad-first
+- chirps-gefs-v12-dekad-last
+- chpclim-v2-monthly
+- wbgt-monthly
+- wbgt-dekad
+- spi-chirps3-01-pentad
+- spi-chirps3-02-pentad
+- spi-chirps3-05-pentad
+- spi-chirps3-06-pentad
+- spi-chirps3-09-pentad
+- spi-chirps3-12-pentad
+- spi-chirps3-15-pentad
+- spi-chirps3-18-pentad
+- spi-chirps3-21-pentad
+- spei-v1-01-month
+- spei-v1-02-month
+- spei-v1-03-month
+- spei-v1-06-month
+- spei-v1-09-month
+- spei-v1-12-month
+- chc-cmip6-precip-daily-delta-2030-ssp245
+- chc-cmip6-precip-daily-delta-2030-ssp585
+- chc-cmip6-precip-daily-delta-2050-ssp245
+- chc-cmip6-precip-daily-delta-2050-ssp585
+- chc-cmip6-rh-daily-delta-2030-ssp245
+- chc-cmip6-rh-daily-delta-2030-ssp585
+- chc-cmip6-rh-daily-delta-2050-ssp245
+- chc-cmip6-rh-daily-delta-2050-ssp585
+- chc-cmip6-tmax-daily-delta-2030-ssp245
+- chc-cmip6-tmax-daily-delta-2030-ssp585
+- chc-cmip6-tmax-daily-delta-2050-ssp245
+- chc-cmip6-tmax-daily-delta-2050-ssp585
+- chc-cmip6-tmin-daily-delta-2030-ssp245
+- chc-cmip6-tmin-daily-delta-2030-ssp585
+- chc-cmip6-tmin-daily-delta-2050-ssp245
+- chc-cmip6-tmin-daily-delta-2050-ssp585
+- centennial-trends-v1-monthly
+- centennial-trends-v1-seasonal
+regions:
+  global:
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  global-land:
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]
+  global-extended:
+    lat_boundaries: [-90, 90]
+    lon_boundaries: [-180, 180]
+  africa:
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+  central-america-caribbean:
+    lat_boundaries: [5, 35]
+    lon_boundaries: [-120, -55]
+  east-africa:
+    lat_boundaries: [-12, 6]
+    lon_boundaries: [28, 42]
+  # Wider east-African extent used by CenTrends v1 (Funk et al. 2015):
+  # spans 12.25 S - 22.25 N x 21.25 - 51.25 E, covering eastern Africa,
+  # the Horn, and the western Arabian Peninsula. Currently only the
+  # centennial-trends-v1-* datasets use it.
+  east-africa-centennial:
+    lat_boundaries: [-12.25, 22.25]
+    lon_boundaries: [21.25, 51.25]
+  indonesia:
+    lat_boundaries: [-11, 6]
+    lon_boundaries: [95, 141]
+  western-hemisphere:
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 0]

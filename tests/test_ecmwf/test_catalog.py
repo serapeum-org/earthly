@@ -116,9 +116,9 @@ class TestCatalog:
         assert ds.monthly == "reanalysis-era5-pressure-levels-monthly-means"
         assert "temperature" in ds.variables
 
-    def test_get_dataset_raises_key_error_for_unknown_dataset(self):
-        """Unknown dataset names raise `KeyError`."""
-        with pytest.raises(KeyError):
+    def test_get_dataset_raises_value_error_with_hint(self):
+        """Unknown dataset names raise `ValueError` (with a did-you-mean hint when close)."""
+        with pytest.raises(ValueError, match="is not in the CDS catalog"):
             Catalog().get_dataset("definitely-not-a-dataset")
 
     def test_no_mars_schema_keys_remain(self):
@@ -568,8 +568,8 @@ class TestCatalog:
         assert len(info["variables"]) == 27
 
     def test_describe_raises_for_unknown_dataset(self):
-        """Unknown dataset names raise `KeyError`."""
-        with pytest.raises(KeyError):
+        """Unknown dataset names propagate `get_dataset`'s `ValueError`."""
+        with pytest.raises(ValueError, match="is not in the CDS catalog"):
             Catalog().describe("definitely-not-a-dataset")
 
     def test_era5_land_monthly_means_synthesized(self):
