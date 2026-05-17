@@ -331,6 +331,26 @@ class Dataset(BaseModel):
         return next(iter(self.ftp_bases))
 
     @property
+    def primary_spatial_resolution(self) -> float:
+        """The first (primary) pixel size from :attr:`spatial_resolution`.
+
+        Convenience accessor for the common single-resolution case.
+        After C3 every shipped dataset has a 1-element list, so this
+        is equivalent to `ds.spatial_resolution[0]` without the
+        consumer having to think about list shape (L4).
+
+        Returns:
+            float: Pixel size in degrees.
+
+        Raises:
+            IndexError: If `spatial_resolution` is somehow empty
+                (defended against by the
+                `test_every_spatial_resolution_is_non_empty_positive_floats`
+                test that ships with the catalog).
+        """
+        return self.spatial_resolution[0]
+
+    @property
     def ftp_base(self) -> str:
         """FTP directory path for the default format.
 
