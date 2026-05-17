@@ -46,7 +46,10 @@ class TestDescribePerDate:
         assert info["region"] == "global"
         assert info["temporal_resolution"] == "daily"
         assert info["pandas_freq"] == "D"
-        assert info["spatial_resolution"] == [0.05, 0.25]
+        # spatial_resolution trimmed to [0.05] in C3 to match what
+        # `ftp_bases` actually addresses; 0.25 will return when a
+        # p25 ftp_bases entry or sibling dataset exists.
+        assert info["spatial_resolution"] == [0.05]
         assert info["formats"] == ["tif", "cog", "netcdf"]
         assert info["ftp_bases"] == {
             "tif": "pub/org/chc/products/CHIRPS-2.0/global_daily/tifs/p05/"

@@ -9,7 +9,12 @@ datasets:
     region: global
     temporal_resolution: daily
     pandas_freq: D
-    spatial_resolution: [0.05, 0.25]
+    # CHC also publishes a 0.25-degree variant under tifs/p25/, but the
+    # catalog's `ftp_bases` is format-keyed (not (format, resolution)-keyed),
+    # so only the 0.05-degree path is addressable today. Listing [0.05]
+    # matches what this row can actually deliver. If a p25 ftp_bases entry
+    # or sibling dataset gets added, restore [0.05, 0.25] here.
+    spatial_resolution: [0.05]
     formats: [tif, cog, netcdf]
     start_date: '1981-01-01'
     file_patterns:
