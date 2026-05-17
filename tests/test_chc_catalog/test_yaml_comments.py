@@ -36,14 +36,14 @@ class TestYamlComments:
         text = (CATALOG_PATH / "gefs.yaml").read_text(encoding="utf-8")
         assert "probe_chirps_gefs.py" in text
 
-    def test_climatology_yaml_explains_static_climatology(self):
-        """climatology.yaml documents the static-climatology rationale for discrete_files."""
-        folded = _read_folded("climatology.yaml")
+    def test_derived_yaml_explains_static_climatology(self):
+        """derived.yaml retains the CHPclim static-climatology rationale post-M7 merge."""
+        folded = _read_folded("derived.yaml")
         assert "static climatology, not a repeating time series" in folded
 
-    def test_centennial_trends_yaml_explains_fixed_archive(self):
-        """centennial-trends.yaml documents the multi-year NetCDF archive rationale."""
-        folded = _read_folded("centennial-trends.yaml")
+    def test_derived_yaml_explains_fixed_archive(self):
+        """derived.yaml retains the CenTrends multi-year NetCDF archive rationale post-M7 merge."""
+        folded = _read_folded("derived.yaml")
         assert "fixed archive of multi-year NetCDFs" in folded
 
     def test_bundled_catalog_still_loads_after_comment_restoration(self):

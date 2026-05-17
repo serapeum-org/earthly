@@ -22,9 +22,9 @@ Public surface:
 * :class:`Catalog` — pydantic-backed loader for the per-family
   `catalog/*.yaml` files (split GEE-style: `chirps-2.0.yaml`,
   `chirps-v3.yaml`, `chirp.yaml`, `chirts.yaml`, `gefs.yaml`,
-  `climatology.yaml`, `wbgt.yaml`, `indices.yaml`, `cmip6.yaml`,
-  `centennial-trends.yaml`, plus `_index.yaml` for the informational
-  index + regions block).
+  `indices.yaml`, `cmip6.yaml`, `derived.yaml` (the small auxiliary
+  product families -- CHPclim, WBGT, CentennialTrends), plus
+  `_index.yaml` for the informational index + regions block).
   Exposes the YAML's structure as :attr:`Catalog.available_datasets`,
   :attr:`Catalog.available_regions`, and :attr:`Catalog.datasets`.
 * :class:`Dataset` — one CHC dataset's section inside the catalog

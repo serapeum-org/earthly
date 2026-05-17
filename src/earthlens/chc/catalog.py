@@ -14,9 +14,10 @@ Catalog layout (under `src/earthlens/chc/catalog/`):
   :attr:`Catalog.available_regions`.
 * `<family>.yaml` — one file per product family
   (`chirps-2.0.yaml`, `chirps-v3.yaml`, `chirp.yaml`, `chirts.yaml`,
-  `gefs.yaml`, `climatology.yaml`, `wbgt.yaml`, `indices.yaml`,
-  `cmip6.yaml`, `centennial-trends.yaml`). Each carries a
-  `datasets:` block whose entries are merged into
+  `gefs.yaml`, `indices.yaml`, `cmip6.yaml`, `derived.yaml`). The
+  last file is a bucket for small auxiliary families with 1-2
+  datasets each (CHPclim, WBGT, CentennialTrends). Each file carries
+  a `datasets:` block whose entries are merged into
   :attr:`Catalog.datasets`. Dataset keys must be unique across files.
 
 Variables are addressed by the `(dataset_key, variable_name)` pair
