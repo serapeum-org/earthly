@@ -45,8 +45,6 @@ no key is given, an interactive `ee.Authenticate()` against an explicit
 from __future__ import annotations
 
 import datetime as dt
-import os
-import sys
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Iterable, Literal
 
@@ -144,31 +142,6 @@ def _validate_pure_config(
             f"start={start!r} is after end={end!r}; the date range must be "
             "non-empty (`start <= end`)."
         )
-
-
-def _is_interactive_environment() -> bool:
-    """Return `True` when this process can plausibly run an interactive auth flow.
-
-    `ee.Authenticate()` opens a browser and waits for the user to paste
-    a token; on a headless box (CI, Docker, remote shell without
-    `DISPLAY`) it hangs indefinitely or fails with an unhelpful "no
-    browser" error. The check returns `True` when both `stdin` is a
-    TTY and a display is available (or we're on Windows / macOS, where
-    `DISPLAY` is not the relevant signal).
-
-    Tests can force the non-interactive branch via the
-    `EARTHLENS_FORCE_HEADLESS=1` environment variable.
-    """
-    if os.environ.get("EARTHLENS_FORCE_HEADLESS") == "1":
-        return False
-    try:
-        if not sys.stdin.isatty():
-            return False
-    except (AttributeError, ValueError):  # pragma: no cover - closed-stdin edge
-        return False
-    if sys.platform.startswith("linux") and not os.environ.get("DISPLAY"):
-        return False
-    return True
 
 
 class GEE(AbstractDataSource):
@@ -363,12 +336,11 @@ class GEE(AbstractDataSource):
         were given (via :class:`EarthEngineAuth`); otherwise runs
         `ee.Authenticate()` and `ee.Initialize(project=...)` against the
         explicit `project`. The `ee.Authenticate()` flow is interactive
-        (opens a browser, waits for the user to paste a token), so the
-        `project`-only path fast-fails with `AuthenticationError` when
-        the current process has no TTY or no `DISPLAY` (CI, headless
-        Docker, remote shell). Use service-account auth for
-        non-interactive use. The resolved project id is stored on
-        :attr:`project`.
+        — it opens a browser and waits for the user to paste a token,
+        so on a headless box (CI, Docker, remote shell) it will hang
+        or fail with whatever the EE SDK emits natively; use
+        service-account auth for non-interactive use. The resolved
+        project id is stored on :attr:`project`.
 
         Returns:
             The `ee` module (truthy, so the parent stores it as
@@ -376,8 +348,7 @@ class GEE(AbstractDataSource):
 
         Raises:
             AuthenticationError: If credentials are missing/invalid, no
-                project can be resolved, the current process is
-                non-interactive but only a `project=` was given, the
+                project can be resolved, the
                 project is not registered for Earth Engine, or the
                 service account lacks the required IAM role on it.
         """
@@ -390,14 +361,6 @@ class GEE(AbstractDataSource):
             raise AuthenticationError(
                 "the GEE backend needs either service_account + service_key, "
                 "or an explicit project= (with cached/ADC credentials). See "
-                "https://developers.google.com/earth-engine/guides/service_account."
-            )
-        if not _is_interactive_environment():
-            raise AuthenticationError(
-                f"cannot run interactive ee.Authenticate() for project "
-                f"{self._project!r} in a non-interactive environment "
-                "(no TTY / no DISPLAY). Use service-account auth instead: "
-                "pass service_account= + service_key= to GEE(...). See "
                 "https://developers.google.com/earth-engine/guides/service_account."
             )
         try:

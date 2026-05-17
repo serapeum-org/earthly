@@ -382,22 +382,6 @@ class TestInit:
                 lat_lim=[29.9, 30.0], lon_lim=[31.2, 31.3], path=str(tmp_path),
             )
 
-    def test_project_only_path_fast_fails_in_non_interactive_env(
-        self, fake_ee, tmp_path, monkeypatch,
-    ):
-        """`project=` without a service account fast-fails when no TTY/DISPLAY (M1)."""
-        from earthlens.gee.backend import AuthenticationError
-
-        monkeypatch.setenv("EARTHLENS_FORCE_HEADLESS", "1")
-        with pytest.raises(AuthenticationError, match="non-interactive"):
-            GEE(
-                start="2000-02-11", end="2000-02-12",
-                variables={"USGS/SRTMGL1_003": ["elevation"]},
-                lat_lim=[29.9, 30.0], lon_lim=[31.2, 31.3], path=str(tmp_path),
-                project="my-project",
-            )
-
-
 class TestCheckInputDates:
     """Tests for `GEE._check_input_dates`."""
 
