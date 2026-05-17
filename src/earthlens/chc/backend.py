@@ -221,9 +221,15 @@ class CHIRPS(AbstractDataSource):
             fmt: `strptime` format applied to `start` and `end`.
 
         Returns:
-            TemporalExtent: Frozen window. `resolution` is a daily
-            placeholder; `_download_dataset` re-derives the per-
-            dataset frequency.
+            TemporalExtent: Frozen outer window. Only `start_date` /
+            `end_date` carry meaning — `resolution` is a daily
+            placeholder and `dates` is an empty
+            :class:`pandas.DatetimeIndex` because CHIRPS download
+            cadence is per-dataset (`pandas_freq` lives on
+            :class:`~earthlens.chc.Dataset`, not on the bbox-level
+            outer window). A consumer iterating
+            `self.time.dates` would otherwise get a misleading daily
+            index for a `monthly` or `6-hourly` dataset.
         """
         start_dt = dt.datetime.strptime(start, fmt)
         end_dt = dt.datetime.strptime(end, fmt)
@@ -231,7 +237,7 @@ class CHIRPS(AbstractDataSource):
             start_date=start_dt,
             end_date=end_dt,
             resolution="D",
-            dates=pd.date_range(start_dt, end_dt, freq="D"),
+            dates=pd.DatetimeIndex([]),
         )
 
     def _create_grid(
