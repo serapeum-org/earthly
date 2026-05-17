@@ -169,9 +169,10 @@ class TestOpAdapter:
     @pytest.mark.parametrize("lro, normalised", [
         ("PENDING", "READY"),
         ("SUCCEEDED", "COMPLETED"),
+        ("CANCELLING", "CANCEL_REQUESTED"),
     ])
     def test_lro_state_aliases_are_normalised(self, lro, normalised):
-        """The Operations LRO vocabulary (`PENDING` / `SUCCEEDED`) folds into Task.State."""
+        """The Operations LRO vocabulary folds into the `Task.State` vocabulary."""
         info = _op_to_taskinfo(_op(state=lro))
         assert info.state == normalised
 

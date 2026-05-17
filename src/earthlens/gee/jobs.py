@@ -81,10 +81,13 @@ _VALID_TASK_STATES: frozenset[str] = frozenset(
     }
 )
 
-#: LRO -> Task.State aliases applied at adapter time.
+#: LRO -> Task.State aliases applied at adapter time. The high-level
+#: `ee.batch.Task.State` and the underlying Google Long-Running-Operations
+#: vocabulary overlap but use different terms for the same states.
 _STATE_ALIASES: dict[str, str] = {
-    "PENDING": "READY",       # queued, awaiting a worker
+    "PENDING": "READY",                  # queued, awaiting a worker
     "SUCCEEDED": "COMPLETED",
+    "CANCELLING": "CANCEL_REQUESTED",
 }
 
 TaskState = Literal[

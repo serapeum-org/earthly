@@ -1,16 +1,27 @@
 # GEE per-catalog example notebooks
 
 One Jupyter notebook per `src/earthlens/gee/catalog/*.yaml` category.
-Each notebook walks through the same three-step pipeline against a
-representative dataset of that category:
+Each notebook walks the **synchronous URL** pipeline against a
+representative dataset of that category, then re-submits the same
+request through the **asynchronous asset sink** so the job-tracking
+surface (`earthlens.gee.jobs`) gets demonstrated end-to-end against a
+real task:
 
 1. **Catalog inspect** — `Catalog().get_dataset(asset_id)` and read its
    bands, cadence, extent, license, default reducer.
-2. **Download** — `GEE(...).download(progress_bar=False)` with a tiny
-   AOI and a scale chosen to keep the synchronous URL download under
-   Earth Engine's 32768-px per-axis cap.
+2. **Sync download** — `GEE(...).download(progress_bar=False)` with a
+   tiny AOI and a scale chosen to keep the synchronous URL download
+   under Earth Engine's 32768-px per-axis cap. No job is queued — the
+   GeoTIFF is streamed back over HTTP.
 3. **Preview** — open the written GeoTIFF with `pyramids.dataset.Dataset`
    and render the single band with matplotlib.
+4. **Track submitted jobs** — re-submit the same request as
+   `export_via="asset"` with `wait_for_export=False`, list the task via
+   `list_recent_tasks(description_prefix=...)`, poll it to `COMPLETED`
+   via `wait_for_task_id`, verify the asset with
+   `ee.data.getAsset`, then `ee.data.deleteAsset` so storage doesn't
+   leak between runs. See `track-batch-exports.ipynb` for a
+   deeper-dive notebook on the same surface.
 
 ## Notebooks
 
@@ -65,3 +76,18 @@ is created on first run and re-used on subsequent runs — re-running a
 notebook overwrites the previous tile rather than wiping the
 directory, so file handles held by the matplotlib preview don't trip
 the cleanup on Windows.
+
+## EE asset side-effects (jobs tracking section)
+
+The "Track submitted jobs" section in each notebook creates an EE
+asset at
+`projects/<your-project>/assets/earthlens-demo-<category>` and deletes
+it at the end of the same notebook run. If a previous run crashed
+between submit and cleanup, the next run's first cell deletes any
+leftover (best-effort) before re-submitting.
+
+The asset path is derived from
+`ee.data._get_projects_path()` — whichever project your EE SDK was
+initialised on. To suppress the jobs-tracking demo entirely (e.g. for
+a service account without asset-write permission), remove the four
+trailing cells under the "Tracking submitted jobs" heading.
