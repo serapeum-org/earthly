@@ -1,0 +1,497 @@
+# CHC catalog slice: CHIRPS-2.0 (global / regional / preliminary).
+# 27 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  global-daily:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/global_daily/tifs/p05/
+    region: global
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05, 0.25]
+    formats: [tif, cog, netcdf]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation:
+        description: Daily rainfall estimate
+        units: mm/day
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  global-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/global_monthly/tifs/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif, cog, netcdf, bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  global-annual:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/global_annual/tifs/
+    region: global
+    temporal_resolution: annual
+    pandas_freq: YS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.tif
+    variables:
+      precipitation:
+        description: Annual accumulated rainfall estimate
+        units: mm/year
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  global-dekad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/global_dekad/tifs/
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif, netcdf, bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.{dekad}.tif.gz
+    variables:
+      precipitation:
+        description: Dekadal (10-day) accumulated rainfall estimate
+        units: mm/dekad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  global-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/global_pentad/tifs/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif, cog, netcdf, bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.{pentad}.tif.gz
+    variables:
+      precipitation:
+        description: Pentadal (5-day) accumulated rainfall estimate
+        units: mm/pentad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  global-2-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/global_2-monthly/tifs/
+    region: global
+    temporal_resolution: 2-monthly
+    pandas_freq: 2MS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: 2-month accumulated rainfall estimate
+        units: mm/2-months
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  global-3-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/global_3-monthly/tifs/
+    region: global
+    temporal_resolution: 3-monthly
+    pandas_freq: QS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: 3-month (seasonal) accumulated rainfall estimate
+        units: mm/3-months
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  africa-daily:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/africa_daily/tifs/p05/
+    region: africa
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif, bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation:
+        description: Daily rainfall estimate
+        units: mm/day
+        types: flux
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+  africa-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/africa_monthly/tifs/
+    region: africa
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif, bil, png]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+  africa-dekad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/africa_dekad/tifs/
+    region: africa
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif, bil, png]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.{dekad}.tif.gz
+    variables:
+      precipitation:
+        description: Dekadal (10-day) accumulated rainfall estimate
+        units: mm/dekad
+        types: flux
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+  africa-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/africa_pentad/tifs/
+    region: africa
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif, bil, png]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.{pentad}.tif.gz
+    variables:
+      precipitation:
+        description: Pentadal (5-day) accumulated rainfall estimate
+        units: mm/pentad
+        types: flux
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+  africa-6-hourly:
+    ftp_bases:
+      bin: pub/org/chc/products/CHIRPS-2.0/africa_6-hourly/p1_bin/
+    region: africa
+    temporal_resolution: 6-hourly
+    pandas_freq: 6h
+    spatial_resolution: [0.1]
+    formats: [bin]
+    start_date: '1981-01-01'
+    file_patterns:
+      bin: chirps-v2.0.{year}.{month}.{day}.{hour}.bin
+    variables:
+      precipitation:
+        description: 6-hourly rainfall estimate
+        units: mm/6h
+        types: flux
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+  africa-2-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/africa_2-monthly/tifs/
+    region: africa
+    temporal_resolution: 2-monthly
+    pandas_freq: 2MS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: 2-month accumulated rainfall estimate
+        units: mm/2-months
+        types: flux
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+  africa-3-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/africa_3-monthly/tifs/
+    region: africa
+    temporal_resolution: 3-monthly
+    pandas_freq: QS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: 3-month (seasonal) accumulated rainfall estimate
+        units: mm/3-months
+        types: flux
+    lat_boundaries: [-40, 40]
+    lon_boundaries: [-20, 55]
+  central-america-caribbean-dekad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/camer-carib_dekad/tifs/
+    region: central-america-caribbean
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif, bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.{dekad}.tif.gz
+    variables:
+      precipitation:
+        description: Dekadal (10-day) accumulated rainfall estimate
+        units: mm/dekad
+        types: flux
+    lat_boundaries: [5, 35]
+    lon_boundaries: [-120, -55]
+  central-america-caribbean-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/camer-carib_monthly/tifs/
+    region: central-america-caribbean
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif, bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+    lat_boundaries: [5, 35]
+    lon_boundaries: [-120, -55]
+  central-america-caribbean-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/camer-carib_pentad/tifs/
+    region: central-america-caribbean
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif, bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.{pentad}.tif.gz
+    variables:
+      precipitation:
+        description: Pentadal (5-day) accumulated rainfall estimate
+        units: mm/pentad
+        types: flux
+    lat_boundaries: [5, 35]
+    lon_boundaries: [-120, -55]
+  east-africa-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/EAC_monthly/tifs/
+    region: east-africa
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif, bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+    lat_boundaries: [-12, 6]
+    lon_boundaries: [28, 42]
+  indonesia-dekad:
+    ftp_bases:
+      bil: pub/org/chc/products/CHIRPS-2.0/indonesia_dekad/bils/
+    region: indonesia
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      bil: chirps-v2.0.{year}.{month}.{dekad}.bil.gz
+    variables:
+      precipitation:
+        description: Dekadal (10-day) accumulated rainfall estimate
+        units: mm/dekad
+        types: flux
+    lat_boundaries: [-11, 6]
+    lon_boundaries: [95, 141]
+  indonesia-monthly:
+    ftp_bases:
+      bil: pub/org/chc/products/CHIRPS-2.0/indonesia_monthly/bils/
+    region: indonesia
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [bil]
+    start_date: '1981-01-01'
+    file_patterns:
+      bil: chirps-v2.0.{year}.{month}.bil.gz
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+    lat_boundaries: [-11, 6]
+    lon_boundaries: [95, 141]
+  western-hemisphere-daily:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/whem_daily/tifs/p05/
+    region: western-hemisphere
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation:
+        description: Daily rainfall estimate
+        units: mm/day
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 0]
+  prelim-global-daily:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/prelim/global_daily/tifs/p05/
+    region: global
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif, cog, netcdf]
+    start_date: '1981-01-01'
+    preliminary: true
+    file_patterns:
+      tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
+    variables:
+      precipitation:
+        description: Daily rainfall estimate
+        units: mm/day
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  prelim-global-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/prelim/global_monthly/tifs/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif, netcdf, bil, cog]
+    start_date: '1981-01-01'
+    preliminary: true
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  prelim-global-dekad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/prelim/global_dekad/tifs/
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif, netcdf, bil]
+    start_date: '1981-01-01'
+    preliminary: true
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.{dekad}.tif.gz
+    variables:
+      precipitation:
+        description: Dekadal (10-day) accumulated rainfall estimate
+        units: mm/dekad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  prelim-global-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/prelim/global_pentad/tifs/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif, netcdf, bil, cog]
+    start_date: '1981-01-01'
+    preliminary: true
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.{pentad}.tif.gz
+    variables:
+      precipitation:
+        description: Pentadal (5-day) accumulated rainfall estimate
+        units: mm/pentad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  prelim-global-2-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/prelim/global_2-monthly/tifs/
+    region: global
+    temporal_resolution: 2-monthly
+    pandas_freq: 2MS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    preliminary: true
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: 2-month accumulated rainfall estimate
+        units: mm/2-months
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  prelim-global-3-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-2.0/prelim/global_3-monthly/tifs/
+    region: global
+    temporal_resolution: 3-monthly
+    pandas_freq: QS
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    preliminary: true
+    file_patterns:
+      tif: chirps-v2.0.{year}.{month}.tif.gz
+    variables:
+      precipitation:
+        description: 3-month (seasonal) accumulated rainfall estimate
+        units: mm/3-months
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]

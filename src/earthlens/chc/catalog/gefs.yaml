@@ -1,0 +1,221 @@
+# CHC catalog slice: CHIRPS-GEFS v3 + v12 (ensemble precipitation forecasts).
+# 12 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  chirps-gefs-v3-daily:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS/v3/daily/global/
+    region: global
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2001-01-01'
+    file_patterns:
+      tif: "{year}/chirps-gefs.{year}.{month}.{day}.tif"
+    variables:
+      precipitation:
+        description: Daily rainfall estimate
+        units: mm/day
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v3-dekad-lead0:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS/v3/dekad_lead_0/global/
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2001-01-01'
+    file_patterns:
+      tif: chirps-gefs.{year}.{month}.{dekad}.tif
+    variables:
+      precipitation:
+        description: Dekadal (10-day) accumulated rainfall estimate
+        units: mm/dekad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v3-pentad-lead0:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS/v3/pentad_lead_0/global/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2001-01-01'
+    file_patterns:
+      tif: chirps-gefs.{year}.{month}.{pentad}.tif
+    variables:
+      precipitation:
+        description: Pentadal (5-day) accumulated rainfall estimate
+        units: mm/pentad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-daily-16day:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/daily_16day/
+    region: global
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: data.{year}.{doy}.tif
+    variables:
+      precipitation:
+        description: 16-day daily CHIRPS-GEFS accumulated precipitation (v12)
+        units: mm
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-05day:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/05day/
+    region: global
+    temporal_resolution: 5-day
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: data.{year}.{doy}.tif
+    variables:
+      precipitation:
+        description: 5-day accumulated CHIRPS-GEFS precipitation forecast (v12)
+        units: mm/5-days
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-10day:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/10day/
+    region: global
+    temporal_resolution: 10-day
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: data.{year}.{doy}.tif
+    variables:
+      precipitation:
+        description: 10-day accumulated CHIRPS-GEFS precipitation forecast (v12)
+        units: mm/10-days
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-15day:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/15day/
+    region: global
+    temporal_resolution: 15-day
+    pandas_freq: 15D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: data.{year}.{doy}.tif
+    variables:
+      precipitation:
+        description: 15-day accumulated CHIRPS-GEFS precipitation forecast (v12)
+        units: mm/15-days
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-pentad-first:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_first/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: data.{year}.{doy}.tif
+    variables:
+      precipitation:
+        description: First-pentad CHIRPS-GEFS accumulated precipitation (v12)
+        units: mm/pentad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-pentad-second:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_second/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: data.{year}.{doy}.tif
+    variables:
+      precipitation:
+        description: Second-pentad CHIRPS-GEFS accumulated precipitation (v12)
+        units: mm/pentad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-pentad-last:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/pentad_last/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: data.{year}.{doy}.tif
+    variables:
+      precipitation:
+        description: Last-pentad CHIRPS-GEFS accumulated precipitation (v12)
+        units: mm/pentad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-dekad-first:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/dekad_first/
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: anom.{year}.{doy}.tif
+    variables:
+      precipitation_anomaly:
+        description: First-dekad CHIRPS-GEFS precipitation anomaly (v12)
+        units: mm/dekad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  chirps-gefs-v12-dekad-last:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRPS-GEFS_precip_v12/dekad_last/
+    region: global
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '2000-01-01'
+    file_patterns:
+      tif: anom.{year}.{doy}.tif
+    variables:
+      precipitation_anomaly:
+        description: Last-dekad CHIRPS-GEFS precipitation anomaly (v12)
+        units: mm/dekad
+        types: flux
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]

@@ -19,7 +19,12 @@ Public surface:
 * :class:`CHIRPS` — the backend itself; instantiate with a date range,
   a bbox, and a `variables` spec, then call :meth:`CHIRPS.download` to
   fetch the data.
-* :class:`Catalog` — pydantic-backed loader for `chc_data_catalog.yaml`.
+* :class:`Catalog` — pydantic-backed loader for the per-family
+  `catalog/*.yaml` files (split GEE-style: `chirps-2.0.yaml`,
+  `chirps-v3.yaml`, `chirp.yaml`, `chirts.yaml`, `gefs.yaml`,
+  `climatology.yaml`, `wbgt.yaml`, `indices.yaml`, `cmip6.yaml`,
+  `centennial-trends.yaml`, plus `_index.yaml` for the informational
+  index + regions block).
   Exposes the YAML's structure as :attr:`Catalog.available_datasets`,
   :attr:`Catalog.available_regions`, and :attr:`Catalog.datasets`.
 * :class:`Dataset` — one CHC dataset's section inside the catalog

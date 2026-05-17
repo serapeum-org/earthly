@@ -1,0 +1,275 @@
+# CHC catalog slice: SPI / SPEI (drought indices).
+# 15 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  spi-chirps3-01-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/01_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_01PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spi-chirps3-02-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/02_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_02PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spi-chirps3-05-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/05_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_05PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spi-chirps3-06-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/06_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_06PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spi-chirps3-09-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/09_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_09PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spi-chirps3-12-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/12_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_12PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spi-chirps3-15-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/15_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_15PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spi-chirps3-18-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/18_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_18PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spi-chirps3-21-pentad:
+    ftp_bases:
+      tif: pub/org/chc/products/SPI/CHIRPS3/21_pentad/
+    region: global
+    temporal_resolution: pentadal
+    pandas_freq: 5D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1981-01-01'
+    file_patterns:
+      tif: SPI_21PentAccum_{year}_p{pentad}.tif
+    variables:
+      spi:
+        description: Standardized Precipitation Index (SPI) based on CHIRPS3
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spei-v1-01-month:
+    ftp_bases:
+      netcdf: pub/org/chc/products/SPEI/v1/01_month/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [netcdf]
+    start_date: '1981-01-01'
+    file_patterns:
+      netcdf: SPEI_C3_Merra_Global_01month_{month}.nc
+    variables:
+      spei:
+        description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spei-v1-02-month:
+    ftp_bases:
+      netcdf: pub/org/chc/products/SPEI/v1/02_month/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [netcdf]
+    start_date: '1981-01-01'
+    file_patterns:
+      netcdf: SPEI_C3_Merra_Global_02month_{month}.nc
+    variables:
+      spei:
+        description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spei-v1-03-month:
+    ftp_bases:
+      netcdf: pub/org/chc/products/SPEI/v1/03_month/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [netcdf]
+    start_date: '1981-01-01'
+    file_patterns:
+      netcdf: SPEI_C3_Merra_Global_03month_{month}.nc
+    variables:
+      spei:
+        description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spei-v1-06-month:
+    ftp_bases:
+      netcdf: pub/org/chc/products/SPEI/v1/06_month/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [netcdf]
+    start_date: '1981-01-01'
+    file_patterns:
+      netcdf: SPEI_C3_Merra_Global_06month_{month}.nc
+    variables:
+      spei:
+        description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spei-v1-09-month:
+    ftp_bases:
+      netcdf: pub/org/chc/products/SPEI/v1/09_month/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [netcdf]
+    start_date: '1981-01-01'
+    file_patterns:
+      netcdf: SPEI_C3_Merra_Global_09month_{month}.nc
+    variables:
+      spei:
+        description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]
+  spei-v1-12-month:
+    ftp_bases:
+      netcdf: pub/org/chc/products/SPEI/v1/12_month/
+    region: global
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [netcdf]
+    start_date: '1981-01-01'
+    file_patterns:
+      netcdf: SPEI_C3_Merra_Global_12month_{month}.nc
+    variables:
+      spei:
+        description: Standardized Precipitation-Evapotranspiration Index (SPEI) based on CHIRPS3 + MERRA2 PET
+        units: dimensionless
+        types: index
+    lat_boundaries: [-50, 50]
+    lon_boundaries: [-180, 180]

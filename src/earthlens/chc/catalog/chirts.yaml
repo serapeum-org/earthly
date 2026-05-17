@@ -1,0 +1,138 @@
+# CHC catalog slice: CHIRTSdaily v1.0 + CHIRTSmonthly (temperature & humidity).
+# 7 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  chirtsdaily-tmax:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/Tmax/
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif, netcdf]
+    start_date: '1983-01-01'
+    end_date: '2016-12-31'
+    file_patterns:
+      tif: "{year}/Tmax.{year}.{month}.{day}.tif"
+    variables:
+      tmax:
+        description: Daily maximum 2-metre air temperature
+        units: degC
+        types: state
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]
+  chirtsdaily-tmin:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/Tmin/
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif, netcdf]
+    start_date: '1983-01-01'
+    end_date: '2016-12-31'
+    file_patterns:
+      tif: "{year}/Tmin.{year}.{month}.{day}.tif"
+    variables:
+      tmin:
+        description: Daily minimum 2-metre air temperature
+        units: degC
+        types: state
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]
+  chirtsdaily-heat-index:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/HeatIndex/
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1983-01-01'
+    end_date: '2016-12-31'
+    file_patterns:
+      tif: "{year}/HeatIndex.{year}.{month}.{day}.tif"
+    variables:
+      heat_index:
+        description: Daily heat index (apparent temperature)
+        units: degC
+        types: state
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]
+  chirtsdaily-relative-humidity:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/RHum/
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1983-01-01'
+    end_date: '2016-12-31'
+    file_patterns:
+      tif: "{year}/RH.{year}.{month}.{day}.tif"
+    variables:
+      relative_humidity:
+        description: Daily relative humidity
+        units: '%'
+        types: state
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]
+  chirtsdaily-svp:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/svp/
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1983-01-01'
+    end_date: '2016-12-31'
+    file_patterns:
+      tif: "{year}/svp.{year}.{month}.{day}.tif"
+    variables:
+      svp:
+        description: Daily saturation vapour pressure
+        units: kPa
+        types: state
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]
+  chirtsdaily-vpd:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRTSdaily/v1.0/global_tifs_p05/vpd/
+    region: global-land
+    temporal_resolution: daily
+    pandas_freq: D
+    spatial_resolution: [0.05]
+    formats: [tif]
+    start_date: '1983-01-01'
+    end_date: '2016-12-31'
+    file_patterns:
+      tif: "{year}/vpd.{year}.{month}.{day}.tif"
+    variables:
+      vpd:
+        description: Daily vapour pressure deficit
+        units: kPa
+        types: state
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]
+  chirtsmonthly-tmax:
+    ftp_bases:
+      tif: pub/org/chc/products/CHIRTSmonthly/CHIRTSmax.CDR/
+    region: global-land
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.05]
+    formats: [tif, netcdf]
+    start_date: '1983-01-01'
+    end_date: '2016-12-31'
+    file_patterns:
+      tif: CHIRTSmax.{year}.{month}.tif
+    variables:
+      tmax:
+        description: Daily maximum 2-metre air temperature
+        units: degC
+        types: state
+    lat_boundaries: [-60, 70]
+    lon_boundaries: [-180, 180]

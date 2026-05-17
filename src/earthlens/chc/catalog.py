@@ -1,28 +1,31 @@
-"""Variable-catalog loader for the CHIRPS FTP data source.
+"""Variable-catalog loader for the CHC (Climate Hazards Center) FTP data source.
 
-Hosts :class:`Catalog`, the pydantic-backed reader for
-`chc_data_catalog.yaml`. Mirrors the design of
-:mod:`earthlens.ecmwf.catalog` but adapted for the CHIRPS FTP
-directory structure.
+Hosts :class:`Catalog`, the pydantic-backed reader for the per-family
+YAML files under `<package>/catalog/`. Mirrors the GEE backend's
+split-catalog layout (one file per product family + `_index.yaml`)
+and adapts it for the CHC FTP directory structure.
 
-The YAML's two consumed top-level sections each map to a typed
-field on :class:`Catalog`:
+Catalog layout (under `src/earthlens/chc/catalog/`):
 
-* `available_datasets` (informational list of CHIRPS dataset keys)
-  → :attr:`Catalog.available_datasets`
-* `datasets` (structural map of FTP datasets, each carrying spatial
-  / temporal metadata and a per-variable map) →
-  :attr:`Catalog.datasets`, with each value a :class:`Dataset`
+* `_index.yaml` — `available_datasets:` (informational walk-order
+  list of every CHC dataset key) and `regions:` (named
+  geographic-coverage profiles keyed by region name). Read into
+  :attr:`Catalog.available_datasets` and
+  :attr:`Catalog.available_regions`.
+* `<family>.yaml` — one file per product family
+  (`chirps-2.0.yaml`, `chirps-v3.yaml`, `chirp.yaml`, `chirts.yaml`,
+  `gefs.yaml`, `climatology.yaml`, `wbgt.yaml`, `indices.yaml`,
+  `cmip6.yaml`, `centennial-trends.yaml`). Each carries a
+  `datasets:` block whose entries are merged into
+  :attr:`Catalog.datasets`. Dataset keys must be unique across files.
 
 Variables are addressed by the `(dataset_key, variable_name)` pair
-via :meth:`Catalog.get_variable`. Although CHIRPS currently only
-exposes precipitation, the two-level addressing keeps the interface
-symmetric with the ECMWF catalog and forwards-compatible with any
-future CHIRPS-family products (CHIRP, CHIRTSdaily, etc.).
+via :meth:`Catalog.get_variable`.
 
-The path to the bundled YAML lives at :data:`CATALOG_PATH`; tests
+The bundled-catalog directory lives at :data:`CATALOG_PATH`; tests
 can monkey-patch that module attribute to redirect the loader at a
-temporary file.
+temporary directory (or, via the back-compat single-file branch, a
+flat legacy YAML).
 
 Examples:
     - Construct the catalog and look up a variable:
@@ -66,7 +69,7 @@ from earthlens.base.providers import (
     load_providers,
 )
 
-CATALOG_PATH: Path = Path(__file__).parent / "chc_data_catalog.yaml"
+CATALOG_PATH: Path = Path(__file__).parent / "catalog"
 PROVIDERS_PATH: Path = Path(__file__).parent / "providers.yaml"
 
 # Module-level cache of parsed catalog data, keyed on
@@ -90,7 +93,10 @@ class _StrictSafeLoader(yaml.SafeLoader):
     """:class:`yaml.SafeLoader` that rejects duplicate keys in any mapping.
 
     Prevents silent shadowing when the same dataset key or variable
-    name is accidentally duplicated in `chc_data_catalog.yaml`.
+    name is accidentally duplicated inside a single CHC catalog YAML.
+    Cross-file duplicates are caught separately by the directory
+    loader (which keeps a `seen_in: {ds_key: filename}` map and raises
+    `ValueError` on the second occurrence).
     """
 
 
@@ -122,7 +128,7 @@ class Variable(FluxableLeaf):
     """Per-variable catalog entry for CHIRPS datasets.
 
     A frozen pydantic model carrying the metadata for one variable
-    row in `chc_data_catalog.yaml`. CHIRPS currently only provides
+    row in a CHC catalog YAML. CHIRPS-the-product only provides
     precipitation, but the typed model keeps the interface symmetric
     with the ECMWF catalog. Inherits `types` + `is_flux` from
     :class:`earthlens.base.FluxableLeaf`.
@@ -149,8 +155,8 @@ class Variable(FluxableLeaf):
 class Dataset(BaseModel):
     """One CHIRPS dataset's section in the catalog.
 
-    Mirrors the shape of a single `datasets.<key>:` block in
-    `chc_data_catalog.yaml` and carries all metadata needed to
+    Mirrors the shape of a single `datasets.<key>:` block in a CHC
+    catalog YAML and carries all metadata needed to
     construct FTP paths, generate date ranges, and validate user
     inputs.
 
@@ -396,19 +402,37 @@ def _load_catalog_data(
 ) -> tuple[list[str], dict[str, dict[str, list[float]]], dict[str, "Dataset"]]:
     """Parse, validate, and cache the CHC catalog at `path` (M2).
 
+    Dispatches on file vs. directory:
+
+    * **Directory** — the GEE-style split layout. Reads `_index.yaml`
+      for the informational `available_datasets:` list and the
+      `regions:` map, then merges every other `*.yaml` sibling's
+      `datasets:` block into one dict. Duplicate dataset keys across
+      files are rejected.
+    * **File** — the legacy single-file layout (`chc_data_catalog.yaml`).
+      Kept for backwards compatibility and tests that pass a single
+      flat YAML in via `Catalog.load(catalog_path=...)`.
+
     Returns a `(available_datasets, regions_map, datasets)` triple of
-    the same shape :class:`Catalog` exposes. Cached on
-    `(resolved-path, mtime_ns)` so repeated `Catalog()` construction
-    on an unchanged file skips YAML parsing and pydantic validation.
+    the same shape :class:`Catalog` exposes. Results are cached on
+    `(resolved-path, mtime-fingerprint)`; for a directory the
+    fingerprint is the sum of all member-file `mtime_ns` values, so
+    editing any per-family YAML invalidates the cache naturally.
 
     Raises:
         ValueError: If the YAML is missing, has no `datasets:` block,
-            has no variables under any dataset, or any region key /
-            field validation fails.
+            has no variables under any dataset, has duplicate dataset
+            keys across files, or any region key / field validation
+            fails.
     """
     resolved = str(path.resolve())
     try:
-        mtime_ns = path.stat().st_mtime_ns
+        if path.is_dir():
+            mtime_ns = sum(
+                child.stat().st_mtime_ns for child in path.glob("*.yaml")
+            )
+        else:
+            mtime_ns = path.stat().st_mtime_ns
     except FileNotFoundError:
         mtime_ns = 0
     key = (resolved, mtime_ns)
@@ -416,6 +440,18 @@ def _load_catalog_data(
     if cached is not None:
         return cached
 
+    if path.is_dir():
+        result = _load_catalog_directory(path)
+    else:
+        result = _load_catalog_file(path)
+    _CATALOG_CACHE[key] = result
+    return result
+
+
+def _load_catalog_file(
+    path: Path,
+) -> tuple[list[str], dict[str, dict[str, list[float]]], dict[str, "Dataset"]]:
+    """Read a legacy single-file CHC catalog into the standard triple."""
     with open(path, encoding="utf-8") as stream:
         data = yaml.load(stream, Loader=_StrictSafeLoader) or {}  # nosec B506
 
@@ -443,14 +479,77 @@ def _load_catalog_data(
         )
 
     available = list(data.get("available_datasets") or [])
-    _CATALOG_CACHE[key] = (available, regions_map, structural)
-    return _CATALOG_CACHE[key]
+    return available, regions_map, structural
+
+
+def _load_catalog_directory(
+    directory: Path,
+) -> tuple[list[str], dict[str, dict[str, list[float]]], dict[str, "Dataset"]]:
+    """Read a GEE-style split catalog (one file per product family).
+
+    Layout expected under ``directory``:
+
+    * ``_index.yaml`` — `available_datasets:` (informational walk-order
+      list) + `regions:` map (named geographic-coverage profiles).
+    * ``<family>.yaml`` — one or more per-family files, each with a
+      `datasets:` block. Family file names are not load-bearing;
+      anything matching ``*.yaml`` except ``_index.yaml`` is merged.
+
+    Dataset keys must be unique across all files; duplicates raise
+    `ValueError` with both filenames.
+    """
+    index_path = directory / "_index.yaml"
+    if not index_path.is_file():
+        raise ValueError(
+            f"{directory} has no `_index.yaml`. The CHC catalog "
+            "directory must contain `_index.yaml` (with "
+            "`available_datasets:` + `regions:`) alongside one or "
+            "more per-family `<family>.yaml` files."
+        )
+
+    with index_path.open(encoding="utf-8") as stream:
+        index_data = yaml.load(stream, Loader=_StrictSafeLoader) or {}  # nosec B506
+    available = list(index_data.get("available_datasets") or [])
+    regions_map: dict[str, dict[str, list[float]]] = (
+        index_data.get("regions") or {}
+    )
+
+    structural: dict[str, Dataset] = {}
+    seen_in: dict[str, str] = {}
+    total_vars = 0
+    for yaml_path in sorted(directory.glob("*.yaml")):
+        if yaml_path.name == "_index.yaml":
+            continue
+        with yaml_path.open(encoding="utf-8") as stream:
+            file_data = yaml.load(stream, Loader=_StrictSafeLoader) or {}  # nosec B506
+        for ds_key, ds_body in (file_data.get("datasets") or {}).items():
+            if ds_key in structural:
+                raise ValueError(
+                    f"duplicate dataset key {ds_key!r}: declared in "
+                    f"both `{seen_in[ds_key]}` and `{yaml_path.name}`. "
+                    "Each CHC dataset key must live in exactly one "
+                    "per-family file."
+                )
+            ds, n_vars = _build_chc_dataset(
+                ds_key, ds_body, regions_map, yaml_path
+            )
+            structural[ds_key] = ds
+            seen_in[ds_key] = yaml_path.name
+            total_vars += n_vars
+
+    if total_vars == 0:
+        raise ValueError(
+            f"{directory} has no variables under any dataset. "
+            "The CHC catalog must contain at least one variable."
+        )
+
+    return available, regions_map, structural
 
 
 class Catalog(AbstractCatalog):
     """Variable catalog for the CHIRPS FTP data source.
 
-    Reads `chc_data_catalog.yaml` (shipped as package data) and
+    Reads the per-family `catalog/*.yaml` files (shipped as package data) and
     exposes its consumed top-level sections as typed pydantic fields.
     Instantiate with no arguments (`Catalog()`) — :func:`model_post_init`
     parses the YAML and populates every field in one pass.
@@ -516,7 +615,7 @@ class Catalog(AbstractCatalog):
     providers: dict[str, Provider] = Field(default_factory=dict)
 
     def model_post_init(self, __context: Any) -> None:
-        """Auto-load `chc_data_catalog.yaml` when the user didn't supply one.
+        """Auto-load the bundled CHC catalog when the user didn't supply one.
 
         `Catalog()` with no args is sugar for `Catalog.load()` — it
         reads the bundled YAML through the `(path, mtime_ns)`-keyed
@@ -550,8 +649,13 @@ class Catalog(AbstractCatalog):
         slug against the registry.
 
         Args:
-            catalog_path: Path to a `chc_data_catalog.yaml`-shaped
-                file. Defaults to module-level :data:`CATALOG_PATH`.
+            catalog_path: Path to a CHC catalog. Two shapes are
+                accepted: a directory containing `_index.yaml` plus
+                one or more `<family>.yaml` siblings (the GEE-style
+                default), or a single flat YAML file with
+                `available_datasets:` / `regions:` / `datasets:` at
+                top level (legacy back-compat). Defaults to
+                module-level :data:`CATALOG_PATH` (the directory).
             providers_path: Path to `providers.yaml`. Defaults to
                 module-level :data:`PROVIDERS_PATH`.
 

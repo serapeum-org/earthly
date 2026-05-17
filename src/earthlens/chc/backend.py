@@ -5,7 +5,8 @@ Downloads raster products from the Climate Hazards Center FTP server
 spatial / temporal extent, file pattern, available formats, and per-
 variable metadata is sourced from
 :class:`~earthlens.chc.Catalog`, which loads the bundled
-`chc_data_catalog.yaml`. No FTP path or filename is hardcoded here.
+the per-family `catalog/*.yaml` files. No FTP path or filename is
+hardcoded here.
 
 The download pipeline (per `(dataset, variable, date)` triple) is:
 

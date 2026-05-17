@@ -1,0 +1,48 @@
+# CHC catalog slice: CentennialTrends v1 (East-African rainfall, 1900-2014).
+# 2 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  centennial-trends-v1-monthly:
+    ftp_bases:
+      netcdf: pub/org/chc/products/CentennialTrends/
+    region: east-africa
+    lat_boundaries: [-12.25, 22.25]
+    lon_boundaries: [21.25, 51.25]
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [0.1]
+    formats: [netcdf]
+    start_date: '1900-01-01'
+    end_date: '2014-12-31'
+    discrete_files:
+      netcdf: [CenTrends_v1_monthly.nc]
+    variables:
+      precipitation:
+        description: Monthly accumulated rainfall estimate
+        units: mm/month
+        types: flux
+  centennial-trends-v1-seasonal:
+    ftp_bases:
+      netcdf: pub/org/chc/products/CentennialTrends/
+    region: east-africa
+    lat_boundaries: [-12.25, 22.25]
+    lon_boundaries: [21.25, 51.25]
+    temporal_resolution: seasonal
+    pandas_freq: QS
+    spatial_resolution: [0.1]
+    formats: [netcdf]
+    start_date: '1900-01-01'
+    end_date: '2014-12-31'
+    discrete_files:
+      netcdf:
+      - CenTrends_v1_MarJun.nc
+      - CenTrends_v1_JunSep.nc
+      - CenTrends_v1_OctFeb.nc
+      - CenTrends_v1_OctSep.nc
+    variables:
+      precipitation:
+        description: Seasonal accumulated rainfall over four climatological windows (Mar-Jun long rains, Jun-Sep Sahel rains,
+          Oct-Feb short rains, Oct-Sep full annual cycle)
+        units: mm/season
+        types: flux

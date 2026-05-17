@@ -1,0 +1,41 @@
+# CHC catalog slice: WBGT (Wet Bulb Globe Temperature).
+# 2 dataset(s). Edit in place; the loader merges every
+# *.yaml file in this directory into one Catalog at import time.
+
+datasets:
+  wbgt-monthly:
+    ftp_bases:
+      tif: pub/org/chc/products/WBGT/wbgt_global_1_monthly_data/
+    region: global-extended
+    temporal_resolution: monthly
+    pandas_freq: MS
+    spatial_resolution: [1.0]
+    formats: [tif]
+    start_date: '1980-01-01'
+    file_patterns:
+      tif: data_{start_yyyymmdd}_{end_yyyymmdd}.tif
+    variables:
+      wbgt:
+        description: Wet Bulb Globe Temperature (WBGT)
+        units: degC
+        types: state
+    lat_boundaries: [-90, 90]
+    lon_boundaries: [-180, 180]
+  wbgt-dekad:
+    ftp_bases:
+      tif: pub/org/chc/products/WBGT/wbgt_global_dekad_data/
+    region: global-extended
+    temporal_resolution: dekadal
+    pandas_freq: 10D
+    spatial_resolution: [1.0]
+    formats: [tif]
+    start_date: '1980-01-01'
+    file_patterns:
+      tif: data_{start_yyyymmdd}_{end_yyyymmdd}.tif
+    variables:
+      wbgt:
+        description: Wet Bulb Globe Temperature (WBGT)
+        units: degC
+        types: state
+    lat_boundaries: [-90, 90]
+    lon_boundaries: [-180, 180]
