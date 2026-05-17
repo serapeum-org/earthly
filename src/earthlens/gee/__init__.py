@@ -93,6 +93,14 @@ from earthlens.gee.io import (
     feature_collection_to_gdf,
     feature_collections_to_dataframe,
 )
+from earthlens.gee.jobs import (
+    TaskInfo,
+    cancel_task,
+    get_task_status,
+    list_recent_tasks,
+    resolve_destination,
+    wait_for_task_id,
+)
 from earthlens.gee.sampling import sample_points, sample_points_to_gdf
 
 __all__ = [
@@ -114,4 +122,10 @@ __all__ = [
     "feature_collections_to_dataframe",
     "sample_points",
     "sample_points_to_gdf",
+    "TaskInfo",
+    "list_recent_tasks",
+    "get_task_status",
+    "cancel_task",
+    "wait_for_task_id",
+    "resolve_destination",
 ]

@@ -1,0 +1,477 @@
+"""Track Earth Engine batch tasks the way `earthlens.ecmwf.jobs` tracks CDS jobs.
+
+The synchronous `export_via="url"` path of :class:`earthlens.gee.GEE`
+produces nothing trackable — once the GeoTIFF arrives there is no
+queue entry to inspect. The asynchronous sinks (`"drive"` / `"gcs"` /
+`"asset"`) do, and Earth Engine exposes two stacked APIs over them
+(`ee.batch.Task.*` and the lower-level `ee.data.{listOperations,
+getOperation, cancelOperation}`). This module normalises both shapes
+into a single frozen :class:`TaskInfo` value object and gives the
+caller four operations on top:
+
+* :func:`list_recent_tasks` — every batch task on the current project,
+  with client-side filters by `state` / age / `task_type` /
+  description prefix.
+* :func:`get_task_status` — one task by id.
+* :func:`cancel_task` — cancel a queued or running task by id.
+* :func:`wait_for_task_id` — id-based blocking poll until the task
+  reaches a terminal state.
+* :func:`resolve_destination` — return the `destination_uris` of a
+  completed task as a list (does *not* auto-download Drive / GCS
+  payloads — that's `L2` in `planning/gee-jobs-tracking-plan.md`).
+
+These mirror :mod:`earthlens.ecmwf.jobs` so a user juggling both
+backends sees the same surface.
+
+Examples:
+    - Show every batch export still running:
+        ```python
+        >>> from earthlens.gee.jobs import list_recent_tasks  # doctest: +SKIP
+        >>> for t in list_recent_tasks(state="RUNNING"):  # doctest: +SKIP
+        ...     print(t.id, t.description)
+
+        ```
+    - Cancel a runaway task by id:
+        ```python
+        >>> from earthlens.gee.jobs import cancel_task  # doctest: +SKIP
+        >>> cancel_task("SNR3SZ6GNH5LUJQJ52VVNSZT")  # doctest: +SKIP
+
+        ```
+"""
+
+from __future__ import annotations
+
+import datetime as dt
+import time
+from collections.abc import Callable, Iterable
+from typing import Any, Literal
+
+import ee
+from loguru import logger
+from pydantic import BaseModel, ConfigDict
+from tqdm import tqdm
+
+#: Terminal task states — `wait_for_task_id` returns / raises when one is reached.
+TERMINAL_TASK_STATES: frozenset[str] = frozenset(
+    {"COMPLETED", "FAILED", "CANCELLED", "CANCEL_REQUESTED"}
+)
+
+#: Every state EE may report (verified against `ee.batch.Task.State`).
+_VALID_TASK_STATES: frozenset[str] = frozenset(
+    {
+        "UNSUBMITTED",
+        "READY",
+        "RUNNING",
+        "CANCEL_REQUESTED",
+        "CANCELLED",
+        "COMPLETED",
+        "FAILED",
+    }
+)
+
+TaskState = Literal[
+    "UNSUBMITTED",
+    "READY",
+    "RUNNING",
+    "CANCEL_REQUESTED",
+    "CANCELLED",
+    "COMPLETED",
+    "FAILED",
+]
+
+
+class TaskInfo(BaseModel):
+    """Normalised view of a single Earth Engine batch task.
+
+    Built from either an `ee.data.listOperations()` operation dict
+    (nested `metadata`) or an `ee.batch.Task.status()` flat dict; both
+    map to the same frozen model so downstream code never has to
+    care which API it came from.
+
+    Attributes:
+        id: The bare task id (e.g. `"SNR3SZ6GNH5LUJQJ52VVNSZT"`) —
+            the trailing token of `operation_name`.
+        operation_name: The canonical
+            `projects/<proj>/operations/<id>` path used by
+            `ee.data.getOperation` and `ee.data.cancelOperation`.
+        description: Human description set when the task was
+            submitted (e.g. the `description=` kwarg of
+            `ee.batch.Export.image.toDrive`).
+        state: One of :data:`_VALID_TASK_STATES`.
+        task_type: `EXPORT_IMAGE` / `EXPORT_TABLE` / `EXPORT_MAP` /
+            `EXPORT_VIDEO` / `EXPORT_CLASSIFIER`.
+        create_time: Submission time as a naive UTC datetime.
+        update_time: Last status-update time as a naive UTC datetime.
+        start_time: When the task moved out of `READY` into `RUNNING`,
+            or `None` if it hasn't.
+        attempt: 1 on first try, increments on EE-side retries.
+        priority: Task priority (EE assigns 100 by default).
+        destination_uris: Output URLs (Drive / GCS / asset) — only
+            populated on `COMPLETED`.
+        error_message: EE-side error string — only populated on
+            `FAILED`.
+        done: `True` on any terminal state.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    id: str
+    operation_name: str
+    description: str
+    state: TaskState
+    task_type: str
+    create_time: dt.datetime
+    update_time: dt.datetime
+    start_time: dt.datetime | None = None
+    attempt: int = 1
+    priority: int | None = None
+    destination_uris: tuple[str, ...] = ()
+    error_message: str | None = None
+    done: bool = False
+
+
+# -- low-level helpers ------------------------------------------------------
+
+
+def _resolve_project(project: str | None) -> str:
+    """Return `project` or fall back to the project the SDK was initialised with."""
+    if project is not None:
+        return project
+    # `_get_projects_path()` returns `projects/<id>` — strip the prefix.
+    raw = ee.data._get_projects_path()
+    if raw.startswith("projects/"):
+        return raw[len("projects/"):]
+    return raw
+
+
+def _operation_name(task_id: str, project: str | None = None) -> str:
+    """Build the canonical `projects/<proj>/operations/<id>` operation name.
+
+    Accepts either a bare task id or an already-formed operation name;
+    the latter is returned unchanged.
+    """
+    if task_id.startswith("projects/") and "/operations/" in task_id:
+        return task_id
+    return f"projects/{_resolve_project(project)}/operations/{task_id}"
+
+
+def _parse_iso(ts: str | None) -> dt.datetime | None:
+    """Parse an ISO-8601 timestamp from `listOperations` as a naive UTC datetime."""
+    if not ts:
+        return None
+    # ISO-8601 with `Z` (Zulu). `fromisoformat` handles `+00:00` natively
+    # from Python 3.11 onwards but not the bare `Z` suffix.
+    return dt.datetime.fromisoformat(ts.replace("Z", "+00:00")).astimezone(
+        dt.timezone.utc
+    ).replace(tzinfo=None)
+
+
+def _parse_ms(ms: int | float | None) -> dt.datetime | None:
+    """Parse a ms-since-epoch int from `task.status()` as a naive UTC datetime.
+
+    `task.status()` reports `start_timestamp_ms == 0` when the task
+    hasn't started yet — treat that as `None`.
+    """
+    if not ms:
+        return None
+    return dt.datetime.fromtimestamp(int(ms) / 1000.0, tz=dt.timezone.utc).replace(
+        tzinfo=None
+    )
+
+
+def _op_to_taskinfo(payload: dict[str, Any]) -> TaskInfo:
+    """Build a :class:`TaskInfo` from either of the two EE response shapes.
+
+    Two distinguishing markers:
+
+    * The `ee.data.listOperations()` shape carries a nested `metadata`
+      dict (Google Long-Running-Operation envelope).
+    * The `ee.batch.Task.status()` shape is flat with `state` /
+      `task_type` / `creation_timestamp_ms` / etc. at the top level.
+
+    Args:
+        payload: One operation dict from either API.
+
+    Returns:
+        A :class:`TaskInfo` with normalised fields.
+
+    Raises:
+        ValueError: If `payload` is neither shape, or carries a `state`
+            outside :data:`_VALID_TASK_STATES`.
+    """
+    if "metadata" in payload:
+        meta = payload.get("metadata") or {}
+        op_name = payload.get("name", "")
+        task_id = op_name.rsplit("/", 1)[-1] if op_name else ""
+        state = str(meta.get("state", ""))
+        task_type = str(meta.get("type", ""))
+        create_time = _parse_iso(meta.get("createTime"))
+        update_time = _parse_iso(meta.get("updateTime")) or create_time
+        start_time = _parse_iso(meta.get("startTime"))
+        attempt = int(meta.get("attempt", 1) or 1)
+        priority = meta.get("priority")
+        description = str(meta.get("description", ""))
+        done = bool(payload.get("done", False))
+        response = payload.get("response") or {}
+        destination_uris = tuple(response.get("destination_uris") or ())
+        error = payload.get("error") or {}
+        error_message = error.get("message") if error else None
+    else:
+        # `task.status()` flat shape.
+        op_name = payload.get("name", "")
+        task_id = str(payload.get("id") or (op_name.rsplit("/", 1)[-1] if op_name else ""))
+        state = str(payload.get("state", "")).rsplit(".", 1)[-1].upper()
+        task_type = str(payload.get("task_type", ""))
+        create_time = _parse_ms(payload.get("creation_timestamp_ms"))
+        update_time = _parse_ms(payload.get("update_timestamp_ms")) or create_time
+        start_time = _parse_ms(payload.get("start_timestamp_ms"))
+        attempt = int(payload.get("attempt", 1) or 1)
+        priority = payload.get("priority")
+        description = str(payload.get("description", ""))
+        done = state in TERMINAL_TASK_STATES
+        destination_uris = tuple(payload.get("destination_uris") or ())
+        error_message = payload.get("error_message")
+
+    if state not in _VALID_TASK_STATES:
+        raise ValueError(
+            f"unknown EE task state {state!r}; expected one of "
+            f"{sorted(_VALID_TASK_STATES)}"
+        )
+    if create_time is None:
+        # Both shapes should always carry a create-time; fall back to
+        # `now()` rather than crashing on an EE-side schema surprise.
+        create_time = dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+    if update_time is None:
+        update_time = create_time
+
+    return TaskInfo(
+        id=task_id,
+        operation_name=op_name or _operation_name(task_id),
+        description=description,
+        state=state,  # type: ignore[arg-type]
+        task_type=task_type,
+        create_time=create_time,
+        update_time=update_time,
+        start_time=start_time,
+        attempt=attempt,
+        priority=int(priority) if priority is not None else None,
+        destination_uris=destination_uris,
+        error_message=error_message,
+        done=done,
+    )
+
+
+# -- public API -------------------------------------------------------------
+
+
+def list_recent_tasks(
+    state: str | Iterable[str] | None = None,
+    max_age_min: int | None = None,
+    task_type: str | None = None,
+    description_prefix: str | None = None,
+    project: str | None = None,
+    limit: int | None = None,
+) -> list[TaskInfo]:
+    """List the user's batch Earth Engine tasks on the current project.
+
+    Wraps `ee.data.listOperations(project)` and applies every filter
+    client-side (EE's `listOperations` endpoint doesn't accept query
+    parameters). Results are sorted newest-first by `create_time`.
+
+    Args:
+        state: One state name or an iterable of names — e.g.
+            `"RUNNING"` or `{"FAILED", "CANCELLED"}`. `None` (the
+            default) returns every state.
+        max_age_min: Drop tasks older than this many minutes (clock
+            difference uses the EE-reported `createTime`). `None`
+            keeps every task EE still has on file.
+        task_type: Filter by `Task.Type` (e.g. `"EXPORT_IMAGE"`).
+        description_prefix: Substring match against the task
+            `description` — works well with earthlens's
+            `<asset-slug>_<bands>_<YYYYMMDD>` naming.
+        project: Cloud project id to scope to; defaults to whichever
+            project the EE SDK was initialised with.
+        limit: Hard cap on returned entries (applied after sort);
+            `None` for no cap.
+
+    Returns:
+        A list of :class:`TaskInfo` sorted newest first.
+
+    Raises:
+        ValueError: If a passed `state` is not in :data:`_VALID_TASK_STATES`.
+    """
+    wanted_states: frozenset[str] | None
+    if state is None:
+        wanted_states = None
+    elif isinstance(state, str):
+        wanted_states = frozenset({state})
+    else:
+        wanted_states = frozenset(state)
+    if wanted_states is not None:
+        bad = wanted_states - _VALID_TASK_STATES
+        if bad:
+            raise ValueError(
+                f"unknown task state(s) {sorted(bad)}; expected one of "
+                f"{sorted(_VALID_TASK_STATES)}"
+            )
+
+    proj = _resolve_project(project)
+    raw = ee.data.listOperations(f"projects/{proj}")
+    tasks = [_op_to_taskinfo(op) for op in raw]
+
+    if wanted_states is not None:
+        tasks = [t for t in tasks if t.state in wanted_states]
+    if task_type is not None:
+        tasks = [t for t in tasks if t.task_type == task_type]
+    if description_prefix is not None:
+        tasks = [t for t in tasks if description_prefix in t.description]
+    if max_age_min is not None:
+        now = dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+        cutoff = now - dt.timedelta(minutes=max_age_min)
+        tasks = [t for t in tasks if t.create_time >= cutoff]
+
+    tasks.sort(key=lambda t: t.create_time, reverse=True)
+    if limit is not None:
+        tasks = tasks[:limit]
+    return tasks
+
+
+def get_task_status(task_id: str, project: str | None = None) -> TaskInfo:
+    """Fetch one task by id and return its normalised :class:`TaskInfo`.
+
+    Args:
+        task_id: The bare task id (e.g. `"SNR3SZ6GNH5LUJQJ52VVNSZT"`)
+            or a full `projects/.../operations/<id>` operation name.
+        project: Cloud project id to scope to when `task_id` is a bare
+            id. Defaults to the SDK's current project.
+
+    Returns:
+        A :class:`TaskInfo`.
+
+    Raises:
+        Exceptions from the underlying `ee.data.getOperation` call
+        propagate verbatim — most commonly a `googleapiclient.errors.HttpError`
+        with a 404 when the id is unknown to EE.
+    """
+    op_name = _operation_name(task_id, project)
+    raw = ee.data.getOperation(op_name)
+    return _op_to_taskinfo(raw)
+
+
+def cancel_task(task_id: str, project: str | None = None) -> None:
+    """Cancel a queued or running task by id.
+
+    A no-op (silently completes) when the task is already in a
+    terminal state — Earth Engine accepts the cancel and reports
+    the existing state on the next status poll.
+
+    Args:
+        task_id: The bare task id or full operation name (see
+            :func:`get_task_status`).
+        project: Cloud project id to scope to when `task_id` is bare.
+
+    Raises:
+        Exceptions from the underlying `ee.data.cancelOperation`
+        propagate verbatim.
+    """
+    ee.data.cancelOperation(_operation_name(task_id, project))
+
+
+def wait_for_task_id(
+    task_id: str,
+    *,
+    poll_seconds: float = 15.0,
+    progress_bar: bool = True,
+    project: str | None = None,
+    sleep: Callable[[float], None] = time.sleep,
+) -> TaskInfo:
+    """Block until a task reaches a terminal state, then return its `TaskInfo`.
+
+    Unlike :func:`earthlens.gee._helpers.wait_for_task` (which needs a
+    live `ee.batch.Task` handle), this only needs the id, so it works
+    for tasks submitted from a previous process / session.
+
+    Args:
+        task_id: The bare task id or full operation name.
+        poll_seconds: Seconds between status polls. Defaults to `15.0`
+            (same as the in-process `wait_for_task`).
+        progress_bar: Show a `tqdm` spinner with the current state.
+            Defaults to `True`.
+        project: Cloud project id to scope to when `task_id` is bare.
+        sleep: Sleep implementation (injectable so tests run instantly).
+
+    Returns:
+        The final :class:`TaskInfo` (state `"COMPLETED"`).
+
+    Raises:
+        RuntimeError: If the task ends `FAILED` / `CANCELLED` /
+            `CANCEL_REQUESTED`; the message includes
+            `TaskInfo.error_message` when present.
+    """
+    spinner = tqdm(desc=f"EE task {task_id[:12]}", unit="poll", disable=not progress_bar)
+    info: TaskInfo
+    try:
+        while True:
+            info = get_task_status(task_id, project)
+            spinner.set_postfix_str(info.state)
+            spinner.update(1)
+            if info.state in TERMINAL_TASK_STATES:
+                break
+            sleep(poll_seconds)
+    finally:
+        spinner.close()
+    if info.state != "COMPLETED":
+        detail = info.error_message or ""
+        raise RuntimeError(
+            f"Earth Engine task {info.id} ended {info.state}"
+            + (f": {detail}" if detail else "")
+        )
+    return info
+
+
+def resolve_destination(
+    task_info: TaskInfo,
+    *,
+    download_to: object | None = None,
+) -> list[str]:
+    """Return the destination URIs of a completed task.
+
+    For Drive / GCS / asset exports, EE populates
+    `Operation.response.destination_uris` once the task reaches
+    `COMPLETED`. This helper surfaces them as a plain list so a
+    follow-up script can pull the files (Drive / GCS) or reference
+    the asset (`projects/.../assets/<...>`).
+
+    Auto-download of Drive / GCS payloads is intentionally **not**
+    in this Phase A — that's `L2` in
+    `planning/gee-jobs-tracking-plan.md`. Passing `download_to=`
+    today raises `NotImplementedError` to keep the contract honest.
+
+    Args:
+        task_info: A terminal-state :class:`TaskInfo` (typically from
+            :func:`get_task_status` after :func:`wait_for_task_id`).
+        download_to: Reserved for the L2 follow-up. Pass `None` (the
+            default) — any other value raises `NotImplementedError`.
+
+    Returns:
+        The list of destination URIs (`drive://...`, `gs://...`, or
+        `projects/.../assets/<...>`). Empty for non-terminal or
+        non-`COMPLETED` tasks.
+
+    Raises:
+        NotImplementedError: If `download_to` is not `None` (deferred
+            to `L2`).
+    """
+    if download_to is not None:
+        raise NotImplementedError(
+            "auto-download of destination URIs is deferred to L2 in "
+            "planning/gee-jobs-tracking-plan.md; for now, pull Drive / GCS "
+            "files yourself with the gauth / gsutil tools, or reference EE "
+            "asset destinations directly via `ee.Image(asset_id)`."
+        )
+    if task_info.state != "COMPLETED":
+        logger.warning(
+            f"resolve_destination: task {task_info.id} is "
+            f"{task_info.state}, not COMPLETED — destination_uris is empty."
+        )
+    return list(task_info.destination_uris)

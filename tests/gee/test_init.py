@@ -25,6 +25,8 @@ _EXPECTED_EXPORTS = {
     "create_geometry", "create_feature", "sample_points",
     "feature_collection_to_dataframe", "feature_collection_to_gdf",
     "feature_collections_to_dataframe", "sample_points_to_gdf",
+    "TaskInfo", "list_recent_tasks", "get_task_status", "cancel_task",
+    "wait_for_task_id", "resolve_destination",
 }
 
 
