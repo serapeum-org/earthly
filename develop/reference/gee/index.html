@@ -64,7 +64,7 @@
     
     
   <meta name="panzoom-theme" content="material">
-<meta name="panzoom-data" content='{"selectors": [".d2", ".mermaid"], "initial_zoom_level": 1.0}'> </head>
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
   
   
     
@@ -4439,7 +4439,7 @@ task does not complete.</p>
 <a id="__codelineno-0-533" name="__codelineno-0-533"></a><span class="sd">            end: Exclusive window end (clamped, already +1 day).</span>
 <a id="__codelineno-0-534" name="__codelineno-0-534"></a>
 <a id="__codelineno-0-535" name="__codelineno-0-535"></a><span class="sd">        Yields:</span>
-<a id="__codelineno-0-536" name="__codelineno-0-536"></a><span class="sd">            ``(timestamp, ee.Image)`` pairs — `timestamp` is the bucket</span>
+<a id="__codelineno-0-536" name="__codelineno-0-536"></a><span class="sd">            `(timestamp, ee.Image)` pairs — `timestamp` is the bucket</span>
 <a id="__codelineno-0-537" name="__codelineno-0-537"></a><span class="sd">            start (a :class:`datetime.datetime`), used in the filename.</span>
 <a id="__codelineno-0-538" name="__codelineno-0-538"></a><span class="sd">        &quot;&quot;&quot;</span>
 <a id="__codelineno-0-539" name="__codelineno-0-539"></a>        <span class="n">reducer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reducer</span> <span class="ow">or</span> <span class="n">var_info</span><span class="o">.</span><span class="n">default_reducer</span>
@@ -4674,13 +4674,13 @@ task does not complete.</p>
 <a id="__codelineno-0-768" name="__codelineno-0-768"></a><span class="sd">            var_info: The catalog entry (its :class:`Extent`).</span>
 <a id="__codelineno-0-769" name="__codelineno-0-769"></a>
 <a id="__codelineno-0-770" name="__codelineno-0-770"></a><span class="sd">        Returns:</span>
-<a id="__codelineno-0-771" name="__codelineno-0-771"></a><span class="sd">            ``(start, end_exclusive)`` — `start` is the later of the</span>
+<a id="__codelineno-0-771" name="__codelineno-0-771"></a><span class="sd">            `(start, end_exclusive)` — `start` is the later of the</span>
 <a id="__codelineno-0-772" name="__codelineno-0-772"></a><span class="sd">            request start and the dataset start; `end_exclusive` is the</span>
 <a id="__codelineno-0-773" name="__codelineno-0-773"></a><span class="sd">            earlier of (request end + 1 day) and (dataset end + 1 day, or</span>
 <a id="__codelineno-0-774" name="__codelineno-0-774"></a><span class="sd">            &quot;now&quot; + 1 day for open-ended datasets). Returns</span>
-<a id="__codelineno-0-775" name="__codelineno-0-775"></a><span class="sd">            ``(None, None)`` if the windows do not overlap.</span>
+<a id="__codelineno-0-775" name="__codelineno-0-775"></a><span class="sd">            `(None, None)` if the windows do not overlap.</span>
 <a id="__codelineno-0-776" name="__codelineno-0-776"></a>
-<a id="__codelineno-0-777" name="__codelineno-0-777"></a><span class="sd">            When ``discover_extent=True`` was passed at construction</span>
+<a id="__codelineno-0-777" name="__codelineno-0-777"></a><span class="sd">            When `discover_extent=True` was passed at construction</span>
 <a id="__codelineno-0-778" name="__codelineno-0-778"></a><span class="sd">            and the catalog&#39;s `end_date` (or `start_date`) is missing,</span>
 <a id="__codelineno-0-779" name="__codelineno-0-779"></a><span class="sd">            the gap is filled by an EE-side</span>
 <a id="__codelineno-0-780" name="__codelineno-0-780"></a><span class="sd">            `reduceColumns(minMax)` over `system:time_start` via</span>
