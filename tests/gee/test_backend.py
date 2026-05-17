@@ -431,6 +431,127 @@ class TestClampWindowToExtent:
         assert end_excl == fixed_now + dt.timedelta(days=1)
 
 
+class TestDiscoverExtent:
+    """Tests for the EE-side extent-discovery fallback (L3)."""
+
+    def test_default_does_not_query_ee(self, make_gee, monkeypatch):
+        """`discover_extent=False` (the default) never calls `_discover_ee_extent`."""
+        calls: list[str] = []
+        monkeypatch.setattr(
+            GEE, "_discover_ee_extent",
+            lambda self, var_info: calls.append(var_info.id) or (None, None),
+        )
+        gee = make_gee(variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+                       scale=5566.0, start="2024-01-01", end="2024-01-02")
+        ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        gee._clamp_window_to_extent(ds)
+        assert calls == []
+
+    def test_discover_extent_clamps_to_ee_max_when_catalog_open_ended(
+        self, make_gee, monkeypatch,
+    ):
+        """For `end_date is None`, EE max becomes the upper bound (cached per asset)."""
+        ee_max = dt.datetime(2025, 12, 15)
+        calls: list[str] = []
+
+        def _fake_discover(self, var_info):
+            calls.append(var_info.id)
+            return dt.datetime(1981, 1, 1), ee_max
+
+        monkeypatch.setattr(GEE, "_discover_ee_extent", _fake_discover)
+        gee = make_gee(
+            variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+            scale=5566.0, start="2020-01-01", end="2099-01-01",
+            discover_extent=True,
+        )
+        ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        start, end_excl = gee._clamp_window_to_extent(ds)
+        assert start == dt.datetime(2020, 1, 1)
+        assert end_excl == ee_max + dt.timedelta(days=1)
+
+        # Second call hits the cache.
+        gee._clamp_window_to_extent(ds)
+        assert calls == ["UCSB-CHG/CHIRPS/DAILY"]
+
+    def test_discover_extent_falls_back_to_now_on_failure(self, make_gee, monkeypatch):
+        """If `_discover_ee_extent` returns `(None, None)`, fall back to `now()`."""
+        fixed_now = dt.datetime(2026, 5, 13)
+
+        class _FixedDatetime(dt.datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return fixed_now
+
+        monkeypatch.setattr(backend_module.dt, "datetime", _FixedDatetime)
+        monkeypatch.setattr(
+            GEE, "_discover_ee_extent", lambda self, var_info: (None, None),
+        )
+        gee = make_gee(
+            variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+            scale=5566.0, start="2020-01-01", end="2099-01-01",
+            discover_extent=True,
+        )
+        ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        _, end_excl = gee._clamp_window_to_extent(ds)
+        assert end_excl == fixed_now + dt.timedelta(days=1)
+
+    def test_real_discover_queries_reduce_columns(self, make_gee, monkeypatch):
+        """`_discover_ee_extent` issues `reduceColumns(minMax, system:time_start)`."""
+        captured: dict = {}
+
+        class _FakeReducer:
+            @staticmethod
+            def minMax():  # noqa: N802
+                return "REDUCER:minMax"
+
+        class _FakeReducedFC:
+            def getInfo(self):  # noqa: N802
+                # Earth Engine returns a dict like {"min": <ms>, "max": <ms>}.
+                return {"min": 1700000000000, "max": 1750000000000}
+
+        class _FakeCollection:
+            def __init__(self, asset_id):
+                captured["asset"] = asset_id
+
+            def reduceColumns(self, reducer, properties):  # noqa: N802
+                captured["reducer"] = reducer
+                captured["properties"] = properties
+                return _FakeReducedFC()
+
+        gee = make_gee(discover_extent=True)
+        monkeypatch.setattr(backend_module.ee, "ImageCollection", _FakeCollection, raising=False)
+        monkeypatch.setattr(backend_module.ee, "Reducer", _FakeReducer, raising=False)
+
+        ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        min_dt, max_dt = gee._discover_ee_extent(ds)
+        assert captured["asset"] == "UCSB-CHG/CHIRPS/DAILY"
+        assert captured["reducer"] == "REDUCER:minMax"
+        assert captured["properties"] == ["system:time_start"]
+        assert min_dt == dt.datetime.fromtimestamp(1700000000, tz=dt.timezone.utc).replace(tzinfo=None)
+        assert max_dt == dt.datetime.fromtimestamp(1750000000, tz=dt.timezone.utc).replace(tzinfo=None)
+
+    def test_real_discover_swallows_ee_errors(self, make_gee, monkeypatch):
+        """Network / EE failures inside `_discover_ee_extent` return `(None, None)`."""
+
+        class _ExplodingCollection:
+            def __init__(self, asset_id):
+                pass
+
+            def reduceColumns(self, reducer, properties):  # noqa: N802
+                raise RuntimeError("network down")
+
+        gee = make_gee(discover_extent=True)
+        monkeypatch.setattr(backend_module.ee, "ImageCollection", _ExplodingCollection, raising=False)
+        monkeypatch.setattr(
+            backend_module.ee, "Reducer",
+            SimpleNamespace(minMax=lambda: "REDUCER:minMax"),
+            raising=False,
+        )
+
+        ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        assert gee._discover_ee_extent(ds) == (None, None)
+
+
 class TestDownloadRejections:
     """Tests for invalid / not-yet-supported configurations."""
 

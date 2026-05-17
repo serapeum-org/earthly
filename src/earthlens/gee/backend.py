@@ -138,6 +138,14 @@ class GEE(AbstractDataSource):
             via `pyramids.dataset.merge.merge_rasters`. Defaults to
             `False` — the previous behaviour, which raises `ValueError`
             with an actionable message.
+        discover_extent: When the catalog entry's `extent.end_date`
+            (and/or `start_date`) is missing, fall back to an EE-side
+            `reduceColumns(minMax)` over `system:time_start` to discover
+            the collection's actual extent and clamp the request window
+            to it. The discovered extent is cached per asset for the
+            lifetime of the `GEE` instance. Defaults to `False` — the
+            previous behaviour, which uses `now() + 1 day` as the upper
+            bound for open-ended catalog entries.
 
     Raises:
         AuthenticationError: If Earth Engine cannot be initialised
@@ -193,6 +201,7 @@ class GEE(AbstractDataSource):
         region: GeoDataFrame | None = None,
         http_timeout: float | None = None,
         auto_split: bool = False,
+        discover_extent: bool = False,
     ):
         # Validate the pure (no-I/O) config first so a bad `export_via`
         # fails fast, before paying for the ~3.3 s cold-cache catalog
@@ -232,6 +241,8 @@ class GEE(AbstractDataSource):
             float(http_timeout) if http_timeout is not None else _DEFAULT_HTTP_TIMEOUT_S
         )
         self.auto_split = bool(auto_split)
+        self.discover_extent = bool(discover_extent)
+        self._extent_cache: dict[str, tuple[dt.datetime | None, dt.datetime | None]] = {}
         self._ee_geometry = None  # lazily built in `_ee_region`
 
         super().__init__(
@@ -753,24 +764,132 @@ class GEE(AbstractDataSource):
             ``(start, end_exclusive)`` — `start` is the later of the
             request start and the dataset start; `end_exclusive` is the
             earlier of (request end + 1 day) and (dataset end + 1 day, or
-            "now" + 1 day for open-ended datasets), so the half-open EE
-            window covers the inclusive user end date. Returns
+            "now" + 1 day for open-ended datasets). Returns
             ``(None, None)`` if the windows do not overlap.
+
+            When ``discover_extent=True`` was passed at construction
+            and the catalog's `end_date` (or `start_date`) is missing,
+            the gap is filled by an EE-side
+            `reduceColumns(minMax)` over `system:time_start` via
+            :meth:`_discover_ee_extent` (cached per asset for the
+            lifetime of the instance).
         """
         req_start = self.time.start_date
         req_end_excl = self.time.end_date + dt.timedelta(days=1)
-        ds_start = dt.datetime.strptime(var_info.extent.start_date, "%Y-%m-%d")
-        if var_info.extent.end_date is None:
-            # `now()` would be local-naive; everything else here is naive UTC
-            # (STAC dates and `strptime`d user dates), so use a naive UTC value.
-            ds_end_excl = (
-                dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
-                + dt.timedelta(days=1)
-            )
-        else:
-            ds_end_excl = dt.datetime.strptime(var_info.extent.end_date, "%Y-%m-%d") + dt.timedelta(days=1)
+
+        ds_start, ds_end_excl = self._effective_extent(var_info)
+
         start = max(req_start, ds_start)
         end_excl = min(req_end_excl, ds_end_excl)
         if start >= end_excl:
             return None, None
         return start, end_excl
+
+    def _effective_extent(
+        self, var_info: Dataset
+    ) -> tuple[dt.datetime, dt.datetime]:
+        """Resolve a dataset's effective `(start, end_exclusive)` extent.
+
+        Combines the catalog entry's curated `start_date` / `end_date`
+        with — when `discover_extent=True` and either is missing — an
+        EE-side `reduceColumns(minMax)` query (cached per asset).
+
+        Args:
+            var_info: The catalog entry.
+
+        Returns:
+            `(start, end_exclusive)` as naive UTC datetimes; the
+            upper bound is `dataset_end_date + 1 day`, or
+            `now() + 1 day` if the dataset is open-ended and no
+            EE-side discovery is available.
+        """
+        catalog_start_str = var_info.extent.start_date
+        catalog_end_str = var_info.extent.end_date
+
+        ee_start, ee_end = self._maybe_discover_ee_extent(
+            var_info, need_start=catalog_start_str is None, need_end=catalog_end_str is None,
+        )
+
+        ds_start = (
+            dt.datetime.strptime(catalog_start_str, "%Y-%m-%d")
+            if catalog_start_str is not None
+            else ee_start
+        )
+        if catalog_end_str is not None:
+            ds_end_excl = (
+                dt.datetime.strptime(catalog_end_str, "%Y-%m-%d")
+                + dt.timedelta(days=1)
+            )
+        elif ee_end is not None:
+            ds_end_excl = ee_end + dt.timedelta(days=1)
+        else:
+            # `now()` would be local-naive; the rest of the path is naive
+            # UTC, so use a naive UTC value.
+            ds_end_excl = (
+                dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+                + dt.timedelta(days=1)
+            )
+
+        if ds_start is None:
+            # No curated start_date AND no EE-discovered one — fall back
+            # to the request start so the call still issues somewhere.
+            ds_start = self.time.start_date
+        return ds_start, ds_end_excl
+
+    def _maybe_discover_ee_extent(
+        self, var_info: Dataset, *, need_start: bool, need_end: bool
+    ) -> tuple[dt.datetime | None, dt.datetime | None]:
+        """Cached entry point for `_discover_ee_extent` (L3)."""
+        if not (self.discover_extent and (need_start or need_end)):
+            return None, None
+        if var_info.id in self._extent_cache:
+            return self._extent_cache[var_info.id]
+        discovered = self._discover_ee_extent(var_info)
+        self._extent_cache[var_info.id] = discovered
+        return discovered
+
+    def _discover_ee_extent(
+        self, var_info: Dataset
+    ) -> tuple[dt.datetime | None, dt.datetime | None]:
+        """Query a collection's actual `system:time_start` min/max via EE.
+
+        Issues one `reduceColumns(ee.Reducer.minMax(), ["system:time_start"])
+        .getInfo()` round-trip per asset (callers cache via
+        :meth:`_maybe_discover_ee_extent`). On any EE-side failure
+        (network, missing property, image-typed asset) returns
+        `(None, None)` and logs a warning — the caller falls back to
+        the catalog values or `now()`.
+
+        Args:
+            var_info: The catalog entry. Only `var_info.id` is used.
+
+        Returns:
+            `(min_dt, max_dt)` as naive UTC datetimes, or `(None,
+            None)` if the query failed or the collection has no
+            time-stamped images.
+        """
+        try:
+            collection = ee.ImageCollection(var_info.id)
+            result = collection.reduceColumns(
+                ee.Reducer.minMax(), ["system:time_start"]
+            ).getInfo() or {}
+        except Exception as exc:  # noqa: BLE001 - downgrade EE errors to a warning
+            logger.warning(
+                f"discover_extent: reduceColumns(minMax) failed for "
+                f"{var_info.id}: {type(exc).__name__}: {exc}; "
+                "falling back to catalog / now()."
+            )
+            return None, None
+
+        min_ms = result.get("min")
+        max_ms = result.get("max")
+        if min_ms is None or max_ms is None:
+            return None, None
+        return (
+            dt.datetime.fromtimestamp(min_ms / 1000.0, tz=dt.timezone.utc).replace(
+                tzinfo=None
+            ),
+            dt.datetime.fromtimestamp(max_ms / 1000.0, tz=dt.timezone.utc).replace(
+                tzinfo=None
+            ),
+        )
