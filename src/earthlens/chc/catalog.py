@@ -386,7 +386,15 @@ def _build_chc_dataset(
             start_date=ds_body["start_date"],
             end_date=ds_body.get("end_date"),
             preliminary=ds_body.get("preliminary", False),
-            provider="ucsb-chc",
+            # Read the publisher slug from the YAML when set; default to
+            # `"ucsb-chc"` because UCSB's Climate Hazards Center is the
+            # de-facto publisher of every dataset shipped today. Future
+            # YAML entries can override per-dataset (e.g. a CHIRPS-GEFS
+            # row that wants to attribute NCEP, or an SPEI row that
+            # wants to attribute MERRA-2 for the PET term); the
+            # `providers.yaml` registry must carry the slug for the
+            # load-time validator to accept it.
+            provider=ds_body.get("provider", "ucsb-chc"),
             variables=ds_vars,
         )
     except (ValidationError, KeyError) as exc:
