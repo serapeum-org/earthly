@@ -65,6 +65,38 @@ _LEGACY_DATASET_KEY: dict[str, str] = {
 }
 
 
+def _reject_unsigned_for_nodata_sentinel(dtype: np.dtype) -> None:
+    """Bail out if the input raster's dtype can't carry a `-9999` no-data sentinel.
+
+    The post-processing path normalises every negative pixel to -9999 and
+    then casts back to the input dtype. For unsigned integer dtypes
+    (`uint8`, `uint16`, `uint32`, `uint64`) the cast wraps -9999 into a
+    positive value (`55537` for `uint16`, etc.), and the output band's
+    declared `no_data_value=-9999` then matches *no* pixel. Refuse to
+    proceed so the failure is loud, not silent.
+
+    Every CHC raster shipped through the catalog today is float32; this
+    guard is a defence in depth for future products. The per-date
+    failure handling in `_download_dataset` catches the `TypeError` and
+    skips the date.
+
+    Args:
+        dtype: The numpy dtype of the input raster array.
+
+    Raises:
+        TypeError: If `dtype` is any unsigned-integer numpy dtype.
+    """
+    if np.issubdtype(dtype, np.unsignedinteger):
+        raise TypeError(
+            f"CHC no-data normalisation cannot use a -9999 sentinel "
+            f"on unsigned dtype {dtype}: the cast would wrap -9999 to "
+            "a positive value and the declared no_data_value would "
+            "match no pixel. Add an explicit no-data handling path "
+            "for unsigned products before extending the catalog with "
+            "one."
+        )
+
+
 class CHIRPS(AbstractDataSource):
     """CHIRPS catalog-driven FTP backend.
 
@@ -453,6 +485,7 @@ class CHIRPS(AbstractDataSource):
         """
         raster = Dataset.read_file(str(path))
         data = raster.read_array()
+        _reject_unsigned_for_nodata_sentinel(data.dtype)
         clipped, new_geo = self._clip_to_bbox(data, raster.geotransform)
         nodata_sentinel: float = -9999.0
         clipped = np.where(clipped < 0, nodata_sentinel, clipped).astype(
@@ -572,6 +605,7 @@ class CHIRPS(AbstractDataSource):
 
         raster = Dataset.read_file(str(local_path))
         data = raster.read_array()
+        _reject_unsigned_for_nodata_sentinel(data.dtype)
         clipped, new_geo = self._clip_to_bbox(data, raster.geotransform)
 
         # CHIRPS encodes "missing" with -9999; some rasters do not
