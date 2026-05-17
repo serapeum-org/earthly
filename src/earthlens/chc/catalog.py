@@ -86,6 +86,7 @@ _TEMPORAL_RESOLUTIONS: tuple[str, ...] = (
     "seasonal",
 )
 
+import pandas as pd
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
@@ -412,6 +413,22 @@ def _build_chc_dataset(
                 f"{catalog_path.name} variable {var_code!r} "
                 f"under dataset {ds_key!r} failed validation:\n{exc}"
             ) from exc
+
+    # M2: validate pandas_freq against the live pandas registry. Catches
+    # both typos (e.g. `"daly"`) and deprecated aliases (e.g. `"AS"`,
+    # removed in pandas 3.x; "H" deprecated for "h" in pandas 2.2).
+    # Discrete-files datasets keep a placeholder pandas_freq; the check
+    # still runs so even the placeholder must be a legal alias.
+    freq_value = ds_body.get("pandas_freq")
+    try:
+        pd.tseries.frequencies.to_offset(freq_value)
+    except (ValueError, TypeError) as exc:
+        raise ValueError(
+            f"{catalog_path.name} dataset {ds_key!r} has invalid "
+            f"`pandas_freq` {freq_value!r}: {exc}. See "
+            "https://pandas.pydata.org/docs/user_guide/timeseries.html"
+            "#offset-aliases for the current alias table."
+        ) from exc
 
     # Per H1: `regions:` is the single source of truth for spatial bounds.
     # The loader no longer accepts inline `lat_boundaries`/`lon_boundaries`
@@ -800,19 +817,23 @@ class Catalog(AbstractCatalog):
         """
         return self.datasets
 
-    def get_variable(self, dataset_key: str, variable_name: str = "precipitation") -> Variable:
+    def get_variable(self, dataset_key: str, variable_name: str) -> Variable:
         """Return the :class:`Variable` for a `(dataset, variable)` pair.
 
         Args:
-            dataset_key: CHIRPS dataset identifier as it appears as a
+            dataset_key: CHC dataset identifier as it appears as a
                 key in :attr:`datasets` (e.g. `"global-daily"`).
-            variable_name: Short variable code. Defaults to
-                `"precipitation"` since CHIRPS only provides one
-                variable.
+            variable_name: Short variable code. Required (M4).
+                Pre-M4 this defaulted to `"precipitation"`, which
+                was CHIRPS-2.0-centric and silently `KeyError`d on
+                datasets whose variable was named differently
+                (`chirtsdaily-tmax.tmax`, `wbgt-monthly.wbgt`,
+                `spi-chirps3-*.spi`, `chc-cmip6-tmax-*.tmax_delta`,
+                …). Callers must now pass the variable name
+                explicitly.
 
         Returns:
-            Variable: Per-variable metadata loaded from
-            `chc_data_catalog.yaml`.
+            Variable: Per-variable metadata from the CHC catalog.
 
         Raises:
             KeyError: If `dataset_key` is not curated, or if
@@ -823,21 +844,19 @@ class Catalog(AbstractCatalog):
 
                 ```python
                 >>> from earthlens.chc import Catalog
-                >>> spec = Catalog().get_variable("global-daily")
+                >>> spec = Catalog().get_variable("global-daily", "precipitation")
                 >>> spec.units
                 'mm/day'
                 >>> spec.is_flux
                 True
 
                 ```
-            - Explicit variable name (the only one available):
+            - Non-precipitation variables work the same way:
 
                 ```python
                 >>> from earthlens.chc import Catalog
-                >>> Catalog().get_variable(
-                ...     "africa-monthly", "precipitation"
-                ... ).units
-                'mm/month'
+                >>> Catalog().get_variable("chirtsdaily-tmax", "tmax").units
+                'degC'
 
                 ```
         """
