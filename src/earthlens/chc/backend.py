@@ -155,8 +155,12 @@ class CHIRPS(AbstractDataSource):
         Raises:
             KeyError: If a requested dataset key is not in the
                 catalog, or a variable code is not declared under
-                that dataset, or `temporal_resolution` is outside
-                `{"daily", "monthly"}` with a list-shape `variables`.
+                that dataset.
+            ValueError: If `temporal_resolution` is outside
+                `{"daily", "monthly"}` with a list-shape `variables`
+                (N2 -- the list-shape API can only resolve those two
+                legacy keys; switch to dict-shape `variables` for
+                anything else).
         """
         if lat_lim is None:
             lat_lim = [-50.0, 50.0]
@@ -193,15 +197,19 @@ class CHIRPS(AbstractDataSource):
         """Coerce the user's `variables` to the catalog-keyed dict shape.
 
         Raises:
-            KeyError: If a list-shape `variables` is paired with a
+            ValueError: If a list-shape `variables` is paired with a
                 `temporal_resolution` outside `{"daily", "monthly"}`.
+                Pre-N2 this raised `KeyError`, which was inaccurate
+                (the check is a value-membership check, not a dict
+                lookup) -- the new `ValueError` matches the idiomatic
+                Python distinction.
         """
         if variables is None:
             variables = ["precipitation"]
         if isinstance(variables, dict):
             return {k: list(v) for k, v in variables.items()}
         if temporal_resolution not in _LEGACY_DATASET_KEY:
-            raise KeyError(
+            raise ValueError(
                 f"temporal_resolution {temporal_resolution!r} is not "
                 "supported by the list-shape `variables` API. Either "
                 "pass a dict like `variables={'<dataset-key>': [...]}` "
