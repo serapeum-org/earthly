@@ -134,7 +134,66 @@ class TestFtpConnectionReuse:
             local_path,
             ftp=session,
         )
-        session.cwd.assert_called_once_with("some/remote/dir/")
+        # `cwd` is called with the ABSOLUTE path -- the L5 shared session
+        # retains its working directory across calls, so a relative cwd
+        # on the second fetch would resolve under the previous cwd and
+        # the server would 550. Forcing absolute paths makes every call
+        # independent of the previous one.
+        session.cwd.assert_called_once_with("/some/remote/dir/")
         session.retrbinary.assert_called_once()
         # No login attempt on the caller's session (caller already logged in).
         session.login.assert_not_called()
+
+    def test_fetch_ftp_normalises_already_absolute_path(
+        self, monkeypatch, tmp_path: Path
+    ):
+        """A `remote_dir` that already starts with `/` is not double-prefixed."""
+        session = MagicMock(name="caller_session")
+        monkeypatch.setattr(
+            chc_backend, "_open_ftp", lambda: pytest.fail("must not open a new FTP")
+        )
+        def _fake_retr(cmd, callback):
+            callback(b"x")
+        session.retrbinary.side_effect = _fake_retr
+        CHIRPS._fetch_ftp(
+            "/some/remote/dir/",  # already absolute
+            "file.bin",
+            tmp_path / "out.bin",
+            ftp=session,
+        )
+        # Single `/` prefix, not `//`.
+        session.cwd.assert_called_once_with("/some/remote/dir/")
+
+    def test_two_successive_fetches_both_use_absolute_cwd(
+        self, monkeypatch, tmp_path: Path
+    ):
+        """Regression: two consecutive `_fetch_ftp` calls on the same session must both call cwd with an absolute path.
+
+        Pre-fix, the second call passed a relative `cwd` -- the server,
+        with pwd already inside the first call's dir, resolved it
+        relative-from-there and 550'd. The shared-session L5 path was
+        therefore producing exactly 1 file per batch on the live FTP
+        regardless of how many dates were requested.
+        """
+        session = MagicMock(name="caller_session")
+        monkeypatch.setattr(
+            chc_backend, "_open_ftp", lambda: pytest.fail("must not open a new FTP")
+        )
+        def _fake_retr(cmd, callback):
+            callback(b"x")
+        session.retrbinary.side_effect = _fake_retr
+        for date_subdir in ("pub/.../2009/", "pub/.../2009/"):
+            CHIRPS._fetch_ftp(
+                date_subdir,
+                "file.bin",
+                tmp_path / "out.bin",
+                ftp=session,
+            )
+        assert session.cwd.call_count == 2
+        for call in session.cwd.call_args_list:
+            (arg,) = call.args
+            assert arg.startswith("/"), (
+                f"cwd called with relative path {arg!r} -- the shared "
+                "session would 550 on the second call when pwd is "
+                "already inside the dir from the previous fetch."
+            )
