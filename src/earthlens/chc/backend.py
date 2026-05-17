@@ -4,9 +4,8 @@ Downloads raster products from the Climate Hazards Center FTP server
 (`data.chc.ucsb.edu`) over anonymous FTP. Every dataset's FTP layout,
 spatial / temporal extent, file pattern, available formats, and per-
 variable metadata is sourced from
-:class:`~earthlens.chc.Catalog`, which loads the bundled
-the per-family `catalog/*.yaml` files. No FTP path or filename is
-hardcoded here.
+:class:`~earthlens.chc.Catalog`, which loads the bundled per-family
+`catalog/*.yaml` files. No FTP path or filename is hardcoded here.
 
 The download pipeline (per `(dataset, variable, date)` triple) is:
 

@@ -204,11 +204,12 @@ class Dataset(BaseModel):
             are verified. Use :attr:`ftp_base` for the default path.
         file_patterns: Remote filename templates per format code, keyed
             the same way as `ftp_bases`.  Each value is a Python
-            format-string with placeholders such as `{year}`, `{month}`,
-            `{day}`, `{dekad}`, `{pentad}`, `{res}`.  Use
-            :attr:`file_pattern` for the default pattern. `None` for
-            datasets that publish a fixed enumerated set of files
-            (`discrete_files`) instead of per-date partitions.
+            format-string whose placeholders are expanded by
+            :meth:`earthlens.chc.CHIRPS._placeholders`: `{year}`,
+            `{month}`, `{day}`, `{dekad}`, `{pentad}`, `{hour}`,
+            `{doy}`.  Use :attr:`file_pattern` for the default pattern.
+            `None` for datasets that publish a fixed enumerated set
+            of files (`discrete_files`) instead of per-date partitions.
         discrete_files: Format-keyed map of fixed filenames for datasets
             that publish a small set of multi-year archive files rather
             than per-date partitions (CenTrends and similar). When set,
@@ -520,14 +521,18 @@ def _load_catalog_data(
       `regions:` map, then merges every other `*.yaml` sibling's
       `datasets:` block into one dict. Duplicate dataset keys across
       files are rejected.
-    * **File** — the legacy single-file layout (`chc_data_catalog.yaml`).
-      Kept for backwards compatibility and tests that pass a single
-      flat YAML in via `Catalog.load(catalog_path=...)`.
+    * **File** — the legacy single-file shape: a single flat YAML
+      with `available_datasets:` / `regions:` / `datasets:` at top
+      level. Kept for backwards compatibility and tests that pass a
+      single flat YAML in via `Catalog.load(catalog_path=...)`. No
+      such file ships in the package today; the split-directory
+      layout above is the canonical form.
 
     Returns a `(available_datasets, regions_map, datasets)` triple of
     the same shape :class:`Catalog` exposes. Results are cached on
     `(resolved-path, mtime-fingerprint)`; for a directory the
-    fingerprint is the sum of all member-file `mtime_ns` values, so
+    fingerprint is a `tuple((name, mtime_ns), ...)` over the sorted
+    YAML members (H4 — collision-free under mtime permutations), so
     editing any per-family YAML invalidates the cache naturally.
 
     Raises:
