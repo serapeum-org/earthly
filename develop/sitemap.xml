@@ -73,47 +73,51 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/atmosphere-chemistry/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/atmosphere-chemistry/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/climate-reanalysis/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/climate-reanalysis/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/community/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/community/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/elevation-terrain/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/elevation-terrain/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/hydrology-water/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/hydrology-water/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/land-cover-change/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/land-cover-change/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/optical-multispectral/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/optical-multispectral/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/other/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/other/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/precipitation/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/precipitation/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/sar-radar/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/quickstart/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/track-batch-exports/</loc>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/sar-radar/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/track-batch-exports/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
@@ -129,10 +133,6 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/</loc>
-         <lastmod>2026-05-17</lastmod>
-    </url>
-    <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/earthlens/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
@@ -142,6 +142,22 @@
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/s3/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/catalog/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/chc/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/introduction/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/usage/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>

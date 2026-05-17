@@ -10,9 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://serapeum-org.github.io/earthlens/develop/examples/google-earth-engine/community/">
+        <link rel="canonical" href="https://serapeum-org.github.io/earthlens/develop/examples/gee/community/">
       
       
+        <link rel="prev" href="../climate-reanalysis/">
+      
+      
+        <link rel="next" href="../elevation-terrain/">
       
       
         
@@ -276,8 +280,15 @@
   
     
     
+      
+  
+  
+  
+  
+    
+    
       <li class="md-tabs__item">
-        <a href="../../../reference/chc/" class="md-tabs__link">
+        <a href="../../../reference/chc/introduction/" class="md-tabs__link">
           
   
   
@@ -288,15 +299,20 @@
     
   
 
+    
+  
+
       
         
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../authentication/" class="md-tabs__link">
           
   
@@ -596,9 +612,23 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../../reference/chc/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -612,7 +642,135 @@
   
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CHC (CHIRPS / CHIRTS / SPI / SPEI / …)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/chc/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/chc/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/chc/catalog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Catalog & Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/chc/chc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -997,24 +1155,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   
@@ -1032,7 +1195,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1184,14 +1347,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/cds_quickstart.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/cds_quickstart/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Quickstart
+    CDS quickstart — downloading ERA5 via the facade
   
 
     
@@ -1212,14 +1375,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/hydrology_water_balance.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/hydrology_water_balance/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Hydrology — water balance
+    Hydrology — catchment water balance from ERA5
   
 
     
@@ -1240,14 +1403,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/oceanography_sst_sea_ice.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/oceanography_sst_sea_ice/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Oceanography — SST & sea ice
+    Oceanography — North Atlantic SST and sea-ice cover
   
 
     
@@ -1268,14 +1431,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/atmosphere_pressure_levels.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/atmosphere_pressure_levels/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Atmosphere — pressure levels
+    Atmosphere — pressure-level temperature &amp; jet-stream wind
   
 
     
@@ -1296,14 +1459,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/agriculture_crop_water.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/agriculture_crop_water/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Agriculture — crop water demand
+    Agriculture — crop water demand and soil moisture
   
 
     
@@ -1324,14 +1487,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/solar_resource_assessment.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/solar_resource_assessment/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Solar — PV resource assessment
+    Solar — PV resource assessment from ERA5
   
 
     
@@ -1352,14 +1515,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/wind_energy_resource.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/wind_energy_resource/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Wind — hub-height resource
+    Wind energy — hub-height wind resource
   
 
     
@@ -1380,14 +1543,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/snow_cryosphere_winter.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/snow_cryosphere_winter/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Snow & cryosphere — winter snowpack
+    Snow &amp; cryosphere — Alpine winter snowpack
   
 
     
@@ -1408,14 +1571,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/heat_waves_public_health.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/heat_waves_public_health/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Heat waves — public health
+    Heat waves &amp; public health — apparent temperature
   
 
     
@@ -1436,14 +1599,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/climate_change_anomalies.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/climate_change_anomalies/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Climate change — temperature anomalies
+    Climate change — temperature anomalies vs a baseline
   
 
     
@@ -1464,14 +1627,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cds/drought_precipitation_deficit.ipynb" class="md-nav__link">
+      <a href="../../ecmwf/drought_precipitation_deficit/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Drought — SPI from precipitation
+    Drought monitoring — SPI from monthly precipitation
   
 
     
@@ -1497,6 +1660,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1507,11 +1672,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
         
           
           <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
@@ -1532,7 +1697,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1550,14 +1715,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/atmosphere-chemistry.ipynb" class="md-nav__link">
+      <a href="../quickstart/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Atmosphere & chemistry — TROPOMI NO2
+    Quick start — Earth Engine via the facade
   
 
     
@@ -1578,14 +1743,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/climate-reanalysis.ipynb" class="md-nav__link">
+      <a href="../atmosphere-chemistry/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Climate reanalysis — ERA5-Land monthly
+    Atmosphere &amp; chemistry — Sentinel-5P NO2
   
 
     
@@ -1606,14 +1771,222 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/community.ipynb" class="md-nav__link">
+      <a href="../climate-reanalysis/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Community — Planet NICFI
+    Climate reanalysis — ERA5-Land monthly 2 m temperature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community — Planet NICFI 2024 basemap
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community — Planet NICFI 2024 basemap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inspect-the-catalog-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect the catalog entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick preview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracking-submitted-jobs-asynchronous-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracking submitted jobs (asynchronous export)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tracking submitted jobs (asynchronous export)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#submit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Submit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List + wait
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify + clean up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-on-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's on disk
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elevation-terrain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elevation &amp; terrain — SRTM 30 m
   
 
     
@@ -1634,14 +2007,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/elevation-terrain.ipynb" class="md-nav__link">
+      <a href="../hydrology-water/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Elevation & terrain — SRTM 30 m
+    Hydrology &amp; water — JRC Global Surface Water (v1.4)
   
 
     
@@ -1662,14 +2035,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/hydrology-water.ipynb" class="md-nav__link">
+      <a href="../land-cover-change/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Hydrology & water — JRC Global Surface Water
+    Land cover &amp; change — ESA WorldCover v200 (2021)
   
 
     
@@ -1690,14 +2063,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/land-cover-change.ipynb" class="md-nav__link">
+      <a href="../optical-multispectral/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Land cover & change — ESA WorldCover
+    Optical / multispectral — Sentinel-2 SR Harmonized
   
 
     
@@ -1718,14 +2091,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/optical-multispectral.ipynb" class="md-nav__link">
+      <a href="../other/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Optical / multispectral — Sentinel-2 SR
+    Other — CIESIN GPWv4 population density
   
 
     
@@ -1746,14 +2119,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/other.ipynb" class="md-nav__link">
+      <a href="../precipitation/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Other — CIESIN GPWv4 population
+    Precipitation — CHIRPS daily rainfall
   
 
     
@@ -1774,14 +2147,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/precipitation.ipynb" class="md-nav__link">
+      <a href="../sar-radar/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Precipitation — CHIRPS daily
+    SAR / radar — Sentinel-1 GRD VV backscatter
   
 
     
@@ -1802,42 +2175,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gee/sar-radar.ipynb" class="md-nav__link">
+      <a href="../track-batch-exports/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    SAR / radar — Sentinel-1 GRD VV
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gee/track-batch-exports.ipynb" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tracking batch exports (end-to-end demo)
+    Tracking asynchronous Earth Engine exports
   
 
     
@@ -2212,7 +2557,7 @@
 
 
   
-    <a href="https://github.com/serapeum-org/earthlens/edit/master/docs/examples/google-earth-engine/community.ipynb" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/serapeum-org/earthlens/edit/master/docs/examples/gee/community.ipynb" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2221,7 +2566,7 @@
     
       
     
-    <a href="https://github.com/serapeum-org/earthlens/raw/master/docs/examples/google-earth-engine/community.ipynb" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/serapeum-org/earthlens/raw/master/docs/examples/gee/community.ipynb" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
@@ -3787,6 +4132,44 @@ except Exception as exc:
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../climate-reanalysis/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Climate reanalysis — ERA5-Land monthly 2 m temperature">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Climate reanalysis — ERA5-Land monthly 2 m temperature
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../elevation-terrain/" class="md-footer__link md-footer__link--next" aria-label="Next: Elevation &amp;amp; terrain — SRTM 30 m">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Elevation &amp; terrain — SRTM 30 m
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
