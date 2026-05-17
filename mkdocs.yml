@@ -50,7 +50,9 @@ theme:
 
 plugins:
   - search
-  - mkdocs-jupyter
+  - mkdocs-jupyter:
+      include: ["*.ipynb"]
+      ignore: ["docs/examples/gee/_*.py"]
   - panzoom:
       hint_location: "top"
       key: "ctrl"
