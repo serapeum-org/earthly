@@ -25,7 +25,10 @@ import ee
 from geopandas.geodataframe import GeoDataFrame
 from rtree import index
 
+import geopandas as gpd
+
 from earthlens.gee.features import create_feature
+from earthlens.gee.io import feature_collection_to_gdf as _fc_to_gdf
 
 _REDUCER_WHITELIST: frozenset[str] = frozenset(
     {
@@ -120,3 +123,44 @@ def sample_points(
             )
         )
     return ee.FeatureCollection(collection)
+
+
+def sample_points_to_gdf(
+    image: ee.Image,
+    gdf: GeoDataFrame,
+    *,
+    scale_m: float,
+    reducer: str = "first",
+    crs: int | str = 4326,
+) -> gpd.GeoDataFrame:
+    """Sample an Earth Engine image at points and return a `GeoDataFrame`.
+
+    Thin composition of :func:`sample_points` and
+    :func:`earthlens.gee.io.feature_collection_to_gdf` — call
+    `sample_points` for the leaf-batched `reduceRegions` work, then
+    pull the result with a single `getInfo()` and reshape into a
+    `GeoDataFrame`. Suitable for small to medium point sets (the
+    `getInfo()` upper bound is ~5000 features / ~10 MB); for larger
+    jobs, call `sample_points` directly and pipe its output through
+    :func:`earthlens.gee.io.feature_collections_to_dataframe` instead.
+
+    Args:
+        image: The `ee.Image` to sample.
+        gdf: A `GeoDataFrame` of point geometries.
+        scale_m: The pixel scale (metres) passed to
+            `image.reduceRegions(scale=...)`.
+        reducer: The reducer name; one of :data:`_REDUCER_WHITELIST`.
+            Defaults to `"first"`.
+        crs: The CRS to stamp onto the output `GeoDataFrame`. Defaults
+            to `4326`.
+
+    Returns:
+        A `GeoDataFrame` with one row per input point, carrying the
+        input properties plus the reduced band value(s).
+
+    Raises:
+        ValueError: If `reducer` is not in :data:`_REDUCER_WHITELIST`,
+            or if `gdf` is empty.
+    """
+    fc = sample_points(image, gdf, scale_m=scale_m, reducer=reducer)
+    return _fc_to_gdf(fc, crs=crs)

@@ -10,8 +10,15 @@ import geopandas as gpd
 import pytest
 from shapely.geometry import Point
 
+import geopandas as _gpd
+
 from earthlens.gee import sampling
-from earthlens.gee.sampling import _REDUCER_WHITELIST, _resolve_reducer, sample_points
+from earthlens.gee.sampling import (
+    _REDUCER_WHITELIST,
+    _resolve_reducer,
+    sample_points,
+    sample_points_to_gdf,
+)
 
 
 class _FakeFeatureCollection:
@@ -140,3 +147,31 @@ class TestSamplePoints:
         Just verifies wiring — the real EE call requires auth and lives in e2e.
         """
         assert sampling.ee.FeatureCollection is ee.FeatureCollection
+
+
+class TestSamplePointsToGdf:
+    """Tests for `sample_points_to_gdf` (L4 composition)."""
+
+    def test_composes_sample_points_and_fc_to_gdf(self, fake_ee, monkeypatch):
+        """The helper sample-points the image then routes the FC through `_fc_to_gdf`."""
+        seen: dict = {}
+
+        def _stub_fc_to_gdf(fc, *, crs=4326):
+            seen["fc"] = fc
+            seen["crs"] = crs
+            return _gpd.GeoDataFrame({"x": [1]}, geometry=_gpd.points_from_xy([0], [0]), crs=f"EPSG:{crs}")
+
+        monkeypatch.setattr(sampling, "_fc_to_gdf", _stub_fc_to_gdf)
+        gdf = _points_gdf(5)
+        out = sample_points_to_gdf(_FakeImage(), gdf, scale_m=30, reducer="mean", crs=4326)
+        assert isinstance(out, _gpd.GeoDataFrame)
+        assert seen["crs"] == 4326
+        # The FC handed to `_fc_to_gdf` is the merged collection produced by
+        # `sample_points` (a `_FakeFeatureCollection`).
+        assert isinstance(seen["fc"], _FakeFeatureCollection)
+
+    def test_propagates_reducer_whitelist_error(self):
+        """`sample_points_to_gdf` rejects an unknown reducer up-front."""
+        gdf = _points_gdf(2)
+        with pytest.raises(ValueError, match="unsupported reducer 'bogus'"):
+            sample_points_to_gdf(_FakeImage(), gdf, scale_m=30, reducer="bogus")

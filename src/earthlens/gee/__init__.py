@@ -75,7 +75,7 @@ from earthlens.gee.io import (
     feature_collection_to_gdf,
     feature_collections_to_dataframe,
 )
-from earthlens.gee.sampling import sample_points
+from earthlens.gee.sampling import sample_points, sample_points_to_gdf
 
 __all__ = [
     "GEE",
@@ -95,4 +95,5 @@ __all__ = [
     "feature_collection_to_gdf",
     "feature_collections_to_dataframe",
     "sample_points",
+    "sample_points_to_gdf",
 ]
