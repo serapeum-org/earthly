@@ -115,11 +115,16 @@ class GEE(AbstractDataSource):
         export_via: How to get pixels out — `"url"` (synchronous
             `getDownloadURL`, capped at 32768 px per axis; the default),
             `"drive"` (asynchronous `ee.batch.Export.image.toDrive`;
-            requires `drive_folder`), or `"gcs"` (asynchronous
-            `ee.batch.Export.image.toCloudStorage`; requires `gcs_bucket`).
+            requires `drive_folder`), `"gcs"` (asynchronous
+            `ee.batch.Export.image.toCloudStorage`; requires `gcs_bucket`),
+            or `"asset"` (asynchronous `ee.batch.Export.image.toAsset`;
+            requires `asset_id`).
         drive_folder: Google Drive folder name for `export_via="drive"`.
         gcs_bucket: Cloud Storage bucket name for `export_via="gcs"` (the
             service account needs `roles/storage.objectAdmin` on it).
+        asset_id: Parent folder asset id for `export_via="asset"` (e.g.
+            `"projects/my-project/assets/my-folder"`). Each export's asset
+            is created at `<asset_id>/<prefix>`.
         region: Optional `GeoDataFrame` to clip to precisely; when given
             it supersedes the lat/lon bbox for the actual clip (the bbox
             is still used for the `"url"` size estimate).
@@ -181,9 +186,10 @@ class GEE(AbstractDataSource):
         scale: float | None = None,
         crs: str = "EPSG:4326",
         reducer: str | None = None,
-        export_via: Literal["url", "drive", "gcs"] = "url",
+        export_via: Literal["url", "drive", "gcs", "asset"] = "url",
         drive_folder: str | None = None,
         gcs_bucket: str | None = None,
+        asset_id: str | None = None,
         region: GeoDataFrame | None = None,
         http_timeout: float | None = None,
         auto_split: bool = False,
@@ -191,14 +197,20 @@ class GEE(AbstractDataSource):
         # Validate the pure (no-I/O) config first so a bad `export_via`
         # fails fast, before paying for the ~3.3 s cold-cache catalog
         # parse (M3 in pr-diff-review).
-        if export_via not in {"url", "drive", "gcs"}:
+        if export_via not in {"url", "drive", "gcs", "asset"}:
             raise ValueError(
-                f"export_via must be 'url', 'drive', or 'gcs', got {export_via!r}"
+                f"export_via must be 'url', 'drive', 'gcs', or 'asset', "
+                f"got {export_via!r}"
             )
         if export_via == "drive" and not drive_folder:
             raise ValueError("export_via='drive' requires drive_folder=")
         if export_via == "gcs" and not gcs_bucket:
             raise ValueError("export_via='gcs' requires gcs_bucket=")
+        if export_via == "asset" and not asset_id:
+            raise ValueError(
+                "export_via='asset' requires asset_id= (the parent folder "
+                "asset, e.g. 'projects/my-project/assets/my-folder')"
+            )
 
         # These must be set before `super().__init__` runs, because the
         # parent constructor immediately calls `self._initialize()` (and
@@ -214,6 +226,7 @@ class GEE(AbstractDataSource):
         self.export_via = export_via
         self.drive_folder = drive_folder
         self.gcs_bucket = gcs_bucket
+        self.asset_id = asset_id
         self.region = region
         self.http_timeout = (
             float(http_timeout) if http_timeout is not None else _DEFAULT_HTTP_TIMEOUT_S
@@ -674,22 +687,31 @@ class GEE(AbstractDataSource):
         return target
 
     def _export_via_batch(self, image, scale: float, region, prefix: str) -> str:
-        """Queue an `ee.batch.Export.image.to{Drive,CloudStorage}` task and wait for it."""
+        """Queue an `ee.batch.Export.image.to{Drive,CloudStorage,Asset}` task and wait for it."""
         common = {
             "image": image,
             "description": prefix[:100],
-            "fileNamePrefix": prefix,
             "region": region,
             "scale": scale,
             "crs": self.crs,
             "maxPixels": 1e13,
         }
         if self.export_via == "drive":
-            task = ee.batch.Export.image.toDrive(folder=self.drive_folder, **common)
+            task = ee.batch.Export.image.toDrive(
+                folder=self.drive_folder, fileNamePrefix=prefix, **common
+            )
             destination = f"drive://{self.drive_folder}/{prefix}"
-        else:
-            task = ee.batch.Export.image.toCloudStorage(bucket=self.gcs_bucket, **common)
+        elif self.export_via == "gcs":
+            task = ee.batch.Export.image.toCloudStorage(
+                bucket=self.gcs_bucket, fileNamePrefix=prefix, **common
+            )
             destination = f"gs://{self.gcs_bucket}/{prefix}"
+        else:
+            # The asset sink uses `assetId` instead of `fileNamePrefix` —
+            # each export creates one asset at `<self.asset_id>/<prefix>`.
+            target_asset = f"{self.asset_id.rstrip('/')}/{prefix}"
+            task = ee.batch.Export.image.toAsset(assetId=target_asset, **common)
+            destination = f"ee://{target_asset}"
         wait_for_task(task, progress_bar=True)
         logger.info(f"Exported {destination} (pull it from the {self.export_via} destination)")
         return destination

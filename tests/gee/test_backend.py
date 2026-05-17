@@ -154,6 +154,9 @@ class _FakeExportImage:
     def toCloudStorage(self, **kwargs):  # noqa: N802
         return self._make("toCloudStorage", **kwargs)
 
+    def toAsset(self, **kwargs):  # noqa: N802
+        return self._make("toAsset", **kwargs)
+
 
 class _FakeEE:
     """A minimal stand-in for the `ee` module."""
@@ -483,6 +486,44 @@ class TestExportViaBatch:
         gee.download(progress_bar=False)
         task = gee.client.export_image.tasks[0]
         assert task.started is True and task.poll_count >= 1
+
+
+class TestExportViaAsset:
+    """Tests for the `export_via="asset"` path (M1)."""
+
+    def test_missing_asset_id_rejected_at_construction(self, make_gee):
+        """`export_via="asset"` without an `asset_id=` raises a clear `ValueError`."""
+        with pytest.raises(ValueError, match="export_via='asset' requires asset_id"):
+            make_gee(export_via="asset")
+
+    def test_unknown_export_via_lists_asset_too(self, make_gee):
+        """The updated ValueError message advertises `'asset'` as a valid sink."""
+        with pytest.raises(ValueError, match="'url', 'drive', 'gcs', or 'asset'"):
+            make_gee(export_via="ftp")
+
+    def test_asset_export_queues_to_asset_and_returns_ee_uri(self, make_gee):
+        """An Asset export queues a `toAsset` task and returns `ee://<asset>/<prefix>`."""
+        gee = make_gee(
+            export_via="asset", asset_id="projects/p/assets/my-folder"
+        )
+        results = gee.download(progress_bar=False)
+        assert results == ["ee://projects/p/assets/my-folder/USGS_SRTMGL1_003_elevation_20000211"]
+        (method, kwargs), = gee.client.export_image.calls
+        assert method == "toAsset"
+        assert kwargs["assetId"] == "projects/p/assets/my-folder/USGS_SRTMGL1_003_elevation_20000211"
+        assert "fileNamePrefix" not in kwargs  # `toAsset` doesn't use it
+        assert kwargs["scale"] == 90.0 and kwargs["maxPixels"] == 1e13
+
+    def test_trailing_slash_on_asset_id_is_tolerated(self, make_gee):
+        """A trailing `/` on `asset_id` is stripped to avoid a double slash."""
+        gee = make_gee(
+            export_via="asset", asset_id="projects/p/assets/my-folder/"
+        )
+        gee.download(progress_bar=False)
+        (_, kwargs), = gee.client.export_image.calls
+        assert "//" not in kwargs["assetId"].split(":", 1)[-1]
+        assert kwargs["assetId"].startswith("projects/p/assets/my-folder/")
+        assert "//" not in kwargs["assetId"]
 
 
 class TestBuildCollection:
