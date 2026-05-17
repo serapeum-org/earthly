@@ -33,7 +33,7 @@ _COLLECTION_REDUCERS: frozenset[str] = frozenset(
 )
 
 # Terminal `ee.batch.Task` states (the bare, upper-cased name — `task.status()`
-# may report e.g. ``"COMPLETED"`` or ``"State.COMPLETED"`` depending on SDK
+# may report e.g. `"COMPLETED"` or `"State.COMPLETED"` depending on SDK
 # version, so callers normalise via :func:`task_state_name` before comparing).
 TERMINAL_TASK_STATES: frozenset[str] = frozenset(
     {"COMPLETED", "FAILED", "CANCELLED", "CANCEL_REQUESTED"}
@@ -131,16 +131,13 @@ def split_aoi_for_url(
     """Tile a :class:`SpatialExtent` into sub-extents each within `max_dim` px per axis.
 
     Used by :meth:`GEE._export_via_url` to auto-split oversized
-    synchronous downloads. The bbox is divided into an `Nx*Ny` grid in
-    its own lon/lat coordinates — no UTM projection, no GeoDataFrame
-    round-trip — sized so each tile satisfies
-    `max(width_px, height_px) <= max_dim` at the given `scale_m`. Tiles
-    are emitted row by row, south-to-north, west-to-east.
-
-    Temporary inline implementation pending `PY-2` in
-    `planning/gee-utils.md` (pyramids polygon-splitter). Once that
-    lands, this can be deleted in favour of
-    `pyramids.spatial.split_polygon`.
+    synchronous downloads. This is a per-AXIS tiler — the more general
+    per-total-cells `split_polygon` in :mod:`earthlens.spatial` solves
+    a different problem (cap on cells per tile, not cap on pixels per
+    axis). The bbox is divided into an `Nx*Ny` grid in its own
+    lon/lat coordinates, sized so each tile satisfies
+    `max(width_px, height_px) <= max_dim` at the given `scale_m`.
+    Tiles are emitted row by row, south-to-north, west-to-east.
 
     Args:
         space: The full request extent (in WGS84 degrees).
@@ -159,8 +156,9 @@ def split_aoi_for_url(
     if max_dim < 1:
         raise ValueError(f"max_dim must be >= 1, got {max_dim}")
 
-    # Local import to avoid a runtime cycle (`earthlens.base` imports
-    # this package's `spatial` helpers in a few branches).
+    # Local import to keep this module independent of `earthlens.base`
+    # at module-load time (the base package imports `_helpers` indirectly
+    # via the GEE backend in a few branches).
     from earthlens.base import SpatialExtent as _SpatialExtent
 
     width_px, height_px = space.estimate_pixel_dims(scale_m)

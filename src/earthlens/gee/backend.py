@@ -533,7 +533,7 @@ class GEE(AbstractDataSource):
             end: Exclusive window end (clamped, already +1 day).
 
         Yields:
-            ``(timestamp, ee.Image)`` pairs — `timestamp` is the bucket
+            `(timestamp, ee.Image)` pairs — `timestamp` is the bucket
             start (a :class:`datetime.datetime`), used in the filename.
         """
         reducer = self.reducer or var_info.default_reducer
@@ -768,13 +768,13 @@ class GEE(AbstractDataSource):
             var_info: The catalog entry (its :class:`Extent`).
 
         Returns:
-            ``(start, end_exclusive)`` — `start` is the later of the
+            `(start, end_exclusive)` — `start` is the later of the
             request start and the dataset start; `end_exclusive` is the
             earlier of (request end + 1 day) and (dataset end + 1 day, or
             "now" + 1 day for open-ended datasets). Returns
-            ``(None, None)`` if the windows do not overlap.
+            `(None, None)` if the windows do not overlap.
 
-            When ``discover_extent=True`` was passed at construction
+            When `discover_extent=True` was passed at construction
             and the catalog's `end_date` (or `start_date`) is missing,
             the gap is filled by an EE-side
             `reduceColumns(minMax)` over `system:time_start` via

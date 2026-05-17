@@ -487,13 +487,13 @@ def _load_catalog_directory(
 ) -> tuple[list[str], dict[str, dict[str, list[float]]], dict[str, "Dataset"]]:
     """Read a GEE-style split catalog (one file per product family).
 
-    Layout expected under ``directory``:
+    Layout expected under `directory`:
 
-    * ``_index.yaml`` — `available_datasets:` (informational walk-order
+    * `_index.yaml` — `available_datasets:` (informational walk-order
       list) + `regions:` map (named geographic-coverage profiles).
-    * ``<family>.yaml`` — one or more per-family files, each with a
+    * `<family>.yaml` — one or more per-family files, each with a
       `datasets:` block. Family file names are not load-bearing;
-      anything matching ``*.yaml`` except ``_index.yaml`` is merged.
+      anything matching `*.yaml` except `_index.yaml` is merged.
 
     Dataset keys must be unique across all files; duplicates raise
     `ValueError` with both filenames.

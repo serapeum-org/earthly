@@ -381,7 +381,15 @@ class AbstractCatalog(BaseModel):
         self.catalog = self.get_catalog()
 
     def get_catalog(self) -> Any:
-        """read the catalog of the datasource from disk or retrieve it from server."""
+        """Read the catalog of the datasource from disk or retrieve it from server.
+
+        Abstract; concrete subclasses must override and return their
+        backend-specific catalog object (e.g. a pydantic `Catalog`
+        instance, a `dict`, or whatever shape the backend uses).
+
+        Raises:
+            NotImplementedError: Always, until overridden by a subclass.
+        """
         raise NotImplementedError
 
     def get_variable(self, var_name: str) -> Any:
