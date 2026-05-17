@@ -64,6 +64,51 @@ _LEGACY_DATASET_KEY: dict[str, str] = {
 }
 
 
+def _open_ftp() -> FTP:
+    """Open an anonymous FTP session against CHC and return it (L5 helper).
+
+    Module-level so the no-nested-function rule (`feedback_no_nested_functions`)
+    is honoured. Callers are responsible for closing the returned session
+    via `_close_ftp_quietly` (or replacing it via `_reopen_ftp`).
+
+    Returns:
+        FTP: A logged-in anonymous FTP client pointed at
+        `CHIRPS.api_url` (`data.chc.ucsb.edu`).
+    """
+    ftp = FTP(CHIRPS.api_url)  # nosec B321 - public anonymous data FTP, no creds
+    ftp.login()
+    return ftp
+
+
+def _close_ftp_quietly(ftp: FTP) -> None:
+    """Close an FTP session, swallowing any errors (L5 helper).
+
+    Used in `finally` blocks where the session may already be broken
+    (e.g. after a partial download) -- raising during cleanup would
+    mask the real failure.
+    """
+    try:
+        ftp.quit()
+    except Exception:  # noqa: BLE001 - best-effort cleanup, never raises
+        try:
+            ftp.close()
+        except Exception:  # noqa: BLE001
+            pass
+
+
+def _reopen_ftp(ftp: FTP) -> FTP:
+    """Close `ftp` and return a fresh anonymous session (L5 helper).
+
+    Called from the sequential branch of `_download_dataset` after a
+    per-date failure: the previous FTP socket may be in an unrecoverable
+    state (broken pipe, half-read response) and reusing it would fail
+    every subsequent date. Trading one extra anonymous login for
+    correctness is the obvious win.
+    """
+    _close_ftp_quietly(ftp)
+    return _open_ftp()
+
+
 def _reject_unsigned_for_nodata_sentinel(dtype: np.dtype) -> None:
     """Bail out if the input raster's dtype can't carry a `-9999` no-data sentinel.
 
@@ -434,15 +479,28 @@ class CHIRPS(AbstractDataSource):
         # batch for this `(ds, var)`. The outer `download()` loop kept
         # its (ds, var)-level try/except as defence in depth for
         # catalog-resolution / never-reach-the-network failures.
+        #
+        # L5: the sequential branch shares one FTP login across every
+        # date in this batch (one anonymous-login round-trip instead
+        # of N). On any per-date failure the session is closed and a
+        # fresh one is opened before the next iteration so a broken
+        # socket from one bad date doesn't poison the rest of the
+        # batch. The parallel branch keeps a per-file login because
+        # joblib workers can't share the unpicklable FTP socket.
         if not cores:
             failed: list[tuple[pd.Timestamp, BaseException]] = []
-            for date in tqdm(
-                dates, desc=f"CHIRPS {ds_key}", disable=not progress_bar
-            ):
-                try:
-                    self._api(ds_key, dataset, var, date)
-                except Exception as exc:  # noqa: BLE001 - log + continue per date
-                    failed.append((date, exc))
+            ftp_session = _open_ftp()
+            try:
+                for date in tqdm(
+                    dates, desc=f"CHIRPS {ds_key}", disable=not progress_bar
+                ):
+                    try:
+                        self._api(ds_key, dataset, var, date, ftp=ftp_session)
+                    except Exception as exc:  # noqa: BLE001 - log + continue per date
+                        failed.append((date, exc))
+                        ftp_session = _reopen_ftp(ftp_session)
+            finally:
+                _close_ftp_quietly(ftp_session)
         else:
             results = Parallel(n_jobs=cores)(
                 delayed(self._api_or_capture)(ds_key, dataset, var, date)
@@ -515,11 +573,18 @@ class CHIRPS(AbstractDataSource):
         iterable = tqdm(
             filenames, desc=f"CHC {ds_key}", disable=not progress_bar
         )
-        for filename in iterable:
-            local_path = self.root_dir / f"{ds_key}_{filename}"
-            self._fetch_ftp(ftp_base, filename, local_path)
-            if is_2d_raster:
-                self._clip_raster_in_place(local_path)
+        # L5: one shared anonymous-login round-trip across the whole
+        # discrete-files batch. CHPclim v2 in particular is 12 files
+        # served from the same dir; pre-L5 that meant 12 logins.
+        ftp_session = _open_ftp()
+        try:
+            for filename in iterable:
+                local_path = self.root_dir / f"{ds_key}_{filename}"
+                self._fetch_ftp(ftp_base, filename, local_path, ftp=ftp_session)
+                if is_2d_raster:
+                    self._clip_raster_in_place(local_path)
+        finally:
+            _close_ftp_quietly(ftp_session)
 
     def _clip_raster_in_place(self, path: Path) -> None:
         """Read a 2-D raster at `path`, clip to `self.space`, write back.
@@ -552,8 +617,20 @@ class CHIRPS(AbstractDataSource):
         dataset: ChcDataset,
         var: Variable,
         date: pd.Timestamp,
+        ftp: FTP | None = None,
     ) -> Path | None:
         """Resolve the FTP URL for one date, fetch, and post-process.
+
+        Args:
+            ds_key: Catalog dataset key (e.g. `"global-daily"`).
+            dataset: The :class:`~earthlens.chc.Dataset` row for `ds_key`.
+            var: The :class:`~earthlens.chc.Variable` being downloaded.
+            date: The per-date pandas Timestamp for the request.
+            ftp: Optional shared FTP session (L5). When provided, the
+                caller (a sequential `_download_dataset` batch) owns
+                the connection lifecycle and `_fetch_ftp` reuses it
+                instead of opening a per-file login. When `None`,
+                `_fetch_ftp` opens and closes its own.
 
         Returns:
             Path: Output GeoTIFF on success.
@@ -586,7 +663,7 @@ class CHIRPS(AbstractDataSource):
 
         local_compressed = self.root_dir / remote_filename
         try:
-            self._fetch_ftp(remote_dir, remote_filename, local_compressed)
+            self._fetch_ftp(remote_dir, remote_filename, local_compressed, ftp=ftp)
         except Exception:  # noqa: BLE001 - clean up the partial download on any FTP-stack failure, then re-raise unchanged
             if local_compressed.exists():
                 try:
@@ -624,14 +701,33 @@ class CHIRPS(AbstractDataSource):
 
     @staticmethod
     def _fetch_ftp(
-        remote_dir: str, remote_filename: str, local_path: Path
+        remote_dir: str,
+        remote_filename: str,
+        local_path: Path,
+        ftp: FTP | None = None,
     ) -> None:
-        """Download one file via anonymous FTP into `local_path`."""
-        with closing(FTP(CHIRPS.api_url)) as ftp:  # nosec B321
-            ftp.login()
+        """Download one file via anonymous FTP into `local_path`.
+
+        Args:
+            remote_dir: Remote directory the file lives under (absolute
+                path on `data.chc.ucsb.edu`).
+            remote_filename: File name within `remote_dir`.
+            local_path: Local path to write the downloaded bytes to.
+            ftp: Optional shared FTP session (L5). When provided, this
+                method reuses the caller's already-logged-in session
+                (one login per batch instead of one login per file).
+                When `None`, opens a fresh anonymous login, runs the
+                fetch, and closes the session before returning.
+        """
+        if ftp is not None:
             ftp.cwd(remote_dir)
             with open(local_path, "wb") as fp:
                 ftp.retrbinary(f"RETR {remote_filename}", fp.write)
+            return
+        with closing(_open_ftp()) as session:
+            session.cwd(remote_dir)
+            with open(local_path, "wb") as fp:
+                session.retrbinary(f"RETR {remote_filename}", fp.write)
 
     def _post_process(
         self,

@@ -32,7 +32,7 @@ class _CountingApiSpy:
         self.dates_seen: list[pd.Timestamp] = []
         self.raises_on: set[int] = {2}  # 0-indexed -> the 3rd date
 
-    def __call__(self, ds_key, dataset, var, date):  # noqa: D401
+    def __call__(self, ds_key, dataset, var, date, ftp=None):  # noqa: D401
         idx = len(self.dates_seen)
         self.dates_seen.append(date)
         if idx in self.raises_on:
