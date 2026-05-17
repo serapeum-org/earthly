@@ -644,7 +644,9 @@ class CHIRPS(AbstractDataSource):
         pattern = dataset.file_patterns[fmt_key]
 
         try:
-            relative = pattern.format(**self._placeholders(date))
+            relative = pattern.format(
+                **self._placeholders(date, pandas_freq=dataset.pandas_freq)
+            )
         except KeyError as missing:
             logger.warning(
                 f"{ds_key}: file pattern {pattern!r} requires "
@@ -677,19 +679,47 @@ class CHIRPS(AbstractDataSource):
         )
 
     @staticmethod
-    def _placeholders(date: pd.Timestamp) -> dict[str, str]:
+    def _placeholders(
+        date: pd.Timestamp, pandas_freq: str | None = None
+    ) -> dict[str, str]:
         """Build the format-string substitution dict for one date.
 
         Covers `{year}`, `{month}`, `{day}`, `{dekad}`, `{pentad}`,
-        `{hour}`, `{doy}` — the placeholders used by the curated
-        datasets. Entries using other placeholders
-        (`{start_yyyymmdd}` / `{end_yyyymmdd}` for WBGT,
-        `{month_pair}` for CHIRPS v3 2-monthly, `{res}` / `{scale}`)
-        surface as a `KeyError` that :meth:`_api` catches and logs;
-        adding them is M5.
+        `{hour}`, `{doy}` (always) plus `{start_yyyymmdd}` /
+        `{end_yyyymmdd}` (when `pandas_freq` is supplied) -- the
+        placeholders used by the curated datasets.
+
+        The `{start_yyyymmdd}` / `{end_yyyymmdd}` pair (M5) is needed
+        for WBGT, whose filenames carry the `[start, end]` endpoints
+        of the period each timestep represents
+        (e.g. `data_20200101_20200131.tif` for January 2020 monthly,
+        `data_20200101_20200110.tif` for the first dekad of 2020).
+        The pair is derived from `pandas_freq`:
+
+            start = date
+            end   = (date + offset(pandas_freq)) - 1 day
+
+        For `MS` (month-start) on `2020-01-01` this gives
+        `20200101 / 20200131`; for `10D` on `2020-01-01` it gives
+        `20200101 / 20200110`. Other placeholders surface as a
+        `KeyError` that :meth:`_api` catches and logs
+        (`{month_pair}` for CHIRPS v3 2-monthly, `{res}` /
+        `{scale}` -- none of those are wired today).
+
+        Args:
+            date: The pandas Timestamp for the per-date request.
+            pandas_freq: Optional pandas offset alias from
+                `Dataset.pandas_freq`. When provided, the returned
+                dict carries the M5 `start_yyyymmdd` /
+                `end_yyyymmdd` pair; when `None`, those keys are
+                omitted (the caller's pattern is assumed not to
+                reference them).
+
+        Returns:
+            dict[str, str]: Placeholder names to substituted values.
         """
         day = date.day
-        return {
+        out = {
             "year": f"{date.year}",
             "month": f"{date.month:02d}",
             "day": f"{day:02d}",
@@ -698,6 +728,16 @@ class CHIRPS(AbstractDataSource):
             "hour": f"{date.hour:02d}",
             "doy": f"{date.dayofyear:03d}",
         }
+        if pandas_freq is not None:
+            offset = pd.tseries.frequencies.to_offset(pandas_freq)
+            # `date + offset` lands at the start of the NEXT period;
+            # subtract one day to get the inclusive end of THIS period.
+            # For daily (`D`) this gives `end == date`, which matches
+            # CHC's daily-WBGT-style naming if any catalog row uses it.
+            period_end = (date + offset) - pd.Timedelta(days=1)
+            out["start_yyyymmdd"] = date.strftime("%Y%m%d")
+            out["end_yyyymmdd"] = period_end.strftime("%Y%m%d")
+        return out
 
     @staticmethod
     def _fetch_ftp(
