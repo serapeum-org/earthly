@@ -394,7 +394,7 @@ def _build_chc_dataset(
     ds_key: str,
     ds_body: dict[str, Any],
     regions_map: dict[str, dict[str, list[float]]],
-    catalog_path: Path,
+    source_path: Path,
 ) -> tuple["Dataset", int]:
     """Build one :class:`Dataset` from its YAML body + variables (N1).
 
@@ -407,7 +407,11 @@ def _build_chc_dataset(
         ds_key: The dataset name (used in error messages).
         ds_body: Raw mapping for one dataset out of `datasets:`.
         regions_map: Top-level `regions:` block.
-        catalog_path: Path of the catalog YAML (used in error messages).
+        source_path: Path of the YAML file that produced `ds_body` —
+            the per-family file under the split layout, or the
+            single-file legacy catalog. Used only to surface the file
+            name in error messages so a maintainer can locate the
+            offending row.
 
     Returns:
         (`Dataset`, `n_vars`) — the constructed record and the count
@@ -430,7 +434,7 @@ def _build_chc_dataset(
             )
         except ValidationError as exc:
             raise ValueError(
-                f"{catalog_path.name} variable {var_code!r} "
+                f"{source_path.name} variable {var_code!r} "
                 f"under dataset {ds_key!r} failed validation:\n{exc}"
             ) from exc
 
@@ -444,7 +448,7 @@ def _build_chc_dataset(
         pd.tseries.frequencies.to_offset(freq_value)
     except (ValueError, TypeError) as exc:
         raise ValueError(
-            f"{catalog_path.name} dataset {ds_key!r} has invalid "
+            f"{source_path.name} dataset {ds_key!r} has invalid "
             f"`pandas_freq` {freq_value!r}: {exc}. See "
             "https://pandas.pydata.org/docs/user_guide/timeseries.html"
             "#offset-aliases for the current alias table."
@@ -459,7 +463,7 @@ def _build_chc_dataset(
     inline_lon = ds_body.get("lon_boundaries")
     if inline_lat is not None or inline_lon is not None:
         raise ValueError(
-            f"{catalog_path.name} dataset {ds_key!r} carries inline "
+            f"{source_path.name} dataset {ds_key!r} carries inline "
             "`lat_boundaries` / `lon_boundaries`, which is no longer "
             "accepted (H1). Spatial bounds come from the `regions:` "
             "block. To use a non-standard extent, add a new entry to "
@@ -471,7 +475,7 @@ def _build_chc_dataset(
     region_def = regions_map.get(region_key)
     if region_def is None:
         raise ValueError(
-            f"{catalog_path.name} dataset {ds_key!r} has region "
+            f"{source_path.name} dataset {ds_key!r} has region "
             f"{region_key!r} which is not defined in `_index.yaml`'s "
             "`regions:` block. Add it there or pick an existing "
             f"region from {sorted(regions_map)}."
@@ -480,7 +484,7 @@ def _build_chc_dataset(
     lon_boundaries = region_def.get("lon_boundaries")
     if lat_boundaries is None or lon_boundaries is None:
         raise ValueError(
-            f"{catalog_path.name} dataset {ds_key!r} resolved to "
+            f"{source_path.name} dataset {ds_key!r} resolved to "
             f"region {region_key!r} but that region is missing "
             "`lat_boundaries` or `lon_boundaries`."
         )
@@ -513,7 +517,7 @@ def _build_chc_dataset(
         )
     except (ValidationError, KeyError) as exc:
         raise ValueError(
-            f"{catalog_path.name} dataset {ds_key!r} "
+            f"{source_path.name} dataset {ds_key!r} "
             f"failed validation:\n{exc}"
         ) from exc
     return ds, len(ds_vars)
