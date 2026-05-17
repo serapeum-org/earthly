@@ -44,11 +44,12 @@ dependencies = [
 [project.optional-dependencies]
 s3 = ["boto3 >=1.26.50"]
 ecmwf = ["cdsapi >=0.7.7"]
-gee = ["earthengine-api >=0.1.324"]
+gee = ["earthengine-api >=0.1.324", "Rtree >=1.0.0"]
 all = [
     "boto3 >=1.26.50",
     "cdsapi >=0.7.7",
     "earthengine-api >=0.1.324",
+    "Rtree >=1.0.0",
 ]
 
 [dependency-groups]

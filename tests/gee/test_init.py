@@ -22,7 +22,7 @@ from earthlens.gee import (
 _EXPECTED_EXPORTS = {
     "GEE", "AuthenticationError", "Catalog", "Dataset", "Band", "Cadence",
     "Extent", "Provider", "CATALOG_PATH", "PROVIDERS_PATH", "EarthEngineAuth",
-    "create_geometry", "create_feature",
+    "create_geometry", "create_feature", "sample_points",
 }
 
 

@@ -70,6 +70,7 @@ from earthlens.gee.catalog import (
     Provider,
 )
 from earthlens.gee.features import create_feature, create_geometry
+from earthlens.gee.sampling import sample_points
 
 __all__ = [
     "GEE",
@@ -85,4 +86,5 @@ __all__ = [
     "EarthEngineAuth",
     "create_geometry",
     "create_feature",
+    "sample_points",
 ]
