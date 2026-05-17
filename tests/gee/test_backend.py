@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import datetime as dt
 import zipfile
+from pathlib import Path
 from types import SimpleNamespace
 
 import pandas as pd
@@ -33,6 +34,7 @@ class _FakeImage:
         self.reducer = reducer
         self.calls: list[tuple[str, tuple]] = []
         self.download_params: dict | None = None
+        self.download_params_list: list[dict] = []
 
     def select(self, bands):
         self.calls.append(("select", (tuple(bands),)))
@@ -44,6 +46,7 @@ class _FakeImage:
 
     def getDownloadURL(self, params):  # noqa: N802 - mirrors the ee API
         self.download_params = dict(params)
+        self.download_params_list.append(dict(params))
         return "http://fake.test/download.tif"
 
 
@@ -624,6 +627,87 @@ class TestApi:
         assert image.download_params["format"] == "GEO_TIFF"
         assert image.download_params["scale"] == 120.0
         assert image.download_params["crs"] == "EPSG:3857"
+
+
+class TestAutoSplit:
+    """Tests for `auto_split=True` (H2 — auto-split oversized URL downloads)."""
+
+    def test_default_keeps_existing_value_error(self, make_gee):
+        """`auto_split=False` (the default) preserves the historical guard."""
+        gee = make_gee(lat_lim=[0.0, 40.0], lon_lim=[0.0, 40.0], scale=30.0)
+        with pytest.raises(ValueError, match="auto_split=True"):
+            gee.download(progress_bar=False)
+
+    def test_ctor_arg_persists(self, make_gee):
+        """`auto_split=True` is captured on the instance."""
+        assert make_gee(auto_split=True).auto_split is True
+        assert make_gee().auto_split is False
+
+    def test_oversized_aoi_is_tiled_and_merged(self, make_gee, monkeypatch, tmp_path):
+        """An oversized AOI with `auto_split=True` downloads N tiles + mosaics."""
+        merge_calls: list[dict] = []
+
+        def _fake_merge(src, dst, **kwargs):
+            from pathlib import Path as _Path
+            merge_calls.append({"src": list(src), "dst": str(dst), "kwargs": kwargs})
+            _Path(dst).write_bytes(b"merged")
+
+        monkeypatch.setattr(backend_module, "merge_rasters", _fake_merge)
+
+        gee = make_gee(lat_lim=[0.0, 40.0], lon_lim=[0.0, 40.0], scale=30.0, auto_split=True)
+        paths = gee.download(progress_bar=False)
+
+        assert len(paths) == 1
+        target = paths[0]
+        assert target.parent == tmp_path
+        assert target.name == "USGS_SRTMGL1_003_elevation_20000211.tif"
+        assert target.read_bytes() == b"merged"
+
+        assert len(merge_calls) == 1
+        assert merge_calls[0]["dst"] == str(target)
+        assert len(merge_calls[0]["src"]) > 1
+        for tile_path in merge_calls[0]["src"]:
+            assert tile_path.endswith(".tif")
+            assert "_tile_" in tile_path
+            assert not Path(tile_path).exists()  # tile files cleaned up post-merge
+
+    def test_each_tile_request_is_within_the_synchronous_cap(
+        self, make_gee, monkeypatch
+    ):
+        """Every `getDownloadURL` call's `region` covers <= EE_MAX_DIMENSION px."""
+        from earthlens.gee._helpers import EE_MAX_DIMENSION as _CAP
+
+        monkeypatch.setattr(
+            backend_module, "merge_rasters",
+            lambda src, dst, **k: Path(dst).write_bytes(b"merged"),
+        )
+
+        gee = make_gee(lat_lim=[0.0, 40.0], lon_lim=[0.0, 40.0], scale=30.0, auto_split=True)
+        gee.download(progress_bar=False)
+
+        # The fake `ee.Image` records every `getDownloadURL` call's params.
+        # The fake `ee.Geometry.Rectangle` returns a `_FakeGeometry` with
+        # `.coords` set to `[west, south, east, north]`. The tile is at-cap
+        # when its width-in-degrees ≤ EE_MAX_DIMENSION * (scale / METRES_PER_DEGREE).
+        from earthlens.base.spatial import METRES_PER_DEGREE
+
+        deg_per_px = 30.0 / METRES_PER_DEGREE
+        cap_deg = _CAP * deg_per_px
+        # Replay the image's recorded download_params_list:
+        ds = gee.catalog.get_dataset("USGS/SRTMGL1_003")
+        col = gee._build_collection(
+            ds, ["elevation"], dt.datetime(2000, 2, 11), dt.datetime(2000, 2, 13),
+        )
+        (_, image), = gee._composite(
+            col, ds, dt.datetime(2000, 2, 11), dt.datetime(2000, 2, 13),
+        )
+        gee._api(image, ds, ["elevation"], dt.datetime(2000, 2, 11))
+
+        assert len(image.download_params_list) > 1
+        for call in image.download_params_list:
+            west, south, east, north = call["region"].coords
+            assert (east - west) <= cap_deg + 1e-9
+            assert (north - south) <= cap_deg + 1e-9
 
 
 class TestEeRegion:

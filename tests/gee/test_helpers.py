@@ -9,6 +9,7 @@ from earthlens.gee._helpers import (
     EE_MAX_DIMENSION,
     reduce_collection,
     slug_asset_id,
+    split_aoi_for_url,
     task_state_name,
     wait_for_task,
 )
@@ -173,3 +174,59 @@ class TestWaitForTask:
         """An enum-repr terminal state (`"State.COMPLETED"`) ends the loop cleanly."""
         task = _FakeTask(["State.COMPLETED"])
         assert wait_for_task(task, progress_bar=False, sleep=lambda s: None) == {"state": "State.COMPLETED"}
+
+
+class TestSplitAoiForUrl:
+    """Tests for `split_aoi_for_url` (H2 — temp inline polygon-splitter)."""
+
+    def test_small_aoi_returns_single_extent(self):
+        """An AOI well under the per-axis cap is returned as a list of one."""
+        space = SpatialExtent.from_pairs([29.9, 30.0], [31.2, 31.3])
+        out = split_aoi_for_url(space, scale_m=30)
+        assert out == [space]
+
+    def test_oversized_aoi_is_tiled(self):
+        """A 40°×40° box at 30 m → multiple tiles each within `EE_MAX_DIMENSION`."""
+        space = SpatialExtent.from_pairs([0.0, 40.0], [0.0, 40.0])
+        tiles = split_aoi_for_url(space, scale_m=30)
+        assert len(tiles) > 1
+        for tile in tiles:
+            w, h = tile.estimate_pixel_dims(30)
+            assert max(w, h) <= EE_MAX_DIMENSION
+
+    def test_tile_count_matches_axis_ceilings(self):
+        """The tile grid is `ceil(width/max_dim) * ceil(height/max_dim)`."""
+        space = SpatialExtent.from_pairs([0.0, 40.0], [0.0, 40.0])
+        w, h = space.estimate_pixel_dims(30)
+        import math as _math
+        expected = _math.ceil(w / EE_MAX_DIMENSION) * _math.ceil(h / EE_MAX_DIMENSION)
+        assert len(split_aoi_for_url(space, scale_m=30)) == expected
+
+    def test_tiles_cover_the_original_extent_with_aligned_edges(self):
+        """Tile edges align (no gaps, no overlap) and span the full bbox."""
+        space = SpatialExtent.from_pairs([0.0, 40.0], [0.0, 40.0])
+        tiles = split_aoi_for_url(space, scale_m=30)
+
+        souths = sorted({t.south for t in tiles})
+        norths = sorted({t.north for t in tiles})
+        wests = sorted({t.west for t in tiles})
+        easts = sorted({t.east for t in tiles})
+
+        assert souths[0] == space.south
+        assert norths[-1] == space.north
+        assert wests[0] == space.west
+        assert easts[-1] == space.east
+        assert souths[1:] == norths[:-1]
+        assert wests[1:] == easts[:-1]
+
+    def test_max_dim_below_one_raises(self):
+        """`max_dim < 1` is rejected up-front."""
+        space = SpatialExtent.from_pairs([0.0, 1.0], [0.0, 1.0])
+        with pytest.raises(ValueError, match="max_dim must be >= 1"):
+            split_aoi_for_url(space, scale_m=30, max_dim=0)
+
+    def test_resolution_is_preserved_on_each_tile(self):
+        """If `space.resolution` is set, every tile carries it through."""
+        space = SpatialExtent.from_pairs([0.0, 40.0], [0.0, 40.0], resolution=0.5)
+        tiles = split_aoi_for_url(space, scale_m=30)
+        assert {t.resolution for t in tiles} == {0.5}

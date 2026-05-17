@@ -53,6 +53,7 @@ import pandas as pd
 import requests
 from loguru import logger
 from pyramids.dataset import Dataset as PyramidsDataset
+from pyramids.dataset.merge import merge_rasters
 from tqdm import tqdm
 
 from earthlens.base import AbstractDataSource, SpatialExtent, TemporalExtent
@@ -60,6 +61,7 @@ from earthlens.gee._helpers import (
     EE_MAX_DIMENSION,
     reduce_collection,
     slug_asset_id,
+    split_aoi_for_url,
     wait_for_task,
 )
 from earthlens.gee.auth import AuthenticationError, EarthEngineAuth
@@ -124,6 +126,13 @@ class GEE(AbstractDataSource):
         http_timeout: Timeout in seconds for the synchronous
             `getDownloadURL` HTTP request (`export_via="url"`). Defaults
             to 300 s.
+        auto_split: For `export_via="url"`, when the estimated request
+            exceeds Earth Engine's 32768-px per-axis cap, automatically
+            split the AOI into tiles each within the cap, download each
+            tile separately, and mosaic them back into a single GeoTIFF
+            via `pyramids.dataset.merge.merge_rasters`. Defaults to
+            `False` — the previous behaviour, which raises `ValueError`
+            with an actionable message.
 
     Raises:
         AuthenticationError: If Earth Engine cannot be initialised
@@ -177,6 +186,7 @@ class GEE(AbstractDataSource):
         gcs_bucket: str | None = None,
         region: GeoDataFrame | None = None,
         http_timeout: float | None = None,
+        auto_split: bool = False,
     ):
         # Validate the pure (no-I/O) config first so a bad `export_via`
         # fails fast, before paying for the ~3.3 s cold-cache catalog
@@ -208,6 +218,7 @@ class GEE(AbstractDataSource):
         self.http_timeout = (
             float(http_timeout) if http_timeout is not None else _DEFAULT_HTTP_TIMEOUT_S
         )
+        self.auto_split = bool(auto_split)
         self._ee_geometry = None  # lazily built in `_ee_region`
 
         super().__init__(
@@ -569,15 +580,38 @@ class GEE(AbstractDataSource):
         (writes the in-memory body to a `/vsimem/` path then materialises it
         on disk), zips via :meth:`Dataset.from_archive` (chained `/vsizip/`,
         merging members into one multi-band tif).
+
+        Oversized AOIs (either axis above :data:`EE_MAX_DIMENSION` px at
+        `scale`) take one of two paths: when `auto_split=True` was passed
+        to the constructor, the bbox is tiled, each tile is downloaded
+        individually, and the tiles are mosaicked into one GeoTIFF via
+        :func:`pyramids.dataset.merge.merge_rasters`; otherwise a
+        `ValueError` is raised with a coarser-scale / smaller-bbox /
+        `export_via="drive"` hint.
         """
         width_px, height_px = self.space.estimate_pixel_dims(scale)
         if max(width_px, height_px) > EE_MAX_DIMENSION:
+            if self.auto_split:
+                return self._auto_split_and_download(image, var_info, scale, prefix)
             raise ValueError(
                 f"{var_info.id}: the requested AOI at scale={scale} m is about "
                 f"{width_px}x{height_px} px, over Earth Engine's "
                 f"{EE_MAX_DIMENSION}-px per-axis limit for synchronous downloads. "
-                "Use a coarser scale, a smaller bbox, or export_via='drive'."
+                "Use a coarser scale, a smaller bbox, export_via='drive', or "
+                "auto_split=True."
             )
+        return self._download_one_url_tile(image, region, scale, prefix)
+
+    def _download_one_url_tile(
+        self, image, region, scale: float, prefix: str
+    ) -> Path:
+        """Issue one `getDownloadURL` request → tif at `<prefix>.tif`.
+
+        Single-tile worker shared by the small-AOI path and the
+        auto-split loop. Stripped of size-checking — callers are
+        expected to have already verified that the request fits the
+        Earth Engine synchronous limit.
+        """
         url = image.getDownloadURL(
             {"scale": scale, "crs": self.crs, "region": region, "format": "GEO_TIFF"}
         )
@@ -601,6 +635,42 @@ class GEE(AbstractDataSource):
             ds = PyramidsDataset.from_bytes(body, suffix=".tif")
             ds.to_file(str(target))
         logger.info(f"Wrote {target} ({len(body)} bytes)")
+        return target
+
+    def _auto_split_and_download(
+        self, image, var_info: Dataset, scale: float, prefix: str
+    ) -> Path:
+        """Tile an oversized AOI, download each tile, mosaic into one GeoTIFF.
+
+        Only reachable when `auto_split=True` was passed to the
+        constructor and the full AOI exceeds :data:`EE_MAX_DIMENSION` px
+        per axis. The bbox is split with :func:`split_aoi_for_url`, each
+        sub-extent is downloaded via :meth:`_download_one_url_tile`, and
+        the per-tile tifs are mosaicked into `<prefix>.tif` with
+        :func:`pyramids.dataset.merge.merge_rasters`. Per-tile tifs are
+        deleted on success.
+        """
+        sub_extents = split_aoi_for_url(self.space, scale)
+        logger.info(
+            f"{var_info.id}: AOI exceeds {EE_MAX_DIMENSION}-px per-axis cap at "
+            f"scale={scale} m; auto-splitting into {len(sub_extents)} tile(s)."
+        )
+        tile_paths: list[Path] = []
+        for k, sub in enumerate(sub_extents):
+            sub_region = ee.Geometry.Rectangle(
+                [sub.west, sub.south, sub.east, sub.north]
+            )
+            sub_prefix = f"{prefix}_tile_{k:04d}"
+            tile_paths.append(
+                self._download_one_url_tile(image, sub_region, scale, sub_prefix)
+            )
+        target = self.root_dir / f"{prefix}.tif"
+        merge_rasters([str(p) for p in tile_paths], str(target))
+        for p in tile_paths:
+            p.unlink(missing_ok=True)
+        logger.info(
+            f"Stitched {len(tile_paths)} tile(s) into {target} via pyramids."
+        )
         return target
 
     def _export_via_batch(self, image, scale: float, region, prefix: str) -> str:

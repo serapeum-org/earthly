@@ -11,10 +11,14 @@ can use them too.
 
 from __future__ import annotations
 
+import math
 import time
-from typing import Callable
+from typing import TYPE_CHECKING, Callable
 
 from tqdm import tqdm
+
+if TYPE_CHECKING:  # pragma: no cover - typing only
+    from earthlens.base import SpatialExtent
 
 # `getDownloadURL` / synchronous-export pixel-grid limit: each axis of
 # the requested raster must be <= this many pixels (Earth Engine raises
@@ -117,6 +121,74 @@ def task_state_name(status: dict) -> str:
             ```
     """
     return str(status.get("state", "")).rsplit(".", 1)[-1].upper()
+
+
+def split_aoi_for_url(
+    space: SpatialExtent,
+    scale_m: float,
+    max_dim: int = EE_MAX_DIMENSION,
+) -> list[SpatialExtent]:
+    """Tile a :class:`SpatialExtent` into sub-extents each within `max_dim` px per axis.
+
+    Used by :meth:`GEE._export_via_url` to auto-split oversized
+    synchronous downloads. The bbox is divided into an `Nx*Ny` grid in
+    its own lon/lat coordinates — no UTM projection, no GeoDataFrame
+    round-trip — sized so each tile satisfies
+    `max(width_px, height_px) <= max_dim` at the given `scale_m`. Tiles
+    are emitted row by row, south-to-north, west-to-east.
+
+    Temporary inline implementation pending `PY-2` in
+    `planning/gee-utils.md` (pyramids polygon-splitter). Once that
+    lands, this can be deleted in favour of
+    `pyramids.spatial.split_polygon`.
+
+    Args:
+        space: The full request extent (in WGS84 degrees).
+        scale_m: Output pixel size in metres.
+        max_dim: Per-axis pixel cap each tile must respect. Defaults to
+            :data:`EE_MAX_DIMENSION`.
+
+    Returns:
+        A list of `SpatialExtent`s tiling `space`. If `space` already
+        fits within `max_dim` per axis at `scale_m`, the list is
+        `[space]`.
+
+    Raises:
+        ValueError: If `scale_m` is not positive or `max_dim < 1`.
+    """
+    if max_dim < 1:
+        raise ValueError(f"max_dim must be >= 1, got {max_dim}")
+
+    # Local import to avoid a runtime cycle (`earthlens.base` imports
+    # this package's `spatial` helpers in a few branches).
+    from earthlens.base import SpatialExtent as _SpatialExtent
+
+    width_px, height_px = space.estimate_pixel_dims(scale_m)
+    if max(width_px, height_px) <= max_dim:
+        return [space]
+
+    tiles_x = math.ceil(width_px / max_dim)
+    tiles_y = math.ceil(height_px / max_dim)
+    span_lon = space.east - space.west
+    span_lat = space.north - space.south
+    step_lon = span_lon / tiles_x
+    step_lat = span_lat / tiles_y
+
+    sub_extents: list[SpatialExtent] = []
+    for j in range(tiles_y):
+        south = space.south + j * step_lat
+        north = space.south + (j + 1) * step_lat if j < tiles_y - 1 else space.north
+        for i in range(tiles_x):
+            west = space.west + i * step_lon
+            east = space.west + (i + 1) * step_lon if i < tiles_x - 1 else space.east
+            sub_extents.append(
+                _SpatialExtent.from_pairs(
+                    lat_lim=[south, north],
+                    lon_lim=[west, east],
+                    resolution=space.resolution,
+                )
+            )
+    return sub_extents
 
 
 def wait_for_task(
