@@ -165,8 +165,8 @@ def create_feature(
         gdf = gdf.explode(index_parts=True)
 
     # Convert per-row; on the first failure raise a `ValueError` naming
-    # the offending row index so the user can spot it in a large frame
-    # (M2 in pr-diff-review: don't hand `None` / opaque errors to EE).
+    # the offending row index so the user can spot it in a large frame —
+    # never hand `None` or an opaque error down to `ee.Geometry`.
     ee_geom_list: list[Geometry] = []
     for i, geom in enumerate(gdf.geometry):
         try:

@@ -16,16 +16,16 @@ work over the entire image).
 
 The reducer is selected by name (e.g. `"first"`, `"mean"`,
 `"median"`) and resolved through a fixed whitelist on `ee.Reducer` —
-no `eval` (per N1 in `planning/gee-utils.md`).
+no `eval`, so a bad name fails closed with a readable error rather
+than executing arbitrary input through the EE attribute lookup.
 """
 
 from __future__ import annotations
 
 import ee
+import geopandas as gpd
 from geopandas.geodataframe import GeoDataFrame
 from rtree import index
-
-import geopandas as gpd
 
 from earthlens.gee.features import create_feature
 from earthlens.gee.io import feature_collection_to_gdf as _fc_to_gdf
@@ -138,7 +138,7 @@ def sample_points(
                 )
             )
         )
-    return ee.FeatureCollection(collection)
+    return collection
 
 
 def sample_points_to_gdf(

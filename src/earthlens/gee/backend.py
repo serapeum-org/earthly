@@ -84,6 +84,67 @@ _RESOLUTION_FREQ: dict[str, str] = {"daily": "D", "monthly": "MS", "yearly": "YS
 _DEFAULT_HTTP_TIMEOUT_S: float = 300.0
 _ZIP_MAGIC: bytes = b"PK\x03\x04"
 
+# Cache of EE-discovered temporal extents per asset id, shared across
+# all `GEE` instances in this process. `_discover_ee_extent` issues an
+# ~2-5 s `reduceColumns(minMax)` round trip per asset — far too
+# expensive to repeat for a second `GEE(...)` construction against the
+# same asset. The cache mirrors `_CATALOG_CACHE` / `_PROVIDERS_CACHE`
+# in `catalog.py`; clear it via :func:`clear_extent_cache` (mostly for
+# tests).
+_EXTENT_CACHE: dict[str, tuple[dt.datetime | None, dt.datetime | None]] = {}
+
+
+def clear_extent_cache() -> None:
+    """Forget every cached EE-discovered temporal extent.
+
+    Mirrors :func:`earthlens.gee.catalog.clear_catalog_cache` for the
+    `discover_extent=True` cache. Primarily useful in tests that need
+    a fresh cache between runs (or when the EE-side data was updated
+    and the in-process cache has gone stale).
+    """
+    _EXTENT_CACHE.clear()
+
+
+def _validate_pure_config(
+    start: str,
+    end: str,
+    temporal_resolution: str,
+    fmt: str,
+) -> None:
+    """Validate the cheap (no-I/O) config inputs before the catalog parse.
+
+    `Catalog()` triggers a ~3.3 s cold-cache YAML parse + pydantic
+    validation. Pure-config errors that the constructor can detect
+    without it (bad date format, unknown `temporal_resolution`,
+    `start > end`) should fail *before* paying that cost — otherwise
+    the user waits 3 seconds to learn they typed `"2024-13-01"`. This
+    helper duplicates the cheap checks from :meth:`_check_input_dates`
+    so they fire pre-`super().__init__()`; the parent still runs the
+    same checks again, but by then they always pass.
+    """
+    if temporal_resolution != "raw" and temporal_resolution not in _RESOLUTION_FREQ:
+        raise ValueError(
+            "temporal_resolution must be 'raw', 'daily', 'monthly', or "
+            f"'yearly', got {temporal_resolution!r}"
+        )
+    try:
+        start_dt = dt.datetime.strptime(start, fmt)
+    except (ValueError, TypeError) as exc:
+        raise ValueError(
+            f"start={start!r} is not parseable with fmt={fmt!r}: {exc}"
+        ) from exc
+    try:
+        end_dt = dt.datetime.strptime(end, fmt)
+    except (ValueError, TypeError) as exc:
+        raise ValueError(
+            f"end={end!r} is not parseable with fmt={fmt!r}: {exc}"
+        ) from exc
+    if start_dt > end_dt:
+        raise ValueError(
+            f"start={start!r} is after end={end!r}; the date range must be "
+            "non-empty (`start <= end`)."
+        )
+
 
 def _is_interactive_environment() -> bool:
     """Return `True` when this process can plausibly run an interactive auth flow.
@@ -242,9 +303,8 @@ class GEE(AbstractDataSource):
         discover_extent: bool = False,
         wait_for_export: bool = True,
     ):
-        # Validate the pure (no-I/O) config first so a bad `export_via`
-        # fails fast, before paying for the ~3.3 s cold-cache catalog
-        # parse (M3 in pr-diff-review).
+        # Validate the cheap (no-I/O) config first so user typos surface
+        # before the ~3.3 s cold-cache catalog parse below.
         if export_via not in {"url", "drive", "gcs", "asset"}:
             raise ValueError(
                 f"export_via must be 'url', 'drive', 'gcs', or 'asset', "
@@ -259,6 +319,7 @@ class GEE(AbstractDataSource):
                 "export_via='asset' requires asset_id= (the parent folder "
                 "asset, e.g. 'projects/my-project/assets/my-folder')"
             )
+        _validate_pure_config(start, end, temporal_resolution, fmt)
 
         # These must be set before `super().__init__` runs, because the
         # parent constructor immediately calls `self._initialize()` (and
@@ -282,7 +343,6 @@ class GEE(AbstractDataSource):
         self.auto_split = bool(auto_split)
         self.discover_extent = bool(discover_extent)
         self.wait_for_export = bool(wait_for_export)
-        self._extent_cache: dict[str, tuple[dt.datetime | None, dt.datetime | None]] = {}
         self._ee_geometry = None  # lazily built in `_ee_region`
 
         super().__init__(
@@ -918,13 +978,19 @@ class GEE(AbstractDataSource):
     def _maybe_discover_ee_extent(
         self, var_info: Dataset
     ) -> tuple[dt.datetime | None, dt.datetime | None]:
-        """Cached entry point for `_discover_ee_extent` (L3)."""
+        """Cached entry point for :meth:`_discover_ee_extent`.
+
+        Reads / writes :data:`_EXTENT_CACHE` (module-level) so a
+        second `GEE(...)` instance querying the same asset doesn't
+        re-issue the 2-5 s `reduceColumns(minMax)` round trip.
+        """
         if not self.discover_extent:
             return None, None
-        if var_info.id in self._extent_cache:
-            return self._extent_cache[var_info.id]
+        cached = _EXTENT_CACHE.get(var_info.id)
+        if cached is not None:
+            return cached
         discovered = self._discover_ee_extent(var_info)
-        self._extent_cache[var_info.id] = discovered
+        _EXTENT_CACHE[var_info.id] = discovered
         return discovered
 
     def _discover_ee_extent(

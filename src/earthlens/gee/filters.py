@@ -1,4 +1,4 @@
-"""Small `ee.ImageCollection` filter helpers (L1).
+"""Small `ee.ImageCollection` filter helpers.
 
 Thin wrappers around `ee.ImageCollection.filter*` so the call site
 reads as intent rather than as an Earth Engine filter expression.

@@ -175,7 +175,7 @@ def feature_collections_to_dataframe(
     inside a `multiprocessing.dummy.Pool` (threads, not processes — Earth
     Engine's HTTP client is I/O-bound). Per-FC calls are retried on a
     fixed tuple of transient network errors with budget `tries=5,
-    backoff=2.0` (per N2).
+    backoff=2.0`.
 
     Args:
         feature_collections: An iterable of `ee.FeatureCollection`s.

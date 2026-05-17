@@ -688,7 +688,7 @@ def resolve_destination(
     return out
 
 
-# -- CLI (M4 in gee-jobs-tracking-plan) -------------------------------------
+# -- CLI --------------------------------------------------------------------
 
 
 def _maybe_initialize_ee() -> None:

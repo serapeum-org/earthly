@@ -395,8 +395,7 @@ class Dataset(BaseModel):
               with `projects/...`. Often documented less rigorously
               than the first two.
 
-            Replaces the older ambiguous `user_uploaded: bool` flag
-            (L2 in the catalog architecture review).
+            Replaces the older ambiguous `user_uploaded: bool` flag.
         bands: Band id → :class:`Band`.
     """
 
@@ -524,8 +523,8 @@ class Dataset(BaseModel):
 
 
 # `Provider`, `_load_providers` and the providers parse cache live in
-# `earthlens.base.providers` (L2 in
-# planning/catalog-cross-backend-comparison.md). Aliased here so the
+# `earthlens.base.providers` (shared across CHC / ECMWF / GEE so a
+# provider catalog change lands in one place). Aliased here so the
 # GEE-local symbols `_load_providers` / `_PROVIDERS_CACHE.clear` keep
 # working for `clear_catalog_cache()` and `Catalog.load()` below.
 _load_providers = _load_providers_base
@@ -609,7 +608,7 @@ class Catalog(AbstractCatalog):
         catalog_path: Path | None = None,
         providers_path: Path | None = None,
     ) -> Catalog:
-        """Read the catalog directory + providers registry from disk (N1).
+        """Read the catalog directory + providers registry from disk.
 
         Factored out of `model_post_init` so callers can:
 
@@ -656,7 +655,7 @@ class Catalog(AbstractCatalog):
         )
 
     def health(self) -> dict[str, list[str]]:
-        """Report structural hygiene issues across the loaded catalog (L3).
+        """Report structural hygiene issues across the loaded catalog.
 
         Returns a mapping from a check name to the list of asset ids
         (or provider slugs) that fail it. An empty list means the
@@ -707,8 +706,7 @@ class Catalog(AbstractCatalog):
         }
 
     # `get_provider(slug)` (with did-you-mean hint) lifted to
-    # :class:`earthlens.base.AbstractCatalog` (L2 in
-    # planning/catalog-cross-backend-comparison.md).
+    # :class:`earthlens.base.AbstractCatalog`.
 
     def get_catalog(self) -> dict[str, Dataset]:
         """Return the curated dataset map (asset id → :class:`Dataset`).
@@ -782,7 +780,7 @@ class Catalog(AbstractCatalog):
         """
         return self.get_band(dataset_id, band_id)
 
-    # -- job / task tracking shortcuts (M2 in gee-jobs-tracking-plan) ----
+    # -- job / task tracking shortcuts -----------------------------------
     # Thin delegations to `earthlens.gee.jobs` so callers can stay on the
     # catalog object instead of importing the jobs module separately —
     # parity with `earthlens.ecmwf.Catalog.list_recent_jobs`.
@@ -822,7 +820,7 @@ class Catalog(AbstractCatalog):
     def audit_recent_tasks(
         self, max_age_min: int = 7 * 24 * 60, **kwargs: Any,
     ) -> dict[str, list[TaskInfo]]:
-        """Group recent batch tasks by state — the task-side `health()` (L3).
+        """Group recent batch tasks by state — the task-side `health()`.
 
         Walks :func:`earthlens.gee.jobs.list_recent_tasks` with the
         given `max_age_min` (default: 7 days) and any extra filters
@@ -870,8 +868,8 @@ class Catalog(AbstractCatalog):
 
     # dict-like surface (`__repr__` / `__str__` / `__getitem__` / `__contains__`
     # / `__iter__` / `__len__`) and the `get_dataset(name)`-with-hint helper
-    # are inherited from :class:`earthlens.base.AbstractCatalog` (M1 in
-    # planning/catalog-cross-backend-comparison.md). Cost note for `__str__`:
+    # are inherited from :class:`earthlens.base.AbstractCatalog`. Cost note
+    # for `__str__`:
     # with the shipped 1104-dataset catalog the YAML round-trip serialises
     # ~2.3 MB and takes ~3 s — fine for one-off `print(cat)` but don't drop
     # it into a hot path or an error-message f-string.

@@ -337,6 +337,40 @@ class TestInit:
             )
         assert loads == 0, "Catalog() should not be constructed when export_via is invalid"
 
+    @pytest.mark.parametrize("kwargs, match", [
+        ({"temporal_resolution": "hourly"}, r"temporal_resolution must be 'raw'"),
+        ({"start": "2024-13-01"}, r"start='2024-13-01' is not parseable"),
+        ({"end": "not-a-date"}, r"end='not-a-date' is not parseable"),
+        ({"start": "2024-06-01", "end": "2024-05-01"},
+         r"start='2024-06-01' is after end='2024-05-01'"),
+    ])
+    def test_bad_pure_config_fails_before_catalog_load(
+        self, monkeypatch, tmp_path, kwargs, match,
+    ):
+        """L6: bad date / temporal_resolution short-circuits the catalog parse."""
+        from earthlens.gee import backend as backend_module
+
+        loads = 0
+
+        class _ExplodingCatalog:
+            def __init__(self, *_a, **_k):
+                nonlocal loads
+                loads += 1
+                raise AssertionError(
+                    "Catalog() must not be constructed before pure-config validation"
+                )
+
+        monkeypatch.setattr(backend_module, "Catalog", _ExplodingCatalog)
+        defaults = dict(
+            start="2000-02-11", end="2000-02-12",
+            variables={"USGS/SRTMGL1_003": ["elevation"]},
+            lat_lim=[29.9, 30.0], lon_lim=[31.2, 31.3], path=str(tmp_path),
+        )
+        defaults.update(kwargs)
+        with pytest.raises(ValueError, match=match):
+            GEE(**defaults)
+        assert loads == 0
+
     def test_initialize_without_credentials_raises(self, fake_ee, tmp_path):
         """No service account and no `project` → `AuthenticationError`."""
         from earthlens.gee.backend import AuthenticationError
@@ -608,6 +642,63 @@ class TestDiscoverExtent:
         gee._maybe_discover_ee_extent(ds)
         gee._maybe_discover_ee_extent(ds)
         assert calls == ["UCSB-CHG/CHIRPS/DAILY"]
+
+    def test_extent_cache_is_shared_across_gee_instances(
+        self, make_gee, monkeypatch,
+    ):
+        """L5: a second `GEE(...)` reuses the cached extent — no extra round trip."""
+        calls: list[str] = []
+
+        def _fake_discover(self, var_info):
+            calls.append(var_info.id)
+            return (
+                dt.datetime(2020, 1, 1),
+                dt.datetime(2024, 12, 31),
+            )
+
+        monkeypatch.setattr(GEE, "_discover_ee_extent", _fake_discover)
+
+        gee_a = make_gee(
+            variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+            scale=5566.0, start="2020-01-01", end="2099-01-01",
+            discover_extent=True,
+        )
+        ds = gee_a.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        gee_a._maybe_discover_ee_extent(ds)
+
+        # Fresh instance — should hit the module-level cache, not re-query EE.
+        gee_b = make_gee(
+            variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+            scale=5566.0, start="2020-01-01", end="2099-01-01",
+            discover_extent=True,
+        )
+        gee_b._maybe_discover_ee_extent(ds)
+
+        assert calls == ["UCSB-CHG/CHIRPS/DAILY"], (
+            f"second instance should hit the shared cache; got {calls}"
+        )
+
+    def test_clear_extent_cache_drops_every_entry(self, make_gee, monkeypatch):
+        """`clear_extent_cache()` forces the next call to re-query EE."""
+        from earthlens.gee.backend import clear_extent_cache
+
+        calls: list[str] = []
+
+        def _fake_discover(self, var_info):
+            calls.append(var_info.id)
+            return (None, None)
+
+        monkeypatch.setattr(GEE, "_discover_ee_extent", _fake_discover)
+        gee = make_gee(
+            variables={"UCSB-CHG/CHIRPS/DAILY": ["precipitation"]},
+            scale=5566.0, start="2020-01-01", end="2099-01-01",
+            discover_extent=True,
+        )
+        ds = gee.catalog.get_dataset("UCSB-CHG/CHIRPS/DAILY")
+        gee._maybe_discover_ee_extent(ds)
+        clear_extent_cache()
+        gee._maybe_discover_ee_extent(ds)
+        assert calls == ["UCSB-CHG/CHIRPS/DAILY", "UCSB-CHG/CHIRPS/DAILY"]
 
 
 class TestDownloadRejections:
