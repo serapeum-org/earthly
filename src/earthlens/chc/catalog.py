@@ -768,7 +768,7 @@ class Catalog(AbstractCatalog):
     # planning/catalog-cross-backend-comparison.md).
 
     def health(self) -> dict[str, list[str]]:
-        """Report structural hygiene issues across the loaded catalog (L1).
+        """Report structural hygiene issues across the loaded catalog.
 
         Returns a mapping `check_name -> [offending_keys]`. Most
         schema-level invariants (missing required fields, duplicate
@@ -785,6 +785,21 @@ class Catalog(AbstractCatalog):
           window for every request).
         * `unreferenced_region` — region keys in `available_regions:`
           that no dataset's `region:` field points at — registry rot.
+        * `unregistered_provider` — datasets whose `provider:` slug is
+          missing from `providers.yaml`. Mirrors the load-time check
+          but kept here so a Catalog built without `Catalog.load` can
+          still self-report.
+        * `unused_provider` — providers in the registry that no dataset
+          references. Pure registry rot, same shape as
+          `unreferenced_region`.
+        * `index_missing_in_datasets` — keys in `available_datasets:`
+          that have no entry under `datasets:` (consumer iterating the
+          index would `KeyError` on `get_dataset(key)`). This is the
+          C5 invariant; H1's centennial-trends mismatch was an instance
+          of this drift.
+        * `datasets_missing_in_index` — the reverse: keys under
+          `datasets:` that the index doesn't advertise. Less severe
+          but still surfaces a stale `_index.yaml`.
         """
         empty_dataset: list[str] = []
         bad_window: list[str] = []
@@ -804,12 +819,18 @@ class Catalog(AbstractCatalog):
                     unregistered_provider.append(ds_key)
         unreferenced_region = sorted(set(self.available_regions) - used_regions)
         unused_provider = sorted(set(self.providers) - used_providers)
+        index_set = set(self.available_datasets)
+        datasets_set = set(self.datasets)
+        index_missing_in_datasets = sorted(index_set - datasets_set)
+        datasets_missing_in_index = sorted(datasets_set - index_set)
         return {
             "dataset_without_variables": sorted(empty_dataset),
             "end_date_before_start_date": sorted(bad_window),
             "unreferenced_region": unreferenced_region,
             "unregistered_provider": sorted(unregistered_provider),
             "unused_provider": unused_provider,
+            "index_missing_in_datasets": index_missing_in_datasets,
+            "datasets_missing_in_index": datasets_missing_in_index,
         }
 
     def describe_region(self, region: str) -> dict[str, list[float]]:
