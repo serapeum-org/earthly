@@ -750,7 +750,15 @@ class CHIRPS(AbstractDataSource):
 
         Args:
             remote_dir: Remote directory the file lives under (absolute
-                path on `data.chc.ucsb.edu`).
+                path on `data.chc.ucsb.edu`). Always interpreted as an
+                absolute path regardless of leading `/` -- the helper
+                normalises to `"/<dir>"` before calling `ftp.cwd`. This
+                matters for the shared-session path (L5): the session
+                retains its working directory across calls, so a
+                relative `cwd("pub/...")` after a successful fetch into
+                `pub/.../2009/` would resolve to
+                `pub/.../2009/pub/...` and 550. Forcing absolute paths
+                makes every call independent of the previous one.
             remote_filename: File name within `remote_dir`.
             local_path: Local path to write the downloaded bytes to.
             ftp: Optional shared FTP session (L5). When provided, this
@@ -759,13 +767,14 @@ class CHIRPS(AbstractDataSource):
                 When `None`, opens a fresh anonymous login, runs the
                 fetch, and closes the session before returning.
         """
+        absolute_dir = "/" + remote_dir.lstrip("/")
         if ftp is not None:
-            ftp.cwd(remote_dir)
+            ftp.cwd(absolute_dir)
             with open(local_path, "wb") as fp:
                 ftp.retrbinary(f"RETR {remote_filename}", fp.write)
             return
         with closing(_open_ftp()) as session:
-            session.cwd(remote_dir)
+            session.cwd(absolute_dir)
             with open(local_path, "wb") as fp:
                 session.retrbinary(f"RETR {remote_filename}", fp.write)
 
