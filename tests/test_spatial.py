@@ -202,3 +202,77 @@ class TestSplitPoints:
         chunks = split_points(pts, cell_size=30, max_pixels=1e5, min_points=10)
         total = sum(len(c) for c in chunks)
         assert total == len(pts)
+
+    def test_oversized_hull_reprojects_chunks_when_output_crs_differs(self):
+        """`output_crs=` reprojects each returned chunk."""
+        pts = gpd.GeoDataFrame(
+            {"id": list(range(50))},
+            geometry=[Point(31.0 + i * 0.01, 30.0 + (i % 5) * 0.01) for i in range(50)],
+            crs="EPSG:4326",
+        )
+        chunks = split_points(
+            pts, cell_size=30, max_pixels=1e5, min_points=10, output_crs="EPSG:3857",
+        )
+        assert chunks
+        for chunk in chunks:
+            assert chunk.crs.to_epsg() == 3857
+
+
+class TestSplitPointsStragglers:
+    """Tests for the leftover/stragglers branch in `split_points`."""
+
+    def test_edge_points_fall_into_a_stragglers_chunk(self, monkeypatch):
+        """Points that no block claims (`within` is strict) land in a final chunk."""
+        # Force `split_polygon` to return a single tiny block that misses every
+        # point, so the loop's `mask.any()` is False for every iteration and
+        # the leftover collector at the bottom of `split_points` fires.
+        from earthlens import spatial as spatial_module
+
+        def _fake_split_polygon(*args, **kwargs):
+            tiny = Polygon(
+                [(-1e-9, -1e-9), (1e-9, -1e-9), (1e-9, 1e-9), (-1e-9, 1e-9)]
+            )
+            return True, gpd.GeoDataFrame(geometry=[tiny], crs="EPSG:4326")
+
+        monkeypatch.setattr(spatial_module, "split_polygon", _fake_split_polygon)
+        pts = gpd.GeoDataFrame(
+            {"id": list(range(5))},
+            geometry=[Point(31.0 + i * 0.01, 30.0) for i in range(5)],
+            crs="EPSG:4326",
+        )
+        chunks = spatial_module.split_points(pts, cell_size=30, min_points=1)
+        total = sum(len(c) for c in chunks)
+        assert total == len(pts)
+
+    def test_stragglers_chunk_is_reprojected_to_output_crs(self, monkeypatch):
+        """The leftover chunk also honours `output_crs=`."""
+        from earthlens import spatial as spatial_module
+
+        def _fake_split_polygon(*args, **kwargs):
+            tiny = Polygon(
+                [(-1e-9, -1e-9), (1e-9, -1e-9), (1e-9, 1e-9), (-1e-9, 1e-9)]
+            )
+            return True, gpd.GeoDataFrame(geometry=[tiny], crs="EPSG:4326")
+
+        monkeypatch.setattr(spatial_module, "split_polygon", _fake_split_polygon)
+        pts = gpd.GeoDataFrame(
+            {"id": list(range(3))},
+            geometry=[Point(31.0 + i * 0.01, 30.0) for i in range(3)],
+            crs="EPSG:4326",
+        )
+        chunks = spatial_module.split_points(
+            pts, cell_size=30, min_points=1, output_crs="EPSG:3857",
+        )
+        assert chunks and all(c.crs.to_epsg() == 3857 for c in chunks)
+
+
+class TestSplitPolygonCrsFallback:
+    """Tests for the CRSError fallback in `split_polygon`."""
+
+    def test_invalid_map_epsg_falls_back_to_wgs84(self):
+        """A `map_epsg=` that pyproj can't parse falls back to EPSG:4326."""
+        gdf = _wgs84_box(31.0, 30.0, 31.5, 30.5)
+        _, grid = split_polygon(
+            gdf, cell_size=30, max_pixels=1e5, map_epsg="not-a-valid-epsg",
+        )
+        assert grid.crs.to_epsg() == 4326
