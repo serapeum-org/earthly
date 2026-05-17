@@ -119,7 +119,7 @@ nav:
       - Registering a project: reference/google-earth-engine/registering-a-project.md
       - Service account setup: reference/google-earth-engine/service-account-setup.md
       - Usage: reference/google-earth-engine/usage.md
-      - Reference: reference/gee.md
+      - Reference: reference/google-earth-engine/gee.md
   - Examples:
     - Authentication: examples/authentication.md
     - Data Sources: examples/data-sources.md

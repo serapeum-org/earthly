@@ -6,7 +6,7 @@ between the export modes. For background see the
 [Introduction](introduction.md); for credentials see
 [Registering a project](registering-a-project.md) and
 [Service account setup](service-account-setup.md); the rendered API is
-on the [Reference](../gee.md) page.
+on the [Reference](gee.md) page.
 
 > **Install:** the backend needs the Earth Engine SDK —
 > `pip install earthlens[gee]` (which adds `earthengine-api`). The
