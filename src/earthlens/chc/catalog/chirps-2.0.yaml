@@ -15,7 +15,7 @@ datasets:
     # matches what this row can actually deliver. If a p25 ftp_bases entry
     # or sibling dataset gets added, restore [0.05, 0.25] here.
     spatial_resolution: [0.05]
-    formats: [tif, cog, netcdf]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
@@ -33,7 +33,7 @@ datasets:
     temporal_resolution: monthly
     pandas_freq: MS
     spatial_resolution: [0.05]
-    formats: [tif, cog, netcdf, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.tif.gz
@@ -69,7 +69,7 @@ datasets:
     temporal_resolution: dekadal
     pandas_freq: 10D
     spatial_resolution: [0.05]
-    formats: [tif, netcdf, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.{dekad}.tif.gz
@@ -87,7 +87,7 @@ datasets:
     temporal_resolution: pentadal
     pandas_freq: 5D
     spatial_resolution: [0.05]
-    formats: [tif, cog, netcdf, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.{pentad}.tif.gz
@@ -141,7 +141,7 @@ datasets:
     temporal_resolution: daily
     pandas_freq: D
     spatial_resolution: [0.05]
-    formats: [tif, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: "{year}/chirps-v2.0.{year}.{month}.{day}.tif.gz"
@@ -159,7 +159,7 @@ datasets:
     temporal_resolution: monthly
     pandas_freq: MS
     spatial_resolution: [0.05]
-    formats: [tif, bil, png]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.tif.gz
@@ -177,7 +177,7 @@ datasets:
     temporal_resolution: dekadal
     pandas_freq: 10D
     spatial_resolution: [0.05]
-    formats: [tif, bil, png]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.{dekad}.tif.gz
@@ -195,7 +195,7 @@ datasets:
     temporal_resolution: pentadal
     pandas_freq: 5D
     spatial_resolution: [0.05]
-    formats: [tif, bil, png]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.{pentad}.tif.gz
@@ -267,7 +267,7 @@ datasets:
     temporal_resolution: dekadal
     pandas_freq: 10D
     spatial_resolution: [0.05]
-    formats: [tif, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.{dekad}.tif.gz
@@ -285,7 +285,7 @@ datasets:
     temporal_resolution: monthly
     pandas_freq: MS
     spatial_resolution: [0.05]
-    formats: [tif, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.tif.gz
@@ -303,7 +303,7 @@ datasets:
     temporal_resolution: pentadal
     pandas_freq: 5D
     spatial_resolution: [0.05]
-    formats: [tif, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.{pentad}.tif.gz
@@ -321,7 +321,7 @@ datasets:
     temporal_resolution: monthly
     pandas_freq: MS
     spatial_resolution: [0.05]
-    formats: [tif, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v2.0.{year}.{month}.tif.gz
@@ -393,7 +393,7 @@ datasets:
     temporal_resolution: daily
     pandas_freq: D
     spatial_resolution: [0.05]
-    formats: [tif, cog, netcdf]
+    formats: [tif]
     start_date: '1981-01-01'
     preliminary: true
     file_patterns:
@@ -412,7 +412,7 @@ datasets:
     temporal_resolution: monthly
     pandas_freq: MS
     spatial_resolution: [0.05]
-    formats: [tif, netcdf, bil, cog]
+    formats: [tif]
     start_date: '1981-01-01'
     preliminary: true
     file_patterns:
@@ -431,7 +431,7 @@ datasets:
     temporal_resolution: dekadal
     pandas_freq: 10D
     spatial_resolution: [0.05]
-    formats: [tif, netcdf, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     preliminary: true
     file_patterns:
@@ -450,7 +450,7 @@ datasets:
     temporal_resolution: pentadal
     pandas_freq: 5D
     spatial_resolution: [0.05]
-    formats: [tif, netcdf, bil, cog]
+    formats: [tif]
     start_date: '1981-01-01'
     preliminary: true
     file_patterns:

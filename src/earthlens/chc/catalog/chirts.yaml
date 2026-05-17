@@ -10,7 +10,7 @@ datasets:
     temporal_resolution: daily
     pandas_freq: D
     spatial_resolution: [0.05]
-    formats: [tif, netcdf]
+    formats: [tif]
     start_date: '1983-01-01'
     end_date: '2016-12-31'
     file_patterns:
@@ -29,7 +29,7 @@ datasets:
     temporal_resolution: daily
     pandas_freq: D
     spatial_resolution: [0.05]
-    formats: [tif, netcdf]
+    formats: [tif]
     start_date: '1983-01-01'
     end_date: '2016-12-31'
     file_patterns:
@@ -124,7 +124,7 @@ datasets:
     temporal_resolution: monthly
     pandas_freq: MS
     spatial_resolution: [0.05]
-    formats: [tif, netcdf]
+    formats: [tif]
     start_date: '1983-01-01'
     end_date: '2016-12-31'
     file_patterns:

@@ -65,7 +65,7 @@ datasets:
     temporal_resolution: monthly
     pandas_freq: MS
     spatial_resolution: [0.05]
-    formats: [tif, cog, netcdf, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v3.0.{year}.{month}.tif
@@ -83,7 +83,7 @@ datasets:
     temporal_resolution: dekadal
     pandas_freq: 10D
     spatial_resolution: [0.05]
-    formats: [tif, netcdf, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v3.0.{year}.{month}.{dekad}.tif
@@ -101,7 +101,7 @@ datasets:
     temporal_resolution: pentadal
     pandas_freq: 5D
     spatial_resolution: [0.05]
-    formats: [tif, cog, netcdf, bil]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v3.0.{year}.{month}.{pentad}.tif
@@ -119,7 +119,7 @@ datasets:
     temporal_resolution: annual
     pandas_freq: YS
     spatial_resolution: [0.05]
-    formats: [tif, netcdf]
+    formats: [tif]
     start_date: '1981-01-01'
     file_patterns:
       tif: chirps-v3.0.{year}.tif

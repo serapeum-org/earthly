@@ -50,7 +50,10 @@ class TestDescribePerDate:
         # `ftp_bases` actually addresses; 0.25 will return when a
         # p25 ftp_bases entry or sibling dataset exists.
         assert info["spatial_resolution"] == [0.05]
-        assert info["formats"] == ["tif", "cog", "netcdf"]
+        # `formats` trimmed to ["tif"] in C4 to match `ftp_bases` keys;
+        # cog / netcdf siblings can come back once their ftp_bases /
+        # file_patterns entries exist.
+        assert info["formats"] == ["tif"]
         assert info["ftp_bases"] == {
             "tif": "pub/org/chc/products/CHIRPS-2.0/global_daily/tifs/p05/"
         }
