@@ -151,11 +151,12 @@ class GEE(AbstractDataSource):
         AuthenticationError: If Earth Engine cannot be initialised
             (missing/invalid key, unregistered project, missing IAM role).
         ValueError: At construction for a bad `export_via` (or `"drive"`
-            without `drive_folder` / `"gcs"` without `gcs_bucket`); from
-            the parent on a bad date range; from :meth:`_check_input_dates`
-            on an unknown `temporal_resolution`; from :meth:`_api` on a
-            missing scale or an oversized `"url"` request; from
-            :meth:`_download_dataset` on an unknown asset id or band.
+            without `drive_folder` / `"gcs"` without `gcs_bucket` /
+            `"asset"` without `asset_id`); from the parent on a bad date
+            range; from :meth:`_check_input_dates` on an unknown
+            `temporal_resolution`; from :meth:`_api` on a missing scale
+            or an oversized `"url"` request (unless `auto_split=True`);
+            from :meth:`_download_dataset` on an unknown asset id or band.
         NotImplementedError: From :meth:`download` when `aggregate=` is
             passed (not yet supported).
         RuntimeError: From :meth:`_api` if a `"drive"` / `"gcs"` export
@@ -555,14 +556,18 @@ class GEE(AbstractDataSource):
 
         For `export_via="url"`: estimate the request's pixel dimensions
         from the bbox and `scale`; if either axis exceeds Earth Engine's
-        32768-px synchronous limit, raise a `ValueError` pointing the
-        user at a coarser `scale` or `export_via="drive"`. Otherwise
-        request a GeoTIFF via `getDownloadURL` and stream it to disk as
+        32768-px synchronous limit, either auto-split + mosaic via
+        pyramids (when `auto_split=True`) or raise a `ValueError`
+        pointing the user at a coarser `scale`, a smaller bbox,
+        `export_via="drive"`, or `auto_split=True`. Otherwise request a
+        GeoTIFF via `getDownloadURL` and stream it to disk as
         `<asset-slug>_<bands>_<YYYYMMDD>.tif`. For `export_via="drive"` /
-        `"gcs"`: queue an `ee.batch.Export.image.to{Drive,CloudStorage}`
-        task, poll it to completion (no synchronous size cap, just
-        `maxPixels`), and return a destination string — the file is left
-        in the Drive folder / GCS bucket for the caller to pull.
+        `"gcs"` / `"asset"`: queue an
+        `ee.batch.Export.image.to{Drive,CloudStorage,Asset}` task, poll
+        it to completion (no synchronous size cap, just `maxPixels`),
+        and return a destination string — for Drive / GCS the file is
+        left in the destination for the caller to pull; for `"asset"`
+        a new EE asset is created at `<asset_id>/<prefix>`.
 
         Args:
             image: The `ee.Image` to export.
@@ -573,15 +578,17 @@ class GEE(AbstractDataSource):
 
         Returns:
             For `"url"`: the :class:`pathlib.Path` of the written GeoTIFF.
-            For `"drive"` / `"gcs"`: a destination string
-            (`"drive://<folder>/<prefix>"` / `"gs://<bucket>/<prefix>"`).
+            For `"drive"` / `"gcs"` / `"asset"`: a destination string
+            (`"drive://<folder>/<prefix>"` / `"gs://<bucket>/<prefix>"` /
+            `"ee://<asset_id>/<prefix>"`).
 
         Raises:
             ValueError: If no output scale can be resolved, or (for
-                `"url"`) the estimated request exceeds the 32768-px limit.
+                `"url"` with `auto_split=False`) the estimated request
+                exceeds the 32768-px limit.
             RuntimeError: If Earth Engine returns a zip instead of a
-                GeoTIFF (`"url"`), or a `"drive"` / `"gcs"` export task
-                does not complete.
+                GeoTIFF (`"url"`), or a `"drive"` / `"gcs"` / `"asset"`
+                export task does not complete.
         """
         scale = self.scale or var_info.spatial_resolution
         if scale is None:

@@ -23,7 +23,6 @@ masked real errors as transient. See N2 in `planning/gee-utils.md`.
 
 from __future__ import annotations
 
-import json
 import ssl
 import time
 import urllib.error
@@ -184,6 +183,10 @@ def feature_collections_to_dataframe(
     Returns:
         A single `DataFrame` formed by `pd.concat(..., axis=1)` over
         the per-FC frames.
+
+    Raises:
+        ValueError: If `tries < 1` (propagated from
+            :func:`_retry_on_transient_errors`).
     """
     fcs = list(feature_collections)
     if not fcs:
