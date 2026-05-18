@@ -2,186 +2,186 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/LICENSE/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/change-log/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/installation/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/authentication/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/catalog/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/data-sources/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/agriculture_crop_water/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/atmosphere_pressure_levels/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/cds_quickstart/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/climate_change_anomalies/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/drought_precipitation_deficit/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/heat_waves_public_health/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/hydrology_water_balance/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/oceanography_sst_sea_ice/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/snow_cryosphere_winter/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/solar_resource_assessment/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/ecmwf/wind_energy_resource/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/atmosphere-chemistry/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/climate-reanalysis/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/community/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/elevation-terrain/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/hydrology-water/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/land-cover-change/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/optical-multispectral/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/other/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/precipitation/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/quickstart/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/sar-radar/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/examples/gee/track-batch-exports/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/overview/architecture/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/abstract-datasource/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/aggregation/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/earthlens/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/ecmwf/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/s3/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/catalog/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/chc/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/introduction/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/chc/usage/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/ecmwf/catalog/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/gee/gee/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/gee/introduction/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/gee/registering-a-project/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/gee/service-account-setup/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
     <url>
          <loc>https://serapeum-org.github.io/earthlens/develop/reference/gee/usage/</loc>
-         <lastmod>2026-05-17</lastmod>
+         <lastmod>2026-05-18</lastmod>
     </url>
 </urlset>
