@@ -1,6 +1,6 @@
 [project]
 name = "earthlens"
-version = "0.5.0"
+version = "0.4.0"
 description = "remote sensing package"
 readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
