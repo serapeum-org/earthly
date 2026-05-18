@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.0 (2026-05-18)
+
+### Feat
+
+- overhaul GEE backend, add CHC subpackage, extract shared GIS primitives (#53)
+
 ## 0.4.0 (2026-05-10)
 
 ### Refactor
