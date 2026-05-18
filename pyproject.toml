@@ -27,10 +27,7 @@ classifiers = [
 requires-python = ">= 3.11, <4"
 
 dependencies = [
-    # NOTE: the GEE backend uses Dataset.from_bytes / Dataset.from_archive,
-    # currently only on the pyramids `feat/dataset-from-bytes` branch. Bump
-    # this floor to the next pyramids release once those APIs ship.
-    "pyramids-gis >=0.17.0",
+    "pyramids-gis >=0.19.0",
     "joblib >=1.2.0",
     "loguru >=0.7.2",
     "numpy >=2.1.3",
@@ -44,11 +41,11 @@ dependencies = [
 [project.optional-dependencies]
 s3 = ["boto3 >=1.26.50"]
 ecmwf = ["cdsapi >=0.7.7"]
-gee = ["earthengine-api >=0.1.324", "Rtree >=1.0.0"]
+gee = ["earthengine-api >=1.7.26", "Rtree >=1.0.0"]
 all = [
     "boto3 >=1.26.50",
     "cdsapi >=0.7.7",
-    "earthengine-api >=0.1.324",
+    "earthengine-api >=1.7.26",
     "Rtree >=1.0.0",
 ]
 
@@ -185,14 +182,6 @@ platforms = ["win-64", "linux-64", "osx-arm64"]
 # Production users do `pip install earthlens[ecmwf]` (or whichever
 # subset they need) per the [project.optional-dependencies] above.
 earthlens = { path = ".", editable = true, extras = ["all"] }
-# NOTE: the GEE backend uses Dataset.from_bytes / Dataset.from_archive,
-# currently only on the pyramids `feat/dataset-from-bytes` branch. Until
-# that ships in a pyramids release, overlay the branch on top of the
-# conda-installed pyramids in this env with:
-#   pixi run -e dev pip install --no-deps -e <path-to-pyramids-checkout>
-# (--no-deps so pip does not try to rebuild GDAL on Windows). Once a
-# pyramids release ships those APIs, bump the floor in [project.dependencies]
-# to that release and drop this overlay step.
 
 [tool.pixi.tasks]
 test-all = { cmd = "pytest -vvv --cov=src/earthlens -sv --cov-report=xml --cov-report=term-missing", description = "Run all testsuite" }
@@ -230,4 +219,4 @@ python = "3.13.*"
 python = "3.14.*"
 
 [tool.pixi.dependencies]
-pyramids = ">=0.17.0"
+pyramids = ">=0.19.0"
