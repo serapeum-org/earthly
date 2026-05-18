@@ -62,7 +62,7 @@
     
     
   <meta name="panzoom-theme" content="material">
-<meta name="panzoom-data" content='{"selectors": [".d2", ".mermaid"], "initial_zoom_level": 1.0}'> </head>
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
   
   
     
@@ -2285,45 +2285,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#050-2026-05-13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        0.5.0 (2026-05-13)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="0.5.0 (2026-05-13)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#feat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Feat
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#refactor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Refactor
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#040-2026-05-10" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2336,7 +2297,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#refactor_1" class="md-nav__link">
+  <a href="#refactor" class="md-nav__link">
     <span class="md-ellipsis">
       
         Refactor
@@ -2364,7 +2325,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#feat_1" class="md-nav__link">
+  <a href="#feat" class="md-nav__link">
     <span class="md-ellipsis">
       
         Feat
@@ -2499,45 +2460,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#050-2026-05-13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        0.5.0 (2026-05-13)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="0.5.0 (2026-05-13)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#feat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Feat
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#refactor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Refactor
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#040-2026-05-10" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2550,7 +2472,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#refactor_1" class="md-nav__link">
+  <a href="#refactor" class="md-nav__link">
     <span class="md-ellipsis">
       
         Refactor
@@ -2578,7 +2500,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#feat_1" class="md-nav__link">
+  <a href="#feat" class="md-nav__link">
     <span class="md-ellipsis">
       
         Feat
@@ -2704,35 +2626,13 @@
 
 
 <h1 id="change-log"><a class="toclink" href="#change-log">Change Log</a><a class="headerlink" href="#change-log" title="Permanent link">#</a></h1>
-<h2 id="050-2026-05-13"><a class="toclink" href="#050-2026-05-13">0.5.0 (2026-05-13)</a><a class="headerlink" href="#050-2026-05-13" title="Permanent link">#</a></h2>
-<h3 id="feat"><a class="toclink" href="#feat">Feat</a><a class="headerlink" href="#feat" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>gee</strong>: add the Google Earth Engine backend — <code>GEE(AbstractDataSource)</code> with
-  service-account auth, <code>ee.ImageCollection</code> build/composite, and <code>getDownloadURL</code> /
-  <code>ee.batch.Export.image.toDrive</code> / <code>toCloudStorage</code> exports (<code>export_via</code>,
-  32768-px synchronous cap); a pydantic YAML catalog (<code>gee_data_catalog.yaml</code> —
-  <code>Catalog</code> / <code>Dataset</code> / <code>Band</code> / <code>Cadence</code> / <code>Extent</code>, the full ~1100-entry
-  <code>available_datasets:</code> index from the Earth Engine STAC plus a curated <code>datasets:</code>
-  map); <code>EarthEngineAuth</code>; Shapely/GeoDataFrame → <code>ee</code> geometry helpers; the
-  <code>tools/gee/refresh_gee_catalog.py</code> / <code>tools/gee/audit_gee_datasets.py</code> STAC tooling; the
-  <code>"gee"</code> / <code>"google-earth-engine"</code> keys in the <code>EarthLens</code> facade (with a
-  <code>**backend_kwargs</code> passthrough; <code>download()</code> now returns the backend's result); and
-  the <code>docs/reference/google-earth-engine/</code> documentation.</li>
-<li><strong>base</strong>: factor the duplicate-key-rejecting YAML loader into
-  <code>earthlens/base/yaml_loader.py</code>, shared by the ECMWF and GEE catalogs.</li>
-</ul>
-<h3 id="refactor"><a class="toclink" href="#refactor">Refactor</a><a class="headerlink" href="#refactor" title="Permanent link">#</a></h3>
-<ul>
-<li><strong>gee</strong>: remove the legacy stub modules (<code>gee.py</code> → <code>auth.py</code>, <code>dataset.py</code>,
-  <code>data.py</code>, <code>dataset_catalog.json</code>, <code>imagecollection.py</code>, <code>images.py</code>).</li>
-</ul>
 <h2 id="040-2026-05-10"><a class="toclink" href="#040-2026-05-10">0.4.0 (2026-05-10)</a><a class="headerlink" href="#040-2026-05-10" title="Permanent link">#</a></h2>
-<h3 id="refactor_1"><a class="toclink" href="#refactor_1">Refactor</a><a class="headerlink" href="#refactor_1" title="Permanent link">#</a></h3>
+<h3 id="refactor"><a class="toclink" href="#refactor">Refactor</a><a class="headerlink" href="#refactor" title="Permanent link">#</a></h3>
 <ul>
 <li>rename earthly -&gt; earthlens and fix CDS notebooks (#47)</li>
 </ul>
 <h2 id="030-2026-05-07"><a class="toclink" href="#030-2026-05-07">0.3.0 (2026-05-07)</a><a class="headerlink" href="#030-2026-05-07" title="Permanent link">#</a></h2>
-<h3 id="feat_1"><a class="toclink" href="#feat_1">Feat</a><a class="headerlink" href="#feat_1" title="Permanent link">#</a></h3>
+<h3 id="feat"><a class="toclink" href="#feat">Feat</a><a class="headerlink" href="#feat" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>ecmwf</strong>: migrate from legacy MARS API to cdsapi and rebuild backend, catalog, and tooling (#30)</li>
 </ul>
